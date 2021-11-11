@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 
 Widget TextFormFieldWithBorder(
     {int lengthInputFormater,
@@ -47,7 +48,8 @@ Widget elevatedButtonStyled(
     Color buttonTextColor,
     double width,
     double height,
-    double sizedBoxWidth}) {
+    double sizedBoxWidth,
+    String svgAsset}) {
   return ElevatedButton(
     onPressed: () {},
     child: Row(
@@ -56,6 +58,7 @@ Widget elevatedButtonStyled(
           icon,
           color: Colors.black,
         ),
+        SvgPicture.asset(svgAsset),
         SizedBox(
           width: sizedBoxWidth,
         ),
