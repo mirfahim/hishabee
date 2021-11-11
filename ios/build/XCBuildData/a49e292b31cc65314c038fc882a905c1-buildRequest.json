@@ -1,0 +1,59 @@
+{
+  "buildCommand": "prepareForIndexing",
+  "configuredTargets": [
+    {
+      "guid": "dbaa964308e91d7e2ad31c7aa5c8eeab88a783a885d8b0b3beb2e9f90bde3f49"
+    }
+  ],
+  "continueBuildingAfterErrors": true,
+  "enableIndexBuildArena": false,
+  "hideShellScriptEnvironment": false,
+  "parameters": {
+    "action": "build",
+    "activeArchitecture": "arm64",
+    "activeRunDestination": {
+      "disableOnlyActiveArch": false,
+      "platform": "iphoneos",
+      "sdk": "iphoneos14.5",
+      "sdkVariant": "iphoneos",
+      "supportedArchitectures": [
+        "arm64v8",
+        "arm64",
+        "armv8"
+      ],
+      "targetArchitecture": "arm64"
+    },
+    "arenaInfo": {
+      "buildIntermediatesPath": "",
+      "buildProductsPath": "",
+      "derivedDataPath": "/Users/jahangir/Library/Developer/Xcode/DerivedData",
+      "indexDataStoreFolderPath": "/Users/jahangir/Library/Developer/Xcode/DerivedData/Runner-gjwoxlnyweajvybgitmwxtdsrctn/Index/DataStore",
+      "indexEnableDataStore": true,
+      "indexPCHPath": "/Users/jahangir/Library/Developer/Xcode/DerivedData/Runner-gjwoxlnyweajvybgitmwxtdsrctn/Index/PrecompiledHeaders",
+      "pchPath": ""
+    },
+    "configurationName": "Release",
+    "overrides": {
+      "synthesized": {
+        "table": {
+          "ASSETCATALOG_FILTER_FOR_DEVICE_MODEL": "iPhone8,1",
+          "ASSETCATALOG_FILTER_FOR_DEVICE_OS_VERSION": "14.1",
+          "BUILD_ACTIVE_RESOURCES_ONLY": "YES",
+          "ENABLE_PREVIEWS": "NO",
+          "TARGET_DEVICE_IDENTIFIER": "14c3b4d7d71b66dbd994257b545352e83bfec59e",
+          "TARGET_DEVICE_MODEL": "iPhone8,1",
+          "TARGET_DEVICE_OS_VERSION": "14.1",
+          "TARGET_DEVICE_PLATFORM_NAME": "iphoneos"
+        }
+      }
+    }
+  },
+  "qos": "default",
+  "schemeCommand": "launch",
+  "shouldCollectMetrics": false,
+  "showNonLoggedProgress": true,
+  "useDryRun": true,
+  "useImplicitDependencies": true,
+  "useLegacyBuildLocations": false,
+  "useParallelTargets": true
+}

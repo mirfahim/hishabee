@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "436284066237",
+    "project_id": "hishabee-business-flutter",
+    "storage_bucket": "hishabee-business-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436284066237:android:9fb56719fbe8c1ddf22ad4",
+        "android_client_info": {
+          "package_name": "com.hishabee.hishabee_business_manager_fl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "436284066237-325s912oh67ql3etcpmd1d1aj9u2clsh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-CRi030-XESnLsl9T4xjeCBulRRbllZk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "436284066237-325s912oh67ql3etcpmd1d1aj9u2clsh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
