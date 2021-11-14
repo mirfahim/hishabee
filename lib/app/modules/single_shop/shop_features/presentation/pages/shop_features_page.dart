@@ -16,8 +16,6 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_featur
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/widgets/shop_items_list.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
-import 'package:hishabee_business_manager_fl/app/modules/walkthrough/_binding/walkthrough_binding.dart';
-import 'package:hishabee_business_manager_fl/app/modules/walkthrough/view/store_setting_walkthrough_page.dart';
 import 'package:intl/intl.dart';
 import 'package:number_display/number_display.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -285,7 +283,7 @@ class _ShopFeaturesPageState extends State<ShopFeaturesPage> {
                         top: 70.0,
                       ),
                       child: Container(
-                        height: 156,
+                        height: 160,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,

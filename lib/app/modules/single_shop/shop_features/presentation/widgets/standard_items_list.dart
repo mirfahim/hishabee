@@ -25,10 +25,8 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindi
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/sell_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/_bindings/sms_bindings.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/_navigation/sms_routes.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/presentation/pages/sms_page.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/business_overview/business_overview.dart';
 
 class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
   final Shop shop;
@@ -171,6 +169,92 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
             ),
             SizedBox(
               height: itemHeight * 0.15,
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {
+                    Get.to(BusinessOverView(), arguments: shop);
+                    // Get.to(() => ProductListPage(),
+                    //     arguments: {
+                    //       "shop": shop,
+                    //     },
+                    //     binding: ProductListBinding());
+                  },
+                  child: Container(
+                    height: itemHeight,
+                    width: itemWidth,
+                    decoration: SHOP_ITEM_DECORATION,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'images/shop_features/productList.png',
+                          height:
+                              screen.responsiveValue(mobile: 40, tablet: 60),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "product_list".tr,
+                          style: TextStyle(
+                            fontFamily: 'Rubik',
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            color: DEFAULT_BLACK,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: size.width * 0.03,
+                ),
+                InkWell(
+                  onTap: () {
+                    Get.to(
+                      () => SmsPage(),
+                      arguments: {
+                        "shop": shop,
+                      },
+                      binding: SMSBindings(),
+                    );
+                  },
+                  child: Container(
+                    height: itemHeight,
+                    width: itemWidth,
+                    decoration: SHOP_ITEM_DECORATION,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'images/shop_features/settings.png',
+                          height:
+                              screen.responsiveValue(mobile: 40, tablet: 60),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "sms_marketing".tr,
+                          style: TextStyle(
+                            fontFamily: 'Rubik',
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            color: DEFAULT_BLACK,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                )
+              ],
             ),
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.center,

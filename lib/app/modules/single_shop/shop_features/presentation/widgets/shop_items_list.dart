@@ -2,31 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
-import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
-import 'package:hishabee_business_manager_fl/app/_utils/package_nane.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/shop_item_card.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/_navigation/settings_routes.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/calculator/views/pages/calculator_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/_navigation/contact_routes.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/_bindings/due_list_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/pages/due_list_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/expenses/_bindings/expense_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/expenses/presentation/pages/expenses_page.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/marketing_shop/_binding/marketing_shop_binding.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/marketing_shop/presentation/pages/marketing_shop_page.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/notification/_navigation/notification_routes.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/online_shop/_bindings/store_binding.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/online_shop/presentation/pages/store_dashboard.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/_bindings/product_list_binding.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/pages/product_list_page.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/report/_navigation/report_routes.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindings/sell_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/sell_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/_bindings/sms_bindings.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/_navigation/sms_routes.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/presentation/pages/sms_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
 
@@ -116,6 +101,7 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
                         ),
                         Text(
                           "transaction_exchange_amp_refund".tr,
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Rubik',
                             fontSize: 16,

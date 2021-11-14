@@ -115,13 +115,15 @@ class AdvanceItemsList extends GetResponsiveView<ShopFeaturesController> {
                         SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          "sell_pos".tr,
-                          style: TextStyle(
-                            fontFamily: 'Rubik',
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: DEFAULT_BLACK,
+                        Center(
+                          child: Text(
+                            "sell_pos".tr,
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: DEFAULT_BLACK,
+                            ),
                           ),
                         ),
                       ],
@@ -164,6 +166,7 @@ class AdvanceItemsList extends GetResponsiveView<ShopFeaturesController> {
                         ),
                         Text(
                           "transaction_exchange_amp_refund".tr,
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Rubik',
                             fontSize: 16,
