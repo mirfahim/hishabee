@@ -111,10 +111,13 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                 ),
                 Positioned(
                   top: 250,
+                  left: 10,
+                  right: 10,
                   child: Padding(
-                    padding: EdgeInsets.only(right: 8.0, bottom: 4.0),
+                    padding: EdgeInsets.only(bottom: 4.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Center(
                             child: Text(
@@ -125,6 +128,8 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
                                 height: 27,
@@ -250,6 +255,7 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                           ),
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             IconButton(
@@ -278,13 +284,20 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                                 icon: Icon(Icons.arrow_forward_ios))
                           ],
                         ),
-                        // Divider(
-                        //   thickness: 30,
-                        //   height: 29,
-                        //   color: Colors.black,
-                        // ),
-                        Card(
+                        Divider(
+                          thickness: 2,
+                          color: Colors.grey[400],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 15.0, right: 15.0, top: 8.0),
                           child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                border:
+                                    Border.all(color: Colors.grey, width: 1.5),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(6.0))),
                             height: 50,
                             width: size.width,
                             child: Row(
@@ -296,8 +309,37 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                                 ]),
                           ),
                         ),
-                        Card(
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 15.0, right: 15.0, top: 8.0),
                           child: Container(
+                            height: 50,
+                            width: size.width,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                border:
+                                    Border.all(color: Colors.grey, width: 1.5),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(6.0))),
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Text('Total Product Sold'),
+                                  Text('0')
+                                ]),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 15.0, right: 15.0, top: 8.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                border:
+                                    Border.all(color: Colors.grey, width: 1.5),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(6.0))),
                             height: 50,
                             width: size.width,
                             child: Row(
@@ -309,8 +351,16 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                                 ]),
                           ),
                         ),
-                        Card(
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 15.0, right: 15.0, top: 8.0),
                           child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                border:
+                                    Border.all(color: Colors.grey, width: 1.5),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(6.0))),
                             height: 50,
                             width: size.width,
                             child: Row(
@@ -322,10 +372,18 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                                 ]),
                           ),
                         ),
-                        Card(
+                        Padding(
+                          padding: EdgeInsets.only(
+                              left: 15.0, right: 15.0, top: 8.0),
                           child: Container(
                             height: 50,
                             width: size.width,
+                            decoration: BoxDecoration(
+                                color: Colors.grey.shade100,
+                                border:
+                                    Border.all(color: Colors.grey, width: 1.5),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(6.0))),
                             child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceEvenly,
@@ -334,20 +392,7 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                                   Text('0')
                                 ]),
                           ),
-                        ),
-                        Card(
-                          child: Container(
-                            height: 50,
-                            width: size.width,
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text('Total Product Sold'),
-                                  Text('0')
-                                ]),
-                          ),
-                        ),
+                        )
                       ],
                     ),
                   ),
