@@ -6,20 +6,32 @@ var day = DateFormat.yMMMMd().format(now);
 var year = DateFormat.y().format(now);
 var month = DateFormat.MMMM().format(now);
 
-Widget ReportContainer(IconData icon, String reportName) {
+Widget ReportContainer(String asset, String reportName) {
   return Padding(
     padding: const EdgeInsets.only(left: 8.0, right: 8.0),
     child: Container(
-      width: 150,
+      width: 140,
+      height: 150,
       child: Card(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(icon),
+            Container(
+              height: 50,
+              width: 50,
+              child: Image.asset(
+                asset,
+              ),
+            ),
             Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: Center(child: Text(reportName)),
+              padding: const EdgeInsets.only(left: 10.0, top: 10.0),
+              child: Center(
+                  child: Text(
+                reportName,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.w600),
+              )),
             )
           ],
         ),
@@ -27,18 +39,6 @@ Widget ReportContainer(IconData icon, String reportName) {
     ),
   );
 }
-
-List<Widget> reportCardWidget = [
-  ReportContainer(Icons.call, 'Products Wise Sale Report'),
-  SizedBox(
-    width: 10,
-  ),
-  ReportContainer(Icons.call, 'Customer Wise Sale Report'),
-  SizedBox(
-    width: 10,
-  ),
-  ReportContainer(Icons.call, 'Employee Wise Sale Report'),
-];
 
 class BusinessOverView extends StatefulWidget {
   @override
@@ -112,115 +112,142 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                 Positioned(
                   top: 280,
                   child: Padding(
-                    padding: EdgeInsets.only(left: 0.0, right: 8.0),
+                    padding: EdgeInsets.only(right: 8.0, bottom: 4.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Center(
                             child: Text(
                           'General Sales Report',
-                          style: TextStyle(fontSize: 25),
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w600),
                         )),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  flag = 1;
-                                });
-                              },
-                              child: Text(
-                                'Day',
-                                style: TextStyle(
-                                    color:
-                                        flag == 1 ? Colors.white : Colors.black,
-                                    fontSize: 12),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                side: BorderSide(width: 1, color: Colors.black),
-                                primary:
-                                    flag == 1 ? Colors.black : Colors.white,
-                                fixedSize: Size(60, 20),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Container(
+                                height: 27,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      flag = 1;
+                                    });
+                                  },
+                                  child: Text(
+                                    'Day',
+                                    style: TextStyle(
+                                        color: flag == 1
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 10),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    side: BorderSide(
+                                        width: 1, color: Colors.black),
+                                    primary:
+                                        flag == 1 ? Colors.black : Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  flag = 2;
-                                });
-                              },
-                              child: Text(
-                                'Week',
-                                style: TextStyle(
-                                    color:
-                                        flag == 2 ? Colors.white : Colors.black,
-                                    fontSize: 12),
+                              SizedBox(
+                                width: 10,
                               ),
-                              style: ElevatedButton.styleFrom(
-                                side: const BorderSide(
-                                    width: 1, color: Colors.black),
-                                primary:
-                                    flag == 2 ? Colors.black : Colors.white,
-                                fixedSize: Size(60, 20),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2),
+                              Container(
+                                height: 27,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      flag = 2;
+                                    });
+                                  },
+                                  child: Text(
+                                    'Week',
+                                    style: TextStyle(
+                                        color: flag == 2
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 10),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    side: const BorderSide(
+                                        width: 1, color: Colors.black),
+                                    primary:
+                                        flag == 2 ? Colors.black : Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  flag = 3;
-                                });
-                              },
-                              child: Text(
-                                'Month',
-                                style: TextStyle(
-                                    color:
-                                        flag == 3 ? Colors.white : Colors.black,
-                                    fontSize: 12),
+                              SizedBox(
+                                width: 10,
                               ),
-                              style: ElevatedButton.styleFrom(
-                                side: const BorderSide(
-                                    width: 1, color: Colors.black),
-                                primary:
-                                    flag == 3 ? Colors.black : Colors.white,
-                                fixedSize: Size(70, 20),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2),
+                              Container(
+                                height: 27,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      flag = 3;
+                                    });
+                                  },
+                                  child: Text(
+                                    'Month',
+                                    style: TextStyle(
+                                        color: flag == 3
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 10),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    side: const BorderSide(
+                                        width: 1, color: Colors.black),
+                                    primary:
+                                        flag == 3 ? Colors.black : Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                setState(() {
-                                  flag = 4;
-                                });
-                              },
-                              child: Text(
-                                'Year',
-                                style: TextStyle(
-                                    color:
-                                        flag == 4 ? Colors.white : Colors.black,
-                                    fontSize: 12),
+                              SizedBox(
+                                width: 10,
                               ),
-                              style: ElevatedButton.styleFrom(
-                                side: const BorderSide(
-                                    width: 1, color: Colors.black),
-                                primary:
-                                    flag == 4 ? Colors.black : Colors.white,
-                                fixedSize: Size(60, 20),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2),
+                              Container(
+                                height: 27,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      flag = 4;
+                                    });
+                                  },
+                                  child: Text(
+                                    'Year',
+                                    style: TextStyle(
+                                        color: flag == 4
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontSize: 10),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    side: const BorderSide(
+                                        width: 1, color: Colors.black),
+                                    primary:
+                                        flag == 4 ? Colors.black : Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -332,4 +359,16 @@ class _BusinessOverViewState extends State<BusinessOverView> {
       ),
     );
   }
+
+  List<Widget> reportCardWidget = [
+    ReportContainer("images/shop_features/pw.png", 'Products Wise Sale Report'),
+    SizedBox(
+      width: 7,
+    ),
+    ReportContainer("images/shop_features/cs.png", 'Customer Wise Sale Report'),
+    SizedBox(
+      width: 7,
+    ),
+    ReportContainer("images/shop_features/er.png", 'Employee Wise Sale Report'),
+  ];
 }
