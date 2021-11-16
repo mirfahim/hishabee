@@ -8,10 +8,10 @@ var month = DateFormat.MMMM().format(now);
 
 Widget ReportContainer(String asset, String reportName) {
   return Padding(
-    padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+    padding: const EdgeInsets.only(left: 4.0, right: 4.0),
     child: Container(
-      width: 140,
-      height: 150,
+      width: 150,
+      height: 100,
       child: Card(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -98,7 +98,7 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                 Positioned(
                   top: 80,
                   child: SizedBox(
-                    height: 180,
+                    height: 150,
                     width: MediaQuery.of(context).size.width,
                     child: ListView.builder(
                       itemCount: reportCardWidget.length,
@@ -110,7 +110,7 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                   ),
                 ),
                 Positioned(
-                  top: 280,
+                  top: 250,
                   child: Padding(
                     padding: EdgeInsets.only(right: 8.0, bottom: 4.0),
                     child: Column(
@@ -362,13 +362,7 @@ class _BusinessOverViewState extends State<BusinessOverView> {
 
   List<Widget> reportCardWidget = [
     ReportContainer("images/shop_features/pw.png", 'Products Wise Sale Report'),
-    SizedBox(
-      width: 7,
-    ),
     ReportContainer("images/shop_features/cs.png", 'Customer Wise Sale Report'),
-    SizedBox(
-      width: 7,
-    ),
     ReportContainer("images/shop_features/er.png", 'Employee Wise Sale Report'),
   ];
 }
