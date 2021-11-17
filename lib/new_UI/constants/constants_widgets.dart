@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 Widget TextFormFieldWithBorder(
     {int lengthInputFormater,
     String regEx,
     int maxLength,
     String hintText,
-    Icon icon}) {
+    Icon icon,
+    Color textFieldColor,
+    Function() ontap}) {
   return TextFormField(
     cursorColor: Colors.black,
     keyboardType: TextInputType.number,
@@ -16,6 +19,7 @@ Widget TextFormFieldWithBorder(
         RegExp(regEx),
       ),
     ],
+    onTap: ontap,
     maxLength: maxLength,
     onChanged: (value) {
       // controller.mobileNumber.value = value;
@@ -26,7 +30,7 @@ Widget TextFormFieldWithBorder(
       //   " Give your Pin",
       //   style: TextStyle(color: Colors.black.withOpacity(0.7)),
       // ),
-      fillColor: Colors.grey.shade200,
+      fillColor: textFieldColor,
       filled: true,
       contentPadding: EdgeInsets.symmetric(horizontal: 8),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -47,7 +51,8 @@ Widget elevatedButtonStyled(
     Color buttonTextColor,
     double width,
     double height,
-    double sizedBoxWidth}) {
+    double sizedBoxWidth,
+    String svgAsset}) {
   return ElevatedButton(
     onPressed: () {},
     child: Row(
@@ -56,6 +61,7 @@ Widget elevatedButtonStyled(
           icon,
           color: Colors.black,
         ),
+        SvgPicture.asset(svgAsset),
         SizedBox(
           width: sizedBoxWidth,
         ),
