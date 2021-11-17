@@ -15,6 +15,7 @@ import 'add_products_page.dart';
 import 'duplicate_products_page.dart';
 import 'edit_products_page.dart';
 
+//product list
 class ProductListPage extends GetView<ProductListController> {
   var totalProductsCost = 0.obs;
 
