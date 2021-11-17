@@ -7,7 +7,7 @@ var day = DateFormat.yMMMMd().format(now);
 var year = DateFormat.y().format(now);
 var month = DateFormat.MMMM().format(now);
 
-Widget ReportContainer(IconData icon, String reportName) {
+Widget ReportContainer(String asset, String reportName) {
   return Padding(
     padding: const EdgeInsets.only(left: 8.0, right: 8.0),
     child: Container(
@@ -17,7 +17,7 @@ Widget ReportContainer(IconData icon, String reportName) {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(icon),
+            Image.asset(asset),
             Padding(
               padding: const EdgeInsets.only(left: 10.0),
               child: Center(child: Text(reportName)),
@@ -30,20 +30,18 @@ Widget ReportContainer(IconData icon, String reportName) {
 }
 
 List<Widget> reportCardWidget = [
-  ReportContainer(Icons.call, 'Products Wise Sale Report'),
+  ReportContainer("images/shop_features/pw.png", 'Products Wise Sale Report'),
   SizedBox(
     width: 10,
   ),
-  ReportContainer(Icons.call, 'Customer Wise Sale Report'),
+  ReportContainer("images/shop_features/cs.png", 'Customer Wise Sale Report'),
   SizedBox(
     width: 10,
   ),
-  ReportContainer(Icons.call, 'Employee Wise Sale Report'),
+  ReportContainer("images/shop_features/er.png", 'Employee Wise Sale Report'),
 ];
 
 class BusinessOverView extends StatefulWidget {
-
-
   @override
   _BusinessOverViewState createState() => _BusinessOverViewState();
 }
@@ -56,9 +54,9 @@ class _BusinessOverViewState extends State<BusinessOverView> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Stack(

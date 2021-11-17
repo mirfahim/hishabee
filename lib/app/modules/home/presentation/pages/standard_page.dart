@@ -7,18 +7,13 @@ import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/help_button_box.dart';
 import 'package:hishabee_business_manager_fl/app/_widgets/overlay_youtube_video.dart';
-import 'package:hishabee_business_manager_fl/app/modules/home/presentation/pages/advance_page.dart';
-import 'package:hishabee_business_manager_fl/app/modules/home/presentation/pages/standard_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/_binding/shop_features_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/pages/digital_balance_page.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/widgets/shop_items_list.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/widgets/standard_items_list.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
-import 'package:hishabee_business_manager_fl/app/modules/walkthrough/_binding/walkthrough_binding.dart';
-import 'package:hishabee_business_manager_fl/app/modules/walkthrough/view/store_setting_walkthrough_page.dart';
 import 'package:intl/intl.dart';
 import 'package:number_display/number_display.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -199,7 +194,7 @@ class _StandardPageState extends State<StandardPage> {
                         top: 70.0,
                       ),
                       child: Container(
-                        height: 156,
+                        height: 160,
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,

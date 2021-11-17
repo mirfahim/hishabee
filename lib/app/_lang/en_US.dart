@@ -71,6 +71,7 @@ const en_US = {
   'stock_amp_audit': '<![CDATA[Stock & Audit]]>',
   'due_list': 'Due List',
   'product_list': 'Product List',
+  'business_overview': 'Business Overview',
   'sell_pos': 'Sell (POS)',
   'notification': 'Notification',
   'online_orders': 'Online Orders',
