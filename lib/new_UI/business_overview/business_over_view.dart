@@ -54,9 +54,9 @@ class _BusinessOverViewState extends State<BusinessOverView> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
+    return Scaffold(
+      body: SafeArea(
+        child: SingleChildScrollView(
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: Stack(
