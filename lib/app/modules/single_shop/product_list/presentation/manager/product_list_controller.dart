@@ -16,6 +16,7 @@ class ProductListController extends GetxController {
   final catList = Rxn<Category>();
   var loading = false.obs;
   var isChecked = <bool>[].obs;
+  var totalProductsCost = 0.obs;
 
   final shop = Rxn<Shop>();
   final productCategoryList = <Category>[].obs;
@@ -44,6 +45,12 @@ class ProductListController extends GetxController {
     productList.forEach((element) {
       getSubcategoryName(element.subCategory);
     });
+
+    totalProductsCost.value = productList.value
+        .map((e) => e.stock > 0 ? e.costPrice * e.stock : 0)
+        .fold(0, (previousValue, element) => element + previousValue)
+        .toInt();
+
     filterCategory.assignAll(tempSubCatList.toSet().toList());
 
     var tic = List<bool>.filled(filterCategory.length, false);
