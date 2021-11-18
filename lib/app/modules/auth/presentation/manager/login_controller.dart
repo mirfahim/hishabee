@@ -1,8 +1,6 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
-import 'package:hishabee_business_manager_fl/app/_utils/analytics_event.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
-import 'package:hishabee_business_manager_fl/app/_workmanager/analytics_service.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/data/remote/models/login_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/domain/repositories/i_auth_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/_navigation/shop_main_routes.dart';
@@ -12,7 +10,7 @@ class LoginController extends GetxController {
   final pin = ''.obs;
   final hidePassword = true.obs;
   final loginResponse = Rxn<LoginResponseModel>();
-
+  final storage = GetStorage();
   final IAuthRepository authRepository;
 
   LoginController(this.authRepository);
@@ -48,6 +46,7 @@ class LoginController extends GetxController {
         if (response.accessToken != null) {
           // await AnalyticsService.sendAnalyticsToServer(
           //     event: AnalyticsEvent.login);
+          storage.write("token", response.accessToken);
           Get.offAllNamed(ShopMainRoutes.SELECT_SHOP);
         }
       } catch (e) {
