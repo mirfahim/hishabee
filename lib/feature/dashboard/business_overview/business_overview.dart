@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:intl/intl.dart'; // for date format
 
 var now = DateTime.now();
@@ -6,6 +8,7 @@ var day = DateFormat.yMMMMd().format(now);
 var year = DateFormat.y().format(now);
 var month = DateFormat.MMMM().format(now);
 
+// ignore: non_constant_identifier_names
 Widget ReportContainer(String asset, String reportName) {
   return Padding(
     padding: const EdgeInsets.only(left: 4.0, right: 4.0),
@@ -46,13 +49,15 @@ class BusinessOverView extends StatefulWidget {
 }
 
 class _BusinessOverViewState extends State<BusinessOverView> {
+  Shop shop = Get.arguments;
   int flag = 1;
   // var now = DateTime.now();
   // var month = DateFormat.yMMMMd().format(now);
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
+    print("here is our shop ID:");
+    print(shop.id);
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
