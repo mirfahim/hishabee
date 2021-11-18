@@ -10,21 +10,22 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_lis
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/manager/product_list_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/pages/product_details_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/pages/update_stock_page.dart';
-
+import 'package:intl/intl.dart';
 import 'add_products_page.dart';
 import 'duplicate_products_page.dart';
 import 'edit_products_page.dart';
 
 //product list
 class ProductListPage extends GetView<ProductListController> {
-  var totalProductsCost = 0.obs;
+  // var totalProductsCost = 0.obs;
+  final commaSeperator =  NumberFormat("#,##0.00", "en_US");
 
   @override
   Widget build(BuildContext context) {
-    totalProductsCost.value = controller.productList.value
-        .map((e) => e.stock > 0 ? e.costPrice * e.stock : 0)
-        .fold(0, (previousValue, element) => element + previousValue)
-        .toInt();
+    // totalProductsCost.value = controller.productList.value
+    //     .map((e) => e.stock > 0 ? e.costPrice * e.stock : 0)
+    //     .fold(0, (previousValue, element) => element + previousValue)
+    //     .toInt();
 
     // for (int i = 0; i < controller.productList.length; i++) {
     //   totalProductsCost =
@@ -693,15 +694,26 @@ class ProductListPage extends GetView<ProductListController> {
                 )),
             Container(
               height: 40,
-              color: DEFAULT_BLUE,
+              decoration: BoxDecoration(
+                  color: DEFAULT_BLUE,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10))),
               child: Padding(
                 padding: const EdgeInsets.only(left: 10.0, right: 10),
-                child: Obx(() {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [Text('Total'), Text('$totalProductsCost')],
-                  );
-                }),
+                child: Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Total',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        Text(
+                          '${NumberFormat.currency(symbol: '৳').format(controller.totalProductsCost.value)}',
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ],
+                    )),
               ),
             )
           ],
