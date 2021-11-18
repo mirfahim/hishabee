@@ -58,7 +58,7 @@ class CustomDialog {
       title: "",
       barrierDismissible: false,
       content: Container(
-        height: 81,
+        height: 85,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

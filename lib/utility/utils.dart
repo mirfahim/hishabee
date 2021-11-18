@@ -4,7 +4,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 enum apiMethods { get, post, patch, delete }
 
 class Utils {
-
   static showToast(msg) {
     Fluttertoast.showToast(
         msg: msg,
@@ -15,4 +14,7 @@ class Utils {
         textColor: Colors.white,
         fontSize: 16.0);
   }
+
+  static getPaddingBothSide() =>
+      EdgeInsets.symmetric(vertical: 0, horizontal: 20);
 }

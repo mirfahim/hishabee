@@ -4,8 +4,8 @@
 
 import 'dart:convert';
 
-OverviewModel overviewModelFromJson(String str) =>
-    OverviewModel.fromJson(json.decode(str));
+OverviewModel overviewModelFromJson(Map<String, dynamic> json) =>
+    OverviewModel.fromJson(json);
 
 class OverviewModel {
   OverviewModel({
@@ -25,11 +25,11 @@ class OverviewModel {
   int totalDue;
 
   factory OverviewModel.fromJson(Map<String, dynamic> json) => OverviewModel(
-        totalProduct: json["total_product"],
-        totalProductAmount: json["total_product_amount"],
-        totalCollected: json["total_collected"],
-        totalProfit: json["total_profit"],
-        totalExpense: json["total_expense"],
-        totalDue: json["total_due"],
+        totalProduct: json["total_product"] ?? "0",
+        totalProductAmount: json["total_product_amount"] ?? "0",
+        totalCollected: json["total_collected"] ?? "0",
+        totalProfit: json["total_profit"] ?? "0",
+        totalExpense: json["total_expense"] ?? "0",
+        totalDue: json["total_due"] ?? "0",
       );
 }

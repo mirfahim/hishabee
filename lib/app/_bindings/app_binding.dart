@@ -9,6 +9,7 @@ import 'package:hishabee_business_manager_fl/app/modules/auth/domain/repositorie
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/data_sources/file_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/repositories/file_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/domain/repositories/i_file_repository.dart';
+import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
 
 class AppBinding extends Bindings {
   static final find = Get.find;
@@ -26,5 +27,6 @@ class AppBinding extends Bindings {
 
     Get.lazyPut<IFileProvider>(() => FileProvider(find()), fenix: true);
     Get.lazyPut<IFileRepository>(() => FileRepository(find()), fenix: true);
+    Get.put(BoController());
   }
 }
