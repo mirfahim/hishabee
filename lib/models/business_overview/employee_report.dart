@@ -1,9 +1,3 @@
-// To parse this JSON data, do
-//
-//     final employeReportModel = employeReportModelFromJson(jsonString);
-
-import 'dart:convert';
-
 List<EmployeReportModel> employeReportModelFromJson(dynamic str) =>
     List<EmployeReportModel>.from(
         str.map((x) => EmployeReportModel.fromJson(x)));

@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final overviewModel = overviewModelFromJson(jsonString);
-
 import 'dart:convert';
 
 OverviewModel overviewModelFromJson(Map<String, dynamic> json) =>

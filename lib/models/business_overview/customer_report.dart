@@ -1,9 +1,3 @@
-// To parse this JSON data, do
-//
-//     final customerReportModel = customerReportModelFromJson(jsonString);
-
-import 'dart:convert';
-
 List<CustomerReportModel> customerReportModelFromJson(dynamic str) =>
     List<CustomerReportModel>.from(
         str.map((x) => CustomerReportModel.fromJson(x)));
