@@ -32,4 +32,11 @@ class BoController extends GetxController {
     return _apiService.makeApiRequiest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
+
+  fetchEmployeWiseReport({String shopId, String statDate, String endDate}) {
+    String url =
+        "/overview/employee?shop_id=1-5&start_date=2021-01-8&end_date=2021-10-8";
+    return _apiService.makeApiRequiest(
+        method: apiMethods.get, url: url, body: null, headers: null);
+  }
 }
