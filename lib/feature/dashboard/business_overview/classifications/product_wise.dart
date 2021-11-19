@@ -38,8 +38,8 @@ class _ProductWiseState extends State<ProductWise> {
                       padding: const EdgeInsets.only(top: 14, right: 15.0),
                       child: IconButton(
                         icon: const Icon(
-                          Icons.arrow_back,
-                          size: 35,
+                          Icons.arrow_back_rounded,
+                          size: 25,
                           color: Colors.black,
                         ),
                         onPressed: () {},
@@ -48,9 +48,9 @@ class _ProductWiseState extends State<ProductWise> {
                     const Padding(
                       padding: EdgeInsets.only(top: 14.0, left: 10, right: 15),
                       child: Text(
-                        'Business OverView',
+                        'Product Wise Report',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
@@ -59,13 +59,82 @@ class _ProductWiseState extends State<ProductWise> {
                   ],
                 ),
                 Positioned(
-                  top: 80,
-                  child: Container(
-                    color: Colors.red,
+                  top: 63,
+                  left: 10,
+                  right: 10,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton.icon(
+                        label: Padding(
+                          padding:
+                              const EdgeInsets.only(top: 12.0, bottom: 12.0),
+                          child: Text(
+                            'Start Date',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 12.0),
+                          ),
+                        ),
+                        icon: Icon(
+                          Icons.arrow_drop_down_rounded,
+                          color: Colors.black,
+                          size: 40.0,
+                        ),
+                        style: ButtonStyle(
+                            maximumSize:
+                                MaterialStateProperty.all<Size>(Size(150, 48)),
+                            elevation: MaterialStateProperty.all<double>(1.0),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.white.withOpacity(0.9)),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    side: BorderSide(
+                                        color: Colors.grey.shade100,
+                                        width: 2.0)))),
+                        onPressed: () {},
+                      ),
+                      Text(
+                        'to',
+                        style: TextStyle(
+                            fontSize: 16.0, fontWeight: FontWeight.bold),
+                      ),
+                      ElevatedButton.icon(
+                        label: Padding(
+                          padding:
+                              const EdgeInsets.only(top: 12.0, bottom: 12.0),
+                          child: Text(
+                            'End Date',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 12.0),
+                          ),
+                        ),
+                        icon: Icon(
+                          Icons.arrow_drop_down_rounded,
+                          color: Colors.black,
+                          size: 40.0,
+                        ),
+                        style: ButtonStyle(
+                            maximumSize:
+                                MaterialStateProperty.all<Size>(Size(150, 48)),
+                            elevation: MaterialStateProperty.all<double>(1.0),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.white.withOpacity(0.9)),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    side: BorderSide(
+                                        color: Colors.grey.shade100,
+                                        width: 2.0)))),
+                        onPressed: () {},
+                      ),
+                    ],
                   ),
                 ),
                 Positioned(
-                  top: 250,
+                  top: 120,
                   left: 10,
                   right: 10,
                   child: Padding(
@@ -74,12 +143,6 @@ class _ProductWiseState extends State<ProductWise> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const Center(
-                              child: Text(
-                            'General Sales Report',
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.w600),
-                          )),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
@@ -95,7 +158,7 @@ class _ProductWiseState extends State<ProductWise> {
                                       });
                                     },
                                     child: Text(
-                                      'Day',
+                                      ' Day ',
                                       style: TextStyle(
                                           color: flag == 1
                                               ? Colors.white
@@ -126,7 +189,7 @@ class _ProductWiseState extends State<ProductWise> {
                                       });
                                     },
                                     child: Text(
-                                      'Week',
+                                      '  Week  ',
                                       style: TextStyle(
                                           color: flag == 2
                                               ? Colors.white
@@ -158,7 +221,7 @@ class _ProductWiseState extends State<ProductWise> {
                                       });
                                     },
                                     child: Text(
-                                      'Month',
+                                      ' Month ',
                                       style: TextStyle(
                                           color: flag == 3
                                               ? Colors.white
@@ -190,7 +253,7 @@ class _ProductWiseState extends State<ProductWise> {
                                       });
                                     },
                                     child: Text(
-                                      'Year',
+                                      ' Year ',
                                       style: TextStyle(
                                           color: flag == 4
                                               ? Colors.white
@@ -243,13 +306,13 @@ class _ProductWiseState extends State<ProductWise> {
                                   icon: Icon(Icons.arrow_forward_ios))
                             ],
                           ),
-                          // Divider(
-                          //   thickness: 30,
-                          //   height: 29,
-                          //   color: Colors.black,
-                          // ),
-                          //
+                          Divider(
+                            thickness: 3,
+                            color: Colors.grey[300],
+                          ),
                         ]),
+
+                        
                   ),
                 )
               ],

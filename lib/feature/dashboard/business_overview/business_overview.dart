@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/business_overview/classifications/product_wise.dart';
 import 'package:hishabee_business_manager_fl/models/business_overview/overview.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 import 'package:intl/intl.dart';
@@ -137,7 +139,13 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                               itemCount: reportCardWidget.length,
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
-                                return reportCardWidget[index];
+                                return InkWell(
+                                    onTap: () => index == 0
+                                        ? Get.to(ProductWise(),
+                                            arguments: Get.arguments)
+                                        : Get.to(ProductWise(),
+                                            arguments: Get.arguments),
+                                    child: reportCardWidget[index]);
                               },
                             ),
                           ),
