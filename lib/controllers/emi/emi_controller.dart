@@ -16,4 +16,13 @@ class EmiController extends GetxController {
         body: null,
         headers: null); //we will fetch the overview from this request
   }
+
+  fetchCustomer({String shopId}) async {
+    String url = "/customer/all?shop_id=105";
+    return _apiService.makeApiRequiest(
+        method: apiMethods.get,
+        url: url,
+        body: null,
+        headers: null); //we will fetch the overview from this request
+  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/controllers/emi/emi_controller.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/emi/new_emi.dart';
 import 'package:hishabee_business_manager_fl/models/emi/emi_model.dart';
 import 'package:intl/intl.dart'; // for date format
 
@@ -47,6 +48,7 @@ class _EMIState extends State<EMI> {
                     ),
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
@@ -57,7 +59,7 @@ class _EMIState extends State<EMI> {
                             size: 25,
                             color: Colors.black,
                           ),
-                          onPressed: () {},
+                          onPressed: () => Get.back(),
                         ),
                       ),
                       const Padding(
@@ -69,6 +71,36 @@ class _EMIState extends State<EMI> {
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        flex: 2,
+                        child: Padding(
+                          padding:
+                              EdgeInsets.only(top: 14.0, left: 60, right: 15),
+                          child: TextButton.icon(
+                            style: TextButton.styleFrom(
+                              textStyle: TextStyle(color: Colors.blue),
+                              backgroundColor: Colors.transparent,
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Colors.blueAccent.shade700),
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
+                            ),
+                            onPressed: () =>
+                                Get.to(NewEmi(), arguments: Get.arguments),
+                            icon: Icon(
+                              Icons.add_circle_outline,
+                              color: Colors.blueAccent.shade700,
+                            ),
+                            label: Text(
+                              'NEW EMI',
+                              style: TextStyle(
+                                color: Colors.blueAccent.shade700,
+                              ),
+                            ),
                           ),
                         ),
                       ),
