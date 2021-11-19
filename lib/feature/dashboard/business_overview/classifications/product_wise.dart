@@ -310,9 +310,171 @@ class _ProductWiseState extends State<ProductWise> {
                             thickness: 3,
                             color: Colors.grey[300],
                           ),
-                        ]),
 
-                        
+                          ///
+
+                          Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 15.0,
+                                  right: 15.0,
+                                  bottom: 12.0,
+                                  top: 12.0),
+                              child: Container(
+                                height: 50.0,
+                                child: TextField(
+                                  onChanged: (value) => _runFilter(value),
+                                  style: TextStyle(fontSize: 14.0),
+                                  decoration: InputDecoration(
+                                      hintText: 'Search',
+                                      focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                              width: 2,
+                                              color: Colors.blue[900])),
+                                      hintStyle: TextStyle(fontSize: 12.0),
+                                      border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(6.0),
+                                          borderSide: BorderSide(
+                                              width: 2,
+                                              color: Colors.blue[900])),
+                                      filled: true,
+                                      fillColor: Colors.grey[100],
+                                      prefixIcon: Icon(
+                                        Icons.search,
+                                        color: Colors.blue[900],
+                                        size: 30,
+                                      )),
+                                ),
+                              )),
+
+                          ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: 3,
+                              itemBuilder: (context, index) => Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Colors.grey[400]),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(6.0))),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: Container(
+                                              height: 100,
+                                              padding: EdgeInsets.all(12.0),
+                                              child: Center(
+                                                child: Text("1"),
+                                              ),
+                                              decoration: BoxDecoration(
+                                                  border: Border(
+                                                right: BorderSide(
+                                                  color: Colors.grey[400],
+                                                  width: 1,
+                                                ),
+                                              )),
+                                            ),
+                                          ),
+                                          Expanded(
+                                              flex: 9,
+                                              child: Column(
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            left: 12.0,
+                                                            right: 12.0,
+                                                            top: 6.0,
+                                                            bottom: 6.0),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Text(
+                                                              "Shop",
+                                                              style: TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w700),
+                                                            ),
+                                                            Text("Sold-5",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontSize:
+                                                                        12.0))
+                                                          ],
+                                                        ),
+                                                        Text(
+                                                          "255",
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              fontSize: 16),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                  Divider(),
+                                                  Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 3.0,
+                                                            bottom: 3.0,
+                                                            left: 12.0,
+                                                            right: 12.0),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          "In Stock -2",
+                                                          style: TextStyle(
+                                                              fontSize: 11.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                              color: Colors
+                                                                  .red[700]),
+                                                        ),
+                                                        Text("372",
+                                                            style: TextStyle(
+                                                                fontSize: 13.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Colors
+                                                                    .red[900]))
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ))
+                                        ],
+                                      ),
+                                    ),
+                                  ))
+
+////
+                        ]),
                   ),
                 )
               ],
@@ -321,5 +483,46 @@ class _ProductWiseState extends State<ProductWise> {
         ),
       ),
     );
+  }
+
+  void _runFilter(String enteredKeyword) {
+    // List<GoList> results = [];
+    // if (enteredKeyword.isEmpty) {
+    //   results = _list;
+    // } else {
+    //   results = _list
+    //       .where((GoList) =>
+    //           GoList.goNumber
+    //               .toLowerCase()
+    //               .contains(enteredKeyword.toLowerCase()) ||
+    //           GoList.goSubject
+    //               .toLowerCase()
+    //               .contains(enteredKeyword.toLowerCase()) ||
+    //           GoList.visitCountry
+    //               .toLowerCase()
+    //               .contains(enteredKeyword.toLowerCase()))
+    //       .toList();
+    // }
+
+    // // Refresh the UI
+    // setState(() {
+    //   //   _foundUsers = results;
+    // });
+  }
+
+  void getData() {
+    // Future.delayed(const Duration(milliseconds: 1500), () {
+    //   controller.fetchGoList().then((value) {
+    //     if (value != null) {
+    //       setState(() {
+    //         _list = value.goList;
+    //         _foundUsers = _list;
+    //         checkingDone = true;
+    //       });
+    //     }
+
+    //     //  isLoading = false;
+    //   });
+    // });
   }
 }
