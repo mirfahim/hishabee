@@ -17,4 +17,12 @@ class BoController extends GetxController {
         body: null,
         headers: null); //we will fetch the overview from this request
   }
+
+  Future<dynamic> fetchProductWiseReport(
+      {String shopId, String statDate, String endDate}) async {
+    String url =
+        "/overview/product?shop_id=105&start_date=2021-01-8&end_date=2021-10-8";
+    return _apiService.makeApiRequiest(
+        method: apiMethods.get, url: url, body: null, headers: null);
+  }
 }

@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-List<ProductReportModel> productReportModelFromJson(String str) =>
+List<ProductReportModel> productReportModelFromJson(dynamic str) =>
     List<ProductReportModel>.from(
-        json.decode(str).map((x) => ProductReportModel.fromJson(x)));
+        str.map((x) => ProductReportModel.fromJson(x)));
 
 class ProductReportModel {
   ProductReportModel({
