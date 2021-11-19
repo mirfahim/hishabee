@@ -4,9 +4,9 @@
 
 import 'dart:convert';
 
-List<CustomerReportModel> customerReportModelFromJson(String str) =>
+List<CustomerReportModel> customerReportModelFromJson(dynamic str) =>
     List<CustomerReportModel>.from(
-        json.decode(str).map((x) => CustomerReportModel.fromJson(x)));
+        str.map((x) => CustomerReportModel.fromJson(x)));
 
 class CustomerReportModel {
   CustomerReportModel({
@@ -51,8 +51,8 @@ class CustomerReportModel {
         imageSrc: json["image_src"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        transactionCount: json["transaction_count"],
-        transactionAmount: json["transaction_amount"],
-        dueAmount: json["due_amount"],
+        transactionCount: json["transaction_count"] ?? "0",
+        transactionAmount: json["transaction_amount"] ?? "0",
+        dueAmount: json["due_amount"] ?? "0",
       );
 }
