@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/emi/emi_payment_link.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class EmiDetails extends StatefulWidget {
@@ -88,39 +89,42 @@ class _EmiDetailsState extends State<EmiDetails> {
                               decoration: Utils.getBoxShape(),
                               child: Padding(
                                   padding: const EdgeInsets.all(16.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "3 Monhts EMI",
-                                            style: TextStyle(
-                                                fontSize: 14.0,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          Text(
-                                            "Total Payable Amount: 6300",
-                                            style: TextStyle(
-                                                fontSize: 10.0,
-                                                fontWeight: FontWeight.w500),
-                                          ),
-                                        ],
-                                      ),
-                                      Text(
-                                        "2100/Month",
-                                        style: TextStyle(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                    ],
+                                  child: InkWell(
+                                    onTap: () => Get.to(EmiPaymentLink()),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "3 Monhts EMI",
+                                              style: TextStyle(
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            Text(
+                                              "Total Payable Amount: 6300",
+                                              style: TextStyle(
+                                                  fontSize: 10.0,
+                                                  fontWeight: FontWeight.w500),
+                                            ),
+                                          ],
+                                        ),
+                                        Text(
+                                          "2100/Month",
+                                          style: TextStyle(
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
+                                    ),
                                   )),
                             ),
                             SizedBox(
