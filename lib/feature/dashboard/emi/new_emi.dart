@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/emi/emi_details.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/utils/bank_popup.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/utils/customer_popup.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
@@ -325,11 +326,7 @@ class _NewEmiState extends State<NewEmi> {
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(6.0))),
                                     child: InkWell(
-                                      onTap: () => showDialog(
-                                          context: context,
-                                          builder: (_) {
-                                            return CustomerPopup();
-                                          }),
+                                      onTap: () => Get.to(EmiDetails()),
                                       child: Row(
                                         children: [
                                           Expanded(
