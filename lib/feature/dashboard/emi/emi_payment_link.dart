@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
+import 'package:hishabee_business_manager_fl/controllers/emi/emi_controller.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class EmiPaymentLink extends StatelessWidget {
+  EmiController _controller = EmiController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     int flag = 1;
+    Shop shop = Get.arguments[0];
+    double withInterestAmount = Get.arguments[6];
+    double withoutInterestAmount = double.parse(Get.arguments[4]);
+    double serviceCharge = withInterestAmount - withoutInterestAmount;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -67,7 +74,8 @@ class EmiPaymentLink extends StatelessWidget {
                               child: Padding(
                                 padding: const EdgeInsets.all(20.0),
                                 child: Text(
-                                  "6,000 টাকা কাস্টমার পেমেন্ট করার সাথে সাথে পুরো টাকাটি আপনার ডিজিটাল ব্যালেন্সে যুক্ত হবে| এই টাকা কাস্টমার ব্যাংকের কিস্তির মাধ্যমে পরিশোধ করবে| ",
+                                  Get.arguments[4].toString() +
+                                      " টাকা কাস্টমার পেমেন্ট করার সাথে সাথে পুরো টাকাটি আপনার ডিজিটাল ব্যালেন্সে যুক্ত হবে| এই টাকা কাস্টমার ব্যাংকের কিস্তির মাধ্যমে পরিশোধ করবে| ",
                                   style: TextStyle(fontSize: 10.0),
                                 ),
                               ),
@@ -81,7 +89,7 @@ class EmiPaymentLink extends StatelessWidget {
                                   children: [
                                     Text("Number of Payment "),
                                     Text(
-                                      "24",
+                                      "" + Get.arguments[5].toString(),
                                       style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500),
@@ -100,7 +108,7 @@ class EmiPaymentLink extends StatelessWidget {
                                   children: [
                                     Text("EMI Amount "),
                                     Text(
-                                      "2444/Month",
+                                      Get.arguments[7].toString() + "/Month",
                                       style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500),
@@ -125,7 +133,7 @@ class EmiPaymentLink extends StatelessWidget {
                                   children: [
                                     Text("EMI Amount "),
                                     Text(
-                                      "6500",
+                                      "" + Get.arguments[4].toString(),
                                       style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500),
@@ -142,9 +150,9 @@ class EmiPaymentLink extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text("Service Charge (19.0%) "),
+                                    Text("Service Charge "),
                                     Text(
-                                      "1.235",
+                                      "" + (serviceCharge).toString(),
                                       style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.w500),
@@ -163,7 +171,7 @@ class EmiPaymentLink extends StatelessWidget {
                                   children: [
                                     Text("Total Payable(With Charge) "),
                                     Text(
-                                      "1.235",
+                                      "" + withInterestAmount.toString(),
                                       style: TextStyle(
                                           fontSize: 14.0,
                                           color: Colors.red,
@@ -179,22 +187,39 @@ class EmiPaymentLink extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(
                                   left: 28.0, right: 25.0),
-                              child: Container(
-                                width: double.maxFinite,
-                                decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(6.0))),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 35.0, top: 14.0, bottom: 14.0),
-                                  child: Text(
-                                    "CREATE PAYMENT LINK",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white),
+                              child: InkWell(
+                                onTap: () => _controller
+                                    .submitEmi(
+                                        shop_id: shop.id.toString(),
+                                        amount:
+                                            withoutInterestAmount.toString(),
+                                        customerName: Get.arguments[1],
+                                        customerPhone: Get.arguments[2],
+                                        customerAddress: Get.arguments[3],
+                                        installment:
+                                            Get.arguments[5].toString(),
+                                        payable: withInterestAmount.toString())
+                                    .then((value) {
+                                      
+                                  Utils.showToast("Submitted Successfully");
+                                }),
+                                child: Container(
+                                  width: double.maxFinite,
+                                  decoration: BoxDecoration(
+                                      color: Colors.black,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(6.0))),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 35.0, top: 14.0, bottom: 14.0),
+                                    child: Text(
+                                      "CREATE PAYMENT LINK",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.white),
+                                    ),
                                   ),
                                 ),
                               ),

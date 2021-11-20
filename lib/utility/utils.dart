@@ -5,14 +5,14 @@ import 'package:hishabee_business_manager_fl/models/emi/utils/bank_model.dart';
 enum apiMethods { get, post, patch, delete }
 
 class Utils {
-  static final month3fee = 5.0;
-  static final month6fee = 7.0;
-  static final month9fee = 9.0;
-  static final month12fee = 12.0;
-  static final month18fee = 15.0;
-  static final month24fee = 19.0;
-  static final month30fee = 20.0;
-  static final month36fee = 21.0;
+  static final month3fee = 0.05;
+  static final month6fee = 0.07;
+  static final month9fee = 0.09;
+  static final month12fee = 0.12;
+  static final month18fee = 0.15;
+  static final month24fee = 0.19;
+  static final month30fee = 0.20;
+  static final month36fee = 0.21;
 
   static List<BankModel> bankList = [
     BankModel(

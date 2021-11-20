@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/emi_details.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/utils/bank_popup.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/utils/customer_popup.dart';
+import 'package:hishabee_business_manager_fl/models/emi/utils/bank_model.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class NewEmi extends StatefulWidget {
@@ -21,7 +22,7 @@ class _NewEmiState extends State<NewEmi> {
   TextEditingController _mobileController = TextEditingController();
   TextEditingController _addressController = TextEditingController();
   TextEditingController _emiController = TextEditingController();
-  var _emiAmount;
+
   var selectedBank = "";
 
   @override
@@ -326,7 +327,41 @@ class _NewEmiState extends State<NewEmi> {
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(6.0))),
                                     child: InkWell(
-                                      onTap: () => Get.to(EmiDetails()),
+                                      onTap: () {
+                                        if (checkValidation(
+                                                _emiController.text) &&
+                                            checkValidation(
+                                                _nameController.text) &&
+                                            checkValidation(
+                                                _mobileController.text) &&
+                                            checkValidation(
+                                                _emiController.text) &&
+                                            checkValidation(
+                                                _addressController.text) &&
+                                            (selectedBank != "")) {
+                                          if (double.parse(
+                                                  _emiController.text) >
+                                              5000.00) {
+                                            Get.to(EmiDetails(), arguments: [
+                                              Get.arguments, //shop info 0
+                                              _nameController.text, //name 1
+                                              _mobileController.text, //phone 2
+                                              _addressController
+                                                  .text, //address 3
+                                              _emiController.text, //amount 4
+                                              getBankName(
+                                                  selectedBank) //bank info 5
+                                            ]);
+                                          } else {
+                                            Utils.showToast(
+                                                "Enter Amount More then 5000 ");
+                                          }
+                                        } else {
+                                          Utils.showToast(
+                                              "Please fill all the fileds ");
+                                        }
+                                        //Get.to(EmiDetails());
+                                      },
                                       child: Row(
                                         children: [
                                           Expanded(
@@ -340,7 +375,7 @@ class _NewEmiState extends State<NewEmi> {
                                                 "NEXT",
                                                 textAlign: TextAlign.center,
                                                 style: TextStyle(
-                                                    fontSize: 16.0,
+                                                    fontSize: 14.0,
                                                     fontWeight: FontWeight.w600,
                                                     color: Colors.white),
                                               ),
@@ -383,4 +418,15 @@ class _NewEmiState extends State<NewEmi> {
       });
     }
   }
+
+  bool checkValidation(String text) {
+    if (text != "" || text != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  BankModel getBankName(String selectedBank) =>
+      Utils.bankList.firstWhere((element) => element.name == selectedBank);
 }
