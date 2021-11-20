@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/emi/utils/bank_popup.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/utils/customer_popup.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
@@ -276,7 +277,11 @@ class _NewEmiState extends State<NewEmi> {
                                       onTap: () => showDialog(
                                           context: context,
                                           builder: (_) {
-                                            return CustomerPopup();
+                                            return BankPopup(
+                                              widget.name,
+                                              widget.mobile,
+                                              widget.address,
+                                            );
                                           }),
                                       child: Row(
                                         mainAxisAlignment:
