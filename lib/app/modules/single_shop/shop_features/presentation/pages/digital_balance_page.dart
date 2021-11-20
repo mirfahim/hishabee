@@ -316,167 +316,170 @@ class DigitalBalancePage extends GetView<DigitalBalancePageController> {
                           padding: const EdgeInsets.only(
                               top: 10.0, left: 10, right: 10, bottom: 100),
                           child: Obx(
-                            () => ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: controller.walletResponse.value.wallet
-                                  .walletTransaction.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                final item = controller.walletResponse.value
-                                    .wallet.walletTransaction[index];
-                                return Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Container(
-                                    width: size.width,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      //border: Border.all(color: Colors.grey, width: 1),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.black12,
-                                          spreadRadius: 1,
-                                          blurRadius: 3,
-                                          offset: Offset(0,
-                                              3), // changes position of shadow
-                                        ),
-                                      ],
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5.0),
-                                      child: Row(
-                                        children: [
-                                          Container(
-                                            height: 60,
-                                            width: size.width * 0.12,
-                                            child: Center(
-                                                child: SvgPicture.asset(
-                                              item.type == "RECHARGE" ||
-                                                      item.type ==
-                                                          "DIGITAL_PAYMENT" ||
-                                                      item.type == "CASHBACK" ||
-                                                      item.type ==
-                                                          "MARKETING_CREDIT" ||
-                                                      item.type == "ADD"
-                                                  ? "images/svg_image/recharge.svg"
-                                                  : "images/svg_image/withdraw.svg",
-                                              height: 40,
-                                            )),
-                                          ),
-                                          Container(
-                                            width: size.width * 0.5,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    "${item.type.replaceAll("_", "")}",
-                                                    style: TextStyle(
-                                                        color: item.type ==
-                                                                    "RECHARGE" ||
-                                                                item.type ==
-                                                                    "DIGITAL_PAYMENT" ||
-                                                                item.type ==
-                                                                    "CASHBACK" ||
-                                                                item.type ==
-                                                                    "MARKETING_CREDIT" ||
-                                                                item.type ==
-                                                                    "ADD"
-                                                            ? Colors.green
-                                                            : Colors.red,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontFamily:
-                                                            "Rubik-Italic-VariableFont_wght",
-                                                        fontSize: 16),
-                                                  ),
-                                                  Container(
-                                                    width: size.width * 0.5,
-                                                    child: Text(
-                                                      "${item.note}",
-                                                      style: TextStyle(
-                                                          color: DEFAULT_BLACK,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    height: 5,
-                                                  ),
-                                                  Text(
-                                                      "${DateFormat('dd-MMM, yyyy   KK:mm a').format(item.createdAt)}")
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: size.width * 0.15,
-                                            child: Text(
-                                              "৳" + "${item.amount}" + "/=",
-                                              style: TextStyle(
-                                                  color: DEFAULT_BLACK,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 14),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(5.0),
-                                              child: PopupMenuButton(
-                                                  onSelected: (value) {
-                                                    switch (value) {
-                                                      case 0:
-                                                        break;
-                                                    }
-                                                  },
-                                                  itemBuilder: (context) => [
-                                                        PopupMenuItem(
-                                                            value: 0,
-                                                            child: Row(
-                                                              children: <
-                                                                  Widget>[
-                                                                Icon(
-                                                                  Icons.receipt,
-                                                                  color:
-                                                                      DEFAULT_BLACK,
-                                                                  size: 20,
-                                                                ),
-                                                                SizedBox(
-                                                                  width: 5,
-                                                                ),
-                                                                Text(
-                                                                  "Receipt",
-                                                                  style: TextStyle(
-                                                                      color:
-                                                                          DEFAULT_BLACK,
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .bold),
-                                                                ),
-                                                              ],
-                                                            )),
-                                                      ],
-                                                  child: Icon(
-                                                    Icons.more_vert,
-                                                    size: 30,
-                                                    color: DEFAULT_BLACK,
-                                                  )),
-                                            ),
+                            () => Container(
+                              height: 400,
+                              child: ListView.builder(
+                                // physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: controller.walletResponse.value.wallet
+                                    .walletTransaction.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  final item = controller.walletResponse.value
+                                      .wallet.walletTransaction[index];
+                                  return Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Container(
+                                      width: size.width,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        //border: Border.all(color: Colors.grey, width: 1),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Colors.black12,
+                                            spreadRadius: 1,
+                                            blurRadius: 3,
+                                            offset: Offset(0,
+                                                3), // changes position of shadow
                                           ),
                                         ],
                                       ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5.0),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              height: 60,
+                                              width: size.width * 0.12,
+                                              child: Center(
+                                                  child: SvgPicture.asset(
+                                                item.type == "RECHARGE" ||
+                                                        item.type ==
+                                                            "DIGITAL_PAYMENT" ||
+                                                        item.type == "CASHBACK" ||
+                                                        item.type ==
+                                                            "MARKETING_CREDIT" ||
+                                                        item.type == "ADD"
+                                                    ? "images/svg_image/recharge.svg"
+                                                    : "images/svg_image/withdraw.svg",
+                                                height: 40,
+                                              )),
+                                            ),
+                                            Container(
+                                              width: size.width * 0.5,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      "${item.type.replaceAll("_", "")}",
+                                                      style: TextStyle(
+                                                          color: item.type ==
+                                                                      "RECHARGE" ||
+                                                                  item.type ==
+                                                                      "DIGITAL_PAYMENT" ||
+                                                                  item.type ==
+                                                                      "CASHBACK" ||
+                                                                  item.type ==
+                                                                      "MARKETING_CREDIT" ||
+                                                                  item.type ==
+                                                                      "ADD"
+                                                              ? Colors.green
+                                                              : Colors.red,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontFamily:
+                                                              "Rubik-Italic-VariableFont_wght",
+                                                          fontSize: 16),
+                                                    ),
+                                                    Container(
+                                                      width: size.width * 0.5,
+                                                      child: Text(
+                                                        "${item.note}",
+                                                        style: TextStyle(
+                                                            color: DEFAULT_BLACK,
+                                                            fontWeight:
+                                                                FontWeight.bold),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 5,
+                                                    ),
+                                                    Text(
+                                                        "${DateFormat('dd-MMM, yyyy   KK:mm a').format(item.createdAt)}")
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: size.width * 0.15,
+                                              child: Text(
+                                                "৳" + "${item.amount}" + "/=",
+                                                style: TextStyle(
+                                                    color: DEFAULT_BLACK,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14),
+                                              ),
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                child: PopupMenuButton(
+                                                    onSelected: (value) {
+                                                      switch (value) {
+                                                        case 0:
+                                                          break;
+                                                      }
+                                                    },
+                                                    itemBuilder: (context) => [
+                                                          PopupMenuItem(
+                                                              value: 0,
+                                                              child: Row(
+                                                                children: <
+                                                                    Widget>[
+                                                                  Icon(
+                                                                    Icons.receipt,
+                                                                    color:
+                                                                        DEFAULT_BLACK,
+                                                                    size: 20,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 5,
+                                                                  ),
+                                                                  Text(
+                                                                    "Receipt",
+                                                                    style: TextStyle(
+                                                                        color:
+                                                                            DEFAULT_BLACK,
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .bold),
+                                                                  ),
+                                                                ],
+                                                              )),
+                                                        ],
+                                                    child: Icon(
+                                                      Icons.more_vert,
+                                                      size: 30,
+                                                      color: DEFAULT_BLACK,
+                                                    )),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ),

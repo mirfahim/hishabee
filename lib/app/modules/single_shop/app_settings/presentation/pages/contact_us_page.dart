@@ -140,7 +140,7 @@ class ContactUsPage extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        Utility.launchURL("tel:+88 09613829088");
+                        Utility.launchURL("tel:+88 9638011199");
                       },
                       child: Padding(
                         padding: const EdgeInsets.only(
@@ -180,7 +180,7 @@ class ContactUsPage extends StatelessWidget {
                                     height: 5,
                                   ),
                                   Text(
-                                    "+88 09613829088",
+                                    "+88 9638011199",
                                     style: TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.bold,
