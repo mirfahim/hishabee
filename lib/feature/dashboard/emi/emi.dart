@@ -89,8 +89,8 @@ class _EMIState extends State<EMI> {
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
                             ),
-                            onPressed: () =>
-                                Get.to(NewEmi(), arguments: Get.arguments),
+                            onPressed: () => Get.to(NewEmi("", "", "", ""),
+                                arguments: Get.arguments),
                             icon: Icon(
                               Icons.add_circle_outline,
                               color: Colors.blueAccent.shade700,

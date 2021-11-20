@@ -115,7 +115,7 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                                   size: 35,
                                   color: Colors.black,
                                 ),
-                                onPressed: () {},
+                                onPressed: () => Get.back(),
                               ),
                             ),
                             const Padding(

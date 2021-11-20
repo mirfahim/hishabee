@@ -17,4 +17,9 @@ class Utils {
 
   static getPaddingBothSide() =>
       EdgeInsets.symmetric(vertical: 0, horizontal: 20);
+
+  static getBoxShape() => BoxDecoration(
+      color: Colors.white,
+      border: Border.all(color: Colors.grey, width: 1.5),
+      borderRadius: BorderRadius.all(Radius.circular(6.0)));
 }
