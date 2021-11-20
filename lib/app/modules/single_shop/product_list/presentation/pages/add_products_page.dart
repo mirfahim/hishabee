@@ -493,18 +493,34 @@ class _AddProductsPageState extends State<AddProductsPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 15),
-                                  child: Text(
-                                    "optional_not_given".tr,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: "Rubik-VariableFont_wght",
-                                      fontWeight: FontWeight.bold,
-                                      color: DEFAULT_BLUE_DARK,
+                                Row(
+                                  // mainAxisAlignment: MainAxisAlignment.center,
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 15.0, top: 15),
+                                      child: Text(
+                                        "optional_not_given".tr,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          // fontFamily: "Rubik-VariableFont_wght",
+                                          fontWeight: FontWeight.bold,
+                                          color: DEFAULT_BLUE_DARK,
+                                        ),
+                                      ),
                                     ),
-                                  ),
+                                    Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(top: 15.0),
+                                          child: Divider(
+                                            thickness: 2,
+                                            color: Colors.black,
+                                            endIndent: 15,
+                                            indent: 4,
+                                          ),
+                                        ),)
+                                  ],
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(top: 15.0),

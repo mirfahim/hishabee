@@ -270,7 +270,7 @@ const en_US = {
   'vat_percent': 'VAT %',
   'referral_id_optional': 'Referral ID (Optional)',
   'optional': ' (Optional)',
-  'optional_not_given': ' (Optional)',
+  'optional_not_given': ' Optional Section',
   'about_us': 'About Us',
   'subscription': 'Subscription',
   'upgrade_subscription': 'Upgrade Subscription',

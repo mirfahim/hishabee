@@ -95,7 +95,7 @@ class SubscriptionPage extends GetView<SubscriptionPageController> {
                     ),
                   ],
                 ),
-                /*  Padding(
+                 Padding(
                   padding: const EdgeInsets.only(top: 8.0, left: 15, right: 15),
                   child: Container(
                     height: 45,
@@ -105,11 +105,11 @@ class SubscriptionPage extends GetView<SubscriptionPageController> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(primary: DEFAULT_BLACK),
                       onPressed: () {
-                        Get.to(
-                          SubscriptionPackagePage(
-                            shop: shop,
-                          ),
-                        );
+                        // Get.to(
+                        //   SubscriptionPackagePage(
+                        //     shop: shop,
+                        //   ),
+                        // );
                       },
                       child: Text(
                         "change_subscription".tr.toUpperCase(),
@@ -122,7 +122,7 @@ class SubscriptionPage extends GetView<SubscriptionPageController> {
                       ),
                     ),
                   ),
-                ),*/
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20, left: 15, right: 15),
                   child: Divider(
@@ -144,7 +144,6 @@ class SubscriptionPage extends GetView<SubscriptionPageController> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
                 Container(
                   width: double.infinity,
                   margin: EdgeInsets.only(
@@ -194,6 +193,34 @@ class SubscriptionPage extends GetView<SubscriptionPageController> {
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: Colors.redAccent,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0, left: 15, right: 15),
+                          child: Container(
+                            height: 45,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(primary: DEFAULT_BODY_BG_COLOR),
+                              onPressed: () {
+                                // Get.to(
+                                //   SubscriptionPackagePage(
+                                //     shop: shop,
+                                //   ),
+                                // );
+                              },
+                              child: Text(
+                                'renew_now'.tr,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontFamily: 'Rubik',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
                             ),
                           ),
                         ),
