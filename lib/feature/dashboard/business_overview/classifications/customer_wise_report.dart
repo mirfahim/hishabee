@@ -56,7 +56,9 @@ class _CustomerWiseReportState extends State<CustomerWiseReport> {
                             size: 25,
                             color: Colors.black,
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.back();
+                          },
                         ),
                       ),
                       const Padding(

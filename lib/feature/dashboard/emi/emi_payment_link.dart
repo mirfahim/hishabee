@@ -23,7 +23,7 @@ class EmiPaymentLink extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 50.0),
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
-              child: Stackpo(
+              child: Stack(
                 children: [
                   SizedBox(
                     height: size.height * 0.2,
