@@ -49,7 +49,7 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.8.1"
+    version: "2.8.2"
   auto_size_text:
     dependency: transitive
     description:
@@ -161,7 +161,7 @@ packages:
       name: characters
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   charcode:
     dependency: transitive
     description:
@@ -329,7 +329,7 @@ packages:
       name: facebook_app_events
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.5"
+    version: "0.14.4"
   fake_async:
     dependency: transitive
     description:
@@ -813,14 +813,14 @@ packages:
       name: json_annotation
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.1.0"
+    version: "4.3.0"
   json_serializable:
     dependency: "direct dev"
     description:
       name: json_serializable
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.2"
+    version: "6.0.1"
   lint:
     dependency: transitive
     description:
@@ -848,7 +848,7 @@ packages:
       name: matcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.12.10"
+    version: "0.12.11"
   math_expressions:
     dependency: "direct main"
     description:
@@ -1238,7 +1238,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2"
+    version: "0.4.7"
   timezone:
     dependency: transitive
     description:
@@ -1322,7 +1322,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   watcher:
     dependency: transitive
     description:
