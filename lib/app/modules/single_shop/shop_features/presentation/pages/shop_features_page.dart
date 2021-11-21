@@ -10,6 +10,7 @@ import 'package:hishabee_business_manager_fl/app/_widgets/overlay_youtube_video.
 import 'package:hishabee_business_manager_fl/app/modules/home/presentation/pages/advance_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/home/presentation/pages/standard_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/_navigation/settings_routes.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/_binding/shop_features_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/pages/digital_balance_page.dart';
@@ -19,6 +20,8 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction
 import 'package:intl/intl.dart';
 import 'package:number_display/number_display.dart';
 import 'package:showcaseview/showcaseview.dart';
+
+import 'notification_page.dart';
 
 class ShopFeatureShowCase extends StatelessWidget {
   final Shop shop;
@@ -202,11 +205,11 @@ class _ShopFeaturesPageState extends State<ShopFeaturesPage> {
                         ),
                         Spacer(),
                         Padding(
-                          padding: const EdgeInsets.only(top: 14, right: 15.0),
+                          padding: const EdgeInsets.only(top: 14),
                           child: IconButton(
                               icon: Icon(
                                 Icons.contact_support,
-                                size: 35,
+                                size: 25,
                                 color: DEFAULT_BLUE,
                               ),
                               onPressed: () {
@@ -216,6 +219,37 @@ class _ShopFeaturesPageState extends State<ShopFeaturesPage> {
                                 HelpButton.setBox(ButtonKey.dashKey);
                                 Navigator.of(context)
                                     .push(TutorialOverlay(url, title));
+                              }),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 14),
+                          child: IconButton(
+                              icon: Icon(
+                                Icons.notifications,
+                                size: 25,
+                                color: DEFAULT_BLUE,
+                              ),
+                              onPressed: () {
+                                Get.to(
+                                  NotificationPage(shop: widget.shop,),
+                                );
+                              }),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 14),
+                          child: IconButton(
+                              icon: Icon(
+                                Icons.settings_rounded,
+                                size: 25,
+                                color: DEFAULT_BLUE,
+                              ),
+                              onPressed: () {
+                                Get.toNamed(
+                                  SettingsRoutes.SETTINGS,
+                                  arguments: {
+                                    "shop": widget.shop,
+                                  },
+                                );
                               }),
                         )
                       ],
