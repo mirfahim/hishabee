@@ -29,6 +29,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/presentation/pages/sms_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/emi/emi.dart';
 
 class AdvanceItemsList extends GetResponsiveView<ShopFeaturesController> {
   final Shop shop;
@@ -115,13 +116,15 @@ class AdvanceItemsList extends GetResponsiveView<ShopFeaturesController> {
                         SizedBox(
                           height: 10,
                         ),
-                        Text(
-                          "sell_pos".tr,
-                          style: TextStyle(
-                            fontFamily: 'Rubik',
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: DEFAULT_BLACK,
+                        Center(
+                          child: Text(
+                            "sell_pos".tr,
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: DEFAULT_BLACK,
+                            ),
                           ),
                         ),
                       ],
@@ -164,6 +167,7 @@ class AdvanceItemsList extends GetResponsiveView<ShopFeaturesController> {
                         ),
                         Text(
                           "transaction_exchange_amp_refund".tr,
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Rubik',
                             fontSize: 16,
@@ -626,7 +630,47 @@ class AdvanceItemsList extends GetResponsiveView<ShopFeaturesController> {
                       ],
                     ),
                   ),
-                )
+                ),
+                InkWell(
+                  onTap: () {
+                    Get.to(EMI(), arguments: shop);
+                    // Get.to(
+                    //   () => SmsPage(),
+                    //   arguments: {
+                    //     "shop": shop,
+                    //   },
+                    //   binding: SMSBindings(),
+                    // );
+                  },
+                  child: Container(
+                    height: itemHeight,
+                    width: itemWidth,
+                    decoration: SHOP_ITEM_DECORATION,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'images/shop_features/emi.png',
+                          height:
+                              screen.responsiveValue(mobile: 40, tablet: 60),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "emi".tr,
+                          style: TextStyle(
+                            fontFamily: 'Rubik',
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            color: DEFAULT_BLACK,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             )
           ],

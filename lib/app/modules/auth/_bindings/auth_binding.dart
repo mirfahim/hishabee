@@ -11,11 +11,10 @@ class AuthBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut(() => RegisterController(find()));
-
     Get.lazyPut(() => LoginController(find()));
-
     Get.lazyPut(() => VerifyForgetPasswordOtpController(find()));
     Get.lazyPut(() => PasswordChangeController(find()));
     Get.lazyPut(() => ForgotPasswordController(find()));
+    
   }
 }

@@ -71,6 +71,7 @@ const en_US = {
   'stock_amp_audit': '<![CDATA[Stock & Audit]]>',
   'due_list': 'Due List',
   'product_list': 'Product List',
+  'business_overview': 'Business Overview',
   'sell_pos': 'Sell (POS)',
   'notification': 'Notification',
   'online_orders': 'Online Orders',
@@ -539,4 +540,5 @@ const en_US = {
   'hishabee_credit': 'Hishabee Credit',
   'digital_income': 'Digital income',
   'transaction_history': 'Transaction History',
+  'emi': 'EMI'
 };

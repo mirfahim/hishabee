@@ -31,6 +31,7 @@ const bn_BD = {
   'change_qr_code': 'কিউআর কোড পরিবর্তন করুন',
   'dueList': 'বাকির খাতা',
   'product_list': 'প্রোডাক্ট লিস্ট',
+  'business_overview': 'ব্যাবসার সার্বিক অবস্থা',
   'add_product': 'প্রোডাক্ট যুক্ত করুন',
   'notification': 'নোটিফিকেশন',
   'sell': 'বিক্রি করুন',
@@ -487,4 +488,5 @@ const bn_BD = {
   'hishabee_credit': 'হিসাবি ক্রেডিট',
   'digital_income': 'ডিজিটাল ইনকাম',
   'transaction_history': 'লেনদেনের ইতিহাস',
+  'emi': 'ইএমআই'
 };

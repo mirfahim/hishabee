@@ -12,12 +12,10 @@ import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/domain/repositories/i_auth_repository.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:in_app_purchase/in_app_purchase.dart';
 
 import 'app/_bindings/app_binding.dart';
 import 'app/_services/localization_service.dart';
 import 'app/app.dart';
-import 'app/modules/home/presentation/pages/onboardingScrren/onboardingPage.dart';
 
 const hiveDbDirectory = 'hishabee-db';
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
