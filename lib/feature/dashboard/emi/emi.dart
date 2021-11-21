@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/emi/emi_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/new_emi.dart';
 import 'package:hishabee_business_manager_fl/models/emi/emi_model.dart';
@@ -30,6 +32,10 @@ class _EMIState extends State<EMI> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     int flag = 1;
+    Shop shop = Get.arguments;
+
+    var storage = GetStorage();
+    storage.write("shop_id", shop.id.toString());
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -90,7 +96,7 @@ class _EMIState extends State<EMI> {
                               ),
                             ),
                             onPressed: () => Get.to(NewEmi("", "", "", ""),
-                                arguments: Get.arguments),
+                                arguments: storage.read("shop_id")),
                             icon: Icon(
                               Icons.add_circle_outline,
                               color: Colors.blueAccent.shade700,

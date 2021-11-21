@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/emi_details.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/utils/bank_popup.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/utils/customer_popup.dart';
@@ -29,6 +31,7 @@ class _NewEmiState extends State<NewEmi> {
   Widget build(BuildContext context) {
     print("name: " + widget.name);
     checkArguments();
+    var storage = GetStorage();
     Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
@@ -343,7 +346,8 @@ class _NewEmiState extends State<NewEmi> {
                                                   _emiController.text) >
                                               5000.00) {
                                             Get.to(EmiDetails(), arguments: [
-                                              Get.arguments, //shop info 0
+                                              storage.read(
+                                                  "shop_id"), //shop info 0
                                               _nameController.text, //name 1
                                               _mobileController.text, //phone 2
                                               _addressController

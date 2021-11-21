@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/emi/emi_controller.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/emi/digital_payment.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class EmiPaymentLink extends StatelessWidget {
@@ -9,11 +11,11 @@ class EmiPaymentLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    int flag = 1;
-    Shop shop = Get.arguments[0];
+
     double withInterestAmount = Get.arguments[6];
     double withoutInterestAmount = double.parse(Get.arguments[4]);
     double serviceCharge = withInterestAmount - withoutInterestAmount;
+    var storage = GetStorage();
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -21,7 +23,7 @@ class EmiPaymentLink extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 50.0),
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
-              child: Stack(
+              child: Stackpo(
                 children: [
                   SizedBox(
                     height: size.height * 0.2,
@@ -190,7 +192,7 @@ class EmiPaymentLink extends StatelessWidget {
                               child: InkWell(
                                 onTap: () => _controller
                                     .submitEmi(
-                                        shop_id: shop.id.toString(),
+                                        shop_id: storage.read("shop_id"),
                                         amount:
                                             withoutInterestAmount.toString(),
                                         customerName: Get.arguments[1],
@@ -200,8 +202,9 @@ class EmiPaymentLink extends StatelessWidget {
                                             Get.arguments[5].toString(),
                                         payable: withInterestAmount.toString())
                                     .then((value) {
-                                      
                                   Utils.showToast("Submitted Successfully");
+                                  Get.to(DigitalPayment(),
+                                      arguments: value["url"]);
                                 }),
                                 child: Container(
                                   width: double.maxFinite,

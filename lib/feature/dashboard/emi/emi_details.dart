@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/emi_payment_link.dart';
 import 'package:hishabee_business_manager_fl/models/emi/utils/bank_model.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
@@ -21,8 +23,7 @@ class _EmiDetailsState extends State<EmiDetails> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     int flag = 1;
-    // print("checking Bank name");
-    // print(Get.arguments[4].name);
+    var storage = GetStorage();
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -106,7 +107,7 @@ class _EmiDetailsState extends State<EmiDetails> {
                                         child: InkWell(
                                           onTap: () => Get
                                               .to(EmiPaymentLink(), arguments: [
-                                            Get.arguments[0], //shop
+                                              storage.read("shop_id"), //shop
                                             Get.arguments[1], // name
                                             Get.arguments[2], //phone
                                             Get.arguments[3], //address
@@ -696,7 +697,7 @@ class _EmiDetailsState extends State<EmiDetails> {
                                     child: Padding(
                                         padding: const EdgeInsets.all(16.0),
                                         child: InkWell(
-                                          onTap: ()=> Get
+                                          onTap: () => Get
                                               .to(EmiPaymentLink(), arguments: [
                                             Get.arguments[0], //shop
                                             Get.arguments[1], // name
@@ -708,7 +709,8 @@ class _EmiDetailsState extends State<EmiDetails> {
                                                 double.parse(Get.arguments[4]),
                                                 Utils
                                                     .month36fee), // with interest 6
-                                            getMonthly( //7
+                                            getMonthly(
+                                                //7
                                                 //monthly
                                                 getAmount(
                                                     double.parse(
@@ -741,7 +743,8 @@ class _EmiDetailsState extends State<EmiDetails> {
                                                                 double.parse(
                                                                     Get.arguments[
                                                                         4]),
-                                                                Utils.month36fee)
+                                                                Utils
+                                                                    .month36fee)
                                                             .toString(),
                                                     style: TextStyle(
                                                         fontSize: 10.0,
@@ -756,13 +759,15 @@ class _EmiDetailsState extends State<EmiDetails> {
                                                                 double.parse(
                                                                     Get.arguments[
                                                                         4]),
-                                                                Utils.month36fee),
+                                                                Utils
+                                                                    .month36fee),
                                                             36)
                                                         .toString() +
                                                     "/Month",
                                                 style: TextStyle(
                                                     fontSize: 15.0,
-                                                    fontWeight: FontWeight.w600),
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                               ),
                                             ],
                                           ),
