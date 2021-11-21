@@ -17,15 +17,15 @@ import 'edit_products_page.dart';
 
 //product list
 class ProductListPage extends GetView<ProductListController> {
-  // var totalProductsCost = 0.obs;
-  final commaSeperator =  NumberFormat("#,##0.00", "en_US");
+  var totalProductsCost = 0.obs;
+  final commaSeperator = NumberFormat("#,##0.00", "en_US");
 
   @override
   Widget build(BuildContext context) {
-    // totalProductsCost.value = controller.productList.value
-    //     .map((e) => e.stock > 0 ? e.costPrice * e.stock : 0)
-    //     .fold(0, (previousValue, element) => element + previousValue)
-    //     .toInt();
+    totalProductsCost.value = controller.productList.value
+        .map((e) => e.stock > 0 ? e.costPrice * e.stock : 0)
+        .fold(0, (previousValue, element) => element + previousValue)
+        .toInt();
 
     // for (int i = 0; i < controller.productList.length; i++) {
     //   totalProductsCost =
