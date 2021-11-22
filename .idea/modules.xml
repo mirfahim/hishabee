@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Hishabee_Business_Flutter.iml" filepath="$PROJECT_DIR$/.idea/Hishabee_Business_Flutter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Hishabee_Flutter.iml" filepath="$PROJECT_DIR$/.idea/Hishabee_Flutter.iml" />
     </modules>
   </component>
 </project>

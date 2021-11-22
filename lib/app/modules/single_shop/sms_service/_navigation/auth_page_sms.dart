@@ -4,12 +4,12 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/_navigation/sms_routes.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/presentation/pages/sms_page.dart';
 
-abstract class SmsAuth {
-  static List<GetPage> pages = [
-    GetPage(
-      name: SMSRoutes.SMS,
-      page: () => SmsPage(),
-      binding: SMSBindings(),
-    ),
-  ];
-}
+// abstract class SmsAuth {
+//   static List<GetPage> pages = [
+//     GetPage(
+//       name: SMSRoutes.SMS,
+//       page: () => SmsPage(),
+//       binding: SMSBindings(),
+//     ),
+//   ];
+// }

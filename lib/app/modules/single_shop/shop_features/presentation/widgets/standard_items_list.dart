@@ -10,6 +10,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_featur
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/_bindings/sms_bindings.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/presentation/pages/sms_page.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/business_overview/business_overview.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/sms/create_sms.dart';
 
 class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
   final Shop shop;
@@ -75,11 +76,11 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
                 InkWell(
                   onTap: () {
                     Get.to(
-                      () => SmsPage(),
+                      () => SmsCreatePage(),
                       arguments: {
                         "shop": shop,
                       },
-                      binding: SMSBindings(),
+                      // binding: SMSBindings(),
                     );
                   },
                   child: Container(

@@ -4,12 +4,12 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/presentation/pages/package_page.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/sms_page.dart';
+import 'package:hishabee_business_manager_fl/models/sms/sms_package_model.dart';
 
-class SmsPage extends GetResponsiveView {
+class SmsCreatePage extends GetResponsiveView {
   final TextEditingController messageController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
   SmsController _smsController = SmsController();
-
   // RxInt maxLengthForText = 160.obs;
   // final textInTheMessageField = ''.obs;
   // RxInt messageCount = 1.obs;
@@ -300,7 +300,13 @@ class SmsPage extends GetResponsiveView {
                 Padding(
                   padding: EdgeInsets.only(left: 10, right: 10),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _smsController.createSms(
+                          shopId: '105',
+                          number: "[01761685693]",
+                          message: "I am Nehal",
+                          smsCount: '1');
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
@@ -327,7 +333,9 @@ class SmsPage extends GetResponsiveView {
                   padding: EdgeInsets.only(left: 10, right: 10),
                   child: ElevatedButton(
                     onPressed: () {
-                      // Get.to(SMSPackages());
+                      Get.to(
+                        SMSPackages(),
+                      );
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

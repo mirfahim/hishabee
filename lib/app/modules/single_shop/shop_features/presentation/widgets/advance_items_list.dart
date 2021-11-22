@@ -26,6 +26,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presen
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/_bindings/sms_bindings.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/_navigation/sms_routes.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/presentation/pages/sms_history.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/presentation/pages/sms_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
@@ -594,13 +595,9 @@ class AdvanceItemsList extends GetResponsiveView<ShopFeaturesController> {
               children: [
                 InkWell(
                   onTap: () {
-                    Get.to(
-                      () => SmsPage(),
-                      arguments: {
-                        "shop": shop,
-                      },
-                      binding: SMSBindings(),
-                    );
+                    Get.to(() => SmsHistory(), arguments: shop
+                        // binding: SMSBindings(),
+                        );
                   },
                   child: Container(
                     height: itemHeight,
