@@ -540,5 +540,6 @@ const en_US = {
   'hishabee_credit': 'Hishabee Credit',
   'digital_income': 'Digital income',
   'transaction_history': 'Transaction History',
-  'emi': 'EMI'
+  'emi': 'EMI',
+  'digital_marketing': 'Digital Payment'
 };

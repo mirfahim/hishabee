@@ -263,6 +263,6 @@ class Utils {
 
   static getBoxShape() => BoxDecoration(
       color: Colors.white,
-      border: Border.all(color: Colors.grey, width: 1.5),
+      border: Border.all(color: Colors.grey[400], width: 1.5),
       borderRadius: BorderRadius.all(Radius.circular(6.0)));
 }

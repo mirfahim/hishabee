@@ -11,6 +11,7 @@ class EmiPaymentLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+  
 
     double withInterestAmount = Get.arguments[6];
     double withoutInterestAmount = double.parse(Get.arguments[4]);
@@ -23,7 +24,7 @@ class EmiPaymentLink extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 50.0),
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
-              child: Stackpo(
+              child: Stack(
                 children: [
                   SizedBox(
                     height: size.height * 0.2,

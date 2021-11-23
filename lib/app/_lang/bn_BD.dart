@@ -488,5 +488,6 @@ const bn_BD = {
   'hishabee_credit': 'হিসাবি ক্রেডিট',
   'digital_income': 'ডিজিটাল ইনকাম',
   'transaction_history': 'লেনদেনের ইতিহাস',
-  'emi': 'ইএমআই'
+  'emi': 'ইএমআই',
+  'digital_marketing': 'ডিজিটাল পেমেন্ট'
 };
