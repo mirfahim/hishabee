@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
 import 'package:hishabee_business_manager_fl/models/sms/sms_model.dart';
@@ -16,18 +17,16 @@ class _SmsHistoryState extends State<SmsHistory> {
   SmsController _smsController = SmsController();
   List<GetAllMessage> _getAllMessage;
   bool _isLoading = true;
-
+  var storageSms = GetStorage('sms');
   @override
   void initState() {
-    _smsController.fetchAllSms(shopId: "").then((value) {
-      // print("here is our value from network");
-      // print(value);
+    _smsController.fetchAllSms(shopId: '${storageSms.read("shop_id")}').then((value) {
       setState(() {
         _getAllMessage = getSmsFromModel(value);
         _isLoading = false;
       });
     });
-
+  print(storageSms.read("shop_id"));
     super.initState();
   }
 

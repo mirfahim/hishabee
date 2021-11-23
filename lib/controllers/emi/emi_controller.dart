@@ -5,8 +5,8 @@ import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class EmiController extends GetxController {
   ApiService _apiService = ApiService();
+
   Future<dynamic> fetchAllEmi(
-      //dynamic is nullable so if we didnt get any response we can handle it
       {
     String shopId,
   }) async {

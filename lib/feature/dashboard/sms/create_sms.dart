@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/presentation/manager/get_all_sms_controller.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/presentation/pages/package_page.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/sms/sms_packages.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/sms_page.dart';
 import 'package:hishabee_business_manager_fl/models/sms/sms_package_model.dart';
 
@@ -10,16 +11,12 @@ class SmsCreatePage extends GetResponsiveView {
   final TextEditingController messageController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
   SmsController _smsController = SmsController();
-  // RxInt maxLengthForText = 160.obs;
-  // final textInTheMessageField = ''.obs;
-  // RxInt messageCount = 1.obs;
-  // final SMSController controller;
-  //
-  // SmsPage({@required this.controller});
-
+  Shop shop = Get.arguments['shop'];
+  var storageSms = GetStorage('sms');
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
+    storageSms.write("shop_id", shop.id);
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -36,7 +33,7 @@ class SmsCreatePage extends GetResponsiveView {
                 padding: const EdgeInsets.only(right: 5),
                 child: GestureDetector(
                   onTap: () {
-                    Get.to(SmsHistory());
+                    Get.to(SmsHistory(), arguments: {'shop': shop});
                   },
                   child: Row(
                     children: const [
@@ -302,10 +299,12 @@ class SmsCreatePage extends GetResponsiveView {
                   child: ElevatedButton(
                     onPressed: () {
                       _smsController.createSms(
-                          shopId: '105',
-                          number: "\"01761685693\"",
-                          message: "I am Nehal",
-                          smsCount: '1');
+                          shopId: '${storageSms.read("shop_id")}',
+                          number: "\"${_smsController.mobileNumbers.value}\"",
+                          message: "${_smsController.textInTheMessageField.value}",
+                          smsCount: '${_smsController.messageCount.value}');
+                      numberController.clear();
+                      messageController.clear();
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -335,6 +334,7 @@ class SmsCreatePage extends GetResponsiveView {
                     onPressed: () {
                       Get.to(
                         SMSPackages(),
+                          // arguments: {'shop': shop}
                       );
                     },
                     child: Column(

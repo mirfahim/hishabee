@@ -92,7 +92,7 @@ class _SMSPackagesState extends State<SMSPackages> {
   void initState() {
     _smsController.fetchSmsPackage().then((value) {
       setState(() {
-        _smsPackages = getSmsPackagesFromModel(value);
+       _smsPackages = getSmsPackagesFromModel(value);
       });
     });
     super.initState();
@@ -137,7 +137,7 @@ class _SMSPackagesState extends State<SMSPackages> {
               ? ListView.builder(
                   itemCount: _smsPackages.length,
                   shrinkWrap: true,
-                  itemBuilder: (_, index) {
+                  itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(left: 10.0, right: 10),
                       child: SizedBox(
