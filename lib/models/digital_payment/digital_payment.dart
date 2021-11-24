@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 List<DigitalPaymentModel> digitalPaymentModelFromJson(dynamic str) =>
     List<DigitalPaymentModel>.from(
         str.map((x) => DigitalPaymentModel.fromJson(x)));
@@ -30,7 +32,7 @@ class DigitalPaymentModel {
   dynamic customerMobile;
   dynamic customerAddress;
   int amount;
-  DateTime createdAt;
+  var createdAt;
   DateTime updatedAt;
 
   factory DigitalPaymentModel.fromJson(Map<String, dynamic> json) =>
@@ -46,7 +48,8 @@ class DigitalPaymentModel {
         customerMobile: json["customer_mobile"],
         customerAddress: json["customer_address"],
         amount: json["amount"],
-        createdAt: DateTime.parse(json["created_at"]),
+        createdAt:
+            DateFormat('yyyy-mm-dd').format(DateTime.parse(json["created_at"])),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
 }

@@ -180,7 +180,7 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
                                   Colors.black),
                             ),
                             child: Text(
-                              "SHARE LINK",
+                              "SHARE   LINK",
                               style: TextStyle(
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w600,
@@ -192,13 +192,13 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
                           height: 10,
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 8.0),
+                          padding: const EdgeInsets.all(8.0),
                           child: Text(
                             "Active Links",
                             style: TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black87,
-                                fontSize: 15.0),
+                                fontSize: 16.0),
                           ),
                         ),
                         _list.length > 0
@@ -242,7 +242,10 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
                                                           FontWeight.w600),
                                                 ),
                                                 Text(
-                                                  "2021-11-18",
+                                                  "" +
+                                                      _list[index]
+                                                          .createdAt
+                                                          .toString(),
                                                   style: TextStyle(
                                                       fontSize: 11,
                                                       fontWeight:
