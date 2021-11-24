@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/digital_payment/dp_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/digital_payment/new_link.dart';
 import 'package:hishabee_business_manager_fl/models/digital_payment/digital_payment.dart';
+import 'package:share_plus/share_plus.dart';
 
 class DigitalPaymentDashboard extends StatefulWidget {
   @override
@@ -13,10 +15,10 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
   List<DigitalPaymentModel> _list = <DigitalPaymentModel>[];
   bool isLoading = true;
   DpController controller = Get.find();
+  Shop shop = Get.arguments;
   @override
   void initState() {
     getData();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -160,7 +162,8 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Text(
-                              "https://app.hishabee.business/pay/@def123",
+                              "https://app.hishabee.business/pay/@" +
+                                  shop.slug.toString(),
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.w600),
@@ -174,13 +177,16 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
                           width: MediaQuery.of(context).size.width,
                           height: 42,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () => Share.share(
+                              "https://app.hishabee.business/pay/@" +
+                                  shop.slug.toString(),
+                            ),
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.black),
                             ),
                             child: Text(
-                              "SHARE   LINK",
+                              "SHARE  LINK",
                               style: TextStyle(
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w600,
@@ -262,7 +268,7 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
                                                     fontSize: 13,
                                                     color: Colors.red,
                                                     fontWeight:
-                                                        FontWeight.w600))
+                                                        FontWeight.w700))
                                           ],
                                         ),
                                       ),
