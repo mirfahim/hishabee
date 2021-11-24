@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
+import 'package:hishabee_business_manager_fl/controllers/digital_payment/dp_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/digital_payment/new_link.dart';
-import 'package:hishabee_business_manager_fl/models/business_overview/product_report.dart';
+import 'package:hishabee_business_manager_fl/models/digital_payment/digital_payment.dart';
 
 class DigitalPaymentDashboard extends StatefulWidget {
   @override
@@ -10,9 +10,9 @@ class DigitalPaymentDashboard extends StatefulWidget {
 }
 
 class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
-  List<ProductReportModel> _list = <ProductReportModel>[];
-
-  BoController controller = Get.find();
+  List<DigitalPaymentModel> _list = <DigitalPaymentModel>[];
+  bool isLoading = true;
+  DpController controller = Get.find();
   @override
   void initState() {
     getData();
@@ -201,53 +201,70 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
                                 fontSize: 15.0),
                           ),
                         ),
-                        ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: 5,
-                            itemBuilder: (context, index) => Card(
-                                  elevation: 2.0,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(12.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
+                        _list.length > 0
+                            ? ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: _list.length,
+                                itemBuilder: (context, index) => Card(
+                                      elevation: 2.0,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              "#1895",
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold),
+                                            Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "#" +
+                                                      _list[index]
+                                                          .id
+                                                          .toString(),
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                                Text(
+                                                  "" +
+                                                      _list[index]
+                                                          .amount
+                                                          .toString() +
+                                                      " BDT",
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                                Text(
+                                                  "2021-11-18",
+                                                  style: TextStyle(
+                                                      fontSize: 11,
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                                ),
+                                              ],
                                             ),
                                             Text(
-                                              "\$1789,25",
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                            Text(
-                                              "2021-11-18",
-                                              style: TextStyle(
-                                                  fontSize: 11,
-                                                  fontWeight: FontWeight.w400),
-                                            ),
+                                                "" +
+                                                    _list[index]
+                                                        .paymentStatus
+                                                        .toString(),
+                                                style: TextStyle(
+                                                    fontSize: 13,
+                                                    color: Colors.red,
+                                                    fontWeight:
+                                                        FontWeight.w600))
                                           ],
                                         ),
-                                        Text("Pending",
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                color: Colors.red,
-                                                fontWeight: FontWeight.w600))
-                                      ],
-                                    ),
-                                  ),
-                                ))
+                                      ),
+                                    ))
+                            : Center(child: CircularProgressIndicator())
                       ],
                     )),
 
@@ -261,18 +278,13 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
   }
 
   void getData() {
-    controller
-        .fetchProductWiseReport(shopId: "", statDate: "", endDate: "")
-        .then((value) {
+    controller.fetchDp(shopId: "").then((value) {
       if (value != null) {
         setState(() {
-          _list = productReportModelFromJson(value);
-          //    _foundData = _list;
-          // checkingDone = true;
+          isLoading = false;
+          _list = digitalPaymentModelFromJson(value);
         });
       }
-
-      //  isLoading = false;
     });
   }
 }

@@ -17,7 +17,7 @@ class _NewlinkState extends State<Newlink> {
   @override
   void initState() {
     getData();
-    // TODO: implement initState
+
     super.initState();
   }
 
@@ -72,7 +72,7 @@ class _NewlinkState extends State<Newlink> {
                           size: 25,
                           color: Colors.black,
                         ),
-                        onPressed: () {},
+                        onPressed: () => Get.back(),
                       ),
                     ),
                     const Padding(
@@ -112,6 +112,7 @@ class _NewlinkState extends State<Newlink> {
                               child: TextFormField(
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
+                                    border: InputBorder.none,
                                     hintText: 'Payable Amount',
                                     hintStyle: TextStyle(
                                         fontSize: 13.0,
