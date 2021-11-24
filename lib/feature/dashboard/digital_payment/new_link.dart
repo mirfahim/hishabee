@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/emi/digital_payment.dart';
 import 'package:hishabee_business_manager_fl/models/business_overview/product_report.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
@@ -30,7 +31,9 @@ class _NewlinkState extends State<Newlink> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(15.0),
           child: ElevatedButton(
-            onPressed: () => Get.to(Newlink()),
+            onPressed: () => Get.to(DigitalPayment(),
+                arguments:
+                    "https://dev.hishabee.business/pay/619e07347a762105"), //for the share option
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
             ),

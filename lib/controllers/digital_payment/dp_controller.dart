@@ -16,4 +16,17 @@ class DpController extends GetxController {
         body: null,
         headers: null); //we will fetch the list from this request
   }
+
+  Future<dynamic> generatePaymentLink(
+      //dynamic is nullable so if we didnt get any response we can handle it
+      {String shopId,
+      String amount}) async {
+    String url =
+        "/digital_payment/custom?shop_id=105&amount=100"; //todo it should be dynamic later ....
+    return _apiService.makeApiRequiest(
+        method: apiMethods.get,
+        url: url,
+        body: null,
+        headers: null); //we will fetch the list from this request
+  }
 }
