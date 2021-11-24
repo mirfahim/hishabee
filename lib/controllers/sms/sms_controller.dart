@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hishabee_business_manager_fl/app/modules/auth/data/repositories/auth_repository.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/data_sources/shop_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/models/sms/create_sms_model.dart';
 import 'package:hishabee_business_manager_fl/models/sms/sms_package_model.dart';
@@ -11,15 +13,13 @@ class SmsController extends GetxController {
   final textInTheMessageField = ''.obs;
   final messageCount = 1.obs;
   final mobileNumbers = ''.obs;
+  final smsCount = 0.obs;
   ApiService _apiService = ApiService();
-
-  // List<SmsPackages> smsPackages = <SmsPackages>[].obs;
+  var storageSms = GetStorage('sms');
+  Shop shopData = Shop().obs.value;
 
   Future<dynamic> fetchAllSms(
-      //dynamic is nullable so if we didnt get any response we can handle it
-          {String shopId,
-        String statDate,
-        String endDate}) async {
+      {String shopId, String statDate, String endDate}) async {
     String url = "/sms?shop_id=$shopId";
     return _apiService.makeApiRequiest(
         method: apiMethods.get,
@@ -31,10 +31,7 @@ class SmsController extends GetxController {
   Future<dynamic> fetchSmsPackage() async {
     String url = "/sms/packages";
     return _apiService.makeApiRequiest(
-        method: apiMethods.get,
-        url: url,
-        body: null,
-        headers: null);
+        method: apiMethods.get, url: url, body: null, headers: null);
   }
 
   Future<dynamic> createSms(
@@ -45,14 +42,18 @@ class SmsController extends GetxController {
         method: apiMethods.post, url: url, body: null, headers: null);
   }
 
+  Future<dynamic> checkSubcription(String shopId) async {
+    String url = '/subscription/verify?shop_id=$shopId';
 
+    shopData = await _apiService.makeApiRequiest(
+        method: apiMethods.get, url: url, body: null, headers: null);
+    return _apiService.makeApiRequiest(
+        method: apiMethods.get, url: url, body: null, headers: null);
+  }
 
   // @override
   // void onInit() {
-  //   fetchSmsPackage().then((value) {
-  //     smsPackages = getSmsPackagesFromModel(value);
-  //
-  //     super.onInit();
-  //   });
+  //   checkSubcription('${storageSms.read("shop_id")}');
+  //   super.onInit();
   // }
 }
