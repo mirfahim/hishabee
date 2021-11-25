@@ -80,31 +80,36 @@ class _EMIState extends State<EMI> {
                           ),
                         ),
                       ),
-                      Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding:
-                              EdgeInsets.only(top: 14.0, left: 60, right: 15),
-                          child: TextButton.icon(
-                            style: TextButton.styleFrom(
-                              textStyle: TextStyle(color: Colors.blue),
-                              backgroundColor: Colors.transparent,
-                              shape: RoundedRectangleBorder(
-                                side: BorderSide(
-                                    color: Colors.blueAccent.shade700),
-                                borderRadius: BorderRadius.circular(4.0),
-                              ),
-                            ),
-                            onPressed: () => Get.to(NewEmi("", "", "", ""),
-                                arguments: storage.read("shop_id")),
-                            icon: Icon(
-                              Icons.add_circle_outline,
-                              color: Colors.blueAccent.shade700,
-                            ),
-                            label: Text(
-                              'NEW EMI',
-                              style: TextStyle(
-                                color: Colors.blueAccent.shade700,
+                      Padding(
+                        padding:
+                            EdgeInsets.only(top: 14.0, left: 60, right: 15),
+                        child: InkWell(
+                          onTap: () => Get.to(NewEmi("", "", "", "")),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                border: Border.all(
+                                    color: Colors.blue[600], width: 1.5),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(6.0))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.add_circle_outline,
+                                    color: Colors.blueAccent.shade700,
+                                  ),
+                                  SizedBox(
+                                    width: 6,
+                                  ),
+                                  Text(
+                                    'NEW EMI  ',
+                                    style: TextStyle(
+                                        color: Colors.blueAccent.shade700,
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
                               ),
                             ),
                           ),
@@ -113,12 +118,17 @@ class _EMIState extends State<EMI> {
                     ],
                   ),
                   Positioned(
-                    top: 63,
+                    top: 80,
                     left: 10,
                     right: 10,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
+                        Text(
+                          'Filter By',
+                          style: TextStyle(
+                              fontSize: 14.0, fontWeight: FontWeight.normal),
+                        ),
                         ElevatedButton.icon(
                           label: Padding(
                             padding:
@@ -136,7 +146,7 @@ class _EMIState extends State<EMI> {
                           ),
                           style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all<Size>(
-                                  Size(150, 48)),
+                                  Size(150, 44)),
                               elevation: MaterialStateProperty.all<double>(1.0),
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.white.withOpacity(0.9)),
@@ -148,11 +158,6 @@ class _EMIState extends State<EMI> {
                                           color: Colors.grey.shade100,
                                           width: 2.0)))),
                           onPressed: () {},
-                        ),
-                        Text(
-                          'to',
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold),
                         ),
                         ElevatedButton.icon(
                           label: Padding(
@@ -171,7 +176,7 @@ class _EMIState extends State<EMI> {
                           ),
                           style: ButtonStyle(
                               maximumSize: MaterialStateProperty.all<Size>(
-                                  Size(150, 48)),
+                                  Size(150, 44)),
                               elevation: MaterialStateProperty.all<double>(1.0),
                               backgroundColor: MaterialStateProperty.all<Color>(
                                   Colors.white.withOpacity(0.9)),
@@ -188,7 +193,7 @@ class _EMIState extends State<EMI> {
                     ),
                   ),
                   Positioned(
-                    top: 120,
+                    top: 135,
                     left: 10,
                     right: 10,
                     child: Padding(

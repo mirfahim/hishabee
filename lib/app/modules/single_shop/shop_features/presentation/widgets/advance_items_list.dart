@@ -592,45 +592,45 @@ class AdvanceItemsList extends GetResponsiveView<ShopFeaturesController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                InkWell(
-                  onTap: () {
-                    Get.to(
-                      () => SmsPage(),
-                      arguments: {
-                        "shop": shop,
-                      },
-                      binding: SMSBindings(),
-                    );
-                  },
-                  child: Container(
-                    height: itemHeight,
-                    width: itemWidth,
-                    decoration: SHOP_ITEM_DECORATION,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'images/shop_features/settings.png',
-                          height:
-                              screen.responsiveValue(mobile: 40, tablet: 60),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "sms_marketing".tr,
-                          style: TextStyle(
-                            fontFamily: 'Rubik',
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: DEFAULT_BLACK,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                // InkWell(
+                //   onTap: () {
+                //     Get.to(
+                //       () => SmsPage(),
+                //       arguments: {
+                //         "shop": shop,
+                //       },
+                //       binding: SMSBindings(),
+                //     );
+                //   },
+                //   child: Container(
+                //     height: itemHeight,
+                //     width: itemWidth,
+                //     decoration: SHOP_ITEM_DECORATION,
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       crossAxisAlignment: CrossAxisAlignment.center,
+                //       children: [
+                //         Image.asset(
+                //           'images/shop_features/settings.png',
+                //           height:
+                //               screen.responsiveValue(mobile: 40, tablet: 60),
+                //         ),
+                //         SizedBox(
+                //           height: 5,
+                //         ),
+                //         Text(
+                //           "sms_marketing".tr,
+                //           style: TextStyle(
+                //             fontFamily: 'Rubik',
+                //             fontSize: 16,
+                //             fontWeight: FontWeight.normal,
+                //             color: DEFAULT_BLACK,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // ),
                 InkWell(
                   onTap: () {
                     Get.to(EMI(), arguments: shop);
