@@ -19,7 +19,7 @@ class DigitalPayment extends StatelessWidget {
                 width: double.maxFinite,
                 child: ElevatedButton(
                   onPressed: () =>
-                      Share.share(Get.arguments), //for the share option
+                      Share.share(Get.arguments[0]), //for the share option
                   style: ButtonStyle(
                     elevation: MaterialStateProperty.all<double>(5.0),
                     backgroundColor:
@@ -81,7 +81,7 @@ class DigitalPayment extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  "20tk",
+                  Get.arguments[1] + " Tk",
                   style: TextStyle(
                       fontWeight: FontWeight.w800,
                       fontSize: 20,
@@ -99,7 +99,7 @@ class DigitalPayment extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(14.0),
                   child: Text(
-                    Get.arguments,
+                    Get.arguments[0],
                     style: TextStyle(
                         fontSize: 14.0,
                         fontWeight: FontWeight.w700,
@@ -120,7 +120,7 @@ class DigitalPayment extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     OutlineButton(
-                        onPressed: () => _launchURL(Get.arguments),
+                        onPressed: () => _launchURL(Get.arguments[0]),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -150,7 +150,8 @@ class DigitalPayment extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5.0))),
                     OutlineButton(
                         onPressed: () {
-                          Clipboard.setData(ClipboardData(text: Get.arguments));
+                          Clipboard.setData(
+                              ClipboardData(text: Get.arguments[0]));
                           Utils.showToast("Copied");
                         },
                         child: Padding(

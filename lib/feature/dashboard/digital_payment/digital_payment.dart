@@ -54,7 +54,7 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
                           size: 25,
                           color: Colors.black,
                         ),
-                        onPressed: () {},
+                        onPressed: () => Get.back(),
                       ),
                     ),
                     const Padding(

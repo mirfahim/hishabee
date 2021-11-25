@@ -14,7 +14,7 @@ class Newlink extends StatefulWidget {
 
 class _NewlinkState extends State<Newlink> {
   DpController controller = Get.find();
-
+  TextEditingController _amountController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -25,13 +25,19 @@ class _NewlinkState extends State<Newlink> {
           padding: const EdgeInsets.all(15.0),
           child: ElevatedButton(
             onPressed: () {
-              controller
-                  .generatePaymentLink(amount: "", shopId: "")
-                  .then((value) {
-                var resonseObject = newLinkModelFromJson(value);
-                Get.to(DigitalPayment(),
-                    arguments: resonseObject.url.toString());
-              });
+              if (_amountController.text != "") {
+                controller
+                    .generatePaymentLink(amount: "", shopId: "")
+                    .then((value) {
+                  var resonseObject = newLinkModelFromJson(value);
+                  Get.to(DigitalPayment(), arguments: [
+                    resonseObject.url.toString(), //url 0
+                    _amountController.text //amount 1
+                  ]);
+                });
+              } else {
+                Utils.showToast("Please Insert the Amount");
+              }
             }, //for the share option
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
@@ -112,6 +118,7 @@ class _NewlinkState extends State<Newlink> {
                             child: Padding(
                               padding: const EdgeInsets.only(left: 18.0),
                               child: TextFormField(
+                                controller: _amountController,
                                 keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
