@@ -7,16 +7,20 @@ import 'package:hishabee_business_manager_fl/models/sms/create_sms_model.dart';
 import 'package:hishabee_business_manager_fl/models/sms/sms_package_model.dart';
 import 'package:hishabee_business_manager_fl/service/api_service.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SmsController extends GetxController {
   final maxLengthForText = 160.obs;
   final textInTheMessageField = ''.obs;
   final messageCount = 1.obs;
   final mobileNumbers = ''.obs;
-  final smsCount = 0.obs;
+  final totalSmsLeft = 0.obs;
+  final changedSms = 0.obs;
+  var visibility = false.obs;
+  final selectedMobileNumber = [].obs;
   ApiService _apiService = ApiService();
-  var storageSms = GetStorage('sms');
-  Shop shopData = Shop().obs.value;
+  var storageSmsCount = GetStorage('sms_count');
+
 
   Future<dynamic> fetchAllSms(
       {String shopId, String statDate, String endDate}) async {
@@ -37,23 +41,26 @@ class SmsController extends GetxController {
   Future<dynamic> createSms(
       {String shopId, String number, String message, String smsCount}) async {
     String url =
-        "/sms/add?shop_id=$shopId&number=[$number]&message=$message&sms_count=$smsCount";
+        "/sms/add?shop_id=$shopId&number=$number&message=$message&sms_count=$smsCount";
     return _apiService.makeApiRequiest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
 
+  // void minuesMsg(){
+  //   changedSms.value = changedSms.value - messageCount.value;
+  //   print(changedSms.value );
+  // }
   Future<dynamic> checkSubcription(String shopId) async {
     String url = '/subscription/verify?shop_id=$shopId';
 
-    shopData = await _apiService.makeApiRequiest(
-        method: apiMethods.get, url: url, body: null, headers: null);
     return _apiService.makeApiRequiest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
-  // @override
-  // void onInit() {
-  //   checkSubcription('${storageSms.read("shop_id")}');
-  //   super.onInit();
-  // }
+
+  @override
+  void onInit() {
+
+    super.onInit();
+  }
 }

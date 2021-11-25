@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,398 +9,25 @@ import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/sms_packages.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/sms_page.dart';
 import 'package:hishabee_business_manager_fl/models/sms/sms_package_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// class SmsCreatePage extends StatefulWidget {
-//   @override
-//   _SmsCreatePageState createState() => _SmsCreatePageState();
-// }
-//
-// class _SmsCreatePageState extends State<SmsCreatePage> {
-//
-//   final TextEditingController messageController = TextEditingController();
-//   final TextEditingController numberController = TextEditingController();
-//   SmsController _smsController = SmsController();
-//   // SplashController _splashController =
-//   //     SplashController(Get.find(), Get.find(), Get.find());
-//   Shop shop = Get.arguments['shop'];
-//   var storageSms = GetStorage('sms');
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     var width = MediaQuery.of(context).size.width;
-//     storageSms.write("shop_id", shop.id);
-//
-//     return SafeArea(
-//       child: Scaffold(
-//           appBar: AppBar(
-//             leading: IconButton(
-//               onPressed: () {
-//                 Get.back();
-//               },
-//               icon: Icon(Icons.arrow_back),
-//             ),
-//             backgroundColor: Colors.amber,
-//             title: Text('SMS'),
-//             actions: [
-//               Padding(
-//                 padding: const EdgeInsets.only(right: 5),
-//                 child: GestureDetector(
-//                   onTap: () {
-//                     Get.to(SmsHistory(), arguments: {'shop': shop});
-//                   },
-//                   child: Row(
-//                     children: const [
-//                       Icon(Icons.history),
-//                       SizedBox(
-//                         width: 5,
-//                       ),
-//                       Text('Message History')
-//                     ],
-//                   ),
-//                 ),
-//               )
-//             ],
-//           ),
-//           body: SingleChildScrollView(
-//             child: Column(
-//               children: [
-//                 const SizedBox(
-//                   height: 60,
-//                 ),
-//                 Padding(
-//                   padding: EdgeInsets.all(8.0),
-//                   child: TextField(
-//                     onChanged: (number) {
-//                       _smsController.mobileNumbers.value = number;
-//                     },
-//                     keyboardType: TextInputType.number,
-//                     controller: numberController,
-//                     decoration: InputDecoration(
-//                         labelText: 'Mobile Number',
-//                         focusColor: Colors.black,
-//                         border: OutlineInputBorder(
-//                           borderSide: BorderSide(width: 2, color: Colors.black),
-//                         ),
-//                         focusedBorder: OutlineInputBorder(
-//                           borderSide:
-//                               BorderSide(color: Colors.black, width: 2.0),
-//                         ),
-//                         prefixIcon: Icon(
-//                           Icons.call,
-//                           color: Colors.grey,
-//                         )),
-//                   ),
-//                 ),
-//                 Text(
-//                   'Get Number From',
-//                   style: TextStyle(fontSize: 18),
-//                 ),
-//                 SizedBox(
-//                   height: 10,
-//                 ),
-//                 Padding(
-//                   padding: const EdgeInsets.only(left: 10.0, right: 10),
-//                   child: Row(
-//                     children: [
-//                       Expanded(
-//                         child: ElevatedButton(
-//                           onPressed: () {},
-//                           child: Row(
-//                             children: const [
-//                               Icon(
-//                                 Icons.people,
-//                                 color: Colors.black,
-//                               ),
-//                               SizedBox(
-//                                 width: 4,
-//                               ),
-//                               Text(
-//                                 'Customer',
-//                                 style: TextStyle(
-//                                     color: Colors.black, fontSize: 12),
-//                               )
-//                             ],
-//                           ),
-//                           style: ElevatedButton.styleFrom(
-//                             side:
-//                                 const BorderSide(width: 1, color: Colors.black),
-//                             primary: Colors.white,
-//                             fixedSize: Size(140, 20),
-//                             shape: RoundedRectangleBorder(
-//                               borderRadius: BorderRadius.circular(2),
-//                             ),
-//                           ),
-//                         ),
-//                       ),
-//                       SizedBox(
-//                         width: 10,
-//                       ),
-//                       Expanded(
-//                         child: ElevatedButton(
-//                           onPressed: () {},
-//                           child: Row(
-//                             children: const [
-//                               Icon(
-//                                 Icons.people,
-//                                 color: Colors.black,
-//                               ),
-//                               SizedBox(
-//                                 width: 4,
-//                               ),
-//                               Text(
-//                                 'Employee',
-//                                 style: TextStyle(
-//                                     color: Colors.black, fontSize: 12),
-//                               )
-//                             ],
-//                           ),
-//                           style: ElevatedButton.styleFrom(
-//                             side:
-//                                 const BorderSide(width: 1, color: Colors.black),
-//                             primary: Colors.white,
-//                             fixedSize: Size(140, 20),
-//                             shape: RoundedRectangleBorder(
-//                               borderRadius: BorderRadius.circular(2),
-//                             ),
-//                           ),
-//                         ),
-//                       ),
-//                       SizedBox(
-//                         width: 10,
-//                       ),
-//                       Expanded(
-//                         child: ElevatedButton(
-//                           onPressed: () {},
-//                           child: Row(
-//                             children: const [
-//                               Icon(
-//                                 Icons.people,
-//                                 color: Colors.black,
-//                               ),
-//                               SizedBox(
-//                                 width: 4,
-//                               ),
-//                               Text(
-//                                 'Supplier',
-//                                 style: TextStyle(
-//                                     color: Colors.black, fontSize: 12),
-//                               )
-//                             ],
-//                           ),
-//                           style: ElevatedButton.styleFrom(
-//                             side:
-//                                 const BorderSide(width: 1, color: Colors.black),
-//                             primary: Colors.white,
-//                             fixedSize: Size(140, 20),
-//                             shape: RoundedRectangleBorder(
-//                               borderRadius: BorderRadius.circular(2),
-//                             ),
-//                           ),
-//                         ),
-//                       )
-//                     ],
-//                   ),
-//                 ),
-//                 Padding(
-//                   padding: EdgeInsets.only(left: 10, right: 10),
-//                   child: ElevatedButton(
-//                     onPressed: () {},
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.center,
-//                       children: const [
-//                         Icon(
-//                           Icons.contacts,
-//                           color: Colors.black,
-//                         ),
-//                         SizedBox(
-//                           width: 4,
-//                         ),
-//                         Text(
-//                           'Import from contacts',
-//                           style: TextStyle(color: Colors.black, fontSize: 12),
-//                         )
-//                       ],
-//                     ),
-//                     style: ElevatedButton.styleFrom(
-//                       side: const BorderSide(width: 1, color: Colors.black),
-//                       primary: Colors.white,
-//                       fixedSize: Size(width, 20),
-//                       shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadius.circular(2),
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//                 const SizedBox(
-//                   height: 20,
-//                 ),
-//                 Padding(
-//                   padding: EdgeInsets.all(8.0),
-//                   child: Obx(() {
-//                     return TextField(
-//                       controller: messageController,
-//                       onChanged: (text) {
-//                         // setState(() {
-//                         _smsController.textInTheMessageField.value = text;
-//                         // });
-//                         RegExp exp = RegExp("[A-Za-z0-9]");
-//                         if (exp.hasMatch(text.substring(0)) &&
-//                             text.substring(0) != " ") {
-//                           // setState(() {
-//                           _smsController.maxLengthForText.value = 160;
-//                           // });
-//                           if ((text.length / 160) <= 1) {
-//                             // setState(() {
-//                             _smsController.messageCount.value = 1;
-//                             // });
-//                           } else if ((text.length / 160) > 1 &&
-//                               (text.length / 160) < 2) {
-//                             // setState(() {
-//                             _smsController.messageCount.value = 2;
-//                             // });
-//                           } else if ((text.length / 160) > 2 &&
-//                               (text.length / 160) < 3) {
-//                             // setState(() {
-//                             _smsController.messageCount.value = 3;
-//                             // });
-//                           }
-//                         } else {
-//                           // setState(() {
-//                           _smsController.maxLengthForText.value = 70;
-//                           // });
-//                           if ((text.length / 70) <= 1) {
-//                             // setState(() {
-//                             _smsController.messageCount.value = 1;
-//                             // });
-//                           } else if ((text.length / 70) > 1 &&
-//                               (text.length / 70) < 2) {
-//                             // setState(() {
-//                             _smsController.messageCount.value = 2;
-//                             // });
-//                           } else if ((text.length / 70) > 2 &&
-//                               (text.length / 70) < 3) {
-//                             // setState(() {
-//                             _smsController.messageCount.value = 3;
-//                             // });
-//                           }
-//                         }
-//                       },
-//                       // maxLength: maxLengthForText,
-//                       maxLines: 5,
-//                       keyboardType: TextInputType.multiline,
-//                       decoration: InputDecoration(
-//                         helperText:
-//                             '${_smsController.textInTheMessageField.value.length} Characters | ${_smsController.messageCount.value} Messages | (${_smsController.maxLengthForText.value}/1 messages)',
-//                         labelText: 'Message',
-//                         focusColor: Colors.black,
-//                         border: OutlineInputBorder(
-//                           borderSide: BorderSide(width: 2, color: Colors.black),
-//                         ),
-//                         focusedBorder: OutlineInputBorder(
-//                           borderSide:
-//                               BorderSide(color: Colors.black, width: 2.0),
-//                         ),
-//                       ),
-//                     );
-//                   }),
-//                 ),
-//                 const SizedBox(
-//                   height: 20,
-//                 ),
-//                 Padding(
-//                   padding: EdgeInsets.only(left: 10, right: 10),
-//                   child: ElevatedButton(
-//                     onPressed: () {
-//                       _smsController.createSms(
-//                           shopId: '${storageSms.read("shop_id")}',
-//                           number: "\"${_smsController.mobileNumbers.value}\"",
-//                           message:
-//                               "${_smsController.textInTheMessageField.value}",
-//                           smsCount: '${_smsController.messageCount.value}');
-//                       numberController.clear();
-//                       messageController.clear();
-//                       _smsController
-//                               .checkSubcription('${storageSms.read("shop_id")}')
-//                           // .then((value) =>
-//                           //     _smsController.shopData = shopsFromJson(value))
-//                           ;
-//                     },
-//                     child: Row(
-//                       mainAxisAlignment: MainAxisAlignment.center,
-//                       children: const [
-//                         Text(
-//                           'Send Messages',
-//                           style: TextStyle(color: Colors.white, fontSize: 12),
-//                         )
-//                       ],
-//                     ),
-//                     style: ElevatedButton.styleFrom(
-//                       side: const BorderSide(width: 1, color: Colors.black),
-//                       primary: Colors.black,
-//                       fixedSize: Size(width, 20),
-//                       shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadius.circular(2),
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//                 const SizedBox(
-//                   height: 20,
-//                 ),
-//                 Padding(
-//                   padding: EdgeInsets.only(left: 10, right: 10),
-//                   child: ElevatedButton(
-//                     onPressed: () {
-//                       Get.to(
-//                         SMSPackages(),
-//                         // arguments: {'shop': shop}
-//                       );
-//                     },
-//                     child: Column(
-//                       mainAxisAlignment: MainAxisAlignment.center,
-//                       crossAxisAlignment: CrossAxisAlignment.center,
-//                       children: [
-//                         Text(
-//                           'Buy SMS',
-//                           style: TextStyle(color: Colors.blue, fontSize: 12),
-//                         ),
-//                         Text(
-//                           '${shop.smsCount}',
-//                           style: TextStyle(color: Colors.red, fontSize: 12),
-//                         )
-//                       ],
-//                     ),
-//                     style: ElevatedButton.styleFrom(
-//                       side: const BorderSide(width: 1, color: Colors.blue),
-//                       primary: Colors.white,
-//                       fixedSize: Size(110, 50),
-//                       shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadius.circular(10),
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//               ],
-//             ),
-//           )),
-//     );
-//   }
-// }
 
 class SmsCreatePage extends GetResponsiveView {
   final TextEditingController messageController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
   SmsController _smsController = SmsController();
-  // SplashController _splashController =
-  //     SplashController(Get.find(), Get.find(), Get.find());
   Shop shop = Get.arguments['shop'];
   var storageSms = GetStorage('sms');
+  int newSms = 0;
+
+  var storageSmsCount = GetStorage('sms_count');
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
+    _smsController.totalSmsLeft.value = storageSmsCount.read('sms_count') == null ? shop.smsCount : storageSmsCount.read('sms_count');
     storageSms.write("shop_id", shop.id);
-    _smsController.smsCount.value = shop.smsCount;
+
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -434,31 +62,115 @@ class SmsCreatePage extends GetResponsiveView {
           body: SingleChildScrollView(
             child: Column(
               children: [
-                const SizedBox(
+                 SizedBox(
                   height: 60,
+                  child: Obx(()=>
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListView.builder(
+                            itemCount: _smsController.selectedMobileNumber.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index){
+                              return Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        borderRadius:BorderRadius.circular(5)
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(5),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Text(_smsController.selectedMobileNumber[index]),
+                                            IconButton(
+                                                onPressed: (){
+                                                  _smsController.selectedMobileNumber.removeWhere((item) => item == _smsController.selectedMobileNumber[index]);
+                                                },
+                                                icon: Icon(Icons.cancel, color: Colors.red,),
+                                              iconSize: 16,
+                                              padding: EdgeInsets.all(0),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            }
+                        ),
+                      ),
+                  )
                 ),
                 Padding(
                   padding: EdgeInsets.all(8.0),
-                  child: TextField(
-                    onChanged: (number) {
-                      _smsController.mobileNumbers.value = number;
-                    },
-                    keyboardType: TextInputType.number,
-                    controller: numberController,
-                    decoration: InputDecoration(
-                        labelText: 'Mobile Number',
-                        focusColor: Colors.black,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(width: 2, color: Colors.black),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: TextField(
+                            onChanged: (number) {
+                              _smsController.mobileNumbers.value = number;
+                              if(numberController.text.length == 11){
+                                _smsController.visibility.value = true;
+                              }
+                              else if(numberController.text.length > 11 || numberController.text.length < 11){
+                                _smsController.visibility.value = false;
+                              }
+                            },
+                            keyboardType: TextInputType.number,
+                            controller: numberController,
+                            decoration: InputDecoration(
+                                labelText: 'Mobile Number',
+                                focusColor: Colors.black,
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(width: 2, color: Colors.black),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.black, width: 2.0),
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.call,
+                                  color: Colors.grey,
+                                )),
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.black, width: 2.0),
-                        ),
-                        prefixIcon: Icon(
-                          Icons.call,
-                          color: Colors.grey,
-                        )),
+                      ),
+                       Obx(()=>
+                           Visibility(
+                             visible: _smsController.visibility.value,
+                             child: Expanded(
+                               flex: 1,
+                               child: Padding(
+                                 padding: const EdgeInsets.only(left: 8.0),
+                                 child: ElevatedButton(
+                                   onPressed: (){
+                                     if(!numberController.text.isEmpty) {
+                                       _smsController.selectedMobileNumber.add(
+                                           numberController.text);
+                                       numberController.clear();
+                                       print(_smsController.selectedMobileNumber);
+                                     }
+                                   },
+                                   child: Icon(Icons.check, color: Colors.white,),
+                                   style: ElevatedButton.styleFrom(primary: Colors.black),
+                                 ),
+                               ),
+                             ),
+                           )
+                       )
+
+                    ],
                   ),
                 ),
                 Text(
@@ -680,20 +392,21 @@ class SmsCreatePage extends GetResponsiveView {
                 Padding(
                   padding: EdgeInsets.only(left: 10, right: 10),
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async{
+                      // var data = await _smsController.checkSubcription('${storageSms.read("shop_id")}');
+                      // _smsController.totalSmsLeft.value = data['shop']['sms_count'];
+                      // print('abol tabol - ${_smsController.totalSmsLeft.value}');
+                      await smsCount();
+
                       _smsController.createSms(
                           shopId: '${storageSms.read("shop_id")}',
-                          number: "\"${_smsController.mobileNumbers.value}\"",
+                          number: "${'"${_smsController.selectedMobileNumber}"'}",
                           message:
                               "${_smsController.textInTheMessageField.value}",
-                          smsCount: '${_smsController.messageCount.value}');
-                      numberController.clear();
+                          smsCount: '${_smsController.messageCount.value * _smsController.selectedMobileNumber.length}');
+                      // numberController.clear();
                       messageController.clear();
-                      _smsController
-                              .checkSubcription('${storageSms.read("shop_id")}')
-                          // .then((value) =>
-                          //     _smsController.shopData = shopsFromJson(value))
-                          ;
+
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -734,10 +447,13 @@ class SmsCreatePage extends GetResponsiveView {
                           'Buy SMS',
                           style: TextStyle(color: Colors.blue, fontSize: 12),
                         ),
-                        Text(
-                          '${shop.smsCount}',
+                        Obx(()=>
+                            Text(
+                          '${_smsController.totalSmsLeft.value}',
                           style: TextStyle(color: Colors.red, fontSize: 12),
                         )
+                        )
+
                       ],
                     ),
                     style: ElevatedButton.styleFrom(
@@ -754,5 +470,11 @@ class SmsCreatePage extends GetResponsiveView {
             ),
           )),
     );
+  }
+  Future<dynamic> smsCount() async {
+    var data = await _smsController.checkSubcription('${storageSms.read("shop_id")}');
+    // newSms =  data['shop']['sms_count'];
+     print(storageSmsCount.write("sms_count", data['shop']['sms_count']));
+    print('abol tabol - ${data['shop']['sms_count']}');
   }
 }

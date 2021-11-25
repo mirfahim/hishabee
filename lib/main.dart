@@ -38,6 +38,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 Future<void> main() async {
   await GetStorage.init('sms');
+  await GetStorage.init('smsCount');
   WidgetsFlutterBinding.ensureInitialized();
   AppBinding().dependencies();
   var androidInitialize =

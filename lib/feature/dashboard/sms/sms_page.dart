@@ -46,18 +46,20 @@ class _SmsHistoryState extends State<SmsHistory> {
         body: LoadingOverlay(
           isLoading: _isLoading,
           child: _getAllMessage != null
-              ? SingleChildScrollView(
-                  child: ListView.builder(
-                    itemCount: _getAllMessage.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        child:
-                            Text('${_getAllMessage[index].message.toString()}'),
-                      );
-                    },
-                  ),
-                )
+              ? Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: ListView.builder(
+                  itemCount: _getAllMessage.length,
+                  shrinkWrap: true,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      child:
+                          Text('${_getAllMessage[index].message.toString()}'),
+                    );
+                  },
+                ),
+              )
               : Container(),
         ),
       ),

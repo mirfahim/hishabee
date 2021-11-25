@@ -90,7 +90,7 @@ dependencies:
   app_tracking_transparency: ^2.0.2+1
   flutter_native_splash: ^1.2.4
   in_app_purchase: ^1.0.9
-  #shared_preferences: ^0.5.12+4
+  shared_preferences: ^2.0.9
   http: ^0.13.4
   flutter_simple_calculator: ^2.0.0+1
   pull_to_refresh: ^2.0.0
