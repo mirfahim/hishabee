@@ -159,6 +159,7 @@ class SmsCreatePage extends GetResponsiveView {
                                        _smsController.selectedMobileNumber.add(
                                            numberController.text);
                                        numberController.clear();
+                                       _smsController.visibility.value = false;
                                        print(_smsController.selectedMobileNumber);
                                      }
                                    },
@@ -400,10 +401,10 @@ class SmsCreatePage extends GetResponsiveView {
 
                       _smsController.createSms(
                           shopId: '${storageSms.read("shop_id")}',
-                          number: "${'"${_smsController.selectedMobileNumber}"'}",
+                          number: "\"${_smsController.mobileNumbers}\"",
                           message:
                               "${_smsController.textInTheMessageField.value}",
-                          smsCount: '${_smsController.messageCount.value * _smsController.selectedMobileNumber.length}');
+                          smsCount: '${_smsController.messageCount.value}');
                       // numberController.clear();
                       messageController.clear();
 

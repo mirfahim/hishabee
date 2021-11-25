@@ -41,7 +41,7 @@ class SmsController extends GetxController {
   Future<dynamic> createSms(
       {String shopId, String number, String message, String smsCount}) async {
     String url =
-        "/sms/add?shop_id=$shopId&number=$number&message=$message&sms_count=$smsCount";
+        "/sms/add?shop_id=$shopId&number=[$number]&message=$message&sms_count=$smsCount";
     return _apiService.makeApiRequiest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
@@ -57,10 +57,4 @@ class SmsController extends GetxController {
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
-
-  @override
-  void onInit() {
-
-    super.onInit();
-  }
 }
