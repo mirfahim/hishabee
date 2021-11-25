@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/utility/utils.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DigitalPayment extends StatelessWidget {
   @override
@@ -14,10 +18,10 @@ class DigitalPayment extends StatelessWidget {
               Container(
                 width: double.maxFinite,
                 child: ElevatedButton(
-                  onPressed: () => Get.to(DigitalPayment(),
-                      arguments:
-                          "https://dev.hishabee.business/pay/619e07347a762105"), //for the share option
+                  onPressed: () =>
+                      Share.share(Get.arguments), //for the share option
                   style: ButtonStyle(
+                    elevation: MaterialStateProperty.all<double>(5.0),
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.black87),
                   ),
@@ -26,7 +30,7 @@ class DigitalPayment extends StatelessWidget {
                     child: Text(
                       "SHARE  LINK",
                       style: TextStyle(
-                          fontSize: 15.0,
+                          fontSize: 14.0,
                           fontWeight: FontWeight.w600,
                           color: Colors.white),
                     ),
@@ -39,10 +43,9 @@ class DigitalPayment extends StatelessWidget {
               Container(
                 width: double.maxFinite,
                 child: ElevatedButton(
-                  onPressed: () => Get.to(DigitalPayment(),
-                      arguments:
-                          "https://dev.hishabee.business/pay/619e07347a762105"), //for the share option
+                  onPressed: () => Get.back(), //for the share option
                   style: ButtonStyle(
+                    elevation: MaterialStateProperty.all<double>(5.0),
                     backgroundColor:
                         MaterialStateProperty.all<Color>(Colors.black87),
                   ),
@@ -51,7 +54,7 @@ class DigitalPayment extends StatelessWidget {
                     child: Text(
                       "DONE",
                       style: TextStyle(
-                          fontSize: 15.0,
+                          fontSize: 14.0,
                           fontWeight: FontWeight.w600,
                           color: Colors.white),
                     ),
@@ -117,7 +120,7 @@ class DigitalPayment extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     OutlineButton(
-                        onPressed: () {},
+                        onPressed: () => _launchURL(Get.arguments),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -142,11 +145,14 @@ class DigitalPayment extends StatelessWidget {
                         ),
                         highlightedBorderColor: Colors.orange,
                         color: Colors.grey.shade400,
-                        borderSide: new BorderSide(color: Colors.grey.shade400),
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(5.0))),
+                        borderSide: BorderSide(color: Colors.grey.shade400),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0))),
                     OutlineButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Clipboard.setData(ClipboardData(text: Get.arguments));
+                          Utils.showToast("Copied");
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -171,9 +177,9 @@ class DigitalPayment extends StatelessWidget {
                         ),
                         highlightedBorderColor: Colors.orange,
                         color: Colors.grey.shade400,
-                        borderSide: new BorderSide(color: Colors.grey.shade400),
-                        shape: new RoundedRectangleBorder(
-                            borderRadius: new BorderRadius.circular(5.0))),
+                        borderSide: BorderSide(color: Colors.grey.shade400),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0))),
                   ],
                 ),
               )
@@ -182,5 +188,9 @@ class DigitalPayment extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _launchURL(String _url) async {
+    if (!await launch(_url)) throw 'Could not launch $_url';
   }
 }
