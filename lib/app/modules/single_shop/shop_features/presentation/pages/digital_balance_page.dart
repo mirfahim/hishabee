@@ -44,7 +44,7 @@ class DigitalBalancePage extends GetView<DigitalBalancePageController> {
                                 'digital_balance_colon'.tr, shop.name),
                             Padding(
                               padding: const EdgeInsets.only(
-                                  top: 100.0, right: 25, left: 25, bottom: 15),
+                                  top: 100.0, right: 15, left: 15, bottom: 15),
                               child: Container(
                                 height: 100,
                                 child: Container(
@@ -88,7 +88,7 @@ class DigitalBalancePage extends GetView<DigitalBalancePageController> {
                                               "tk".tr,
                                               style: TextStyle(
                                                 fontFamily: 'Rubik',
-                                                fontSize: 20,
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.w500,
                                                 color: DEFAULT_BLUE,
                                               ),
@@ -98,7 +98,7 @@ class DigitalBalancePage extends GetView<DigitalBalancePageController> {
                                               style: TextStyle(
                                                 fontFamily:
                                                     'Rubik-VariableFont_wght',
-                                                fontSize: 20,
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.bold,
                                                 color: DEFAULT_BLUE,
                                               ),
@@ -107,7 +107,7 @@ class DigitalBalancePage extends GetView<DigitalBalancePageController> {
                                               '/=',
                                               style: TextStyle(
                                                 fontFamily: 'Rubik',
-                                                fontSize: 22,
+                                                fontSize: 18,
                                                 fontWeight: FontWeight.w500,
                                                 color: DEFAULT_BLUE,
                                               ),
@@ -123,8 +123,7 @@ class DigitalBalancePage extends GetView<DigitalBalancePageController> {
                           ],
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(
-                              right: 15, left: 15, bottom: 10),
+                          padding: const EdgeInsets.only(bottom: 10),
                           child: Container(
                             height: 140,
                             width: size.width,
@@ -138,30 +137,134 @@ class DigitalBalancePage extends GetView<DigitalBalancePageController> {
                                   children: [
                                     Card(
                                       elevation: 6,
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              "digital_income".tr,
-                                              style: TextStyle(
-                                                fontFamily: 'Rubik',
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.normal,
-                                                color: DEFAULT_BLACK,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Column(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                "digital_income".tr,
+                                                style: TextStyle(
+                                                  fontFamily: 'Rubik',
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.normal,
+                                                  color: DEFAULT_BLACK,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          Obx(() => Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      "${controller.walletResponse.value.wallet.liquidBalance} ",
+                                            Obx(() => Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        "${controller.walletResponse.value.wallet.liquidBalance} ",
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                              'Rubik-VariableFont_wght',
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: DEFAULT_BLUE,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        "tk".tr,
+                                                        style: TextStyle(
+                                                          fontFamily: 'Rubik',
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          color: DEFAULT_BLUE,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                )),
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10.0,
+                                                  right: 10,
+                                                  bottom: 10),
+                                              child: ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                          primary: Colors.red),
+                                                  onPressed: () {
+                                                    if (controller.cred.value
+                                                            .user.nidVerified ==
+                                                        0) {
+                                                      CustomDialog
+                                                          .showNidVerigyDialog();
+                                                    } else {
+                                                      Get.toNamed(
+                                                        SettingsRoutes
+                                                            .WITHDRAW_REQUEST,
+                                                        arguments: {
+                                                          "shop": shop
+                                                        },
+                                                      );
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    height: 30,
+                                                    width: size.width * 0.28,
+                                                    child: Center(
+                                                      child: Text(
+                                                        'withdraw'.tr,
+                                                        style: TextStyle(
+                                                          fontFamily: 'Rubik',
+                                                          fontSize: 11,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Card(
+                                      elevation: 6,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                "hishabee_credit".tr,
+                                                style: TextStyle(
+                                                  fontFamily: 'Rubik',
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.normal,
+                                                  color: DEFAULT_BLACK,
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Obx(
+                                                    () => Text(
+                                                      "${controller.walletResponse.value.wallet.hishabeeCredit} ",
                                                       style: TextStyle(
                                                         fontFamily:
                                                             'Rubik-VariableFont_wght',
@@ -171,147 +274,64 @@ class DigitalBalancePage extends GetView<DigitalBalancePageController> {
                                                         color: DEFAULT_BLUE,
                                                       ),
                                                     ),
-                                                    Text(
-                                                      "tk".tr,
-                                                      style: TextStyle(
-                                                        fontFamily: 'Rubik',
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: DEFAULT_BLUE,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              )),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 10.0, right: 10),
-                                            child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                    primary: Colors.red),
-                                                onPressed: () {
-                                                  if (controller.cred.value.user
-                                                          .nidVerified ==
-                                                      0) {
-                                                    CustomDialog
-                                                        .showNidVerigyDialog();
-                                                  } else {
-                                                    Get.toNamed(
-                                                      SettingsRoutes
-                                                          .WITHDRAW_REQUEST,
-                                                      arguments: {"shop": shop},
-                                                    );
-                                                  }
-                                                },
-                                                child: Container(
-                                                  height: 35,
-                                                  width: size.width * 0.28,
-                                                  child: Center(
-                                                    child: Text(
-                                                      'withdraw'.tr,
-                                                      style: TextStyle(
-                                                        fontFamily: 'Rubik',
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
                                                   ),
-                                                )),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Card(
-                                      elevation: 6,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text(
-                                              "hishabee_credit".tr,
-                                              style: TextStyle(
-                                                fontFamily: 'Rubik',
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.normal,
-                                                color: DEFAULT_BLACK,
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Obx(
-                                                  () => Text(
-                                                    "${controller.walletResponse.value.wallet.hishabeeCredit} ",
+                                                  Text(
+                                                    "tk".tr,
                                                     style: TextStyle(
-                                                      fontFamily:
-                                                          'Rubik-VariableFont_wght',
-                                                      fontSize: 16,
+                                                      fontFamily: 'Rubik',
+                                                      fontSize: 14,
                                                       fontWeight:
-                                                          FontWeight.bold,
+                                                          FontWeight.w500,
                                                       color: DEFAULT_BLUE,
                                                     ),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "tk".tr,
-                                                  style: TextStyle(
-                                                    fontFamily: 'Rubik',
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: DEFAULT_BLUE,
-                                                  ),
-                                                )
-                                              ],
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 10.0, right: 10),
-                                            child: ElevatedButton(
-                                                style: ElevatedButton.styleFrom(
-                                                    primary: Colors.green),
-                                                onPressed: () {
-                                                  if (controller.cred.value.user
-                                                          .nidVerified ==
-                                                      0) {
-                                                    CustomDialog
-                                                        .showNidVerigyDialog();
-                                                  } else {
-                                                    Get.to(
-                                                      RechargePage(),
-                                                      arguments: {"shop": shop},
-                                                    );
-                                                  }
-                                                },
-                                                child: Container(
-                                                  height: 35,
-                                                  width: size.width * 0.28,
-                                                  child: Center(
-                                                    child: Text(
-                                                      'recharge'.tr,
-                                                      style: TextStyle(
-                                                        fontFamily: 'Rubik',
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        color: Colors.white,
+                                            Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10.0,
+                                                  right: 10,
+                                                  bottom: 10),
+                                              child: ElevatedButton(
+                                                  style:
+                                                      ElevatedButton.styleFrom(
+                                                          primary:
+                                                              Colors.green),
+                                                  onPressed: () {
+                                                    if (controller.cred.value
+                                                            .user.nidVerified ==
+                                                        0) {
+                                                      CustomDialog
+                                                          .showNidVerigyDialog();
+                                                    } else {
+                                                      Get.to(
+                                                        RechargePage(),
+                                                        arguments: {
+                                                          "shop": shop
+                                                        },
+                                                      );
+                                                    }
+                                                  },
+                                                  child: Container(
+                                                    height: 30,
+                                                    width: size.width * 0.28,
+                                                    child: Center(
+                                                      child: Text(
+                                                        'recharge'.tr,
+                                                        style: TextStyle(
+                                                          fontFamily: 'Rubik',
+                                                          fontSize: 11,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          color: Colors.white,
+                                                        ),
                                                       ),
                                                     ),
-                                                  ),
-                                                )),
-                                          ),
-                                        ],
+                                                  )),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],

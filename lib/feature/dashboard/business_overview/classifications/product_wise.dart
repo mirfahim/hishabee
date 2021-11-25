@@ -57,7 +57,7 @@ class _ProductWiseState extends State<ProductWise> {
                             size: 25,
                             color: Colors.black,
                           ),
-                          onPressed: () {},
+                          onPressed: () => Get.back(),
                         ),
                       ),
                       const Padding(
