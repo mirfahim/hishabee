@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
+import 'package:hishabee_business_manager_fl/controllers/digital_payment/dp_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/digital_payment.dart';
 import 'package:hishabee_business_manager_fl/models/business_overview/product_report.dart';
+import 'package:hishabee_business_manager_fl/models/digital_payment/new_link.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class Newlink extends StatefulWidget {
@@ -11,16 +13,7 @@ class Newlink extends StatefulWidget {
 }
 
 class _NewlinkState extends State<Newlink> {
-  List<ProductReportModel> _list = <ProductReportModel>[];
-
-  BoController controller = Get.find();
-
-  @override
-  void initState() {
-    getData();
-
-    super.initState();
-  }
+  DpController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +24,15 @@ class _NewlinkState extends State<Newlink> {
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(15.0),
           child: ElevatedButton(
-            onPressed: () => Get.to(DigitalPayment(),
-                arguments:
-                    "https://dev.hishabee.business/pay/619e07347a762105"), //for the share option
+            onPressed: () {
+              controller
+                  .generatePaymentLink(amount: "", shopId: "")
+                  .then((value) {
+                var resonseObject = newLinkModelFromJson(value);
+                Get.to(DigitalPayment(),
+                    arguments: resonseObject.url.toString());
+              });
+            }, //for the share option
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(Colors.black),
             ),
@@ -134,21 +133,5 @@ class _NewlinkState extends State<Newlink> {
         ),
       ),
     );
-  }
-
-  void getData() {
-    controller
-        .fetchProductWiseReport(shopId: "", statDate: "", endDate: "")
-        .then((value) {
-      if (value != null) {
-        setState(() {
-          _list = productReportModelFromJson(value);
-          //    _foundData = _list;
-          // checkingDone = true;
-        });
-      }
-
-      //  isLoading = false;
-    });
   }
 }

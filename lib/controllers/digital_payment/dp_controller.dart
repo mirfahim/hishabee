@@ -22,7 +22,7 @@ class DpController extends GetxController {
       {String shopId,
       String amount}) async {
     String url =
-        "/digital_payment/custom?shop_id=105&amount=100"; //todo it should be dynamic later ....
+        "/digital_payment/custom?shop_id=15&amount=50"; //todo it should be dynamic later ....
     return _apiService.makeApiRequiest(
         method: apiMethods.get,
         url: url,
