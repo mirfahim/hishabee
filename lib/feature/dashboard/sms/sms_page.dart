@@ -47,15 +47,25 @@ class _SmsHistoryState extends State<SmsHistory> {
           isLoading: _isLoading,
           child: _getAllMessage != null
               ? Padding(
-                padding: EdgeInsets.only(left: 10, right: 10),
+                padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
                 child: ListView.builder(
                   itemCount: _getAllMessage.length,
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemBuilder: (context, index) {
-                    return Container(
-                      child:
-                          Text('${_getAllMessage[index].message.toString()}'),
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(color: Colors.grey),
+                        ),
+                        child:
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text('${_getAllMessage[index].message.toString()}'),
+                            ),
+                      ),
                     );
                   },
                 ),

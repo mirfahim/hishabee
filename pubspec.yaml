@@ -91,11 +91,12 @@ dependencies:
   flutter_native_splash: ^1.2.4
   in_app_purchase: ^1.0.9
   shared_preferences: ^2.0.9
+  contacts_service: ^0.6.3
   http: ^0.13.4
   flutter_simple_calculator: ^2.0.0+1
   pull_to_refresh: ^2.0.0
   loading_overlay: ^0.3.0
-
+  permission_handler: ^8.3.0
 
 dependency_overrides:
   intl: ^0.17.0

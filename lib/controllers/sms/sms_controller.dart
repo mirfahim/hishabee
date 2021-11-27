@@ -1,3 +1,4 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/data/repositories/auth_repository.dart';
@@ -20,7 +21,7 @@ class SmsController extends GetxController {
   final selectedMobileNumber = [].obs;
   ApiService _apiService = ApiService();
   var storageSmsCount = GetStorage('sms_count');
-
+  List<Contact> contacts = [];
 
   Future<dynamic> fetchAllSms(
       {String shopId, String statDate, String endDate}) async {
@@ -46,15 +47,20 @@ class SmsController extends GetxController {
         method: apiMethods.post, url: url, body: null, headers: null);
   }
 
-  // void minuesMsg(){
-  //   changedSms.value = changedSms.value - messageCount.value;
-  //   print(changedSms.value );
-  // }
   Future<dynamic> checkSubcription(String shopId) async {
     String url = '/subscription/verify?shop_id=$shopId';
-
     return _apiService.makeApiRequiest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
+  getAllContacts() async{
+    List<Contact> _contacts = await ContactsService.getContacts();
+    contacts = _contacts.toList();
+  }
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    // super.onInit();
+  }
 }

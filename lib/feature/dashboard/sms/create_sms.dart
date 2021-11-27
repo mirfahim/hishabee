@@ -6,6 +6,7 @@ import 'package:hishabee_business_manager_fl/app/modules/home/presentation/manag
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/data_sources/shop_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/sms/sms_dialog_box.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/sms_packages.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/sms_page.dart';
 import 'package:hishabee_business_manager_fl/models/sms/sms_package_model.dart';
@@ -18,8 +19,6 @@ class SmsCreatePage extends GetResponsiveView {
   SmsController _smsController = SmsController();
   Shop shop = Get.arguments['shop'];
   var storageSms = GetStorage('sms');
-  int newSms = 0;
-
   var storageSmsCount = GetStorage('sms_count');
 
   @override
@@ -287,7 +286,11 @@ class SmsCreatePage extends GetResponsiveView {
                 Padding(
                   padding: EdgeInsets.only(left: 10, right: 10),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // _smsController.getAllContacts();
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=> DialogHelper.exit(context)));
+
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
@@ -394,11 +397,7 @@ class SmsCreatePage extends GetResponsiveView {
                   padding: EdgeInsets.only(left: 10, right: 10),
                   child: ElevatedButton(
                     onPressed: () async{
-                      // var data = await _smsController.checkSubcription('${storageSms.read("shop_id")}');
-                      // _smsController.totalSmsLeft.value = data['shop']['sms_count'];
-                      // print('abol tabol - ${_smsController.totalSmsLeft.value}');
-                      await smsCount();
-
+                      FocusScope.of(context).requestFocus(new FocusNode());
                       _smsController.createSms(
                           shopId: '${storageSms.read("shop_id")}',
                           number: "\"${_smsController.mobileNumbers}\"",
@@ -406,8 +405,11 @@ class SmsCreatePage extends GetResponsiveView {
                               "${_smsController.textInTheMessageField.value}",
                           smsCount: '${_smsController.messageCount.value}');
                       // numberController.clear();
+                      await smsCount();
+                      await smsCount();
                       messageController.clear();
-
+                      _smsController.textInTheMessageField.value = '';
+                      _smsController.messageCount.value = 0;
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -474,8 +476,8 @@ class SmsCreatePage extends GetResponsiveView {
   }
   Future<dynamic> smsCount() async {
     var data = await _smsController.checkSubcription('${storageSms.read("shop_id")}');
-    // newSms =  data['shop']['sms_count'];
-     print(storageSmsCount.write("sms_count", data['shop']['sms_count']));
-    print('abol tabol - ${data['shop']['sms_count']}');
+    _smsController.totalSmsLeft.value = await data['shop']['sms_count'];
+     storageSmsCount.write("sms_count", data['shop']['sms_count']);
+    print('SMS left - ${_smsController.totalSmsLeft.value}');
   }
 }
