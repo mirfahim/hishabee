@@ -1,21 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
-
-class DialogHelper {
-  static exit(context) => showGeneralDialog(
-      context: context,
-      barrierDismissible: false,
-      transitionDuration: Duration(milliseconds: 300),
-      pageBuilder: (BuildContext context, Animation animation,
-          Animation secondAnimation) =>
-          SafeArea(child: SmsCustomDialogContacts()));
-}
-
-
+import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
 
 class SmsCustomDialogContacts extends StatelessWidget {
   @override
+  SmsController _smsController = SmsController();
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
@@ -77,63 +66,18 @@ class SmsCustomDialogContacts extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey),
-                  child: ListTile(
-                    title: Text('Md. Samin Yeaser'),
-                    subtitle: Text('01830736470'),
-                    leading: Container(
-                      height: 55.0,
-                      width: 55.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child:
-                      ClipOval(child: Image.asset('images/sharukh2.jpeg')),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey),
-                  child: ListTile(
-                    title: Text('Md. Samin Yeaser'),
-                    subtitle: Text('01830736470'),
-                    leading: Container(
-                      height: 55.0,
-                      width: 55.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child:
-                      ClipOval(child: Image.asset('images/sharukh2.jpeg')),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey),
-                  child: ListTile(
-                    title: Text('Md. Samin Yeaser'),
-                    subtitle: Text('01830736470'),
-                    leading: Container(
-                      height: 55.0,
-                      width: 55.0,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child:
-                      ClipOval(child: Image.asset('images/sharukh2.jpeg')),
+                ListView.builder(
+                  itemCount: _smsController.contacts.length,
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, index) => Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.grey),
+                    child: ListTile(
+                      title:
+                          Text('${_smsController.contacts[index].displayName}'),
+                      subtitle: Text(
+                          '${_smsController.contacts[index].phones.single}'),
                     ),
                   ),
                 ),
@@ -145,7 +89,9 @@ class SmsCustomDialogContacts extends StatelessWidget {
                       children: [
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.pop(context);
+                            Future.delayed(Duration.zero, () async {
+                              Navigator.pop(context);
+                            });
                           },
                           style: ElevatedButton.styleFrom(primary: Colors.red),
                           child: Text(

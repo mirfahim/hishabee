@@ -4,7 +4,12 @@
 
 import 'dart:convert';
 
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/employee_model.dart';
+
 import 'contact_model.dart';
+
+List<Supplier> getSuplierContactFromModel(dynamic str) =>
+    List<Supplier>.from(str.map((x) => Supplier.fromJson(x)));
 
 List<Supplier> supplierFromJson(String str) =>
     List<Supplier>.from(json.decode(str).map((x) => Supplier.fromJson(x)));

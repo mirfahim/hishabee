@@ -6,6 +6,9 @@ import 'dart:convert';
 
 import 'contact_model.dart';
 
+List<Customer> getCustomerContactFromModel(dynamic str) =>
+    List<Customer>.from(str.map((x) => Customer.fromJson(x)));
+
 List<Customer> customerFromJson(String str) =>
     List<Customer>.from(json.decode(str).map((x) => Customer.fromJson(x)));
 List<Customer> customerFromRawJson(dynamic json) => List<Customer>.from(
