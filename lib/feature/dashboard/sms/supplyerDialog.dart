@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/customer_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/supplier_model.dart';
@@ -15,6 +16,7 @@ class SmsCustomSupplyerDialogContacts extends StatefulWidget {
 class _SmsCustomSupplyerDialogContactsState
     extends State<SmsCustomSupplyerDialogContacts> {
   List<Supplier> supplyerContact = [];
+  List<Supplier> _foundData = [];
   var storageSms = GetStorage('sms');
   @override
   void initState() {
@@ -23,12 +25,13 @@ class _SmsCustomSupplyerDialogContactsState
         .then((value) {
       setState(() {
         supplyerContact = getSuplierContactFromModel(value);
+        _foundData = getSuplierContactFromModel(value);
       });
     });
     super.initState();
   }
 
-  SmsController _smsController = SmsController();
+  SmsController _smsController = Get.find();
 
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -44,7 +47,7 @@ class _SmsCustomSupplyerDialogContactsState
   _buildChild(BuildContext context, double height, double width) => Padding(
         padding: EdgeInsets.all(10),
         child: Container(
-          height: height,
+          height: 500,
           width: width,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -56,6 +59,7 @@ class _SmsCustomSupplyerDialogContactsState
                 height: 10,
               ),
               TextFormField(
+                onChanged: (value) => _runFilter(value),
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.search),
                   contentPadding: EdgeInsets.symmetric(horizontal: 8),
@@ -66,18 +70,17 @@ class _SmsCustomSupplyerDialogContactsState
                 ),
               ),
               Container(
-                height: height - 300,
+                height: 300,
                 child: ListView.builder(
-                  itemCount: supplyerContact.length,
+                  itemCount: _foundData.length,
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, index) => Container(
-                      child: Padding(
+                  itemBuilder: (BuildContext context, index) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: GestureDetector(
                       onTap: () {
                         _smsController.selectedMobileNumber
-                            .add(supplyerContact[index].mobile);
+                            .add(_foundData[index].mobile);
                         print(_smsController.selectedMobileNumber);
                       },
                       child: Column(
@@ -85,7 +88,7 @@ class _SmsCustomSupplyerDialogContactsState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                              '${supplyerContact[index].name}(${supplyerContact[index].mobile})'),
+                              '${_foundData[index].name}(${_foundData[index].mobile})'),
                           Divider(
                             thickness: 2,
                             color: Colors.grey.withOpacity(.35),
@@ -93,7 +96,7 @@ class _SmsCustomSupplyerDialogContactsState
                         ],
                       ),
                     ),
-                  )),
+                  ),
                 ),
               ),
               Expanded(
@@ -125,4 +128,20 @@ class _SmsCustomSupplyerDialogContactsState
           ),
         ),
       );
+  void _runFilter(String enteredKeyword) {
+    List<Supplier> results = [];
+    if (enteredKeyword.isEmpty) {
+      results = supplyerContact;
+    } else {
+      results = supplyerContact
+          .where((item) =>
+              item.name.toLowerCase().contains(enteredKeyword.toLowerCase()))
+          .toList();
+    }
+
+    // Refresh the UI
+    setState(() {
+      _foundData = results;
+    });
+  }
 }

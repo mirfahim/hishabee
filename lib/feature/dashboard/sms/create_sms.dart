@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/home/presentation/manager/splash_controller.dart';
@@ -93,14 +94,12 @@ class SmsCreatePage extends GetResponsiveView {
                                       decoration: BoxDecoration(
                                           color: Colors.grey,
                                           borderRadius:
-                                              BorderRadius.circular(5)),
+                                              BorderRadius.circular(30)),
                                       child: Padding(
                                         padding: EdgeInsets.all(5),
                                         child: Row(
                                           mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
+                                              MainAxisAlignment.start,
                                           children: [
                                             Text(_smsController
                                                 .selectedMobileNumber[index]),
@@ -150,23 +149,30 @@ class SmsCreatePage extends GetResponsiveView {
                                   _smsController.visibility.value = false;
                                 }
                               },
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                  RegExp('[0-9]'),
+                                ),
+                              ],
                               keyboardType: TextInputType.number,
                               controller: numberController,
                               decoration: InputDecoration(
-                                  labelText: 'Mobile Number',
-                                  focusColor: Colors.black,
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        width: 2, color: Colors.black),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.black, width: 2.0),
-                                  ),
-                                  prefixIcon: Icon(
-                                    Icons.call,
-                                    color: Colors.grey,
-                                  )),
+                                labelText: 'Mobile Number',
+                                labelStyle: TextStyle(color: Colors.black),
+                                focusColor: Colors.black,
+                                border: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(width: 2, color: Colors.black),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                      color: Colors.black, width: 2.0),
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.call,
+                                  color: Colors.grey,
+                                ),
+                              ),
                             ),
                           ),
                         ),
@@ -430,6 +436,7 @@ class SmsCreatePage extends GetResponsiveView {
                           helperText:
                               '${_smsController.textInTheMessageField.value.length} Characters | ${_smsController.messageCount.value} Messages | (${_smsController.maxLengthForText.value}/1 messages)',
                           labelText: 'Message',
+                          labelStyle: TextStyle(color: Colors.black),
                           focusColor: Colors.black,
                           border: OutlineInputBorder(
                             borderSide:

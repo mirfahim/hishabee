@@ -15,6 +15,7 @@ class SmsCustomCustomerDialogContacts extends StatefulWidget {
 class _SmsCustomCustomerDialogContactsState
     extends State<SmsCustomCustomerDialogContacts> {
   List<Customer> customerContact = [];
+  List<Customer> _foundData = [];
   var storageSms = GetStorage('sms');
   @override
   void initState() {
@@ -23,6 +24,7 @@ class _SmsCustomCustomerDialogContactsState
         .then((value) {
       setState(() {
         customerContact = getCustomerContactFromModel(value);
+        _foundData = getCustomerContactFromModel(value);
       });
     });
     super.initState();
@@ -44,8 +46,7 @@ class _SmsCustomCustomerDialogContactsState
   _buildChild(BuildContext context, double height, double width) => Padding(
         padding: EdgeInsets.all(10),
         child: Container(
-          height: height,
-          width: width,
+          height: 500,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -56,6 +57,7 @@ class _SmsCustomCustomerDialogContactsState
                 height: 10,
               ),
               TextFormField(
+                onChanged: (value) => _runFilter(value),
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.search),
                   contentPadding: EdgeInsets.symmetric(horizontal: 8),
@@ -66,18 +68,17 @@ class _SmsCustomCustomerDialogContactsState
                 ),
               ),
               Container(
-                height: height - 300,
+                height: 300,
                 child: ListView.builder(
-                  itemCount: customerContact.length,
+                  itemCount: _foundData.length,
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, index) => Container(
-                      child: Padding(
+                  itemBuilder: (BuildContext context, index) => Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: GestureDetector(
                       onTap: () {
                         _smsController.selectedMobileNumber
-                            .add('\"${customerContact[index].mobile}\"');
+                            .add('\"${_foundData[index].mobile}\"');
                         print('customer number');
                         print(_smsController.selectedMobileNumber);
                       },
@@ -86,7 +87,7 @@ class _SmsCustomCustomerDialogContactsState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                              '${customerContact[index].name}(${customerContact[index].mobile})'),
+                              '${_foundData[index].name}(${_foundData[index].mobile})'),
                           Divider(
                             thickness: 2,
                             color: Colors.grey.withOpacity(.35),
@@ -94,7 +95,7 @@ class _SmsCustomCustomerDialogContactsState
                         ],
                       ),
                     ),
-                  )),
+                  ),
                 ),
               ),
               Expanded(
@@ -128,4 +129,21 @@ class _SmsCustomCustomerDialogContactsState
           ),
         ),
       );
+
+  void _runFilter(String enteredKeyword) {
+    List<Customer> results = [];
+    if (enteredKeyword.isEmpty) {
+      results = customerContact;
+    } else {
+      results = customerContact
+          .where((item) =>
+              item.name.toLowerCase().contains(enteredKeyword.toLowerCase()))
+          .toList();
+    }
+
+    // Refresh the UI
+    setState(() {
+      _foundData = results;
+    });
+  }
 }

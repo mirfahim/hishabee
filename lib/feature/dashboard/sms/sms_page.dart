@@ -94,7 +94,7 @@ class _SmsHistoryState extends State<SmsHistory> {
                                 subtitle: Padding(
                                   padding: const EdgeInsets.only(top: 4.0),
                                   child: Text(
-                                    '${convertDateTimeDisplay('${_getAllMessage[index].createdAt}')} | ${_getAllMessage[index].messageCount}',
+                                    '${convertDateTimeDisplay('${_getAllMessage[index].createdAt}')} | ${_getAllMessage[index].messageCount} Message',
                                   ),
                                 ),
                                 trailing: IconButton(
