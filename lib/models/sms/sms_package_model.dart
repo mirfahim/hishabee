@@ -1,18 +1,20 @@
 // To parse this JSON data, do
 //
-//     final getAllMessagePackageModel = getAllMessagePackageModelFromJson(jsonString);
+//     final smsPackages = smsPackagesFromJson(jsonString);
 
 import 'dart:convert';
 
-List<GetAllMessagePackageModel> getAllMessagePackageModelFromJson(String str) =>
-    List<GetAllMessagePackageModel>.from(
-        json.decode(str).map((x) => GetAllMessagePackageModel.fromJson(x)));
+List<SmsPackages> getSmsPackagesFromModel(dynamic str) =>
+    List<SmsPackages>.from(str.map((x) => SmsPackages.fromJson(x)));
 
-String getAllMessagePackageModelToJson(List<GetAllMessagePackageModel> data) =>
+List<SmsPackages> smsPackagesFromJson(String str) => List<SmsPackages>.from(
+    json.decode(str).map((x) => SmsPackages.fromJson(x)));
+
+String smsPackagesToJson(List<SmsPackages> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class GetAllMessagePackageModel {
-  GetAllMessagePackageModel({
+class SmsPackages {
+  SmsPackages({
     this.id,
     this.description,
     this.smsAmount,
@@ -28,8 +30,7 @@ class GetAllMessagePackageModel {
   dynamic createdAt;
   dynamic updatedAt;
 
-  factory GetAllMessagePackageModel.fromJson(Map<String, dynamic> json) =>
-      GetAllMessagePackageModel(
+  factory SmsPackages.fromJson(Map<String, dynamic> json) => SmsPackages(
         id: json["id"],
         description: json["description"],
         smsAmount: json["sms_amount"],

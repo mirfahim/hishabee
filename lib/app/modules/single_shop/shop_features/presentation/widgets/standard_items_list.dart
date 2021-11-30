@@ -7,9 +7,8 @@ import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/m
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/_bindings/product_list_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/pages/product_list_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/_bindings/sms_bindings.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/presentation/pages/sms_page.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/business_overview/business_overview.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/sms/create_sms.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/digital_payment/digital_payment.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/digital_payment.dart';
 
@@ -77,11 +76,11 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
                 InkWell(
                   onTap: () {
                     Get.to(
-                      () => SmsPage(),
+                      () => SmsCreatePage(),
                       arguments: {
                         "shop": shop,
                       },
-                      binding: SMSBindings(),
+                      // binding: SMSBindings(),
                     );
                   },
                   child: Container(
@@ -117,11 +116,49 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
                     ),
                   ),
                 )
+                // InkWell(
+                //   onTap: () {
+                //     Get.to(() => SellPageShowcase(),
+                //         arguments: {
+                //           "shop": shop,
+                //         },
+                //         binding: SellBinding());
+                //   },
+                //   child: Container(
+                //     height: itemHeight,
+                //     width: itemWidth,
+                //     decoration: SHOP_ITEM_DECORATION,
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       crossAxisAlignment: CrossAxisAlignment.center,
+                //       children: [
+                //         Image.asset(
+                //           'images/shop_features/sell.png',
+                //           height:
+                //               screen.responsiveValue(mobile: 40, tablet: 60),
+                //         ),
+                //         SizedBox(
+                //           height: 10,
+                //         ),
+                //         Text(
+                //           "sell_pos".tr,
+                //           style: TextStyle(
+                //             fontFamily: 'Rubik',
+                //             fontSize: 16,
+                //             fontWeight: FontWeight.normal,
+                //             color: DEFAULT_BLACK,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // )
               ],
             ),
             SizedBox(
               height: itemHeight * 0.15,
             ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

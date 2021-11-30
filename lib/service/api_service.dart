@@ -21,6 +21,9 @@ class ApiService {
       if (method == apiMethods.post) {
         response = await http.post(apiURL,
             body: convert.jsonEncode(body), headers: header);
+        print("Response coed: ${response.statusCode}");
+        print(apiURL);
+        // print(response.body);
       }
       if (method == apiMethods.get) {
         response = await http.get(apiURL, headers: header);

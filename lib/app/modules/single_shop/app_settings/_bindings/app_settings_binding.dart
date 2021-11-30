@@ -7,19 +7,16 @@ import 'package:hishabee_business_manager_fl/app/modules/auth/domain/repositorie
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/data/remote/data_sources/account_information_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/data/remote/data_sources/digital_payment_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/data/remote/data_sources/qr_provider.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/data/remote/data_sources/sslcommerz_payment_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/data/remote/data_sources/subscription_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/data/remote/data_sources/training_video_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/data/repositories/account_information_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/data/repositories/digital_payment_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/data/repositories/qr_repository.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/data/repositories/sslcommerz_payment_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/data/repositories/subscription_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/data/repositories/training_video_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/domain/repositories/i_account_information_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/domain/repositories/i_digital_payment_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/domain/repositories/i_qr_repository.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/domain/repositories/i_sslcommerz_payment_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/domain/repositories/i_subscription_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/domain/repositories/i_training_video_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/presentation/manager/set_qr_code_controller.dart';
@@ -36,9 +33,6 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/da
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/domain/repositories/i_due_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/manager/due_payment_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/confirm_payment_controller.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/data/data_sources/sms_provider.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/data/repositories/sms_repository.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/domain/repositories/i_sms_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/local/data_sources/local_transaction_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/data_sources/transaction_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/repositories/transaction_repository.dart';
@@ -65,9 +59,6 @@ class AppSettingsBinding extends Bindings {
 
     Get.lazyPut<IDueProvider>(() => DueProvider(find()));
     Get.lazyPut<IDueRepository>(() => DueRepository(find()));
-
-    Get.lazyPut<ISmsProvider>(() => SMSProvider(find()));
-    Get.lazyPut<ISmsRespository>(() => SmsRepository(find()));
 
     Get.lazyPut<ILocalContactProvider>(() => LocalContactProvider());
     Get.lazyPut<IContactProvider>(() => ContactProvider(find()));

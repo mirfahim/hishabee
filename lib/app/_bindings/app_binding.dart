@@ -12,6 +12,7 @@ import 'package:hishabee_business_manager_fl/app/modules/shop_main/domain/reposi
 import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/digital_payment/dp_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/emi/emi_controller.dart';
+import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
 
 class AppBinding extends Bindings {
   static final find = Get.find;
@@ -24,11 +25,14 @@ class AppBinding extends Bindings {
     Get.lazyPut<IAuthProvider>(() => AuthProvider(find()), fenix: true);
     Get.lazyPut<IAuthRepository>(() => AuthRepository(find(), find()),
         fenix: true);
+
     Get.lazyPut<ILocalizationService>(() => LocalizationService(), fenix: true);
+
     Get.lazyPut<IFileProvider>(() => FileProvider(find()), fenix: true);
     Get.lazyPut<IFileRepository>(() => FileRepository(find()), fenix: true);
     Get.put(BoController());
     Get.put(EmiController());
+    Get.put(SmsController());
     Get.put(DpController());
   }
 }

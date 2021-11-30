@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
 import 'package:hishabee_business_manager_fl/models/business_overview/employee_report.dart';
@@ -8,6 +9,10 @@ var now = DateTime.now();
 var day = DateFormat.yMMMMd().format(now);
 var year = DateFormat.y().format(now);
 var month = DateFormat.MMMM().format(now);
+DateTime firstDatePicked;
+DateTime endDatePicked;
+var startDate;
+var endDate;
 
 class EmployeWiseReport extends StatefulWidget {
   @override
@@ -18,6 +23,7 @@ class _EmployeWiseReportState extends State<EmployeWiseReport> {
   List<EmployeReportModel> _list = <EmployeReportModel>[];
   List<EmployeReportModel> _foundData = <EmployeReportModel>[];
   BoController controller = Get.find();
+  int flag = 1;
   @override
   void initState() {
     getData();
@@ -28,57 +34,56 @@ class _EmployeWiseReportState extends State<EmployeWiseReport> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    int flag = 1;
+
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 50.0),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: Stack(
-                children: [
-                  SizedBox(
-                    height: size.height * 0.2,
-                    width: size.width,
-                    child: Image.asset(
-                      "images/topBg.png",
-                      fit: BoxFit.fill,
+        body: Padding(
+          padding: const EdgeInsets.only(bottom: 50.0),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            child: Stack(
+              children: [
+                SizedBox(
+                  height: size.height * 0.2,
+                  width: size.width,
+                  child: Image.asset(
+                    "images/topBg.png",
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                Column(
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 14, right: 15.0),
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.arrow_back_rounded,
+                              size: 25,
+                              color: Colors.black,
+                            ),
+                            onPressed: () {
+                              Get.back();
+                            },
+                          ),
+                        ),
+                        const Padding(
+                          padding:
+                              EdgeInsets.only(top: 14.0, left: 10, right: 15),
+                          child: Text(
+                            'Employee Wise Report',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 14, right: 15.0),
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back_rounded,
-                            size: 25,
-                            color: Colors.black,
-                          ),
-                          onPressed: () => Get.back(),
-                        ),
-                      ),
-                      const Padding(
-                        padding:
-                            EdgeInsets.only(top: 14.0, left: 10, right: 15),
-                        child: Text(
-                          'Employee Wise Report',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Positioned(
-                    top: 63,
-                    left: 10,
-                    right: 10,
-                    child: Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         ElevatedButton.icon(
@@ -86,7 +91,7 @@ class _EmployeWiseReportState extends State<EmployeWiseReport> {
                             padding:
                                 const EdgeInsets.only(top: 12.0, bottom: 12.0),
                             child: Text(
-                              'Start Date',
+                              startDate ?? 'Start Date',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 12.0),
                             ),
@@ -109,7 +114,19 @@ class _EmployeWiseReportState extends State<EmployeWiseReport> {
                                       side: BorderSide(
                                           color: Colors.grey.shade100,
                                           width: 2.0)))),
-                          onPressed: () {},
+                          onPressed: () {
+                            DatePicker.showDatePicker(context,
+                                showTitleActions: true,
+                                minTime: DateTime(2018, 3, 5),
+                                maxTime: DateTime(2222, 6, 7),
+                                onChanged: (startDateTime) {
+                              setState(() {
+                                firstDatePicked = startDateTime;
+                                startDate =
+                                    DateFormat.yMMMd().format(firstDatePicked);
+                              });
+                            });
+                          },
                         ),
                         Text(
                           'to',
@@ -121,7 +138,7 @@ class _EmployeWiseReportState extends State<EmployeWiseReport> {
                             padding:
                                 const EdgeInsets.only(top: 12.0, bottom: 12.0),
                             child: Text(
-                              'End Date',
+                              endDate ?? 'End Date',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 12.0),
                             ),
@@ -144,16 +161,23 @@ class _EmployeWiseReportState extends State<EmployeWiseReport> {
                                       side: BorderSide(
                                           color: Colors.grey.shade100,
                                           width: 2.0)))),
-                          onPressed: () {},
+                          onPressed: () {
+                            DatePicker.showDatePicker(context,
+                                showTitleActions: true,
+                                minTime: DateTime(2018, 3, 5),
+                                maxTime: DateTime(2222, 6, 7),
+                                onChanged: (endDateTime) {
+                              setState(() {
+                                endDatePicked = endDateTime;
+                                endDate =
+                                    DateFormat.yMMMd().format(endDatePicked);
+                              });
+                            });
+                          },
                         ),
                       ],
                     ),
-                  ),
-                  Positioned(
-                    top: 120,
-                    left: 10,
-                    right: 10,
-                    child: Padding(
+                    Padding(
                       padding: EdgeInsets.only(bottom: 4.0),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -174,7 +198,7 @@ class _EmployeWiseReportState extends State<EmployeWiseReport> {
                                         });
                                       },
                                       child: Text(
-                                        ' Day ',
+                                        'Day',
                                         style: TextStyle(
                                             color: flag == 1
                                                 ? Colors.white
@@ -206,7 +230,7 @@ class _EmployeWiseReportState extends State<EmployeWiseReport> {
                                         });
                                       },
                                       child: Text(
-                                        '  Week  ',
+                                        'Week',
                                         style: TextStyle(
                                             color: flag == 2
                                                 ? Colors.white
@@ -239,7 +263,7 @@ class _EmployeWiseReportState extends State<EmployeWiseReport> {
                                         });
                                       },
                                       child: Text(
-                                        ' Month ',
+                                        'Month',
                                         style: TextStyle(
                                             color: flag == 3
                                                 ? Colors.white
@@ -272,7 +296,7 @@ class _EmployeWiseReportState extends State<EmployeWiseReport> {
                                         });
                                       },
                                       child: Text(
-                                        ' Year ',
+                                        'Year',
                                         style: TextStyle(
                                             color: flag == 4
                                                 ? Colors.white
@@ -335,7 +359,10 @@ class _EmployeWiseReportState extends State<EmployeWiseReport> {
 
                             Padding(
                                 padding: const EdgeInsets.only(
-                                    bottom: 12.0, top: 12.0),
+                                    bottom: 12.0,
+                                    top: 12.0,
+                                    left: 10,
+                                    right: 10),
                                 child: Container(
                                   height: 50.0,
                                   child: TextField(
@@ -364,159 +391,170 @@ class _EmployeWiseReportState extends State<EmployeWiseReport> {
                                   ),
                                 )),
 
-                            ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: _foundData.length,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) => Padding(
-                                      padding: const EdgeInsets.only(top: 8.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.grey[400]),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(6.0))),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(
-                                                height: 100,
-                                                padding: EdgeInsets.all(12.0),
-                                                child: Center(
-                                                  child: Text("1"),
-                                                ),
-                                                decoration: BoxDecoration(
-                                                    border: Border(
-                                                  right: BorderSide(
-                                                    color: Colors.grey[400],
-                                                    width: 1,
+                            Container(
+                              height: size.height - 400,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10.0, right: 10),
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: _foundData.length,
+                                    physics: NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) => Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 8.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.grey[400]),
+                                                borderRadius: BorderRadius.all(
+                                                    Radius.circular(6.0))),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Expanded(
+                                                  flex: 1,
+                                                  child: Container(
+                                                    height: 100,
+                                                    padding:
+                                                        EdgeInsets.all(12.0),
+                                                    child: Center(
+                                                      child: Text("1"),
+                                                    ),
+                                                    decoration: BoxDecoration(
+                                                        border: Border(
+                                                      right: BorderSide(
+                                                        color: Colors.grey[400],
+                                                        width: 1,
+                                                      ),
+                                                    )),
                                                   ),
-                                                )),
-                                              ),
-                                            ),
-                                            Expanded(
-                                                flex: 9,
-                                                child: Column(
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 12.0,
-                                                              right: 12.0,
-                                                              top: 6.0,
-                                                              bottom: 6.0),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Column(
+                                                ),
+                                                Expanded(
+                                                    flex: 9,
+                                                    child: Column(
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 12.0,
+                                                                  right: 12.0,
+                                                                  top: 6.0,
+                                                                  bottom: 6.0),
+                                                          child: Row(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
-                                                                    .center,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
+                                                                    .spaceBetween,
                                                             children: [
+                                                              Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    _foundData[
+                                                                            index]
+                                                                        .name
+                                                                        .toString(),
+                                                                    style: TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.w700),
+                                                                  ),
+                                                                  Text(
+                                                                      "Sold-" +
+                                                                          _foundData[index]
+                                                                              .transactionCount
+                                                                              .toString(),
+                                                                      style: TextStyle(
+                                                                          fontWeight: FontWeight
+                                                                              .w600,
+                                                                          fontSize:
+                                                                              12.0))
+                                                                ],
+                                                              ),
                                                               Text(
-                                                                _foundData[
-                                                                        index]
-                                                                    .name
-                                                                    .toString(),
+                                                                "" +
+                                                                    _foundData[
+                                                                            index]
+                                                                        .monthlySalary
+                                                                        .toString(),
                                                                 style: TextStyle(
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .w700),
-                                                              ),
-                                                              Text(
-                                                                  "Sold-" +
-                                                                      _foundData[
-                                                                              index]
-                                                                          .transactionCount
-                                                                          .toString(),
-                                                                  style: TextStyle(
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600,
-                                                                      fontSize:
-                                                                          12.0))
+                                                                            .bold,
+                                                                    fontSize:
+                                                                        16),
+                                                              )
                                                             ],
                                                           ),
-                                                          Text(
-                                                            "" +
-                                                                _foundData[
-                                                                        index]
-                                                                    .monthlySalary
-                                                                    .toString(),
-                                                            style: TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                fontSize: 16),
-                                                          )
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Divider(),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              top: 3.0,
-                                                              bottom: 3.0,
-                                                              left: 12.0,
-                                                              right: 12.0),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text(
-                                                            "Mobile -",
-                                                            style: TextStyle(
-                                                                fontSize: 11.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: Colors
-                                                                    .red[700]),
+                                                        ),
+                                                        Divider(),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 3.0,
+                                                                  bottom: 3.0,
+                                                                  left: 12.0,
+                                                                  right: 12.0),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                "Mobile -",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        11.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w700,
+                                                                    color: Colors
+                                                                            .red[
+                                                                        700]),
+                                                              ),
+                                                              Text(
+                                                                  "" +
+                                                                      _foundData[
+                                                                              index]
+                                                                          .mobile
+                                                                          .toString(),
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          13.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                      color: Colors
+                                                                              .red[
+                                                                          900]))
+                                                            ],
                                                           ),
-                                                          Text(
-                                                              "" +
-                                                                  _foundData[
-                                                                          index]
-                                                                      .mobile
-                                                                      .toString(),
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      13.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                          .red[
-                                                                      900]))
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
-                                                ))
-                                          ],
-                                        ),
-                                      ),
-                                    ))
+                                                        )
+                                                      ],
+                                                    ))
+                                              ],
+                                            ),
+                                          ),
+                                        )),
+                              ),
+                            )
 
 ////,
                             ,
                           ]),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
+              ],
             ),
           ),
         ),

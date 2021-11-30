@@ -6,6 +6,9 @@ import 'dart:convert';
 
 import 'contact_model.dart';
 
+List<Employee> getEmployeContactFromModel(dynamic str) =>
+    List<Employee>.from(str.map((x) => Employee.fromJson(x)));
+
 List<Employee> employeeFromJson(dynamic str) => List<Employee>.from(
     (str as List<dynamic>).map((x) => Employee.fromJson(x)));
 

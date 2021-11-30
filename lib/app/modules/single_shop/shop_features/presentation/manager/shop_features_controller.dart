@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_countdown_timer/current_remaining_time.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/_core/network/network_info.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/data_holder.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
@@ -20,7 +21,7 @@ class ShopFeaturesController extends GetxController {
   final shop = Shop().obs;
   final campaign = Rxn<Campaign>();
   final transactionList = <Transaction>[].obs;
-
+  var smsCount = GetStorage('sms_count');
   var tabIndex = 1;
   void changeTabIndex(int index) {
     tabIndex = index;
@@ -111,6 +112,7 @@ class ShopFeaturesController extends GetxController {
       var now = DateTime.now();
       if (result.code == 200) {
         campaign.value = result.shop.campaign;
+        // smsCount.write('sms_count', result.shop.smsCount);
         if (campaign.value != null) {
           if (dateTime == null) {
             campaignDialog();

@@ -103,262 +103,265 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                             fit: BoxFit.fill,
                           ),
                         ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                        Column(
                           children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 14, right: 15.0),
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_back,
-                                  size: 35,
-                                  color: Colors.black,
-                                ),
-                                onPressed: () => Get.back(),
-                              ),
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.only(
-                                  top: 16.0, left: 10, right: 15),
-                              child: Text(
-                                'Business OverView',
-                                style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Positioned(
-                          top: 80,
-                          child: SizedBox(
-                            height: 150,
-                            width: MediaQuery.of(context).size.width,
-                            child: ListView.builder(
-                              itemCount: reportCardWidget.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                return InkWell(
-                                    onTap: () => index == 0
-                                        ? Get.to(ProductWise(),
-                                            arguments: Get.arguments)
-                                        : index == 1
-                                            ? Get.to(CustomerWiseReport(),
-                                                arguments: Get.arguments)
-                                            : Get.to(EmployeWiseReport(),
-                                                arguments: Get.arguments),
-                                    child: reportCardWidget[index]);
-                              },
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: 250,
-                          left: 10,
-                          right: 10,
-                          child: Padding(
-                            padding: EdgeInsets.only(bottom: 4.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                const Center(
-                                    child: Text(
-                                  'General Sales Report',
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w600),
-                                )),
                                 Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
+                                  padding: const EdgeInsets.only(
+                                      top: 14, right: 15.0),
+                                  child: IconButton(
+                                    icon: const Icon(
+                                      Icons.arrow_back,
+                                      size: 35,
+                                      color: Colors.black,
+                                    ),
+                                    onPressed: () => Get.back(),
+                                  ),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 16.0, left: 10, right: 15),
+                                  child: Text(
+                                    'Business OverView',
+                                    style: TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 150,
+                              width: MediaQuery.of(context).size.width,
+                              child: ListView.builder(
+                                itemCount: reportCardWidget.length,
+                                scrollDirection: Axis.horizontal,
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                      onTap: () => index == 0
+                                          ? Get.to(ProductWise(),
+                                              arguments: Get.arguments)
+                                          : index == 1
+                                              ? Get.to(CustomerWiseReport(),
+                                                  arguments: Get.arguments)
+                                              : Get.to(EmployeWiseReport(),
+                                                  arguments: Get.arguments),
+                                      child: reportCardWidget[index]);
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 4.0),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  const Center(
+                                      child: Text(
+                                    'General Sales Report',
+                                    style: TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w600),
+                                  )),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          height: 27,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                flag = 1;
+                                              });
+                                            },
+                                            child: Text(
+                                              'Day',
+                                              style: TextStyle(
+                                                  color: flag == 1
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: 10),
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                              side: BorderSide(
+                                                  width: 1,
+                                                  color: Colors.black),
+                                              primary: flag == 1
+                                                  ? Colors.black
+                                                  : Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Container(
+                                          height: 27,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                flag = 2;
+                                              });
+                                            },
+                                            child: Text(
+                                              'Week',
+                                              style: TextStyle(
+                                                  color: flag == 2
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: 10),
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                              padding: EdgeInsets.zero,
+                                              side: const BorderSide(
+                                                  width: 1,
+                                                  color: Colors.black),
+                                              primary: flag == 2
+                                                  ? Colors.black
+                                                  : Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Container(
+                                          height: 27,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                flag = 3;
+                                              });
+                                            },
+                                            child: Text(
+                                              'Month',
+                                              style: TextStyle(
+                                                  color: flag == 3
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: 10),
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                              padding: EdgeInsets.zero,
+                                              side: const BorderSide(
+                                                  width: 1,
+                                                  color: Colors.black),
+                                              primary: flag == 3
+                                                  ? Colors.black
+                                                  : Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Container(
+                                          height: 27,
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                flag = 4;
+                                              });
+                                            },
+                                            child: Text(
+                                              'Year',
+                                              style: TextStyle(
+                                                  color: flag == 4
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                                  fontSize: 10),
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                              padding: EdgeInsets.zero,
+                                              side: const BorderSide(
+                                                  width: 1,
+                                                  color: Colors.black),
+                                              primary: flag == 4
+                                                  ? Colors.black
+                                                  : Colors.white,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(6),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
-                                      Container(
-                                        height: 27,
-                                        child: ElevatedButton(
+                                      IconButton(
                                           onPressed: () {
-                                            setState(() {
-                                              flag = 1;
-                                            });
+                                            if (flag == 1) {
+                                              setState(() {
+                                                day = DateFormat.yMMMMd()
+                                                    .format(now.subtract(
+                                                        Duration(days: 1)));
+                                                // day = DateFormat.yMMMMd().format(now);
+                                              });
+                                            }
                                           },
-                                          child: Text(
-                                            'Day',
-                                            style: TextStyle(
-                                                color: flag == 1
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontSize: 10),
-                                          ),
-                                          style: ElevatedButton.styleFrom(
-                                            side: BorderSide(
-                                                width: 1, color: Colors.black),
-                                            primary: flag == 1
-                                                ? Colors.black
-                                                : Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        height: 27,
-                                        child: ElevatedButton(
+                                          icon: Icon(Icons.arrow_back_ios)),
+                                      if (flag == 1) Text(day),
+                                      if (flag == 4) Text(year),
+                                      if (flag == 3) Text(month),
+                                      IconButton(
                                           onPressed: () {
-                                            setState(() {
-                                              flag = 2;
-                                            });
+                                            if (flag == 1) {
+                                              setState(() {
+                                                day = DateFormat.yMMMMd()
+                                                    .format(now.add(
+                                                        Duration(days: 1)));
+                                              });
+                                            }
                                           },
-                                          child: Text(
-                                            'Week',
-                                            style: TextStyle(
-                                                color: flag == 2
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontSize: 10),
-                                          ),
-                                          style: ElevatedButton.styleFrom(
-                                            padding: EdgeInsets.zero,
-                                            side: const BorderSide(
-                                                width: 1, color: Colors.black),
-                                            primary: flag == 2
-                                                ? Colors.black
-                                                : Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        height: 27,
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              flag = 3;
-                                            });
-                                          },
-                                          child: Text(
-                                            'Month',
-                                            style: TextStyle(
-                                                color: flag == 3
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontSize: 10),
-                                          ),
-                                          style: ElevatedButton.styleFrom(
-                                            padding: EdgeInsets.zero,
-                                            side: const BorderSide(
-                                                width: 1, color: Colors.black),
-                                            primary: flag == 3
-                                                ? Colors.black
-                                                : Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Container(
-                                        height: 27,
-                                        child: ElevatedButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              flag = 4;
-                                            });
-                                          },
-                                          child: Text(
-                                            'Year',
-                                            style: TextStyle(
-                                                color: flag == 4
-                                                    ? Colors.white
-                                                    : Colors.black,
-                                                fontSize: 10),
-                                          ),
-                                          style: ElevatedButton.styleFrom(
-                                            padding: EdgeInsets.zero,
-                                            side: const BorderSide(
-                                                width: 1, color: Colors.black),
-                                            primary: flag == 4
-                                                ? Colors.black
-                                                : Colors.white,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(6),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                          icon: Icon(Icons.arrow_forward_ios))
                                     ],
                                   ),
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    IconButton(
-                                        onPressed: () {
-                                          if (flag == 1) {
-                                            setState(() {
-                                              day = DateFormat.yMMMMd().format(
-                                                  now.subtract(
-                                                      Duration(days: 1)));
-                                              // day = DateFormat.yMMMMd().format(now);
-                                            });
-                                          }
-                                        },
-                                        icon: Icon(Icons.arrow_back_ios)),
-                                    if (flag == 1) Text(day),
-                                    if (flag == 4) Text(year),
-                                    if (flag == 3) Text(month),
-                                    IconButton(
-                                        onPressed: () {
-                                          if (flag == 1) {
-                                            setState(() {
-                                              day = DateFormat.yMMMMd().format(
-                                                  now.add(Duration(days: 1)));
-                                            });
-                                          }
-                                        },
-                                        icon: Icon(Icons.arrow_forward_ios))
-                                  ],
-                                ),
-                                Divider(
-                                  thickness: 2,
-                                  color: Colors.grey[400],
-                                ),
-                                getCardView("Total Product Sold",
-                                    _overView.totalProduct.toString()),
-                                getCardView("Total Collected",
-                                    _overView.totalProductAmount.toString()),
-                                getCardView(
-                                    "Total Due", _overView.totalDue.toString()),
-                                getCardView("Total Expense",
-                                    _overView.totalExpense.toString()),
-                                getCardView("Total Profit",
-                                    _overView.totalProfit.toString()),
-                              ],
-                            ),
-                          ),
-                        )
+                                  Divider(
+                                    thickness: 2,
+                                    color: Colors.grey[400],
+                                  ),
+                                  getCardView("Total Product Sold",
+                                      _overView.totalProduct.toString()),
+                                  getCardView("Total Collected",
+                                      _overView.totalProductAmount.toString()),
+                                  getCardView("Total Due",
+                                      _overView.totalDue.toString()),
+                                  getCardView("Total Expense",
+                                      _overView.totalExpense.toString()),
+                                  getCardView("Total Profit",
+                                      _overView.totalProfit.toString()),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ],
                     ),
                   ),

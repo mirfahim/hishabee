@@ -13,8 +13,269 @@ List<Shop> shopsFromRawJson(dynamic json) =>
 String shopsToJson(List<Shop> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
+// class ShopMessage {
+//   ShopMessage({
+//     this.code,
+//     this.message,
+//     this.shop,
+//   });
+//
+//   int code;
+//   String message;
+//   Shop shop;
+//
+//   factory ShopMessage.fromJson(Map<String, dynamic> json) => ShopMessage(
+//         code: json["code"],
+//         message: json["message"],
+//         shop: Shop.fromJson(json["shop"]),
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "code": code,
+//         "message": message,
+//         "shop": shop.toJson(),
+//       };
+// }
+
+// class Shop {
+//   Shop({
+//     this.id,
+//     this.userId,
+//     this.name,
+//     this.slug,
+//     this.type,
+//     this.area,
+//     this.address,
+//     this.sliders,
+//     this.lat,
+//     this.lng,
+//     this.shopNumber,
+//     this.floorNumber,
+//     this.vatPercent,
+//     this.publicNumber,
+//     this.logoUrl,
+//     this.referralCode,
+//     this.facebook,
+//     this.instagram,
+//     this.twitter,
+//     this.youtube,
+//     this.setDefault,
+//     this.createdAt,
+//     this.updatedAt,
+//     this.metaTitle,
+//     this.metaDescription,
+//     this.pickUpPointId,
+//     this.tradeLicense,
+//     this.tin,
+//     this.public,
+//     this.active,
+//     this.onlineShopCreatedAt,
+//     this.campaignId,
+//     this.smsCount,
+//     this.time,
+//     this.package,
+//     this.endDate,
+//     this.walletBalance,
+//     this.liquidBalance,
+//     this.deviceCount,
+//     this.hishabeeCredit,
+//     this.campaign,
+//     this.wallet,
+//   });
+//
+//   int id;
+//   int userId;
+//   String name;
+//   String slug;
+//   int type;
+//   int area;
+//   String address;
+//   String sliders;
+//   double lat;
+//   double lng;
+//   int shopNumber;
+//   int floorNumber;
+//   int vatPercent;
+//   String publicNumber;
+//   String logoUrl;
+//   String referralCode;
+//   String facebook;
+//   String instagram;
+//   dynamic twitter;
+//   dynamic youtube;
+//   int setDefault;
+//   DateTime createdAt;
+//   DateTime updatedAt;
+//   dynamic metaTitle;
+//   dynamic metaDescription;
+//   dynamic pickUpPointId;
+//   dynamic tradeLicense;
+//   dynamic tin;
+//   bool public;
+//   int active;
+//   String onlineShopCreatedAt;
+//   int campaignId;
+//   int smsCount;
+//   DateTime time;
+//   String package;
+//   DateTime endDate;
+//   int walletBalance;
+//   int liquidBalance;
+//   int deviceCount;
+//   int hishabeeCredit;
+//   dynamic campaign;
+//   Wallet wallet;
+//
+//   factory Shop.fromJson(Map<String, dynamic> json) => Shop(
+//         id: json["id"],
+//         userId: json["user_id"],
+//         name: json["name"],
+//         slug: json["slug"],
+//         type: json["type"],
+//         area: json["area"],
+//         address: json["address"],
+//         sliders: json["sliders"],
+//         lat: json["lat"],
+//         lng: json["lng"],
+//         shopNumber: json["shop_number"],
+//         floorNumber: json["floor_number"],
+//         vatPercent: json["vat_percent"],
+//         publicNumber: json["public_number"],
+//         logoUrl: json["logo_url"],
+//         referralCode: json["referral_code"],
+//         facebook: json["facebook"],
+//         instagram: json["instagram"],
+//         twitter: json["twitter"],
+//         youtube: json["youtube"],
+//         setDefault: json["set_default"],
+//         createdAt: DateTime.parse(json["created_at"]),
+//         updatedAt: DateTime.parse(json["updated_at"]),
+//         metaTitle: json["meta_title"],
+//         metaDescription: json["meta_description"],
+//         pickUpPointId: json["pick_up_point_id"],
+//         tradeLicense: json["trade_license"],
+//         tin: json["tin"],
+//         public: json["public"],
+//         active: json["active"],
+//         onlineShopCreatedAt: json["online_shop_created_at"],
+//         campaignId: json["campaign_id"],
+//         smsCount: json["sms_count"],
+//         time: DateTime.parse(json["time"]),
+//         package: json["package"],
+//         endDate: DateTime.parse(json["end_date"]),
+//         walletBalance: json["wallet_balance"],
+//         liquidBalance: json["liquid_balance"],
+//         deviceCount: json["device_count"],
+//         hishabeeCredit: json["hishabee_credit"],
+//         campaign: json["campaign"],
+//         wallet: Wallet.fromJson(json["wallet"]),
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "id": id,
+//         "user_id": userId,
+//         "name": name,
+//         "slug": slug,
+//         "type": type,
+//         "area": area,
+//         "address": address,
+//         "sliders": sliders,
+//         "lat": lat,
+//         "lng": lng,
+//         "shop_number": shopNumber,
+//         "floor_number": floorNumber,
+//         "vat_percent": vatPercent,
+//         "public_number": publicNumber,
+//         "logo_url": logoUrl,
+//         "referral_code": referralCode,
+//         "facebook": facebook,
+//         "instagram": instagram,
+//         "twitter": twitter,
+//         "youtube": youtube,
+//         "set_default": setDefault,
+//         "created_at": createdAt.toIso8601String(),
+//         "updated_at": updatedAt.toIso8601String(),
+//         "meta_title": metaTitle,
+//         "meta_description": metaDescription,
+//         "pick_up_point_id": pickUpPointId,
+//         "trade_license": tradeLicense,
+//         "tin": tin,
+//         "public": public,
+//         "active": active,
+//         "online_shop_created_at": onlineShopCreatedAt,
+//         "campaign_id": campaignId,
+//         "sms_count": smsCount,
+//         "time": time.toIso8601String(),
+//         "package": package,
+//         "end_date": endDate.toIso8601String(),
+//         "wallet_balance": walletBalance,
+//         "liquid_balance": liquidBalance,
+//         "device_count": deviceCount,
+//         "hishabee_credit": hishabeeCredit,
+//         "campaign": campaign,
+//         "wallet": wallet.toJson(),
+//       };
+// }
+
+class Wallet {
+  Wallet({
+    this.id,
+    this.userId,
+    this.shopId,
+    this.totalBalance,
+    this.liquidBalance,
+    this.hishabeeGrant,
+    this.giftPoints,
+    this.walletBarcode,
+    this.createdAt,
+    this.updatedAt,
+    this.hishabeeCredit,
+  });
+
+  int id;
+  int userId;
+  int shopId;
+  int totalBalance;
+  int liquidBalance;
+  int hishabeeGrant;
+  int giftPoints;
+  dynamic walletBarcode;
+  DateTime createdAt;
+  DateTime updatedAt;
+  int hishabeeCredit;
+
+  factory Wallet.fromJson(Map<String, dynamic> json) => Wallet(
+        id: json["id"],
+        userId: json["user_id"],
+        shopId: json["shop_id"],
+        totalBalance: json["total_balance"],
+        liquidBalance: json["liquid_balance"],
+        hishabeeGrant: json["hishabee_grant"],
+        giftPoints: json["gift_points"],
+        walletBarcode: json["wallet_barcode"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        hishabeeCredit: json["hishabee_credit"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "user_id": userId,
+        "shop_id": shopId,
+        "total_balance": totalBalance,
+        "liquid_balance": liquidBalance,
+        "hishabee_grant": hishabeeGrant,
+        "gift_points": giftPoints,
+        "wallet_barcode": walletBarcode,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "hishabee_credit": hishabeeCredit,
+      };
+}
+
 class Shop {
   Shop({
+    this.smsCount,
     this.id,
     this.userId,
     this.name,
@@ -59,7 +320,7 @@ class Shop {
     this.campaign,
     this.wallet,
   });
-
+  int smsCount;
   int id;
   int userId;
   String name;
@@ -105,6 +366,7 @@ class Shop {
   Wallet wallet;
 
   Shop copyWith({
+    int smsCount,
     int id,
     int userId,
     String name,
@@ -150,6 +412,7 @@ class Shop {
     Wallet wallet,
   }) =>
       Shop(
+        smsCount: smsCount ?? this.smsCount,
         id: id ?? this.id,
         userId: userId ?? this.userId,
         name: name ?? this.name,
@@ -196,6 +459,7 @@ class Shop {
       );
 
   factory Shop.fromJson(Map<String, dynamic> json) => Shop(
+        smsCount: json["sms_count"] == null ? null : json["sms_count"],
         id: json["id"] == null ? null : json["id"],
         userId: json["user_id"] == null ? null : json["user_id"],
         name: json["name"] == null ? null : json["name"],
@@ -256,6 +520,7 @@ class Shop {
       );
 
   Map<String, dynamic> toJson() => {
+        "sms_count": smsCount == null ? null : smsCount,
         "id": id == null ? null : id,
         "user_id": userId == null ? null : userId,
         "name": name == null ? null : name,
@@ -632,93 +897,94 @@ class Campaign {
 //       };
 // }
 
-class Wallet {
-  Wallet({
-    this.id,
-    this.userId,
-    this.shopId,
-    this.totalBalance,
-    this.liquidBalance,
-    this.hishabeeGrant,
-    this.giftPoints,
-    this.walletBarcode,
-    this.createdAt,
-    this.updatedAt,
-    this.marketingCredit,
-  });
+// class Wallet {
+//   Wallet({
+//     this.id,
+//     this.userId,
+//     this.shopId,
+//     this.totalBalance,
+//     this.liquidBalance,
+//     this.hishabeeGrant,
+//     this.giftPoints,
+//     this.walletBarcode,
+//     this.createdAt,
+//     this.updatedAt,
+//     this.marketingCredit,
+//   });
+//
+//   int id;
+//   int userId;
+//   int shopId;
+//   int totalBalance;
+//   int liquidBalance;
+//   int hishabeeGrant;
+//   int giftPoints;
+//   dynamic walletBarcode;
+//   DateTime createdAt;
+//   DateTime updatedAt;
+//   int marketingCredit;
+//
+//   Wallet copyWith({
+//     int id,
+//     int userId,
+//     int shopId,
+//     int totalBalance,
+//     int liquidBalance,
+//     int hishabeeGrant,
+//     int giftPoints,
+//     dynamic walletBarcode,
+//     DateTime createdAt,
+//     DateTime updatedAt,
+//     int marketingCredit,
 
-  int id;
-  int userId;
-  int shopId;
-  int totalBalance;
-  int liquidBalance;
-  int hishabeeGrant;
-  int giftPoints;
-  dynamic walletBarcode;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int marketingCredit;
-
-  Wallet copyWith({
-    int id,
-    int userId,
-    int shopId,
-    int totalBalance,
-    int liquidBalance,
-    int hishabeeGrant,
-    int giftPoints,
-    dynamic walletBarcode,
-    DateTime createdAt,
-    DateTime updatedAt,
-    int marketingCredit,
-  }) =>
-      Wallet(
-        id: id ?? this.id,
-        userId: userId ?? this.userId,
-        shopId: shopId ?? this.shopId,
-        totalBalance: totalBalance ?? this.totalBalance,
-        liquidBalance: liquidBalance ?? this.liquidBalance,
-        hishabeeGrant: hishabeeGrant ?? this.hishabeeGrant,
-        giftPoints: giftPoints ?? this.giftPoints,
-        walletBarcode: walletBarcode ?? this.walletBarcode,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-        marketingCredit: marketingCredit ?? this.marketingCredit,
-      );
-
-  factory Wallet.fromJson(Map<String, dynamic> json) => Wallet(
-        id: json["id"] == null ? null : json["id"],
-        userId: json["user_id"] == null ? null : json["user_id"],
-        shopId: json["shop_id"] == null ? null : json["shop_id"],
-        totalBalance:
-            json["total_balance"] == null ? null : json["total_balance"],
-        liquidBalance:
-            json["liquid_balance"] == null ? null : json["liquid_balance"],
-        hishabeeGrant:
-            json["hishabee_grant"] == null ? null : json["hishabee_grant"],
-        giftPoints: json["gift_points"] == null ? null : json["gift_points"],
-        walletBarcode: json["wallet_barcode"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-        marketingCredit:
-            json["marketing_credit"] == null ? null : json["marketing_credit"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "user_id": userId == null ? null : userId,
-        "shop_id": shopId == null ? null : shopId,
-        "total_balance": totalBalance == null ? null : totalBalance,
-        "liquid_balance": liquidBalance == null ? null : liquidBalance,
-        "hishabee_grant": hishabeeGrant == null ? null : hishabeeGrant,
-        "gift_points": giftPoints == null ? null : giftPoints,
-        "wallet_barcode": walletBarcode,
-        "created_at": createdAt == null ? null : createdAt.toIso8601String(),
-        "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
-        "marketing_credit": marketingCredit == null ? null : marketingCredit,
-      };
-}
+//   }) =>
+//       Wallet(
+//         id: id ?? this.id,
+//         userId: userId ?? this.userId,
+//         shopId: shopId ?? this.shopId,
+//         totalBalance: totalBalance ?? this.totalBalance,
+//         liquidBalance: liquidBalance ?? this.liquidBalance,
+//         hishabeeGrant: hishabeeGrant ?? this.hishabeeGrant,
+//         giftPoints: giftPoints ?? this.giftPoints,
+//         walletBarcode: walletBarcode ?? this.walletBarcode,
+//         createdAt: createdAt ?? this.createdAt,
+//         updatedAt: updatedAt ?? this.updatedAt,
+//         marketingCredit: marketingCredit ?? this.marketingCredit,
+//       );
+//
+//   factory Wallet.fromJson(Map<String, dynamic> json) => Wallet(
+//         id: json["id"] == null ? null : json["id"],
+//         userId: json["user_id"] == null ? null : json["user_id"],
+//         shopId: json["shop_id"] == null ? null : json["shop_id"],
+//         totalBalance:
+//             json["total_balance"] == null ? null : json["total_balance"],
+//         liquidBalance:
+//             json["liquid_balance"] == null ? null : json["liquid_balance"],
+//         hishabeeGrant:
+//             json["hishabee_grant"] == null ? null : json["hishabee_grant"],
+//         giftPoints: json["gift_points"] == null ? null : json["gift_points"],
+//         walletBarcode: json["wallet_barcode"],
+//         createdAt: json["created_at"] == null
+//             ? null
+//             : DateTime.parse(json["created_at"]),
+//         updatedAt: json["updated_at"] == null
+//             ? null
+//             : DateTime.parse(json["updated_at"]),
+//         marketingCredit:
+//             json["marketing_credit"] == null ? null : json["marketing_credit"],
+//       );
+//
+//   Map<String, dynamic> toJson() => {
+//         "id": id == null ? null : id,
+//         "user_id": userId == null ? null : userId,
+//         "shop_id": shopId == null ? null : shopId,
+//         "total_balance": totalBalance == null ? null : totalBalance,
+//         "liquid_balance": liquidBalance == null ? null : liquidBalance,
+//         "hishabee_grant": hishabeeGrant == null ? null : hishabeeGrant,
+//         "gift_points": giftPoints == null ? null : giftPoints,
+//         "wallet_barcode": walletBarcode,
+//         "created_at": createdAt == null ? null : createdAt.toIso8601String(),
+//         "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
+//         "marketing_credit": marketingCredit == null ? null : marketingCredit,
+//       };
+// }
