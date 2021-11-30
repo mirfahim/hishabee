@@ -376,7 +376,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                         "last_7_days".tr,
                                         "this_month".tr,
                                       ],
-                                      selectedButtons: [1],
+                                      selectedButton: 0,
                                     ),
                                   ),
                                 ),
