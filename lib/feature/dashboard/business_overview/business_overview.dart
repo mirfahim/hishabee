@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
@@ -12,10 +13,18 @@ import 'package:intl/intl.dart';
 import 'package:loading_overlay/loading_overlay.dart'; // for date format
 
 var now = DateTime.now();
+
 var day = DateFormat.yMMMMd().format(now);
+// var week = ;
+var startOfTheWeek = now.subtract(Duration(days: now.weekday));
+var endOfTheWeek = now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
+var startOfMonth = DateTime(now.year, now.month, 1);
+var lastOfTheMonth = (now.month < 12)
+    ? new DateTime(now.year, now.month + 1, 0)
+    : new DateTime(now.year + 1, 1, 0);
+var startOfTheYear = DateTime(DateTime.now().year);
 var year = DateFormat.y().format(now);
 var month = DateFormat.MMMM().format(now);
-
 // ignore: non_constant_identifier_names
 Widget ReportContainer(String asset, String reportName) {
   return Padding(
@@ -58,6 +67,7 @@ class BusinessOverView extends StatefulWidget {
 
 class _BusinessOverViewState extends State<BusinessOverView> {
   Shop shop = Get.arguments;
+  var getStorageId = GetStorage('shop_id');
   int flag = 1;
   BoController _controller = Get.find();
   // var now = DateTime.now();
@@ -66,8 +76,9 @@ class _BusinessOverViewState extends State<BusinessOverView> {
   OverviewModel _overView;
   @override
   void initState() {
+    now = DateTime.now();
     _controller
-        .fetchOverview(shopId: "", statDate: "", endDate: "")
+        .fetchOverview(shopId: '${shop.id}', startDate: '$now', endDate: '$now')
         .then((value) {
       // print("here is our value from network");
       // print(value);
@@ -84,7 +95,7 @@ class _BusinessOverViewState extends State<BusinessOverView> {
   @override
   Widget build(BuildContext context) {
     size = MediaQuery.of(context).size;
-
+    getStorageId.write('shop_id', shop.id);
     return SafeArea(
       child: Scaffold(
         body: LoadingOverlay(
@@ -181,6 +192,21 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                                             onPressed: () {
                                               setState(() {
                                                 flag = 1;
+                                                _controller
+                                                    .fetchOverview(
+                                                        shopId: '${shop.id}',
+                                                        startDate: '$now',
+                                                        endDate: '$now')
+                                                    .then((value) {
+                                                  // print("here is our value from network");
+                                                  // print(value);
+                                                  setState(() {
+                                                    _overView =
+                                                        overviewModelFromJson(
+                                                            value);
+                                                    _isLoading = false;
+                                                  });
+                                                });
                                               });
                                             },
                                             child: Text(
@@ -214,6 +240,25 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                                             onPressed: () {
                                               setState(() {
                                                 flag = 2;
+
+                                                _controller
+                                                    .fetchOverview(
+                                                        shopId: '${shop.id}',
+                                                        startDate:
+                                                            '$startOfTheWeek',
+                                                        endDate: '$now')
+                                                    .then((value) {
+                                                  // print("here is our value from network");
+                                                  // print(value);
+                                                  setState(() {
+                                                    _overView =
+                                                        overviewModelFromJson(
+                                                            value);
+                                                    _isLoading = false;
+                                                  });
+                                                });
+                                                print(startOfTheWeek);
+                                                print(now);
                                               });
                                             },
                                             child: Text(
@@ -248,6 +293,26 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                                             onPressed: () {
                                               setState(() {
                                                 flag = 3;
+
+                                                _controller
+                                                    .fetchOverview(
+                                                        shopId: '${shop.id}',
+                                                        startDate:
+                                                            '$startOfMonth',
+                                                        endDate:
+                                                            '$lastOfTheMonth')
+                                                    .then((value) {
+                                                  // print("here is our value from network");
+                                                  // print(value);
+                                                  setState(() {
+                                                    _overView =
+                                                        overviewModelFromJson(
+                                                            value);
+                                                    _isLoading = false;
+                                                  });
+                                                });
+                                                print(startOfMonth);
+                                                print(lastOfTheMonth);
                                               });
                                             },
                                             child: Text(
@@ -282,6 +347,25 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                                             onPressed: () {
                                               setState(() {
                                                 flag = 4;
+
+                                                _controller
+                                                    .fetchOverview(
+                                                        shopId: '${shop.id}',
+                                                        startDate:
+                                                            '$startOfTheYear',
+                                                        endDate: '$now')
+                                                    .then((value) {
+                                                  // print("here is our value from network");
+                                                  // print(value);
+                                                  setState(() {
+                                                    _overView =
+                                                        overviewModelFromJson(
+                                                            value);
+                                                    _isLoading = false;
+                                                  });
+                                                });
+                                                print(startOfTheYear);
+                                                print(now);
                                               });
                                             },
                                             child: Text(
@@ -319,9 +403,6 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                                           onPressed: () {
                                             if (flag == 1) {
                                               setState(() {
-                                                day = DateFormat.yMMMMd()
-                                                    .format(now.subtract(
-                                                        Duration(days: 1)));
                                                 // day = DateFormat.yMMMMd().format(now);
                                               });
                                             }

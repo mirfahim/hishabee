@@ -158,7 +158,6 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
             SizedBox(
               height: itemHeight * 0.15,
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

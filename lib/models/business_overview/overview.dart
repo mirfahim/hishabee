@@ -14,11 +14,11 @@ class OverviewModel {
   });
 
   int totalProduct;
-  int totalProductAmount;
-  int totalCollected;
-  int totalProfit;
-  int totalExpense;
-  int totalDue;
+  num totalProductAmount;
+  num totalCollected;
+  num totalProfit;
+  num totalExpense;
+  num totalDue;
 
   factory OverviewModel.fromJson(Map<String, dynamic> json) => OverviewModel(
         totalProduct: json["total_product"] ?? "0",

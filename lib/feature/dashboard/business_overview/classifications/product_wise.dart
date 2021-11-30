@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
 import 'package:hishabee_business_manager_fl/models/business_overview/product_report.dart';
 import 'package:intl/intl.dart'; // for date format
 
 var now = DateTime.now();
-var day = DateFormat.yMMMMd().format(now);
+var day;
+
+var startOfTheWeek = now.subtract(Duration(days: now.weekday));
+var endOfTheWeek = now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
+var startOfMonth = DateTime(now.year, now.month, 1);
+var lastOfTheMonth = (now.month < 12)
+    ? new DateTime(now.year, now.month + 1, 0)
+    : new DateTime(now.year + 1, 1, 0);
+var startOfTheYear = DateTime(DateTime.now().year);
+
 var year = DateFormat.y().format(now);
 var month = DateFormat.MMMM().format(now);
 DateTime firstDatePicked;
 DateTime endDatePicked;
 var startDate;
 var endDate;
+BoController _boController = BoController();
 
 class ProductWise extends StatefulWidget {
   @override
@@ -24,9 +35,12 @@ class _ProductWiseState extends State<ProductWise> {
   List<ProductReportModel> _foundData = <ProductReportModel>[];
   BoController controller = Get.find();
   int flag = 1;
+  var getStorageId = GetStorage('shop_id');
   @override
   void initState() {
     getData();
+    day = DateFormat.yMMMMd().format(now);
+    _boController.count.value = 0;
     // TODO: implement initState
     super.initState();
   }
@@ -131,6 +145,7 @@ class _ProductWiseState extends State<ProductWise> {
                                   firstDatePicked = startDateTime;
                                   startDate = DateFormat.yMMMd()
                                       .format(firstDatePicked);
+                                  getDataForDropDown(startDate, endDate);
                                 });
                               });
                             },
@@ -182,6 +197,7 @@ class _ProductWiseState extends State<ProductWise> {
                                   endDatePicked = endDateTime;
                                   endDate =
                                       DateFormat.yMMMd().format(endDatePicked);
+                                  getDataForDropDown(startDate, endDate);
                                 });
                               });
                             },
@@ -206,6 +222,28 @@ class _ProductWiseState extends State<ProductWise> {
                                         onPressed: () {
                                           setState(() {
                                             flag = 1;
+                                            controller
+                                                .fetchProductWiseReport(
+                                                    shopId:
+                                                        '${getStorageId.read('shop_id')}',
+                                                    startDate: "$now",
+                                                    endDate: "$now")
+                                                .then((value) {
+                                              if (value != null) {
+                                                setState(() {
+                                                  _list =
+                                                      productReportModelFromJson(
+                                                          value);
+                                                  _foundData = _list;
+                                                  print(getStorageId
+                                                      .read('shop_id'));
+                                                  print(now);
+                                                  // checkingDone = true;
+                                                });
+                                              }
+
+                                              //  isLoading = false;
+                                            });
                                           });
                                         },
                                         child: Text(
@@ -238,6 +276,30 @@ class _ProductWiseState extends State<ProductWise> {
                                         onPressed: () {
                                           setState(() {
                                             flag = 2;
+                                            controller
+                                                .fetchProductWiseReport(
+                                                    shopId:
+                                                        '${getStorageId.read('shop_id')}',
+                                                    startDate:
+                                                        "$startOfTheWeek",
+                                                    endDate: "$now")
+                                                .then((value) {
+                                              if (value != null) {
+                                                setState(() {
+                                                  _list =
+                                                      productReportModelFromJson(
+                                                          value);
+                                                  _foundData = _list;
+                                                  print(getStorageId
+                                                      .read('shop_id'));
+                                                  print(startOfTheWeek);
+                                                  print(now);
+                                                  // checkingDone = true;
+                                                });
+                                              }
+
+                                              //  isLoading = false;
+                                            });
                                           });
                                         },
                                         child: Text(
@@ -271,6 +333,29 @@ class _ProductWiseState extends State<ProductWise> {
                                         onPressed: () {
                                           setState(() {
                                             flag = 3;
+                                            controller
+                                                .fetchProductWiseReport(
+                                                    shopId:
+                                                        '${getStorageId.read('shop_id')}',
+                                                    startDate: "$startOfMonth",
+                                                    endDate: "$lastOfTheMonth")
+                                                .then((value) {
+                                              if (value != null) {
+                                                setState(() {
+                                                  _list =
+                                                      productReportModelFromJson(
+                                                          value);
+                                                  _foundData = _list;
+                                                  print(getStorageId
+                                                      .read('shop_id'));
+                                                  print(startOfMonth);
+                                                  print(lastOfTheMonth);
+                                                  // checkingDone = true;
+                                                });
+                                              }
+
+                                              //  isLoading = false;
+                                            });
                                           });
                                         },
                                         child: Text(
@@ -304,6 +389,30 @@ class _ProductWiseState extends State<ProductWise> {
                                         onPressed: () {
                                           setState(() {
                                             flag = 4;
+                                            controller
+                                                .fetchProductWiseReport(
+                                                    shopId:
+                                                        '${getStorageId.read('shop_id')}',
+                                                    startDate:
+                                                        "$startOfTheYear",
+                                                    endDate: "$now")
+                                                .then((value) {
+                                              if (value != null) {
+                                                setState(() {
+                                                  _list =
+                                                      productReportModelFromJson(
+                                                          value);
+                                                  _foundData = _list;
+                                                  print(getStorageId
+                                                      .read('shop_id'));
+                                                  print(startOfTheYear);
+                                                  print(now);
+                                                  // checkingDone = true;
+                                                });
+                                              }
+
+                                              //  isLoading = false;
+                                            });
                                           });
                                         },
                                         child: Text(
@@ -339,10 +448,9 @@ class _ProductWiseState extends State<ProductWise> {
                                       onPressed: () {
                                         if (flag == 1) {
                                           setState(() {
-                                            day = DateFormat.yMMMMd().format(now
-                                                .subtract(Duration(days: 1)));
-                                            // day = DateFormat.yMMMMd().format(now);
+                                            _boController.count.value++;
                                           });
+                                          dayMinus(_boController.count.value);
                                         }
                                       },
                                       icon: Icon(Icons.arrow_back_ios)),
@@ -353,9 +461,9 @@ class _ProductWiseState extends State<ProductWise> {
                                       onPressed: () {
                                         if (flag == 1) {
                                           setState(() {
-                                            day = DateFormat.yMMMMd().format(
-                                                now.add(Duration(days: 1)));
+                                            _boController.count.value++;
                                           });
+                                          dayAdd(_boController.count.value);
                                         }
                                       },
                                       icon: Icon(Icons.arrow_forward_ios))
@@ -598,17 +706,58 @@ class _ProductWiseState extends State<ProductWise> {
 
   void getData() {
     controller
-        .fetchProductWiseReport(shopId: "", statDate: "", endDate: "")
+        .fetchProductWiseReport(
+            shopId: '${getStorageId.read('shop_id')}',
+            startDate: "$now",
+            endDate: "$now")
         .then((value) {
       if (value != null) {
         setState(() {
           _list = productReportModelFromJson(value);
           _foundData = _list;
+          print(getStorageId.read('shop_id'));
+          print(now);
           // checkingDone = true;
         });
       }
 
       //  isLoading = false;
+    });
+  }
+
+  void getDataForDropDown(var startDate, var endDate) {
+    controller
+        .fetchProductWiseReport(
+            shopId: '${getStorageId.read('shop_id')}',
+            startDate: "$startDate",
+            endDate: "$endDate")
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          _list = productReportModelFromJson(value);
+          _foundData = _list;
+          print(getStorageId.read('shop_id'));
+          print(now);
+          // checkingDone = true;
+        });
+      }
+
+      //  isLoading = false;
+    });
+  }
+
+  dayMinus(int count) {
+    setState(() {
+      day = DateFormat.yMMMMd()
+          .format(now.subtract(Duration(days: _boController.count.value)));
+      print(day);
+    });
+  }
+
+  dayAdd(int count) {
+    setState(() {
+      day = DateFormat.yMMMMd()
+          .format(now.add(Duration(days: _boController.count.value)));
     });
   }
 }
