@@ -47,7 +47,7 @@ class EmployeReportModel {
         mobile: json["mobile"],
         email: json["email"],
         address: json["address"],
-        monthlySalary: json["monthly_salary"] ?? "0",
+        monthlySalary: json["monthly_salary"] == null ? null : json["monthly_salary"],
         employeeId: json["employee_id"],
         imageSrc: json["image_src"],
         createdAt: DateTime.parse(json["created_at"]),

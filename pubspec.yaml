@@ -97,6 +97,7 @@ dependencies:
   flutter_simple_calculator: ^2.0.0+1
   pull_to_refresh: ^2.0.0
   loading_overlay: ^0.3.0
+  jiffy: ^4.1.0
   permission_handler: ^8.3.0
 
 dependency_overrides:

@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
 import 'package:hishabee_business_manager_fl/models/business_overview/customer_report.dart';
-import 'package:intl/intl.dart'; // for date format
+import 'package:hishabee_business_manager_fl/models/business_overview/product_report.dart';
+import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart'; // for date format
 
-var now = DateTime.now();
-var day = DateFormat.yMMMMd().format(now);
-var year = DateFormat.y().format(now);
-var month = DateFormat.MMMM().format(now);
+var now;
+var day;
+
+var startOfTheWeek = now.subtract(Duration(days: now.weekday - 1));
+var endOfTheWeek = now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
+var startOfMonth = DateTime(now.year, now.month, 1);
+var lastOfTheMonth = (now.month < 12)
+    ? new DateTime(now.year, now.month + 1, 0)
+    : new DateTime(now.year + 1, 1, 0);
+var startOfTheYear = DateTime(DateTime.now().year);
+
+int year;
+int month;
+int week;
+var dayMain;
 DateTime firstDatePicked;
 DateTime endDatePicked;
 var startDate;
@@ -22,11 +36,21 @@ class CustomerWiseReport extends StatefulWidget {
 class _CustomerWiseReportState extends State<CustomerWiseReport> {
   List<CustomerReportModel> _list = <CustomerReportModel>[];
   List<CustomerReportModel> _foundData = <CustomerReportModel>[];
-  BoController controller = Get.find();
+  BoController _boController = BoController();
   int flag = 1;
+  var getStorageId = GetStorage('shop_id');
   @override
   void initState() {
+    now = DateTime.now();
+    day = DateFormat.yMMMMd().format(now);
+    dayMain =DateTime.now().day.toInt();
+    month = DateTime.now().month.toInt();
+    year = DateTime.now().year.toInt();
+    _boController.count.value = 0;
+    _boController.countAdd.value = 0;
     getData();
+
+    // TODO: implement initState
     super.initState();
   }
 
@@ -121,8 +145,9 @@ class _CustomerWiseReportState extends State<CustomerWiseReport> {
                                 onChanged: (startDateTime) {
                               setState(() {
                                 firstDatePicked = startDateTime;
-                                startDate =
-                                    DateFormat.yMMMd().format(firstDatePicked);
+                                startDate = DateFormat.yMMMd()
+                                    .format(firstDatePicked);
+                                getDataForDropDown(startDate, endDate);
                               });
                             });
                           },
@@ -170,6 +195,7 @@ class _CustomerWiseReportState extends State<CustomerWiseReport> {
                                 endDatePicked = endDateTime;
                                 endDate =
                                     DateFormat.yMMMd().format(endDatePicked);
+                                getDataForDropDown(startDate, endDate);
                               });
                             });
                           },
@@ -194,6 +220,28 @@ class _CustomerWiseReportState extends State<CustomerWiseReport> {
                                       onPressed: () {
                                         setState(() {
                                           flag = 1;
+                                          _boController
+                                              .fetchCustomerWiseReport(
+                                              shopId:
+                                              '${getStorageId.read('shop_id')}',
+                                              startDate: "$now",
+                                              endDate: "$now")
+                                              .then((value) {
+                                            if (value != null) {
+                                              setState(() {
+                                                _list =
+                                                    customerReportModelFromJson(
+                                                        value);
+                                                _foundData = _list;
+                                                print(getStorageId
+                                                    .read('shop_id'));
+                                                print(now);
+                                                // checkingDone = true;
+                                              });
+                                            }
+
+                                            //  isLoading = false;
+                                          });
                                         });
                                       },
                                       child: Text(
@@ -226,6 +274,30 @@ class _CustomerWiseReportState extends State<CustomerWiseReport> {
                                       onPressed: () {
                                         setState(() {
                                           flag = 2;
+                                          _boController
+                                              .fetchCustomerWiseReport(
+                                              shopId:
+                                              '${getStorageId.read('shop_id')}',
+                                              startDate:
+                                              "$startOfTheWeek",
+                                              endDate: "$now")
+                                              .then((value) {
+                                            if (value != null) {
+                                              setState(() {
+                                                _list =
+                                                    customerReportModelFromJson(
+                                                        value);
+                                                _foundData = _list;
+                                                print(getStorageId
+                                                    .read('shop_id'));
+                                                print(startOfTheWeek);
+                                                print(now);
+                                                // checkingDone = true;
+                                              });
+                                            }
+
+                                            //  isLoading = false;
+                                          });
                                         });
                                       },
                                       child: Text(
@@ -259,6 +331,29 @@ class _CustomerWiseReportState extends State<CustomerWiseReport> {
                                       onPressed: () {
                                         setState(() {
                                           flag = 3;
+                                          _boController
+                                              .fetchCustomerWiseReport(
+                                              shopId:
+                                              '${getStorageId.read('shop_id')}',
+                                              startDate: "$startOfMonth",
+                                              endDate: "$lastOfTheMonth")
+                                              .then((value) {
+                                            if (value != null) {
+                                              setState(() {
+                                                _list =
+                                                    customerReportModelFromJson(
+                                                        value);
+                                                _foundData = _list;
+                                                print(getStorageId
+                                                    .read('shop_id'));
+                                                print(startOfMonth);
+                                                print(lastOfTheMonth);
+                                                // checkingDone = true;
+                                              });
+                                            }
+
+                                            //  isLoading = false;
+                                          });
                                         });
                                       },
                                       child: Text(
@@ -292,6 +387,30 @@ class _CustomerWiseReportState extends State<CustomerWiseReport> {
                                       onPressed: () {
                                         setState(() {
                                           flag = 4;
+                                          _boController
+                                              .fetchCustomerWiseReport(
+                                              shopId:
+                                              '${getStorageId.read('shop_id')}',
+                                              startDate:
+                                              "$startOfTheYear",
+                                              endDate: "$now")
+                                              .then((value) {
+                                            if (value != null) {
+                                              setState(() {
+                                                _list =
+                                                    customerReportModelFromJson(
+                                                        value);
+                                                _foundData = _list;
+                                                print(getStorageId
+                                                    .read('shop_id'));
+                                                print(startOfTheYear);
+                                                print(now);
+                                                // checkingDone = true;
+                                              });
+                                            }
+
+                                            //  isLoading = false;
+                                          });
                                         });
                                       },
                                       child: Text(
@@ -327,23 +446,41 @@ class _CustomerWiseReportState extends State<CustomerWiseReport> {
                                     onPressed: () {
                                       if (flag == 1) {
                                         setState(() {
-                                          day = DateFormat.yMMMMd().format(
-                                              now.subtract(Duration(days: 1)));
-                                          // day = DateFormat.yMMMMd().format(now);
+                                          _boController.count.value++;
                                         });
+                                        dayMinus();
+                                      }
+                                      else if(flag == 3){
+                                        monthMinus();
+                                      }
+                                      else if(flag == 4){
+                                        yearMinus();
+                                      }
+                                      else if(flag == 2){
+                                        // weekMinus();
                                       }
                                     },
                                     icon: Icon(Icons.arrow_back_ios)),
-                                if (flag == 1) Text(day),
-                                if (flag == 4) Text(year),
-                                if (flag == 3) Text(month),
+                                if (flag == 1) Text(DateFormat.yMMMMd().format(now)),
+                                if(flag ==2) Text('${DateFormat.yMMMMd().format(startOfTheWeek)} - ${DateFormat.yMMMMd().format(endOfTheWeek)}'),
+                                if (flag == 4) Text('$year'),
+                                if (flag == 3) Text(months[month - 1]),
                                 IconButton(
                                     onPressed: () {
                                       if (flag == 1) {
                                         setState(() {
-                                          day = DateFormat.yMMMMd().format(
-                                              now.add(Duration(days: 1)));
+                                          _boController.countAdd.value++;
                                         });
+                                        dayAdd();
+                                      }
+                                      else if(flag == 3){
+                                        setState(() {
+
+                                        });
+                                        monthAdd();
+                                      }
+                                      else if(flag == 4){
+                                        yearAdd();
                                       }
                                     },
                                     icon: Icon(Icons.arrow_forward_ios))
@@ -391,7 +528,7 @@ class _CustomerWiseReportState extends State<CustomerWiseReport> {
                                 )),
 
                             Container(
-                              height: size.height - 400,
+                              height: size.height - 450,
                               child: Padding(
                                 padding: const EdgeInsets.only(
                                     left: 10.0, right: 10),
@@ -622,14 +759,19 @@ class _CustomerWiseReportState extends State<CustomerWiseReport> {
     });
   }
 
-  void getData() {
-    controller
-        .fetchCustomerWiseReport(shopId: "", statDate: "", endDate: "")
+  void getDataForDropDown(var startDate, var endDate) {
+    _boController
+        .fetchCustomerWiseReport(
+        shopId: '${getStorageId.read('shop_id')}',
+        startDate: "$startDate",
+        endDate: "$endDate")
         .then((value) {
       if (value != null) {
         setState(() {
           _list = customerReportModelFromJson(value);
           _foundData = _list;
+          // print(getStorageId.read('shop_id'));
+          // print(now);
           // checkingDone = true;
         });
       }
@@ -637,4 +779,89 @@ class _CustomerWiseReportState extends State<CustomerWiseReport> {
       //  isLoading = false;
     });
   }
+
+  void getData() {
+    _boController
+        .fetchCustomerWiseReport(
+        shopId: '${getStorageId.read('shop_id')}',
+        startDate: "$now",
+        endDate: "$now")
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          _list = customerReportModelFromJson(value);
+          _foundData = _list;
+          print(getStorageId.read('shop_id'));
+          print(now);
+          // checkingDone = true;
+        });
+      }
+
+      //  isLoading = false;
+    });
+  }
+  dayMinus() {
+    setState(() {
+      now = now.subtract(Duration(days: 1));
+      print(now);
+    });
+    getDataForDropDown(now, now);
+  }
+
+  dayAdd() {
+    setState(() {
+      now =now.add(Duration(days: 1));
+    });
+    getDataForDropDown(now, now);
+  }
+  monthMinus(){
+    setState(() {
+      month = Jiffy([year, month, dayMain]).subtract(months: 1).month;
+      print(Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime);
+      print(Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
+    });
+    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime, Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
+  }
+  monthAdd(){
+    setState(() {
+      month = Jiffy([year, month, dayMain]).add(months: 1).month;
+    });
+    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime, Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
+  }
+  yearMinus(){
+    setState(() {
+      year = Jiffy([year, month, dayMain]).subtract(years: 1).year;
+      print(Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime);
+      print(Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
+    });
+    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime, Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
+
+  }
+  yearAdd(){
+    setState(() {
+      year = Jiffy([year, month, dayMain]).add(years: 1).year;
+      print(year);
+    });
+    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime, Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
+  }
+  // weekMinus(){
+  //   setState(() {
+  //     week = Jiffy([year, month, dayMain]).subtract(weeks: 1).week;
+  //     print(week);
+  //   });
+  // }
+  List<String> months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'Octobar',
+    'November',
+    'December'
+  ];
 }

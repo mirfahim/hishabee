@@ -5,12 +5,13 @@ import 'package:hishabee_business_manager_fl/service/api_service.dart';
 class BoController extends GetxController {
   ApiService _apiService = ApiService();
   RxInt count = 0.obs;
+  RxInt countAdd = 0.obs;
   Future<dynamic> fetchOverview(
       //dynamic is nullable so if we didnt get any response we can handle it
       {String shopId,
       String startDate,
       String endDate}) async {
-    String url = "/overview?shop_id=18&start_date=$startDate&end_date=$endDate";
+    String url = "/overview?shop_id=$shopId&start_date=$startDate&end_date=$endDate";
     return _apiService.makeApiRequiest(
         method: apiMethods.get,
         url: url,
@@ -26,17 +27,18 @@ class BoController extends GetxController {
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
-  fetchCustomerWiseReport({String shopId, String statDate, String endDate}) {
+  fetchCustomerWiseReport({String shopId, String startDate, String endDate}) {
     String url =
-        "/overview/customer?shop_id=105&start_date=2021-01-8&end_date=2021-10-8";
+        "/overview/customer?shop_id=$shopId&start_date=$startDate&end_date=$endDate";
     return _apiService.makeApiRequiest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
-  fetchEmployeWiseReport({String shopId, String statDate, String endDate}) {
+  fetchEmployeWiseReport({String shopId, String startDate, String endDate}) {
     String url =
-        "/overview/employee?shop_id=1-5&start_date=2021-01-8&end_date=2021-10-8";
+        "/overview/employee?shop_id=$shopId&start_date=$startDate&end_date=$endDate";
     return _apiService.makeApiRequiest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
+
 }

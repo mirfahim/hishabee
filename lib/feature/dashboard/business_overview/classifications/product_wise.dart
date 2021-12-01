@@ -4,12 +4,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
 import 'package:hishabee_business_manager_fl/models/business_overview/product_report.dart';
-import 'package:intl/intl.dart'; // for date format
+import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart'; // for date format
 
-var now = DateTime.now();
+var now;
 var day;
 
-var startOfTheWeek = now.subtract(Duration(days: now.weekday));
+var startOfTheWeek = now.subtract(Duration(days: now.weekday - 1));
 var endOfTheWeek = now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
 var startOfMonth = DateTime(now.year, now.month, 1);
 var lastOfTheMonth = (now.month < 12)
@@ -17,13 +18,14 @@ var lastOfTheMonth = (now.month < 12)
     : new DateTime(now.year + 1, 1, 0);
 var startOfTheYear = DateTime(DateTime.now().year);
 
-var year = DateFormat.y().format(now);
-var month = DateFormat.MMMM().format(now);
+int year;
+int month;
+int week;
+var dayMain;
 DateTime firstDatePicked;
 DateTime endDatePicked;
 var startDate;
-var endDate;
-BoController _boController = BoController();
+var endDate;// BoController _boController = BoController();
 
 class ProductWise extends StatefulWidget {
   @override
@@ -33,14 +35,20 @@ class ProductWise extends StatefulWidget {
 class _ProductWiseState extends State<ProductWise> {
   List<ProductReportModel> _list = <ProductReportModel>[];
   List<ProductReportModel> _foundData = <ProductReportModel>[];
-  BoController controller = Get.find();
+  BoController _boController = BoController();
   int flag = 1;
   var getStorageId = GetStorage('shop_id');
   @override
   void initState() {
-    getData();
+    now = DateTime.now();
     day = DateFormat.yMMMMd().format(now);
+    dayMain =DateTime.now().day.toInt();
+    month = DateTime.now().month.toInt();
+    year = DateTime.now().year.toInt();
+
     _boController.count.value = 0;
+    _boController.countAdd.value = 0;
+    getData();
     // TODO: implement initState
     super.initState();
   }
@@ -222,7 +230,7 @@ class _ProductWiseState extends State<ProductWise> {
                                         onPressed: () {
                                           setState(() {
                                             flag = 1;
-                                            controller
+                                            _boController
                                                 .fetchProductWiseReport(
                                                     shopId:
                                                         '${getStorageId.read('shop_id')}',
@@ -276,7 +284,7 @@ class _ProductWiseState extends State<ProductWise> {
                                         onPressed: () {
                                           setState(() {
                                             flag = 2;
-                                            controller
+                                            _boController
                                                 .fetchProductWiseReport(
                                                     shopId:
                                                         '${getStorageId.read('shop_id')}',
@@ -333,7 +341,7 @@ class _ProductWiseState extends State<ProductWise> {
                                         onPressed: () {
                                           setState(() {
                                             flag = 3;
-                                            controller
+                                            _boController
                                                 .fetchProductWiseReport(
                                                     shopId:
                                                         '${getStorageId.read('shop_id')}',
@@ -389,7 +397,7 @@ class _ProductWiseState extends State<ProductWise> {
                                         onPressed: () {
                                           setState(() {
                                             flag = 4;
-                                            controller
+                                            _boController
                                                 .fetchProductWiseReport(
                                                     shopId:
                                                         '${getStorageId.read('shop_id')}',
@@ -450,20 +458,39 @@ class _ProductWiseState extends State<ProductWise> {
                                           setState(() {
                                             _boController.count.value++;
                                           });
-                                          dayMinus(_boController.count.value);
+                                          dayMinus();
+                                        }
+                                        else if(flag == 3){
+                                          monthMinus();
+                                        }
+                                        else if(flag == 4){
+                                          yearMinus();
+                                        }
+                                        else if(flag == 2){
+                                          // weekMinus();
                                         }
                                       },
                                       icon: Icon(Icons.arrow_back_ios)),
-                                  if (flag == 1) Text(day),
-                                  if (flag == 4) Text(year),
-                                  if (flag == 3) Text(month),
+                                  if (flag == 1) Text(DateFormat.yMMMMd().format(now)),
+                                  if(flag ==2) Text('${DateFormat.yMMMMd().format(startOfTheWeek)} - ${DateFormat.yMMMMd().format(endOfTheWeek)}'),
+                                  if (flag == 4) Text('$year'),
+                                  if (flag == 3) Text(months[month - 1]),
                                   IconButton(
                                       onPressed: () {
                                         if (flag == 1) {
                                           setState(() {
-                                            _boController.count.value++;
+                                            _boController.countAdd.value++;
                                           });
-                                          dayAdd(_boController.count.value);
+                                          dayAdd();
+                                        }
+                                        else if(flag == 3){
+                                          setState(() {
+
+                                          });
+                                          monthAdd();
+                                        }
+                                        else if(flag == 4){
+                                          yearAdd();
                                         }
                                       },
                                       icon: Icon(Icons.arrow_forward_ios))
@@ -511,7 +538,7 @@ class _ProductWiseState extends State<ProductWise> {
                                   )),
 
                               Container(
-                                height: size.height - 400,
+                                height: size.height - 450,
                                 child: Padding(
                                   padding: const EdgeInsets.only(
                                       left: 10.0, right: 10),
@@ -705,7 +732,7 @@ class _ProductWiseState extends State<ProductWise> {
   }
 
   void getData() {
-    controller
+    _boController
         .fetchProductWiseReport(
             shopId: '${getStorageId.read('shop_id')}',
             startDate: "$now",
@@ -726,7 +753,7 @@ class _ProductWiseState extends State<ProductWise> {
   }
 
   void getDataForDropDown(var startDate, var endDate) {
-    controller
+    _boController
         .fetchProductWiseReport(
             shopId: '${getStorageId.read('shop_id')}',
             startDate: "$startDate",
@@ -736,8 +763,8 @@ class _ProductWiseState extends State<ProductWise> {
         setState(() {
           _list = productReportModelFromJson(value);
           _foundData = _list;
-          print(getStorageId.read('shop_id'));
-          print(now);
+          // print(getStorageId.read('shop_id'));
+          // print(now);
           // checkingDone = true;
         });
       }
@@ -746,18 +773,68 @@ class _ProductWiseState extends State<ProductWise> {
     });
   }
 
-  dayMinus(int count) {
+  dayMinus() {
     setState(() {
-      day = DateFormat.yMMMMd()
-          .format(now.subtract(Duration(days: _boController.count.value)));
-      print(day);
+      now = now.subtract(Duration(days: 1));
+      print(now);
     });
+    getDataForDropDown(now, now);
   }
 
-  dayAdd(int count) {
+  dayAdd() {
     setState(() {
-      day = DateFormat.yMMMMd()
-          .format(now.add(Duration(days: _boController.count.value)));
+      now =now.add(Duration(days: 1));
     });
+    getDataForDropDown(now, now);
   }
+  monthMinus(){
+    setState(() {
+      month = Jiffy([year, month, dayMain]).subtract(months: 1).month;
+      print(Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime);
+      print(Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
+    });
+    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime, Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
+  }
+  monthAdd(){
+    setState(() {
+      month = Jiffy([year, month, dayMain]).add(months: 1).month;
+    });
+    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime, Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
+  }
+  yearMinus(){
+    setState(() {
+      year = Jiffy([year, month, dayMain]).subtract(years: 1).year;
+      print(Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime);
+      print(Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
+    });
+    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime, Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
+
+  }
+  yearAdd(){
+    setState(() {
+      year = Jiffy([year, month, dayMain]).add(years: 1).year;
+      print(year);
+    });
+    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime, Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
+  }
+  // weekMinus(){
+  //   setState(() {
+  //     week = Jiffy([year, month, dayMain]).subtract(weeks: 1).week;
+  //     print(week);
+  //   });
+  // }
+  List<String> months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'Octobar',
+    'November',
+    'December'
+  ];
 }

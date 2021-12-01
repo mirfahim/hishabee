@@ -8,23 +8,28 @@ import 'package:hishabee_business_manager_fl/feature/dashboard/business_overview
 import 'package:hishabee_business_manager_fl/feature/dashboard/business_overview/classifications/employe_wise_report.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/business_overview/classifications/product_wise.dart';
 import 'package:hishabee_business_manager_fl/models/business_overview/overview.dart';
+import 'package:hishabee_business_manager_fl/new_UI/business_overview/business_over_view.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_overlay/loading_overlay.dart'; // for date format
+import 'package:jiffy/jiffy.dart';
+var now;
+var day;
 
-var now = DateTime.now();
-
-var day = DateFormat.yMMMMd().format(now);
 // var week = ;
-var startOfTheWeek = now.subtract(Duration(days: now.weekday));
+var startOfTheWeek = now.subtract(Duration(days: now.weekday - 1));
 var endOfTheWeek = now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
 var startOfMonth = DateTime(now.year, now.month, 1);
 var lastOfTheMonth = (now.month < 12)
     ? new DateTime(now.year, now.month + 1, 0)
     : new DateTime(now.year + 1, 1, 0);
 var startOfTheYear = DateTime(DateTime.now().year);
-var year = DateFormat.y().format(now);
-var month = DateFormat.MMMM().format(now);
+int year;
+// var year = DateFormat.y().format(now);
+int month;
+int week;
+var dayMain;
+// var month = DateFormat.MMMM().format(now);
 // ignore: non_constant_identifier_names
 Widget ReportContainer(String asset, String reportName) {
   return Padding(
@@ -77,6 +82,13 @@ class _BusinessOverViewState extends State<BusinessOverView> {
   @override
   void initState() {
     now = DateTime.now();
+    day = DateFormat.yMMMMd().format(now);
+    dayMain =DateTime.now().day.toInt();
+    month = DateTime.now().month.toInt();
+    year = DateTime.now().year.toInt();
+    // month = DateFormat.MMMM().format(now);
+    _controller.count.value = 0;
+    _controller.countAdd.value = 0;
     _controller
         .fetchOverview(shopId: '${shop.id}', startDate: '$now', endDate: '$now')
         .then((value) {
@@ -404,21 +416,41 @@ class _BusinessOverViewState extends State<BusinessOverView> {
                                             if (flag == 1) {
                                               setState(() {
                                                 // day = DateFormat.yMMMMd().format(now);
+                                                _controller.count.value++;
                                               });
+                                              dayMinus();
+                                            }
+                                            else if(flag == 3){
+                                              monthMinus();
+                                            }
+                                            else if(flag == 4){
+                                              yearMinus();
+                                            }
+                                            else if(flag == 2){
+                                              // weekMinus();
                                             }
                                           },
                                           icon: Icon(Icons.arrow_back_ios)),
-                                      if (flag == 1) Text(day),
-                                      if (flag == 4) Text(year),
-                                      if (flag == 3) Text(month),
+                                      if (flag == 1) Text(DateFormat.yMMMMd().format(now)),
+                                      if(flag ==2) Text('${DateFormat.yMMMMd().format(startOfTheWeek)} - ${DateFormat.yMMMMd().format(endOfTheWeek)}'),
+                                      if (flag == 4) Text('$year'),
+                                      if (flag == 3) Text(months[month - 1]),
                                       IconButton(
                                           onPressed: () {
                                             if (flag == 1) {
                                               setState(() {
-                                                day = DateFormat.yMMMMd()
-                                                    .format(now.add(
-                                                        Duration(days: 1)));
+                                                _controller.countAdd.value++;
                                               });
+                                              dayAdd();
+                                            }
+                                            else if(flag == 3){
+                                              setState(() {
+
+                                              });
+                                              monthAdd();
+                                            }
+                                            else if(flag == 4){
+                                              yearAdd();
                                             }
                                           },
                                           icon: Icon(Icons.arrow_forward_ios))
@@ -476,4 +508,88 @@ class _BusinessOverViewState extends State<BusinessOverView> {
               ]),
             )),
       );
+
+  void getDataForDropDown(var startDate, var endDate) {
+    _controller
+        .fetchOverview(
+        shopId: '${getStorageId.read('shop_id')}',
+        startDate: "$startDate",
+        endDate: "$endDate")
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          _overView = overviewModelFromJson(value);
+          // print(getStorageId.read('shop_id'));
+          // print(now);
+          // checkingDone = true;
+        });
+      }
+
+      //  isLoading = false;
+    });
+  }
+  dayMinus() {
+    setState(() {
+      now = now.subtract(Duration(days: 1));
+      print(now);
+    });
+    getDataForDropDown(now, now);
+  }
+
+  dayAdd() {
+    setState(() {
+      now =now.add(Duration(days: 1));
+    });
+    getDataForDropDown(now, now);
+  }
+  monthMinus(){
+    setState(() {
+      month = Jiffy([year, month, dayMain]).subtract(months: 1).month;
+      print(Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime);
+      print(Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
+    });
+    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime, Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
+  }
+  monthAdd(){
+    setState(() {
+      month = Jiffy([year, month, dayMain]).add(months: 1).month;
+    });
+    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime, Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
+  }
+  yearMinus(){
+    setState(() {
+      year = Jiffy([year, month, dayMain]).subtract(years: 1).year;
+      print(Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime);
+      print(Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
+    });
+    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime, Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
+
+  }
+  yearAdd(){
+    setState(() {
+      year = Jiffy([year, month, dayMain]).add(years: 1).year;
+      print(year);
+    });
+    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime, Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
+  }
+  // weekMinus(){
+  //   setState(() {
+  //     week = Jiffy([year, month, dayMain]).subtract(weeks: 1).week;
+  //     print(week);
+  //   });
+  // }
+  List<String> months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'Octobar',
+    'November',
+    'December'
+  ];
 }
