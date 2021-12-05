@@ -18,6 +18,7 @@ class SmsHistory extends StatefulWidget {
 
 class _SmsHistoryState extends State<SmsHistory> {
   SmsController _smsController = SmsController();
+  final ScrollController _firstController = ScrollController();
   List<GetAllMessage> _getAllMessage;
   bool _isLoading = true;
   var storageSms = GetStorage('sms');
@@ -53,6 +54,7 @@ class _SmsHistoryState extends State<SmsHistory> {
           isLoading: _isLoading,
           child: _getAllMessage != null
               ? Scrollbar(
+                  controller: _firstController,
                   isAlwaysShown: true,
                   showTrackOnHover: true,
                   hoverThickness: 10,
