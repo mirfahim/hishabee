@@ -4,6 +4,8 @@ List<ProductReportModel> productReportModelFromJson(dynamic str) =>
     List<ProductReportModel>.from(
         str.map((x) => ProductReportModel.fromJson(x)));
 
+///TODO this model is OK
+
 class ProductReportModel {
   ProductReportModel({
     this.id,

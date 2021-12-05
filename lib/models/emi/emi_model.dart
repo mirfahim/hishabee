@@ -1,6 +1,8 @@
 List<EmiModel> emiModelFromJson(dynamic str) =>
     List<EmiModel>.from(str.map((x) => EmiModel.fromJson(x)));
 
+///TODO this model is OK
+
 class EmiModel {
   EmiModel({
     this.id,

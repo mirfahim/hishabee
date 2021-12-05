@@ -12,6 +12,8 @@ List<ShopType> shopTypeFromRawJson(dynamic json) => List<ShopType>.from(
 String shopTypeToJson(List<ShopType> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
+///TODO this model is OK
+
 class ShopType {
   ShopType({
     this.id,

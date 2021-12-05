@@ -4,6 +4,8 @@ List<DigitalPaymentModel> digitalPaymentModelFromJson(dynamic str) =>
     List<DigitalPaymentModel>.from(
         str.map((x) => DigitalPaymentModel.fromJson(x)));
 
+///TODO this model is OK
+
 class DigitalPaymentModel {
   DigitalPaymentModel({
     this.id,

@@ -3,6 +3,8 @@ import 'dart:convert';
 OverviewModel overviewModelFromJson(Map<String, dynamic> json) =>
     OverviewModel.fromJson(json);
 
+///TODO this model is OK
+
 class OverviewModel {
   OverviewModel({
     this.totalProduct,

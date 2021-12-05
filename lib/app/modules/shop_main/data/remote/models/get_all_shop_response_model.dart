@@ -13,6 +13,8 @@ List<Shop> shopsFromRawJson(dynamic json) =>
 String shopsToJson(List<Shop> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
+///TODO this model is OK
+
 // class ShopMessage {
 //   ShopMessage({
 //     this.code,
@@ -317,9 +319,12 @@ class Shop {
     this.onlineProduct,
     this.totalEarning,
     this.totalUnread,
+    this.liquidBalance,
+    this.hishabeeCredit,
     this.campaign,
     this.wallet,
   });
+
   int smsCount;
   int id;
   int userId;
@@ -362,6 +367,8 @@ class Shop {
   int onlineProduct;
   int totalEarning;
   int totalUnread;
+  int liquidBalance;
+  int hishabeeCredit;
   Campaign campaign;
   Wallet wallet;
 
@@ -408,6 +415,8 @@ class Shop {
     int onlineProduct,
     int totalEarning,
     int totalUnread,
+    int liquidBalance,
+    int hishabeeCredit,
     Campaign campaign,
     Wallet wallet,
   }) =>
@@ -454,6 +463,8 @@ class Shop {
         onlineProduct: onlineProduct ?? this.onlineProduct,
         totalEarning: totalEarning ?? this.totalEarning,
         totalUnread: totalUnread ?? this.totalUnread,
+        liquidBalance: liquidBalance ?? this.liquidBalance,
+        hishabeeCredit: hishabeeCredit ?? this.hishabeeCredit,
         campaign: campaign ?? this.campaign,
         wallet: wallet ?? this.wallet,
       );
@@ -513,6 +524,10 @@ class Shop {
         totalEarning:
             json["total_earning"] == null ? null : json["total_earning"],
         totalUnread: json["total_unread"] == null ? null : json["total_unread"],
+        liquidBalance:
+            json["liquid_balance"] == null ? null : json["liquid_balance"],
+        hishabeeCredit:
+            json["hishabee_credit"] == null ? null : json["hishabee_credit"],
         campaign: json["campaign"] == null
             ? null
             : Campaign.fromJson(json["campaign"]),
@@ -564,6 +579,8 @@ class Shop {
         "online_product": onlineProduct == null ? null : onlineProduct,
         "total_earning": totalEarning == null ? null : totalEarning,
         "total_unread": totalUnread == null ? null : totalUnread,
+        "liquid_balance": liquidBalance == null ? null : liquidBalance,
+        "hishabee_credit": hishabeeCredit == null ? null : hishabeeCredit,
         "campaign": campaign == null ? null : campaign.toJson(),
         "wallet": wallet == null ? null : wallet.toJson(),
       };

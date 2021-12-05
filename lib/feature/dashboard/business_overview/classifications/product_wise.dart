@@ -25,7 +25,7 @@ var dayMain;
 DateTime firstDatePicked;
 DateTime endDatePicked;
 var startDate;
-var endDate;// BoController _boController = BoController();
+var endDate; // BoController _boController = BoController();
 
 class ProductWise extends StatefulWidget {
   @override
@@ -40,9 +40,11 @@ class _ProductWiseState extends State<ProductWise> {
   var getStorageId = GetStorage('shop_id');
   @override
   void initState() {
+    startDate = 'Start Date';
+    endDate = 'End Date';
     now = DateTime.now();
     day = DateFormat.yMMMMd().format(now);
-    dayMain =DateTime.now().day.toInt();
+    dayMain = DateTime.now().day.toInt();
     month = DateTime.now().month.toInt();
     year = DateTime.now().year.toInt();
 
@@ -153,9 +155,21 @@ class _ProductWiseState extends State<ProductWise> {
                                   firstDatePicked = startDateTime;
                                   startDate = DateFormat.yMMMd()
                                       .format(firstDatePicked);
-                                  getDataForDropDown(startDate, endDate);
+                                  // getDataForDropDown(startDate, endDate);
                                 });
                               });
+                              // DatePicker.showDatePicker(context,
+                              //     showTitleActions: true,
+                              //     minTime: DateTime(2018, 3, 5),
+                              //     maxTime: DateTime(2222, 6, 7),
+                              //     onChanged: (endDateTime) {
+                              //   setState(() {
+                              //     endDatePicked = endDateTime;
+                              //     endDate =
+                              //         DateFormat.yMMMd().format(endDatePicked);
+                              //     getDataForDropDown(startDate, endDate);
+                              //   });
+                              // });
                             },
                           ),
                           Text(
@@ -459,20 +473,20 @@ class _ProductWiseState extends State<ProductWise> {
                                             _boController.count.value++;
                                           });
                                           dayMinus();
-                                        }
-                                        else if(flag == 3){
+                                        } else if (flag == 3) {
                                           monthMinus();
-                                        }
-                                        else if(flag == 4){
+                                        } else if (flag == 4) {
                                           yearMinus();
-                                        }
-                                        else if(flag == 2){
+                                        } else if (flag == 2) {
                                           // weekMinus();
                                         }
                                       },
                                       icon: Icon(Icons.arrow_back_ios)),
-                                  if (flag == 1) Text(DateFormat.yMMMMd().format(now)),
-                                  if(flag ==2) Text('${DateFormat.yMMMMd().format(startOfTheWeek)} - ${DateFormat.yMMMMd().format(endOfTheWeek)}'),
+                                  if (flag == 1)
+                                    Text(DateFormat.yMMMMd().format(now)),
+                                  if (flag == 2)
+                                    Text(
+                                        '${DateFormat.yMMMMd().format(startOfTheWeek)} - ${DateFormat.yMMMMd().format(endOfTheWeek)}'),
                                   if (flag == 4) Text('$year'),
                                   if (flag == 3) Text(months[month - 1]),
                                   IconButton(
@@ -482,14 +496,10 @@ class _ProductWiseState extends State<ProductWise> {
                                             _boController.countAdd.value++;
                                           });
                                           dayAdd();
-                                        }
-                                        else if(flag == 3){
-                                          setState(() {
-
-                                          });
+                                        } else if (flag == 3) {
+                                          setState(() {});
                                           monthAdd();
-                                        }
-                                        else if(flag == 4){
+                                        } else if (flag == 4) {
                                           yearAdd();
                                         }
                                       },
@@ -504,38 +514,39 @@ class _ProductWiseState extends State<ProductWise> {
                               ///
 
                               Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 12.0,
-                                      top: 12.0,
-                                      left: 10,
-                                      right: 10),
-                                  child: Container(
-                                    height: 50.0,
-                                    child: TextField(
-                                      onChanged: (value) => _runFilter(value),
-                                      style: TextStyle(fontSize: 14.0),
-                                      decoration: InputDecoration(
-                                          hintText: 'Search',
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  width: 2,
-                                                  color: Colors.blue[900])),
-                                          hintStyle: TextStyle(fontSize: 12.0),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(6.0),
-                                              borderSide: BorderSide(
-                                                  width: 2,
-                                                  color: Colors.blue[900])),
-                                          filled: true,
-                                          fillColor: Colors.grey[100],
-                                          prefixIcon: Icon(
-                                            Icons.search,
-                                            color: Colors.blue[900],
-                                            size: 30,
-                                          )),
-                                    ),
-                                  )),
+                                padding: const EdgeInsets.only(
+                                    bottom: 12.0,
+                                    top: 12.0,
+                                    left: 10,
+                                    right: 10),
+                                child: Container(
+                                  height: 50.0,
+                                  child: TextField(
+                                    onChanged: (value) => _runFilter(value),
+                                    style: TextStyle(fontSize: 14.0),
+                                    decoration: InputDecoration(
+                                        hintText: 'Search',
+                                        focusedBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(
+                                                width: 2,
+                                                color: Colors.blue[900])),
+                                        hintStyle: TextStyle(fontSize: 12.0),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(6.0),
+                                            borderSide: BorderSide(
+                                                width: 2,
+                                                color: Colors.blue[900])),
+                                        filled: true,
+                                        fillColor: Colors.grey[100],
+                                        prefixIcon: Icon(
+                                          Icons.search,
+                                          color: Colors.blue[900],
+                                          size: 30,
+                                        )),
+                                  ),
+                                ),
+                              ),
 
                               Container(
                                 height: size.height - 450,
@@ -714,6 +725,7 @@ class _ProductWiseState extends State<ProductWise> {
     );
   }
 
+  ///TODO search purpose
   void _runFilter(String enteredKeyword) {
     List<ProductReportModel> results = [];
     if (enteredKeyword.isEmpty) {
@@ -783,40 +795,52 @@ class _ProductWiseState extends State<ProductWise> {
 
   dayAdd() {
     setState(() {
-      now =now.add(Duration(days: 1));
+      now = now.add(Duration(days: 1));
     });
     getDataForDropDown(now, now);
   }
-  monthMinus(){
+
+  monthMinus() {
     setState(() {
       month = Jiffy([year, month, dayMain]).subtract(months: 1).month;
       print(Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime);
       print(Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
     });
-    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime, Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
+    getDataForDropDown(
+        Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime,
+        Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
   }
-  monthAdd(){
+
+  monthAdd() {
     setState(() {
       month = Jiffy([year, month, dayMain]).add(months: 1).month;
     });
-    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime, Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
+    getDataForDropDown(
+        Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime,
+        Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
   }
-  yearMinus(){
+
+  yearMinus() {
     setState(() {
       year = Jiffy([year, month, dayMain]).subtract(years: 1).year;
       print(Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime);
       print(Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
     });
-    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime, Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
-
+    getDataForDropDown(
+        Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime,
+        Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
   }
-  yearAdd(){
+
+  yearAdd() {
     setState(() {
       year = Jiffy([year, month, dayMain]).add(years: 1).year;
       print(year);
     });
-    getDataForDropDown(Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime, Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
+    getDataForDropDown(
+        Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime,
+        Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
   }
+
   // weekMinus(){
   //   setState(() {
   //     week = Jiffy([year, month, dayMain]).subtract(weeks: 1).week;

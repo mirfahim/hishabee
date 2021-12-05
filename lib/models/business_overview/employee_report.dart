@@ -2,6 +2,8 @@ List<EmployeReportModel> employeReportModelFromJson(dynamic str) =>
     List<EmployeReportModel>.from(
         str.map((x) => EmployeReportModel.fromJson(x)));
 
+///TODO this model is OK
+
 class EmployeReportModel {
   EmployeReportModel({
     this.id,
@@ -47,7 +49,8 @@ class EmployeReportModel {
         mobile: json["mobile"],
         email: json["email"],
         address: json["address"],
-        monthlySalary: json["monthly_salary"] == null ? null : json["monthly_salary"],
+        monthlySalary:
+            json["monthly_salary"] == null ? null : json["monthly_salary"],
         employeeId: json["employee_id"],
         imageSrc: json["image_src"],
         createdAt: DateTime.parse(json["created_at"]),
