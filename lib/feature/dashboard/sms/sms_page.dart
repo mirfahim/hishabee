@@ -54,7 +54,6 @@ class _SmsHistoryState extends State<SmsHistory> {
           isLoading: _isLoading,
           child: _getAllMessage != null
               ? Scrollbar(
-                  controller: _firstController,
                   isAlwaysShown: true,
                   showTrackOnHover: true,
                   hoverThickness: 10,

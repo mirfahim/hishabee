@@ -12,6 +12,7 @@ import 'package:hishabee_business_manager_fl/app/modules/shop_main/domain/reposi
 import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/digital_payment/dp_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/emi/emi_controller.dart';
+import 'package:hishabee_business_manager_fl/controllers/expense/expense_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
 
 class AppBinding extends Bindings {
@@ -34,5 +35,6 @@ class AppBinding extends Bindings {
     Get.put(EmiController());
     Get.put(SmsController());
     Get.put(DpController());
+    Get.put(ExpenseController());
   }
 }

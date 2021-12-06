@@ -32,7 +32,7 @@ class ShopFeaturesController extends GetxController {
 
   final todaysSale = 0.0.obs;
   final walletBalance = 0.obs;
-
+  var getShopId = GetStorage('shop_id');
   final IShopRepository shopRepository;
 
   final IProductRepository productRepository;
@@ -74,6 +74,7 @@ class ShopFeaturesController extends GetxController {
   getCurrentShop() async {
     shop.value = await shopRepository.getCurrentShop();
     DataHolder.shopId = shop.value.id;
+    getShopId.write('shop_id',shop.value.id);
     walletBalance.value = shop.value.walletBalance;
   }
 
