@@ -28,6 +28,13 @@ class ApiService {
       if (method == apiMethods.get) {
         response = await http.get(apiURL, headers: header);
       }
+      if (method == apiMethods.delete) {
+        response = await http.delete(apiURL, headers: header);
+      }
+      if (method == apiMethods.put) {
+        response = await http.put(apiURL,
+            body: convert.jsonEncode(body), headers: header);
+      }
 
       if (response != null &&
           (response.statusCode == 200 || response.statusCode == 201)) {

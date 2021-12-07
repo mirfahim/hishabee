@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hishabee_business_manager_fl/models/emi/utils/bank_model.dart';
 
-enum apiMethods { get, post, patch, delete }
+enum apiMethods { get, post, patch, delete, put }
 
 class Utils {
   static final month3fee = 0.05;

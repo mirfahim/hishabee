@@ -9,15 +9,16 @@ import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'expense_details.dart';
 import 'expense_types.dart';
 import 'all_expenses.dart';
 
-List<Widget> costTypeList = [
-  costTypeCard('Pay Salary'),
-  costTypeCard('Pay Rent'),
-  costTypeCard('Products'),
-  costTypeCard('Pay Utility bill'),
-];
+// List<Widget> costTypeList = [
+//   costTypeCard('Pay Salary'),
+//   costTypeCard('Pay Rent'),
+//   costTypeCard('Products'),
+//   costTypeCard('Pay Utility bill'),
+// ];
 
 Widget costTypeCard(String typeText) {
   return Container(
@@ -36,8 +37,6 @@ Widget costTypeCard(String typeText) {
 var now = DateTime.now();
 
 class ExpenseList extends StatefulWidget {
-  List<ExpenseResponseModel> _AllexpenseList;
-
   @override
   State<ExpenseList> createState() => _ExpenseListState();
 }
@@ -181,39 +180,47 @@ class _ExpenseListState extends State<ExpenseList> {
                                       children: List.generate(
                                         _expenseController
                                             .allExpenseList.length,
-                                        (index) => Container(
-                                          width: 70,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                              color: Color(0xFFC4C4C4)
-                                                  .withOpacity(.35)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  '${_expenseController.allExpenseList[index].amount}',
-                                                  style: TextStyle(
-                                                      color: Color(0xFFDFE0EB),
-                                                      fontSize: 14),
-                                                ),
-                                                Text(
-                                                  '40%',
-                                                  style: TextStyle(
-                                                      color: Color(0xFFDFE0EB),
-                                                      fontSize: 11),
-                                                ),
-                                                Text(
-                                                  '${_expenseController.allExpenseList[index].purpose}',
-                                                  style: TextStyle(
-                                                      color: Color(0xFFDFE0EB),
-                                                      fontSize: 11),
-                                                )
-                                              ],
+                                        (index) => Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 8.0),
+                                          child: Container(
+                                            width: 70,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Color(0xFFC4C4C4)
+                                                    .withOpacity(.35)),
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    '${_expenseController.allExpenseList[index].amount}',
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFFDFE0EB),
+                                                        fontSize: 14),
+                                                  ),
+                                                  Text(
+                                                    '40%',
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFFDFE0EB),
+                                                        fontSize: 11),
+                                                  ),
+                                                  Text(
+                                                    '${_expenseController.allExpenseList[index].purpose}',
+                                                    style: TextStyle(
+                                                        color:
+                                                            Color(0xFFDFE0EB),
+                                                        fontSize: 11),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -258,28 +265,45 @@ class _ExpenseListState extends State<ExpenseList> {
                         ),
                         Expanded(
                           flex: 2,
-                          child: Obx(() =>
-                              GridView.count(
+                          child: Obx(() => GridView.count(
                                 crossAxisCount: 3,
                                 mainAxisSpacing: 10,
                                 crossAxisSpacing: 5,
                                 shrinkWrap: true,
                                 children: List.generate(
                                   _expenseController.allExpenseCategory.length,
-                                  (index) => Container(
-                                    height: 40,
-                                    width: 50,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: const Color(0xFFC4C4C4)
-                                            .withOpacity(.35)),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                            '${_expenseController.allExpenseCategory[index].name}')
-                                      ],
+                                  (index) => GestureDetector(
+                                    onTap: () {
+                                      Get.to(
+                                        NewExpense(
+                                          shopId:
+                                              '${getShopId.read('shop_id')}',
+                                          type: _expenseList[index].type,
+                                          purpose: _expenseList[index].purpose,
+                                          details: _expenseList[index].details,
+                                          amount:
+                                              '${_expenseList[index].amount}',
+                                          userId:
+                                              '${_expenseList[index].userId}',
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      height: 40,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: const Color(0xFFC4C4C4)
+                                              .withOpacity(.35)),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                              '${_expenseController.allExpenseCategory[index].name}')
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),

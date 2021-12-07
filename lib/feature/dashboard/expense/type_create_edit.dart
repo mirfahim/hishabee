@@ -37,20 +37,16 @@ import 'all_expenses.dart';
 //   );
 // }
 
-class ExpenseTypeSecond extends StatefulWidget {
-  @override
-  State<ExpenseTypeSecond> createState() => _ExpenseTypeSecondState();
-}
+class ExpenseTypeEdit extends StatelessWidget {
+  String categoryId;
+  String shopId;
+  String name;
+  ExpenseTypeEdit({this.categoryId, this.shopId, this.name});
 
-class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
   ExpenseController _expenseController = Get.find();
-
   TextEditingController _textEditingController = TextEditingController();
-
   Shop shop = Get.arguments;
-
   var getShopId = GetStorage('shop_id');
-
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -98,7 +94,7 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)),
                         counterText: "",
-                        hintText: 'type',
+                        hintText: name,
                         hintStyle: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: Colors.black26,
@@ -111,24 +107,22 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        _expenseController.createNewExpenseType(
-                            shopId: '${shop.id}',
-                            name: _textEditingController.value.text);
+                        _expenseController.updateCategory(
+                            shopId: shopId,
+                            categoryid: categoryId,
+                            name: _textEditingController.text);
 
                         _expenseController
                             .getAllExpenseCategory(
                                 shopId: '${getShopId.read('shop_id')}')
                             .then((value) {
-                          setState(() {
-                            _expenseController.allExpenseCategory.value =
-                                expenseCategoryResponseModelFromModel(value);
-                          });
+                          // setState(() {
+                          _expenseController.allExpenseCategory.value =
+                              expenseCategoryResponseModelFromModel(value);
+                          print(
+                              'category: ${_expenseController.allExpenseCategory}');
+                          // });
                         });
-                        _textEditingController.clear();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AllExpenses()));
                       },
                       child: const Center(
                         child: Text(
