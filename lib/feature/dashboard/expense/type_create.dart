@@ -111,24 +111,27 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        _expenseController.createNewExpenseType(
-                            shopId: '${shop.id}',
-                            name: _textEditingController.value.text);
+                        setState(() {
+                          _expenseController.createNewExpenseType(
+                              shopId: '${shop.id}',
+                              name: _textEditingController.value.text);
 
-                        _expenseController
-                            .getAllExpenseCategory(
-                                shopId: '${getShopId.read('shop_id')}')
-                            .then((value) {
-                          setState(() {
-                            _expenseController.allExpenseCategory.value =
-                                expenseCategoryResponseModelFromModel(value);
+                          _expenseController
+                              .getAllExpenseCategory(
+                                  shopId: '${getShopId.read('shop_id')}')
+                              .then((value) {
+                            setState(() {
+                              _expenseController.allExpenseCategory.value =
+                                  expenseCategoryResponseModelFromModel(value);
+                            });
                           });
                         });
+
                         _textEditingController.clear();
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AllExpenses()));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => AllExpenses()));
                       },
                       child: const Center(
                         child: Text(
