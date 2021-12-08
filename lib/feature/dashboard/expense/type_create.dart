@@ -61,7 +61,8 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
         leading: IconButton(
           onPressed: () {
             // print(_expenseController.getAllExpenseCategory(shopId: '${getShopId.read('shop_id')}'));
-            Get.back();
+            Get.off(AllExpenses());
+            // Get.to(() => AllExpenses());
           },
           icon: Icon(Icons.arrow_back),
         ),
@@ -111,27 +112,38 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        setState(() {
-                          _expenseController.createNewExpenseType(
-                              shopId: '${shop.id}',
-                              name: _textEditingController.value.text);
+                        // setState(() {
+                        _expenseController.createNewExpenseType(
+                            shopId: '${shop.id}',
+                            name: _textEditingController.value.text);
+                        // _expenseController.allExpenseCategory
+                        //     .removeWhere((element) =>
+                        // element.id ==
+                        //     _expenseController
+                        //         .allExpenseCategory[index]
+                        //         .id);
 
-                          _expenseController
-                              .getAllExpenseCategory(
-                                  shopId: '${getShopId.read('shop_id')}')
-                              .then((value) {
-                            setState(() {
-                              _expenseController.allExpenseCategory.value =
-                                  expenseCategoryResponseModelFromModel(value);
-                            });
-                          });
-                        });
+                        // _expenseController.allExpenseCategory.add((element) =>
+                        //     element.name ==
+                        //     _expenseController
+                        //         .allExpenseCategory[element.id].name);
+
+                        // _expenseController
+                        //     .getAllExpenseCategory(
+                        //         shopId: '${getShopId.read('shop_id')}')
+                        //     .then((value) {
+                        // setState(() {
+                        //   _expenseController.allExpenseCategory.value;
+                        // });
+                        // });
+                        // });
 
                         _textEditingController.clear();
                         // Navigator.push(
                         //     context,
                         //     MaterialPageRoute(
                         //         builder: (context) => AllExpenses()));
+                        // Get.off();
                       },
                       child: const Center(
                         child: Text(

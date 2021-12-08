@@ -55,17 +55,8 @@ var now = DateTime.now();
 class NewExpense extends StatefulWidget {
   String shopId;
   String type;
-  String purpose;
-  String details;
-  String amount;
   String userId;
-  NewExpense(
-      {this.shopId,
-      this.type,
-      this.purpose,
-      this.details,
-      this.amount,
-      this.userId});
+  NewExpense({this.shopId, this.type, this.userId});
   @override
   State<NewExpense> createState() => _NewExpenseState();
 }

@@ -13,27 +13,6 @@ import 'expense_details.dart';
 import 'expense_types.dart';
 import 'all_expenses.dart';
 
-// List<Widget> costTypeList = [
-//   costTypeCard('Pay Salary'),
-//   costTypeCard('Pay Rent'),
-//   costTypeCard('Products'),
-//   costTypeCard('Pay Utility bill'),
-// ];
-
-Widget costTypeCard(String typeText) {
-  return Container(
-    height: 40,
-    width: 50,
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: const Color(0xFFC4C4C4).withOpacity(.35)),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [Text(typeText)],
-    ),
-  );
-}
-
 var now = DateTime.now();
 
 class ExpenseList extends StatefulWidget {
@@ -45,6 +24,7 @@ class _ExpenseListState extends State<ExpenseList> {
   ExpenseController _expenseController = Get.put(ExpenseController());
   Shop shop = Get.arguments;
   List<ExpenseResponseModel> _expenseList;
+  List<ExpenseCategoryResponseModel> _expenseCatergoryList;
   bool _isLoading = true;
 
   // int totalExpense = 0;
@@ -177,15 +157,16 @@ class _ExpenseListState extends State<ExpenseList> {
                                 Obx(() => GridView.count(
                                       crossAxisCount: 3,
                                       shrinkWrap: true,
+                                      childAspectRatio: 1.5,
                                       children: List.generate(
                                         _expenseController
                                             .allExpenseList.length,
                                         (index) => Padding(
-                                          padding:
-                                              const EdgeInsets.only(right: 8.0),
+                                          padding: const EdgeInsets.only(
+                                              right: 8.0, bottom: 5),
                                           child: Container(
-                                            width: 70,
-                                            height: 30,
+                                            // width: 70,
+                                            // height: 30,
                                             decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(10),
@@ -206,7 +187,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                                         fontSize: 14),
                                                   ),
                                                   Text(
-                                                    '40%',
+                                                    '${(_expenseController.allExpenseList[index].amount / _expenseController.totalExpense.value) * 100}%',
                                                     style: TextStyle(
                                                         color:
                                                             Color(0xFFDFE0EB),
@@ -274,17 +255,20 @@ class _ExpenseListState extends State<ExpenseList> {
                                   _expenseController.allExpenseCategory.length,
                                   (index) => GestureDetector(
                                     onTap: () {
+                                      print(
+                                          'type name: ${_expenseController.allExpenseCategory[index].name}');
                                       Get.to(
                                         NewExpense(
                                           shopId:
                                               '${getShopId.read('shop_id')}',
-                                          type: _expenseList[index].type,
-                                          purpose: _expenseList[index].purpose,
-                                          details: _expenseList[index].details,
-                                          amount:
-                                              '${_expenseList[index].amount}',
-                                          userId:
-                                              '${_expenseList[index].userId}',
+                                          type:
+                                              '${_expenseController.allExpenseCategory[index].name}',
+                                          // purpose: _expenseList[index].purpose,
+                                          // details: _expenseList[index].details,
+                                          // amount:
+                                          //     '${_expenseList[index].amount}',
+                                          // userId:
+                                          //     '${_expenseList[index].userId}',
                                         ),
                                       );
                                     },

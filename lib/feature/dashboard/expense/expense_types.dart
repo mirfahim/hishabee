@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/expense/expense_controller.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
@@ -55,7 +56,6 @@ var startDate;
 var endDate;
 
 class ExpenseList2 extends StatefulWidget {
-
   @override
   _ExpenseList2State createState() => _ExpenseList2State();
 }
@@ -64,6 +64,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
   Shop shop = Get.arguments;
   ExpenseController _expenseController = Get.find();
   List<ExpenseResponseModel> _expenseList;
+  var getShopId = GetStorage();
   int flag = 1;
   @override
   void initState() {
@@ -76,11 +77,13 @@ class _ExpenseList2State extends State<ExpenseList2> {
     year = DateTime.now().year.toInt();
 
     _expenseController
-        .getAllExpense(shopId: '18', userId: '${shop.userId}')
+        .getAllExpense(
+            shopId: '${getShopId.read('shop_id')}', userId: '${shop.userId}')
         .then((value) {
       setState(() {
         _expenseList = getExpenseFromModel(value);
-        _expenseController.totalExpense.value = _expenseList
+        _expenseController.totalExpense.value = _expenseController
+            .allExpenseList
             .map((e) => e.amount)
             .fold(0, (previousValue, element) => previousValue + element);
       });
@@ -107,7 +110,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: height,
+            // height: height,
             decoration: const BoxDecoration(color: Colors.white),
             child: Padding(
               padding: EdgeInsets.only(left: 10, right: 10, top: 20),
@@ -210,20 +213,15 @@ class _ExpenseList2State extends State<ExpenseList2> {
                             child: Text(
                               'Day',
                               style: TextStyle(
-                                  color: flag == 1
-                                      ? Colors.white
-                                      : Colors.black,
+                                  color:
+                                      flag == 1 ? Colors.white : Colors.black,
                                   fontSize: 10),
                             ),
                             style: ElevatedButton.styleFrom(
-                              side: BorderSide(
-                                  width: 1, color: Colors.black),
-                              primary: flag == 1
-                                  ? Colors.black
-                                  : Colors.white,
+                              side: BorderSide(width: 1, color: Colors.black),
+                              primary: flag == 1 ? Colors.black : Colors.white,
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(6),
+                                borderRadius: BorderRadius.circular(6),
                               ),
                             ),
                           ),
@@ -265,21 +263,17 @@ class _ExpenseList2State extends State<ExpenseList2> {
                             child: Text(
                               'Week',
                               style: TextStyle(
-                                  color: flag == 2
-                                      ? Colors.white
-                                      : Colors.black,
+                                  color:
+                                      flag == 2 ? Colors.white : Colors.black,
                                   fontSize: 10),
                             ),
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.zero,
                               side: const BorderSide(
                                   width: 1, color: Colors.black),
-                              primary: flag == 2
-                                  ? Colors.black
-                                  : Colors.white,
+                              primary: flag == 2 ? Colors.black : Colors.white,
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(6),
+                                borderRadius: BorderRadius.circular(6),
                               ),
                             ),
                           ),
@@ -321,21 +315,17 @@ class _ExpenseList2State extends State<ExpenseList2> {
                             child: Text(
                               'Month',
                               style: TextStyle(
-                                  color: flag == 3
-                                      ? Colors.white
-                                      : Colors.black,
+                                  color:
+                                      flag == 3 ? Colors.white : Colors.black,
                                   fontSize: 10),
                             ),
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.zero,
                               side: const BorderSide(
                                   width: 1, color: Colors.black),
-                              primary: flag == 3
-                                  ? Colors.black
-                                  : Colors.white,
+                              primary: flag == 3 ? Colors.black : Colors.white,
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(6),
+                                borderRadius: BorderRadius.circular(6),
                               ),
                             ),
                           ),
@@ -377,21 +367,17 @@ class _ExpenseList2State extends State<ExpenseList2> {
                             child: Text(
                               'Year',
                               style: TextStyle(
-                                  color: flag == 4
-                                      ? Colors.white
-                                      : Colors.black,
+                                  color:
+                                      flag == 4 ? Colors.white : Colors.black,
                                   fontSize: 10),
                             ),
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.zero,
                               side: const BorderSide(
                                   width: 1, color: Colors.black),
-                              primary: flag == 4
-                                  ? Colors.black
-                                  : Colors.white,
+                              primary: flag == 4 ? Colors.black : Colors.white,
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                BorderRadius.circular(6),
+                                borderRadius: BorderRadius.circular(6),
                               ),
                             ),
                           ),
@@ -401,44 +387,53 @@ class _ExpenseList2State extends State<ExpenseList2> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(top: 10.0, bottom: 10),
-                    child: Container(
-                      height: 350,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: _expenseList.length,
-                        itemBuilder: (context, index){
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 5.0, bottom: 5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Color(
-                                    0xFFF1F1F1,
-                                  ),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Text('${_expenseList[index].purpose}'),
-                                        Text('Type: ${_expenseList[index].contactType}'),
-                                        Text('${DateFormat.yMMMMd().format(_expenseList[index].createdAt)}')
-                                      ],
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 10.0),
+                      child: Container(
+                        height: 350,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: _expenseController.allExpenseList.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 5.0, bottom: 5),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Color(
+                                      0xFFF1F1F1,
                                     ),
-                                    Text('${_expenseList[index].amount}')
-                                  ],
+                                    borderRadius: BorderRadius.circular(10)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Text(
+                                              '${_expenseController.allExpenseList[index].purpose}'),
+                                          Text(
+                                              'Type: ${_expenseController.allExpenseList[index].type}'),
+                                          Text(
+                                              '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}')
+                                        ],
+                                      ),
+                                      Text(
+                                          '${_expenseController.allExpenseList[index].amount}')
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
@@ -447,6 +442,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
       ),
     );
   }
+
   List<String> months = [
     'January',
     'February',

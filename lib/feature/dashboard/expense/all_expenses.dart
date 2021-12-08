@@ -25,16 +25,16 @@ class _AllExpensesState extends State<AllExpenses> {
   // bool _isLoading = true;
   @override
   void initState() {
-    // _expenseController
-    //     .getAllExpenseCategory(shopId: '${getShopId.read('shop_id')}')
-    //     .then((value) {
-    //   setState(() {
-    //     _expenseController.allExpenseCategory.value =
-    //         expenseCategoryResponseModelFromModel(value);
-    //     // bool _isLoading = false;
-    //     // print('category: ${_expenseController.allExpenseCategory}');
-    //   });
-    // });
+    _expenseController
+        .getAllExpenseCategory(shopId: '${getShopId.read('shop_id')}')
+        .then((value) {
+      setState(() {
+        _expenseController.allExpenseCategory.value =
+            expenseCategoryResponseModelFromModel(value);
+        // bool _isLoading = false;
+        // print('category: ${_expenseController.allExpenseCategory}');
+      });
+    });
     super.initState();
   }
 

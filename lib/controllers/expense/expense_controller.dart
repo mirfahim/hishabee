@@ -8,6 +8,7 @@ class ExpenseController extends GetxController {
   RxInt totalExpense = 0.obs;
   RxList allExpenseList = [].obs;
   RxList allExpenseCategory = [].obs;
+  RxList allExpenseCategoryBased = [].obs;
   ApiService _apiService = ApiService();
 
   Future<dynamic> getAllExpense({String shopId, String userId}) async {
@@ -54,7 +55,7 @@ class ExpenseController extends GetxController {
       String details,
       String amount}) async {
     String url =
-        "expense/add?shop_id=$shopId&type=$type&purpose=$purpose&details=$details&amount=$amount";
+        "/expense/add?shop_id=$shopId&type=$type&purpose=$purpose&details=$details&amount=$amount";
     return _apiService.makeApiRequiest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
