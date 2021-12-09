@@ -10,6 +10,7 @@ class ExpenseController extends GetxController {
   RxList allExpenseCategory = [].obs;
   RxList allExpenseCategoryBased = [].obs;
   ApiService _apiService = ApiService();
+  RxInt listCount = 6.obs;
 
   Future<dynamic> getAllExpense({String shopId, String userId}) async {
     String url = "/expense/all?user_id=$userId&shop_id=$shopId";
@@ -58,5 +59,24 @@ class ExpenseController extends GetxController {
         "/expense/add?shop_id=$shopId&type=$type&purpose=$purpose&details=$details&amount=$amount";
     return _apiService.makeApiRequiest(
         method: apiMethods.post, url: url, body: null, headers: null);
+  }
+
+  Future<dynamic> updateExpense(
+      {String categoryid,
+      String type,
+      String shopId,
+      String purpose,
+      String description,
+      String amount}) async {
+    String url =
+        "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose&details=$description&amount=$amount&id=$categoryid&image&image_changed=true";
+    return _apiService.makeApiRequiest(
+        method: apiMethods.put, url: url, body: null, headers: null);
+  }
+
+  Future<dynamic> deleteExpense({String categoryid}) async {
+    String url = "/expense/delete?id=$categoryid";
+    return _apiService.makeApiRequiest(
+        method: apiMethods.delete, url: url, body: null, headers: null);
   }
 }

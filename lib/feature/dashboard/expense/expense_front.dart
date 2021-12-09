@@ -16,6 +16,8 @@ import 'all_expenses.dart';
 var now = DateTime.now();
 
 class ExpenseList extends StatefulWidget {
+  // Shop shop;
+  // ExpenseList({this.shop});
   @override
   State<ExpenseList> createState() => _ExpenseListState();
 }
@@ -26,7 +28,7 @@ class _ExpenseListState extends State<ExpenseList> {
   List<ExpenseResponseModel> _expenseList;
   List<ExpenseCategoryResponseModel> _expenseCatergoryList;
   bool _isLoading = true;
-
+  int listCount = 6;
   // int totalExpense = 0;
   var getShopId = GetStorage('shop_id');
 
@@ -80,7 +82,8 @@ class _ExpenseListState extends State<ExpenseList> {
       body: SafeArea(
         child: LoadingOverlay(
           isLoading: _isLoading,
-          child: _expenseController.allExpenseList != null
+          opacity: 1,
+          child: listCount != 0
               ? Container(
                   height: height,
                   color: Colors.white,
@@ -159,8 +162,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                       shrinkWrap: true,
                                       childAspectRatio: 1.5,
                                       children: List.generate(
-                                        _expenseController
-                                            .allExpenseList.length,
+                                        6,
                                         (index) => Padding(
                                           padding: const EdgeInsets.only(
                                               right: 8.0, bottom: 5),
@@ -187,7 +189,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                                         fontSize: 14),
                                                   ),
                                                   Text(
-                                                    '${(_expenseController.allExpenseList[index].amount / _expenseController.totalExpense.value) * 100}%',
+                                                    '${((_expenseController.allExpenseList[index].amount / _expenseController.totalExpense.value) * 100).toStringAsFixed(1)}%',
                                                     style: TextStyle(
                                                         color:
                                                             Color(0xFFDFE0EB),
@@ -258,19 +260,19 @@ class _ExpenseListState extends State<ExpenseList> {
                                       print(
                                           'type name: ${_expenseController.allExpenseCategory[index].name}');
                                       Get.to(
-                                        NewExpense(
-                                          shopId:
-                                              '${getShopId.read('shop_id')}',
-                                          type:
-                                              '${_expenseController.allExpenseCategory[index].name}',
-                                          // purpose: _expenseList[index].purpose,
-                                          // details: _expenseList[index].details,
-                                          // amount:
-                                          //     '${_expenseList[index].amount}',
-                                          // userId:
-                                          //     '${_expenseList[index].userId}',
-                                        ),
-                                      );
+                                          NewExpense(
+                                            shopId:
+                                                '${getShopId.read('shop_id')}',
+                                            type:
+                                                '${_expenseController.allExpenseCategory[index].name}',
+                                            // purpose: _expenseList[index].purpose,
+                                            // details: _expenseList[index].details,
+                                            // amount:
+                                            //     '${_expenseList[index].amount}',
+                                            // userId:
+                                            //     '${_expenseList[index].userId}',
+                                          ),
+                                          arguments: shop);
                                     },
                                     child: Container(
                                       height: 40,

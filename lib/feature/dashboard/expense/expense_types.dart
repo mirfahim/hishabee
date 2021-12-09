@@ -7,6 +7,8 @@ import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:intl/intl.dart';
 
+import 'expense_details_edit_delete.dart';
+
 // Widget costListCard() {
 //   return
 //     Container(
@@ -398,33 +400,55 @@ class _ExpenseList2State extends State<ExpenseList2> {
                             return Padding(
                               padding:
                                   const EdgeInsets.only(top: 5.0, bottom: 5),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Color(
-                                      0xFFF1F1F1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(10)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(10.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Column(
-                                        children: [
-                                          Text(
-                                              '${_expenseController.allExpenseList[index].purpose}'),
-                                          Text(
-                                              'Type: ${_expenseController.allExpenseList[index].type}'),
-                                          Text(
-                                              '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}')
-                                        ],
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.to(
+                                      ExpenseEditDelete(
+                                        amount:
+                                            '${_expenseController.allExpenseList[index].amount}',
+                                        reason:
+                                            '${_expenseController.allExpenseList[index].purpose}',
+                                        description:
+                                            '${_expenseController.allExpenseList[index].details}',
+                                        types:
+                                            '${_expenseController.allExpenseList[index].type}',
+                                        shopId:
+                                            '${_expenseController.allExpenseList[index].shopId}',
+                                        categoryId:
+                                            '${_expenseController.allExpenseList[index].id}',
+                                        userId:
+                                            '${_expenseController.allExpenseList[index].userId}',
                                       ),
-                                      Text(
-                                          '${_expenseController.allExpenseList[index].amount}')
-                                    ],
+                                      arguments: shop);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Color(
+                                        0xFFF1F1F1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Column(
+                                          children: [
+                                            Text(
+                                                '${_expenseController.allExpenseList[index].purpose}'),
+                                            Text(
+                                                'Type: ${_expenseController.allExpenseList[index].type}'),
+                                            Text(
+                                                '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}')
+                                          ],
+                                        ),
+                                        Text(
+                                            '${_expenseController.allExpenseList[index].amount}')
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
