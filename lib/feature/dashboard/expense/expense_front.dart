@@ -43,7 +43,7 @@ class _ExpenseListState extends State<ExpenseList> {
       setState(() {
         _expenseList = getExpenseFromModel(value);
         _expenseController.allExpenseList.value = getExpenseFromModel(value);
-        _expenseController.totalExpense.value = _expenseList
+        _expenseController.totalExpense.value = _expenseController.allExpenseList
             .map((e) => e.amount)
             .fold(0, (previousValue, element) => previousValue + element);
         _isLoading = false;
