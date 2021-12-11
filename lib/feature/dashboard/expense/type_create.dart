@@ -61,7 +61,7 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
         leading: IconButton(
           onPressed: () {
             // print(_expenseController.getAllExpenseCategory(shopId: '${getShopId.read('shop_id')}'));
-            Get.off(AllExpenses());
+            Get.back();
             // Get.to(() => AllExpenses());
           },
           icon: Icon(Icons.arrow_back),
@@ -111,11 +111,23 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
                 Column(
                   children: [
                     ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async{
                         // setState(() {
-                        _expenseController.createNewExpenseType(
-                            shopId: '${shop.id}',
-                            name: _textEditingController.value.text);
+                        for(int i = 0;i<_expenseController.allExpenseCategory.length; i++){
+                          if(_textEditingController.value.text == _expenseController.allExpenseCategory[i].name){
+                            print('_textEditingController.value.text: ${_textEditingController.value.text}');
+                            print('_expenseController.allExpenseCategory[i].name: ${_expenseController.allExpenseCategory[i].name}');
+                            print('The type Exist');
+                            break;
+                          }else{
+                            _expenseController.createNewExpenseType(
+                                shopId: '${shop.id}',
+                                name: _textEditingController.value.text);
+                            // _expenseController.allExpenseCategory.value.add(value);
+                            break;
+                          }
+                        }
+
                         // _expenseController.allExpenseCategory
                         //     .removeWhere((element) =>
                         // element.id ==

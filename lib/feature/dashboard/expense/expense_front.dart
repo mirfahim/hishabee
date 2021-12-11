@@ -67,6 +67,15 @@ class _ExpenseListState extends State<ExpenseList> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+    for(int i = 0; i<_expenseController.allExpenseCategory.value.length;i++){
+      for(int j = 0;j<_expenseController.allExpenseList.value.length;j++){
+        if(_expenseController.allExpenseCategory[i].name == _expenseController.allExpenseList[j].type){
+            _expenseController.categoryWiseTotalAmount.value = _expenseController.allExpenseList[j].amount + _expenseController.categoryWiseTotalAmount.value;
+        }
+      }
+    }
+
+
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
       appBar: AppBar(
@@ -157,12 +166,13 @@ class _ExpenseListState extends State<ExpenseList> {
                                       const Color(0xFFC4C4C4).withOpacity(.35),
                                   thickness: 1.5,
                                 ),
-                                Obx(() => GridView.count(
+                                Obx(() =>
+                                    GridView.count(
                                       crossAxisCount: 3,
                                       shrinkWrap: true,
                                       childAspectRatio: 1.5,
                                       children: List.generate(
-                                        6,
+                                        _expenseController.allExpenseCategory.length,
                                         (index) => Padding(
                                           padding: const EdgeInsets.only(
                                               right: 8.0, bottom: 5),
@@ -196,7 +206,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                                         fontSize: 11),
                                                   ),
                                                   Text(
-                                                    '${_expenseController.allExpenseList[index].purpose}',
+                                                    '${_expenseController.allExpenseList[index].type}',
                                                     style: TextStyle(
                                                         color:
                                                             Color(0xFFDFE0EB),
