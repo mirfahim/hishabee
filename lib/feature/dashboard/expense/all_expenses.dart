@@ -72,7 +72,7 @@ class _AllExpensesState extends State<AllExpenses> {
             children: [
               Obx(
                 () => Container(
-                  height: 600,
+                  height: height - 150,
                   child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,

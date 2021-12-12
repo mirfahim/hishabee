@@ -1,5 +1,10 @@
 const en_US = {
   'setting': 'Setting',
+  'total_cost': 'Total Cost',
+  'new_expense': 'New Expense',
+  'buy': 'buy',
+  'bill': 'Bill',
+  'list_of_expenses': 'List Of Expenses',
   'language_type': 'English',
   'language': 'Language',
   'change_qr_code': 'Change QR Code',

@@ -1,6 +1,11 @@
 const bn_BD = {
   'keep track of your business digitally':
       'ব্যবসার সস্পুর্ন হিসাব রাখুন ডিজিটালই',
+  'total_cost': 'মোট খরচ',
+  'new_expense': 'খরচের খাত',
+  'buy': 'কেনা',
+  'bill': 'বিল',
+  'list_of_expenses': 'ব্যয়ের তালিকা',
   'app_name': 'Hishabee Technologies Limited',
   'setting': 'সেটিংস',
   'website_optional': 'ওয়েবসাইট (না দিলেও হবে)',

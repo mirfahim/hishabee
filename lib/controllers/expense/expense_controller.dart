@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/expense/pay_salary_page.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
 import 'package:hishabee_business_manager_fl/service/api_service.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
@@ -12,6 +13,7 @@ class ExpenseController extends GetxController {
   ApiService _apiService = ApiService();
   RxInt listCount = 6.obs;
   RxInt categoryWiseTotalAmount = 0.obs;
+
   Future<dynamic> getAllExpense({String shopId, String userId}) async {
     String url = "/expense/all?user_id=$userId&shop_id=$shopId";
     return _apiService.makeApiRequiest(
