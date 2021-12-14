@@ -37,7 +37,7 @@ class _ExpenseListState extends State<ExpenseList> {
   @override
   void initState() {
     print('shop id: ${getShopId.read('shop_id')}');
-    print('user id: ${shop.userId}');
+    // print('user id: ${shop.userId}');
     _expenseController
         .getAllExpense(
             shopId: '${getShopId.read('shop_id')}', userId: '${shop.userId}')
@@ -379,6 +379,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                   side: BorderSide(color: Colors.blueAccent),
                                 ),
                                 onPressed: () {
+
                                   Get.to(AllExpenses(), arguments: shop);
                                 },
                                 child: Row(

@@ -47,6 +47,7 @@ class _AllExpensesState extends State<AllExpenses> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => ExpenseList()));
             Get.back();
             // MaterialPageRoute(builder: (context) => ExpenseList());
           },

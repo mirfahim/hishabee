@@ -189,32 +189,15 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                 ),
                 Column(
                   children: [
-                    // ElevatedButton(
-                    //   onPressed: () {},
-                    //   child: const Center(
-                    //     child: Text(
-                    //       'Enter',
-                    //       textAlign: TextAlign.center,
-                    //       style: TextStyle(color: Colors.white, fontSize: 12),
-                    //     ),
-                    //   ),
-                    //   style: ElevatedButton.styleFrom(
-                    //     primary: DEFAULT_BLUE,
-                    //     fixedSize: Size(width, 40),
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(2),
-                    //     ),
-                    //   ),
-                    // ),
                     TextButton(
                       onPressed: () {
                         _expenseController.updateExpense(
                           shopId: widget.shopId,
                           categoryid: widget.categoryId,
                           type: widget.types,
-                          purpose: _textEditingControllerReason.text,
-                          description: _textEditingControllerDescription.text,
-                          amount: _textEditingControllerAmount.text,
+                          purpose: _textEditingControllerReason.text == null ? widget.reason : _textEditingControllerReason.text ,
+                          description: _textEditingControllerDescription.text == null ? widget.description : _textEditingControllerDescription.text,
+                          amount: _textEditingControllerAmount.text == null ? widget.amount : _textEditingControllerAmount.text,
                         );
 
                         _expenseController
@@ -284,6 +267,14 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                         _expenseController.deleteExpense(
                             categoryid: widget.categoryId);
 
+                        for(int i = 0; i<_expenseController.allExpenseCategory.length;i++) {
+                          _expenseController.allExpenseCategory
+                              .removeWhere((element) =>
+                          element.id ==
+                              _expenseController
+                                  .allExpenseCategory[i]
+                                  .id);
+                        }
                         await _expenseController
                             .getAllExpense(
                                 shopId: '${widget.shopId}',
