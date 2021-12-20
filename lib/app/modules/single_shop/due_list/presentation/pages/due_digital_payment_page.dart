@@ -2,7 +2,7 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_aware_dialog/flutter_keyboard_aware_dialog.dart';
-import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
+// import 'package:flutter_open_whatsapp/flutter_open_whatsapp.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -206,44 +206,46 @@ class DigitalPaymentPage extends GetView<DueDigitalPaymentController> {
                           ),
                         ),
                         Spacer(),
-                        InkWell(
-                          onTap: () async {
-                            String platformVersion;
-                            try {
-                              platformVersion =
-                                  await FlutterOpenWhatsapp.platformVersion;
-                              FlutterOpenWhatsapp.sendSingleMessage(
-                                  "+88${controller.due.value.customer.mobile}",
-                                  "Please pay BDT ${controller.givenAmount.value} to ${controller.shop.value} through the link: ${controller.url.value}");
-                            } catch (e) {
-                              Fluttertoast.showToast(msg: "App no installed");
-                            }
-                          },
-                          child: Container(
-                            width: size.width * 0.25,
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  Container(
-                                      height: 40,
-                                      width: 40,
-                                      child: SvgPicture.asset(
-                                          "images/svg_image/whatsapp.svg")),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    "Whatsapp",
-                                    style: TextStyle(
-                                        color: DEFAULT_BLACK,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
+
+                        ///TODO: whatsapp package comment out
+                        // InkWell(
+                        //   onTap: () async {
+                        //     String platformVersion;
+                        //     try {
+                        //       platformVersion =
+                        //           await FlutterOpenWhatsapp.platformVersion;
+                        //       FlutterOpenWhatsapp.sendSingleMessage(
+                        //           "+88${controller.due.value.customer.mobile}",
+                        //           "Please pay BDT ${controller.givenAmount.value} to ${controller.shop.value} through the link: ${controller.url.value}");
+                        //     } catch (e) {
+                        //       Fluttertoast.showToast(msg: "App no installed");
+                        //     }
+                        //   },
+                        //   child: Container(
+                        //     width: size.width * 0.25,
+                        //     child: Center(
+                        //       child: Column(
+                        //         children: [
+                        //           Container(
+                        //               height: 40,
+                        //               width: 40,
+                        //               child: SvgPicture.asset(
+                        //                   "images/svg_image/whatsapp.svg")),
+                        //           SizedBox(
+                        //             height: 5,
+                        //           ),
+                        //           Text(
+                        //             "Whatsapp",
+                        //             style: TextStyle(
+                        //                 color: DEFAULT_BLACK,
+                        //                 fontSize: 18,
+                        //                 fontWeight: FontWeight.bold),
+                        //           ),
+                        //         ],
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         Spacer(),
                         InkWell(
                           onTap: () {
