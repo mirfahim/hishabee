@@ -206,7 +206,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                 userId: '${widget.userId}')
                             .then((value) {
                           setState(() {
-                            // _expenseList = getExpenseFromModel(value);
+
                             _expenseController.allExpenseList.value =
                                 getExpenseFromModel(value);
                             _expenseController.totalExpense.value =
@@ -216,8 +216,6 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                         0,
                                         (previousValue, element) =>
                                             previousValue + element);
-                            // _isLoading = false;
-                            // print('expense list: ${_expenseController.allExpenseList.value}');
                           });
                         });
                         _expenseController
@@ -242,16 +240,18 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                           });
                         });
 
-                        _expenseController
-                            .getAllExpenseCategory(shopId: '${widget.shopId}')
-                            .then((value) {
-                          setState(() {
-                            _expenseController.allExpenseCategory.value =
-                                expenseCategoryResponseModelFromModel(value);
-                            print(
-                                'category: ${_expenseController.allExpenseCategory}');
-                          });
-                        });
+                        // _expenseController
+                        //     .getAllExpenseCategory(shopId: '${widget.shopId}')
+                        //     .then((value) {
+                        //   setState(() {
+                        //     _expenseController.allExpenseCategory.value =
+                        //         expenseCategoryResponseModelFromModel(value);
+                        //     print(
+                        //         'category: ${_expenseController.allExpenseCategory}');
+                        //   });
+                        // });
+                        Get.back();
+                        Get.back();
                       },
                       style: TextButton.styleFrom(primary: Colors.blue),
                       child: Row(
@@ -327,6 +327,9 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                 'category: ${_expenseController.allExpenseCategory}');
                           });
                         });
+                        Get.back();
+                        Get.back();
+                        Get.back();
                       },
                       style: TextButton.styleFrom(primary: Colors.red),
                       child: Row(

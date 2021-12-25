@@ -71,18 +71,10 @@ class _ExpenseListState extends State<ExpenseList> {
     List<Widget> fixedCategory = [
       GestureDetector(
         onTap: () {
-          // print(
-          //     'type name: ${_expenseController.allExpenseCategory[index].name}');
           Get.to(
               PaySalaryPage(
                 shopId: '${getShopId.read('shop_id')}',
                 type: 'salary'.tr,
-                // purpose: _expenseList[index].purpose,
-                // details: _expenseList[index].details,
-                // amount:
-                //     '${_expenseList[index].amount}',
-                // userId:
-                //     '${_expenseList[index].userId}',
               ),
               arguments: shop);
         },
@@ -100,18 +92,10 @@ class _ExpenseListState extends State<ExpenseList> {
       ),
       GestureDetector(
         onTap: () {
-          // print(
-          //     'type name: ${_expenseController.allExpenseCategory[index].name}');
           Get.to(
               PaySalaryPage(
                 shopId: '${getShopId.read('shop_id')}',
                 type: 'rent'.tr,
-                // purpose: _expenseList[index].purpose,
-                // details: _expenseList[index].details,
-                // amount:
-                //     '${_expenseList[index].amount}',
-                // userId:
-                //     '${_expenseList[index].userId}',
               ),
               arguments: shop);
         },
@@ -129,18 +113,10 @@ class _ExpenseListState extends State<ExpenseList> {
       ),
       GestureDetector(
         onTap: () {
-          // print(
-          //     'type name: ${_expenseController.allExpenseCategory[index].name}');
           Get.to(
               PaySalaryPage(
                 shopId: '${getShopId.read('shop_id')}',
                 type: 'bill',
-                // purpose: _expenseList[index].purpose,
-                // details: _expenseList[index].details,
-                // amount:
-                //     '${_expenseList[index].amount}',
-                // userId:
-                //     '${_expenseList[index].userId}',
               ),
               arguments: shop);
         },
@@ -163,18 +139,10 @@ class _ExpenseListState extends State<ExpenseList> {
       ),
       GestureDetector(
         onTap: () {
-          // print(
-          //     'type name: ${_expenseController.allExpenseCategory[index].name}');
           Get.to(
               PaySalaryPage(
                 shopId: '${getShopId.read('shop_id')}',
                 type: 'rent'.tr,
-                // purpose: _expenseList[index].purpose,
-                // details: _expenseList[index].details,
-                // amount:
-                //     '${_expenseList[index].amount}',
-                // userId:
-                //     '${_expenseList[index].userId}',
               ),
               arguments: shop);
         },

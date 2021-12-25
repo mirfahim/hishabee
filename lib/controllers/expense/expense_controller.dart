@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/expense/pay_salary_page.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
 import 'package:hishabee_business_manager_fl/service/api_service.dart';
@@ -70,6 +71,7 @@ class ExpenseController extends GetxController {
       String purpose,
       String description,
       String amount}) async {
+    CustomDialog.showLoadingDialog(message: 'please wait');
     String url =
         "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose&details=$description&amount=$amount&id=$categoryid&image&image_changed=true";
     return _apiService.makeApiRequiest(
@@ -77,6 +79,7 @@ class ExpenseController extends GetxController {
   }
 
   Future<dynamic> deleteExpense({String categoryid}) async {
+    CustomDialog.showLoadingDialog(message: 'please wait');
     String url = "/expense/delete?id=$categoryid";
     return _apiService.makeApiRequiest(
         method: apiMethods.delete, url: url, body: null, headers: null);

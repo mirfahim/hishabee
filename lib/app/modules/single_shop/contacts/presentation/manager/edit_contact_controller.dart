@@ -50,7 +50,7 @@ class EditContactsController extends GetxController {
   }
 
   editEmployee() async {
-    // CustomDialog.showLoadingDialog("Editing contact");
+    CustomDialog.showLoadingDialog();
     String imageSource;
     Employee employee;
     try {
@@ -85,15 +85,16 @@ class EditContactsController extends GetxController {
 
       await cc.getAllEmployee();
 
-      // if (Get.isDialogOpen) {
-      //   Get.back();
-      // }
-      //
-      // CustomDialog.showStringDialog('Contact updated successfully');
-      // Future.delayed(Duration(seconds: 1), () {
-      //   Get.back();
-      //   Get.back();
-      // });
+      if (Get.isDialogOpen) {
+        Get.back();
+      }
+
+      CustomDialog.showStringDialog('Contact updated successfully');
+      Future.delayed(Duration(seconds: 1), () {
+        Get.back();
+        Get.back();
+        Get.back();
+      });
     } catch (e) {
       CustomDialog.showStringDialog(e.toString());
       final cc = Get.find<ContactController>();

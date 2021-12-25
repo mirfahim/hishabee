@@ -9,33 +9,6 @@ import 'package:intl/intl.dart';
 
 import 'expense_details_edit_delete.dart';
 
-// Widget costListCard() {
-//   return
-//     Container(
-//     decoration: BoxDecoration(
-//         color: Color(
-//           0xFFF1F1F1,
-//         ),
-//         borderRadius: BorderRadius.circular(10)),
-//     child: Padding(
-//       padding: const EdgeInsets.all(10.0),
-//       child: Row(
-//         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//         crossAxisAlignment: CrossAxisAlignment.center,
-//         children: [
-//           Column(
-//             children: [
-//               Text('Salary'),
-//               Text('Type: panir bill'),
-//               Text('27th September')
-//             ],
-//           ),
-//           Text('1000\$')
-//         ],
-//       ),
-//     ),
-//   );
-// }
 
 var now;
 var day;
@@ -77,18 +50,6 @@ class _ExpenseList2State extends State<ExpenseList2> {
     dayMain = DateTime.now().day.toInt();
     month = DateTime.now().month.toInt();
     year = DateTime.now().year.toInt();
-
-    _expenseController
-        .getAllExpense(
-            shopId: '${getShopId.read('shop_id')}', userId: '${shop.userId}')
-        .then((value) {
-      setState(() {
-        _expenseList = getExpenseFromModel(value);
-        _expenseController.totalExpense.value = _expenseList
-            .map((e) => e.amount)
-            .fold(0, (previousValue, element) => previousValue + element);
-      });
-    });
     super.initState();
   }
 
@@ -134,8 +95,6 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                 onPressed: () {
                                   if (flag == 1) {
                                     setState(() {
-                                      // controller.count.value++;
-                                      // day = DateFormat.yMMMMd().format(now);
                                     });
                                     // dayMinus();
                                   } else if (flag == 3) {
