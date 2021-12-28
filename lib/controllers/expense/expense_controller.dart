@@ -34,12 +34,14 @@ class ExpenseController extends GetxController {
   }
 
   Future<dynamic> createNewExpenseType({String shopId, String name}) async {
+    CustomDialog.showLoadingDialog(message: 'Creating Expense Type');
     String url = "/expense_category/?name=$name&shop_id=$shopId";
     return _apiService.makeApiRequiest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
 
   Future<dynamic> deleteCategory({String categoryid}) async {
+    CustomDialog.showLoadingDialog(message: 'please wait');
     String url = "/expense_category?id=$categoryid";
     return _apiService.makeApiRequiest(
         method: apiMethods.delete, url: url, body: null, headers: null);
@@ -47,6 +49,7 @@ class ExpenseController extends GetxController {
 
   Future<dynamic> updateCategory(
       {String categoryid, String name, String shopId}) async {
+    CustomDialog.showLoadingDialog(message: 'Updating Expense Type');
     String url = "/expense_category/?name=$name&shop_id=$shopId&id=$categoryid";
     return _apiService.makeApiRequiest(
         method: apiMethods.put, url: url, body: null, headers: null);
@@ -58,6 +61,7 @@ class ExpenseController extends GetxController {
       String purpose,
       String details,
       String amount}) async {
+    CustomDialog.showLoadingDialog(message: 'Creating New Expense');
     String url =
         "/expense/add?shop_id=$shopId&type=$type&purpose=$purpose&details=$details&amount=$amount";
     return _apiService.makeApiRequiest(
@@ -71,7 +75,7 @@ class ExpenseController extends GetxController {
       String purpose,
       String description,
       String amount}) async {
-    CustomDialog.showLoadingDialog(message: 'please wait');
+    CustomDialog.showLoadingDialog(message: 'Updating...');
     String url =
         "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose&details=$description&amount=$amount&id=$categoryid&image&image_changed=true";
     return _apiService.makeApiRequiest(

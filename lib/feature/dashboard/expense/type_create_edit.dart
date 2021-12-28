@@ -56,7 +56,6 @@ class ExpenseTypeEdit extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            // print(_expenseController.getAllExpenseCategory(shopId: '${getShopId.read('shop_id')}'));
             Get.back();
           },
           icon: Icon(Icons.arrow_back),
@@ -106,13 +105,13 @@ class ExpenseTypeEdit extends StatelessWidget {
                 Column(
                   children: [
                     ElevatedButton(
-                      onPressed: () {
-                        _expenseController.updateCategory(
+                      onPressed: () async{
+                        await _expenseController.updateCategory(
                             shopId: shopId,
                             categoryid: categoryId,
                             name: _textEditingController.text);
 
-                        _expenseController
+                        await _expenseController
                             .getAllExpenseCategory(
                                 shopId: '${getShopId.read('shop_id')}')
                             .then((value) {
@@ -123,6 +122,8 @@ class ExpenseTypeEdit extends StatelessWidget {
                               'category: ${_expenseController.allExpenseCategory}');
                           // });
                         });
+                        Get.back();
+                        Get.back();
                       },
                       child: const Center(
                         child: Text(
@@ -139,17 +140,6 @@ class ExpenseTypeEdit extends StatelessWidget {
                         ),
                       ),
                     ),
-                    // TextButton(
-                    //   onPressed: () {},
-                    //   style: TextButton.styleFrom(primary: Colors.red),
-                    //   child: Row(
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //     children: const [
-                    //       Icon(Icons.delete),
-                    //       Text('Delete the type')
-                    //     ],
-                    //   ),
-                    // )
                   ],
                 ),
               ],

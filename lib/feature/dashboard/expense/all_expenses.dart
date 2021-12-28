@@ -31,8 +31,6 @@ class _AllExpensesState extends State<AllExpenses> {
       setState(() {
         _expenseController.allExpenseCategory.value =
             expenseCategoryResponseModelFromModel(value);
-        // bool _isLoading = false;
-        // print('category: ${_expenseController.allExpenseCategory}');
       });
     });
     super.initState();
@@ -47,9 +45,7 @@ class _AllExpensesState extends State<AllExpenses> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            // Navigator.push(context, MaterialPageRoute(builder: (context) => ExpenseList()));
             Get.back();
-            // MaterialPageRoute(builder: (context) => ExpenseList());
           },
           icon: const Icon(Icons.arrow_back),
         ),
@@ -73,7 +69,7 @@ class _AllExpensesState extends State<AllExpenses> {
             children: [
               Obx(
                 () => Container(
-                  height: height - 150,
+                  height: height - 200,
                   child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
@@ -110,8 +106,9 @@ class _AllExpensesState extends State<AllExpenses> {
                                   child: Row(
                                     children: [
                                       IconButton(
-                                        onPressed: () {
-                                          Get.to(ExpenseTypeEdit(
+                                        onPressed: () async{
+                                          Get.to(
+                                              ExpenseTypeEdit(
                                             shopId:
                                                 '${getShopId.read('shop_id')}',
                                             categoryId:
@@ -119,20 +116,21 @@ class _AllExpensesState extends State<AllExpenses> {
                                             name:
                                                 '${_expenseController.allExpenseCategory[index].name}',
                                           ));
-                                          _expenseController.updateCategory(
-                                              shopId:
-                                                  '${getShopId.read('shop_id')}',
-                                              categoryid:
-                                                  '${_expenseController.allExpenseCategory[index].id}',
-                                              name:
-                                                  '${_expenseController.allExpenseCategory[index].name}');
+                                          // await _expenseController.updateCategory(
+                                          //     shopId:
+                                          //         '${getShopId.read('shop_id')}',
+                                          //     categoryid:
+                                          //         '${_expenseController.allExpenseCategory[index].id}',
+                                          //     name:
+                                          //         '${_expenseController.allExpenseCategory[index].name}');
+                                          // Get.back();
                                         },
                                         icon: Icon(Icons.edit),
                                         color: Colors.blue,
                                       ),
                                       IconButton(
-                                        onPressed: () {
-                                          _expenseController.deleteCategory(
+                                        onPressed: () async {
+                                          await _expenseController.deleteCategory(
                                               categoryid:
                                                   '${_expenseController.allExpenseCategory[index].id}');
 
@@ -160,6 +158,7 @@ class _AllExpensesState extends State<AllExpenses> {
                                           //         'category: ${_expenseController.allExpenseCategory}');
                                           //   });
                                           // });
+                                          Get.back();
                                         },
                                         icon: Icon(Icons.delete),
                                         color: Colors.red,

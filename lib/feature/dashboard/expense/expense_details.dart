@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/expense/expense_controller.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_category.dart';
@@ -123,35 +124,6 @@ class _NewExpenseState extends State<NewExpense> {
     }
   }
 
-  // _selectEndDate(BuildContext context) async {
-  //   final DateTime picked = await showDatePicker(
-  //     helpText: "end_date".tr,
-  //     context: context,
-  //     initialDate: startDate, // Refer step 1
-  //     firstDate: DateTime(2000),
-  //     lastDate: DateTime(2025),
-  //     builder: (BuildContext context, Widget child) {
-  //       return Theme(
-  //         data: ThemeData.dark().copyWith(
-  //           colorScheme: ColorScheme.dark(
-  //             primary: DEFAULT_BLACK,
-  //             onPrimary: DEFAULT_BODY_BG_COLOR,
-  //             surface: Colors.redAccent,
-  //             onSurface: DEFAULT_BLACK,
-  //           ),
-  //           dialogBackgroundColor: DEFAULT_BODY_BG_COLOR,
-  //         ),
-  //         child: child,
-  //       );
-  //     },
-  //   );
-  //   if (picked != null) {
-  //     setState(() {
-  //       // widget.controller.selectedEndDate.value = picked;
-  //       endDate = picked;
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -184,19 +156,9 @@ class _NewExpenseState extends State<NewExpense> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // const Text('Give your Mobile Number'),
-                          // SizedBox(
-                          //   height: 20,
-                          // ),
-                          // // const Text('Amount of expenses'),
                           textFormFeildForExpense(
                               labelText: 'Amount of Expenses',
                               keyboardType: TextInputType.number,
-                              // iconButton: IconButton(
-                              //   icon: Icon(Icons.people),
-                              //   color: buttonColor,
-                              //   onPressed: () {},
-                              // ),
                               regEx: '[0-9]',
                               textEditingController:
                                   _textEditingControllerAmount),
@@ -206,11 +168,6 @@ class _NewExpenseState extends State<NewExpense> {
                           textFormFeildForExpense(
                               labelText: 'Expense Reason',
                               keyboardType: TextInputType.text,
-                              // iconButton: IconButton(
-                              //   icon: Icon(Icons.people),
-                              //   color: buttonColor,
-                              //   onPressed: () {},
-                              // ),
                               regEx: '[a-zA-z]',
                               textEditingController:
                                   _textEditingControllerReason),
@@ -221,11 +178,6 @@ class _NewExpenseState extends State<NewExpense> {
                               labelText: 'Expense Description',
                               maxLine: 7,
                               keyboardType: TextInputType.text,
-                              // iconButton: IconButton(
-                              //   icon: Icon(Icons.people),
-                              //   color: buttonColor,
-                              //   onPressed: () {},
-                              // ),
                               regEx: '[a-zA-z]',
                               textEditingController:
                                   _textEditingControllerDescription),
@@ -304,7 +256,6 @@ class _NewExpenseState extends State<NewExpense> {
                                       userId: '${widget.userId}')
                                   .then((value) {
                                 setState(() {
-                                  // _expenseList = getExpenseFromModel(value);
                                   _expenseController.allExpenseList.value =
                                       getExpenseFromModel(value);
                                   _expenseController.totalExpense.value =
@@ -352,11 +303,10 @@ class _NewExpenseState extends State<NewExpense> {
                                       'category: ${_expenseController.allExpenseCategory}');
                                 });
                               });
-                              // Get.back();
                             },
                             child: Center(
                               child: Text(
-                                'Enter',
+                                'Save',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 12),
@@ -381,31 +331,3 @@ class _NewExpenseState extends State<NewExpense> {
     );
   }
 }
-
-// void showCustomeDialog(BuildContext context) {
-//   Scaffold(
-//     body: ,
-//   );
-//   showGeneralDialog(
-//     barrierColor: Colors.black,
-//     barrierDismissible: false,
-//     context: context,
-//     transitionDuration: Duration(milliseconds: 300),
-//     pageBuilder:
-//         (BuildContext context, Animation animation, Animation secondAnimation) {
-//       return Center(
-//         child: Container(
-//           decoration: BoxDecoration(color: Colors.white),
-//           width: 300,
-//           height: 500,
-//           child: Padding(
-//             padding: const EdgeInsets.all(8.0),
-//             child: Column(
-//               children: [Text('Contact List')],
-//             ),
-//           ),
-//         ),
-//       );
-//     },
-//   );
-// }

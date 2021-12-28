@@ -351,7 +351,8 @@ class _ExpenseList2State extends State<ExpenseList2> {
                       padding: const EdgeInsets.only(bottom: 10.0),
                       child: Container(
                         height: 350,
-                        child: ListView.builder(
+                        child: _expenseController.allExpenseList.length != 0 ?
+                        ListView.builder(
                           shrinkWrap: true,
                           itemCount: _expenseController.allExpenseList.length,
                           itemBuilder: (context, index) {
@@ -412,7 +413,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
                               ),
                             );
                           },
-                        ),
+                        ) : Container(child: Center(child: Text('No Data to Show')),),
                       ),
                     ),
                   ),

@@ -190,8 +190,8 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                 Column(
                   children: [
                     TextButton(
-                      onPressed: () {
-                        _expenseController.updateExpense(
+                      onPressed: () async{
+                        await _expenseController.updateExpense(
                           shopId: widget.shopId,
                           categoryid: widget.categoryId,
                           type: widget.types,
@@ -200,7 +200,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                           amount: _textEditingControllerAmount.text == null ? widget.amount : _textEditingControllerAmount.text,
                         );
 
-                        _expenseController
+                        await _expenseController
                             .getAllExpense(
                                 shopId: '${widget.shopId}',
                                 userId: '${widget.userId}')
@@ -218,7 +218,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                             previousValue + element);
                           });
                         });
-                        _expenseController
+                        await _expenseController
                             .getAllExpense(
                                 shopId: '${widget.shopId}',
                                 userId: '${widget.userId}')
@@ -281,7 +281,6 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                 userId: '${widget.userId}')
                             .then((value) {
                           setState(() {
-                            // _expenseList = getExpenseFromModel(value);
                             _expenseController.allExpenseList.value =
                                 getExpenseFromModel(value);
                             _expenseController.totalExpense.value =

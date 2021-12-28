@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/expense/expense_controller.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_category.dart';
@@ -124,36 +125,6 @@ class _PaySalaryPageState extends State<PaySalaryPage> {
       });
     }
   }
-
-  // _selectEndDate(BuildContext context) async {
-  //   final DateTime picked = await showDatePicker(
-  //     helpText: "end_date".tr,
-  //     context: context,
-  //     initialDate: startDate, // Refer step 1
-  //     firstDate: DateTime(2000),
-  //     lastDate: DateTime(2025),
-  //     builder: (BuildContext context, Widget child) {
-  //       return Theme(
-  //         data: ThemeData.dark().copyWith(
-  //           colorScheme: ColorScheme.dark(
-  //             primary: DEFAULT_BLACK,
-  //             onPrimary: DEFAULT_BODY_BG_COLOR,
-  //             surface: Colors.redAccent,
-  //             onSurface: DEFAULT_BLACK,
-  //           ),
-  //           dialogBackgroundColor: DEFAULT_BODY_BG_COLOR,
-  //         ),
-  //         child: child,
-  //       );
-  //     },
-  //   );
-  //   if (picked != null) {
-  //     setState(() {
-  //       // widget.controller.selectedEndDate.value = picked;
-  //       endDate = picked;
-  //     });
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -291,8 +262,8 @@ class _PaySalaryPageState extends State<PaySalaryPage> {
                             height: 50,
                           ),
                           ElevatedButton(
-                            onPressed: () {
-                              _expenseController.createNewExpense(
+                            onPressed: () async{
+                             await _expenseController.createNewExpense(
                                   shopId: widget.shopId,
                                   type: widget.type,
                                   purpose: _textEditingControllerReason.text,
@@ -300,7 +271,7 @@ class _PaySalaryPageState extends State<PaySalaryPage> {
                                       _textEditingControllerDescription.text,
                                   amount: _textEditingControllerAmount.text);
 
-                              _expenseController
+                             await _expenseController
                                   .getAllExpense(
                                       shopId: '${widget.shopId}',
                                       userId: '${widget.userId}')
@@ -320,7 +291,7 @@ class _PaySalaryPageState extends State<PaySalaryPage> {
                                   // print('expense list: ${_expenseController.allExpenseList.value}');
                                 });
                               });
-                              _expenseController
+                             await _expenseController
                                   .getAllExpense(
                                       shopId: '${widget.shopId}',
                                       userId: '${widget.userId}')
@@ -342,7 +313,7 @@ class _PaySalaryPageState extends State<PaySalaryPage> {
                                 });
                               });
 
-                              _expenseController
+                             await _expenseController
                                   .getAllExpenseCategory(
                                       shopId: '${widget.shopId}')
                                   .then((value) {
@@ -354,11 +325,12 @@ class _PaySalaryPageState extends State<PaySalaryPage> {
                                       'category: ${_expenseController.allExpenseCategory}');
                                 });
                               });
-                              // Get.back();
+                              Get.back();
+                              Get.back();
                             },
                             child: Center(
                               child: Text(
-                                'Enter',
+                                'Save',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 12),
@@ -384,30 +356,3 @@ class _PaySalaryPageState extends State<PaySalaryPage> {
   }
 }
 
-// void showCustomeDialog(BuildContext context) {
-//   Scaffold(
-//     body: ,
-//   );
-//   showGeneralDialog(
-//     barrierColor: Colors.black,
-//     barrierDismissible: false,
-//     context: context,
-//     transitionDuration: Duration(milliseconds: 300),
-//     pageBuilder:
-//         (BuildContext context, Animation animation, Animation secondAnimation) {
-//       return Center(
-//         child: Container(
-//           decoration: BoxDecoration(color: Colors.white),
-//           width: 300,
-//           height: 500,
-//           child: Padding(
-//             padding: const EdgeInsets.all(8.0),
-//             child: Column(
-//               children: [Text('Contact List')],
-//             ),
-//           ),
-//         ),
-//       );
-//     },
-//   );
-// }

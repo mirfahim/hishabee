@@ -206,7 +206,7 @@ class _ExpenseListState extends State<ExpenseList> {
                       child: Column(
                         children: [
                           Container(
-                            height: 300,
+                            height: _expenseController.allExpenseList.length == 0 ? 200 : 320,
                             width: width,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
@@ -278,9 +278,10 @@ class _ExpenseListState extends State<ExpenseList> {
                                         crossAxisCount: 3,
                                         shrinkWrap: true,
                                         physics: NeverScrollableScrollPhysics(),
-                                        childAspectRatio: 1.5,
-                                        children: List.generate(
-                                          6,
+                                        childAspectRatio: 1.25,
+                                        children:
+                                        List.generate(
+                                          _expenseController.allExpenseList.length >= 6 ? 6 : _expenseController.allExpenseList.length,
                                           (index) => Padding(
                                             padding: const EdgeInsets.only(
                                                 right: 8.0, bottom: 5),
@@ -395,20 +396,12 @@ class _ExpenseListState extends State<ExpenseList> {
                                   _expenseController.allExpenseCategory.length,
                                   (index) => GestureDetector(
                                     onTap: () {
-                                      // print(
-                                      //     'type name: ${_expenseController.allExpenseCategory[index].name}');
                                       Get.to(
                                           NewExpense(
                                             shopId:
                                                 '${getShopId.read('shop_id')}',
                                             type:
                                                 '${_expenseController.allExpenseCategory[index].name}',
-                                            // purpose: _expenseList[index].purpose,
-                                            // details: _expenseList[index].details,
-                                            // amount:
-                                            //     '${_expenseList[index].amount}',
-                                            // userId:
-                                            //     '${_expenseList[index].userId}',
                                           ),
                                           arguments: shop);
                                     },

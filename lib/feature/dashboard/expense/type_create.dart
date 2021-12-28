@@ -60,10 +60,7 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            // print(_expenseController.getAllExpenseCategory(shopId: '${getShopId.read('shop_id')}'));
             Get.back();
-            // Navigator.push(context, MaterialPageRoute(builder: (context)=> AllExpenses()));
-            // Get.to(() => AllExpenses());
           },
           icon: Icon(Icons.arrow_back),
         ),
@@ -135,6 +132,8 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
                                            expenseCategoryResponseModelFromModel(value);
                               });
                             });
+                            Get.back();
+                            Get.back();
                             break;
                           }
                         }
