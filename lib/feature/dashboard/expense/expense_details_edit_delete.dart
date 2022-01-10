@@ -203,7 +203,10 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                         await _expenseController
                             .getAllExpense(
                                 shopId: '${widget.shopId}',
-                                userId: '${widget.userId}')
+                                userId: '${widget.userId}',
+
+                        startDate: '',
+                        endDate: '')
                             .then((value) {
                           setState(() {
 
@@ -278,7 +281,9 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                         await _expenseController
                             .getAllExpense(
                                 shopId: '${widget.shopId}',
-                                userId: '${widget.userId}')
+                                userId: '${widget.userId}',
+                        startDate: '',
+                        endDate: '')
                             .then((value) {
                           setState(() {
                             _expenseController.allExpenseList.value =
@@ -297,7 +302,9 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                         await _expenseController
                             .getAllExpense(
                                 shopId: '${widget.shopId}',
-                                userId: '${widget.userId}')
+                                userId: '${widget.userId}',
+                            startDate: '',
+                            endDate: '')
                             .then((value) {
                           setState(() {
                             // _expenseList = getExpenseFromModel(value);

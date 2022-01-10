@@ -24,6 +24,10 @@ class ExpenseList extends StatefulWidget {
 }
 
 class _ExpenseListState extends State<ExpenseList> {
+  var startOfMonth = DateTime(now.year, now.month, 1);
+  var lastOfTheMonth = (now.month < 12)
+      ? new DateTime(now.year, now.month + 1, 0)
+      : new DateTime(now.year + 1, 1, 0);
   ExpenseController _expenseController = Get.put(ExpenseController());
   Shop shop = Get.arguments;
   List<ExpenseResponseModel> _expenseList;
@@ -40,7 +44,7 @@ class _ExpenseListState extends State<ExpenseList> {
     // print('user id: ${shop.userId}');
     _expenseController
         .getAllExpense(
-            shopId: '${getShopId.read('shop_id')}', userId: '${shop.userId}')
+            shopId: '${shop.id}', userId: '${shop.userId}',startDate: '$startOfMonth', endDate: '$lastOfTheMonth')
         .then((value) {
       setState(() {
         _expenseList = getExpenseFromModel(value);
@@ -49,6 +53,7 @@ class _ExpenseListState extends State<ExpenseList> {
             .allExpenseList
             .map((e) => e.amount)
             .fold(0, (previousValue, element) => previousValue + element);
+        _expenseController.fixedAmount.value = _expenseController.totalExpense.value;
         _isLoading = false;
         print('expense list: ${_expenseController.allExpenseList.value}');
       });
@@ -255,7 +260,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Obx(() => Text(
-                                            '${_expenseController.totalExpense.value}',
+                                            '${_expenseController.fixedAmount.value}',
                                             style: TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 22,

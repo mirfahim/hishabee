@@ -8,6 +8,8 @@ import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class ExpenseController extends GetxController {
   RxInt totalExpense = 0.obs;
+  RxInt fixedAmount = 0.obs;
+  RxInt fixedAmountForEditDelete = 0.obs;
   RxList allExpenseList = [].obs;
   RxList allExpenseCategory = [].obs;
   RxList allExpenseCategoryBased = [].obs;
@@ -15,8 +17,8 @@ class ExpenseController extends GetxController {
   RxInt listCount = 6.obs;
   RxInt categoryWiseTotalAmount = 0.obs;
 
-  Future<dynamic> getAllExpense({String shopId, String userId}) async {
-    String url = "/expense/all?user_id=$userId&shop_id=$shopId";
+  Future<dynamic> getAllExpense({String shopId, String userId, String startDate, String endDate}) async {
+    String url = "/expense/all?user_id=$userId&shop_id=$shopId&start_date=$startDate&end_date=$endDate";
     return _apiService.makeApiRequiest(
         method: apiMethods.get,
         url: url,

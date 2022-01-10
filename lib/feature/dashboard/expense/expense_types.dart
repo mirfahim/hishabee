@@ -51,6 +51,21 @@ class _ExpenseList2State extends State<ExpenseList2> {
     month = DateTime.now().month.toInt();
     year = DateTime.now().year.toInt();
     super.initState();
+    _expenseController
+        .getAllExpense(
+        shopId: '${shop.id}', userId: '${shop.userId}',startDate: '$startOfMonth', endDate: '$lastOfTheMonth')
+        .then((value) {
+      setState(() {
+        _expenseList = getExpenseFromModel(value);
+        _expenseController.allExpenseList.value = getExpenseFromModel(value);
+        _expenseController.totalExpense.value = _expenseController
+            .allExpenseList
+            .map((e) => e.amount)
+            .fold(0, (previousValue, element) => previousValue + element);
+        // _isLoading = false;
+        print('expense list: ${_expenseController.allExpenseList.value}');
+      });
+    });
   }
 
   @override
