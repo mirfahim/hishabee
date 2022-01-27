@@ -4,8 +4,6 @@
 
 import 'dart:convert';
 
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/customer_model.dart';
-
 GetAllDueResponseModel getAllDueResponseModelFromJson(String str) =>
     GetAllDueResponseModel.fromJson(json.decode(str));
 GetAllDueResponseModel getAllDueResponseModelFromRawJson(dynamic json) =>
@@ -16,52 +14,98 @@ String getAllDueResponseModelToJson(GetAllDueResponseModel data) =>
 
 class GetAllDueResponseModel {
   GetAllDueResponseModel({
-    this.code,
-    this.message,
-    this.due,
-    this.dueItems,
+    this.currentPage,
+    this.data,
+    this.firstPageUrl,
+    this.from,
+    this.lastPage,
+    this.lastPageUrl,
+    this.nextPageUrl,
+    this.path,
+    this.perPage,
+    this.prevPageUrl,
+    this.to,
+    this.total,
   });
 
-  int code;
-  String message;
-  List<Due> due;
-  List<DueItem> dueItems;
+  int currentPage;
+  List<Due> data;
+  String firstPageUrl;
+  int from;
+  int lastPage;
+  String lastPageUrl;
+  dynamic nextPageUrl;
+  String path;
+  int perPage;
+  dynamic prevPageUrl;
+  int to;
+  int total;
 
   GetAllDueResponseModel copyWith({
-    int code,
-    String message,
-    List<Due> due,
-    List<DueItem> dueItems,
+    int currentPage,
+    List<Due> data,
+    String firstPageUrl,
+    int from,
+    int lastPage,
+    String lastPageUrl,
+    dynamic nextPageUrl,
+    String path,
+    int perPage,
+    dynamic prevPageUrl,
+    int to,
+    int total,
   }) =>
       GetAllDueResponseModel(
-        code: code ?? this.code,
-        message: message ?? this.message,
-        due: due ?? this.due,
-        dueItems: dueItems ?? this.dueItems,
+        currentPage: currentPage ?? this.currentPage,
+        data: data ?? this.data,
+        firstPageUrl: firstPageUrl ?? this.firstPageUrl,
+        from: from ?? this.from,
+        lastPage: lastPage ?? this.lastPage,
+        lastPageUrl: lastPageUrl ?? this.lastPageUrl,
+        nextPageUrl: nextPageUrl ?? this.nextPageUrl,
+        path: path ?? this.path,
+        perPage: perPage ?? this.perPage,
+        prevPageUrl: prevPageUrl ?? this.prevPageUrl,
+        to: to ?? this.to,
+        total: total ?? this.total,
       );
 
   factory GetAllDueResponseModel.fromJson(Map<String, dynamic> json) =>
       GetAllDueResponseModel(
-        code: json["code"] == null ? null : json["code"],
-        message: json["message"] == null ? null : json["message"],
-        due: json["due"] == null
+        currentPage: json["current_page"] == null ? null : json["current_page"],
+        data: json["data"] == null
             ? null
-            : List<Due>.from(json["due"].map((x) => Due.fromJson(x))),
-        dueItems: json["due_items"] == null
-            ? null
-            : List<DueItem>.from(
-                json["due_items"].map((x) => DueItem.fromJson(x))),
+            : List<Due>.from(json["data"].map((x) => Due.fromJson(x))),
+        firstPageUrl:
+        json["first_page_url"] == null ? null : json["first_page_url"],
+        from: json["from"] == null ? null : json["from"],
+        lastPage: json["last_page"] == null ? null : json["last_page"],
+        lastPageUrl:
+        json["last_page_url"] == null ? null : json["last_page_url"],
+        nextPageUrl: json["next_page_url"],
+        path: json["path"] == null ? null : json["path"],
+        perPage: json["per_page"] == null ? null : json["per_page"],
+        prevPageUrl: json["prev_page_url"],
+        to: json["to"] == null ? null : json["to"],
+        total: json["total"] == null ? null : json["total"],
       );
 
   Map<String, dynamic> toJson() => {
-        "code": code == null ? null : code,
-        "message": message == null ? null : message,
-        "due":
-            due == null ? null : List<dynamic>.from(due.map((x) => x.toJson())),
-        "due_items": dueItems == null
-            ? null
-            : List<dynamic>.from(dueItems.map((x) => x.toJson())),
-      };
+    "current_page": currentPage == null ? null : currentPage,
+    "data": data == null
+        ? null
+        : List<dynamic>.from(data.map((x) => x.toJson())),
+    "first_page_url": firstPageUrl == null ? null : firstPageUrl,
+    "from": from == null ? null : from,
+    "last_page": lastPage == null ? null : lastPage,
+    "last_page_url": lastPageUrl == null ? null : lastPageUrl,
+    "next_page_url": nextPageUrl,
+    "path": path == null ? null : path,
+    "per_page": perPage == null ? null : perPage,
+    "prev_page_url": prevPageUrl,
+    "to": to == null ? null : to,
+    "total": total == null ? null : total,
+  };
 }
 
 class Due {
@@ -69,194 +113,98 @@ class Due {
     this.id,
     this.userId,
     this.shopId,
-    this.customerId,
     this.dueAmount,
     this.createdAt,
     this.updatedAt,
-    this.customerAddress,
-    this.customerMobile,
-    this.customerName,
-    this.lastUpdate,
-    this.customer,
-    this.dueListItems,
+    this.dueAlert,
+    this.contactMobile,
+    this.contactName,
+    this.contactType,
+    this.version,
+    this.uniqueId,
   });
 
   int id;
   int userId;
   int shopId;
-  int customerId;
-  int dueAmount;
+  double dueAmount;
   DateTime createdAt;
   DateTime updatedAt;
-  String customerAddress;
-  String customerMobile;
-  String customerName;
-  DateTime lastUpdate;
-  Customer customer;
-  List<DueItem> dueListItems;
+  dynamic dueAlert;
+  String contactMobile;
+  String contactName;
+  String contactType;
+  int version;
+  String uniqueId;
 
   Due copyWith({
     int id,
     int userId,
     int shopId,
-    int customerId,
-    int dueAmount,
+    double dueAmount,
     DateTime createdAt,
     DateTime updatedAt,
-    String customerAddress,
-    String customerMobile,
-    String customerName,
-    DateTime lastUpdate,
-    Customer customer,
-    List<DueItem> dueListItems,
+    dynamic dueAlert,
+    String contactMobile,
+    String contactName,
+    String contactType,
+    int version,
+    String uniqueId,
   }) =>
       Due(
         id: id ?? this.id,
         userId: userId ?? this.userId,
         shopId: shopId ?? this.shopId,
-        customerId: customerId ?? this.customerId,
         dueAmount: dueAmount ?? this.dueAmount,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
-        customerAddress: customerAddress ?? this.customerAddress,
-        customerMobile: customerMobile ?? this.customerMobile,
-        customerName: customerName ?? this.customerName,
-        lastUpdate: lastUpdate ?? this.lastUpdate,
-        customer: customer ?? this.customer,
-        dueListItems: dueListItems ?? this.dueListItems,
+        dueAlert: dueAlert ?? this.dueAlert,
+        contactMobile: contactMobile ?? this.contactMobile,
+        contactName: contactName ?? this.contactName,
+        contactType: contactType ?? this.contactType,
+        version: version ?? this.version,
+        uniqueId: uniqueId ?? this.uniqueId,
       );
 
   factory Due.fromJson(Map<String, dynamic> json) => Due(
-        id: json["id"] == null ? null : json["id"],
-        userId: json["user_id"] == null ? null : json["user_id"],
-        shopId: json["shop_id"] == null ? null : json["shop_id"],
-        customerId: json["customer_id"] == null ? null : json["customer_id"],
-        dueAmount: json["due_amount"] == null ? null : json["due_amount"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-        customerAddress:
-            json["customer_address"] == null ? null : json["customer_address"],
-        customerMobile:
-            json["customer_mobile"] == null ? null : json["customer_mobile"],
-        customerName:
-            json["customer_name"] == null ? null : json["customer_name"],
-        lastUpdate: json["last_update"] == null
-            ? null
-            : DateTime.parse(json["last_update"]),
-        customer: json["customer"] == null
-            ? null
-            : Customer.fromJson(json["customer"]),
-        dueListItems: json["due_list_items"] == null
-            ? null
-            : List<DueItem>.from(
-                json["due_list_items"].map((x) => DueItem.fromJson(x))),
-      );
+    id: json["id"] == null ? null : json["id"],
+    userId: json["user_id"] == null ? null : json["user_id"],
+    shopId: json["shop_id"] == null ? null : json["shop_id"],
+    dueAmount:
+    json["due_amount"] == null ? null : json["due_amount"].toDouble(),
+    createdAt: json["created_at"] == null
+        ? null
+        : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null
+        ? null
+        : DateTime.parse(json["updated_at"]),
+    dueAlert: json["due_alert"],
+    contactMobile:
+    json["contact_mobile"] == null ? null : json["contact_mobile"],
+    contactName: json["contact_name"] == null ? null : json["contact_name"],
+    contactType: json["contact_type"] == null ? null : json["contact_type"],
+    version: json["version"] == null ? null : json["version"],
+    uniqueId: json["unique_id"] == null ? null : json["unique_id"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "user_id": userId == null ? null : userId,
-        "shop_id": shopId == null ? null : shopId,
-        "customer_id": customerId == null ? null : customerId,
-        "due_amount": dueAmount == null ? null : dueAmount,
-        "created_at": createdAt == null ? null : createdAt.toIso8601String(),
-        "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
-        "customer_address": customerAddress == null ? null : customerAddress,
-        "customer_mobile": customerMobile == null ? null : customerMobile,
-        "customer_name": customerName == null ? null : customerName,
-        "last_update": lastUpdate == null ? null : lastUpdate.toIso8601String(),
-        "customer": customer == null ? null : customer.toJson(),
-        "due_list_items": dueListItems == null
-            ? null
-            : List<dynamic>.from(dueListItems.map((x) => x.toJson())),
-      };
+    "id": id == null ? null : id,
+    "user_id": userId == null ? null : userId,
+    "shop_id": shopId == null ? null : shopId,
+    "due_amount": dueAmount == null ? null : dueAmount,
+    "created_at": createdAt == null ? null : createdAt.toIso8601String(),
+    "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
+    "due_alert": dueAlert,
+    "contact_mobile": contactMobile == null ? null : contactMobile,
+    "contact_name": contactName == null ? null : contactName,
+    "contact_type": contactType == null ? null : contactType,
+    "version": version == null ? null : version,
+    "unique_id": uniqueId == null ? null : uniqueId,
+  };
+
   @override
   String toString() {
-    return json.encode(this);
+    // TODO: implement toString
+    return super.toString();
   }
-}
-
-class DueItem {
-  DueItem({
-    this.id,
-    this.dueId,
-    this.transactionId,
-    this.type,
-    this.note,
-    this.amount,
-    this.createdAt,
-    this.updatedAt,
-    this.mobileNumber,
-    this.time,
-  });
-
-  int id;
-  int dueId;
-  dynamic transactionId;
-  String type;
-  String note;
-  int amount;
-  DateTime createdAt;
-  DateTime updatedAt;
-  String mobileNumber;
-  DateTime time;
-
-  DueItem copyWith({
-    int id,
-    int dueId,
-    dynamic transactionId,
-    String type,
-    String note,
-    int amount,
-    DateTime createdAt,
-    DateTime updatedAt,
-    String mobileNumber,
-    DateTime time,
-  }) =>
-      DueItem(
-        id: id ?? this.id,
-        dueId: dueId ?? this.dueId,
-        transactionId: transactionId ?? this.transactionId,
-        type: type ?? this.type,
-        note: note ?? this.note,
-        amount: amount ?? this.amount,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-        mobileNumber: mobileNumber ?? this.mobileNumber,
-        time: time ?? this.time,
-      );
-
-  factory DueItem.fromJson(Map<String, dynamic> json) => DueItem(
-        id: json["id"] == null ? null : json["id"],
-        dueId: json["due_id"] == null ? null : json["due_id"],
-        transactionId: json["transaction_id"],
-        type: json["type"] == null ? null : json["type"],
-        note: json["note"] == null ? null : json["note"],
-        amount: json["amount"] == null ? null : json["amount"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-        mobileNumber:
-            json["mobile_number"] == null ? null : json["mobile_number"],
-        time: json["time"] == null ? null : DateTime.parse(json["time"]),
-      );
-
-  Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "due_id": dueId == null ? null : dueId,
-        "transaction_id": transactionId,
-        "type": type == null ? null : type,
-        "note": note == null ? null : note,
-        "amount": amount == null ? null : amount,
-        "created_at": createdAt == null ? null : createdAt.toIso8601String(),
-        "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
-        "mobile_number": mobileNumber == null ? null : mobileNumber,
-        "time": time == null ? null : time.toIso8601String(),
-      };
 }

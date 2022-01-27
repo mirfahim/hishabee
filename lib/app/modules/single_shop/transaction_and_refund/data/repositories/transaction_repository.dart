@@ -3,6 +3,10 @@ import 'package:hishabee_business_manager_fl/app/_utils/response_decoder.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/local/data_sources/local_transaction_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/data_sources/transaction_provider.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_request.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_response.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/quick_sell_request.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/quick_sell_response.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_exchange_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
@@ -33,7 +37,7 @@ class TransactionRepository implements ITransactionRepository {
   // }
 
   @override
-  Future<void> addTransaction(int shopId, Transaction transaction) async {
+  Future<AddTransactionResponse> addTransaction(AddTransactionRequest transaction) async {
     if (await networkInfo.isConnected()) {
       try {
         final response = await transactionProvider.addTransaction(transaction);
@@ -80,7 +84,7 @@ class TransactionRepository implements ITransactionRepository {
 
   @override
   Future<TransactionResponse> getAllTransaction({int shopId}) async {
-    List<Transaction> transaction = [];
+    List<Transactions> transaction = [];
     var response;
     if (await networkInfo.isConnected()) {
       try {
@@ -102,7 +106,7 @@ class TransactionRepository implements ITransactionRepository {
     if (await networkInfo.isConnected()) {
       try {
         final response =
-            await transactionProvider.getAllTransactionItem(shopId: shopId);
+        await transactionProvider.getAllTransactionItem(shopId: shopId);
         await localTransactionProvider.saveAllTransactionItem(
             shopId, response.body);
         return response.body;
@@ -116,12 +120,12 @@ class TransactionRepository implements ITransactionRepository {
   @override
   Future<TransactionExchangeResponseModel> transactionExchange(
       {int shopId,
-      int transactionId,
-      int totalItem,
-      double totalPrice,
-      double totalVat,
-      List<TransactionItem> exchange,
-      List<TransactionItem> refund}) async {
+        int transactionId,
+        int totalItem,
+        double totalPrice,
+        double totalVat,
+        List<TransactionItem> exchange,
+        List<TransactionItem> refund}) async {
     final response = await transactionProvider.transactionExchange(
         shopId: shopId,
         transactionId: transactionId,
@@ -134,6 +138,19 @@ class TransactionRepository implements ITransactionRepository {
     print("TRS : ${response.bodyString}");
 
     return ResponseDecoder.decode(response);
+  }
+
+  @override
+  Future<QuickSellResponse> quickSell(QuickSellRequest quickSellRequest) async {
+    if (await networkInfo.isConnected()) {
+      try {
+        final response = await transactionProvider.quickSell(quickSellRequest);
+        return response.body;
+      } catch (e) {
+        return Future.error(e);
+      }
+    }
+    return Future.error("No connection! Please connect to the internet.");
   }
 
 // @override

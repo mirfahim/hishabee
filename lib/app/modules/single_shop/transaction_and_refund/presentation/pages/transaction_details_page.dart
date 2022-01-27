@@ -13,7 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:number_display/number_display.dart';
 
 class TransactionDetailsPage extends StatelessWidget {
-  final Transaction transaction;
+  final Transactions transaction;
   final Shop shop;
 
   const TransactionDetailsPage({Key key, this.transaction, this.shop})

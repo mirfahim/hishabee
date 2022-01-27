@@ -12,7 +12,7 @@ import 'package:image_picker/image_picker.dart';
 class SetQrCodeController extends GetxController with StateMixin<List<Qrcode>> {
   final IFileRepository fileRepository;
   final IQrRepository qrRepository;
-  final dpc = Get.find<DuePaymentController>();
+  // final dpc = Get.find<DuePaymentController>();
   final sc = Get.find<ConfirmPaymentController>();
   final shop = Rxn<Shop>();
   final picker = ImagePicker();

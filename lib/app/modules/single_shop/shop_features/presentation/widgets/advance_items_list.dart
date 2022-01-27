@@ -241,11 +241,11 @@ class AdvanceItemsList extends GetResponsiveView<ShopFeaturesController> {
               children: [
                 InkWell(
                   onTap: () {
-                    Get.to(() => DueListPage(),
-                        arguments: {
-                          "shop": shop,
-                        },
-                        binding: DueListBinding());
+                    // Get.to(() => DueListPage(),
+                    //     arguments: {
+                    //       "shop": shop,
+                    //     },
+                    //     binding: DueListBinding());
                   },
                   child: Container(
                     height: itemHeight,

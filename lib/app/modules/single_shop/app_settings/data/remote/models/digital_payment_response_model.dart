@@ -29,14 +29,14 @@ class DigitalPaymentResponseModel {
 
   int code;
   String message;
-  Transaction transaction;
+  Transactions transaction;
   List<TransactionItem> transactionItems;
   String url;
 
   DigitalPaymentResponseModel copyWith({
     int code,
     String message,
-    Transaction transaction,
+    Transactions transaction,
     List<TransactionItem> transactionItems,
     String url,
   }) =>
@@ -54,7 +54,7 @@ class DigitalPaymentResponseModel {
         message: json["message"] == null ? null : json["message"],
         transaction: json["transaction"] == null
             ? null
-            : Transaction.fromJson(json["transaction"]),
+            : Transactions.fromJson(json["transaction"]),
         transactionItems: json["transaction_items"] == null
             ? null
             : List<TransactionItem>.from(json["transaction_items"]

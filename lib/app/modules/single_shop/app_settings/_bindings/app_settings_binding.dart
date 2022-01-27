@@ -75,7 +75,7 @@ class AppSettingsBinding extends Bindings {
 
     Get.lazyPut<IDueProvider>(() => DueProvider(find()));
     Get.lazyPut<IDueRepository>(() => DueRepository(find()));
-    Get.lazyPut(() => DuePaymentController(find(), find()));
+    // Get.lazyPut(() => DuePaymentController(find(), find()));
 
     Get.lazyPut<IQrProvider>(() => QrProvider(find()));
     Get.lazyPut<IQrRepository>(() => QrRepository(find()));

@@ -18,14 +18,14 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presen
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/domain/repositories/i_transaction_repository.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 class SellWithQrCodeController extends GetxController
     with StateMixin<List<Qrcode>> {
   final IFileRepository fileRepository;
   final IQrRepository qrRepository;
   final ITransactionRepository transactionRepository;
   final shop = Rxn<Shop>();
-  final transaction = Rxn<Transaction>();
+  final transaction = Rxn<Transactions>();
   final picker = ImagePicker();
   final file = Rxn<File>();
 
@@ -117,19 +117,19 @@ class SellWithQrCodeController extends GetxController
             ),
             onPressed: () async {
               CustomDialog.showLoadingDialog(message: "Selling...");
-              await transactionRepository.addTransaction(
-                  shop.value.id, transaction.value);
+              // await transactionRepository.addTransaction(
+              //     shop.value.id, transaction.value);
               final SellController sc = Get.find();
               sc.cart.clear();
               sc.calculateTotalCartPrice();
               if (Get.isDialogOpen) {
                 Get.back();
               }
-              Get.to(() => SoldPage(
-                    transaction: transaction.value,
-                    shop: shop.value,
-                    route: 2,
-                  ));
+              // Get.to(() => SoldPage(
+              //       transaction: transaction.value,
+              //       shop: shop.value,
+              //       route: 2,
+              //     ));
             },
           ),
         ],

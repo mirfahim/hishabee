@@ -14,7 +14,7 @@ class ExchangePaymentController extends GetxController {
 
   final paying = false.obs;
   final formKey = GlobalKey<FormState>();
-  final transaction = Rxn<Transaction>();
+  final transaction = Rxn<Transactions>();
   final shop = Rxn<Shop>();
   final transactionItem = <TransactionItem>[].obs;
   final transactionOldItem = <TransactionItem>[].obs;
@@ -92,8 +92,8 @@ class ExchangePaymentController extends GetxController {
 
     try {
       CustomDialog.showLoadingDialog();
-      final result =
-          await transactionRepository.addTransaction(shop.value.id, txn);
+      // final result =
+      //     await transactionRepository.addTransaction(shop.value.id, txn);
       CustomDialog.hideDialog();
 
       CustomDialog.showStringDialog("Transaction added successfully");

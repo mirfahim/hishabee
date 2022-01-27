@@ -32,7 +32,7 @@ class TransactionResponse {
   });
 
   int currentPage;
-  List<Transaction> data;
+  List<Transactions> data;
   String firstPageUrl;
   int from;
   int lastPage;
@@ -46,7 +46,7 @@ class TransactionResponse {
 
   TransactionResponse copyWith({
     int currentPage,
-    List<Transaction> data,
+    List<Transactions> data,
     String firstPageUrl,
     int from,
     int lastPage,
@@ -78,8 +78,8 @@ class TransactionResponse {
         currentPage: json["current_page"] == null ? null : json["current_page"],
         data: json["data"] == null
             ? null
-            : List<Transaction>.from(
-                json["data"].map((x) => Transaction.fromJson(x))),
+            : List<Transactions>.from(
+                json["data"].map((x) => Transactions.fromJson(x))),
         firstPageUrl:
             json["first_page_url"] == null ? null : json["first_page_url"],
         from: json["from"] == null ? null : json["from"],

@@ -3,13 +3,13 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction
 import 'package:hive/hive.dart';
 
 abstract class ILocalTransactionProvider {
-  Future<List<Transaction>> getAllTransaction(int shopId);
+  Future<List<Transactions>> getAllTransaction(int shopId);
 
-  Future<void> saveTransaction(int shopId, Transaction transaction);
+  Future<void> saveTransaction(int shopId, Transactions transaction);
 
-  Future<void> updateTransaction(int shopId, Transaction transaction);
+  Future<void> updateTransaction(int shopId, Transactions transaction);
 
-  Future<void> saveAllTransaction(int shopId, List<Transaction> transactions);
+  Future<void> saveAllTransaction(int shopId, List<Transactions> transactions);
 
   Future<List<TransactionItem>> getAllTransactionItem(int shopId);
 
@@ -36,8 +36,8 @@ class LocalTransactionProvider implements ILocalTransactionProvider {
   }
 
   @override
-  Future<List<Transaction>> getAllTransaction(int shopId) async {
-    var list = <Transaction>[];
+  Future<List<Transactions>> getAllTransaction(int shopId) async {
+    var list = <Transactions>[];
     final transactionBox = await Hive.openBox(boxKey);
 
     final str = transactionBox.get(transactionKey + shopId.toString());
@@ -65,7 +65,7 @@ class LocalTransactionProvider implements ILocalTransactionProvider {
 
   @override
   Future<void> saveAllTransaction(
-      int shopId, List<Transaction> transactions) async {
+      int shopId, List<Transactions> transactions) async {
     final transactionBox = await Hive.openBox(boxKey);
 
     final str = transactionResponseModelToJson(transactions);
@@ -74,7 +74,7 @@ class LocalTransactionProvider implements ILocalTransactionProvider {
   }
 
   @override
-  Future<void> saveTransaction(int shopId, Transaction transaction) async {
+  Future<void> saveTransaction(int shopId, Transactions transaction) async {
     var transactions = await getAllTransaction(shopId);
     transactions.add(transaction);
 
@@ -82,7 +82,7 @@ class LocalTransactionProvider implements ILocalTransactionProvider {
   }
 
   @override
-  Future<void> updateTransaction(int shopId, Transaction transaction) async {
+  Future<void> updateTransaction(int shopId, Transactions transaction) async {
     var txns = await getAllTransaction(shopId);
 
     int index = txns.indexWhere((element) => element.id == transaction.id);

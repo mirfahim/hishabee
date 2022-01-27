@@ -420,7 +420,7 @@ class ExchangePage extends GetView<ExchangeController> {
                                                           controller.transaction
                                                                   .value =
                                                               result
-                                                                  as Transaction;
+                                                                  as Transactions;
                                                           print(
                                                               "TP : ${controller.transaction.value.totalPrice}");
                                                           controller.initData();
@@ -544,7 +544,7 @@ class ExchangePage extends GetView<ExchangeController> {
                                       },
                                       binding: TransactionsBinding());
                               controller.transaction.value =
-                                  result as Transaction;
+                                  result as Transactions;
                               controller.initData();
                             },
                             child: Container(

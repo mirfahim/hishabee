@@ -20,7 +20,7 @@ class ExchangeSellController extends GetxController {
   final subCategoryNames = <String>['Quick Sell', 'All Category'].obs;
   final customProductName = ''.obs;
   final customProductPrice = ''.obs;
-  final transaction = Rxn<Transaction>();
+  final transaction = Rxn<Transactions>();
   final transactionItem = Rxn<TransactionItem>();
 
   final cart = <Product>[].obs;

@@ -1,7 +1,13 @@
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/strings.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/domain/repositories/i_auth_repository.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/data/remote/models/add_due_item_request.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/data/remote/models/add_due_item_response.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/data/remote/models/add_due_request.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/data/remote/models/add_due_response.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/data/remote/models/add_due_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/data/remote/models/get_all_due_item_by_uniq_id.dart';
+// import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/data/remote/models/get_all_due_item_by_unuque_id.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/data/remote/models/get_all_due_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/data/remote/models/update_due_response_model.dart';
 
@@ -17,6 +23,11 @@ abstract class IDueProvider {
   });
 
   Future<Response<GetAllDueResponseModel>> getAllDue({int shopId});
+
+  Future<Response<AddDueResponse>> addNewDue(AddDueRequest addDueRequest);
+  Future<Response<AddDueItemResponse>> addNewDueItem(AddDueItemRequest addDueItemRequest);
+
+  Future<Response<List<GetAllDueItemByUid>>> getAllDueItemByUid({String uid});
 
   Future<Response<UpdateDueResponseModel>> updateDue({
     int shopId,
@@ -64,7 +75,7 @@ class DueProvider extends GetConnect implements IDueProvider {
 
   @override
   Future<Response<GetAllDueResponseModel>> getAllDue({int shopId}) async {
-    String url = "$BASE_URL/due/all?shop_id=$shopId";
+    String url = "$BASE_URL/due/all?shop_id=$shopId&page=1";
 
     final creds = await authRepository.getCredentials();
 
@@ -92,6 +103,68 @@ class DueProvider extends GetConnect implements IDueProvider {
       {},
       headers: {'Authorization': 'Bearer ${creds.accessToken}'},
       decoder: updateDueResponseModelFromRawJson,
+    );
+  }
+
+  @override
+  Future<Response<List<GetAllDueItemByUid>>> getAllDueItemByUid({String uid}) async{
+    String url = "$BASE_URL/due/items?unique_id=$uid";
+
+    final creds = await authRepository.getCredentials();
+
+    return get(
+      url,
+      headers: {'Authorization': 'Bearer ${creds.accessToken}'},
+      decoder: getAllDueItemByUidFromRawJson,
+    );
+  }
+
+  @override
+  Future<Response<AddDueResponse>> addNewDue(AddDueRequest addDueRequest) async{
+    String url ="$BASE_URL/due/add";
+    final creds = await authRepository.getCredentials();
+
+    var body = {
+      "amount": addDueRequest.amount,
+      "shop_id": addDueRequest.shopId,
+      "unique_id": addDueRequest.uniqueId,
+      "contact_type": addDueRequest.contactType,
+      "contact_mobile": addDueRequest.contactMobile,
+      "contact_name": addDueRequest.contactName,
+      "version": addDueRequest.version,
+      "updated_at": addDueRequest.createdAt,
+      "created_at": addDueRequest.updatedAt
+    };
+
+    return post(
+      url,
+      body,
+      headers: {'Authorization': 'Bearer ${creds.accessToken}'},
+      decoder: addDueResponseFromRawJson,
+    );
+  }
+
+  @override
+  Future<Response<AddDueItemResponse>> addNewDueItem(AddDueItemRequest addDueItemRequest) async{
+    String url ="$BASE_URL/due_item/add";
+    final creds = await authRepository.getCredentials();
+
+    var body = {
+      "amount": addDueItemRequest.amount,
+      "shop_id": addDueItemRequest.shopId,
+      "unique_id": addDueItemRequest.uniqueId,
+      "due_unique_id": addDueItemRequest.dueUniqueId,
+      "due_left": addDueItemRequest.dueLeft,
+      "version": addDueItemRequest.version,
+      "updated_at": addDueItemRequest.updatedAt,
+      "created_at": addDueItemRequest.createdAt
+    };
+
+    return post(
+      url,
+      body,
+      headers: {'Authorization': 'Bearer ${creds.accessToken}'},
+      decoder: addDueItemResponseFromRawJson,
     );
   }
 }

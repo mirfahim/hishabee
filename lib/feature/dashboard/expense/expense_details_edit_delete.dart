@@ -75,7 +75,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
   void getDialog() async {
     await _selectStartDate(context);
     // await _selectEndDate(context);
-    // widget.controller.getRangeTransaction();
+    // widgets.controller.getRangeTransaction();
   }
 
   _selectStartDate(BuildContext context) async {
@@ -103,7 +103,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
     );
     if (picked != null) {
       setState(() {
-        // widget.controller.selectedStartDate.value = picked;
+        // widgets.controller.selectedStartDate.value = picked;
         startDate = picked;
       });
     }

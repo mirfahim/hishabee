@@ -12,7 +12,7 @@ import 'package:printing/printing.dart';
 class TransactionReceiptPage extends StatelessWidget {
   const TransactionReceiptPage({this.shop, this.transaction});
   final Shop shop;
-  final Transaction transaction;
+  final Transactions transaction;
 
   @override
   Widget build(BuildContext context) {

@@ -19,9 +19,9 @@ class ReportController extends GetxController {
   final showCase = true.obs;
 
   final shop = Shop().obs;
-  final transactionList = <Transaction>[].obs;
+  final transactionList = <Transactions>[].obs;
 
-  final filterTransactionList = <Transaction>[].obs;
+  final filterTransactionList = <Transactions>[].obs;
 
   final expenseList = <ExpenseResponseModel>[].obs;
 
@@ -90,7 +90,7 @@ class ReportController extends GetxController {
     calculateTodaysSale(filterTransactionList);
   }
 
-  calculateTodaysSale(List<Transaction> trans) {
+  calculateTodaysSale(List<Transactions> trans) {
     var temp = 0.0;
     trans.forEach((element) {
       temp += element.totalPrice;
@@ -142,8 +142,8 @@ class ReportController extends GetxController {
     createBarChartData();
   }
 
-  List<Transaction> getSalesByMonth(DateTime date, int daysInMonth) {
-    List<Transaction> list = [];
+  List<Transactions> getSalesByMonth(DateTime date, int daysInMonth) {
+    List<Transactions> list = [];
     transactionList.forEach((element) {
       if (element.createdAt.difference(date).inDays <= daysInMonth) {
         list.add(element);

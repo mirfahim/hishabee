@@ -37,10 +37,11 @@ class SellDigitalPaymentController extends GetConnect {
     var result = await digitalPaymentRepository.updateDueDigitalPayment(
         shopId: shop.value.id,
         amount: givenAmount.value,
-        address: due.value.customer.address,
-        customerId: due.value.customer.id,
-        customerName: due.value.customer.name,
-        mobileNumber: due.value.customer.mobile);
+        // address: due.value.customer.address,
+        // customerId: due.value.customer.id,
+        // customerName: due.value.customer.name,
+        // mobileNumber: due.value.customer.mobile
+    );
     if (result.code == 200) {
       url.value = result.url;
     }

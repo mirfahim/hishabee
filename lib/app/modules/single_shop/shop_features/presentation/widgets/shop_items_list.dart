@@ -10,6 +10,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/pr
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/expenses/_bindings/expense_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/expenses/presentation/pages/expenses_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindings/sell_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/quick_sell_front.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/sell_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
@@ -119,7 +120,7 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
                 ),
                 InkWell(
                   onTap: () {
-                    Get.to(() => SellPageShowcase(),
+                    Get.to(() => QuickSell(),
                         arguments: {
                           "shop": shop,
                         },
@@ -163,13 +164,13 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 InkWell(
-                  onTap: () {
-                    Get.to(() => DueListPage(),
-                        arguments: {
-                          "shop": shop,
-                        },
-                        binding: DueListBinding());
-                  },
+                  // onTap: () {
+                  //   Get.to(() => DueListPage(),
+                  //       arguments: {
+                  //         "shop": shop,
+                  //       },
+                  //       binding: DueListBinding());
+                  // },
                   child: Container(
                     height: itemHeight,
                     width: itemWidth,

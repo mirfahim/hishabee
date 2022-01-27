@@ -394,7 +394,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                             .filterTransactionList.length,
                                         itemBuilder:
                                             (BuildContext context, int index) {
-                                          Transaction transaction = widget
+                                          Transactions transaction = widget
                                               .controller
                                               .filterTransactionList[index];
                                           return InkWell(

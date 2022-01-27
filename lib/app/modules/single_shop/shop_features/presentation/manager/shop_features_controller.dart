@@ -20,7 +20,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction
 class ShopFeaturesController extends GetxController {
   final shop = Shop().obs;
   final campaign = Rxn<Campaign>();
-  final transactionList = <Transaction>[].obs;
+  final transactionList = <Transactions>[].obs;
   var smsCount = GetStorage('sms_count');
   var tabIndex = 1;
   void changeTabIndex(int index) {
@@ -28,7 +28,7 @@ class ShopFeaturesController extends GetxController {
     update();
   }
 
-  final filterTransactionList = <Transaction>[].obs;
+  final filterTransactionList = <Transactions>[].obs;
 
   final todaysSale = 0.0.obs;
   final walletBalance = 0.obs;
@@ -97,7 +97,7 @@ class ShopFeaturesController extends GetxController {
     calculateTotalAmount(filterTransactionList);
   }
 
-  calculateTotalAmount(List<Transaction> trans) {
+  calculateTotalAmount(List<Transactions> trans) {
     var temp = 0.0;
     trans.forEach((element) {
       temp += element.totalPrice;

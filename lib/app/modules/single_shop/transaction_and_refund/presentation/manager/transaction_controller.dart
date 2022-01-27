@@ -26,7 +26,7 @@ class TransactionController extends GetxController {
   final yesterdayTransactionList = <Transaction>[].obs;
   final sevenDayTransactionList = <Transaction>[].obs;*/
   final transactionItemList = <TransactionItem>[].obs;
-  final filterTransactionList = <Transaction>[].obs;
+  final filterTransactionList = <Transactions>[].obs;
 
   final selectedStartDate = DateTime.now().obs;
   final selectedEndDate = DateTime.now().obs;
@@ -155,7 +155,7 @@ class TransactionController extends GetxController {
     calculateTotalAmount(result);
   }
 
-  calculateTotalAmount(List<Transaction> trans) {
+  calculateTotalAmount(List<Transactions> trans) {
     var temp = 0.0;
     trans.forEach((element) {
       temp += element.totalPrice;

@@ -1,4 +1,9 @@
+import 'dart:math';
+
+import 'package:animated_widgets/widgets/scale_animated.dart';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/data/remote/models/login_response_model.dart';
@@ -13,9 +18,13 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_lis
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/sell_digital_payment_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/sold_page.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_request.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/quick_sell_request.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/domain/repositories/i_transaction_repository.dart';
+import 'package:uuid/uuid.dart';
 
 class ConfirmPaymentController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -46,6 +55,11 @@ class ConfirmPaymentController extends GetxController {
   var selectedCustomer = Customer().obs;
   var transactionItems = <TransactionItem>[];
   final cred = Rxn<LoginResponseModel>();
+
+  final payWithQr = false.obs;
+
+  ConfettiController _controllerCenter =
+  ConfettiController(duration: const Duration(microseconds: 100));
 
   final IContactRepository contactRepository;
   final ITransactionRepository transactionRepository;
@@ -99,14 +113,14 @@ class ConfirmPaymentController extends GetxController {
 
   getAllEmployee() async {
     final result =
-        await contactRepository.getAllEmployee(shopId: shop.value.id);
+    await contactRepository.getAllEmployee(shopId: shop.value.id);
 
     employees.assignAll(result);
   }
 
   getAllCustomer() async {
     final result =
-        await contactRepository.getAllCustomer(shopId: shop.value.id);
+    await contactRepository.getAllCustomer(shopId: shop.value.id);
 
     customers.assignAll(result);
     searchCustomerList.assignAll(result);
@@ -176,7 +190,7 @@ class ConfirmPaymentController extends GetxController {
       transactionItems.add(txnItem);
     });
 
-    Transaction transaction = Transaction(
+    Transactions transaction = Transactions(
         shopId: shop.value.id,
         note: note.value,
         employeeName: employeeName.value,
@@ -197,7 +211,7 @@ class ConfirmPaymentController extends GetxController {
 
     try {
       CustomDialog.showLoadingDialog();
-      await transactionRepository.addTransaction(shop.value.id, transaction);
+      /*await transactionRepository.addTransaction(shop.value.id, transaction);*/
       if (dueAmount.value > 0) {
         await dueRepository.addDue(
             userId: shop.value.userId,
@@ -215,12 +229,6 @@ class ConfirmPaymentController extends GetxController {
     } catch (e) {
       CustomDialog.showStringDialog(e.toString());
     }
-
-    Get.to(() => SoldPage(
-          transaction: transaction,
-          shop: shop.value,
-          route: 1,
-        ));
   }
 
   addDigitalTransaction() async {
@@ -255,7 +263,7 @@ class ConfirmPaymentController extends GetxController {
       transactionItems.add(txnItem);
     });
 
-    Transaction transaction = Transaction(
+    Transactions transaction = Transactions(
         shopId: shop.value.id,
         note: note.value,
         employeeName: employeeName.value,
@@ -312,12 +320,12 @@ class ConfirmPaymentController extends GetxController {
       sc.calculateTotalCartPrice();
       if (result.code == 200) {
         Get.to(() => SellDigitalPaymentPage(
-              customerMobile: selectedCustomer.value.mobile,
-              shop: shop.value,
-              url: result.url,
-              customerEmail: selectedCustomer.value.email,
-              amount: result.transaction.totalPrice,
-            ));
+          customerMobile: selectedCustomer.value.mobile,
+          shop: shop.value,
+          url: result.url,
+          customerEmail: selectedCustomer.value.email,
+          amount: result.transaction.totalPrice,
+        ));
       } else {
         CustomDialog.showStringDialog(result.message);
       }
@@ -335,5 +343,65 @@ class ConfirmPaymentController extends GetxController {
   getCred() async {
     final result = await authRepository.getCredentials();
     cred.value = result;
+  }
+
+
+  quickSell() async {
+    formKey.currentState.save();
+    var uuid = Uuid();
+    String tUniqueId = shop.value.id.toString()+uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString();
+    String uniqueId = shop.value.id.toString()+uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString();
+    String funiqueId = uniqueId.replaceAll("'", "");
+    String sellUniqueId = uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString()+shop.value.id.toString();
+    String fSellUniqueId = sellUniqueId.replaceAll("'", "");
+    QuickSellRequest quickSellRequest = QuickSellRequest(
+      createdAt: DateTime.now().toString(),
+      shopId: shop.value.id,
+      details: '',
+      price: totalPrice.value.toInt(),
+      version: 0,
+      uniqueId: funiqueId,
+      transactionUniqueId: fSellUniqueId,
+      updatedAt: DateTime.now().toString(),
+      profit: 0,
+    );
+    AddTransactionRequest transaction = AddTransactionRequest(
+      shopId: shop.value.id,
+      createdAt: DateTime.now().toString(),
+      updatedAt: DateTime.now().toString(),
+      version: 0,
+      changeAmount: 0.toString(),
+      message: '',
+      paymentMethod: 1,
+      note: note.value,
+      smsCount: 0,
+      totalItem: cart.length,
+      totalProfit: 0.toString(),
+      totalPrice: totalPrice.value.toString(),
+      totalVat: 0,
+      transactionBarcode: '',
+      receivedAmount: totalPrice.value.toString(),
+      totalDiscount: 0,
+      customerMobile: selectedCustomer.value.mobile,
+      customerAddress: selectedCustomer.value.address,
+      uniqueId: tUniqueId,
+      transaction_type: "PRODUCT_SELL",
+    );
+    final response = await transactionRepository.quickSell(quickSellRequest);
+    print("${response.code}");
+    if (response.code == 200) {
+      final response = await transactionRepository.addTransaction(transaction);
+      if(response.code == 200){
+        formKey.currentState.reset();
+        Get.find<SellController>().clearCart();
+        Get.find<ShopFeaturesController>().initData();
+        Get.to(() =>
+            SoldPage(
+              shop: shop.value,
+              route: 2,
+              totalPrice: totalPrice.value.toInt(),
+            ));
+      }
+    }
   }
 }

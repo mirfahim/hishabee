@@ -6,19 +6,24 @@ import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/utility.dart';
+// import 'package:hishabee_business_manager_fl/app/_widgets/desktop_app_bar.dart';
+// import 'package:hishabee_business_manager_fl/app/_widgets/desktop_left_menue.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/customer_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/widgets/sell_receipt.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 
 class SoldPage extends StatefulWidget {
-  final Transaction transaction;
   final Shop shop;
   final int route;
+  final int totalPrice;
 
-  const SoldPage({Key key, this.transaction, this.shop, this.route})
+  const SoldPage({Key key, this.shop, this.route,this.totalPrice})
       : super(key: key);
 
   @override
@@ -99,33 +104,37 @@ class _SoldPageState extends State<SoldPage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final sellController = Get.find<SellController>();
     return Scaffold(
       body: SafeArea(
-        child: Stack(
-          children: <Widget>[
-            //CENTER -- Blast
-            Align(
-              alignment: Alignment.center,
-              child: ConfettiWidget(
-                confettiController: _controllerCenter,
-                blastDirectionality: BlastDirectionality.explosive,
-                // don't specify a direction, blast randomly
-                shouldLoop: true,
-                // start again as soon as the animation is finished
-                colors: const [
-                  Colors.green,
-                  Colors.blue,
-                  Colors.pink,
-                  Colors.orange,
-                  Colors.purple
-                ],
-                // manually specify the colors to be used
-                createParticlePath: drawStar, // define a custom shape/path.
-              ),
-            ),
-            hideDone == false
-                ? Align(
+        child: Column(
+          children: [
+            Container(
+              height: size.height - 62,
+              width: size.width - 250,
+              child: Stack(
+                children: <Widget>[
+                  //CENTER -- Blast
+                  Align(
+                    alignment: Alignment.center,
+                    child: ConfettiWidget(
+                      confettiController: _controllerCenter,
+                      blastDirectionality: BlastDirectionality.explosive,
+                      // don't specify a direction, blast randomly
+                      shouldLoop: true,
+                      // start again as soon as the animation is finished
+                      colors: const [
+                        Colors.green,
+                        Colors.blue,
+                        Colors.pink,
+                        Colors.orange,
+                        Colors.purple
+                      ],
+                      // manually specify the colors to be used
+                      createParticlePath:
+                      drawStar, // define a custom shape/path.
+                    ),
+                  ),
+                  Align(
                     alignment: Alignment.center,
                     child: ScaleAnimatedWidget.tween(
                       enabled: true,
@@ -138,7 +147,8 @@ class _SoldPageState extends State<SoldPage> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
                           border: Border.all(
-                              color: Colors.lightBlueAccent, width: 5),
+                              color: Colors.lightBlueAccent,
+                              width: 5),
                           color: Colors.blue,
                         ),
                         child: Icon(
@@ -148,691 +158,809 @@ class _SoldPageState extends State<SoldPage> {
                         ),
                       ),
                     ),
-                  )
-                : SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 100.0, bottom: 100),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Container(
-                                  height: 60,
-                                  width: size.width,
-                                  color: DEFAULT_YELLOW_BG,
-                                  child: Row(
+                  ),
+                  /*hideDone == false
+                      ? Align(
+                          alignment: Alignment.center,
+                          child: ScaleAnimatedWidget.tween(
+                            enabled: true,
+                            duration: Duration(milliseconds: 800),
+                            scaleDisabled: 0.5,
+                            scaleEnabled: 1,
+                            child: Container(
+                              height: 120,
+                              width: 120,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                border: Border.all(
+                                    color: Colors.lightBlueAccent,
+                                    width: 5),
+                                color: Colors.blue,
+                              ),
+                              child: Icon(
+                                Icons.check,
+                                size: 80,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        )
+                      : SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 100.0, bottom: 100),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          "Receipt",
-                                          style: TextStyle(
-                                              color: DEFAULT_BLACK,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      Spacer(),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "${widget.shop.name}",
+                                      Container(
+                                        height: 60,
+                                        width: size.width - 250,
+                                        color: DEFAULT_YELLOW_BG,
+                                        child: Row(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                "Receipt",
+                                                style: TextStyle(
+                                                    color: DEFAULT_BLACK,
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            Spacer(),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Container(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .center,
+                                                  children: [
+                                                    Text(
+                                                      "${widget.shop.name}",
+                                                      style: TextStyle(
+                                                          color:
+                                                              DEFAULT_BLACK,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .bold),
+                                                    ),
+                                                    Text(
+                                                      "${widget.shop.publicNumber}",
+                                                      style: TextStyle(
+                                                          color:
+                                                              DEFAULT_BLACK,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .bold),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                "${widget.shop.address}",
                                                 style: TextStyle(
                                                     color: DEFAULT_BLACK,
                                                     fontSize: 12,
                                                     fontWeight:
                                                         FontWeight.bold),
                                               ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .center,
+                                                children: [
+                                                  Text(
+                                                    "Customer",
+                                                    style: TextStyle(
+                                                        color:
+                                                            DEFAULT_BLACK,
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight
+                                                                .normal),
+                                                  ),
+                                                  SizedBox(height: 5),
+                                                  Text(
+                                                    widget.customer.name
+                                                            .isEmpty || widget.customer.name == null
+                                                        ? "Not Given"
+                                                        : "${widget.customer.name}",
+                                                    style: TextStyle(
+                                                        color:
+                                                            DEFAULT_BLACK,
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight
+                                                                .bold),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .center,
+                                                children: [
+                                                  Text(
+                                                    "Sell Time",
+                                                    style: TextStyle(
+                                                        color:
+                                                            DEFAULT_BLACK,
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight
+                                                                .normal),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 5,
+                                                  ),
+                                                  Text(
+                                                    Utility.dateTimeFormat
+                                                        .format(DateTime.now()),
+                                                    style: TextStyle(
+                                                        color:
+                                                            DEFAULT_BLACK,
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight
+                                                                .bold),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .center,
+                                                children: [
+                                                  Text(
+                                                    "Total Amount",
+                                                    style: TextStyle(
+                                                        color:
+                                                            DEFAULT_BLACK,
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight
+                                                                .normal),
+                                                  ),
+                                                  SizedBox(height: 5),
+                                                  Text(
+                                                    "${widget.totalPrice}",
+                                                    style: TextStyle(
+                                                        color:
+                                                            DEFAULT_BLACK,
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight
+                                                                .bold),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 5),
+                                      Divider(
+                                        color: DEFAULT_BLACK,
+                                        thickness: 2,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.all(8.0),
+                                            child: Container(
+                                              width: size.width * 0.35,
+                                              child: Text(
+                                                "Product Name",
+                                                style: TextStyle(
+                                                    color: DEFAULT_BLACK,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 8.0,
+                                                bottom: 8,
+                                                left: 5,
+                                                right: 5),
+                                            child: Container(
+                                              width: size.width * 0.15,
+                                              child: Center(
+                                                child: Text(
+                                                  "price",
+                                                  style: TextStyle(
+                                                      color: DEFAULT_BLACK,
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight
+                                                          .normal),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 8.0,
+                                                bottom: 8,
+                                                left: 5,
+                                                right: 5),
+                                            child: Container(
+                                              width: size.width * 0.15,
+                                              child: Text(
+                                                "Quantity",
+                                                style: TextStyle(
+                                                    color: DEFAULT_BLACK,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.only(
+                                                      top: 8.0,
+                                                      bottom: 8,
+                                                      left: 5,
+                                                      right: 5),
+                                              child: Container(
+                                                width: size.width * 0.17,
+                                                child: Text(
+                                                  "Total Price",
+                                                  style: TextStyle(
+                                                      color: DEFAULT_BLACK,
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight
+                                                          .normal),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 5),
+                                      Divider(
+                                        color: DEFAULT_BLACK,
+                                        thickness: 2,
+                                      ),
+                                      MediaQuery.removePadding(
+                                        context: context,
+                                        removeTop: true,
+                                        child: ListView.builder(
+                                          physics:
+                                              NeverScrollableScrollPhysics(),
+                                          shrinkWrap: true,
+                                          itemCount: widget.productList.length,
+                                          itemBuilder:
+                                              (BuildContext context,
+                                                  int index) {
+                                            Product item = widget
+                                                .productList[index];
+                                            return Container(
+                                              width: size.width,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                              ),
+                                              child: Column(
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Container(
+                                                          width:
+                                                              size.width *
+                                                                  0.35,
+                                                          child: Text(
+                                                            "${item.name}",
+                                                            style: TextStyle(
+                                                                color:
+                                                                    DEFAULT_BLACK,
+                                                                fontSize:
+                                                                    12,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                top: 8.0,
+                                                                bottom: 8,
+                                                                left: 5,
+                                                                right: 5),
+                                                        child: Container(
+                                                          width:
+                                                              size.width *
+                                                                  0.15,
+                                                          child: Center(
+                                                            child: Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              child: Text(
+                                                                "${item.sellingPrice}",
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        DEFAULT_BLACK,
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight.normal),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                top: 8.0,
+                                                                bottom: 8,
+                                                                left: 5,
+                                                                right: 5),
+                                                        child: Container(
+                                                          width:
+                                                              size.width *
+                                                                  0.15,
+                                                          child: Align(
+                                                            alignment:
+                                                                Alignment
+                                                                    .center,
+                                                            child: Text(
+                                                              "1",
+                                                              style: TextStyle(
+                                                                  color:
+                                                                      DEFAULT_BLACK,
+                                                                  fontSize:
+                                                                      12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .normal),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 8.0,
+                                                                  bottom: 8,
+                                                                  left: 5,
+                                                                  right: 5),
+                                                          child: Container(
+                                                            width:
+                                                                size.width *
+                                                                    0.17,
+                                                            child: Align(
+                                                              alignment:
+                                                                  Alignment
+                                                                      .centerRight,
+                                                              child: Text(
+                                                                "${item.sellingPrice * 1}",
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        DEFAULT_BLACK,
+                                                                    fontSize:
+                                                                        12,
+                                                                    fontWeight:
+                                                                        FontWeight.normal),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Divider(
+                                                    color: DEFAULT_BLACK
+                                                        .withOpacity(0.5),
+                                                    thickness: 2,
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            children: [
+                                              Spacer(),
                                               Text(
-                                                "${widget.shop.publicNumber}",
+                                                "Total price :",
                                                 style: TextStyle(
                                                     color: DEFAULT_BLACK,
                                                     fontSize: 12,
                                                     fontWeight:
                                                         FontWeight.bold),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.only(
+                                                        left: 20.0),
+                                                child: Container(
+                                                  width: size.width * 0.17,
+                                                  child: Align(
+                                                    alignment: Alignment
+                                                        .centerRight,
+                                                    child: Text(
+                                                      "${widget.totalPrice} Tk",
+                                                      style: TextStyle(
+                                                          color:
+                                                              DEFAULT_BLACK,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .bold),
+                                                    ),
+                                                  ),
+                                                ),
                                               ),
                                             ],
                                           ),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          "${widget.shop.address}",
-                                          style: TextStyle(
-                                              color: DEFAULT_BLACK,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            children: [
+                                              Spacer(),
+                                              Text(
+                                                "(-) Discount :",
+                                                style: TextStyle(
+                                                    color: DEFAULT_BLACK,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.only(
+                                                        left: 20.0),
+                                                child: Container(
+                                                  width: size.width * 0.17,
+                                                  child: Align(
+                                                    alignment: Alignment
+                                                        .centerRight,
+                                                    child: Text(
+                                                      "0 Tk",
+                                                      style: TextStyle(
+                                                          color:
+                                                              DEFAULT_BLACK,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .bold),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            children: [
+                                              Spacer(),
+                                              Text(
+                                                "vat :",
+                                                style: TextStyle(
+                                                    color: DEFAULT_BLACK,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.only(
+                                                        left: 20.0),
+                                                child: Container(
+                                                  width: size.width * 0.17,
+                                                  child: Align(
+                                                    alignment: Alignment
+                                                        .centerRight,
+                                                    child: Text(
+                                                      "0 Tk",
+                                                      style: TextStyle(
+                                                          color:
+                                                              DEFAULT_BLACK,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .bold),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Container(
+                                            width: 100,
+                                            child: Divider(
+                                              color: DEFAULT_BLACK
+                                                  .withOpacity(0.5),
+                                            )),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.all(5.0),
+                                          child: Row(
+                                            children: [
+                                              Spacer(),
+                                              Text(
+                                                "Total Amount :",
+                                                style: TextStyle(
+                                                    color: DEFAULT_BLACK,
+                                                    fontSize: 12,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.only(
+                                                        left: 20.0),
+                                                child: Container(
+                                                  width: size.width * 0.17,
+                                                  child: Align(
+                                                    alignment: Alignment
+                                                        .centerRight,
+                                                    child: Text(
+                                                      "${widget.totalPrice} Tk",
+                                                      style: TextStyle(
+                                                          color:
+                                                              DEFAULT_BLACK,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight
+                                                                  .bold),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: Alignment.bottomCenter,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.symmetric(
+                                                  horizontal: 15.0,
+                                                  vertical: 10),
+                                          child: Container(
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Column(
+                                                  children: [
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          *//*Get.to(() =>
+                                                              SellReceiptPage(
+                                                                  widget
+                                                                      .shop,
+                                                                  widget
+                                                                      .transaction));*//*
+                                                        },
+                                                        icon: Icon(Icons
+                                                            .arrow_circle_down)),
+                                                    Text("Recpit Print"),
+                                                  ],
+                                                ),
+                                                SizedBox(width: 20),
+                                                Column(
+                                                  children: [
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          *//*Get.to(() =>
+                                                              SellReceiptPage(
+                                                                  widget
+                                                                      .shop,
+                                                                  widget
+                                                                      .transaction));*//*
+                                                        },
+                                                        icon: Icon(Icons
+                                                            .arrow_circle_down)),
+                                                    Text("Recpit Share"),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
                                   ),
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Customer",
-                                              style: TextStyle(
-                                                  color: DEFAULT_BLACK,
-                                                  fontSize: 12,
-                                                  fontWeight:
-                                                      FontWeight.normal),
-                                            ),
-                                            SizedBox(height: 5),
-                                            Text(
-                                              widget.transaction.customerName
-                                                      .isEmpty
-                                                  ? "Not Given"
-                                                  : "${widget.transaction.customerName}",
-                                              style: TextStyle(
-                                                  color: DEFAULT_BLACK,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                              ),
+                            ),
+                          ),
+                        ),*/
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: ConfettiWidget(
+                      confettiController: _controllerTopCenter,
+                      blastDirection: pi / 2,
+                      maxBlastForce: 5,
+                      // set a lower max blast force
+                      minBlastForce: 2,
+                      // set a lower min blast force
+                      emissionFrequency: 0.05,
+                      numberOfParticles: 50,
+                      // a lot of particles at once
+                      gravity: 1,
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 20),
+                      child: Container(
+                        width: size.width,
+                        child: Column(
+                          children: [
+                            hideDone == true ? Row(
+                              children: [
+                                Spacer(),
+                                Container(
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.cancel_presentation,
+                                      size: 32,
+                                      color: DEFAULT_BLACK,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Sell Time",
-                                              style: TextStyle(
-                                                  color: DEFAULT_BLACK,
-                                                  fontSize: 12,
-                                                  fontWeight:
-                                                      FontWeight.normal),
-                                            ),
-                                            SizedBox(
-                                              height: 5,
-                                            ),
-                                            Text(
-                                              Utility.dateTimeFormat.format(
-                                                  widget.transaction.createdAt),
-                                              style: TextStyle(
-                                                  color: DEFAULT_BLACK,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "Total Amount",
-                                              style: TextStyle(
-                                                  color: DEFAULT_BLACK,
-                                                  fontSize: 12,
-                                                  fontWeight:
-                                                      FontWeight.normal),
-                                            ),
-                                            SizedBox(height: 5),
-                                            Text(
-                                              "${widget.transaction.totalPrice}",
-                                              style: TextStyle(
-                                                  color: DEFAULT_BLACK,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 5),
-                                Divider(
-                                  color: DEFAULT_BLACK,
-                                  thickness: 2,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Container(
-                                        width: size.width * 0.35,
-                                        child: Text(
-                                          "Product Name",
-                                          style: TextStyle(
-                                              color: DEFAULT_BLACK,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 8.0,
-                                          bottom: 8,
-                                          left: 5,
-                                          right: 5),
-                                      child: Container(
-                                        width: size.width * 0.15,
-                                        child: Center(
-                                          child: Text(
-                                            "price",
-                                            style: TextStyle(
-                                                color: DEFAULT_BLACK,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.normal),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 8.0,
-                                          bottom: 8,
-                                          left: 5,
-                                          right: 5),
-                                      child: Container(
-                                        width: size.width * 0.15,
-                                        child: Text(
-                                          "Quantity",
-                                          style: TextStyle(
-                                              color: DEFAULT_BLACK,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 8.0,
-                                          bottom: 8,
-                                          left: 5,
-                                          right: 5),
-                                      child: Container(
-                                        width: size.width * 0.17,
-                                        child: Text(
-                                          "Total Price",
-                                          style: TextStyle(
-                                              color: DEFAULT_BLACK,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.normal),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 5),
-                                Divider(
-                                  color: DEFAULT_BLACK,
-                                  thickness: 2,
-                                ),
-                                MediaQuery.removePadding(
-                                  context: context,
-                                  removeTop: true,
-                                  child: ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: widget
-                                        .transaction.transactionItems.length,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      TransactionItem item = widget
-                                          .transaction.transactionItems[index];
-                                      return Container(
-                                        width: size.width,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: Container(
-                                                    width: size.width * 0.35,
-                                                    child: Text(
-                                                      "${item.name}",
-                                                      style: TextStyle(
-                                                          color: DEFAULT_BLACK,
-                                                          fontSize: 12,
-                                                          fontWeight: FontWeight
-                                                              .normal),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 8.0,
-                                                          bottom: 8,
-                                                          left: 5,
-                                                          right: 5),
-                                                  child: Container(
-                                                    width: size.width * 0.15,
-                                                    child: Center(
-                                                      child: Align(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        child: Text(
-                                                          "${item.price}",
-                                                          style: TextStyle(
-                                                              color:
-                                                                  DEFAULT_BLACK,
-                                                              fontSize: 12,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .normal),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 8.0,
-                                                          bottom: 8,
-                                                          left: 5,
-                                                          right: 5),
-                                                  child: Container(
-                                                    width: size.width * 0.15,
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Text(
-                                                        "${item.quantity}",
-                                                        style: TextStyle(
-                                                            color:
-                                                                DEFAULT_BLACK,
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 8.0,
-                                                          bottom: 8,
-                                                          left: 5,
-                                                          right: 5),
-                                                  child: Container(
-                                                    width: size.width * 0.17,
-                                                    child: Align(
-                                                      alignment:
-                                                          Alignment.centerRight,
-                                                      child: Text(
-                                                        "${item.price * item.quantity}",
-                                                        style: TextStyle(
-                                                            color:
-                                                                DEFAULT_BLACK,
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .normal),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                            Divider(
-                                              color: DEFAULT_BLACK
-                                                  .withOpacity(0.5),
-                                              thickness: 2,
-                                            ),
-                                          ],
-                                        ),
-                                      );
+                                    onPressed: () {
+                                      if (widget.route == 1) {
+                                        Get.back();
+                                        Get.back();
+                                      } else {
+                                        Get.back();
+                                        Get.back();
+                                        Get.back();
+                                        Get.back();
+                                      }
                                     },
                                   ),
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Row(
-                                      children: [
-                                        Spacer(),
-                                        Text(
-                                          "Total price :",
-                                          style: TextStyle(
-                                              color: DEFAULT_BLACK,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 20.0),
-                                          child: Container(
-                                            width: size.width * 0.17,
-                                            child: Align(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                "${widget.transaction.totalPrice} Tk",
-                                                style: TextStyle(
-                                                    color: DEFAULT_BLACK,
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                              ],
+                            ) : Container(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "sold".tr,
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Row(
-                                      children: [
-                                        Spacer(),
-                                        Text(
-                                          "(-) Discount :",
-                                          style: TextStyle(
-                                              color: DEFAULT_BLACK,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 20.0),
-                                          child: Container(
-                                            width: size.width * 0.17,
-                                            child: Align(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                "${widget.transaction.totalDiscount} Tk",
-                                                style: TextStyle(
-                                                    color: DEFAULT_BLACK,
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                SizedBox(
+                                  width: 5,
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Row(
-                                      children: [
-                                        Spacer(),
-                                        Text(
-                                          "vat :",
-                                          style: TextStyle(
-                                              color: DEFAULT_BLACK,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 20.0),
-                                          child: Container(
-                                            width: size.width * 0.17,
-                                            child: Align(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                "${widget.transaction.totalVat} Tk",
-                                                style: TextStyle(
-                                                    color: DEFAULT_BLACK,
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                Text(
+                                  "${widget.totalPrice} TK",
+                                  style: TextStyle(
+                                      color: DEFAULT_BLUE,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Container(
-                                      width: 100,
-                                      child: Divider(
-                                        color: DEFAULT_BLACK.withOpacity(0.5),
-                                      )),
+                                SizedBox(
+                                  width: 5,
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(5.0),
-                                    child: Row(
-                                      children: [
-                                        Spacer(),
-                                        Text(
-                                          "Total Amount :",
-                                          style: TextStyle(
-                                              color: DEFAULT_BLACK,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 20.0),
-                                          child: Container(
-                                            width: size.width * 0.17,
-                                            child: Align(
-                                              alignment: Alignment.centerRight,
-                                              child: Text(
-                                                "${widget.transaction.totalPrice} Tk",
-                                                style: TextStyle(
-                                                    color: DEFAULT_BLACK,
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 15.0, vertical: 10),
-                                    child: Container(
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              IconButton(
-                                                  onPressed: () {
-                                                    Get.to(() =>
-                                                        SellReceiptPage(
-                                                            widget.shop,
-                                                            widget
-                                                                .transaction));
-                                                  },
-                                                  icon: Icon(
-                                                      Icons.arrow_circle_down)),
-                                              Text("Recpit Print"),
-                                            ],
-                                          ),
-                                          SizedBox(width: 20),
-                                          Column(
-                                            children: [
-                                              IconButton(
-                                                  onPressed: () {
-                                                    Get.to(() =>
-                                                        SellReceiptPage(
-                                                            widget.shop,
-                                                            widget
-                                                                .transaction));
-                                                  },
-                                                  icon: Icon(
-                                                      Icons.arrow_circle_down)),
-                                              Text("Recpit Share"),
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                Text(
+                                  "worth_of_product".tr,
+                                  style: TextStyle(
+                                      color: DEFAULT_BLACK,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
                                 ),
                               ],
                             ),
-                          ),
+                          ],
                         ),
                       ),
                     ),
                   ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: ConfettiWidget(
-                confettiController: _controllerTopCenter,
-                blastDirection: pi / 2,
-                maxBlastForce: 5,
-                // set a lower max blast force
-                minBlastForce: 2,
-                // set a lower min blast force
-                emissionFrequency: 0.05,
-                numberOfParticles: 50,
-                // a lot of particles at once
-                gravity: 1,
-              ),
-            ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
-                child: Container(
-                  width: size.width,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Spacer(),
-                          Container(
-                            child: IconButton(
-                              icon: Icon(
-                                Icons.cancel_presentation,
-                                size: 32,
-                                color: DEFAULT_BLACK,
-                              ),
-                              onPressed: () {
-                                if (widget.route == 1) {
-                                  Get.back();
-                                  Get.back();
-                                } else {
-                                  Get.back();
-                                  Get.back();
-                                  Get.back();
-                                  Get.back();
-                                }
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "sold".tr,
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "${widget.transaction.totalPrice} TK",
-                            style: TextStyle(
-                                color: DEFAULT_BLUE,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Text(
-                            "worth_of_product".tr,
-                            style: TextStyle(
-                                color: DEFAULT_BLACK,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ],
+                  //BOTTOM CENTER
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ConfettiWidget(
+                      confettiController: _controllerBottomCenter,
+                      blastDirection: -pi / 2,
+                      emissionFrequency: 0.01,
+                      numberOfParticles: 20,
+                      maxBlastForce: 100,
+                      minBlastForce: 80,
+                      gravity: 0.3,
+                    ),
                   ),
-                ),
-              ),
-            ),
-            //BOTTOM CENTER
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: ConfettiWidget(
-                confettiController: _controllerBottomCenter,
-                blastDirection: -pi / 2,
-                emissionFrequency: 0.01,
-                numberOfParticles: 20,
-                maxBlastForce: 100,
-                minBlastForce: 80,
-                gravity: 0.3,
-              ),
-            ),
-            Positioned(
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    hideDone == false
-                        ? Padding(
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          hideDone == false
+                              ? Padding(
                             padding: const EdgeInsets.only(bottom: 5),
                             child: Container(
                               width: size.width,
@@ -840,563 +968,73 @@ class _SoldPageState extends State<SoldPage> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 15.0, vertical: 10),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.center,
                                   children: [
                                     Text(
                                       "change_amount".tr,
                                       style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 18,
-                                          fontWeight: FontWeight.bold),
+                                          fontWeight:
+                                          FontWeight.bold),
                                     ),
                                     SizedBox(
                                       width: 10,
                                     ),
                                     Text(
-                                      "${widget.transaction.changeAmount} TK",
+                                      "0 TK",
                                       style: TextStyle(
                                           color: DEFAULT_BLUE,
                                           fontSize: 18,
-                                          fontWeight: FontWeight.bold),
+                                          fontWeight:
+                                          FontWeight.bold),
                                     )
                                   ],
                                 ),
                               ),
                             ),
                           )
-                        : Container(),
-                    InkWell(
-                      onTap: () {
-                        if (widget.route == 1) {
-                          Get.back();
-                          Get.back();
-                        } else {
-                          Get.back();
-                          Get.back();
-                          Get.back();
-                          Get.back();
-                        }
-                      },
-                      child: Container(
-                        height: 40,
-                        width: size.width,
-                        decoration: BoxDecoration(
-                          color: DEFAULT_BLACK,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Center(
-                          child: Text(
-                            "start_another_sale".tr,
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
+                              : Container(),
+                          hideDone == true ? InkWell(
+                            onTap: () {
+                              if (widget.route == 1) {
+                                Get.back();
+                                Get.back();
+                              } else {
+                                Get.back();
+                                Get.back();
+                                Get.back();
+                              }
+                            },
+                            child: Container(
+                              height: 40,
+                              width: size.width,
+                              decoration: BoxDecoration(
+                                color: DEFAULT_BLACK,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "start_another_sale".tr,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                            ),
+                          ) : Container(),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ),
+            )
           ],
         ),
       ),
     );
   }
-
-  /*generatePdf(Shop shop, Transaction trans) async {
-    final pdf = pw.Document(compress: true);
-    print("Pdf maker Call");
-    pdf.addPage(
-      pw.Page(
-          pageFormat: PdfPageFormat.a3,
-          build: (pw.Context context) {
-            return pw.Center(
-              child: pw.Padding(
-                padding: const pw.EdgeInsets.all(8.0),
-                child: pw.Container(
-                  child: pw.Column(
-                    mainAxisSize: pw.MainAxisSize.min,
-                    children: [
-                      pw.Container(
-                        height: 60,
-                        width: 300,
-                        //color: DEFAULT_YELLOW_BG,
-                        child: pw.Row(
-                          children: [
-                            pw.Padding(
-                              padding: const pw.EdgeInsets.all(8.0),
-                              child: pw.Text(
-                                "Receipt",
-                                style: pw.TextStyle(
-                                    //color: DEFAULT_BLACK,
-                                    fontSize: 18,
-                                    fontWeight: pw.FontWeight.bold),
-                              ),
-                            ),
-                            pw.Spacer(),
-                            pw.Padding(
-                              padding: const pw.EdgeInsets.all(8.0),
-                              child: pw.Container(
-                                child: pw.Column(
-                                  mainAxisAlignment:
-                                      pw.MainAxisAlignment.center,
-                                  children: [
-                                    pw.Text(
-                                      "${widget.shop.name.toString()}",
-                                      style: pw.TextStyle(
-                                          //color: DEFAULT_BLACK,
-                                          fontSize: 12,
-                                          fontWeight: pw.FontWeight.bold),
-                                    ),
-                                    pw.Text(
-                                      "${widget.shop.publicNumber.toString()}",
-                                      style: pw.TextStyle(
-                                          //color: DEFAULT_BLACK,
-                                          fontSize: 12,
-                                          fontWeight: pw.FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            pw.Padding(
-                              padding: const pw.EdgeInsets.all(8.0),
-                              child: pw.Text(
-                                "${widget.shop.address.toString()}",
-                                style: pw.TextStyle(
-                                    //color: DEFAULT_BLACK,
-                                    fontSize: 12,
-                                    fontWeight: pw.FontWeight.bold),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      pw.Row(
-                        mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
-                        children: [
-                          pw.Padding(
-                            padding: const pw.EdgeInsets.all(8.0),
-                            child: pw.Container(
-                              child: pw.Column(
-                                mainAxisAlignment: pw.MainAxisAlignment.center,
-                                children: [
-                                  pw.Text(
-                                    "Customer",
-                                    style: pw.TextStyle(
-                                        //color: DEFAULT_BLACK,
-                                        fontSize: 12,
-                                        fontWeight: pw.FontWeight.normal),
-                                  ),
-                                  pw.SizedBox(height: 5),
-                                  pw.Text(
-                                    widget.transaction.customerName.isEmpty
-                                        ? "Not Given"
-                                        : "${widget.transaction.customerName.toString()}",
-                                    style: pw.TextStyle(
-                                        //color: DEFAULT_BLACK,
-                                        fontSize: 12,
-                                        fontWeight: pw.FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          pw.Padding(
-                            padding: const pw.EdgeInsets.all(8.0),
-                            child: pw.Container(
-                              child: pw.Column(
-                                mainAxisAlignment: pw.MainAxisAlignment.center,
-                                children: [
-                                  pw.Text(
-                                    "Sell Time",
-                                    style: pw.TextStyle(
-                                        //color: DEFAULT_BLACK,
-                                        fontSize: 12,
-                                        fontWeight: pw.FontWeight.normal),
-                                  ),
-                                  pw.SizedBox(
-                                    height: 5,
-                                  ),
-                                  pw.Text(
-                                    Utility.dateTimeFormat
-                                        .format(widget.transaction.createdAt)
-                                        .toString(),
-                                    style: pw.TextStyle(
-                                        //color: DEFAULT_BLACK,
-                                        fontSize: 12,
-                                        fontWeight: pw.FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          pw.Padding(
-                            padding: const pw.EdgeInsets.all(8.0),
-                            child: pw.Container(
-                              child: pw.Column(
-                                mainAxisAlignment: pw.MainAxisAlignment.center,
-                                children: [
-                                  pw.Text(
-                                    "Total Amount",
-                                    style: pw.TextStyle(
-                                        //color: DEFAULT_BLACK,
-                                        fontSize: 12,
-                                        fontWeight: pw.FontWeight.normal),
-                                  ),
-                                  pw.SizedBox(height: 5),
-                                  pw.Text(
-                                    "${widget.transaction.totalPrice.toString()}",
-                                    style: pw.TextStyle(
-                                        //color: DEFAULT_BLACK,
-                                        fontSize: 12,
-                                        fontWeight: pw.FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      pw.SizedBox(height: 5),
-                      pw.Divider(
-                        //color: pw.DEFAULT_BLACK,
-                        thickness: 2,
-                      ),
-                      pw.Row(
-                        mainAxisAlignment: pw.MainAxisAlignment.spaceAround,
-                        children: [
-                          pw.Padding(
-                            padding: const pw.EdgeInsets.all(8.0),
-                            child: pw.Container(
-                              width: 100,
-                              child: pw.Text(
-                                "Product Name",
-                                style: pw.TextStyle(
-                                    //color: DEFAULT_BLACK,
-                                    fontSize: 12,
-                                    fontWeight: pw.FontWeight.normal),
-                              ),
-                            ),
-                          ),
-                          pw.Padding(
-                            padding: const pw.EdgeInsets.only(
-                                top: 8.0, bottom: 8, left: 5, right: 5),
-                            child: pw.Container(
-                              width: 50,
-                              child: pw.Center(
-                                child: pw.Text(
-                                  "price",
-                                  style: pw.TextStyle(
-                                      //color: DEFAULT_BLACK,
-                                      fontSize: 12,
-                                      fontWeight: pw.FontWeight.normal),
-                                ),
-                              ),
-                            ),
-                          ),
-                          pw.Padding(
-                            padding: const pw.EdgeInsets.only(
-                                top: 8.0, bottom: 8, left: 5, right: 5),
-                            child: pw.Container(
-                              width: 50,
-                              child: pw.Text(
-                                "Quantity",
-                                style: pw.TextStyle(
-                                    //color: DEFAULT_BLACK,
-                                    fontSize: 12,
-                                    fontWeight: pw.FontWeight.normal),
-                              ),
-                            ),
-                          ),
-                          pw.Padding(
-                            padding: const pw.EdgeInsets.only(
-                                top: 8.0, bottom: 8, left: 5, right: 5),
-                            child: pw.Container(
-                              width: 60,
-                              child: pw.Text(
-                                "Total Price",
-                                style: pw.TextStyle(
-                                    //color: DEFAULT_BLACK,
-                                    fontSize: 12,
-                                    fontWeight: pw.FontWeight.normal),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      pw.SizedBox(height: 5),
-                      pw.Divider(
-                        //color: DEFAULT_BLACK,
-                        thickness: 2,
-                      ),
-                      pw.ListView.builder(
-                        itemCount: widget.transaction.transactionItems.length,
-                        itemBuilder: (pw.Context context, int index) {
-                          TransactionItem item =
-                              widget.transaction.transactionItems[index];
-                          print("pdf item list: ${item.name}");
-                          var totalPrice = item.price * item.quantity;
-                          return pw.Container(
-                            width: 300,
-                            decoration: pw.BoxDecoration(
-                                //color: pw.Colors.white,
-                                ),
-                            child: pw.Column(
-                              children: [
-                                pw.Row(
-                                  mainAxisAlignment:
-                                      pw.MainAxisAlignment.spaceAround,
-                                  children: [
-                                    pw.Padding(
-                                      padding: const pw.EdgeInsets.all(8.0),
-                                      child: pw.Container(
-                                        width: 100,
-                                        child: pw.Text(
-                                          "${item.name.toString()}",
-                                          style: pw.TextStyle(
-                                              //color: DEFAULT_BLACK,
-                                              fontSize: 12,
-                                              fontWeight: pw.FontWeight.normal),
-                                        ),
-                                      ),
-                                    ),
-                                    pw.Padding(
-                                      padding: const pw.EdgeInsets.only(
-                                          top: 8.0,
-                                          bottom: 8,
-                                          left: 5,
-                                          right: 5),
-                                      child: pw.Container(
-                                        width: 50,
-                                        child: pw.Center(
-                                          child: pw.Align(
-                                            alignment: pw.Alignment.center,
-                                            child: pw.Text(
-                                              "${item.price.toString()}",
-                                              style: pw.TextStyle(
-                                                  //color: DEFAULT_BLACK,
-                                                  fontSize: 12,
-                                                  fontWeight:
-                                                      pw.FontWeight.normal),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    pw.Padding(
-                                      padding: const pw.EdgeInsets.only(
-                                          top: 8.0,
-                                          bottom: 8,
-                                          left: 5,
-                                          right: 5),
-                                      child: pw.Container(
-                                        width: 50,
-                                        child: pw.Align(
-                                          alignment: pw.Alignment.center,
-                                          child: pw.Text(
-                                            "${item.quantity.toString()}",
-                                            style: pw.TextStyle(
-                                                //color: DEFAULT_BLACK,
-                                                fontSize: 12,
-                                                fontWeight:
-                                                    pw.FontWeight.normal),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    pw.Padding(
-                                      padding: const pw.EdgeInsets.only(
-                                          top: 8.0,
-                                          bottom: 8,
-                                          left: 5,
-                                          right: 5),
-                                      child: pw.Container(
-                                        width: 60,
-                                        child: pw.Align(
-                                          alignment: pw.Alignment.centerRight,
-                                          child: pw.Text(
-                                            "${totalPrice.toString()}",
-                                            style: pw.TextStyle(
-                                                //color: DEFAULT_BLACK,
-                                                fontSize: 12,
-                                                fontWeight:
-                                                    pw.FontWeight.normal),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                pw.Divider(
-                                  //color: DEFAULT_BLACK.withOpacity(0.5),
-                                  thickness: 2,
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                      pw.Align(
-                        alignment: pw.Alignment.centerRight,
-                        child: pw.Padding(
-                          padding: const pw.EdgeInsets.all(5.0),
-                          child: pw.Row(
-                            children: [
-                              pw.Spacer(),
-                              pw.Text(
-                                "Total price :",
-                                style: pw.TextStyle(
-                                    //color: DEFAULT_BLACK,
-                                    fontSize: 12,
-                                    fontWeight: pw.FontWeight.bold),
-                              ),
-                              pw.Padding(
-                                padding: const pw.EdgeInsets.only(left: 20.0),
-                                child: pw.Container(
-                                  width: 60,
-                                  child: pw.Align(
-                                    alignment: pw.Alignment.centerRight,
-                                    child: pw.Text(
-                                      "${widget.transaction.totalPrice.toString()} Tk",
-                                      style: pw.TextStyle(
-                                          //color: DEFAULT_BLACK,
-                                          fontSize: 12,
-                                          fontWeight: pw.FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      pw.Align(
-                        alignment: pw.Alignment.centerRight,
-                        child: pw.Padding(
-                          padding: const pw.EdgeInsets.all(5.0),
-                          child: pw.Row(
-                            children: [
-                              pw.Spacer(),
-                              pw.Text(
-                                "(-) Discount :",
-                                style: pw.TextStyle(
-                                    //color: DEFAULT_BLACK,
-                                    fontSize: 12,
-                                    fontWeight: pw.FontWeight.bold),
-                              ),
-                              pw.Padding(
-                                padding: const pw.EdgeInsets.only(left: 20.0),
-                                child: pw.Container(
-                                  width: 60,
-                                  child: pw.Align(
-                                    alignment: pw.Alignment.centerRight,
-                                    child: pw.Text(
-                                      "${widget.transaction.totalDiscount.toString()} Tk",
-                                      style: pw.TextStyle(
-                                          //color: DEFAULT_BLACK,
-                                          fontSize: 12,
-                                          fontWeight: pw.FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      pw.Align(
-                        alignment: pw.Alignment.centerRight,
-                        child: pw.Padding(
-                          padding: const pw.EdgeInsets.all(5.0),
-                          child: pw.Row(
-                            children: [
-                              pw.Spacer(),
-                              pw.Text(
-                                "vat :",
-                                style: pw.TextStyle(
-                                    //color: DEFAULT_BLACK,
-                                    fontSize: 12,
-                                    fontWeight: pw.FontWeight.bold),
-                              ),
-                              pw.Padding(
-                                padding: const pw.EdgeInsets.only(left: 20.0),
-                                child: pw.Container(
-                                  width: 60,
-                                  child: pw.Align(
-                                    alignment: pw.Alignment.centerRight,
-                                    child: pw.Text(
-                                      "${widget.transaction.totalVat.toString()} Tk",
-                                      style: pw.TextStyle(
-                                          //color: DEFAULT_BLACK,
-                                          fontSize: 12,
-                                          fontWeight: pw.FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      pw.Align(
-                        alignment: pw.Alignment.centerRight,
-                        child: pw.Container(
-                            width: 100,
-                            child: pw.Divider(
-                                //color: DEFAULT_BLACK.withOpacity(0.5),
-                                )),
-                      ),
-                      pw.Align(
-                        alignment: pw.Alignment.centerRight,
-                        child: pw.Padding(
-                          padding: const pw.EdgeInsets.all(5.0),
-                          child: pw.Row(
-                            children: [
-                              pw.Spacer(),
-                              pw.Text(
-                                "Total Amount :",
-                                style: pw.TextStyle(
-                                    //color: DEFAULT_BLACK,
-                                    fontSize: 12,
-                                    fontWeight: pw.FontWeight.bold),
-                              ),
-                              pw.Padding(
-                                padding: const pw.EdgeInsets.only(left: 20.0),
-                                child: pw.Container(
-                                  width: 60,
-                                  child: pw.Align(
-                                    alignment: pw.Alignment.centerRight,
-                                    child: pw.Text(
-                                      "${widget.transaction.totalPrice.toString()} Tk",
-                                      style: pw.TextStyle(
-                                          //color: DEFAULT_BLACK,
-                                          fontSize: 12,
-                                          fontWeight: pw.FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ); // Center
-          }),
-    );
-    final output = await getTemporaryDirectory();
-    final file = File('${output.path}/example.pdf');
-    await file.writeAsBytes(await pdf.save());
-    PdfPreview(
-      build: (format) => pdf.save(),
-    );
-    await Printing.sharePdf(bytes: await pdf.save(), filename: 'example.pdf');
-    return pdf.save();
-  }*/
 }

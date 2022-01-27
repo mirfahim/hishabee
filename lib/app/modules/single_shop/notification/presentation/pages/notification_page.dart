@@ -314,7 +314,7 @@ class NotificationPage extends GetView<NotificationController> {
   }*/
 
 /*getNotificationsData() async {
-    String url = "$domain/notification/all?shop_id=${widget.shop.id}";
+    String url = "$domain/notification/all?shop_id=${widgets.shop.id}";
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('token');
 

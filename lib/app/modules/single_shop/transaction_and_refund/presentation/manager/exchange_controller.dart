@@ -7,7 +7,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction
 class ExchangeController extends GetxController {
   final transactionItemList = <TransactionItem>[].obs;
   final transactionItemOldList = <TransactionItem>[].obs;
-  final transaction = Rxn<Transaction>();
+  final transaction = Rxn<Transactions>();
   final shop = Rxn<Shop>();
   final transactionItem = Rxn<TransactionItem>();
   final totalPrice = 0.0.obs;
