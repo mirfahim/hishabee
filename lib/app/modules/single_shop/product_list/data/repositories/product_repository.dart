@@ -153,47 +153,32 @@ class ProductRepository implements IProductRepository {
   }
 
   @override
-  Future<List<Product>> getAllProductsss(int shopId) async {
+  Future<List<Product>> getAllProduct(int shopId) async {
+    if( await networkInfo.isConnected()){
+      final response = await productProvider.getAllProduct(shopId);
+      await localProductProvider.saveAllProduct(shopId, response.body);
 
-
-    final localResponse = await localProductProvider.getAllProduct(shopId: shopId);
-
-    print("my local responseeee is ++++++++++++++++++${localResponse.length}");
-    if (await networkInfo.isConnected() ) {
-      final apiResponse = await productProvider.getAllProduct(shopId);
-      print("my responseeee is ++++++++++++++++++${apiResponse.body.length}");
-      if(apiResponse.body.length != localResponse.length){
-
-        final response = await productProvider.getAllProduct(shopId);
-
-        await localProductProvider.saveAllProduct(shopId, response.body);
-
-        return ResponseDecoder.decode(response);
-      } else {
-        print("data is coming from local database when it is online");
-        final response = await productProvider.getAllProduct(shopId);
-       // await localProductProvider.saveAllProduct(shopId, response.body);
-        return await localProductProvider.getAllProduct(shopId: shopId);
-      }
-
-
+      return ResponseDecoder.decode(response);
     } else {
       print("data is coming from local database");
-
-
       return await localProductProvider.getAllProduct(shopId: shopId);
     }
   }
 
-  Future<List<Product>> getAllProduct(int shopId) async {
+  @override
+  Future<List<Product>> getAllProduct1(int shopId) async {
 
+    if (await networkInfo.isConnected()) {
+      final response = await productProvider.getAllProduct(shopId);
 
+      await localProductProvider.saveAllProduct(shopId, response.body);
 
+      return ResponseDecoder.decode(response);
+
+    } else {
       print("data is coming from local database");
-
-
       return await localProductProvider.getAllProduct(shopId: shopId);
-
+    }
   }
 
   @override

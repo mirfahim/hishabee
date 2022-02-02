@@ -33,7 +33,7 @@ class ShopFeatureShowCase extends StatelessWidget {
           bottomNavigationBar: BottomNavigationBar(
             onTap: (index) {
               pageViewController.animateToPage(index,
-                  duration: Duration(milliseconds: 500), curve: Curves.easeIn);
+                  duration: Duration(milliseconds: 20), curve: Curves.easeIn);
             },
             unselectedItemColor: Colors.black,
             // selectedIconTheme: IconThemeData(color: Colors.amber),
@@ -41,7 +41,8 @@ class ShopFeatureShowCase extends StatelessWidget {
             showSelectedLabels: true,
             currentIndex: controller.tabIndex,
             showUnselectedLabels: true,
-            type: BottomNavigationBarType.shifting,
+
+          //  type: BottomNavigationBarType.shifting,
             items: [
               _bottomNavigationBarItem(
                 icon: SvgPicture.asset(
@@ -51,8 +52,10 @@ class ShopFeatureShowCase extends StatelessWidget {
                 activeIcon: SvgPicture.asset(
                   'images/icons/med.svg',
                   color: Colors.amber,
+
                 ),
               ),
+
               _bottomNavigationBarItem(
                 icon: SvgPicture.asset(
                   'images/icons/book.svg',
@@ -102,7 +105,7 @@ class ShopFeatureShowCase extends StatelessWidget {
     });
   }
 
-  _bottomNavigationBarItem({Widget icon, String label, Widget activeIcon}) {
+  _bottomNavigationBarItem({Widget icon, String label, Widget activeIcon, }) {
     return BottomNavigationBarItem(
         icon: icon, label: label, activeIcon: activeIcon);
   }

@@ -55,7 +55,7 @@ class SubscriptionPage extends GetView<SubscriptionPageController> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                shop.package,
+                                shop.package.name,
                                 style: TextStyle(
                                   fontFamily: "Rubik",
                                   fontSize: 18,
