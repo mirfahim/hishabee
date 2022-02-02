@@ -5,12 +5,14 @@ import 'package:hishabee_business_manager_fl/app/_utils/analytics_event.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/_workmanager/analytics_service.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/local/data_sources/local_products_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/category_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/domain/repositories/i_product_repository.dart';
 
 class ProductListController extends GetxController {
   final IProductRepository productRepository;
+   ILocalProductProvider localProductProvider;
   var productList = <Product>[].obs;
   final searchList = <Product>[].obs;
   final catList = Rxn<Category>();

@@ -88,7 +88,7 @@ class TransactionController extends GetxController {
       final res = result.orderByDescending((element) => element.createdAt);
       transactionItemList.assignAll(res);
     } catch (e) {
-      CustomDialog.showStringDialog(e.toString());
+      CustomDialog.showStringDialog("No Data Found");
     }
   }
 

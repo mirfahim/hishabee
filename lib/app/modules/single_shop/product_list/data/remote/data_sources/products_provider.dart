@@ -1,4 +1,8 @@
+import 'dart:convert';
+
+import 'package:api_cache_manager/models/cache_db_model.dart';
 import 'package:get/get.dart';
+import 'package:api_cache_manager/api_cache_manager.dart';
 import 'package:hishabee_business_manager_fl/app/_core/models/generic_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/strings.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/domain/repositories/i_auth_repository.dart';
@@ -147,11 +151,14 @@ class ProductProvider extends GetConnect implements IProductProvider {
     final creds = await _authRepository.getCredentials();
     final headers = {'Authorization': 'Bearer ${creds.accessToken}'};
 
-    return get(
-      url,
-      headers: headers,
-      decoder: productResponseModelFromRawJson,
-    );
+
+      return get(
+        url,
+        headers: headers,
+        decoder: productResponseModelFromRawJson,
+      );
+
+
   }
 
   @override

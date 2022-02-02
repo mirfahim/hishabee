@@ -211,7 +211,7 @@ class _ExpenseListState extends State<ExpenseList> {
                       child: Column(
                         children: [
                           Container(
-                            height: _expenseController.allExpenseList.length == 0 ? 200 : 320,
+                            height: _expenseController.allExpenseList.length == 0 ? 210 : 320,
                             width: width,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),

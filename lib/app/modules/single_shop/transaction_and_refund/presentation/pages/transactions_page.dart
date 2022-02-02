@@ -51,6 +51,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
 
   @override
   Widget build(BuildContext context) {
+
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
@@ -112,7 +113,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                 ),
                                 Expanded(
                                   child: Text(
-                                    'transaction_list'.tr,
+                                    'transaction_list'.tr ,
                                     style: TextStyle(
                                       fontFamily: 'Rubik',
                                       fontSize: 18,

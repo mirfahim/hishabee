@@ -22,7 +22,7 @@ String shopsToJson(List<Shop> data) =>
 //     this.shop,
 //   });
 //
-//   int code;
+//   var code;
 //   String message;
 //   Shop shop;
 //
@@ -66,7 +66,7 @@ String shopsToJson(List<Shop> data) =>
 //     this.updatedAt,
 //     this.metaTitle,
 //     this.metaDescription,
-//     this.pickUpPointId,
+//     this.pickUpPovarId,
 //     this.tradeLicense,
 //     this.tin,
 //     this.public,
@@ -85,19 +85,19 @@ String shopsToJson(List<Shop> data) =>
 //     this.wallet,
 //   });
 //
-//   int id;
-//   int userId;
+//   var id;
+//   var userId;
 //   String name;
 //   String slug;
-//   int type;
-//   int area;
+//   var type;
+//   var area;
 //   String address;
 //   String sliders;
 //   double lat;
 //   double lng;
-//   int shopNumber;
-//   int floorNumber;
-//   int vatPercent;
+//   var shopNumber;
+//   var floorNumber;
+//   var vatPercent;
 //   String publicNumber;
 //   String logoUrl;
 //   String referralCode;
@@ -105,26 +105,26 @@ String shopsToJson(List<Shop> data) =>
 //   String instagram;
 //   dynamic twitter;
 //   dynamic youtube;
-//   int setDefault;
+//   var setDefault;
 //   DateTime createdAt;
 //   DateTime updatedAt;
 //   dynamic metaTitle;
 //   dynamic metaDescription;
-//   dynamic pickUpPointId;
+//   dynamic pickUpPovarId;
 //   dynamic tradeLicense;
 //   dynamic tin;
 //   bool public;
-//   int active;
+//   var active;
 //   String onlineShopCreatedAt;
-//   int campaignId;
-//   int smsCount;
+//   var campaignId;
+//   var smsCount;
 //   DateTime time;
 //   String package;
 //   DateTime endDate;
-//   int walletBalance;
-//   int liquidBalance;
-//   int deviceCount;
-//   int hishabeeCredit;
+//   var walletBalance;
+//   var liquidBalance;
+//   var deviceCount;
+//   var hishabeeCredit;
 //   dynamic campaign;
 //   Wallet wallet;
 //
@@ -154,7 +154,7 @@ String shopsToJson(List<Shop> data) =>
 //         updatedAt: DateTime.parse(json["updated_at"]),
 //         metaTitle: json["meta_title"],
 //         metaDescription: json["meta_description"],
-//         pickUpPointId: json["pick_up_point_id"],
+//         pickUpPovarId: json["pick_up_povar_id"],
 //         tradeLicense: json["trade_license"],
 //         tin: json["tin"],
 //         public: json["public"],
@@ -199,7 +199,7 @@ String shopsToJson(List<Shop> data) =>
 //         "updated_at": updatedAt.toIso8601String(),
 //         "meta_title": metaTitle,
 //         "meta_description": metaDescription,
-//         "pick_up_point_id": pickUpPointId,
+//         "pick_up_povar_id": pickUpPovarId,
 //         "trade_license": tradeLicense,
 //         "tin": tin,
 //         "public": public,
@@ -227,7 +227,7 @@ class Wallet {
     this.totalBalance,
     this.liquidBalance,
     this.hishabeeGrant,
-    this.giftPoints,
+    this.giftPovars,
     this.walletBarcode,
     this.createdAt,
     this.updatedAt,
@@ -237,10 +237,10 @@ class Wallet {
   int id;
   int userId;
   int shopId;
-  int totalBalance;
-  int liquidBalance;
+  double totalBalance;
+  double liquidBalance;
   int hishabeeGrant;
-  int giftPoints;
+  int giftPovars;
   dynamic walletBarcode;
   DateTime createdAt;
   DateTime updatedAt;
@@ -250,10 +250,10 @@ class Wallet {
         id: json["id"],
         userId: json["user_id"],
         shopId: json["shop_id"],
-        totalBalance: json["total_balance"],
-        liquidBalance: json["liquid_balance"],
+        totalBalance: json["total_balance"].toDouble(),
+        liquidBalance: json["liquid_balance"].toDouble(),
         hishabeeGrant: json["hishabee_grant"],
-        giftPoints: json["gift_points"],
+        giftPovars: json["gift_povars"],
         walletBarcode: json["wallet_barcode"],
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
@@ -267,7 +267,7 @@ class Wallet {
         "total_balance": totalBalance,
         "liquid_balance": liquidBalance,
         "hishabee_grant": hishabeeGrant,
-        "gift_points": giftPoints,
+        "gift_povars": giftPovars,
         "wallet_barcode": walletBarcode,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
@@ -303,7 +303,7 @@ class Shop {
     this.updatedAt,
     this.metaTitle,
     this.metaDescription,
-    this.pickUpPointId,
+    this.pickUpPovarId,
     this.tradeLicense,
     this.tin,
     this.public,
@@ -351,7 +351,7 @@ class Shop {
   DateTime updatedAt;
   dynamic metaTitle;
   dynamic metaDescription;
-  dynamic pickUpPointId;
+  dynamic pickUpPovarId;
   dynamic tradeLicense;
   dynamic tin;
   bool public;
@@ -361,13 +361,13 @@ class Shop {
   DateTime time;
   String package;
   DateTime endDate;
-  int walletBalance;
+  double walletBalance;
   int deviceCount;
   int activeOrder;
   int onlineProduct;
   int totalEarning;
   int totalUnread;
-  int liquidBalance;
+  double liquidBalance;
   int hishabeeCredit;
   Campaign campaign;
   Wallet wallet;
@@ -399,7 +399,7 @@ class Shop {
     DateTime updatedAt,
     dynamic metaTitle,
     dynamic metaDescription,
-    dynamic pickUpPointId,
+    dynamic pickUpPovarId,
     dynamic tradeLicense,
     dynamic tin,
     bool public,
@@ -447,7 +447,7 @@ class Shop {
         updatedAt: updatedAt ?? this.updatedAt,
         metaTitle: metaTitle ?? this.metaTitle,
         metaDescription: metaDescription ?? this.metaDescription,
-        pickUpPointId: pickUpPointId ?? this.pickUpPointId,
+        pickUpPovarId: pickUpPovarId ?? this.pickUpPovarId,
         tradeLicense: tradeLicense ?? this.tradeLicense,
         tin: tin ?? this.tin,
         public: public ?? this.public,
@@ -502,7 +502,7 @@ class Shop {
             : DateTime.parse(json["updated_at"]),
         metaTitle: json["meta_title"],
         metaDescription: json["meta_description"],
-        pickUpPointId: json["pick_up_point_id"],
+        pickUpPovarId: json["pick_up_povar_id"],
         tradeLicense: json["trade_license"],
         tin: json["tin"],
         public: json["public"] == null ? null : json["public"],
@@ -516,7 +516,7 @@ class Shop {
         endDate:
             json["end_date"] == null ? null : DateTime.parse(json["end_date"]),
         walletBalance:
-            json["wallet_balance"] == null ? null : json["wallet_balance"],
+            json["wallet_balance"] == null ? null : json["wallet_balance"].toDouble(),
         deviceCount: json["device_count"] == null ? null : json["device_count"],
         activeOrder: json["active_order"] == null ? null : json["active_order"],
         onlineProduct:
@@ -525,7 +525,7 @@ class Shop {
             json["total_earning"] == null ? null : json["total_earning"],
         totalUnread: json["total_unread"] == null ? null : json["total_unread"],
         liquidBalance:
-            json["liquid_balance"] == null ? null : json["liquid_balance"],
+            json["liquid_balance"] == null ? null : json["liquid_balance"].toDouble(),
         hishabeeCredit:
             json["hishabee_credit"] == null ? null : json["hishabee_credit"],
         campaign: json["campaign"] == null
@@ -561,7 +561,7 @@ class Shop {
         "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
         "meta_title": metaTitle,
         "meta_description": metaDescription,
-        "pick_up_point_id": pickUpPointId,
+        "pick_up_povar_id": pickUpPovarId,
         "trade_license": tradeLicense,
         "tin": tin,
         "public": public == null ? null : public,
@@ -776,21 +776,21 @@ class Campaign {
 //     this.notificationDetails,
 //   });
 //
-//   int id;
-//   int triggerDayOffset;
+//   var id;
+//   var triggerDayOffset;
 //   String name;
 //   String duration;
 //   String bnDuration;
-//   int durationInDays;
+//   var durationInDays;
 //   String package;
-//   int regularPrice;
-//   int discountPrice;
-//   int discountPercent;
+//   var regularPrice;
+//   var discountPrice;
+//   var discountPercent;
 //   String campaignTriggerType;
 //   String image;
 //   String gifts;
-//   int cashbackAmount;
-//   int marketingCreditAmount;
+//   var cashbackAmount;
+//   var marketingCreditAmount;
 //   DateTime createdAt;
 //   DateTime updatedAt;
 //   String messageText;
@@ -798,21 +798,21 @@ class Campaign {
 //   String notificationDetails;
 //
 //   Campaign copyWith({
-//     int id,
-//     int triggerDayOffset,
+//     var id,
+//     var triggerDayOffset,
 //     String name,
 //     String duration,
 //     String bnDuration,
-//     int durationInDays,
+//     var durationInDays,
 //     String package,
-//     int regularPrice,
-//     int discountPrice,
-//     int discountPercent,
+//     var regularPrice,
+//     var discountPrice,
+//     var discountPercent,
 //     String campaignTriggerType,
 //     String image,
 //     String gifts,
-//     int cashbackAmount,
-//     int marketingCreditAmount,
+//     var cashbackAmount,
+//     var marketingCreditAmount,
 //     DateTime createdAt,
 //     DateTime updatedAt,
 //     String messageText,
@@ -922,37 +922,37 @@ class Campaign {
 //     this.totalBalance,
 //     this.liquidBalance,
 //     this.hishabeeGrant,
-//     this.giftPoints,
+//     this.giftPovars,
 //     this.walletBarcode,
 //     this.createdAt,
 //     this.updatedAt,
 //     this.marketingCredit,
 //   });
 //
-//   int id;
-//   int userId;
-//   int shopId;
-//   int totalBalance;
-//   int liquidBalance;
-//   int hishabeeGrant;
-//   int giftPoints;
+//   var id;
+//   var userId;
+//   var shopId;
+//   var totalBalance;
+//   var liquidBalance;
+//   var hishabeeGrant;
+//   var giftPovars;
 //   dynamic walletBarcode;
 //   DateTime createdAt;
 //   DateTime updatedAt;
-//   int marketingCredit;
+//   var marketingCredit;
 //
 //   Wallet copyWith({
-//     int id,
-//     int userId,
-//     int shopId,
-//     int totalBalance,
-//     int liquidBalance,
-//     int hishabeeGrant,
-//     int giftPoints,
+//     var id,
+//     var userId,
+//     var shopId,
+//     var totalBalance,
+//     var liquidBalance,
+//     var hishabeeGrant,
+//     var giftPovars,
 //     dynamic walletBarcode,
 //     DateTime createdAt,
 //     DateTime updatedAt,
-//     int marketingCredit,
+//     var marketingCredit,
 
 //   }) =>
 //       Wallet(
@@ -962,7 +962,7 @@ class Campaign {
 //         totalBalance: totalBalance ?? this.totalBalance,
 //         liquidBalance: liquidBalance ?? this.liquidBalance,
 //         hishabeeGrant: hishabeeGrant ?? this.hishabeeGrant,
-//         giftPoints: giftPoints ?? this.giftPoints,
+//         giftPovars: giftPovars ?? this.giftPovars,
 //         walletBarcode: walletBarcode ?? this.walletBarcode,
 //         createdAt: createdAt ?? this.createdAt,
 //         updatedAt: updatedAt ?? this.updatedAt,
@@ -979,7 +979,7 @@ class Campaign {
 //             json["liquid_balance"] == null ? null : json["liquid_balance"],
 //         hishabeeGrant:
 //             json["hishabee_grant"] == null ? null : json["hishabee_grant"],
-//         giftPoints: json["gift_points"] == null ? null : json["gift_points"],
+//         giftPovars: json["gift_povars"] == null ? null : json["gift_povars"],
 //         walletBarcode: json["wallet_barcode"],
 //         createdAt: json["created_at"] == null
 //             ? null
@@ -998,7 +998,7 @@ class Campaign {
 //         "total_balance": totalBalance == null ? null : totalBalance,
 //         "liquid_balance": liquidBalance == null ? null : liquidBalance,
 //         "hishabee_grant": hishabeeGrant == null ? null : hishabeeGrant,
-//         "gift_points": giftPoints == null ? null : giftPoints,
+//         "gift_povars": giftPovars == null ? null : giftPovars,
 //         "wallet_barcode": walletBarcode,
 //         "created_at": createdAt == null ? null : createdAt.toIso8601String(),
 //         "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),

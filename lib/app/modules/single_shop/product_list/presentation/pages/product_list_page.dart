@@ -297,9 +297,9 @@ class ProductListPage extends GetView<ProductListController> {
                                       itemCount: controller.searchList.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
+
                                         Product product = controller.searchList[
-                                            controller.searchList.length -
-                                                1 -
+                                            controller.searchList.length - 1 -
                                                 index];
                                         return InkWell(
                                           onTap: () {

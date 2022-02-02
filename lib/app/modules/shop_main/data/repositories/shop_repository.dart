@@ -25,8 +25,8 @@ class ShopRepository implements IShopRepository {
   @override
   Future<CreateShopResponseModel> createShop(
       {String name,
-      int typeId,
-      int areaId,
+      var typeId,
+      var areaId,
       String address,
       String referralCode,
       String logoUrl}) async {
@@ -41,17 +41,17 @@ class ShopRepository implements IShopRepository {
 
   @override
   Future<EditShopResponseModel> editShop({
-    int shopId,
+    var shopId,
     String name,
-    int typeId,
+    var typeId,
     String address,
     int id,
     num lat,
     num lng,
-    int shopNumber,
-    int floorNumber,
-    int vatPercent,
-    int areaId,
+    var shopNumber,
+    var floorNumber,
+    var vatPercent,
+    var areaId,
     String logoUrl,
     String publicNumber,
     String referralCode,

@@ -75,7 +75,7 @@ class ShopFeaturesController extends GetxController {
     shop.value = await shopRepository.getCurrentShop();
     DataHolder.shopId = shop.value.id;
     getShopId.write('shop_id',shop.value.id);
-    walletBalance.value = shop.value.walletBalance;
+    walletBalance.value = shop.value.walletBalance.toInt();
   }
 
   getAllTransaction() async {
