@@ -401,7 +401,9 @@ class ProductListPage extends GetView<ProductListController> {
                                 padding: const EdgeInsets.only(
                                     top: 0.0, right: 15, left: 15, bottom: 5),
                                 child: Obx(
-                                      () => flag.value == 0 ? ListView.builder(
+                                      () =>
+                                     // flag.value == 0 ?
+                                      ListView.builder(
                                       shrinkWrap: true,
                                       physics: NeverScrollableScrollPhysics(),
                                       itemCount: controller.searchList.length,
@@ -771,42 +773,44 @@ class ProductListPage extends GetView<ProductListController> {
                                           //   ),
                                           // ),
                                         );
-                                      }) : Expanded(
-                                        child: GridView.count(
-                                            crossAxisCount: 2,
-                                            crossAxisSpacing: 35,
-                                            mainAxisSpacing: 20,
-                                            children: List.generate(
-
-                                              8, (index) {
-                                              Product product = controller.searchList[
-                                              controller.searchList.length - 1 -index];
-                                                return Container(
-                                              decoration: BoxDecoration(
-                                                  color: Color(0xFFF1F1F1),
-                                                  borderRadius: BorderRadius.circular(10)
-                                              ),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  product.imageUrl != null ? Image.asset('assets/emptyImage.png') : Container(
-                                                    height: 50,
-                                                    width: 50,
-                                                    child: Center(
-                                                      child: Image.asset(
-                                                          'images/hishabeeLogo.png',
-                                                          height: 35,
-                                                          width: 35),
-                                                    ),),
-                                                  SizedBox(height: 10,),
-                                                  Text(product.name, style: TextStyle(fontSize: 16),),
-                                                  SizedBox(height: 10,),
-                                                  Text('৳ ${product.sellingPrice}', style: TextStyle(fontSize: 16),),
-                                                ],
-                                              ),
-                                            );},
-                                            )),
-                                      ),
+                                      })
+                                      //    :
+                                      // Expanded(
+                                      //   child: GridView.count(
+                                      //       crossAxisCount: 2,
+                                      //       crossAxisSpacing: 35,
+                                      //       mainAxisSpacing: 20,
+                                      //       children: List.generate(
+                                      //
+                                      //         8, (index) {
+                                      //         Product product = controller.searchList[
+                                      //         controller.searchList.length - 1 -index];
+                                      //           return Container(
+                                      //         decoration: BoxDecoration(
+                                      //             color: Color(0xFFF1F1F1),
+                                      //             borderRadius: BorderRadius.circular(10)
+                                      //         ),
+                                      //         child: Column(
+                                      //           mainAxisAlignment: MainAxisAlignment.center,
+                                      //           children: [
+                                      //             product.imageUrl != null ? Image.asset('assets/emptyImage.png') : Container(
+                                      //               height: 50,
+                                      //               width: 50,
+                                      //               child: Center(
+                                      //                 child: Image.asset(
+                                      //                     'images/hishabeeLogo.png',
+                                      //                     height: 35,
+                                      //                     width: 35),
+                                      //               ),),
+                                      //             SizedBox(height: 10,),
+                                      //             Text(product.name, style: TextStyle(fontSize: 16),),
+                                      //             SizedBox(height: 10,),
+                                      //             Text('৳ ${product.sellingPrice}', style: TextStyle(fontSize: 16),),
+                                      //           ],
+                                      //         ),
+                                      //       );},
+                                      //       )),
+                                      // ),
                                 ),
                               ),
                               Padding(
