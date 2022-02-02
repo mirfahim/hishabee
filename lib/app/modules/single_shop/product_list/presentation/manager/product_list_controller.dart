@@ -18,6 +18,7 @@ class ProductListController extends GetxController {
   final catList = Rxn<Category>();
   var loading = false.obs;
   var isChecked = <bool>[].obs;
+  var flag = 0.obs;
   var totalProductsCost = 0.obs;
 
   final shop = Rxn<Shop>();

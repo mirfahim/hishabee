@@ -19,7 +19,7 @@ import 'edit_products_page.dart';
 //product list
 class ProductListPage extends GetView<ProductListController> {
   var totalProductCost = 0.obs;
-  var flag = 0.obs;
+
 
   @override
   Widget build(BuildContext context) {
@@ -373,423 +373,77 @@ class ProductListPage extends GetView<ProductListController> {
                                 child: Row(
                                   children: [
                                     Expanded(
-                                      child: Text('Total product: ',style: TextStyle(fontSize:14),),
+                                      child: Text('Total product: ${controller.searchList.length}',style: TextStyle(fontSize:14, fontWeight: FontWeight.bold),),
                                     ),
                                     // Obx(()=>
                                         InkWell(
                                           onTap: (){
-                                            flag.value = 1;
+                                            if(controller.flag.value == 0){
+                                              controller.flag.value = 1;
+                                            }else{
+                                              controller.flag.value = 0;
+                                            }
+
                                           },
-                                          child: Expanded(
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              children: [
-                                                Padding(
-                                                  padding: const EdgeInsets.only(right: 5.0),
-                                                  child: InkWell(child: Image.asset('images/assets/grid_view.png'),),
-                                                ),
-                                                Text('Grid View')
-                                              ],
-                                            ),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(right: 5.0),
+                                                child: Obx(()=> controller.flag.value == 0 ? Image.asset('images/assets/grid_view.png') : Image.asset('images/assets/listview.png'))  ,
+                                              ),
+                                              Obx(()=>
+                                              controller.flag.value == 0 ?
+                                                  Text('Grid View') : Text('ListView')
+                                              )
+
+                                            ],
                                           ),
                                         )
                                     // )
                                   ],
                                 ),
                               ),
+
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 0.0, right: 15, left: 15, bottom: 5),
+                                    top: 10.0, right: 15, left: 15, bottom: 5),
                                 child: Obx(
-                                      () => flag.value == 0 ? ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemCount: controller.searchList.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
+                                      () =>
+                                      controller.flag.value == 0 ?
+                                      Container(
+                                        height: size.height,
+                                        child: ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemCount: controller.searchList.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
 
-                                        Product product = controller.searchList[
-                                        controller.searchList.length - 1 -
-                                            index];
-                                        return InkWell(
-                                          onTap: () {
-                                            Get.to(
-                                                  () => ProductDetails(),
-                                              arguments: {
-                                                'product': product,
-                                                'shop': controller.shop.value,
-                                                'catList': controller
-                                                    .productCategoryList
-                                              },
-                                              binding: ProductListBinding(),
-                                            );
-                                          },
-                                          child: Obx(()=>Column(
-                                            children: [
-                                              SizedBox(height: 10,),
+                                          Product product = controller.searchList[
+                                          controller.searchList.length - 1 -
+                                              index];
+                                          return InkWell(
+                                            onTap: () {
+                                              Get.to(
+                                                    () => ProductDetails(),
+                                                arguments: {
+                                                  'product': product,
+                                                  'shop': controller.shop.value,
+                                                  'catList': controller
+                                                      .productCategoryList
+                                                },
+                                                binding: ProductListBinding(),
+                                              );
+                                            },
+                                            child:
+                                            // Obx(()=>
+                                            Column(
+                                              children: [
+                                                SizedBox(height: 10,),
 
-                                              ListTile(
-                                                leading: product.imageUrl != null ? Image.asset('assets/emptyImage.png') : Container(
-                                                  height: 50,
-                                                  width: 50,
-                                                  child: Center(
-                                                    child: Image.asset(
-                                                        'images/hishabeeLogo.png',
-                                                        height: 35,
-                                                        width: 35),
-                                                  ),),
-                                                title: Text(product.name),
-                                                trailing: Text('৳ ${product.sellingPrice}'),
-                                              ) ,
-
-                                              Divider(thickness: 2, color: Color(0xFFC4C4C4).withOpacity(.35),),
-                                            ],
-                                          )
-                                          )
-                                          // Container(
-                                          //   decoration: BoxDecoration(
-                                          //     color: Colors.white,
-                                          //     border: Border(
-                                          //       left: BorderSide(
-                                          //           width: 1.0,
-                                          //           color: Colors.grey),
-                                          //       right: BorderSide(
-                                          //           width: 1.0,
-                                          //           color: Colors.grey),
-                                          //       bottom: BorderSide(
-                                          //           width: 1.0,
-                                          //           color: Colors.grey),
-                                          //     ),
-                                          //     boxShadow: [
-                                          //       BoxShadow(
-                                          //         color: Colors.grey
-                                          //             .withOpacity(0.5),
-                                          //         spreadRadius: 1,
-                                          //         blurRadius: 3,
-                                          //         offset: Offset(0,
-                                          //             3), // changes position of shadow
-                                          //       ),
-                                          //     ],
-                                          //   ),
-                                          //   child: Container(
-                                          //     margin: EdgeInsets.only(
-                                          //         top: 8, bottom: 8),
-                                          //     child: Row(
-                                          //       mainAxisAlignment:
-                                          //       MainAxisAlignment.start,
-                                          //       children: [
-                                          //         Padding(
-                                          //           padding:
-                                          //           const EdgeInsets.only(
-                                          //               left: 10.0,
-                                          //               top: 0,
-                                          //               bottom: 0),
-                                          //           child: Container(
-                                          //             child: product.imageUrl !=
-                                          //                 null
-                                          //                 ? ClipRRect(
-                                          //               borderRadius:
-                                          //               BorderRadius
-                                          //                   .circular(
-                                          //                   50),
-                                          //               child:
-                                          //               CachedNetworkImage(
-                                          //                 height: 50,
-                                          //                 width: 50,
-                                          //                 imageUrl: product
-                                          //                     .imageUrl,
-                                          //                 placeholder: (context,
-                                          //                     url) =>
-                                          //                     CircularProgressIndicator(),
-                                          //                 errorWidget:
-                                          //                     (context,
-                                          //                     url,
-                                          //                     error) =>
-                                          //                     Icon(
-                                          //                       Icons.error,
-                                          //                       color: Colors
-                                          //                           .red,
-                                          //                     ),
-                                          //                 fit:
-                                          //                 BoxFit.fill,
-                                          //               ),
-                                          //             )
-                                          //                 : Container(
-                                          //               height: 50,
-                                          //               width: 50,
-                                          //               child: Center(
-                                          //                 child: Image.asset(
-                                          //                     'images/hishabeeLogo.png',
-                                          //                     height: 35,
-                                          //                     width: 35),
-                                          //               ),
-                                          //             ),
-                                          //           ),
-                                          //         ),
-                                          //         Expanded(
-                                          //           child: Container(
-                                          //             child: Column(
-                                          //               crossAxisAlignment:
-                                          //               CrossAxisAlignment
-                                          //                   .start,
-                                          //               children: [
-                                          //                 Padding(
-                                          //                   padding:
-                                          //                   const EdgeInsets
-                                          //                       .only(
-                                          //                       left: 8.0),
-                                          //                   child: Container(
-                                          //                     width:
-                                          //                     size.width *
-                                          //                         0.3,
-                                          //                     child: Text(
-                                          //                       product.name,
-                                          //                       style:
-                                          //                       TextStyle(
-                                          //                         fontFamily:
-                                          //                         'Rubik-VariableFont_wght',
-                                          //                         fontSize: 16,
-                                          //                         fontWeight:
-                                          //                         FontWeight
-                                          //                             .bold,
-                                          //                         color:
-                                          //                         DEFAULT_BLUE_DARK,
-                                          //                       ),
-                                          //                     ),
-                                          //                   ),
-                                          //                 ),
-                                          //                 SizedBox(
-                                          //                   height: 5,
-                                          //                 ),
-                                          //                 Padding(
-                                          //                   padding:
-                                          //                   const EdgeInsets
-                                          //                       .only(
-                                          //                       left: 8.0),
-                                          //                   child: Container(
-                                          //                     width:
-                                          //                     size.width *
-                                          //                         0.5,
-                                          //                     child: Text(
-                                          //                       'tk'.tr +
-                                          //                           " ${product.sellingPrice}" +
-                                          //                           " | " +
-                                          //                           "current_stock_colon"
-                                          //                               .tr +
-                                          //                           '${product.stock}',
-                                          //                       style:
-                                          //                       TextStyle(
-                                          //                         fontFamily:
-                                          //                         'Rubik-Italic-VariableFont_wght',
-                                          //                         fontSize: 16,
-                                          //                         color: Colors
-                                          //                             .red,
-                                          //                       ),
-                                          //                     ),
-                                          //                     /* child: Row(
-                                          //                       children: [
-                                          //                         Container(
-                                          //                           child: Text(
-                                          //                             'Tk ${product.sellingPrice} Stock: ${product.stock}',
-                                          //                             style: TextStyle(
-                                          //                               fontFamily:
-                                          //                                   'Rubik',
-                                          //                               // fontSize: 28,
-                                          //                               color:
-                                          //                                   Colors.red,
-                                          //                             ),
-                                          //                           ),
-                                          //                         ),
-                                          //                         SizedBox(
-                                          //                           height: 15,
-                                          //                           child:
-                                          //                               VerticalDivider(
-                                          //                             thickness: 1,
-                                          //                             color: Colors.red,
-                                          //                           ),
-                                          //                         ),
-                                          //                         Text(
-                                          //                           'Stock: ${product.stock}',
-                                          //                           style: TextStyle(
-                                          //                             fontFamily:
-                                          //                                 'Rubik',
-                                          //                             // fontSize: 28,
-                                          //                             color: Colors.red,
-                                          //                           ),
-                                          //                         ),
-                                          //                       ],
-                                          //                     ),*/
-                                          //                   ),
-                                          //                 )
-                                          //               ],
-                                          //             ),
-                                          //           ),
-                                          //         ),
-                                          //         PopupMenuButton(
-                                          //             onSelected: (value) {
-                                          //               switch (value) {
-                                          //                 case 1:
-                                          //                   Get.to(
-                                          //                       EditProductPage(),
-                                          //                       arguments: {
-                                          //                         "product":
-                                          //                         product,
-                                          //                         "shop":
-                                          //                         controller
-                                          //                             .shop
-                                          //                             .value,
-                                          //                         "catList":
-                                          //                         controller
-                                          //                             .productCategoryList,
-                                          //                       },
-                                          //                       binding:
-                                          //                       ProductListBinding());
-                                          //                   break;
-                                          //                 case 2:
-                                          //                   Get.to(
-                                          //                           () =>
-                                          //                           DuplicateProductPage(),
-                                          //                       arguments: {
-                                          //                         "product":
-                                          //                         product,
-                                          //                         "shop":
-                                          //                         controller
-                                          //                             .shop
-                                          //                             .value,
-                                          //                         "catList":
-                                          //                         controller
-                                          //                             .productCategoryList,
-                                          //                       },
-                                          //                       binding:
-                                          //                       ProductListBinding());
-                                          //                   break;
-                                          //                 case 3:
-                                          //                   showUpdateStockDialog(
-                                          //                     context,
-                                          //                     product,
-                                          //                     controller
-                                          //                         .shop.value,
-                                          //                     controller
-                                          //                         .productCategoryList,
-                                          //                   );
-                                          //                   break;
-                                          //               }
-                                          //             },
-                                          //             itemBuilder:
-                                          //                 (context) => [
-                                          //               PopupMenuItem(
-                                          //                   value: 0,
-                                          //                   child: Row(
-                                          //                     children: <
-                                          //                         Widget>[
-                                          //                       Text(product
-                                          //                           .name),
-                                          //                       Divider(
-                                          //                         height:
-                                          //                         5,
-                                          //                         color:
-                                          //                         Colors.grey,
-                                          //                         thickness:
-                                          //                         5,
-                                          //                       ),
-                                          //                     ],
-                                          //                   )),
-                                          //               PopupMenuItem(
-                                          //                   value: 1,
-                                          //                   child: Row(
-                                          //                     children: <
-                                          //                         Widget>[
-                                          //                       Padding(
-                                          //                         padding: const EdgeInsets.fromLTRB(
-                                          //                             2,
-                                          //                             2,
-                                          //                             8,
-                                          //                             2),
-                                          //                         child:
-                                          //                         Icon(Icons.edit),
-                                          //                       ),
-                                          //                       SizedBox(
-                                          //                         width:
-                                          //                         20,
-                                          //                       ),
-                                          //                       Text(
-                                          //                           'Edit')
-                                          //                     ],
-                                          //                   )),
-                                          //               PopupMenuItem(
-                                          //                   value: 2,
-                                          //                   child: Row(
-                                          //                     children: <
-                                          //                         Widget>[
-                                          //                       Padding(
-                                          //                         padding: const EdgeInsets.fromLTRB(
-                                          //                             2,
-                                          //                             2,
-                                          //                             8,
-                                          //                             2),
-                                          //                         child:
-                                          //                         Icon(Icons.file_copy_outlined),
-                                          //                       ),
-                                          //                       SizedBox(
-                                          //                         width:
-                                          //                         20,
-                                          //                       ),
-                                          //                       Text(
-                                          //                           'Duplicate')
-                                          //                     ],
-                                          //                   )),
-                                          //               PopupMenuItem(
-                                          //                   value: 3,
-                                          //                   child: Row(
-                                          //                     children: <
-                                          //                         Widget>[
-                                          //                       Padding(
-                                          //                         padding: const EdgeInsets.fromLTRB(
-                                          //                             2,
-                                          //                             2,
-                                          //                             8,
-                                          //                             2),
-                                          //                         child:
-                                          //                         Icon(Icons.add),
-                                          //                       ),
-                                          //                       SizedBox(
-                                          //                         width:
-                                          //                         20,
-                                          //                       ),
-                                          //                       Text(
-                                          //                           'Update Stock')
-                                          //                     ],
-                                          //                   )),
-                                          //             ],
-                                          //             child: Icon(
-                                          //               Icons.more_vert,
-                                          //               size: 30,
-                                          //               color: DEFAULT_BLACK,
-                                          //             )),
-                                          //       ],
-                                          //     ),
-                                          //   ),
-                                          // ),
-                                        );
-                                      }) : Expanded(
-                                        child: GridView.count(
-                                            crossAxisCount: 2,
-                                            crossAxisSpacing: 35,
-                                            mainAxisSpacing: 20,
-                                            children: List.generate(
-
-                                              8, (index) {
-                                              Product product = controller.searchList[
-                                              controller.searchList.length - 1 -index];
-                                                return Container(
-                                              decoration: BoxDecoration(
-                                                  color: Color(0xFFF1F1F1),
-                                                  borderRadius: BorderRadius.circular(10)
-                                              ),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  product.imageUrl != null ? Image.asset('assets/emptyImage.png') : Container(
+                                                ListTile(
+                                                  leading: product.imageUrl != null ? Image.asset('assets/emptyImage.png') : Container(
                                                     height: 50,
                                                     width: 50,
                                                     child: Center(
@@ -798,54 +452,394 @@ class ProductListPage extends GetView<ProductListController> {
                                                           height: 35,
                                                           width: 35),
                                                     ),),
-                                                  SizedBox(height: 10,),
-                                                  Text(product.name, style: TextStyle(fontSize: 16),),
-                                                  SizedBox(height: 10,),
-                                                  Text('৳ ${product.sellingPrice}', style: TextStyle(fontSize: 16),),
-                                                ],
+                                                  title: Text(product.name),
+                                                  trailing: Text('৳ ${product.sellingPrice}'),
+                                                ) ,
+
+                                                Divider(thickness: 2, color: Color(0xFFC4C4C4).withOpacity(.35),),
+                                              ],
+                                            )
+                                            // )
+                                            // Container(
+                                            //   decoration: BoxDecoration(
+                                            //     color: Colors.white,
+                                            //     border: Border(
+                                            //       left: BorderSide(
+                                            //           width: 1.0,
+                                            //           color: Colors.grey),
+                                            //       right: BorderSide(
+                                            //           width: 1.0,
+                                            //           color: Colors.grey),
+                                            //       bottom: BorderSide(
+                                            //           width: 1.0,
+                                            //           color: Colors.grey),
+                                            //     ),
+                                            //     boxShadow: [
+                                            //       BoxShadow(
+                                            //         color: Colors.grey
+                                            //             .withOpacity(0.5),
+                                            //         spreadRadius: 1,
+                                            //         blurRadius: 3,
+                                            //         offset: Offset(0,
+                                            //             3), // changes position of shadow
+                                            //       ),
+                                            //     ],
+                                            //   ),
+                                            //   child: Container(
+                                            //     margin: EdgeInsets.only(
+                                            //         top: 8, bottom: 8),
+                                            //     child: Row(
+                                            //       mainAxisAlignment:
+                                            //       MainAxisAlignment.start,
+                                            //       children: [
+                                            //         Padding(
+                                            //           padding:
+                                            //           const EdgeInsets.only(
+                                            //               left: 10.0,
+                                            //               top: 0,
+                                            //               bottom: 0),
+                                            //           child: Container(
+                                            //             child: product.imageUrl !=
+                                            //                 null
+                                            //                 ? ClipRRect(
+                                            //               borderRadius:
+                                            //               BorderRadius
+                                            //                   .circular(
+                                            //                   50),
+                                            //               child:
+                                            //               CachedNetworkImage(
+                                            //                 height: 50,
+                                            //                 width: 50,
+                                            //                 imageUrl: product
+                                            //                     .imageUrl,
+                                            //                 placeholder: (context,
+                                            //                     url) =>
+                                            //                     CircularProgressIndicator(),
+                                            //                 errorWidget:
+                                            //                     (context,
+                                            //                     url,
+                                            //                     error) =>
+                                            //                     Icon(
+                                            //                       Icons.error,
+                                            //                       color: Colors
+                                            //                           .red,
+                                            //                     ),
+                                            //                 fit:
+                                            //                 BoxFit.fill,
+                                            //               ),
+                                            //             )
+                                            //                 : Container(
+                                            //               height: 50,
+                                            //               width: 50,
+                                            //               child: Center(
+                                            //                 child: Image.asset(
+                                            //                     'images/hishabeeLogo.png',
+                                            //                     height: 35,
+                                            //                     width: 35),
+                                            //               ),
+                                            //             ),
+                                            //           ),
+                                            //         ),
+                                            //         Expanded(
+                                            //           child: Container(
+                                            //             child: Column(
+                                            //               crossAxisAlignment:
+                                            //               CrossAxisAlignment
+                                            //                   .start,
+                                            //               children: [
+                                            //                 Padding(
+                                            //                   padding:
+                                            //                   const EdgeInsets
+                                            //                       .only(
+                                            //                       left: 8.0),
+                                            //                   child: Container(
+                                            //                     width:
+                                            //                     size.width *
+                                            //                         0.3,
+                                            //                     child: Text(
+                                            //                       product.name,
+                                            //                       style:
+                                            //                       TextStyle(
+                                            //                         fontFamily:
+                                            //                         'Rubik-VariableFont_wght',
+                                            //                         fontSize: 16,
+                                            //                         fontWeight:
+                                            //                         FontWeight
+                                            //                             .bold,
+                                            //                         color:
+                                            //                         DEFAULT_BLUE_DARK,
+                                            //                       ),
+                                            //                     ),
+                                            //                   ),
+                                            //                 ),
+                                            //                 SizedBox(
+                                            //                   height: 5,
+                                            //                 ),
+                                            //                 Padding(
+                                            //                   padding:
+                                            //                   const EdgeInsets
+                                            //                       .only(
+                                            //                       left: 8.0),
+                                            //                   child: Container(
+                                            //                     width:
+                                            //                     size.width *
+                                            //                         0.5,
+                                            //                     child: Text(
+                                            //                       'tk'.tr +
+                                            //                           " ${product.sellingPrice}" +
+                                            //                           " | " +
+                                            //                           "current_stock_colon"
+                                            //                               .tr +
+                                            //                           '${product.stock}',
+                                            //                       style:
+                                            //                       TextStyle(
+                                            //                         fontFamily:
+                                            //                         'Rubik-Italic-VariableFont_wght',
+                                            //                         fontSize: 16,
+                                            //                         color: Colors
+                                            //                             .red,
+                                            //                       ),
+                                            //                     ),
+                                            //                     /* child: Row(
+                                            //                       children: [
+                                            //                         Container(
+                                            //                           child: Text(
+                                            //                             'Tk ${product.sellingPrice} Stock: ${product.stock}',
+                                            //                             style: TextStyle(
+                                            //                               fontFamily:
+                                            //                                   'Rubik',
+                                            //                               // fontSize: 28,
+                                            //                               color:
+                                            //                                   Colors.red,
+                                            //                             ),
+                                            //                           ),
+                                            //                         ),
+                                            //                         SizedBox(
+                                            //                           height: 15,
+                                            //                           child:
+                                            //                               VerticalDivider(
+                                            //                             thickness: 1,
+                                            //                             color: Colors.red,
+                                            //                           ),
+                                            //                         ),
+                                            //                         Text(
+                                            //                           'Stock: ${product.stock}',
+                                            //                           style: TextStyle(
+                                            //                             fontFamily:
+                                            //                                 'Rubik',
+                                            //                             // fontSize: 28,
+                                            //                             color: Colors.red,
+                                            //                           ),
+                                            //                         ),
+                                            //                       ],
+                                            //                     ),*/
+                                            //                   ),
+                                            //                 )
+                                            //               ],
+                                            //             ),
+                                            //           ),
+                                            //         ),
+                                            //         PopupMenuButton(
+                                            //             onSelected: (value) {
+                                            //               switch (value) {
+                                            //                 case 1:
+                                            //                   Get.to(
+                                            //                       EditProductPage(),
+                                            //                       arguments: {
+                                            //                         "product":
+                                            //                         product,
+                                            //                         "shop":
+                                            //                         controller
+                                            //                             .shop
+                                            //                             .value,
+                                            //                         "catList":
+                                            //                         controller
+                                            //                             .productCategoryList,
+                                            //                       },
+                                            //                       binding:
+                                            //                       ProductListBinding());
+                                            //                   break;
+                                            //                 case 2:
+                                            //                   Get.to(
+                                            //                           () =>
+                                            //                           DuplicateProductPage(),
+                                            //                       arguments: {
+                                            //                         "product":
+                                            //                         product,
+                                            //                         "shop":
+                                            //                         controller
+                                            //                             .shop
+                                            //                             .value,
+                                            //                         "catList":
+                                            //                         controller
+                                            //                             .productCategoryList,
+                                            //                       },
+                                            //                       binding:
+                                            //                       ProductListBinding());
+                                            //                   break;
+                                            //                 case 3:
+                                            //                   showUpdateStockDialog(
+                                            //                     context,
+                                            //                     product,
+                                            //                     controller
+                                            //                         .shop.value,
+                                            //                     controller
+                                            //                         .productCategoryList,
+                                            //                   );
+                                            //                   break;
+                                            //               }
+                                            //             },
+                                            //             itemBuilder:
+                                            //                 (context) => [
+                                            //               PopupMenuItem(
+                                            //                   value: 0,
+                                            //                   child: Row(
+                                            //                     children: <
+                                            //                         Widget>[
+                                            //                       Text(product
+                                            //                           .name),
+                                            //                       Divider(
+                                            //                         height:
+                                            //                         5,
+                                            //                         color:
+                                            //                         Colors.grey,
+                                            //                         thickness:
+                                            //                         5,
+                                            //                       ),
+                                            //                     ],
+                                            //                   )),
+                                            //               PopupMenuItem(
+                                            //                   value: 1,
+                                            //                   child: Row(
+                                            //                     children: <
+                                            //                         Widget>[
+                                            //                       Padding(
+                                            //                         padding: const EdgeInsets.fromLTRB(
+                                            //                             2,
+                                            //                             2,
+                                            //                             8,
+                                            //                             2),
+                                            //                         child:
+                                            //                         Icon(Icons.edit),
+                                            //                       ),
+                                            //                       SizedBox(
+                                            //                         width:
+                                            //                         20,
+                                            //                       ),
+                                            //                       Text(
+                                            //                           'Edit')
+                                            //                     ],
+                                            //                   )),
+                                            //               PopupMenuItem(
+                                            //                   value: 2,
+                                            //                   child: Row(
+                                            //                     children: <
+                                            //                         Widget>[
+                                            //                       Padding(
+                                            //                         padding: const EdgeInsets.fromLTRB(
+                                            //                             2,
+                                            //                             2,
+                                            //                             8,
+                                            //                             2),
+                                            //                         child:
+                                            //                         Icon(Icons.file_copy_outlined),
+                                            //                       ),
+                                            //                       SizedBox(
+                                            //                         width:
+                                            //                         20,
+                                            //                       ),
+                                            //                       Text(
+                                            //                           'Duplicate')
+                                            //                     ],
+                                            //                   )),
+                                            //               PopupMenuItem(
+                                            //                   value: 3,
+                                            //                   child: Row(
+                                            //                     children: <
+                                            //                         Widget>[
+                                            //                       Padding(
+                                            //                         padding: const EdgeInsets.fromLTRB(
+                                            //                             2,
+                                            //                             2,
+                                            //                             8,
+                                            //                             2),
+                                            //                         child:
+                                            //                         Icon(Icons.add),
+                                            //                       ),
+                                            //                       SizedBox(
+                                            //                         width:
+                                            //                         20,
+                                            //                       ),
+                                            //                       Text(
+                                            //                           'Update Stock')
+                                            //                     ],
+                                            //                   )),
+                                            //             ],
+                                            //             child: Icon(
+                                            //               Icons.more_vert,
+                                            //               size: 30,
+                                            //               color: DEFAULT_BLACK,
+                                            //             )),
+                                            //       ],
+                                            //     ),
+                                            //   ),
+                                            // ),
+                                          );
+                                        }),
+                                      )
+                                          : Container(
+                                        height: size.height -300,
+                                        child: GridView.count(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 35,
+                                            mainAxisSpacing: 20,
+                                            children: List.generate(
+                                              controller.searchList.length, (index) {
+                                              Product product = controller.searchList[
+                                              controller.searchList.length - 1 -index];
+                                                return InkWell(
+                                                  onTap: (){
+                                                    Get.to(
+                                                          () => ProductDetails(),
+                                                      arguments: {
+                                                        'product': product,
+                                                        'shop': controller.shop.value,
+                                                        'catList': controller
+                                                            .productCategoryList
+                                                      },
+                                                      binding: ProductListBinding(),
+                                                    );
+                                                  },
+                                                  child: Container(
+                                              decoration: BoxDecoration(
+                                                    color: Color(0xFFF1F1F1),
+                                                    borderRadius: BorderRadius.circular(10)
                                               ),
-                                            );},
+                                              child: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    product.imageUrl != null ? Image.asset('assets/emptyImage.png') : Container(
+                                                      height: 50,
+                                                      width: 50,
+                                                      child: Center(
+                                                        child: Image.asset(
+                                                            'images/hishabeeLogo.png',
+                                                            height: 35,
+                                                            width: 35),
+                                                      ),),
+                                                    SizedBox(height: 10,),
+                                                    Text(product.name, style: TextStyle(fontSize: 16),),
+                                                    SizedBox(height: 10,),
+                                                    Text('৳ ${product.sellingPrice}', style: TextStyle(fontSize: 16),),
+                                                  ],
+                                              ),
+                                            ),
+                                                );},
                                             )),
                                       ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Container(
-                                  child: Row(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        "didn_t_find".tr,
-                                        style: TextStyle(color: Colors.grey),
-                                      ),
-                                      SizedBox(
-                                        width: 5,
-                                      ),
-                                      GestureDetector(
-                                          onTap: () {
-                                            Get.to(
-                                                  () => AddProductShowcase(
-                                                shop: controller.shop.value,
-                                                productCategoryList: controller
-                                                    .productCategoryList,
-                                              ),
-                                              binding: ProductListBinding(),
-                                            );
-                                          },
-                                          child: Text(
-                                            "add_new_product".tr,
-                                            style: TextStyle(
-                                                color: DEFAULT_BLUE,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: "Rubik"),
-                                          )),
-                                    ],
-                                  ),
-                                ),
-                              )
+
                             ],
                           ),
                         ],
