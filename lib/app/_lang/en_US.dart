@@ -98,6 +98,7 @@ const en_US = {
   'refund': 'Refund',
   'previously_in_cart': 'Previously in Cart',
   'total': 'Total',
+  'total_product': 'Total Product',
   'confirm': 'Confirm',
   'package_colon': 'Package :',
   'package': 'Package',
