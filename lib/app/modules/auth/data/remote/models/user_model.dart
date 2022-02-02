@@ -25,13 +25,12 @@ class User {
     this.updatedAt,
     this.nidVerified,
     this.nidNumber,
-    this.fcmToken,
   });
 
   int id;
-  String userType;
-  String name;
-  String brandName;
+  UserType userType;
+  Name name;
+  Name brandName;
   dynamic email;
   dynamic emailVerifiedAt;
   DateTime verifiedAt;
@@ -53,135 +52,87 @@ class User {
   DateTime updatedAt;
   int nidVerified;
   String nidNumber;
-  FcmToken fcmToken;
-
-  User copyWith({
-    int id,
-    String userType,
-    String name,
-    String brandName,
-    dynamic email,
-    dynamic emailVerifiedAt,
-    DateTime verifiedAt,
-    dynamic ownerName,
-    String mobileNumber,
-    dynamic website,
-    dynamic logoUrl,
-    dynamic avatar,
-    dynamic avatarOriginal,
-    dynamic address,
-    dynamic postalCode,
-    int balance,
-    dynamic referralCode,
-    dynamic customerPackageId,
-    int remainingUploads,
-    dynamic interest,
-    dynamic verificationCode,
-    DateTime createdAt,
-    DateTime updatedAt,
-    int nidVerified,
-    String nidNumber,
-    FcmToken fcmToken,
-  }) =>
-      User(
-        id: id ?? this.id,
-        userType: userType ?? this.userType,
-        name: name ?? this.name,
-        brandName: brandName ?? this.brandName,
-        email: email ?? this.email,
-        emailVerifiedAt: emailVerifiedAt ?? this.emailVerifiedAt,
-        verifiedAt: verifiedAt ?? this.verifiedAt,
-        ownerName: ownerName ?? this.ownerName,
-        mobileNumber: mobileNumber ?? this.mobileNumber,
-        website: website ?? this.website,
-        logoUrl: logoUrl ?? this.logoUrl,
-        avatar: avatar ?? this.avatar,
-        avatarOriginal: avatarOriginal ?? this.avatarOriginal,
-        address: address ?? this.address,
-        postalCode: postalCode ?? this.postalCode,
-        balance: balance ?? this.balance,
-        referralCode: referralCode ?? this.referralCode,
-        customerPackageId: customerPackageId ?? this.customerPackageId,
-        remainingUploads: remainingUploads ?? this.remainingUploads,
-        interest: interest ?? this.interest,
-        verificationCode: verificationCode ?? this.verificationCode,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-        nidVerified: nidVerified ?? this.nidVerified,
-        nidNumber: nidNumber ?? this.nidNumber,
-        fcmToken: fcmToken ?? this.fcmToken,
-      );
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-        id: json["id"] == null ? null : json["id"],
-        userType: json["user_type"] == null ? null : json["user_type"],
-        name: json["name"] == null ? null : json["name"],
-        brandName: json["brand_name"] == null ? null : json["brand_name"],
-        email: json["email"],
-        emailVerifiedAt: json["email_verified_at"],
-        verifiedAt: json["verified_at"] == null
-            ? null
-            : DateTime.parse(json["verified_at"]),
-        ownerName: json["owner_name"],
-        mobileNumber:
-            json["mobile_number"] == null ? null : json["mobile_number"],
-        website: json["website"],
-        logoUrl: json["logo_url"],
-        avatar: json["avatar"],
-        avatarOriginal: json["avatar_original"],
-        address: json["address"],
-        postalCode: json["postal_code"],
-        balance: json["balance"] == null ? null : json["balance"],
-        referralCode: json["referral_code"],
-        customerPackageId: json["customer_package_id"],
-        remainingUploads: json["remaining_uploads"] == null
-            ? null
-            : json["remaining_uploads"],
-        interest: json["interest"],
-        verificationCode: json["verification_code"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-        nidVerified: json["nid_verified"] == null ? null : json["nid_verified"],
-        nidNumber: json["nid_number"] == null ? null : json["nid_number"],
-        fcmToken: json["fcm_token"] == null
-            ? null
-            : FcmToken.fromJson(json["fcm_token"]),
-      );
+    id: json["id"],
+    userType: userTypeValues.map[json["user_type"]],
+    name: nameValues.map[json["name"]],
+    brandName: nameValues.map[json["brand_name"]],
+    email: json["email"],
+    emailVerifiedAt: json["email_verified_at"],
+    verifiedAt: DateTime.parse(json["verified_at"]),
+    ownerName: json["owner_name"],
+    mobileNumber: json["mobile_number"],
+    website: json["website"],
+    logoUrl: json["logo_url"],
+    avatar: json["avatar"],
+    avatarOriginal: json["avatar_original"],
+    address: json["address"],
+    postalCode: json["postal_code"],
+    balance: json["balance"],
+    referralCode: json["referral_code"],
+    customerPackageId: json["customer_package_id"],
+    remainingUploads: json["remaining_uploads"],
+    interest: json["interest"],
+    verificationCode: json["verification_code"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+    nidVerified: json["nid_verified"],
+    nidNumber: json["nid_number"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "user_type": userType == null ? null : userType,
-        "name": name == null ? null : name,
-        "brand_name": brandName == null ? null : brandName,
-        "email": email,
-        "email_verified_at": emailVerifiedAt,
-        "verified_at": verifiedAt == null ? null : verifiedAt.toIso8601String(),
-        "owner_name": ownerName,
-        "mobile_number": mobileNumber == null ? null : mobileNumber,
-        "website": website,
-        "logo_url": logoUrl,
-        "avatar": avatar,
-        "avatar_original": avatarOriginal,
-        "address": address,
-        "postal_code": postalCode,
-        "balance": balance == null ? null : balance,
-        "referral_code": referralCode,
-        "customer_package_id": customerPackageId,
-        "remaining_uploads": remainingUploads == null ? null : remainingUploads,
-        "interest": interest,
-        "verification_code": verificationCode,
-        "created_at": createdAt == null ? null : createdAt.toIso8601String(),
-        "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
-        "nid_verified": nidVerified == null ? null : nidVerified,
-        "nid_number": nidNumber == null ? null : nidNumber,
-        "fcm_token": fcmToken == null ? null : fcmToken.toJson(),
-      };
+    "id": id,
+    "user_type": userTypeValues.reverse[userType],
+    "name": nameValues.reverse[name],
+    "brand_name": nameValues.reverse[brandName],
+    "email": email,
+    "email_verified_at": emailVerifiedAt,
+    "verified_at": verifiedAt.toIso8601String(),
+    "owner_name": ownerName,
+    "mobile_number": mobileNumber,
+    "website": website,
+    "logo_url": logoUrl,
+    "avatar": avatar,
+    "avatar_original": avatarOriginal,
+    "address": address,
+    "postal_code": postalCode,
+    "balance": balance,
+    "referral_code": referralCode,
+    "customer_package_id": customerPackageId,
+    "remaining_uploads": remainingUploads,
+    "interest": interest,
+    "verification_code": verificationCode,
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
+    "nid_verified": nidVerified,
+    "nid_number": nidNumber,
+  };
 }
+enum Name { RAKIN }
 
+final nameValues = EnumValues({
+  "Rakin": Name.RAKIN
+});
+
+enum UserType { SELLER }
+
+final userTypeValues = EnumValues({
+  "seller": UserType.SELLER
+});
+class EnumValues<T> {
+  Map<String, T> map;
+  Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    if (reverseMap == null) {
+      reverseMap = map.map((k, v) => new MapEntry(v, k));
+    }
+    return reverseMap;
+  }
+}
 class FcmToken {
   FcmToken({
     this.id,
