@@ -154,34 +154,32 @@ class ProductRepository implements IProductRepository {
 
   @override
   Future<List<Product>> getAllProduct(int shopId) async {
+    if( await networkInfo.isConnected()){
+      final response = await productProvider.getAllProduct(shopId);
+      await localProductProvider.saveAllProduct(shopId, response.body);
 
-
-
-    if (await networkInfo.isConnected() ) {
-
-        final response = await productProvider.getAllProduct(shopId);
-
-        await localProductProvider.saveAllProduct(shopId, response.body);
-
-        return ResponseDecoder.decode(response);
-      } else {
-
-        return await localProductProvider.getAllProduct(shopId: shopId);
-      }
-
-
+      return ResponseDecoder.decode(response);
+    } else {
+      print("data is coming from local database");
+      return await localProductProvider.getAllProduct(shopId: shopId);
+    }
   }
 
-  // Future<List<Product>> getAllProduct(int shopId) async {
-  //
-  //
-  //
-  //     print("data is coming from local database");
-  //
-  //
-  //     return await localProductProvider.getAllProduct(shopId: shopId);
-  //
-  // }
+  @override
+  Future<List<Product>> getAllProduct1(int shopId) async {
+
+    if (await networkInfo.isConnected()) {
+      final response = await productProvider.getAllProduct(shopId);
+
+      await localProductProvider.saveAllProduct(shopId, response.body);
+
+      return ResponseDecoder.decode(response);
+
+    } else {
+      print("data is coming from local database");
+      return await localProductProvider.getAllProduct(shopId: shopId);
+    }
+  }
 
   @override
   Future<List<Attribute>> getAllProductAttribute(int shopId) async {

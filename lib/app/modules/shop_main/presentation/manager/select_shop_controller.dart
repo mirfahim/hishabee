@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-// import 'package:hishabee_business_manager_fl/app/modules/auth/data/remote/models/user_model.dart';
+//import 'package:hishabee_business_manager_fl/app/modules/auth/data/remote/models/user_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/domain/repositories/i_auth_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/domain/repositories/i_shop_repository.dart';
@@ -15,7 +15,7 @@ class SelectShopController extends GetxController with StateMixin<List<Shop>> {
   @override
   void onInit() async {
     super.onInit();
-    // await getUser();
+    await getUser();
     append(() => getAllShop);
   }
 
@@ -30,7 +30,7 @@ class SelectShopController extends GetxController with StateMixin<List<Shop>> {
   Future<void> getUser() async {
     final creds = await authRepository.getCredentials();
 
-    // user.value = creds.user;
+   // user.value = creds.user;
   }
 
   Future<void> setCurrentShop(Shop shop) async {

@@ -13,9 +13,6 @@ List<Shop> shopsFromRawJson(dynamic json) =>
 String shopsToJson(List<Shop> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-///TODO this model is OK
-
-
 
 
 
@@ -530,4 +527,6 @@ class EnumValues<T> {
     return reverseMap;
   }
 }
+
+
 
