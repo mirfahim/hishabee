@@ -34,7 +34,7 @@ class ProductListPage extends GetView<ProductListController> {
       resizeToAvoidBottomInset: false,
       // backgroundColor: DEFAULT_BODY_BG_COLOR,
       appBar: AppBar(
-        title: const Text('Product List', style: TextStyle(color: Colors.black, fontFamily: 'Roboto'),),
+        title:  Text('product_list'.tr, style: TextStyle(color: Colors.black, fontFamily: 'Roboto'),),
         leading:  IconButton(
           icon: Icon(Icons.arrow_back,color: Colors.black,),
           onPressed: (){
@@ -124,7 +124,7 @@ class ProductListPage extends GetView<ProductListController> {
                                                           child: SvgPicture.asset('images/svg_image/filter.svg'),
                                                         ),
                                                       ),
-                                                      Text('Filter',style: TextStyle(fontFamily: 'Roboto'),)
+                                                      Text('filter'.tr,style: TextStyle(fontFamily: 'Roboto'),)
                                                     ],
                                                   ),
                                                 )
@@ -355,7 +355,7 @@ class ProductListPage extends GetView<ProductListController> {
                                 children: [
                                   Obx(()=>
                                       Expanded(
-                                        child: Text('Total product: ${controller.searchList.length}',style: TextStyle(fontSize:14, fontWeight: FontWeight.bold,fontFamily: 'Roboto'),),
+                                        child: Text('total_product'.tr + ":" + '${controller.searchList.length}',style: TextStyle(fontSize:14, fontWeight: FontWeight.bold,fontFamily: 'Roboto'),),
                                       ),
                                   ),
                                       InkWell(
@@ -376,7 +376,7 @@ class ProductListPage extends GetView<ProductListController> {
                                             ),
                                             Obx(()=>
                                             controller.flag.value == 0 ?
-                                                Text('Grid View', style: TextStyle(fontFamily: 'Roboto'),) : Text('ListView', style: TextStyle(fontFamily: 'Roboto'),)
+                                                Text('gridView'.tr, style: TextStyle(fontFamily: 'Roboto'),) : Text('listView'.tr, style: TextStyle(fontFamily: 'Roboto'),)
                                             ) //sdsd
 
                                           ],
@@ -884,7 +884,7 @@ class ProductListPage extends GetView<ProductListController> {
                           children: [
                             Icon(Icons.add, color: Colors.white,),
                             SizedBox(width: 10,),
-                            Text('Add New Product', style: TextStyle(color: Colors.white),),
+                            Text('add_new_product'.tr, style: TextStyle(color: Colors.white),),
                           ],
                         ),
                       ),
