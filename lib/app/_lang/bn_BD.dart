@@ -98,7 +98,7 @@ const bn_BD = {
   'indicates': 'মানে',
   'refund': 'পণ্য ফেরত',
   'previously_in_cart': 'বাজারের ব্যাগে বর্তমানে আছে',
-  'total': '"সর্বমোট "',
+  'total': 'সর্বমোট',
   'confirm': 'নিশ্চিত করুন',
   'total_colon': 'সর্বমোট:',
   'today': 'আজ',

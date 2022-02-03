@@ -104,28 +104,37 @@ class ProductListController extends GetxController {
     String barcodeScanRes;
     try {
       List<String> list = [];
-      for (int i = 0; i < 1; i++) {
+      for (int i = 0; i < 2; i++) {
         var res = await FlutterBarcodeScanner.scanBarcode(
 
             "#ff6666", "Cancel", true, ScanMode.DEFAULT);
 
         list.add(res);
-          print("Working ....................");
+          print("Working .................... 11111 $res");
       }
       if (list[0] == list[1]) {
         barcodeScanRes = list[1];
+        print("Working .................... 22222 $barcodeScanRes");
+
+
       }
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
+      print("Working .................... 33333 $barcodeScanRes");
+
     }
 
     final result = productList
         .where((Product product) => product.barcode == barcodeScanRes)
         .toList();
-    if (result != null) {
+    if (result.isNotEmpty) {
+      print("my scan list is $result");
       searchList.assignAll(result);
+
     } else {
+      print("vulval");
       CustomDialog.showStringDialog("No Product Found");
+
 
       searchList.assignAll(productList);
     }

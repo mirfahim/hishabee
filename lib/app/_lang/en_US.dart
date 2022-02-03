@@ -107,6 +107,7 @@ const en_US = {
   'advanced': 'Advanced',
   'subscription_package': 'Subscription package',
   'total_colon': 'Total:',
+  'add_new_product' : 'Add New Product',
   'today': 'Today',
   'yesterday': 'Yesterday',
   'last_7_days': 'Last 7 days',
@@ -132,7 +133,7 @@ const en_US = {
   'filter': 'Filter',
   'search_product': 'Search Product',
   'didn_t_find': 'Didn\'t Find?',
-  'add_new_product': 'Add New Product',
+
   'current_stock': 'Current Stock',
   'done': 'Done',
   'current_stock_colon': 'Stock:',
