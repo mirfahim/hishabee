@@ -19,19 +19,11 @@ import 'edit_products_page.dart';
 //product list
 class ProductListPage extends GetView<ProductListController> {
   var totalProductCost = 0.obs;
-  var flag = 0.obs;
-  bool change = true;
 
-  lengthSearch (value) {
-  controller.searchProduct(value);
-  }
+
   @override
   Widget build(BuildContext context) {
-
     Size size = MediaQuery.of(context).size;
-
-
-print("my length is " + controller.searchList.length.toString());
     // totalProductCost.value =
     //     controller.productList[controller.productList.length - 1].sellingPrice +
     //             totalProductCost.value ??
@@ -151,7 +143,7 @@ print("my length is " + controller.searchList.length.toString());
                                                             child: Image.asset('images/assets/filter.png'),
                                                           ),
                                                         ),
-                                                        Text('filter'.tr)
+                                                        Text('Filter')
                                                       ],
                                                     ),
                                                   )
@@ -171,121 +163,660 @@ print("my length is " + controller.searchList.length.toString());
                                   ],
                                 ),
                               ),
-
+                              // Padding(
+                              //   padding: const EdgeInsets.only(
+                              //       top: 10.0, left: 15, right: 15),
+                              //   child: Container(
+                              //     height: 40,
+                              //     width: size.width,
+                              //     decoration: BoxDecoration(
+                              //       borderRadius: BorderRadius.circular(4),
+                              //     ),
+                              //     child: ElevatedButton(
+                              //       style: ElevatedButton.styleFrom(
+                              //           primary: Colors.black),
+                              //       onPressed: () {
+                              //         Get.to(
+                              //               () => AddProductShowcase(
+                              //             shop: controller.shop.value,
+                              //             productCategoryList:
+                              //             controller.productCategoryList,
+                              //           ),
+                              //           binding: ProductListBinding(),
+                              //         );
+                              //       },
+                              //       child: Center(
+                              //           child: Text(
+                              //             'plus_add_new_product'.tr,
+                              //             style: TextStyle(
+                              //               fontFamily: 'Rubik',
+                              //               fontSize: 18,
+                              //               fontWeight: FontWeight.normal,
+                              //               color: Colors.white,
+                              //             ),
+                              //           )),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(
+                              //       top: 10.0, left: 15, right: 15),
+                              //   child: Container(
+                              //     height: 40,
+                              //     width: size.width,
+                              //     decoration: BoxDecoration(
+                              //       borderRadius: BorderRadius.circular(5),
+                              //     ),
+                              //     child: ElevatedButton(
+                              //       style: ElevatedButton.styleFrom(
+                              //           primary: Colors.black),
+                              //       onPressed: () {
+                              //         Get.to(UpdateStock(),
+                              //             arguments: {
+                              //               "shop": controller.shop.value,
+                              //               "catList":
+                              //               controller.productCategoryList,
+                              //               "productList":
+                              //               controller.productList,
+                              //             },
+                              //             binding: ProductListBinding());
+                              //       },
+                              //       child: Center(
+                              //           child: Text(
+                              //             'update_stock'.tr,
+                              //             style: TextStyle(
+                              //               fontFamily: 'Rubik',
+                              //               fontSize: 18,
+                              //               fontWeight: FontWeight.normal,
+                              //               color: Colors.white,
+                              //             ),
+                              //           )),
+                              //     ),
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.all(15.0),
+                              //   child: Container(
+                              //     height: 50,
+                              //     decoration: BoxDecoration(
+                              //       color: Colors.white,
+                              //       borderRadius: BorderRadius.circular(4),
+                              //       border: Border.all(
+                              //           width: 1, color: Colors.grey),
+                              //     ),
+                              //     child: Row(
+                              //       mainAxisAlignment:
+                              //       MainAxisAlignment.spaceEvenly,
+                              //       children: [
+                              //         Expanded(
+                              //           flex: 1,
+                              //           child: Padding(
+                              //             padding:
+                              //             const EdgeInsets.only(left: 10.0),
+                              //             child: Icon(
+                              //               Icons.search,
+                              //               color: DEFAULT_BLUE,
+                              //               size: 28,
+                              //             ),
+                              //           ),
+                              //         ),
+                              //         Expanded(
+                              //           flex: 4,
+                              //           child: Padding(
+                              //             padding:
+                              //             const EdgeInsets.only(left: 5.0),
+                              //             child: Container(
+                              //               width: size.width / 5,
+                              //               child: TextField(
+                              //                 onChanged: (value) {
+                              //                   controller.searchProduct(value);
+                              //                 },
+                              //                 decoration: InputDecoration(
+                              //                   border: InputBorder.none,
+                              //                   focusedBorder: InputBorder.none,
+                              //                   enabledBorder: InputBorder.none,
+                              //                   hintText: "search_product".tr,
+                              //                   hintStyle: TextStyle(
+                              //                     color: Colors.grey,
+                              //                   ),
+                              //                 ),
+                              //               ),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //         Padding(
+                              //           padding: const EdgeInsets.symmetric(
+                              //               vertical: 12.0),
+                              //           child: VerticalDivider(
+                              //             thickness: 0.8,
+                              //             color: Colors.black,
+                              //           ),
+                              //         ),
+                              //         Expanded(
+                              //           flex: 2,
+                              //           child: InkWell(
+                              //             onTap: () async {
+                              //               await controller.scanProduct();
+                              //             },
+                              //             child: Container(
+                              //               width: size.width / 5,
+                              //               child: Row(
+                              //                 children: [
+                              //                   Image(
+                              //                     height: 15,
+                              //                     image: AssetImage(
+                              //                         'images/icons/barcodeIcon.png'),
+                              //                   ),
+                              //                   SizedBox(width: 10),
+                              //                   Text(
+                              //                     'Scan',
+                              //                     style: TextStyle(
+                              //                       fontFamily:
+                              //                       'Rubik-VariableFont_wght',
+                              //                       fontWeight: FontWeight.bold,
+                              //                       color: DEFAULT_BLUE,
+                              //                     ),
+                              //                   )
+                              //                 ],
+                              //               ),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //         Padding(
+                              //           padding: const EdgeInsets.symmetric(
+                              //               vertical: 12.0),
+                              //           child: VerticalDivider(
+                              //             thickness: 0.8,
+                              //             color: Colors.black,
+                              //           ),
+                              //         ),
+                              //         Expanded(
+                              //           flex: 2,
+                              //           child: InkWell(
+                              //             onTap: () {
+                              //               _showCategoryDialog(
+                              //                   controller.productCategoryList,
+                              //                   size,
+                              //                   context);
+                              //             },
+                              //             child: Container(
+                              //               width: size.width / 5,
+                              //               child: Row(
+                              //                 children: [
+                              //                   Image(
+                              //                     height: 15,
+                              //                     image: AssetImage(
+                              //                         'images/icons/filterIcon.png'),
+                              //                   ),
+                              //                   SizedBox(width: 5),
+                              //                   Text(
+                              //                     'Filter',
+                              //                     style: TextStyle(
+                              //                       fontFamily:
+                              //                       'Rubik-VariableFont_wght',
+                              //                       fontWeight: FontWeight.bold,
+                              //                       color: DEFAULT_BLUE,
+                              //                     ),
+                              //                   ),
+                              //                 ],
+                              //               ),
+                              //             ),
+                              //           ),
+                              //         ),
+                              //       ],
+                              //     ),
+                              //   ),
+                              // ),
                               SizedBox(height: 20,),
                               Padding(
                                 padding: const EdgeInsets.only(left: 15.0, right: 15),
                                 child: Row(
                                   children: [
-                                    Expanded(
-                                      child: Text('total_product'.tr + ":" + " " + controller.searchList.length.toString(),style: TextStyle(fontSize:14, fontFamily: 'Rubik'),),
+                                    Obx(()=>
+                                        Expanded(
+                                          child: Text('Total product: ${controller.totalProductCount}',style: TextStyle(fontSize:14, fontWeight: FontWeight.bold),),
+                                        ),
                                     ),
-                                    // Obx(()=>
                                         InkWell(
                                           onTap: (){
-
-                                           if(flag.value == 0){
-                                             flag.value = 1 ;
-                                           } else {
-                                             flag.value = 0 ;
-                                           }
-
-                                            print("my flag value is ${flag.value}");
+                                            if(controller.flag.value == 0){
+                                              controller.flag.value = 1;
+                                            }else{
+                                              controller.flag.value = 0;
+                                            }
 
                                           },
-                                          child: Expanded(
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.end,
-                                              children: [
-                                              Obx ( () => flag.value == 0 ?  Padding(
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.end,
+                                            children: [
+                                              Padding(
                                                 padding: const EdgeInsets.only(right: 5.0),
-                                                child: InkWell(child: Image.asset('images/assets/listview.png'),),
+                                                child: Obx(()=> controller.flag.value == 0 ? Image.asset('images/assets/grid_view.png') : Image.asset('images/assets/listview.png'))  ,
+                                              ),
+                                              Obx(()=>
+                                              controller.flag.value == 0 ?
+                                                  Text('Grid View') : Text('ListView')
                                               )
-                                                : Padding(
-                                                padding: const EdgeInsets.only(right: 5.0),
-                                                child: InkWell(child: Image.asset('images/assets/grid_view.png'),),
-                                              ),)  ,
-                                          Obx(
-                                                () => flag.value == 0 ?  Text('listView'.tr) : Text('gridView'.tr) ) ,
-                                              ],
-                                            ),
+
+                                            ],
                                           ),
                                         )
                                     // )
                                   ],
                                 ),
                               ),
+
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    top: 0.0, right: 15, left: 15, bottom: 5),
+                                    top: 10.0, right: 15, left: 15, bottom: 5),
                                 child: Obx(
-                                      () => flag.value == 0 ?
-                                      ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemCount: controller.searchList.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
+                                      () =>
+                                      controller.flag.value == 0 ?
+                                      Container(
+                                        // height: size.height - 200,
+                                        child: ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: NeverScrollableScrollPhysics(),
+                                        itemCount: controller.searchList.length,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
 
-                                        Product product = controller.searchList[
-                                        controller.searchList.length - 1 -
-                                            index];
-                                        return InkWell(
-                                          onTap: () {
-                                            Get.to(
-                                                  () => ProductDetails(),
-                                              arguments: {
-                                                'product': product,
-                                                'shop': controller.shop.value,
-                                                'catList': controller
-                                                    .productCategoryList
-                                              },
-                                              binding: ProductListBinding(),
-                                            );
-                                          },
-                                          child:
-                                              Column(
-                                            children: [
-                                              SizedBox(height: 10,),
+                                          Product product = controller.searchList[
+                                          controller.searchList.length - 1 -
+                                              index];
+                                          return InkWell(
+                                            onTap: () {
+                                              Get.to(
+                                                    () => ProductDetails(),
+                                                arguments: {
+                                                  'product': product,
+                                                  'shop': controller.shop.value,
+                                                  'catList': controller
+                                                      .productCategoryList
+                                                },
+                                                binding: ProductListBinding(),
+                                              );
+                                            },
+                                            child:
+                                            // Obx(()=>
+                                            Column(
+                                              children: [
+                                                SizedBox(height: 10,),
 
-                                              ListTile(
-                                                leading: product.imageUrl != null ? Image.asset('assets/emptyImage.png') : Container(
-                                                  height: 50,
-                                                  width: 50,
-                                                  child: Center(
-                                                    child: Image.asset(
-                                                        'images/hishabeeLogo.png',
-                                                        height: 35,
-                                                        width: 35),
-                                                  ),),
-                                                title: Text(product.name),
-                                                trailing: Text('৳ ${product.sellingPrice}'),
-                                              ) ,
+                                                ListTile(
+                                                  leading: product.imageUrl != null ? Image.asset('assets/emptyImage.png') : Container(
+                                                    height: 50,
+                                                    width: 50,
+                                                    child: Center(
+                                                      child: Image.asset(
+                                                          'images/hishabeeLogo.png',
+                                                          height: 35,
+                                                          width: 35),
+                                                    ),),
+                                                  title: Text(product.name),
+                                                  trailing: Text('৳ ${product.sellingPrice}'),
+                                                ) ,
 
-                                              Divider(thickness: 2, color: Color(0xFFC4C4C4).withOpacity(.35),),
-                                            ],
-                                          )
-
-                                        );
-                                      }) :
-                                      Expanded(
-                                        child: Container(
-                                          height: MediaQuery.of(context).size.height -250,
-                                          child: GridView.count(
-                                              crossAxisCount: 2,
-                                              crossAxisSpacing: 35,
-                                              mainAxisSpacing: 20,
-                                              children: List.generate(
-
-                                                controller.searchList.length, (index) {
-                                                Product product = controller.searchList[
-                                                controller.searchList.length - 1 -index];
-                                                  return Container(
-                                                decoration: BoxDecoration(
+                                                Divider(thickness: 2, color: Color(0xFFC4C4C4).withOpacity(.35),),
+                                              ],
+                                            )
+                                            // )
+                                            // Container(
+                                            //   decoration: BoxDecoration(
+                                            //     color: Colors.white,
+                                            //     border: Border(
+                                            //       left: BorderSide(
+                                            //           width: 1.0,
+                                            //           color: Colors.grey),
+                                            //       right: BorderSide(
+                                            //           width: 1.0,
+                                            //           color: Colors.grey),
+                                            //       bottom: BorderSide(
+                                            //           width: 1.0,
+                                            //           color: Colors.grey),
+                                            //     ),
+                                            //     boxShadow: [
+                                            //       BoxShadow(
+                                            //         color: Colors.grey
+                                            //             .withOpacity(0.5),
+                                            //         spreadRadius: 1,
+                                            //         blurRadius: 3,
+                                            //         offset: Offset(0,
+                                            //             3), // changes position of shadow
+                                            //       ),
+                                            //     ],
+                                            //   ),
+                                            //   child: Container(
+                                            //     margin: EdgeInsets.only(
+                                            //         top: 8, bottom: 8),
+                                            //     child: Row(
+                                            //       mainAxisAlignment:
+                                            //       MainAxisAlignment.start,
+                                            //       children: [
+                                            //         Padding(
+                                            //           padding:
+                                            //           const EdgeInsets.only(
+                                            //               left: 10.0,
+                                            //               top: 0,
+                                            //               bottom: 0),
+                                            //           child: Container(
+                                            //             child: product.imageUrl !=
+                                            //                 null
+                                            //                 ? ClipRRect(
+                                            //               borderRadius:
+                                            //               BorderRadius
+                                            //                   .circular(
+                                            //                   50),
+                                            //               child:
+                                            //               CachedNetworkImage(
+                                            //                 height: 50,
+                                            //                 width: 50,
+                                            //                 imageUrl: product
+                                            //                     .imageUrl,
+                                            //                 placeholder: (context,
+                                            //                     url) =>
+                                            //                     CircularProgressIndicator(),
+                                            //                 errorWidget:
+                                            //                     (context,
+                                            //                     url,
+                                            //                     error) =>
+                                            //                     Icon(
+                                            //                       Icons.error,
+                                            //                       color: Colors
+                                            //                           .red,
+                                            //                     ),
+                                            //                 fit:
+                                            //                 BoxFit.fill,
+                                            //               ),
+                                            //             )
+                                            //                 : Container(
+                                            //               height: 50,
+                                            //               width: 50,
+                                            //               child: Center(
+                                            //                 child: Image.asset(
+                                            //                     'images/hishabeeLogo.png',
+                                            //                     height: 35,
+                                            //                     width: 35),
+                                            //               ),
+                                            //             ),
+                                            //           ),
+                                            //         ),
+                                            //         Expanded(
+                                            //           child: Container(
+                                            //             child: Column(
+                                            //               crossAxisAlignment:
+                                            //               CrossAxisAlignment
+                                            //                   .start,
+                                            //               children: [
+                                            //                 Padding(
+                                            //                   padding:
+                                            //                   const EdgeInsets
+                                            //                       .only(
+                                            //                       left: 8.0),
+                                            //                   child: Container(
+                                            //                     width:
+                                            //                     size.width *
+                                            //                         0.3,
+                                            //                     child: Text(
+                                            //                       product.name,
+                                            //                       style:
+                                            //                       TextStyle(
+                                            //                         fontFamily:
+                                            //                         'Rubik-VariableFont_wght',
+                                            //                         fontSize: 16,
+                                            //                         fontWeight:
+                                            //                         FontWeight
+                                            //                             .bold,
+                                            //                         color:
+                                            //                         DEFAULT_BLUE_DARK,
+                                            //                       ),
+                                            //                     ),
+                                            //                   ),
+                                            //                 ),
+                                            //                 SizedBox(
+                                            //                   height: 5,
+                                            //                 ),
+                                            //                 Padding(
+                                            //                   padding:
+                                            //                   const EdgeInsets
+                                            //                       .only(
+                                            //                       left: 8.0),
+                                            //                   child: Container(
+                                            //                     width:
+                                            //                     size.width *
+                                            //                         0.5,
+                                            //                     child: Text(
+                                            //                       'tk'.tr +
+                                            //                           " ${product.sellingPrice}" +
+                                            //                           " | " +
+                                            //                           "current_stock_colon"
+                                            //                               .tr +
+                                            //                           '${product.stock}',
+                                            //                       style:
+                                            //                       TextStyle(
+                                            //                         fontFamily:
+                                            //                         'Rubik-Italic-VariableFont_wght',
+                                            //                         fontSize: 16,
+                                            //                         color: Colors
+                                            //                             .red,
+                                            //                       ),
+                                            //                     ),
+                                            //                     /* child: Row(
+                                            //                       children: [
+                                            //                         Container(
+                                            //                           child: Text(
+                                            //                             'Tk ${product.sellingPrice} Stock: ${product.stock}',
+                                            //                             style: TextStyle(
+                                            //                               fontFamily:
+                                            //                                   'Rubik',
+                                            //                               // fontSize: 28,
+                                            //                               color:
+                                            //                                   Colors.red,
+                                            //                             ),
+                                            //                           ),
+                                            //                         ),
+                                            //                         SizedBox(
+                                            //                           height: 15,
+                                            //                           child:
+                                            //                               VerticalDivider(
+                                            //                             thickness: 1,
+                                            //                             color: Colors.red,
+                                            //                           ),
+                                            //                         ),
+                                            //                         Text(
+                                            //                           'Stock: ${product.stock}',
+                                            //                           style: TextStyle(
+                                            //                             fontFamily:
+                                            //                                 'Rubik',
+                                            //                             // fontSize: 28,
+                                            //                             color: Colors.red,
+                                            //                           ),
+                                            //                         ),
+                                            //                       ],
+                                            //                     ),*/
+                                            //                   ),
+                                            //                 )
+                                            //               ],
+                                            //             ),
+                                            //           ),
+                                            //         ),
+                                            //         PopupMenuButton(
+                                            //             onSelected: (value) {
+                                            //               switch (value) {
+                                            //                 case 1:
+                                            //                   Get.to(
+                                            //                       EditProductPage(),
+                                            //                       arguments: {
+                                            //                         "product":
+                                            //                         product,
+                                            //                         "shop":
+                                            //                         controller
+                                            //                             .shop
+                                            //                             .value,
+                                            //                         "catList":
+                                            //                         controller
+                                            //                             .productCategoryList,
+                                            //                       },
+                                            //                       binding:
+                                            //                       ProductListBinding());
+                                            //                   break;
+                                            //                 case 2:
+                                            //                   Get.to(
+                                            //                           () =>
+                                            //                           DuplicateProductPage(),
+                                            //                       arguments: {
+                                            //                         "product":
+                                            //                         product,
+                                            //                         "shop":
+                                            //                         controller
+                                            //                             .shop
+                                            //                             .value,
+                                            //                         "catList":
+                                            //                         controller
+                                            //                             .productCategoryList,
+                                            //                       },
+                                            //                       binding:
+                                            //                       ProductListBinding());
+                                            //                   break;
+                                            //                 case 3:
+                                            //                   showUpdateStockDialog(
+                                            //                     context,
+                                            //                     product,
+                                            //                     controller
+                                            //                         .shop.value,
+                                            //                     controller
+                                            //                         .productCategoryList,
+                                            //                   );
+                                            //                   break;
+                                            //               }
+                                            //             },
+                                            //             itemBuilder:
+                                            //                 (context) => [
+                                            //               PopupMenuItem(
+                                            //                   value: 0,
+                                            //                   child: Row(
+                                            //                     children: <
+                                            //                         Widget>[
+                                            //                       Text(product
+                                            //                           .name),
+                                            //                       Divider(
+                                            //                         height:
+                                            //                         5,
+                                            //                         color:
+                                            //                         Colors.grey,
+                                            //                         thickness:
+                                            //                         5,
+                                            //                       ),
+                                            //                     ],
+                                            //                   )),
+                                            //               PopupMenuItem(
+                                            //                   value: 1,
+                                            //                   child: Row(
+                                            //                     children: <
+                                            //                         Widget>[
+                                            //                       Padding(
+                                            //                         padding: const EdgeInsets.fromLTRB(
+                                            //                             2,
+                                            //                             2,
+                                            //                             8,
+                                            //                             2),
+                                            //                         child:
+                                            //                         Icon(Icons.edit),
+                                            //                       ),
+                                            //                       SizedBox(
+                                            //                         width:
+                                            //                         20,
+                                            //                       ),
+                                            //                       Text(
+                                            //                           'Edit')
+                                            //                     ],
+                                            //                   )),
+                                            //               PopupMenuItem(
+                                            //                   value: 2,
+                                            //                   child: Row(
+                                            //                     children: <
+                                            //                         Widget>[
+                                            //                       Padding(
+                                            //                         padding: const EdgeInsets.fromLTRB(
+                                            //                             2,
+                                            //                             2,
+                                            //                             8,
+                                            //                             2),
+                                            //                         child:
+                                            //                         Icon(Icons.file_copy_outlined),
+                                            //                       ),
+                                            //                       SizedBox(
+                                            //                         width:
+                                            //                         20,
+                                            //                       ),
+                                            //                       Text(
+                                            //                           'Duplicate')
+                                            //                     ],
+                                            //                   )),
+                                            //               PopupMenuItem(
+                                            //                   value: 3,
+                                            //                   child: Row(
+                                            //                     children: <
+                                            //                         Widget>[
+                                            //                       Padding(
+                                            //                         padding: const EdgeInsets.fromLTRB(
+                                            //                             2,
+                                            //                             2,
+                                            //                             8,
+                                            //                             2),
+                                            //                         child:
+                                            //                         Icon(Icons.add),
+                                            //                       ),
+                                            //                       SizedBox(
+                                            //                         width:
+                                            //                         20,
+                                            //                       ),
+                                            //                       Text(
+                                            //                           'Update Stock')
+                                            //                     ],
+                                            //                   )),
+                                            //             ],
+                                            //             child: Icon(
+                                            //               Icons.more_vert,
+                                            //               size: 30,
+                                            //               color: DEFAULT_BLACK,
+                                            //             )),
+                                            //       ],
+                                            //     ),
+                                            //   ),
+                                            // ),
+                                          );
+                                        }),
+                                      )
+                                          : Container(
+                                        height: size.height -300,
+                                        child: GridView.count(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 35,
+                                            mainAxisSpacing: 20,
+                                            children: List.generate(
+                                              controller.searchList.length, (index) {
+                                              Product product = controller.searchList[
+                                              controller.searchList.length - 1 -index];
+                                                return InkWell(
+                                                  onTap: (){
+                                                    Get.to(
+                                                          () => ProductDetails(),
+                                                      arguments: {
+                                                        'product': product,
+                                                        'shop': controller.shop.value,
+                                                        'catList': controller
+                                                            .productCategoryList
+                                                      },
+                                                      binding: ProductListBinding(),
+                                                    );
+                                                  },
+                                                  child: Container(
+                                              decoration: BoxDecoration(
                                                     color: Color(0xFFF1F1F1),
                                                     borderRadius: BorderRadius.circular(10)
-                                                ),
-                                                child: Column(
+                                              ),
+                                              child: Column(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     product.imageUrl != null ? Image.asset('assets/emptyImage.png') : Container(
@@ -302,10 +833,10 @@ print("my length is " + controller.searchList.length.toString());
                                                     SizedBox(height: 10,),
                                                     Text('৳ ${product.sellingPrice}', style: TextStyle(fontSize: 16),),
                                                   ],
-                                                ),
-                                              );},
-                                              )),
-                                        ),
+                                              ),
+                                            ),
+                                                );},
+                                            )),
                                       ),
                                 ),
                               ),
@@ -316,7 +847,39 @@ print("my length is " + controller.searchList.length.toString());
                       ),
                     ],
                   ),
-
+                  // Container(
+                  //   height: 40.0,
+                  //   decoration: BoxDecoration(
+                  //     color: DEFAULT_BLUE,
+                  //     borderRadius: BorderRadius.only(
+                  //       topLeft: Radius.circular(10),
+                  //       topRight: Radius.circular(10),
+                  //     ),
+                  //   ),
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.only(left: 8.0, right: 8),
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //       children: [
+                  //         Text(
+                  //           'Total Cost',
+                  //           style: TextStyle(color: Colors.white),
+                  //         ),
+                  //         Obx(() {
+                  //           // totalProductCost.value = controller
+                  //           //         .productList[
+                  //           //             controller.productList.length - 1]
+                  //           //         .sellingPrice +
+                  //           //     totalProductCost.value;
+                  //           return Text(
+                  //             '${totalProductCost.value}',
+                  //             style: TextStyle(color: Colors.white),
+                  //           );
+                  //         })
+                  //       ],
+                  //     ),
+                  //   ),
+                  // )
                   Padding(
                     padding: const EdgeInsets.only(left: 15.0, right: 15),
                     child: Align(
@@ -326,13 +889,22 @@ print("my length is " + controller.searchList.length.toString());
                           primary: Color(0xFF185ADB),
 
                         ),
-                        onPressed: (){},
+                        onPressed: (){
+                                  Get.to(
+                                        () => AddProductShowcase(
+                                      shop: controller.shop.value,
+                                      productCategoryList:
+                                      controller.productCategoryList,
+                                    ),
+                                    binding: ProductListBinding(),
+                                  );
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(Icons.add, color: Colors.white,),
                             SizedBox(width: 10,),
-                            Text('add_product'.tr, style: TextStyle(color: Colors.white,), ),
+                            Text('Add New Product', style: TextStyle(color: Colors.white),),
                           ],
                         ),
                       ),
@@ -661,5 +1233,4 @@ print("my length is " + controller.searchList.length.toString());
       ),
     );
   }
-
 }

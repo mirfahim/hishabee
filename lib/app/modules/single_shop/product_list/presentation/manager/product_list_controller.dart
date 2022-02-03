@@ -20,6 +20,7 @@ class ProductListController extends GetxController {
   var isChecked = <bool>[].obs;
   var flag = 0.obs;
   var totalProductsCost = 0.obs;
+  var totalProductCount = 0.obs;
 
   final shop = Rxn<Shop>();
   final productCategoryList = <Category>[].obs;
@@ -53,7 +54,6 @@ class ProductListController extends GetxController {
         .map((e) => e.stock > 0 ? e.costPrice * e.stock : 0)
         .fold(0, (previousValue, element) => element + previousValue)
         .toInt();
-
     filterCategory.assignAll(tempSubCatList.toSet().toList());
 
     var tic = List<bool>.filled(filterCategory.length, false);
@@ -72,6 +72,8 @@ class ProductListController extends GetxController {
 
   getAllProduct() async {
     var list = await productRepository.getAllProduct(shop.value.id);
+    totalProductCount.value = list.length;
+    print(totalProductCount.value );
     if (list != null) {
       productList.assignAll(list);
       searchList.assignAll(list);
