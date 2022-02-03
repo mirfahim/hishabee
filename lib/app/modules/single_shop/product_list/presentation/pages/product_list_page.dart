@@ -38,7 +38,7 @@ class ProductListPage extends GetView<ProductListController> {
             width: size.width,
             child: MediaQuery.removePadding(
               context: context,
-              removeTop: true,
+              removeTop: true, // new
               child: Stack(
                 alignment: Alignment.bottomCenter,
                 children: [
