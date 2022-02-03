@@ -2312,6 +2312,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                     ),
                     onPressed: () {
                       _productListController.getAllProduct();
+                      _productListController.getAllProduct();
                       Navigator.of(context).pop();
                     },
                   ),
@@ -2819,6 +2820,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
       atData = atData + "}";
       attributeMap = atData;
       sendProductInfo();
+      _productListController.getAllProduct();
     }
   }
 
