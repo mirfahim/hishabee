@@ -21,6 +21,7 @@ class ProductListPage extends GetView<ProductListController> {
   var totalProductCost = 0.obs;
   var flag = 0.obs;
   bool change = true;
+
   lengthSearch (value) {
   controller.searchProduct(value);
   }
@@ -30,7 +31,7 @@ class ProductListPage extends GetView<ProductListController> {
     Size size = MediaQuery.of(context).size;
 
 
-  var search = controller.searchProduct;
+print("my length is " + controller.searchList.length.toString());
     // totalProductCost.value =
     //     controller.productList[controller.productList.length - 1].sellingPrice +
     //             totalProductCost.value ??

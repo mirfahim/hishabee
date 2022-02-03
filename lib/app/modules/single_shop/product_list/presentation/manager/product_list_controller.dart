@@ -102,10 +102,13 @@ class ProductListController extends GetxController {
     String barcodeScanRes;
     try {
       List<String> list = [];
-      for (int i = 0; i < 2; i++) {
+      for (int i = 0; i < 1; i++) {
         var res = await FlutterBarcodeScanner.scanBarcode(
+
             "#ff6666", "Cancel", true, ScanMode.DEFAULT);
+
         list.add(res);
+          print("Working ....................");
       }
       if (list[0] == list[1]) {
         barcodeScanRes = list[1];
