@@ -377,7 +377,7 @@ class ProductListPage extends GetView<ProductListController> {
                                             Obx(()=>
                                             controller.flag.value == 0 ?
                                                 Text('Grid View', style: TextStyle(fontFamily: 'Roboto'),) : Text('ListView', style: TextStyle(fontFamily: 'Roboto'),)
-                                            )
+                                            ) //sdsd
 
                                           ],
                                         ),
