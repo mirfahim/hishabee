@@ -99,6 +99,7 @@ const en_US = {
   'previously_in_cart': 'Previously in Cart',
   'total': 'Total',
   'total_product': 'Total Product',
+  'search_for_product' : 'Search for product',
   'confirm': 'Confirm',
   'package_colon': 'Package :',
   'package': 'Package',
