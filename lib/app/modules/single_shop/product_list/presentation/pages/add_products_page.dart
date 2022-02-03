@@ -21,6 +21,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_lis
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/category_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/variation_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/manager/add_product_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/manager/product_list_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/pages/quick_add_product.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:showcaseview/showcaseview.dart';
@@ -65,7 +66,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
   GlobalKey _addProductWalkThrough = GlobalKey();
 
   final AddProductController controller = Get.find();
-
+  final ProductListController _productListController = Get.find();
   Category selectedProductCategory;
   SubCategory selectedSubCat;
   String productName;
@@ -2214,6 +2215,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                       ),
                     ),
                     onPressed: () {
+                      // _productListController.getAllProduct();
                       Navigator.of(context).pop();
                     },
                   ),
@@ -2309,6 +2311,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                       ),
                     ),
                     onPressed: () {
+                      _productListController.getAllProduct();
                       Navigator.of(context).pop();
                     },
                   ),
@@ -2812,6 +2815,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
       for (Attribute a in attributeList) {
         atData = atData + " \"${a.name} \": \"${a.value}\", ";
       }
+      _productListController.getAllProduct();
       atData = atData + "}";
       attributeMap = atData;
       sendProductInfo();

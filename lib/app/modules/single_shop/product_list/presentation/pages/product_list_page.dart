@@ -372,10 +372,11 @@ class ProductListPage extends GetView<ProductListController> {
                                 padding: const EdgeInsets.only(left: 15.0, right: 15),
                                 child: Row(
                                   children: [
-                                    Expanded(
-                                      child: Text('Total product: ${controller.searchList.length}',style: TextStyle(fontSize:14, fontWeight: FontWeight.bold),),
+                                    Obx(()=>
+                                        Expanded(
+                                          child: Text('Total product: ${controller.totalProductCount}',style: TextStyle(fontSize:14, fontWeight: FontWeight.bold),),
+                                        ),
                                     ),
-                                    // Obx(()=>
                                         InkWell(
                                           onTap: (){
                                             if(controller.flag.value == 0){
@@ -412,7 +413,7 @@ class ProductListPage extends GetView<ProductListController> {
                                       () =>
                                       controller.flag.value == 0 ?
                                       Container(
-                                        height: size.height,
+                                        // height: size.height - 200,
                                         child: ListView.builder(
                                         shrinkWrap: true,
                                         physics: NeverScrollableScrollPhysics(),
@@ -888,13 +889,22 @@ class ProductListPage extends GetView<ProductListController> {
                           primary: Color(0xFF185ADB),
 
                         ),
-                        onPressed: (){},
+                        onPressed: (){
+                                  Get.to(
+                                        () => AddProductShowcase(
+                                      shop: controller.shop.value,
+                                      productCategoryList:
+                                      controller.productCategoryList,
+                                    ),
+                                    binding: ProductListBinding(),
+                                  );
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.add),
+                            Icon(Icons.add, color: Colors.white,),
                             SizedBox(width: 10,),
-                            Text('Add New Product'),
+                            Text('Add New Product', style: TextStyle(color: Colors.white),),
                           ],
                         ),
                       ),
