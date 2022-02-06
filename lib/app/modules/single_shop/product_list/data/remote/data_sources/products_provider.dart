@@ -201,7 +201,7 @@ class ProductProvider extends GetConnect implements IProductProvider {
       "name": productName,
       "selling_price": price,
       "description": desc,
-      "image_src": imageUrl,
+      "image_url": imageUrl,
       "stock": stockQuantity,
       "cost_price": cost,
       "vat_applicable": vatApplicable,
