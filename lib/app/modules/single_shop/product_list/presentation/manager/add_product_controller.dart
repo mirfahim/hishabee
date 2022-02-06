@@ -56,7 +56,7 @@ class AddProductController extends GetxController {
           await fileRepository.uploadFile(file: image.value, type: 'product');
       imageSrc =
           imageUrl
-          .replaceAll("//", "")
+          .replaceAll("\\", "")
           .replaceAll('"', "")
           .replaceAll("{", "")
           .replaceAll("}", "")
