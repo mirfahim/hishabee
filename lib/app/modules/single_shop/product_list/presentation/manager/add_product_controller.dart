@@ -56,7 +56,7 @@ class AddProductController extends GetxController {
           await fileRepository.uploadFile(file: image.value, type: 'product');
       imageSrc =
           imageUrl
-          .replaceAll("\\", "")
+          .replaceAll("//", "")
           .replaceAll('"', "")
           .replaceAll("{", "")
           .replaceAll("}", "")
@@ -69,13 +69,13 @@ class AddProductController extends GetxController {
       subcategoryId: subcategoryId,
       productName: productName,
       price: price,
-      desc: desc ?? '',
-      imageUrl: imageSrc ?? '',
+      desc: desc ?? null,
+      imageUrl: imageSrc ?? null,
       stockQuantity: stockQuantity ?? 0,
       cost: cost ?? 0.0,
       vatApplicable: vatApplicable ?? null,
-      barcode: barcode ?? '',
-      attribute: attribute ?? '',
+      barcode: barcode ?? null,
+      attribute: attribute ?? null,
       vatAmount: vatAmount ?? 0,
     );
 

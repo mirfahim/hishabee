@@ -2245,7 +2245,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
         try {
           final result = await controller.addProduct(
             shopId: widget.shop.id,
-            subcategoryId: selectedSubCat.id ?? 0,
+            subcategoryId: selectedSubCat == null ? null : selectedSubCat.id,
             productName: productName,
             price: price,
             desc: desc,
