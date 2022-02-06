@@ -754,12 +754,12 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                       padding:
                                           const EdgeInsets.only(left: 15.0),
                                       child: TextFormField(
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return 'Please enter stock quantity';
-                                          }
-                                          return null;
-                                        },
+                                        // validator: (value) {
+                                        //   if (value.isEmpty) {
+                                        //     return 'Please enter stock quantity';
+                                        //   }
+                                        //   return null;
+                                        // },
                                         onChanged: (val) {
                                           if (val != "") {
                                             stockQuantity = int.parse(val);
@@ -820,12 +820,12 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                       padding:
                                           const EdgeInsets.only(left: 15.0),
                                       child: TextFormField(
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return 'Please enter product description';
-                                          }
-                                          return null;
-                                        },
+                                        // validator: (value) {
+                                        //   if (value.isEmpty) {
+                                        //     return 'Please enter product description';
+                                        //   }
+                                        //   return null;
+                                        // },
                                         onChanged: (value) {
                                           desc = value;
                                         },
@@ -2200,9 +2200,9 @@ class _AddProductsPageState extends State<AddProductsPage> {
   }
 
   saveProduct() async {
-    if (selectedProductCategory == null || selectedSubCat == null) {
-      _showMaterialDialog("Please Select Category and Sub Category");
-    } else {
+    // if (selectedProductCategory == null || selectedSubCat == null) {
+    //   _showMaterialDialog("Please Select Category and Sub Category");
+    // } else {
       String atData = "{";
       for (Attribute a in attributeList) {
         atData = atData + " \"${a.name} \": \"${a.value}\", ";
@@ -2212,13 +2212,14 @@ class _AddProductsPageState extends State<AddProductsPage> {
       attributeMap = atData;
       sendProductInfo();
       _productListController.getAllProduct();
-    }
+    // }
   }
 
   sendProductInfo() async {
-    if (selectedProductCategory == null || selectedSubCat == null) {
-      _showMaterialDialog("Please Select Category and Sub Category");
-    } else {
+    // if (selectedProductCategory == null || selectedSubCat == null) {
+    //   _showMaterialDialog("Please Select Category and Sub Category");
+    // }
+    // else {
       if (_formKey.currentState.validate()) {
         _formKey.currentState.save();
         setState(() {
@@ -2244,17 +2245,17 @@ class _AddProductsPageState extends State<AddProductsPage> {
         try {
           final result = await controller.addProduct(
             shopId: widget.shop.id,
-            subcategoryId: selectedSubCat.id,
+            subcategoryId: selectedSubCat.id ?? 0,
             productName: productName,
             price: price,
             desc: desc,
             imageUrl: mainImageUrl,
-            stockQuantity: stockQuantity,
+            stockQuantity: stockQuantity ,
             cost: cost,
-            vatApplicable: vatApplicable,
-            barcode: mainProductBarCode,
-            attribute: attributeMap,
-            vatAmount: vatAmount,
+            vatApplicable: vatApplicable ,
+            barcode: mainProductBarCode ,
+            attribute: attributeMap ,
+            vatAmount: vatAmount ,
           );
           if (!isAdvanced) {
             setState(() {
@@ -2272,7 +2273,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
           addVariantProducts();
         }
       }
-    }
+    // }
   }
 
   addVariantProducts() async {
