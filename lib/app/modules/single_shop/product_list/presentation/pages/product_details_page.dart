@@ -59,7 +59,14 @@ class ProductDetails extends GetView<ProductDetailsController> {
                     Text('details_of_product'.tr, style: TextStyle(fontFamily: 'Roboto', color: Color(0xFF185ADB),fontSize: 18, fontWeight: FontWeight.w700),),
                     Spacer(),
                     InkWell(onTap: (){
-                      Get.to(EditProductPage());
+                      Get.to(EditProductPage(),
+                          arguments: {
+                          "product": controller.product.value,
+                          "shop": controller.shop.value,
+                          "catList": controller.productCategoryList,
+                          },
+                          binding: ProductListBinding()
+                      );
                     }, child: SvgPicture.asset('images/svg_image/edit.svg'),),
                     SizedBox(width: 20,),
                     InkWell(onTap: (){}, child: SvgPicture.asset('images/svg_image/delete.svg'),)
@@ -330,16 +337,15 @@ class ProductDetails extends GetView<ProductDetailsController> {
                           // height: 80,
                           width: 140,
                           decoration: BoxDecoration(
-                              color: Color(0xFFF1F1F1),
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(10)
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Column(
                               children: [
-                                Obx(
-                                      () => Text(
-                                    '${controller.productSubCategory.value}',
+                                Text(
+                                    '',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontFamily: 'Rubik-VariableFont_wght',
@@ -348,9 +354,9 @@ class ProductDetails extends GetView<ProductDetailsController> {
                                       color: Color(0xFF185ADB),
                                     ),
                                   ),
-                                ),
+
                                 Text(
-                                  "sub_category".tr,
+                                  "",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontFamily: 'Rubik-VariableFont_wght',
@@ -557,7 +563,8 @@ class ProductDetails extends GetView<ProductDetailsController> {
                                 "shop": controller.shop.value,
                                 "catList": controller.productCategoryList,
                               },
-                              binding: ProductListBinding());
+                              binding: ProductListBinding()
+                          );
                         },
                         child: Container(
                             height: 50,
@@ -591,7 +598,12 @@ class ProductDetails extends GetView<ProductDetailsController> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          Get.to(ShareProduct());
+                          Get.to(ShareProduct(
+
+                            slag: controller
+                                .product.value.slug,
+                            shopName: controller.shop.value.name,
+                          ));
                         },
                         child: Container(
                             height: 50,
@@ -703,7 +715,7 @@ class ProductDetails extends GetView<ProductDetailsController> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4.0),
                           child: Text(
-                            '${catagory}',
+                           catagory == null ? "No Category" : '$catagory',
                             style: TextStyle(
                               fontFamily: 'Rubik',
                               // fontSize: 28,

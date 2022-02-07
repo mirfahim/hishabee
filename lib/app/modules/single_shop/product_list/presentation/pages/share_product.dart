@@ -1,10 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
-class ShareProduct extends StatelessWidget {
-  const ShareProduct({Key key}) : super(key: key);
+import 'package:hishabee_business_manager_fl/app/_utils/utility.dart';
+import 'package:share_plus/share_plus.dart';
+
+import '../../../../shop_main/data/remote/models/get_all_shop_response_model.dart';
+import '../../../contacts/data/remote/models/customer_model.dart';
+import '../../../online_shop/presentation/manager/store_dashboard_controller.dart';
+class ShareProduct extends  StatelessWidget{
+
+  final slag;
+  final shopName;
+  const ShareProduct({Key key, this.slag, this.shopName})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +41,7 @@ class ShareProduct extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(15.0),
-                  child: Text('http://www.hishabee.com', textAlign: TextAlign.center, style: TextStyle(
+                  child: Text("http://hishabee.market/$shopName/product/$slag", textAlign: TextAlign.center, style: TextStyle(
                     fontSize: 16, fontFamily: 'Roboto'
                   ),),
                 ),
@@ -44,7 +55,11 @@ class ShareProduct extends StatelessWidget {
                 children: [
                   Expanded(
                     child: InkWell(
-                      onTap: (){},
+                      onTap: (){
+                        String url =
+                            "https://dev.hishabee.market/$shopName/product/$slag";
+                        Utility.launchURL(url);
+                      },
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.grey.withOpacity(.35)),
@@ -66,7 +81,12 @@ class ShareProduct extends StatelessWidget {
                   SizedBox(width: 20,),
                   Expanded(
                     child: InkWell(
-                      onTap: (){},
+                      onTap: (){
+                        Clipboard.setData(ClipboardData(text: "https://dev.hishabee.market/$shopName/product/$slag"));
+                        var snackBar = SnackBar(content: Text('Copied to clipboard '), duration: Duration(milliseconds: 200),);
+
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
                       child: Container(
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey.withOpacity(.35)),
@@ -104,32 +124,53 @@ class ShareProduct extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Column(
-                        children: [
-                          SvgPicture.asset('images/svg_image/sms.svg', height: 50,),
-                          SizedBox(height: 10,),
-                          Text('sms'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 16),)
-                        ],
+                      child: GestureDetector(
+                        onTap: (){
+                          String shopUrl =
+                              "https://dev.hishabee.market/$shopName/product/$slag";
+                          Share.share('Check out our website $shopUrl');
+                        },
+                        child: Column(
+                          children: [
+                            SvgPicture.asset('images/svg_image/sms.svg', height: 50,),
+                            SizedBox(height: 10,),
+                            Text('sms'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 16),)
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(width: 20,),
                     Expanded(
-                      child: Column(
-                        children: [
-                          SvgPicture.asset('images/svg_image/whatsapp.svg',height: 50,),
-                          SizedBox(height: 10,),
-                          Text('whatsapp'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 16),)
-                        ],
+                      child: GestureDetector(
+                        onTap: (){
+                          String shopUrl =
+                              "https://dev.hishabee.market/$shopName/product/$slag";
+                          Share.share('Check out our website $shopUrl');
+                        },
+                        child: Column(
+                          children: [
+                            SvgPicture.asset('images/svg_image/whatsapp.svg',height: 50,),
+                            SizedBox(height: 10,),
+                            Text('whatsapp'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 16),)
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(width: 20,),
                     Expanded(
-                      child: Column(
-                        children: [
-                          SvgPicture.asset('images/svg_image/messenger.svg',height: 50,),
-                          SizedBox(height: 10,),
-                          Text('messenger'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 16),)
-                        ],
+                      child: GestureDetector(
+                        onTap: (){
+                          String shopUrl =
+                              "https://dev.hishabee.market/$shopName/product/$slag";
+                          Share.share('Check out our website $shopUrl');
+                        },
+                        child: Column(
+                          children: [
+                            SvgPicture.asset('images/svg_image/messenger.svg',height: 50,),
+                            SizedBox(height: 10,),
+                            Text('messenger'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 16),)
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(width: 20,),
@@ -138,33 +179,57 @@ class ShareProduct extends StatelessWidget {
                 SizedBox(height: 20,),
                 Row(
                   children: [
+
                     Expanded(
-                      child: Column(
-                        children: [
-                          SvgPicture.asset('images/svg_image/gmail.svg',height: 50,),
-                          SizedBox(height: 10,),
-                          Text('email'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 16),)
-                        ],
+                      child: GestureDetector(
+                        onTap: (){
+                          String shopUrl =
+                              "https://dev.hishabee.market/$shopName/product/$slag";
+                          Share.share('Check out our website $shopUrl');
+                        },
+                        child: Column(
+                          children: [
+                            SvgPicture.asset('images/svg_image/gmail.svg',height: 50,),
+                            SizedBox(height: 10,),
+                            Text('email'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 16),)
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(width: 20,),
                     Expanded(
-                      child: Column(
-                        children: [
-                          SvgPicture.asset('images/svg_image/scanner.svg',height: 50,),
-                          SizedBox(height: 10,),
-                          Text('scanner'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 16),)
-                        ],
+
+                      child: GestureDetector(
+                        onTap: (){
+                          String shopUrl =
+                              "https://dev.hishabee.market/$shopName/product/$slag";
+                          Share.share('Check out our website $shopUrl');
+                        },
+                        child: Column(
+                          children: [
+                            SvgPicture.asset('images/svg_image/scanner.svg',height: 50,),
+                            SizedBox(height: 10,),
+                            Text('scanner'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 16),)
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(width: 20,),
                     Expanded(
-                      child: Column(
-                        children: [
-                          SvgPicture.asset('images/svg_image/others.svg',height: 50,),
-                          SizedBox(height: 10,),
-                          Text('others'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 16),)
-                        ],
+
+                      child: GestureDetector(
+                        onTap: (){
+                          String shopUrl =
+                              "https://dev.hishabee.market/$shopName/product/$slag";
+                          Share.share('Check out our website $shopUrl');
+                        },
+                        child: Column(
+                          children: [
+                            SvgPicture.asset('images/svg_image/others.svg',height: 50,),
+                            SizedBox(height: 10,),
+                            Text('others'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 16),)
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(width: 20,),
