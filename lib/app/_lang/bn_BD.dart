@@ -1,4 +1,6 @@
 const bn_BD = {
+  'add_input':'ইনপুট যুক্ত করুন',
+  'add_receipt':'রিসিপ্ট যুক্ত করুন',
   'vat':'ভ্যাট',
   'other_details_of_product':'পণ্যের অন্যান্য তথ্য',
   'number_of_stock':'পণ্যের সংখ্যা',

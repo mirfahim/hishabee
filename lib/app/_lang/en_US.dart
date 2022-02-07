@@ -1,4 +1,6 @@
 const en_US = {
+  'add_input':'Add Input',
+  'add_receipt':'Add Receipt',
   'vat':'Vat',
   'other_details_of_product':'Product Other Details',
   'number_of_stock':'Number of Stock',
