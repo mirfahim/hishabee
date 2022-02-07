@@ -960,29 +960,29 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                     onTap: () {
                                       showPictureOptionDialogue(context);
                                     },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(5),
-                                        ),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            color: Colors.grey.withOpacity(1),
-                                            spreadRadius: 1,
-                                            blurRadius: 5,
-                                            offset: Offset(0,
-                                                3), // changes position of shadow
+                                    child: Obx(
+                                          () =>Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(5),
                                           ),
-                                        ],
-                                      ),
-                                      height: 60,
-                                      width: 60,
-                                      child: _image == null
-                                          ? Icon(Icons.camera_alt)
-                                          : Image(
-                                              image: FileImage(_image),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.grey.withOpacity(1),
+                                              spreadRadius: 1,
+                                              blurRadius: 5,
+                                              offset: Offset(0,
+                                                  3), // changes position of shadow
                                             ),
+                                          ],
+                                        ),
+                                        height: 60,
+                                        width: 60,
+                                        child: controller.image.value == null
+                                            ? Icon(Icons.image)
+                                            :Image(image: FileImage(File(controller.image.value.path)),),
+                                      ),
                                     ),
                                   ),
                                 )
@@ -1378,616 +1378,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                       SizedBox(
                                         height: 10,
                                       ),
-                                      /*Row(
-                                        children: [
-                                          Text(
-                                            "product_variation".tr,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                              color: DEFAULT_BLACK,
-                                              letterSpacing: 0,
-                                            ),
-                                          ),
-                                          Spacer(),
-                                          IconButton(
-                                              icon: Icon(
-                                                Icons.contact_support,
-                                                size: 30,
-                                                color: DEFAULT_BLUE,
-                                              ),
-                                              onPressed: () {
-                                                final String url =
-                                                    "https://www.youtube.com/watch?v=TcpUBjeX0N4&list=PLO7C_xRyL47emWQfUcp2-djjzgdlPGcqS&index=5";
-                                                final String title =
-                                                    "product_add_showcase".tr;
-                                                Navigator.of(context).push(
-                                                    TutorialOverlay(url, title));
-                                              })
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        height: 45,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(8),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey.withOpacity(0.5),
-                                              spreadRadius: 1,
-                                              blurRadius: 7,
-                                              offset: Offset(
-                                                0,
-                                                3,
-                                              ), // changes position of shadow
-                                            ),
-                                          ],
-                                        ),
-                                        child: InkWell(
-                                          onTap: () {
-                                            addVariation(size, variationData);
-                                          },
-                                          child: Row(
-                                            children: [
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0),
-                                                child: Text(
-                                                  "variation".tr,
-                                                  style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ),
-                                              VerticalDivider(),
-                                              Expanded(
-                                                child: Text(
-                                                    "Tap to add Product Variation"),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Text(
-                                        "add_product_variation_if_any_many_product_has_variation_for_which_price_differ_for_example_a_mobile_phone_has_a_2_gb_version_and_a_3_gb_version_or_a_shampoo_has_500ml_bottle_and_1000ml_bottle_specify_if_the_product_has_such_variation"
-                                            .tr,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12,
-                                          color: DEFAULT_BLACK,
-                                          letterSpacing: 0,
-                                        ),
-                                      ),
-                                      list.length != 0
-                                          ? ListView.builder(
-                                              physics:
-                                                  NeverScrollableScrollPhysics(),
-                                              shrinkWrap: true,
-                                              itemCount: list.length,
-                                              itemBuilder: (BuildContext context,
-                                                  int index) {
-                                                return Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              8.0),
-                                                      child: Text(
-                                                        "Variation:  $variationName ${list[index]}",
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 22,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 10.0),
-                                                      child: Text(
-                                                        "Add an image of specific product variation",
-                                                        style: TextStyle(
-                                                          fontFamily: 'Rubik',
-                                                          fontSize: 14,
-                                                          // fontWeight: FontWeight.bold,
-                                                          color: DEFAULT_BLACK,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 10.0,
-                                                              top: 10,
-                                                              bottom: 10),
-                                                      child: GestureDetector(
-                                                        onTap: () {
-                                                          showPictureOptionDialogue(
-                                                              context);
-                                                        },
-                                                        child: Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Colors.white,
-                                                            borderRadius:
-                                                                BorderRadius.all(
-                                                              Radius.circular(5),
-                                                            ),
-                                                            boxShadow: [
-                                                              BoxShadow(
-                                                                color: Colors.grey
-                                                                    .withOpacity(
-                                                                        1),
-                                                                spreadRadius: 1,
-                                                                blurRadius: 5,
-                                                                offset: Offset(
-                                                                  0,
-                                                                  3,
-                                                                ), // changes position of shadow
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          height: 60,
-                                                          width: 60,
-                                                          child:
-                                                              imageMap[index] ==
-                                                                      null
-                                                                  ? Icon(Icons
-                                                                      .camera_alt)
-                                                                  : Image(
-                                                                      image: FileImage(
-                                                                          imageMap[
-                                                                              index]),
-                                                                    ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      // width: size.width / 2,
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 10.0),
-                                                            child: Text(
-                                                              "price".tr,
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'Rubik',
-                                                                fontSize: 18,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color:
-                                                                    DEFAULT_BLACK,
-                                                                letterSpacing: 0,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            margin:
-                                                                EdgeInsets.all(8),
-                                                            height: 48,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Colors.white,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8),
-                                                              border: Border.all(
-                                                                  width: 0.1,
-                                                                  color: Colors
-                                                                      .black),
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      left: 15.0),
-                                                              child:
-                                                                  TextFormField(
-                                                                onChanged:
-                                                                    (value) {
-                                                                  variationDataModel[
-                                                                          "$index/price"] =
-                                                                      value;
-                                                                },
-                                                                initialValue:
-                                                                    price != null
-                                                                        ? price
-                                                                            .toString()
-                                                                        : "",
-                                                                inputFormatters: [
-                                                                  FilteringTextInputFormatter
-                                                                      .digitsOnly
-                                                                ],
-                                                                keyboardType:
-                                                                    TextInputType
-                                                                        .number,
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  hintText:
-                                                                      "Product Price",
-                                                                  hintStyle:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Rubik',
-                                                                    color: Colors
-                                                                        .blueGrey,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    // Cost Optional row
-                                                    Container(
-                                                      // width: size.width / 2,
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 10.0),
-                                                            child: Text(
-                                                              "cost_optional".tr,
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'Rubik',
-                                                                fontSize: 18,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color:
-                                                                    DEFAULT_BLACK,
-                                                                letterSpacing: 0,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            margin:
-                                                                EdgeInsets.all(8),
-                                                            height: 48,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Colors.white,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8),
-                                                              border: Border.all(
-                                                                  width: 0.1,
-                                                                  color: Colors
-                                                                      .black),
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      left: 15.0),
-                                                              child:
-                                                                  TextFormField(
-                                                                onChanged:
-                                                                    (value) {
-                                                                  variationDataModel[
-                                                                          "$index/cost"] =
-                                                                      value;
-                                                                },
-                                                                initialValue: cost !=
-                                                                        null
-                                                                    ? cost
-                                                                        .toString()
-                                                                    : "",
-                                                                // initialValue: ,
-                                                                keyboardType:
-                                                                    TextInputType
-                                                                        .number,
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  hintText:
-                                                                      "Product Cost",
-                                                                  hintStyle:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Rubik',
-                                                                    color: Colors
-                                                                        .blueGrey,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      // width: size.width / 2,
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                        .only(
-                                                                    left: 10.0),
-                                                            child: Text(
-                                                              "Product Stock Quantity",
-                                                              style: TextStyle(
-                                                                fontFamily:
-                                                                    'Rubik',
-                                                                fontSize: 18,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color:
-                                                                    DEFAULT_BLACK,
-                                                                letterSpacing: 0,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Container(
-                                                            margin:
-                                                                EdgeInsets.all(8),
-                                                            height: 48,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Colors.white,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8),
-                                                              border: Border.all(
-                                                                  width: 0.1,
-                                                                  color: Colors
-                                                                      .black),
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                          .only(
-                                                                      left: 15.0),
-                                                              child:
-                                                                  TextFormField(
-                                                                onChanged:
-                                                                    (value) {
-                                                                  variationDataModel[
-                                                                          "$index/stock"] =
-                                                                      value;
-                                                                },
-                                                                keyboardType:
-                                                                    TextInputType
-                                                                        .number,
-                                                                decoration:
-                                                                    InputDecoration(
-                                                                  border:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  hintText:
-                                                                      "stock_quantity"
-                                                                          .tr,
-                                                                  hintStyle:
-                                                                      TextStyle(
-                                                                    fontFamily:
-                                                                        'Rubik',
-                                                                    color: Colors
-                                                                        .blueGrey,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              10.0),
-                                                      child: Container(
-                                                        width:
-                                                            MediaQuery.of(context)
-                                                                .size
-                                                                .width,
-                                                        height: 48,
-                                                        child: variationDataModel[
-                                                                    "$index/barcode"] ==
-                                                                null
-                                                            ? RaisedButton(
-                                                                shape:
-                                                                    RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              8.0),
-                                                                ),
-                                                                onPressed: () {
-                                                                  scanBarcodeNormalVariation(
-                                                                      index);
-                                                                },
-                                                                child: Row(
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Image(
-                                                                      height: 20,
-                                                                      image: AssetImage(
-                                                                          'images/icons/scanIcon.png'),
-                                                                    ),
-                                                                    SizedBox(
-                                                                        width:
-                                                                            10),
-                                                                    Text(
-                                                                      'Scan',
-                                                                      style:
-                                                                          TextStyle(
-                                                                        fontFamily:
-                                                                            'Rubik',
-                                                                        // fontSize: 28,
-                                                                        fontWeight:
-                                                                            FontWeight
-                                                                                .bold,
-                                                                        // color: default_blue,
-                                                                      ),
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                                color: Color(
-                                                                    0xffFAC02E),
-                                                              )
-                                                            : Container(
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: Colors
-                                                                      .black12,
-                                                                  border: Border
-                                                                      .all(),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              8),
-                                                                ),
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                              .all(
-                                                                          8.0),
-                                                                  child: Row(
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      Text("barcode_added_for_this_product"
-                                                                          .tr),
-                                                                      IconButton(
-                                                                        icon: Icon(
-                                                                            Icons
-                                                                                .edit),
-                                                                        onPressed:
-                                                                            () {
-                                                                          scanBarcodeNormalVariation(
-                                                                              index);
-                                                                        },
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                      ),
-                                                    ),
-                                                    // Padding(
-                                                    //   padding:
-                                                    //       const EdgeInsets.all(10.0),
-                                                    //   child: Container(
-                                                    //     width: MediaQuery.of(context)
-                                                    //         .size
-                                                    //         .width,
-                                                    //     height: 48,
-                                                    //     child: RaisedButton(
-                                                    //       shape: RoundedRectangleBorder(
-                                                    //         borderRadius:
-                                                    //             BorderRadius.circular(
-                                                    //                 8.0),
-                                                    //       ),
-                                                    //       onPressed: () {
-                                                    //         scanBarcodeNormalVariation(
-                                                    //             index);
-                                                    //       },
-                                                    //       child: Row(
-                                                    //         mainAxisAlignment:
-                                                    //             MainAxisAlignment
-                                                    //                 .center,
-                                                    //         children: [
-                                                    //           Image(
-                                                    //             height: 20,
-                                                    //             image: AssetImage(
-                                                    //                 'images/icons/scanIcon.png'),
-                                                    //           ),
-                                                    //           SizedBox(width: 10),
-                                                    //           Text(
-                                                    //             'Scan',
-                                                    //             style: TextStyle(
-                                                    //               fontFamily: 'Rubik',
-                                                    //               // fontSize: 28,
-                                                    //               fontWeight:
-                                                    //                   FontWeight.bold,
-                                                    //               // color: default_blue,
-                                                    //             ),
-                                                    //           )
-                                                    //         ],
-                                                    //       ),
-                                                    //       color: Color(0xffFAC02E),
-                                                    //     ),
-                                                    //   ),
-                                                    // ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              left: 10.0),
-                                                      child: Text(
-                                                        "add_the_barcode_associated_with_the_product_by_pressing_scan_button"
-                                                            .tr,
-                                                        style: TextStyle(
-                                                          fontFamily: 'Rubik',
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                          color: DEFAULT_BLACK,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            )
-                                          : Container(),*/
+
                                     ],
                                   ),
                                 )
@@ -2854,7 +2245,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
         try {
           final result = await controller.addProduct(
             shopId: widget.shop.id,
-            subcategoryId: selectedSubCat.id ?? 0,
+            subcategoryId: selectedSubCat == null ? null : selectedSubCat.id,
             productName: productName,
             price: price,
             desc: desc,
@@ -2949,7 +2340,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
           productName: productName,
           price: price,
           desc: desc,
-          // imageUrl: mainImageUrl,
+          //imageUrl: mainImageUrl,
           stockQuantity: stockI,
           cost: costI,
           vatApplicable: vatApplicable,
@@ -2982,10 +2373,13 @@ class _AddProductsPageState extends State<AddProductsPage> {
               onTap: () {
                 ImageHelper.getImageFromCamera().then((value) {
                   controller.image.value = value;
+                  print("image path is +++++++++++++ ${controller.image.value.path}");
                   navigator.pop();
                 });
               },
               child: Container(
+                height: 200,
+                width: 150,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   borderRadius: BorderRadius.circular(8),
@@ -2996,10 +2390,10 @@ class _AddProductsPageState extends State<AddProductsPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Image(
-                        height: 80,
+                        height: 60,
                         image: AssetImage('images/icons/camera.png'),
                       ),
-                      Text("Camera")
+                      Text("Camera", style: TextStyle(fontSize: 15),)
                     ],
                   ),
                 ),
@@ -3014,6 +2408,8 @@ class _AddProductsPageState extends State<AddProductsPage> {
                 });
               },
               child: Container(
+                height: 200,
+                width: 150,
                 decoration: BoxDecoration(
                   color: Colors.transparent,
                   borderRadius: BorderRadius.circular(8),
@@ -3024,10 +2420,10 @@ class _AddProductsPageState extends State<AddProductsPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Image(
-                        height: 80,
+                        height: 60,
                         image: AssetImage('images/icons/gallery.png'),
                       ),
-                      Text("Gallery")
+                      Text("Gallery", style: TextStyle(fontSize: 15),)
                     ],
                   ),
                 ),

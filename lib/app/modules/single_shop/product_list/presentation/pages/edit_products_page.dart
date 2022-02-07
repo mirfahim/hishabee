@@ -555,73 +555,75 @@ class EditProductPage extends GetView<EditProductController> {
                                         height: 60,
                                         width: 60,
                                         child: controller.image.value == null
-                                            ? controller.productImageUrl.value
-                                                    .isNotEmpty
-                                                ? Obx(
-                                                    () => Stack(
-                                                      children: [
-                                                        ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(4),
-                                                          child:
-                                                              CachedNetworkImage(
-                                                            imageUrl: controller
-                                                                .productImageUrl
-                                                                .value,
-                                                            height: 60,
-                                                            width: 60,
-                                                            placeholder: (context,
-                                                                    url) =>
-                                                                CircularProgressIndicator(),
-                                                            errorWidget:
-                                                                (context, url,
-                                                                        error) =>
-                                                                    Icon(
-                                                              Icons.error,
-                                                              color: Colors.red,
-                                                            ),
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                        ),
-                                                        Positioned(
-                                                          right: 0,
-                                                          top: 0,
-                                                          child: InkWell(
-                                                            onTap: () {
-                                                              controller
-                                                                  .removeProductImage();
-                                                            },
-                                                            child: Container(
-                                                              height: 25,
-                                                              width: 25,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Colors
-                                                                    .black,
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            15),
-                                                              ),
-                                                              child: Center(
-                                                                child: Icon(
-                                                                  Icons.cancel,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  )
-                                                : Icon(
-                                                    Icons.camera_alt,
-                                                    size: 30,
-                                                    color: DEFAULT_BLACK,
-                                                  )
+                                            ?
+                                        // controller.productImageUrl.value
+                                        //             .isNotEmpty
+                                        //         ? Obx(
+                                        //             () => Stack(
+                                        //               children: [
+                                        //                 ClipRRect(
+                                        //                   borderRadius:
+                                        //                       BorderRadius
+                                        //                           .circular(4),
+                                        //                   child:
+                                        //                       CachedNetworkImage(
+                                        //                     imageUrl: controller
+                                        //                         .productImageUrl
+                                        //                         .value,
+                                        //                     height: 60,
+                                        //                     width: 60,
+                                        //                     placeholder: (context,
+                                        //                             url) =>
+                                        //                         CircularProgressIndicator(),
+                                        //                     errorWidget:
+                                        //                         (context, url,
+                                        //                                 error) =>
+                                        //                             Icon(
+                                        //                       Icons.error,
+                                        //                       color: Colors.red,
+                                        //                     ),
+                                        //                     fit: BoxFit.fill,
+                                        //                   ),
+                                        //                 ),
+                                        //                 Positioned(
+                                        //                   right: 0,
+                                        //                   top: 0,
+                                        //                   child: InkWell(
+                                        //                     onTap: () {
+                                        //                       controller
+                                        //                           .removeProductImage();
+                                        //                     },
+                                        //                     child: Container(
+                                        //                       height: 25,
+                                        //                       width: 25,
+                                        //                       decoration:
+                                        //                           BoxDecoration(
+                                        //                         color: Colors
+                                        //                             .black,
+                                        //                         borderRadius:
+                                        //                             BorderRadius
+                                        //                                 .circular(
+                                        //                                     15),
+                                        //                       ),
+                                        //                       child: Center(
+                                        //                         child: Icon(
+                                        //                           Icons.cancel,
+                                        //                           color: Colors
+                                        //                               .white,
+                                        //                         ),
+                                        //                       ),
+                                        //                     ),
+                                        //                   ),
+                                        //                 ),
+                                        //               ],
+                                        //             ),
+                                        //           )
+                                        //         : Icon(
+                                        //             Icons.camera_alt,
+                                        //             size: 30,
+                                        //             color: DEFAULT_BLACK,
+                                        //           )
+                                        Container()
                                             : Image(
                                                 image: FileImage(
                                                     controller.image.value),

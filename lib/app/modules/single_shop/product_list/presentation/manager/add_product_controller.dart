@@ -49,30 +49,33 @@ class AddProductController extends GetxController {
     String attribute,
     double vatAmount,
   }) async {
-    String imageUrl;
+    //String imageUrl;
     String imageSrc;
     if (image.value != null) {
       imageUrl =
           await fileRepository.uploadFile(file: image.value, type: 'product');
-      imageSrc = imageUrl
+      imageSrc =
+          imageUrl
           .replaceAll("\\", "")
           .replaceAll('"', "")
           .replaceAll("{", "")
           .replaceAll("}", "")
           .replaceAllMapped('url:', (match) => "");
     }
+    print("my image default image path  is $imageUrl");
+    print("my image url is $imageSrc");
     final result = await productRepository.addProduct(
       shopId: shopId,
       subcategoryId: subcategoryId,
       productName: productName,
       price: price,
-      desc: desc ?? '',
-      imageUrl: imageSrc ?? '',
+      desc: desc ?? null,
+      imageUrl: imageSrc ?? null,
       stockQuantity: stockQuantity ?? 0,
       cost: cost ?? 0.0,
       vatApplicable: vatApplicable ?? null,
-      barcode: barcode ?? '',
-      attribute: attribute ?? '',
+      barcode: barcode ?? null,
+      attribute: attribute ?? null,
       vatAmount: vatAmount ?? 0,
     );
 

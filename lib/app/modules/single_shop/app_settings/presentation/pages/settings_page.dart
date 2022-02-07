@@ -342,6 +342,43 @@ class SettingsPage extends GetResponsiveView<SettingsController> {
                                   ],
                                 ),
                               ),
+                              // Divider(
+                              //   color: Colors.black,
+                              //   thickness: 1,
+                              // ),
+                              // InkWell(
+                              //   onTap: () {
+                              //     Get.isDarkMode
+                              //         ? Get.changeTheme(ThemeData.light())
+                              //         : Get.changeTheme(ThemeData.dark());
+                              //   },
+                              //   child: Row(
+                              //     mainAxisAlignment:
+                              //     MainAxisAlignment.spaceBetween,
+                              //     children: [
+                              //       Padding(
+                              //         padding: const EdgeInsets.only(
+                              //             left: 12.0, top: 8, bottom: 8),
+                              //         child: Text(
+                              //           "Dark Mode",
+                              //           style: TextStyle(
+                              //             fontSize: 16,
+                              //             fontWeight: FontWeight.normal,
+                              //             color: DEFAULT_BLACK,
+                              //           ),
+                              //         ),
+                              //       ),
+                              //       Padding(
+                              //         padding:
+                              //         const EdgeInsets.only(right: 18.0),
+                              //         child: Icon(Icons.arrow_forward_ios,
+                              //             size: 20,
+                              //             color:
+                              //             DEFAULT_BLACK.withOpacity(0.7)),
+                              //       )
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),

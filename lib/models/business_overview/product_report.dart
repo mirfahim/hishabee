@@ -70,7 +70,7 @@ class ProductReportModel {
   int costPrice;
   int stock;
   String description;
-  int vatApplicable;
+  bool vatApplicable;
   String barcode;
   dynamic imageUrl;
   String productType;
