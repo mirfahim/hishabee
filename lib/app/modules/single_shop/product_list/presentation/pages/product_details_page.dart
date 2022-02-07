@@ -13,6 +13,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_lis
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/manager/product_details_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/pages/duplicate_products_page.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/pages/share_product.dart';
 
 import 'edit_products_page.dart';
 
@@ -588,11 +589,7 @@ class ProductDetails extends GetView<ProductDetailsController> {
                     Expanded(
                       child: InkWell(
                         onTap: () {
-                          showUpdateStockDialog(
-                              context,
-                              controller.product.value,
-                              controller.shop.value,
-                              controller.productCategoryList);
+                          Get.to(ShareProduct());
                         },
                         child: Container(
                             height: 50,
@@ -613,7 +610,7 @@ class ProductDetails extends GetView<ProductDetailsController> {
                                 ),
                                 Spacer(),
                                 Text(
-                                  "share_product_link".tr,
+                                  "share_product_link_button".tr,
                                   style: TextStyle(
                                     fontFamily: 'Roboto',
                                     fontSize: 16,

@@ -1,4 +1,7 @@
 const en_US = {
+
+  'visit':'Visit',
+  'share_product_link_button':'Share Product',
   'add_input':'Add Input',
   'add_receipt':'Add Receipt',
   'vat':'Vat',
@@ -435,6 +438,7 @@ const en_US = {
   'bill_for': 'Bill For',
   'visit_url': 'Visit URL',
   'copy_url': 'Copy URL',
+  'share_link':'Share Link',
   's_m_s': 'S M S',
   'whatsapp': 'Whatsapp',
   'messenger': 'Messenger',
@@ -538,7 +542,7 @@ const en_US = {
   'name_of_business': 'Write the Name of your Business',
   '11_digit_mobile_number': 'Write Mobile Number (11 Digit only)',
   'write_pin_number': 'Write PIN Number [5 Digit]',
-  'share_product_link': 'SHARE PRODUCT',
+  'share_product_link': 'SHARE PRODUCT LINK',
   'online_message': 'Online Message',
   'write_message': 'Write Message...',
   'please_confirm': 'Please Confirm that you got payment',

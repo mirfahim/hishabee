@@ -1,4 +1,5 @@
 const bn_BD = {
+  'share_product_link_button':'শেয়ার প্রোডাক্ট',
   'add_input':'ইনপুট যুক্ত করুন',
   'add_receipt':'রিসিপ্ট যুক্ত করুন',
   'vat':'ভ্যাট',
@@ -383,6 +384,7 @@ const bn_BD = {
   'whatsapp': 'হোয়াটসঅ্যাপ',
   's_m_s': 'মোবাইল ম্যাসেজ',
   'copy_url': 'লিঙ্ক কপি করুন',
+  'visit':'ভিজিট করুন',
   'visit_url': 'লিঙ্ক ভিজিট করুন',
   'bill_for': 'কিসের বিল',
   'rent_for': 'কিসের জন্য ভাড়া',
@@ -489,7 +491,8 @@ const bn_BD = {
   'name_of_business': 'আপনার দোকানের নাম লিখুন',
   '11_digit_mobile_number': 'মোবাইল নাম্বার লিখুন [১১ সংখ্যা]',
   'write_pin_number': 'পিন নাম্বার লিখুন [৫ সংখ্যা]',
-  'share_product_link': 'শেয়ার প্রোডাক্ট',
+  'share_product_link': 'প্রোডাক্ট লিংক শেয়ার করুন',
+  'share_link':'শেয়ার লিংক ',
   'online_message': 'অনলাইন ম্যাসেজ',
   'write_message': 'ম্যাসেজ লিখুন...',
   'please_confirm': 'আপনি পেমেন্ট পেয়েছেন তা নিশ্চিত করুন',
