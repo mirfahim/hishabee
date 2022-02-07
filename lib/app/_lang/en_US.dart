@@ -1,5 +1,8 @@
 const en_US = {
-
+  'product_description':'Product Description',
+  'or_add_as_usual_product':'or add as usual product',
+  'add_quick_product':'Add Quick Product',
+  'picture':'picture',
   'visit':'Visit',
   'share_product_link_button':'Share Product',
   'add_input':'Add Input',

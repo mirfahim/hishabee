@@ -72,8 +72,7 @@ class QuickSell extends GetView<SellController> {
                           },
                           child: Obx(
                                 ()=> Container(
-                              height: 50,
-                              width: 120,
+
                               decoration: BoxDecoration(
                                   color: controller.sellType.value == 0 ? DEFAULT_BLUE : Colors.white,
                                   boxShadow: [
@@ -86,7 +85,7 @@ class QuickSell extends GetView<SellController> {
                                   ],
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
-                                padding: const EdgeInsets.only(right: 10.0),
+                                padding: const EdgeInsets.all(10.0),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
@@ -96,6 +95,7 @@ class QuickSell extends GetView<SellController> {
                                       style: TextStyle(
                                           color:controller.sellType.value == 1 ? DEFAULT_BLUE : Colors.white,
                                           fontFamily: 'Roboto',
+                                          fontSize: 18,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ],
@@ -123,7 +123,7 @@ class QuickSell extends GetView<SellController> {
                                   ],
                                   borderRadius: BorderRadius.circular(10)),
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.only(left: 10.0, right: 10, top: 14, bottom: 10),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
@@ -134,6 +134,7 @@ class QuickSell extends GetView<SellController> {
                                       style: TextStyle(
                                           color: controller.sellType.value == 0 ? DEFAULT_BLUE : Colors.white,
                                           fontFamily: 'Roboto',
+                                          fontSize: 18,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ],
@@ -144,8 +145,7 @@ class QuickSell extends GetView<SellController> {
                         ),
                       ]
                   ),
-                  Obx(
-                          ()=>controller.sellType.value == 0 ?
+                  Obx(()=>controller.sellType.value == 0 ?
                       Column(
                         children: [
                           Padding(
@@ -153,81 +153,113 @@ class QuickSell extends GetView<SellController> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        _selectDate(context);
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.transparent,
-                                            border: Border.all(
-                                                color: DEFAULT_BLACK, width: 1),
-                                            borderRadius: BorderRadius.circular(10)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                            children: [
-                                              SvgPicture.asset('images/svg_image/calender.svg'),
-                                              Obx(
-                                                    () => Text(
-                                                  DateFormat('dd MMMM').format(
-                                                      controller
-                                                          .selectedStartDate.value),
-                                                  style: TextStyle(
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          _selectDate(context);
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.transparent,
+                                              border: Border.all(
+                                                  color: DEFAULT_BLACK, width: 1),
+                                              borderRadius: BorderRadius.circular(6)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                              children: [
+                                                SvgPicture.asset('images/svg_image/calender.svg'),
+                                                SizedBox(width: 5,),
+                                                Obx(
+                                                      () => Text(
+                                                    DateFormat('dd MMMM').format(
+                                                        controller
+                                                            .selectedStartDate.value),
+                                                    style: TextStyle(
                                                       color: DEFAULT_BLACK,
                                                       fontFamily: 'Roboto',),
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(0.0),
-                                    child: InkWell(
-                                      onTap: () {
-                                        _selectDate(context);
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            color: Colors.transparent,
-                                            border: Border.all(
-                                                color: DEFAULT_BLACK, width: 1),
-                                            borderRadius: BorderRadius.circular(10)),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
-                                            children: [
-                                              SvgPicture.asset('images/svg_image/receipt.svg'),
-                                              SizedBox(width: 5,),
-                                              Text('add_receipt'.tr,
-                                                style: TextStyle(
+                                    Padding(
+                                      padding: const EdgeInsets.all(0.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          _selectDate(context);
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.transparent,
+                                              border: Border.all(
+                                                  color: DEFAULT_BLACK, width: 1),
+                                              borderRadius: BorderRadius.circular(6)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                              children: [
+                                                SvgPicture.asset('images/svg_image/receipt.svg'),
+                                                SizedBox(width: 5,),
+                                                Text('picture'.tr,
+                                                  style: TextStyle(
                                                     color: DEFAULT_BLACK,
                                                     fontFamily: 'Roboto',),
-                                              ),
-                                            ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: InkWell(
-                                      onTap: () {
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: () {
+                                      // DropdownButton(
+                                      //     items: [
+                                      //       DropdownMenuItem(
+                                      //         child: Row(
+                                      //           children: [
+                                      //             Checkbox(value: true, onChanged: (value){
+                                      //
+                                      //             }),
+                                      //             Text('Free SMS')
+                                      //           ],
+                                      //         ),
+                                      //       )], onChanged: (value){});
+                                    },
+                                    child: Column(
+                                      children: [
+                                        Card(
+                                          shape:  RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(20.0),
+                                          ),
+                                          elevation: 5,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                // border: Border.all(
+                                                //     color: DEFAULT_BLACK, width: 1),
+                                                borderRadius: BorderRadius.circular(20)),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Icon(Icons.add,color: Colors.black,)
+                                            ),
+                                          ),
+                                        ),
                                         // DropdownButton(
                                         //     items: [
                                         //       DropdownMenuItem(
@@ -239,47 +271,8 @@ class QuickSell extends GetView<SellController> {
                                         //             Text('Free SMS')
                                         //           ],
                                         //         ),
-                                        //       )], onChanged: (value){});
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                color: Colors.transparent,
-                                                border: Border.all(
-                                                    color: DEFAULT_BLACK, width: 1),
-                                                borderRadius: BorderRadius.circular(10)),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                                children: [
-                                                  SvgPicture.asset('images/svg_image/add_button_sell.svg'),
-
-                                                  Text('add_input'.tr,
-                                                    style: TextStyle(
-                                                        color: DEFAULT_BLACK,
-                                                        fontFamily: 'Roboto',),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          // DropdownButton(
-                                          //     items: [
-                                          //       DropdownMenuItem(
-                                          //         child: Row(
-                                          //           children: [
-                                          //             Checkbox(value: true, onChanged: (value){
-                                          //
-                                          //             }),
-                                          //             Text('Free SMS')
-                                          //           ],
-                                          //         ),
-                                          //       )], onChanged: (value){})
-                                        ],
-                                      ),
+                                        //       )], onChanged: (value){})
+                                      ],
                                     ),
                                   ),
                                 ),

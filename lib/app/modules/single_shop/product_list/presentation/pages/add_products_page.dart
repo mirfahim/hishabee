@@ -10,6 +10,7 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_keyboard_aware_dialog/flutter_keyboard_aware_dialog.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:get/get.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/help_button_box.dart';
@@ -151,6 +152,46 @@ class _AddProductsPageState extends State<AddProductsPage> {
     });
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
+      appBar: AppBar(
+        titleSpacing: 0,
+        title: Text(
+          'add_new_product'.tr,
+          style: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: DEFAULT_BLUE_DARK,
+          ),
+        ),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+              size: 25,
+              color: DEFAULT_BLUE_DARK,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.contact_support,
+                size: 30,
+                color: DEFAULT_BLUE,
+              ),
+              onPressed: () {
+                final String url =
+                    "https://www.youtube.com/watch?v=TcpUBjeX0N4&list=PLO7C_xRyL47emWQfUcp2-djjzgdlPGcqS&index=5";
+                final String title =
+                    "product_add_showcase".tr;
+                HelpButton.setBox(
+                    ButtonKey.addProductKey);
+                Navigator.of(context).push(
+                    TutorialOverlay(url, title));
+              })
+        ],
+      ),
       body: SafeArea(
         child: !adding
             ? Form(
@@ -158,1263 +199,1427 @@ class _AddProductsPageState extends State<AddProductsPage> {
                 child: SingleChildScrollView(
                   child: Stack(
                     children: [
-                      Container(
-                        height: size.height * 0.2,
-                        width: size.width,
-                        child: Image.asset(
-                          "images/topBg.png",
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Stack(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  top: 20,
-                                ),
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      icon: Icon(
-                                        Icons.arrow_back,
-                                        size: 25,
-                                        color: DEFAULT_BLUE_DARK,
-                                      ),
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
+                      // Container(
+                      //   height: size.height * 0.2,
+                      //   width: size.width,
+                      //   child: Image.asset(
+                      //     "images/topBg.png",
+                      //     fit: BoxFit.fill,
+                      //   ),
+                      // ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10.0, right: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Padding(
+                            //   padding: const EdgeInsets.only(
+                            //     top: 70.0,
+                            //   ),
+                            //   child: Text(
+                            //     widget.shop.name,
+                            //     style: TextStyle(
+                            //       fontFamily: 'Rubik',
+                            //       fontSize: 18,
+                            //       fontWeight: FontWeight.w600,
+                            //       color: DEFAULT_BLUE,
+                            //     ),
+                            //   ),
+                            // ),
+                            // Obx(() => controller.quickAddEnable.value == true
+                            //     ? Padding(
+                            //         padding: EdgeInsets.only(
+                            //             top: 115, left: 15, right: 15),
+                            //         child: GestureDetector(
+                            //           onTap: () {
+                            //             Get.to(QuickAddProduct());
+                            //           },
+                            //           child: Container(
+                            //             height: 50,
+                            //             width: size.width,
+                            //             decoration: BoxDecoration(
+                            //               color: Colors.blueGrey,
+                            //               borderRadius:
+                            //                   BorderRadius.circular(8),
+                            //             ),
+                            //             child: Row(
+                            //               crossAxisAlignment:
+                            //                   CrossAxisAlignment.center,
+                            //               mainAxisAlignment:
+                            //                   MainAxisAlignment.center,
+                            //               children: [
+                            //                 Text(
+                            //                   "quickly_add_product_from_our_product_list"
+                            //                       .tr,
+                            //                   style: TextStyle(
+                            //                     fontFamily: 'Rubik',
+                            //                     fontSize: 12,
+                            //                     fontWeight: FontWeight.w600,
+                            //                     color: DEFAULT_YELLOW_BG,
+                            //                   ),
+                            //                 ),
+                            //                 SizedBox(
+                            //                   width: 10,
+                            //                 ),
+                            //                 Icon(
+                            //                   Icons.arrow_forward_ios,
+                            //                   color: DEFAULT_YELLOW_BG,
+                            //                   size: 12,
+                            //                 ),
+                            //               ],
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       )
+                            //     : Container()),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            // Product Name row
+                            Container(
+                              width: size.width,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFF1F1F1),
+                                      borderRadius: BorderRadius.circular(6)
                                     ),
-                                    Text(
-                                      'add_new_product'.tr,
+                                    child: Padding(
+                                      padding: EdgeInsets.all(12),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('add_quick_product'.tr, style: TextStyle(fontFamily: 'Roboto',fontSize: 16),),
+                                          Icon(Icons.arrow_forward_ios)
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 10,),
+                                  Align(alignment: Alignment.center,child: Text('or_add_as_usual_product',
+                                    style: TextStyle(fontFamily: 'Roboto',fontSize: 14),
+                                  ),),
+                                  SizedBox(height: 10,),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFF1F1F1),
+                                      borderRadius: BorderRadius.circular(6)
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text('product_description'.tr,
+                                          style: TextStyle(
+                                            color: Color(0xFF185ADB),
+                                            fontSize: 18,
+                                            fontFamily: 'Roboto'
+                                          ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 5.0, right: 5, top: 8),
+                                            child: Text(
+                                              "product_name".tr,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamily: "Roboto",
+                                                fontWeight: FontWeight.bold,
+                                                color: DEFAULT_BLUE_DARK,
+                                              ),
+                                            ),
+                                          ),
+
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 5.0, right: 5, top: 8),
+                                            child: Container(
+                                              height: 48,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.circular(5),
+                                                border: Border.all(
+                                                    width: 1, color: Colors.grey),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets.only(left: 15.0),
+                                                child: TextFormField(
+                                                  validator: (value) {
+                                                    if (value.isEmpty) {
+                                                      return 'Please enter product name';
+                                                    }
+                                                    return null;
+                                                  },
+                                                  onChanged: (val) {
+                                                    productName = val;
+                                                    savedProductName = val;
+                                                  },
+                                                  decoration: InputDecoration(
+                                                    border: InputBorder.none,
+                                                    focusedBorder: InputBorder.none,
+                                                    enabledBorder: InputBorder.none,
+                                                    hintText: "product_name".tr,
+                                                    hintStyle: TextStyle(
+                                                      fontFamily: 'Roboto',
+                                                      color: Colors.blueGrey,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height:10),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 5.0, right: 5),
+                                            child: Container(
+                                              width: size.width,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "price".tr,
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontFamily: "Roboto",
+                                                      fontWeight: FontWeight.bold,
+                                                      color: DEFAULT_BLUE_DARK,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 8.0),
+                                                    child: Container(
+                                                      height: 48,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius: BorderRadius.circular(5),
+                                                        border: Border.all(
+                                                            width: 1, color: Colors.grey),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                        const EdgeInsets.only(left: 15.0),
+                                                        child: TextFormField(
+                                                          cursorColor: DEFAULT_BLACK,
+                                                          validator: (value) {
+                                                            if (value.isEmpty) {
+                                                              return 'Please enter product price';
+                                                            }
+                                                            return null;
+                                                          },
+                                                          onChanged: (value) {
+                                                            if (value != "") {
+                                                              price = double.parse(value);
+                                                            } else {
+                                                              price = 0;
+                                                            }
+                                                          },
+                                                          inputFormatters: [
+                                                            FilteringTextInputFormatter.digitsOnly
+                                                          ],
+                                                          keyboardType: TextInputType.number,
+                                                          decoration: InputDecoration(
+                                                            border: InputBorder.none,
+                                                            focusedBorder: InputBorder.none,
+                                                            enabledBorder: InputBorder.none,
+                                                            hintText: "Product Price",
+                                                            hintStyle: TextStyle(
+                                                              fontFamily: 'Roboto',
+                                                              color: Colors.blueGrey,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(height:10),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left:5.0, right: 5),
+                                            child: Container(
+                                              width: size.width,
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "total_stock_quantity".tr,
+                                                    style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontFamily: "Roboto",
+                                                      fontWeight: FontWeight.bold,
+                                                      color: DEFAULT_BLUE_DARK,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(top: 8.0),
+                                                    child: Container(
+                                                      height: 48,
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius: BorderRadius.circular(5),
+                                                        border: Border.all(
+                                                            width: 1, color: Colors.grey),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                        const EdgeInsets.only(left: 15.0),
+                                                        child: TextFormField(
+                                                          // validator: (value) {
+                                                          //   if (value.isEmpty) {
+                                                          //     return 'Please enter stock quantity';
+                                                          //   }
+                                                          //   return null;
+                                                          // },
+                                                          onChanged: (val) {
+                                                            if (val != "") {
+                                                              stockQuantity = int.parse(val);
+                                                            } else {
+                                                              stockQuantity = 0;
+                                                            }
+                                                          },
+                                                          inputFormatters: [
+                                                            FilteringTextInputFormatter.digitsOnly
+                                                          ],
+                                                          keyboardType: TextInputType.number,
+                                                          decoration: InputDecoration(
+                                                            border: InputBorder.none,
+                                                            focusedBorder: InputBorder.none,
+                                                            enabledBorder: InputBorder.none,
+                                                            hintText: "stock_quantity".tr,
+                                                            hintStyle: TextStyle(
+                                                              fontFamily: 'Roboto',
+                                                              color: Colors.blueGrey,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(left:5.0, right: 5, top: 8, bottom: 10),
+                                            child: DottedBorder(
+                                              radius: Radius.circular(8) ,
+                                              dashPattern: [8, 4],
+                                              strokeWidth: 2,
+                                              color: Color(0xFF185ADB),
+                                              child: Container(
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(12.0),
+                                                  child: Text(
+                                                      'পন্যের স্টক সংখ্যা না দিলে ব্যবসার হিসাব সঠিক ভাবে দেখা যাবে না', 
+                                                      textAlign: TextAlign.center, 
+                                                      style:TextStyle(
+                                                          color: Color(0xFF185ADB),
+                                                      )),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                          // Padding(
+                                          //   padding: const EdgeInsets.only(left: 5.0, right: 5),
+                                          //   child: Container(
+                                          //     width: size.width,
+                                          //     child: Column(
+                                          //       crossAxisAlignment: CrossAxisAlignment.start,
+                                          //       children: [
+                                          //         Text(
+                                          //           "cost_optional".tr,
+                                          //           style: TextStyle(
+                                          //             fontSize: 16,
+                                          //             fontFamily: "Rubik-VariableFont_wght",
+                                          //             fontWeight: FontWeight.bold,
+                                          //             color: DEFAULT_BLUE_DARK,
+                                          //           ),
+                                          //         ),
+                                          //         Container(
+                                          //           height: 48,
+                                          //           decoration: BoxDecoration(
+                                          //             color: Colors.white,
+                                          //             borderRadius: BorderRadius.circular(5),
+                                          //             border: Border.all(
+                                          //                 width: 1, color: Colors.grey),
+                                          //           ),
+                                          //           child: Padding(
+                                          //             padding:
+                                          //             const EdgeInsets.only(left: 15.0),
+                                          //             child: TextField(
+                                          //               onChanged: (value) {
+                                          //                 if (value != "") {
+                                          //                   cost = double.parse(value);
+                                          //                 } else {
+                                          //                   cost = 0;
+                                          //                 }
+                                          //               },
+                                          //               inputFormatters: [
+                                          //                 FilteringTextInputFormatter.digitsOnly
+                                          //               ],
+                                          //               keyboardType: TextInputType.number,
+                                          //               decoration: InputDecoration(
+                                          //                 border: InputBorder.none,
+                                          //                 focusedBorder: InputBorder.none,
+                                          //                 enabledBorder: InputBorder.none,
+                                          //                 hintText: "Product Cost",
+                                          //                 hintStyle: TextStyle(
+                                          //                   fontFamily: 'Rubik',
+                                          //                   color: Colors.blueGrey,
+                                          //                 ),
+                                          //               ),
+                                          //             ),
+                                          //           ),
+                                          //         ),
+                                          //       ],
+                                          //     ),
+                                          //   ),
+                                          // ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            // price  row
+
+                            // SizedBox(height: 8),
+                            Container(
+                              width: size.width,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: 10,),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 15.0, right: 15),
+                                    child: Container(
+                                      width: size.width,
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "cost".tr,
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontFamily: "Roboto",
+                                              fontWeight: FontWeight.bold,
+                                              color: DEFAULT_BLUE_DARK,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 8.0),
+                                            child: Container(
+                                              height: 48,
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius: BorderRadius.circular(5),
+                                                border: Border.all(
+                                                    width: 1, color: Colors.grey),
+                                              ),
+                                              child: Padding(
+                                                padding:
+                                                const EdgeInsets.only(left: 15.0),
+                                                child: TextFormField(
+                                                  cursorColor: DEFAULT_BLACK,
+                                                  validator: (value) {
+                                                    if (value.isEmpty) {
+                                                      return 'Please enter product price';
+                                                    }
+                                                    return null;
+                                                  },
+                                                  onChanged: (value) {
+                                                    if (value != "") {
+                                                      price = double.parse(value);
+                                                    } else {
+                                                      price = 0;
+                                                    }
+                                                  },
+                                                  inputFormatters: [
+                                                    FilteringTextInputFormatter.digitsOnly
+                                                  ],
+                                                  keyboardType: TextInputType.number,
+                                                  decoration: InputDecoration(
+                                                    border: InputBorder.none,
+                                                    focusedBorder: InputBorder.none,
+                                                    enabledBorder: InputBorder.none,
+                                                    hintText: "Product Price",
+                                                    hintStyle: TextStyle(
+                                                      fontFamily: 'Roboto',
+                                                      color: Colors.blueGrey,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(height: 10,),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left:15.0, right: 15, top: 8, bottom: 10),
+                                    child: DottedBorder(
+                                        radius: Radius.circular(20),
+                                      dashPattern: [8, 4],
+                                      strokeWidth: 2,
+                                      color: Color(0xFF185ADB),
+                                      child: Container(
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: Text(
+                                              'পন্যের স্টক সংখ্যা না দিলে ব্যবসার হিসাব সঠিক ভাবে দেখা যাবে না',
+                                              textAlign: TextAlign.center,
+                                              style:TextStyle(
+                                                color: Color(0xFF185ADB),
+                                              )),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(top: 15.0),
+                                  //   child: Row(
+                                  //     children: [
+                                  //       Container(
+                                  //         width: size.width / 2,
+                                  //         child: Column(
+                                  //           crossAxisAlignment:
+                                  //               CrossAxisAlignment.start,
+                                  //           children: [
+                                  //             Padding(
+                                  //               padding: const EdgeInsets.only(
+                                  //                   left: 15.0, right: 10),
+                                  //               child: Text(
+                                  //                 "category".tr,
+                                  //                 style: TextStyle(
+                                  //                   fontSize: 16,
+                                  //                   fontFamily:
+                                  //                       "Rubik-VariableFont_wght",
+                                  //                   fontWeight: FontWeight.bold,
+                                  //                   color: DEFAULT_BLUE_DARK,
+                                  //                 ),
+                                  //               ),
+                                  //             ),
+                                  //             InkWell(
+                                  //               onTap: () {
+                                  //                 _showCategoryDialog(
+                                  //                     controller, size);
+                                  //               },
+                                  //               child: Padding(
+                                  //                 padding: const EdgeInsets.only(
+                                  //                     left: 15.0,
+                                  //                     right: 10,
+                                  //                     top: 8),
+                                  //                 child: Container(
+                                  //                   height: 50,
+                                  //                   decoration: BoxDecoration(
+                                  //                     color: Colors.white,
+                                  //                     borderRadius:
+                                  //                         BorderRadius.circular(
+                                  //                             5),
+                                  //                     border: Border.all(
+                                  //                         width: 1,
+                                  //                         color: Colors.grey),
+                                  //                   ),
+                                  //                   child: Row(
+                                  //                     mainAxisAlignment:
+                                  //                         MainAxisAlignment
+                                  //                             .spaceBetween,
+                                  //                     children: [
+                                  //                       Flexible(
+                                  //                         child: Padding(
+                                  //                           padding:
+                                  //                               const EdgeInsets
+                                  //                                       .only(
+                                  //                                   left: 15.0),
+                                  //                           child: Text(
+                                  //                             selectedProductCategory ==
+                                  //                                     null
+                                  //                                 ? "select_category"
+                                  //                                     .tr
+                                  //                                 : selectedProductCategory
+                                  //                                     .name,
+                                  //                             overflow:
+                                  //                                 TextOverflow
+                                  //                                     .ellipsis,
+                                  //                             style: TextStyle(
+                                  //                               fontWeight:
+                                  //                                   FontWeight
+                                  //                                       .bold,
+                                  //                               color:
+                                  //                                   DEFAULT_BLACK,
+                                  //                               letterSpacing: 0,
+                                  //                             ),
+                                  //                           ),
+                                  //                         ),
+                                  //                       ),
+                                  //                       Padding(
+                                  //                         padding:
+                                  //                             const EdgeInsets
+                                  //                                     .only(
+                                  //                                 right: 8.0),
+                                  //                         child: Icon(Icons
+                                  //                             .arrow_drop_down),
+                                  //                       ),
+                                  //                     ],
+                                  //                   ),
+                                  //                 ),
+                                  //               ),
+                                  //             ),
+                                  //           ],
+                                  //         ),
+                                  //       ),
+                                  //       Container(
+                                  //         width: size.width / 2,
+                                  //         child: Column(
+                                  //           crossAxisAlignment:
+                                  //               CrossAxisAlignment.start,
+                                  //           children: [
+                                  //             Padding(
+                                  //               padding: const EdgeInsets.only(
+                                  //                   left: 10.0, right: 15),
+                                  //               child: Text(
+                                  //                 "sub_category".tr,
+                                  //                 style: TextStyle(
+                                  //                   fontSize: 16,
+                                  //                   fontFamily:
+                                  //                       "Rubik-VariableFont_wght",
+                                  //                   fontWeight: FontWeight.bold,
+                                  //                   color: DEFAULT_BLUE_DARK,
+                                  //                 ),
+                                  //               ),
+                                  //             ),
+                                  //             InkWell(
+                                  //               onTap: () {
+                                  //                 if (selectedProductCategory ==
+                                  //                     null) {
+                                  //                   _showMaterialDialog(
+                                  //                       "Please select Product Category first");
+                                  //                 } else {
+                                  //                   _showSubCategoryDialog(
+                                  //                       selectedProductCategory,
+                                  //                       size);
+                                  //                 }
+                                  //               },
+                                  //               child: Padding(
+                                  //                 padding: const EdgeInsets.only(
+                                  //                     left: 10.0,
+                                  //                     right: 15,
+                                  //                     top: 8),
+                                  //                 child: Container(
+                                  //                   height: 48,
+                                  //                   decoration: BoxDecoration(
+                                  //                     color: Colors.white,
+                                  //                     borderRadius:
+                                  //                         BorderRadius.circular(
+                                  //                             5),
+                                  //                     border: Border.all(
+                                  //                         width: 1,
+                                  //                         color: Colors.grey),
+                                  //                   ),
+                                  //                   child: Row(
+                                  //                     mainAxisAlignment:
+                                  //                         MainAxisAlignment
+                                  //                             .spaceBetween,
+                                  //                     children: [
+                                  //                       Flexible(
+                                  //                         child: Padding(
+                                  //                           padding:
+                                  //                               const EdgeInsets
+                                  //                                       .only(
+                                  //                                   left: 15.0),
+                                  //                           child: Text(
+                                  //                             selectedSubCat ==
+                                  //                                     null
+                                  //                                 ? "select_sub_category"
+                                  //                                     .tr
+                                  //                                 : selectedSubCat
+                                  //                                     .name,
+                                  //                             overflow:
+                                  //                                 TextOverflow
+                                  //                                     .ellipsis,
+                                  //                             style: TextStyle(
+                                  //                               fontFamily:
+                                  //                                   'Rubik',
+                                  //                               // fontSize: 18,
+                                  //                               fontWeight:
+                                  //                                   FontWeight
+                                  //                                       .bold,
+                                  //                               color:
+                                  //                                   DEFAULT_BLACK,
+                                  //                             ),
+                                  //                           ),
+                                  //                         ),
+                                  //                       ),
+                                  //                       Padding(
+                                  //                         padding:
+                                  //                             const EdgeInsets
+                                  //                                     .only(
+                                  //                                 right: 8.0),
+                                  //                         child: Icon(Icons
+                                  //                             .arrow_drop_down),
+                                  //                       ),
+                                  //                     ],
+                                  //                   ),
+                                  //                 ),
+                                  //               ),
+                                  //             ),
+                                  //           ],
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
+                                ],
+                              ),
+                            ),
+                            // Total Stock Quantity row
+
+                            Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15.0, right: 15, top: 8),
+                                    child: Text(
+                                      "description".tr,
                                       style: TextStyle(
-                                        fontFamily: 'Rubik',
-                                        fontSize: 18,
+                                        fontSize: 16,
+                                        fontFamily: "Roboto",
                                         fontWeight: FontWeight.bold,
                                         color: DEFAULT_BLUE_DARK,
                                       ),
                                     ),
-                                    Spacer(),
-                                    IconButton(
-                                        icon: Icon(
-                                          Icons.contact_support,
-                                          size: 30,
-                                          color: DEFAULT_BLUE,
-                                        ),
-                                        onPressed: () {
-                                          final String url =
-                                              "https://www.youtube.com/watch?v=TcpUBjeX0N4&list=PLO7C_xRyL47emWQfUcp2-djjzgdlPGcqS&index=5";
-                                          final String title =
-                                              "product_add_showcase".tr;
-                                          HelpButton.setBox(
-                                              ButtonKey.addProductKey);
-                                          Navigator.of(context).push(
-                                              TutorialOverlay(url, title));
-                                        })
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  top: 70.0,
-                                  left: 15,
-                                ),
-                                child: Text(
-                                  widget.shop.name,
-                                  style: TextStyle(
-                                    fontFamily: 'Rubik',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                    color: DEFAULT_BLUE,
                                   ),
-                                ),
-                              ),
-                              Obx(() => controller.quickAddEnable.value == true
-                                  ? Padding(
-                                      padding: EdgeInsets.only(
-                                          top: 115, left: 15, right: 15),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          Get.to(QuickAddProduct());
-                                        },
-                                        child: Container(
-                                          height: 50,
-                                          width: size.width,
-                                          decoration: BoxDecoration(
-                                            color: Colors.blueGrey,
-                                            borderRadius:
-                                                BorderRadius.circular(8),
-                                          ),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                "quickly_add_product_from_our_product_list"
-                                                    .tr,
-                                                style: TextStyle(
-                                                  fontFamily: 'Rubik',
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: DEFAULT_YELLOW_BG,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Icon(
-                                                Icons.arrow_forward_ios,
-                                                color: DEFAULT_YELLOW_BG,
-                                                size: 12,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15.0, right: 15, top: 8),
+                                    child: Container(
+                                      height: 95,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(5),
+                                        border: Border.all(
+                                            width: 1, color: Colors.grey),
                                       ),
-                                    )
-                                  : Container())
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          // Product Name row
-                          Container(
-                            width: size.width,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: Text(
-                                    "product_name".tr,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: "Rubik-VariableFont_wght",
-                                      fontWeight: FontWeight.bold,
-                                      color: DEFAULT_BLUE_DARK,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: Container(
-                                    height: 48,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          width: 1, color: Colors.grey),
-                                    ),
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 15.0),
-                                      child: TextFormField(
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return 'Please enter product name';
-                                          }
-                                          return null;
-                                        },
-                                        onChanged: (val) {
-                                          productName = val;
-                                          savedProductName = val;
-                                        },
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          focusedBorder: InputBorder.none,
-                                          enabledBorder: InputBorder.none,
-                                          hintText: "product_name".tr,
-                                          hintStyle: TextStyle(
-                                            fontFamily: 'Rubik',
-                                            color: Colors.blueGrey,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 15.0),
+                                        child: TextFormField(
+                                          // validator: (value) {
+                                          //   if (value.isEmpty) {
+                                          //     return 'Please enter product description';
+                                          //   }
+                                          //   return null;
+                                          // },
+                                          onChanged: (value) {
+                                            desc = value;
+                                          },
+                                          // keyboardType: TextInputType.number,
+                                          decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            focusedBorder: InputBorder.none,
+                                            enabledBorder: InputBorder.none,
+                                            hintText: "description".tr,
+                                            hintStyle: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              color: Colors.blueGrey,
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          // price  row
-                          Container(
-                            width: size.width,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: Text(
-                                    "price".tr,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: "Rubik-VariableFont_wght",
-                                      fontWeight: FontWeight.bold,
-                                      color: DEFAULT_BLUE_DARK,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: Container(
-                                    height: 48,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          width: 1, color: Colors.grey),
-                                    ),
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 15.0),
-                                      child: TextFormField(
-                                        cursorColor: DEFAULT_BLACK,
-                                        validator: (value) {
-                                          if (value.isEmpty) {
-                                            return 'Please enter product price';
-                                          }
-                                          return null;
-                                        },
-                                        onChanged: (value) {
-                                          if (value != "") {
-                                            price = double.parse(value);
-                                          } else {
-                                            price = 0;
-                                          }
-                                        },
-                                        inputFormatters: [
-                                          FilteringTextInputFormatter.digitsOnly
-                                        ],
-                                        keyboardType: TextInputType.number,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          focusedBorder: InputBorder.none,
-                                          enabledBorder: InputBorder.none,
-                                          hintText: "Product Price",
-                                          hintStyle: TextStyle(
-                                            fontFamily: 'Rubik',
-                                            color: Colors.blueGrey,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          // Cost Optional row
-                          Container(
-                            width: size.width,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: Text(
-                                    "cost_optional".tr,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: "Rubik-VariableFont_wght",
-                                      fontWeight: FontWeight.bold,
-                                      color: DEFAULT_BLUE_DARK,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: Container(
-                                    height: 48,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          width: 1, color: Colors.grey),
-                                    ),
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 15.0),
-                                      child: TextField(
-                                        onChanged: (value) {
-                                          if (value != "") {
-                                            cost = double.parse(value);
-                                          } else {
-                                            cost = 0;
-                                          }
-                                        },
-                                        inputFormatters: [
-                                          FilteringTextInputFormatter.digitsOnly
-                                        ],
-                                        keyboardType: TextInputType.number,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          focusedBorder: InputBorder.none,
-                                          enabledBorder: InputBorder.none,
-                                          hintText: "Product Cost",
-                                          hintStyle: TextStyle(
-                                            fontFamily: 'Rubik',
-                                            color: Colors.blueGrey,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          // SizedBox(height: 8),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15, top: 8),
-                            child: Text(
-                              "please_provide_cost_of_making_purchasing_the_product_it_will_help_you_to_calculate_your_profit"
-                                  .tr,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: "Rubik-VariableFont_wght",
-                                fontWeight: FontWeight.bold,
-                                color: DEFAULT_BLUE_DARK,
+                                ],
                               ),
                             ),
-                          ),
-                          Container(
-                            width: size.width,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  // mainAxisAlignment: MainAxisAlignment.center,
-                                  // crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 15.0, top: 15),
-                                      child: Text(
-                                        "optional_not_given".tr,
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          // fontFamily: "Rubik-VariableFont_wght",
-                                          fontWeight: FontWeight.bold,
-                                          color: DEFAULT_BLUE_DARK,
-                                        ),
+                            Container(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Padding(
+                                  //   padding: const EdgeInsets.only(
+                                  //       left: 15.0, right: 15, top: 8),
+                                  //   child: Text(
+                                  //     "want_to_sell_online".tr,
+                                  //     style: TextStyle(
+                                  //       fontSize: 16,
+                                  //       fontFamily: "Rubik-VariableFont_wght",
+                                  //       fontWeight: FontWeight.bold,
+                                  //       color: DEFAULT_BLUE_DARK,
+                                  //     ),
+                                  //   ),
+                                  // ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 15.0, right: 15, top: 8),
+                                    child: Container(
+                                      height: 48,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFF1F1F1),
+                                        borderRadius: BorderRadius.circular(5),
+
                                       ),
-                                    ),
-                                    Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(top: 15.0),
-                                          child: Divider(
-                                            thickness: 2,
-                                            color: Colors.black,
-                                            endIndent: 15,
-                                            indent: 4,
-                                          ),
-                                        ),)
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 15.0),
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        width: size.width / 2,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15.0, right: 10),
-                                              child: Text(
-                                                "category".tr,
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontFamily:
-                                                      "Rubik-VariableFont_wght",
-                                                  fontWeight: FontWeight.bold,
-                                                  color: DEFAULT_BLUE_DARK,
-                                                ),
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                _showCategoryDialog(
-                                                    controller, size);
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 15.0,
-                                                    right: 10,
-                                                    top: 8),
-                                                child: Container(
-                                                  height: 50,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                    border: Border.all(
-                                                        width: 1,
-                                                        color: Colors.grey),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Flexible(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 15.0),
-                                                          child: Text(
-                                                            selectedProductCategory ==
-                                                                    null
-                                                                ? "select_category"
-                                                                    .tr
-                                                                : selectedProductCategory
-                                                                    .name,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  DEFAULT_BLACK,
-                                                              letterSpacing: 0,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                right: 8.0),
-                                                        child: Icon(Icons
-                                                            .arrow_drop_down),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Container(
-                                        width: size.width / 2,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10.0, right: 15),
-                                              child: Text(
-                                                "sub_category".tr,
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontFamily:
-                                                      "Rubik-VariableFont_wght",
-                                                  fontWeight: FontWeight.bold,
-                                                  color: DEFAULT_BLUE_DARK,
-                                                ),
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                if (selectedProductCategory ==
-                                                    null) {
-                                                  _showMaterialDialog(
-                                                      "Please select Product Category first");
-                                                } else {
-                                                  _showSubCategoryDialog(
-                                                      selectedProductCategory,
-                                                      size);
-                                                }
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 10.0,
-                                                    right: 15,
-                                                    top: 8),
-                                                child: Container(
-                                                  height: 48,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5),
-                                                    border: Border.all(
-                                                        width: 1,
-                                                        color: Colors.grey),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Flexible(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .only(
-                                                                  left: 15.0),
-                                                          child: Text(
-                                                            selectedSubCat ==
-                                                                    null
-                                                                ? "select_sub_category"
-                                                                    .tr
-                                                                : selectedSubCat
-                                                                    .name,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: TextStyle(
-                                                              fontFamily:
-                                                                  'Rubik',
-                                                              // fontSize: 18,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color:
-                                                                  DEFAULT_BLACK,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .only(
-                                                                right: 8.0),
-                                                        child: Icon(Icons
-                                                            .arrow_drop_down),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          // Total Stock Quantity row
-                          Container(
-                            width: size.width,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 15),
-                                  child: Text(
-                                    "total_stock_quantity".tr,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: "Rubik-VariableFont_wght",
-                                      fontWeight: FontWeight.bold,
-                                      color: DEFAULT_BLUE_DARK,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: Container(
-                                    height: 48,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          width: 1, color: Colors.grey),
-                                    ),
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 15.0),
-                                      child: TextFormField(
-                                        // validator: (value) {
-                                        //   if (value.isEmpty) {
-                                        //     return 'Please enter stock quantity';
-                                        //   }
-                                        //   return null;
-                                        // },
-                                        onChanged: (val) {
-                                          if (val != "") {
-                                            stockQuantity = int.parse(val);
-                                          } else {
-                                            stockQuantity = 0;
-                                          }
-                                        },
-                                        inputFormatters: [
-                                          FilteringTextInputFormatter.digitsOnly
-                                        ],
-                                        keyboardType: TextInputType.number,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          focusedBorder: InputBorder.none,
-                                          enabledBorder: InputBorder.none,
-                                          hintText: "stock_quantity".tr,
-                                          hintStyle: TextStyle(
-                                            fontFamily: 'Rubik',
-                                            color: Colors.blueGrey,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: Text(
-                                    "description".tr,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: "Rubik-VariableFont_wght",
-                                      fontWeight: FontWeight.bold,
-                                      color: DEFAULT_BLUE_DARK,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: Container(
-                                    height: 95,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          width: 1, color: Colors.grey),
-                                    ),
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(left: 15.0),
-                                      child: TextFormField(
-                                        // validator: (value) {
-                                        //   if (value.isEmpty) {
-                                        //     return 'Please enter product description';
-                                        //   }
-                                        //   return null;
-                                        // },
-                                        onChanged: (value) {
-                                          desc = value;
-                                        },
-                                        // keyboardType: TextInputType.number,
-                                        decoration: InputDecoration(
-                                          border: InputBorder.none,
-                                          focusedBorder: InputBorder.none,
-                                          enabledBorder: InputBorder.none,
-                                          hintText: "description".tr,
-                                          hintStyle: TextStyle(
-                                            fontFamily: 'Rubik',
-                                            color: Colors.blueGrey,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: Text(
-                                    "want_to_sell_online".tr,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: "Rubik-VariableFont_wght",
-                                      fontWeight: FontWeight.bold,
-                                      color: DEFAULT_BLUE_DARK,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: Container(
-                                    height: 48,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          width: 1, color: Colors.grey),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 15.0),
-                                          child: Obx(
-                                            () => Text(
-                                              controller.isOnline.value
-                                                  ? "ONLINE"
-                                                  : "OFFLINE",
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 15.0),
+                                            child: Text(
+                                              // controller.isOnline.value
+                                              //     ? "ONLINE"
+                                              //     : "OFFLINE",
+                                              'want_to_sell_online'.tr,
                                               style: TextStyle(
-                                                fontFamily: 'Rubik',
+                                                fontFamily: 'Roboto',
                                                 // fontSize: 18,
                                                 fontWeight: FontWeight.bold,
                                                 color: DEFAULT_BLACK,
                                                 letterSpacing: 0,
                                               ),
                                             ),
+                                            // Obx(
+                                            //   () =>
+                                            // ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 10.0),
-                                          child: Obx(
-                                            () => FlutterSwitch(
-                                              height: 25.0,
-                                              width: 40.0,
-                                              padding: 4.0,
-                                              toggleSize: 20.0,
-                                              borderRadius: 20.0,
-                                              activeColor: Colors.black,
-                                              value: controller.isOnline.value,
-                                              onToggle: (value) {
-                                                controller.isOnline.value =
-                                                    value;
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: Text(
-                                    "product_image_optional".tr,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: "Rubik-VariableFont_wght",
-                                      fontWeight: FontWeight.bold,
-                                      color: DEFAULT_BLUE_DARK,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 10),
-                                  child: Text(
-                                    "add_a_suitable_product_image".tr,
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: "Rubik-VariableFont_wght",
-                                      fontWeight: FontWeight.bold,
-                                      color: DEFAULT_BLUE_DARK,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      showPictureOptionDialogue(context);
-                                    },
-                                    child: Obx(
-                                          () =>Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(5),
-                                          ),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey.withOpacity(1),
-                                              spreadRadius: 1,
-                                              blurRadius: 5,
-                                              offset: Offset(0,
-                                                  3), // changes position of shadow
-                                            ),
-                                          ],
-                                        ),
-                                        height: 60,
-                                        width: 60,
-                                        child: controller.image.value == null
-                                            ? Icon(Icons.image)
-                                            :Image(image: FileImage(File(controller.image.value.path)),),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: Text(
-                                    "vat_applicable".tr,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: "Rubik-VariableFont_wght",
-                                      fontWeight: FontWeight.bold,
-                                      color: DEFAULT_BLUE_DARK,
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 15.0, right: 15, top: 8),
-                                  child: Container(
-                                    height: 48,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                          width: 1, color: Colors.grey),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 15.0),
-                                          child: Text(
-                                            "vat_applicable_yes".tr,
-                                            style: TextStyle(
-                                              fontSize: 16,
-                                              fontFamily:
-                                                  "Rubik-VariableFont_wght",
-                                              fontWeight: FontWeight.bold,
-                                              color: DEFAULT_BLUE_DARK,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 10.0),
-                                          child: FlutterSwitch(
-                                            height: 25.0,
-                                            width: 40.0,
-                                            padding: 4.0,
-                                            toggleSize: 20.0,
-                                            borderRadius: 20.0,
-                                            activeColor: Colors.black,
-                                            value: vatApplicable,
-                                            onToggle: (value) {
-                                              setState(() {
-                                                vatApplicable = value;
-                                              });
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                vatApplicable
-                                    ? Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 15.0, right: 15, top: 8),
-                                        child: Container(
-                                          height: 48,
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            border: Border.all(
-                                                width: 1, color: Colors.grey),
-                                          ),
-                                          child: Padding(
+                                          Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 15.0),
-                                            child: TextFormField(
-                                              cursorColor: DEFAULT_BLACK,
-                                              onChanged: (val) {
-                                                if (val != "") {
-                                                  vatAmount = double.parse(val);
-                                                } else {
-                                                  vatAmount = 0;
-                                                }
-                                              },
-                                              inputFormatters: [
-                                                FilteringTextInputFormatter
-                                                    .digitsOnly
-                                              ],
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              decoration: InputDecoration(
-                                                suffix: Text(
-                                                  " % ",
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                border: InputBorder.none,
-                                                focusedBorder: InputBorder.none,
-                                                enabledBorder: InputBorder.none,
-                                                hintText: "VAT Amount",
-                                                hintStyle: TextStyle(
-                                                  fontFamily: 'Rubik',
-                                                  color: Colors.blueGrey,
-                                                ),
+                                                right: 10.0),
+                                            child: Obx(
+                                              () => FlutterSwitch(
+                                                height: 25.0,
+                                                width: 40.0,
+                                                padding: 4.0,
+                                                toggleSize: 20.0,
+                                                borderRadius: 20.0,
+                                                inactiveColor: Colors.black,
+                                                activeColor: Color(0xFF185ADB),
+                                                value: controller.isOnline.value,
+                                                onToggle: (value) {
+                                                  controller.isOnline.value =
+                                                      value;
+                                                },
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      )
-                                    : Container(),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15, top: 8),
-                            child: Text(
-                              "please_specify_if_customers_should_pay_for_additional_vat"
-                                  .tr,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: "Rubik-VariableFont_wght",
-                                fontWeight: FontWeight.bold,
-                                color: DEFAULT_BLUE_DARK,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15, top: 8),
-                            child: Text(
-                              "barcode".tr,
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontFamily: "Rubik-VariableFont_wght",
-                                fontWeight: FontWeight.bold,
-                                color: DEFAULT_BLUE_DARK,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15, top: 8),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 48,
-                              child: mainProductBarCode == null
-                                  ? RaisedButton(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(4.0),
-                                      ),
-                                      onPressed: () {
-                                        scanBarcodeNormal(100);
-                                      },
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Image(
-                                            height: 20,
-                                            image: AssetImage(
-                                                'images/icons/scanIcon.png'),
-                                          ),
-                                          SizedBox(width: 10),
-                                          Text(
-                                            'scan'.tr,
-                                            style: TextStyle(
-                                              fontFamily: 'Rubik',
-                                              // fontSize: 28,
-                                              fontWeight: FontWeight.bold,
-                                              // color: default_blue,
-                                            ),
-                                          )
                                         ],
-                                      ),
-                                      color: Color(0xffFAC02E),
-                                    )
-                                  : Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.black12,
-                                        border: Border.all(),
-                                        borderRadius: BorderRadius.circular(8),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 20.0, right: 20, top: 8),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                                "barcode_added_for_this_product"
-                                                    .tr),
-                                            IconButton(
-                                              icon: Icon(Icons.edit),
-                                              onPressed: () {
-                                                scanBarcodeNormal(100);
-                                              },
-                                            )
-                                          ],
-                                        ),
                                       ),
                                     ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15.0, right: 15, top: 8),
-                            child: Text(
-                              "add_the_barcode_associated_with_the_product_by_pressing_scan_button"
-                                  .tr,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: "Rubik-VariableFont_wght",
-                                fontWeight: FontWeight.bold,
-                                color: DEFAULT_BLUE_DARK,
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                          SizedBox(height: 50),
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                isAdvanced = !isAdvanced;
-                              });
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Advanced Option",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: "Rubik-VariableFont_wght",
-                                    fontWeight: FontWeight.bold,
-                                    color: DEFAULT_BLACK,
-                                  ),
+                            ///Image
+                            // Container(
+                            //   child: Column(
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Padding(
+                            //         padding: const EdgeInsets.only(
+                            //             left: 15.0, right: 15, top: 8),
+                            //         child: Text(
+                            //           "product_image_optional".tr,
+                            //           style: TextStyle(
+                            //             fontSize: 16,
+                            //             fontFamily: "Rubik-VariableFont_wght",
+                            //             fontWeight: FontWeight.bold,
+                            //             color: DEFAULT_BLUE_DARK,
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Padding(
+                            //         padding: const EdgeInsets.only(
+                            //             left: 15.0, right: 15, top: 10),
+                            //         child: Text(
+                            //           "add_a_suitable_product_image".tr,
+                            //           style: TextStyle(
+                            //             fontSize: 12,
+                            //             fontFamily: "Rubik-VariableFont_wght",
+                            //             fontWeight: FontWeight.bold,
+                            //             color: DEFAULT_BLUE_DARK,
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Padding(
+                            //         padding: const EdgeInsets.only(
+                            //             left: 15.0, right: 15, top: 8),
+                            //         child: GestureDetector(
+                            //           onTap: () {
+                            //             showPictureOptionDialogue(context);
+                            //           },
+                            //           child: Obx(
+                            //                 () =>Container(
+                            //               decoration: BoxDecoration(
+                            //                 color: Colors.white,
+                            //                 borderRadius: BorderRadius.all(
+                            //                   Radius.circular(5),
+                            //                 ),
+                            //                 boxShadow: [
+                            //                   BoxShadow(
+                            //                     color: Colors.grey.withOpacity(1),
+                            //                     spreadRadius: 1,
+                            //                     blurRadius: 5,
+                            //                     offset: Offset(0,
+                            //                         3), // changes position of shadow
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //               height: 60,
+                            //               width: 60,
+                            //               child: controller.image.value == null
+                            //                   ? Icon(Icons.image)
+                            //                   :Image(image: FileImage(File(controller.image.value.path)),),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       )
+                            //     ],
+                            //   ),
+                            // ),
+                            ///vat
+                            // Container(
+                            //   child: Column(
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       Padding(
+                            //         padding: const EdgeInsets.only(
+                            //             left: 15.0, right: 15, top: 8),
+                            //         child: Text(
+                            //           "vat_applicable".tr,
+                            //           style: TextStyle(
+                            //             fontSize: 16,
+                            //             fontFamily: "Rubik-VariableFont_wght",
+                            //             fontWeight: FontWeight.bold,
+                            //             color: DEFAULT_BLUE_DARK,
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Padding(
+                            //         padding: const EdgeInsets.only(
+                            //             left: 15.0, right: 15, top: 8),
+                            //         child: Container(
+                            //           height: 48,
+                            //           decoration: BoxDecoration(
+                            //             color: Colors.white,
+                            //             borderRadius: BorderRadius.circular(5),
+                            //             border: Border.all(
+                            //                 width: 1, color: Colors.grey),
+                            //           ),
+                            //           child: Row(
+                            //             mainAxisAlignment:
+                            //                 MainAxisAlignment.spaceBetween,
+                            //             children: [
+                            //               Padding(
+                            //                 padding:
+                            //                     const EdgeInsets.only(left: 15.0),
+                            //                 child: Text(
+                            //                   "vat_applicable_yes".tr,
+                            //                   style: TextStyle(
+                            //                     fontSize: 16,
+                            //                     fontFamily:
+                            //                         "Rubik-VariableFont_wght",
+                            //                     fontWeight: FontWeight.bold,
+                            //                     color: DEFAULT_BLUE_DARK,
+                            //                   ),
+                            //                 ),
+                            //               ),
+                            //               Padding(
+                            //                 padding: const EdgeInsets.only(
+                            //                     right: 10.0),
+                            //                 child: FlutterSwitch(
+                            //                   height: 25.0,
+                            //                   width: 40.0,
+                            //                   padding: 4.0,
+                            //                   toggleSize: 20.0,
+                            //                   borderRadius: 20.0,
+                            //                   activeColor: Colors.black,
+                            //                   value: vatApplicable,
+                            //                   onToggle: (value) {
+                            //                     setState(() {
+                            //                       vatApplicable = value;
+                            //                     });
+                            //                   },
+                            //                 ),
+                            //               ),
+                            //             ],
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       vatApplicable
+                            //           ? Padding(
+                            //               padding: const EdgeInsets.only(
+                            //                   left: 15.0, right: 15, top: 8),
+                            //               child: Container(
+                            //                 height: 48,
+                            //                 decoration: BoxDecoration(
+                            //                   color: Colors.white,
+                            //                   borderRadius:
+                            //                       BorderRadius.circular(5),
+                            //                   border: Border.all(
+                            //                       width: 1, color: Colors.grey),
+                            //                 ),
+                            //                 child: Padding(
+                            //                   padding: const EdgeInsets.only(
+                            //                       left: 15.0),
+                            //                   child: TextFormField(
+                            //                     cursorColor: DEFAULT_BLACK,
+                            //                     onChanged: (val) {
+                            //                       if (val != "") {
+                            //                         vatAmount = double.parse(val);
+                            //                       } else {
+                            //                         vatAmount = 0;
+                            //                       }
+                            //                     },
+                            //                     inputFormatters: [
+                            //                       FilteringTextInputFormatter
+                            //                           .digitsOnly
+                            //                     ],
+                            //                     keyboardType:
+                            //                         TextInputType.number,
+                            //                     decoration: InputDecoration(
+                            //                       suffix: Text(
+                            //                         " % ",
+                            //                         style: TextStyle(
+                            //                             color: Colors.black,
+                            //                             fontWeight:
+                            //                                 FontWeight.bold),
+                            //                       ),
+                            //                       border: InputBorder.none,
+                            //                       focusedBorder: InputBorder.none,
+                            //                       enabledBorder: InputBorder.none,
+                            //                       hintText: "VAT Amount",
+                            //                       hintStyle: TextStyle(
+                            //                         fontFamily: 'Rubik',
+                            //                         color: Colors.blueGrey,
+                            //                       ),
+                            //                     ),
+                            //                   ),
+                            //                 ),
+                            //               ),
+                            //             )
+                            //           : Container(),
+                            //     ],
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(
+                            //       left: 15.0, right: 15, top: 8),
+                            //   child: Text(
+                            //     "please_specify_if_customers_should_pay_for_additional_vat"
+                            //         .tr,
+                            //     style: TextStyle(
+                            //       fontSize: 12,
+                            //       fontFamily: "Rubik-VariableFont_wght",
+                            //       fontWeight: FontWeight.bold,
+                            //       color: DEFAULT_BLUE_DARK,
+                            //     ),
+                            //   ),
+                            // ),
+                            ///barcode
+                            // Padding(
+                            //   padding: const EdgeInsets.only(
+                            //       left: 15.0, right: 15, top: 8),
+                            //   child: Text(
+                            //     "barcode".tr,
+                            //     style: TextStyle(
+                            //       fontSize: 16,
+                            //       fontFamily: "Rubik-VariableFont_wght",
+                            //       fontWeight: FontWeight.bold,
+                            //       color: DEFAULT_BLUE_DARK,
+                            //     ),
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(
+                            //       left: 15.0, right: 15, top: 8),
+                            //   child: Container(
+                            //     width: MediaQuery.of(context).size.width,
+                            //     height: 48,
+                            //     child: mainProductBarCode == null
+                            //         ? RaisedButton(
+                            //             shape: RoundedRectangleBorder(
+                            //               borderRadius:
+                            //                   BorderRadius.circular(4.0),
+                            //             ),
+                            //             onPressed: () {
+                            //               scanBarcodeNormal(100);
+                            //             },
+                            //             child: Row(
+                            //               mainAxisAlignment:
+                            //                   MainAxisAlignment.center,
+                            //               children: [
+                            //                 Image(
+                            //                   height: 20,
+                            //                   image: AssetImage(
+                            //                       'images/icons/scanIcon.png'),
+                            //                 ),
+                            //                 SizedBox(width: 10),
+                            //                 Text(
+                            //                   'scan'.tr,
+                            //                   style: TextStyle(
+                            //                     fontFamily: 'Rubik',
+                            //                     // fontSize: 28,
+                            //                     fontWeight: FontWeight.bold,
+                            //                     // color: default_blue,
+                            //                   ),
+                            //                 )
+                            //               ],
+                            //             ),
+                            //             color: Color(0xffFAC02E),
+                            //           )
+                            //         : Container(
+                            //             decoration: BoxDecoration(
+                            //               color: Colors.black12,
+                            //               border: Border.all(),
+                            //               borderRadius: BorderRadius.circular(8),
+                            //             ),
+                            //             child: Padding(
+                            //               padding: const EdgeInsets.only(
+                            //                   left: 20.0, right: 20, top: 8),
+                            //               child: Row(
+                            //                 mainAxisAlignment:
+                            //                     MainAxisAlignment.spaceBetween,
+                            //                 children: [
+                            //                   Text(
+                            //                       "barcode_added_for_this_product"
+                            //                           .tr),
+                            //                   IconButton(
+                            //                     icon: Icon(Icons.edit),
+                            //                     onPressed: () {
+                            //                       scanBarcodeNormal(100);
+                            //                     },
+                            //                   )
+                            //                 ],
+                            //               ),
+                            //             ),
+                            //           ),
+                            //   ),
+                            // ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(
+                            //       left: 15.0, right: 15, top: 8),
+                            //   child: Text(
+                            //     "add_the_barcode_associated_with_the_product_by_pressing_scan_button"
+                            //         .tr,
+                            //     style: TextStyle(
+                            //       fontSize: 12,
+                            //       fontFamily: "Rubik-VariableFont_wght",
+                            //       fontWeight: FontWeight.bold,
+                            //       color: DEFAULT_BLUE_DARK,
+                            //     ),
+                            //   ),
+                            // ),
+                            SizedBox(height: 10),
+                            Padding(
+                            padding: const EdgeInsets.only(left: 15.0, right: 15),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  isAdvanced = !isAdvanced;
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFF1F1F1),
+                                    borderRadius: BorderRadius.only(topLeft: Radius.circular(8), topRight: Radius.circular(8), bottomLeft: Radius.circular(0), bottomRight: Radius.circular(0))
                                 ),
-                                Icon(
-                                  isAdvanced
-                                      ? Icons.arrow_drop_up_outlined
-                                      : Icons.arrow_drop_down,
-                                  color: DEFAULT_BLACK,
-                                  size: 35,
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 10),
-                          isAdvanced
-                              ? Padding(
-                                  padding: const EdgeInsets.only(
-                                    top: 10.0,
-                                    left: 15,
-                                    right: 15,
-                                    bottom: 20,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "product_attribute".tr,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                              color: DEFAULT_BLACK,
-                                              letterSpacing: 0,
-                                            ),
-                                          ),
-                                          Spacer(),
-                                          IconButton(
-                                              icon: Icon(
-                                                Icons.contact_support,
-                                                size: 35,
-                                                color: DEFAULT_BLUE,
-                                              ),
-                                              onPressed: () {
-                                                controller.advancedShowCase();
-                                                final String url =
-                                                    "https://www.youtube.com/watch?v=nZAuWwnwu0g&list=PLO7C_xRyL47emWQfUcp2-djjzgdlPGcqS&index=7";
-                                                final String title =
-                                                    "attribute_showcase".tr;
-                                                Navigator.of(context).push(
-                                                    TutorialOverlay(
-                                                        url, title));
-                                              })
-                                        ],
-                                      ),
-                                      attributeList.length != 0
-                                          ? ListView.builder(
-                                              shrinkWrap: true,
-                                              itemCount: attributeList.length,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int index) {
-                                                return Padding(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 8.0),
-                                                  child: Container(
-                                                    height: 45,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      border: Border.all(
-                                                        width: 0.5,
-                                                        color: Colors.black,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              4),
-                                                    ),
-                                                    child: Row(
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(
-                                                            left: 8.0,
-                                                            right: 10,
-                                                          ),
-                                                          child: Text(
-                                                            attributeList[index]
-                                                                .name,
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .symmetric(
-                                                            vertical: 10.0,
-                                                          ),
-                                                          child:
-                                                              VerticalDivider(
-                                                            color: Colors.black,
-                                                            thickness: 0.7,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 10,
-                                                        ),
-                                                        Text(
-                                                            attributeList[index]
-                                                                .value),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            )
-                                          : Container(),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          addAttribute(size);
-                                        },
-                                        child: Text(
-                                          "add_more_attribute_value".tr,
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: DEFAULT_BLUE,
-                                            letterSpacing: 0,
-                                          ),
+                                      Text(
+                                        "Advanced Option",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontFamily: "Roboto",
+                                          fontWeight: FontWeight.bold,
+                                          color: DEFAULT_BLACK,
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-
+                                      Icon(
+                                        isAdvanced
+                                            ? Icons.arrow_drop_up_outlined
+                                            : Icons.arrow_drop_down,
+                                        color: DEFAULT_BLACK,
+                                        size: 35,
+                                      )
                                     ],
                                   ),
-                                )
-                              : Container(),
-
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 10.0,
-                              left: 15,
-                              right: 15,
-                              bottom: 20,
-                            ),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 40,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4)),
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.black),
-                                onPressed: () {
-                                  saveProduct();
-                                },
-                                child: Text(
-                                  "save".tr,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontFamily: 'Rubik',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 18,
-                                  ),
                                 ),
                               ),
                             ),
-                          )
-                        ],
+                          ),
+
+                            isAdvanced
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                      top: 0.0,
+                                      left: 15,
+                                      right: 15,
+                                      bottom: 20,
+                                    ),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFF1F1F1),
+                                        borderRadius: BorderRadius.only(topLeft: Radius.circular(0), topRight: Radius.circular(0), bottomLeft: Radius.circular(8), bottomRight: Radius.circular(8))
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.only(top: 15.0),
+                                              child: Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Container(
+                                                      // width: size.width / 2,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment.start,
+                                                        children: [
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(
+                                                                left: 5.0, right: 5),
+                                                            child: Text(
+                                                              "category".tr,
+                                                              style: TextStyle(
+                                                                fontSize: 16,
+                                                                fontFamily:
+                                                                    "Roboto",
+                                                                fontWeight: FontWeight.bold,
+                                                                color: DEFAULT_BLUE_DARK,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          InkWell(
+                                                            onTap: () {
+                                                              _showCategoryDialog(
+                                                                  controller, size);
+                                                            },
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.only(
+                                                                  left: 5.0,
+                                                                  right: 5,
+                                                                  top: 8),
+                                                              child: Container(
+                                                                height: 50,
+                                                                decoration: BoxDecoration(
+                                                                  color: Colors.white,
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                          5),
+                                                                  border: Border.all(
+                                                                      width: 1,
+                                                                      color: Colors.grey),
+                                                                ),
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Flexible(
+                                                                      child: Padding(
+                                                                        padding:
+                                                                            const EdgeInsets
+                                                                                    .only(
+                                                                                left: 15.0),
+                                                                        child: Text(
+                                                                          selectedProductCategory ==
+                                                                                  null
+                                                                              ? "select_category"
+                                                                                  .tr
+                                                                              : selectedProductCategory
+                                                                                  .name,
+                                                                          overflow:
+                                                                              TextOverflow
+                                                                                  .ellipsis,
+                                                                          style: TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight
+                                                                                    .bold,
+                                                                            color:
+                                                                                DEFAULT_BLACK,
+                                                                            letterSpacing: 0,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                                  .only(
+                                                                              right: 8.0),
+                                                                      child: Icon(Icons
+                                                                          .arrow_drop_down),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Expanded(
+                                                    child: Container(
+                                                      // width: size.width / 2,
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment.start,
+                                                        children: [
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(
+                                                                left: 5.0, right: 5),
+                                                            child: Text(
+                                                              "sub_category".tr,
+                                                              style: TextStyle(
+                                                                fontSize: 16,
+                                                                fontFamily:
+                                                                    "Roboto",
+                                                                fontWeight: FontWeight.bold,
+                                                                color: DEFAULT_BLUE_DARK,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          InkWell(
+                                                            onTap: () {
+                                                              if (selectedProductCategory ==
+                                                                  null) {
+                                                                _showMaterialDialog(
+                                                                    "Please select Product Category first");
+                                                              } else {
+                                                                _showSubCategoryDialog(
+                                                                    selectedProductCategory,
+                                                                    size);
+                                                              }
+                                                            },
+                                                            child: Padding(
+                                                              padding: const EdgeInsets.only(
+                                                                  left: 5.0,
+                                                                  right: 5,
+                                                                  top: 8),
+                                                              child: Container(
+                                                                height: 48,
+                                                                decoration: BoxDecoration(
+                                                                  color: Colors.white,
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                          5),
+                                                                  border: Border.all(
+                                                                      width: 1,
+                                                                      color: Colors.grey),
+                                                                ),
+                                                                child: Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Flexible(
+                                                                      child: Padding(
+                                                                        padding:
+                                                                            const EdgeInsets
+                                                                                    .only(
+                                                                                left: 15.0),
+                                                                        child: Text(
+                                                                          selectedSubCat ==
+                                                                                  null
+                                                                              ? "select_sub_category"
+                                                                                  .tr
+                                                                              : selectedSubCat
+                                                                                  .name,
+                                                                          overflow:
+                                                                              TextOverflow
+                                                                                  .ellipsis,
+                                                                          style: TextStyle(
+                                                                            fontFamily:
+                                                                                'Roboto',
+                                                                            // fontSize: 18,
+                                                                            fontWeight:
+                                                                                FontWeight
+                                                                                    .bold,
+                                                                            color:
+                                                                                DEFAULT_BLACK,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                                  .only(
+                                                                              right: 8.0),
+                                                                      child: Icon(Icons
+                                                                          .arrow_drop_down),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Container(),
+
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                top: 10.0,
+                                left: 15,
+                                right: 15,
+                                bottom: 20,
+                              ),
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4)),
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      primary: Colors.black),
+                                  onPressed: () {
+                                    saveProduct();
+                                  },
+                                  child: Text(
+                                    "save".tr,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                       showCaseTap == null
                           ? Positioned(
@@ -2580,6 +2785,122 @@ class _AddProductsPageState extends State<AddProductsPage> {
                     )
                   ],
                 ));
+                Row(
+                                              children: [
+                                                Text(
+                                                  "product_attribute".tr,
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                    color: DEFAULT_BLACK,
+                                                    letterSpacing: 0,
+                                                  ),
+                                                ),
+                                                Spacer(),
+                                                IconButton(
+                                                    icon: Icon(
+                                                      Icons.contact_support,
+                                                      size: 35,
+                                                      color: DEFAULT_BLUE,
+                                                    ),
+                                                    onPressed: () {
+                                                      controller.advancedShowCase();
+                                                      final String url =
+                                                          "https://www.youtube.com/watch?v=nZAuWwnwu0g&list=PLO7C_xRyL47emWQfUcp2-djjzgdlPGcqS&index=7";
+                                                      final String title =
+                                                          "attribute_showcase".tr;
+                                                      Navigator.of(context).push(
+                                                          TutorialOverlay(
+                                                              url, title));
+                                                    })
+                                              ],
+                                            ),
+                                            attributeList.length != 0
+                                                ? ListView.builder(
+                                                    shrinkWrap: true,
+                                                    itemCount: attributeList.length,
+                                                    itemBuilder:
+                                                        (BuildContext context,
+                                                            int index) {
+                                                      return Padding(
+                                                        padding: const EdgeInsets
+                                                            .symmetric(vertical: 8.0),
+                                                        child: Container(
+                                                          height: 45,
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.white,
+                                                            border: Border.all(
+                                                              width: 0.5,
+                                                              color: Colors.black,
+                                                            ),
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                    4),
+                                                          ),
+                                                          child: Row(
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .only(
+                                                                  left: 8.0,
+                                                                  right: 10,
+                                                                ),
+                                                                child: Text(
+                                                                  attributeList[index]
+                                                                      .name,
+                                                                  style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .symmetric(
+                                                                  vertical: 10.0,
+                                                                ),
+                                                                child:
+                                                                    VerticalDivider(
+                                                                  color: Colors.black,
+                                                                  thickness: 0.7,
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                width: 10,
+                                                              ),
+                                                              Text(
+                                                                  attributeList[index]
+                                                                      .value),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  )
+                                                : Container(),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            InkWell(
+                                              onTap: () {
+                                                addAttribute(size);
+                                              },
+                                              child: Text(
+                                                "add_more_attribute_value".tr,
+                                                style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: DEFAULT_BLUE,
+                                                  letterSpacing: 0,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
       }*/
   }
 }

@@ -330,6 +330,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.8"
+  dotted_border:
+    dependency: "direct main"
+    description:
+      name: dotted_border
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.0"
   expressions:
     dependency: transitive
     description:
@@ -872,13 +879,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.11"
-  material_color_utilities:
-    dependency: transitive
-    description:
-      name: material_color_utilities
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.3"
   math_expressions:
     dependency: "direct main"
     description:
@@ -936,7 +936,7 @@ packages:
     source: hosted
     version: "1.8.0"
   path_drawing:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_drawing
       url: "https://pub.dartlang.org"
@@ -1338,7 +1338,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.8"
+    version: "0.4.3"
   timezone:
     dependency: transitive
     description:
