@@ -58,7 +58,9 @@ class ProductDetails extends GetView<ProductDetailsController> {
                   children: [
                     Text('details_of_product'.tr, style: TextStyle(fontFamily: 'Roboto', color: Color(0xFF185ADB),fontSize: 18, fontWeight: FontWeight.w700),),
                     Spacer(),
-                    InkWell(onTap: (){}, child: SvgPicture.asset('images/svg_image/edit.svg'),),
+                    InkWell(onTap: (){
+                      Get.to(EditProductPage());
+                    }, child: SvgPicture.asset('images/svg_image/edit.svg'),),
                     SizedBox(width: 20,),
                     InkWell(onTap: (){}, child: SvgPicture.asset('images/svg_image/delete.svg'),)
                   ],
