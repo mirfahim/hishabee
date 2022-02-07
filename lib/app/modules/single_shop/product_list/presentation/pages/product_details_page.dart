@@ -57,7 +57,9 @@ class ProductDetails extends GetView<ProductDetailsController> {
                   children: [
                     Text('details_of_product'.tr, style: TextStyle(fontFamily: 'Roboto', color: Color(0xFF185ADB),fontSize: 18, fontWeight: FontWeight.w700),),
                     Spacer(),
-                    InkWell(onTap: (){}, child: SvgPicture.asset('images/svg_image/edit.svg'),),
+                    InkWell(onTap: (){
+
+                    }, child: SvgPicture.asset('images/svg_image/edit.svg'),),
                     SizedBox(width: 20,),
                     InkWell(onTap: (){}, child: SvgPicture.asset('images/svg_image/delete.svg'),)
                   ],
@@ -643,7 +645,8 @@ class ProductDetails extends GetView<ProductDetailsController> {
     productCategoryList
         .forEach((Category c) => c.subCategory.forEach((SubCategory sc) {
               if (sc.id == product.subCategory) {
-                catagory = sc.name;
+                catagory = sc.name ;
+                print("my cat name is ${sc.name}");
               }
             }));
     showModalBottomSheet<void>(
@@ -653,36 +656,7 @@ class ProductDetails extends GetView<ProductDetailsController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Container(
-              //   height: size.height * 0.15,
-              //   width: size.width,
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(8),
-              //   ),
-              //   child:
-              //       product.imageUrl == null || product.imageUrl == "null"
-              //           ? Padding(
-              //               padding: const EdgeInsets.all(8.0),
-              //               child: Center(
-              //                 child: Image.asset(
-              //                   'images/hishabeeLogo.png',
-              //                   fit: BoxFit.fill,
-              //                 ),
-              //               ),
-              //             )
-              //           : Center(
-              //               child: CachedNetworkImage(
-              //                 imageUrl: product.imageUrl,
-              //                 placeholder: (context, url) =>
-              //                     CircularProgressIndicator(),
-              //                 errorWidget: (context, url, error) => Icon(
-              //                   Icons.error,
-              //                   color: Colors.red,
-              //                 ),
-              //                 fit: BoxFit.fill,
-              //               ),
-              //             ),
-              // ),
+
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10.0),
                 child: Row(
@@ -704,7 +678,7 @@ class ProductDetails extends GetView<ProductDetailsController> {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 4.0),
                           child: Text(
-                            '${catagory}',
+                            catagory == null ? "No data" :'$catagory' ,
                             style: TextStyle(
                               fontFamily: 'Rubik',
                               // fontSize: 28,
