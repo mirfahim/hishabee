@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_aware_dialog/flutter_keyboard_aware_dialog.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/category_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
@@ -41,351 +42,709 @@ class QuickSell extends GetView<SellController> {
           },
           icon: Icon(Icons.arrow_back),
         ),
-        title: Text('quick_sell'.tr),
-        backgroundColor: DEFAULT_YELLOW_BG,
+        titleSpacing: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: InkWell(onTap: (){},child: SvgPicture.asset('images/svg_image/help.svg', height: 32,)),
+          )
+        ],
+        title: Text('quick_sell'.tr,style: TextStyle(fontFamily: 'Roboto',),),
+        // backgroundColor: DEFAULT_YELLOW_BG,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            // height: size.height + 30,
-            // width: size.width,
-            child:  Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 10.0, vertical: 10),
-              child: Form(
-                key: controller.formKey,
-                child: Column(
-                  children: [
-                    Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+      body: SingleChildScrollView(
+        child: Container(
+          // height: size.height + 30,
+          // width: size.width,
+          child:  Padding(
+            padding: const EdgeInsets.symmetric(
+                horizontal: 10.0, vertical: 10),
+            child: Form(
+              key: controller.formKey,
+              child: Column(
+                children: [
+                  Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InkWell(
+                          onTap: (){
+                            controller.sellType.value = 0;
+                          },
+                          child: Obx(
+                                ()=> Container(
+                              height: 50,
+                              width: 120,
+                              decoration: BoxDecoration(
+                                  color: controller.sellType.value == 0 ? DEFAULT_BLUE : Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                      offset: Offset(0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 10.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Image.asset('images/assets/quick_sell.png'),
+                                    Text(
+                                      'quick_sell'.tr,
+                                      style: TextStyle(
+                                          color:controller.sellType.value == 1 ? DEFAULT_BLUE : Colors.white,
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        InkWell(
+                          onTap: (){
+                            controller.sellType.value = 1;
+                          },
+                          child: Obx(
+                                ()=> Container(
+                              decoration: BoxDecoration(
+                                  color:controller.sellType.value == 1 ? DEFAULT_BLUE : Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 5,
+                                      blurRadius: 7,
+                                      offset: Offset(0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: [
+                                    SvgPicture.asset('images/svg_image/product_details.svg',height: 30,width: 30,),
+                                    SizedBox(width: 5,),
+                                    Text(
+                                      'product_list'.tr,
+                                      style: TextStyle(
+                                          color: controller.sellType.value == 0 ? DEFAULT_BLUE : Colors.white,
+                                          fontFamily: 'Roboto',
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ]
+                  ),
+                  Obx(
+                          ()=>controller.sellType.value == 0 ?
+                      Column(
                         children: [
-                          InkWell(
-                            onTap: (){
-                              controller.sellType.value = 0;
-                            },
-                            child: Obx(
-                                  ()=> Container(
-                                height: 50,
-                                width: 120,
-                                decoration: BoxDecoration(
-                                    color: controller.sellType.value == 0 ? DEFAULT_BLUE : Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 5,
-                                        blurRadius: 7,
-                                        offset: Offset(0, 3), // changes position of shadow
-                                      ),
-                                    ],
-                                    borderRadius: BorderRadius.circular(4)),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(right: 10.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Image.asset('images/assets/quick_sell.png'),
-                                      Text(
-                                        'quick_sell'.tr,
-                                        style: TextStyle(
-                                            color:controller.sellType.value == 1 ? DEFAULT_BLUE : Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Spacer(),
-                          InkWell(
-                            onTap: (){
-                              controller.sellType.value = 1;
-                            },
-                            child: Obx(
-                                  ()=> Container(
-                                decoration: BoxDecoration(
-                                    color:controller.sellType.value == 1 ? DEFAULT_BLUE : Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.withOpacity(0.5),
-                                        spreadRadius: 5,
-                                        blurRadius: 7,
-                                        offset: Offset(0, 3), // changes position of shadow
-                                      ),
-                                    ],
-                                    borderRadius: BorderRadius.circular(4)),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Image.asset('images/shop_features/productList.png',height: 30,width: 30,),
-                                      Text(
-                                        'product_list'.tr,
-                                        style: TextStyle(
-                                            color: controller.sellType.value == 0 ? DEFAULT_BLUE : Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ]
-                    ),
-                    Obx(
-                            ()=>controller.sellType.value == 0 ?
-                        Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 20.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      _selectDate(context);
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.transparent,
-                                          border: Border.all(
-                                              color: DEFAULT_BLACK, width: 1),
-                                          borderRadius: BorderRadius.circular(10)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Icon(Icons.calendar_today_rounded),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Obx(
-                                                  () => Text(
-                                                DateFormat('dd MMM').format(
-                                                    controller
-                                                        .selectedStartDate.value),
-                                                style: TextStyle(
-                                                    color: DEFAULT_BLACK,
-                                                    fontWeight: FontWeight.bold),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        _selectDate(context);
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            border: Border.all(
+                                                color: DEFAULT_BLACK, width: 1),
+                                            borderRadius: BorderRadius.circular(10)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                            children: [
+                                              SvgPicture.asset('images/svg_image/calender.svg'),
+                                              Obx(
+                                                    () => Text(
+                                                  DateFormat('dd MMMM').format(
+                                                      controller
+                                                          .selectedStartDate.value),
+                                                  style: TextStyle(
+                                                      color: DEFAULT_BLACK,
+                                                      fontFamily: 'Roboto',),
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 20,
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(0.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        _selectDate(context);
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            border: Border.all(
+                                                color: DEFAULT_BLACK, width: 1),
+                                            borderRadius: BorderRadius.circular(10)),
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                            children: [
+                                              SvgPicture.asset('images/svg_image/receipt.svg'),
+                                              SizedBox(width: 5,),
+                                              Text('add_receipt'.tr,
+                                                style: TextStyle(
+                                                    color: DEFAULT_BLACK,
+                                                    fontFamily: 'Roboto',),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ],
+                                ),
+                                Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        // DropdownButton(
+                                        //     items: [
+                                        //       DropdownMenuItem(
+                                        //         child: Row(
+                                        //           children: [
+                                        //             Checkbox(value: true, onChanged: (value){
+                                        //
+                                        //             }),
+                                        //             Text('Free SMS')
+                                        //           ],
+                                        //         ),
+                                        //       )], onChanged: (value){});
+                                      },
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.transparent,
+                                                border: Border.all(
+                                                    color: DEFAULT_BLACK, width: 1),
+                                                borderRadius: BorderRadius.circular(10)),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                                children: [
+                                                  SvgPicture.asset('images/svg_image/add_button_sell.svg'),
+
+                                                  Text('add_input'.tr,
+                                                    style: TextStyle(
+                                                        color: DEFAULT_BLACK,
+                                                        fontFamily: 'Roboto',),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          // DropdownButton(
+                                          //     items: [
+                                          //       DropdownMenuItem(
+                                          //         child: Row(
+                                          //           children: [
+                                          //             Checkbox(value: true, onChanged: (value){
+                                          //
+                                          //             }),
+                                          //             Text('Free SMS')
+                                          //           ],
+                                          //         ),
+                                          //       )], onChanged: (value){})
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15.0),
+                            child: TextFormField(
+                              onSaved: (value){
+                                controller.amount.value = int.parse(value);
+                              },
+                              keyboardType: TextInputType.number,
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                              ],
+                              decoration: InputDecoration(
+                                labelText: 'Cash',
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: DEFAULT_BLACK, width: 1),
+                                    borderRadius: BorderRadius.circular(4)),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 15.0),
-                              child: TextFormField(
+
+                          ),
+                          Obx(
+                                () => controller.customerField.value
+                                ? Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15.0),
+                              child:TextFormField(
                                 onSaved: (value){
-                                  controller.amount.value = int.parse(value);
+                                  controller.customerPhone.value = value;
                                 },
                                 keyboardType: TextInputType.number,
                                 inputFormatters: [
                                   FilteringTextInputFormatter.allow(RegExp('[0-9]')),
                                 ],
                                 decoration: InputDecoration(
-                                  labelText: 'Cash',
+
+                                  labelText: 'Customer Mobile Number',
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           color: DEFAULT_BLACK, width: 1),
-                                      borderRadius: BorderRadius.circular(4)),
+                                      borderRadius:
+                                      BorderRadius.circular(4)),
                                 ),
                               ),
-
-                            ),
-                            Obx(
-                                  () => controller.customerField.value
-                                  ? Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 15.0),
-                                child:TextFormField(
-                                  onSaved: (value){
-                                    controller.customerPhone.value = value;
-                                  },
-                                  keyboardType: TextInputType.number,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(RegExp('[0-9]')),
-                                  ],
-                                  decoration: InputDecoration(
-
-                                    labelText: 'Customer Mobile Number',
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: DEFAULT_BLACK, width: 1),
-                                        borderRadius:
-                                        BorderRadius.circular(4)),
-                                  ),
-                                ),
-                              )
-                                  : Container(),
-                            ),
-                            Obx(
-                                  () => controller.profitField.value
-                                  ? Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 15.0),
-                                child: TextFormField(
-                                  onSaved: (value){
-                                    controller.profit.value = value.isEmpty ? 0 :  int.parse(value);
-                                  },
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(RegExp('[0-9]')),
-                                  ],
-                                  decoration: InputDecoration(
-                                    labelText: 'Profit',
-                                    border: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                            color: DEFAULT_BLACK, width: 1),
-                                        borderRadius:
-                                        BorderRadius.circular(4)),
-                                  ),
-                                ),
-                              )
-                                  : Container(),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 15.0),
+                            )
+                                : Container(),
+                          ),
+                          Obx(
+                                () => controller.profitField.value
+                                ? Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15.0),
                               child: TextFormField(
-
                                 onSaved: (value){
-                                  controller.productDetails.value = value;
+                                  controller.profit.value = value.isEmpty ? 0 :  int.parse(value);
                                 },
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(RegExp('[0-9]')),
+                                ],
                                 decoration: InputDecoration(
-                                  labelText: 'Details About Product',
+                                  labelText: 'Profit',
                                   border: OutlineInputBorder(
                                       borderSide: BorderSide(
                                           color: DEFAULT_BLACK, width: 1),
-                                      borderRadius: BorderRadius.circular(4)),
+                                      borderRadius:
+                                      BorderRadius.circular(4)),
                                 ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            ElevatedButton(
-                              onPressed: () {
-                                controller.quickSell();
+                            )
+                                : Container(),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 15.0),
+                            child: TextFormField(
+
+                              onSaved: (value){
+                                controller.productDetails.value = value;
                               },
-                              child: Center(
-                                child: Text(
-                                  'received'.tr,
-                                  textAlign: TextAlign.center,
-                                  style:
-                                  TextStyle(color: Colors.white, fontSize: 18),
-                                ),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                primary: DEFAULT_BLUE,
-                                fixedSize:
-                                Size(MediaQuery.of(context).size.width, 50),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
+                              decoration: InputDecoration(
+                                labelText: 'Details About Product',
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: DEFAULT_BLACK, width: 1),
+                                    borderRadius: BorderRadius.circular(4)),
                               ),
                             ),
-                          ],
-                        ) : Stack(
-                          children: [
-                            Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10.0,bottom: 10),
-                                  child: Container(
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(4),
-                                      border: Border.all(
-                                          width: 1, color: Colors.grey),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Icon(
-                                          Icons.search,
-                                          color: DEFAULT_BLUE,
-                                          size: 28,
-                                        ),
-                                        Expanded(
-                                          flex: 2,
-                                          child: Padding(
-                                            padding:
-                                            const EdgeInsets.only(left: 5.0),
-                                            child: Container(
-                                              child: TextField(
-                                                onChanged: (value) {
-                                                  controller.searchProduct(value);
-                                                },
-                                                decoration: InputDecoration(
-                                                  border: InputBorder.none,
-                                                  focusedBorder: InputBorder.none,
-                                                  enabledBorder: InputBorder.none,
-                                                  hintText: "search_product".tr,
-                                                  hintStyle: TextStyle(
-                                                    color: Colors.grey,
-                                                  ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              controller.quickSell();
+                            },
+                            child: Center(
+                              child: Text(
+                                'received'.tr,
+                                textAlign: TextAlign.center,
+                                style:
+                                TextStyle(color: Colors.white, fontSize: 18),
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: DEFAULT_BLUE,
+                              fixedSize:
+                              Size(MediaQuery.of(context).size.width, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ) : Stack(
+                        children: [
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10.0,bottom: 10),
+                                child: Container(
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(
+                                        width: 1, color: Colors.grey),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Icon(
+                                        Icons.search,
+                                        color: DEFAULT_BLUE,
+                                        size: 28,
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Padding(
+                                          padding:
+                                          const EdgeInsets.only(left: 5.0),
+                                          child: Container(
+                                            child: TextField(
+                                              onChanged: (value) {
+                                                controller.searchProduct(value);
+                                              },
+                                              decoration: InputDecoration(
+                                                border: InputBorder.none,
+                                                focusedBorder: InputBorder.none,
+                                                enabledBorder: InputBorder.none,
+                                                hintText: "search_product".tr,
+                                                hintStyle: TextStyle(
+                                                  color: Colors.grey,
                                                 ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 12.0),
-                                          child: VerticalDivider(
-                                            thickness: 0.8,
-                                            color: Colors.black,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 12.0),
+                                        child: VerticalDivider(
+                                          thickness: 0.8,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 12.0),
+                                        child: VerticalDivider(
+                                          thickness: 0.8,
+                                          color: Colors.black,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        // flex: 1,
+                                        child: InkWell(
+                                          onTap: () {
+                                            _showCategoryDialog(
+                                                controller.categoryList,
+                                                size,
+                                                context);
+                                          },
+                                          child: Container(
+                                            width: size.width / 5,
+                                            child: Row(
+                                              children: [
+                                                Image(
+                                                  height: 15,
+                                                  image: AssetImage(
+                                                      'images/icons/filterIcon.png'),
+                                                ),
+                                                SizedBox(width: 5),
+                                                Text(
+                                                  'Filter',
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                    'Rubik-VariableFont_wght',
+                                                    fontWeight: FontWeight.bold,
+                                                    color: DEFAULT_BLUE,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 12.0),
-                                          child: VerticalDivider(
-                                            thickness: 0.8,
-                                            color: Colors.black,
-                                          ),
-                                        ),
-                                        Expanded(
-                                          // flex: 1,
-                                          child: InkWell(
-                                            onTap: () {
-                                              _showCategoryDialog(
-                                                  controller.categoryList,
-                                                  size,
-                                                  context);
-                                            },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                height: size.height -260,
+                                child: MediaQuery.removePadding(
+                                  context: context,
+                                  removeTop: true,
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: controller.searchList.length,
+                                      itemBuilder: (BuildContext context, int index) {
+                                        Product product = controller.searchList[
+                                        controller.searchList.length - 1 - index];
+                                        return InkWell(
+                                          onTap: () {
+                                            controller.animateButton();
+                                            controller.addToCart(product);
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              border: Border(
+                                                left:
+                                                BorderSide(width: 1.0, color: Colors.grey),
+                                                right:
+                                                BorderSide(width: 1.0, color: Colors.grey),
+                                                bottom:
+                                                BorderSide(width: 1.0, color: Colors.grey),
+                                              ),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black12,
+                                                  spreadRadius: 1,
+                                                  blurRadius: 3,
+                                                  offset: Offset(
+                                                      0, 3), // changes position of shadow
+                                                ),
+                                              ],
+                                            ),
                                             child: Container(
-                                              width: size.width / 5,
+                                              margin: EdgeInsets.all(5),
                                               child: Row(
                                                 children: [
-                                                  Image(
-                                                    height: 15,
-                                                    image: AssetImage(
-                                                        'images/icons/filterIcon.png'),
-                                                  ),
-                                                  SizedBox(width: 5),
-                                                  Text(
-                                                    'Filter',
-                                                    style: TextStyle(
-                                                      fontFamily:
-                                                      'Rubik-VariableFont_wght',
-                                                      fontWeight: FontWeight.bold,
-                                                      color: DEFAULT_BLUE,
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        left: 8.0, top: 5, bottom: 5),
+                                                    child: Container(
+                                                      child: product.imageUrl != null
+                                                          ? ClipRRect(
+                                                        borderRadius:
+                                                        BorderRadius.circular(40),
+                                                        child: CachedNetworkImage(
+                                                          height: 50,
+                                                          width: 50,
+                                                          imageUrl: product.imageUrl,
+                                                          placeholder: (context, url) =>
+                                                              CircularProgressIndicator(),
+                                                          errorWidget:
+                                                              (context, url, error) =>
+                                                              Icon(
+                                                                Icons.error,
+                                                                color: Colors.red,
+                                                              ),
+                                                          fit: BoxFit.fill,
+                                                        ),
+                                                      )
+                                                          : Center(
+                                                        child: Image.asset(
+                                                            'images/hishabeeLogo.png',
+                                                            height: 50,
+                                                            width: 50),
+                                                      ),
                                                     ),
                                                   ),
+                                                  Expanded(
+                                                    child: Container(
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                        children: [
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(
+                                                                left: 8.0),
+                                                            child: Container(
+                                                              width: size.width * 0.3,
+                                                              child: Text(
+                                                                product.name,
+                                                                style: TextStyle(
+                                                                  fontFamily: 'Rubik',
+                                                                  // fontSize: 28,
+                                                                  fontWeight: FontWeight.bold,
+                                                                  color: DEFAULT_BLACK,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding: const EdgeInsets.only(
+                                                                left: 8.0),
+                                                            child: Container(
+                                                              child: Text(
+                                                                product.stock > 0
+                                                                    ? ""
+                                                                    : 'Out of Stock',
+                                                                style: TextStyle(
+                                                                  fontFamily: 'Rubik',
+                                                                  // fontSize: 28,
+                                                                  color: Colors.red,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        left: 8.0, right: 8),
+                                                    child: Container(
+                                                      child: Text(
+                                                        '৳ ${product.sellingPrice}',
+                                                        style: TextStyle(
+                                                          fontFamily: 'Rubik',
+                                                          fontWeight: FontWeight.bold,
+                                                          color: DEFAULT_BLUE,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(right: 8.0),
+                                                    child: Container(
+                                                      height: 35,
+                                                      width: 35,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius: BorderRadius.circular(8),
+                                                        color: DEFAULT_BLUE,
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.shopping_cart_rounded,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  )
                                                 ],
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Positioned(
+                            left: 0,
+                            bottom: 0,
+                            right: 0,
+                            child: InkWell(
+                              onTap: () {
+                                Get.to(SellCartPage(),binding: SellBinding());
+                              },
+                              child: Container(
+                                width: size.width,
+                                decoration: BoxDecoration(
+                                    color: DEFAULT_YELLOW_BG,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(15),
+                                      topRight: Radius.circular(15),
+                                    )),
+                                child: Container(
+                                  width: size.width,
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 15.0),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          "tk".tr,
+                                          style: TextStyle(
+                                            fontFamily: 'Rubik',
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                            color: DEFAULT_BLUE,
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 15,
+                                        ),
+                                        Obx(
+                                              () => Text(
+                                            "${controller.totalCartProductPrice.value}",
+                                            style: TextStyle(
+                                              fontFamily: 'Rubik',
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: DEFAULT_BLUE,
+                                            ),
+                                          ),
+                                        ),
+                                        Spacer(),
+                                        Obx(
+                                              () => ShakeAnimatedWidget(
+                                            enabled: controller
+                                                .animate.value,
+                                            duration:
+                                            Duration(milliseconds: 100),
+                                            shakeAngle: Rotation.deg(z: 15),
+                                            curve: Curves.linear,
+                                            child: Container(
+                                              height: 40,
+                                              width: 70,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(
+                                                      8),
+                                                  color: Colors.white),
+                                              child: InkWell(
+                                                onTap: () {
+                                                  // Get.toNamed(SellPageRoutes.SELL_CART_PAGE);
+                                                  Get.to(SellCartPage(),binding: SellBinding());
+                                                },
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceAround,
+                                                  children: [
+                                                    Obx(
+                                                          () => Text(
+                                                        "${controller.cart.length}",
+                                                        style: TextStyle(
+                                                          fontFamily:
+                                                          'Rubik',
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                          FontWeight
+                                                              .bold,
+                                                          color:
+                                                          DEFAULT_BLUE,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Icon(
+                                                      Icons
+                                                          .arrow_forward_ios_sharp,
+                                                      color: DEFAULT_BLUE,
+                                                      size: 20,
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -394,271 +753,13 @@ class QuickSell extends GetView<SellController> {
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  height: size.height -260,
-                                  child: MediaQuery.removePadding(
-                                    context: context,
-                                    removeTop: true,
-                                    child: ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: controller.searchList.length,
-                                        itemBuilder: (BuildContext context, int index) {
-                                          Product product = controller.searchList[
-                                          controller.searchList.length - 1 - index];
-                                          return InkWell(
-                                            onTap: () {
-                                              controller.animateButton();
-                                              controller.addToCart(product);
-                                            },
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                border: Border(
-                                                  left:
-                                                  BorderSide(width: 1.0, color: Colors.grey),
-                                                  right:
-                                                  BorderSide(width: 1.0, color: Colors.grey),
-                                                  bottom:
-                                                  BorderSide(width: 1.0, color: Colors.grey),
-                                                ),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black12,
-                                                    spreadRadius: 1,
-                                                    blurRadius: 3,
-                                                    offset: Offset(
-                                                        0, 3), // changes position of shadow
-                                                  ),
-                                                ],
-                                              ),
-                                              child: Container(
-                                                margin: EdgeInsets.all(5),
-                                                child: Row(
-                                                  children: [
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(
-                                                          left: 8.0, top: 5, bottom: 5),
-                                                      child: Container(
-                                                        child: product.imageUrl != null
-                                                            ? ClipRRect(
-                                                          borderRadius:
-                                                          BorderRadius.circular(40),
-                                                          child: CachedNetworkImage(
-                                                            height: 50,
-                                                            width: 50,
-                                                            imageUrl: product.imageUrl,
-                                                            placeholder: (context, url) =>
-                                                                CircularProgressIndicator(),
-                                                            errorWidget:
-                                                                (context, url, error) =>
-                                                                Icon(
-                                                                  Icons.error,
-                                                                  color: Colors.red,
-                                                                ),
-                                                            fit: BoxFit.fill,
-                                                          ),
-                                                        )
-                                                            : Center(
-                                                          child: Image.asset(
-                                                              'images/hishabeeLogo.png',
-                                                              height: 50,
-                                                              width: 50),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Container(
-                                                        child: Column(
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment.start,
-                                                          children: [
-                                                            Padding(
-                                                              padding: const EdgeInsets.only(
-                                                                  left: 8.0),
-                                                              child: Container(
-                                                                width: size.width * 0.3,
-                                                                child: Text(
-                                                                  product.name,
-                                                                  style: TextStyle(
-                                                                    fontFamily: 'Rubik',
-                                                                    // fontSize: 28,
-                                                                    fontWeight: FontWeight.bold,
-                                                                    color: DEFAULT_BLACK,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Padding(
-                                                              padding: const EdgeInsets.only(
-                                                                  left: 8.0),
-                                                              child: Container(
-                                                                child: Text(
-                                                                  product.stock > 0
-                                                                      ? ""
-                                                                      : 'Out of Stock',
-                                                                  style: TextStyle(
-                                                                    fontFamily: 'Rubik',
-                                                                    // fontSize: 28,
-                                                                    color: Colors.red,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            )
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(
-                                                          left: 8.0, right: 8),
-                                                      child: Container(
-                                                        child: Text(
-                                                          '৳ ${product.sellingPrice}',
-                                                          style: TextStyle(
-                                                            fontFamily: 'Rubik',
-                                                            fontWeight: FontWeight.bold,
-                                                            color: DEFAULT_BLUE,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding: const EdgeInsets.only(right: 8.0),
-                                                      child: Container(
-                                                        height: 35,
-                                                        width: 35,
-                                                        decoration: BoxDecoration(
-                                                          borderRadius: BorderRadius.circular(8),
-                                                          color: DEFAULT_BLUE,
-                                                        ),
-                                                        child: Icon(
-                                                          Icons.shopping_cart_rounded,
-                                                          color: Colors.white,
-                                                        ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          );
-                                        }),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Positioned(
-                              left: 0,
-                              bottom: 0,
-                              right: 0,
-                              child: InkWell(
-                                onTap: () {
-                                  Get.to(SellCartPage(),binding: SellBinding());
-                                },
-                                child: Container(
-                                  width: size.width,
-                                  decoration: BoxDecoration(
-                                      color: DEFAULT_YELLOW_BG,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(15),
-                                        topRight: Radius.circular(15),
-                                      )),
-                                  child: Container(
-                                    width: size.width,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15.0),
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            "tk".tr,
-                                            style: TextStyle(
-                                              fontFamily: 'Rubik',
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: DEFAULT_BLUE,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 15,
-                                          ),
-                                          Obx(
-                                                () => Text(
-                                              "${controller.totalCartProductPrice.value}",
-                                              style: TextStyle(
-                                                fontFamily: 'Rubik',
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                color: DEFAULT_BLUE,
-                                              ),
-                                            ),
-                                          ),
-                                          Spacer(),
-                                          Obx(
-                                                () => ShakeAnimatedWidget(
-                                              enabled: controller
-                                                  .animate.value,
-                                              duration:
-                                              Duration(milliseconds: 100),
-                                              shakeAngle: Rotation.deg(z: 15),
-                                              curve: Curves.linear,
-                                              child: Container(
-                                                height: 40,
-                                                width: 70,
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        8),
-                                                    color: Colors.white),
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    // Get.toNamed(SellPageRoutes.SELL_CART_PAGE);
-                                                    Get.to(SellCartPage(),binding: SellBinding());
-                                                  },
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                    children: [
-                                                      Obx(
-                                                            () => Text(
-                                                          "${controller.cart.length}",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                            'Rubik',
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold,
-                                                            color:
-                                                            DEFAULT_BLUE,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Icon(
-                                                        Icons
-                                                            .arrow_forward_ios_sharp,
-                                                        color: DEFAULT_BLUE,
-                                                        size: 20,
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ),
                               ),
                             ),
-                          ],
-                        )
-                    )
-                  ],
-                ),
+                          ),
+                        ],
+                      )
+                  )
+                ],
               ),
             ),
           ),
@@ -691,6 +792,20 @@ class QuickSell extends GetView<SellController> {
     if (picked != null && picked != controller.selectedStartDate.value) {
       controller.selectedStartDate.value = picked;
     }
+  }
+  _addInput() async {
+    return DropdownButton(
+        items: [
+      DropdownMenuItem(
+      child: Row(
+        children: [
+          Checkbox(value: true, onChanged: (value){
+
+          }),
+          Text('Free SMS')
+        ],
+      ),
+    )], onChanged: (value){});
   }
   _showCategoryDialog(
       List<Category> productCategoryList, Size size, BuildContext context) {
