@@ -341,6 +341,7 @@ class SmsCreatePage extends GetResponsiveView {
                     padding: EdgeInsets.only(left: 10, right: 10),
                     child: ElevatedButton(
                       onPressed: () async {
+
                         await _smsController.getAllContacts();
                         Future.delayed(Duration.zero, () async {
                           Navigator.of(context).push(PageRouteBuilder(

@@ -1,5 +1,10 @@
+
+
 import 'package:contacts_service/contacts_service.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/data/repositories/auth_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/data_sources/shop_provider.dart';
@@ -55,8 +60,38 @@ class SmsController extends GetxController {
   }
 
   getAllContacts() async {
-    List<Contact> _contacts = await ContactsService.getContacts();
-    contacts.value = _contacts.toList();
+
+
+    var status = await Permission.contacts.request();
+    if(status.isGranted) {
+      List<Contact> _contacts = await ContactsService.getContacts();
+      contacts.value = _contacts.toList();
+      List allContact =  _contacts.toList();
+      print("my all contact are $allContact");
+    } else if(status.isDenied){
+      List<Contact> _contacts = await ContactsService.getContacts();
+      contacts.value = _contacts.toList();
+    }else {
+      showDialog(
+
+          builder: (BuildContext context) => CupertinoAlertDialog(
+            title: Text('Contacts list permission'),
+            content: Text(
+                'This app needs contact list access'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('Deny'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              CupertinoDialogAction(
+                child: Text('Settings'),
+                onPressed: () => openAppSettings(),
+              ),
+            ],
+          ));
+    }
+
+
   }
 
   Future<dynamic> getAllCustomerContact(String shopId) {

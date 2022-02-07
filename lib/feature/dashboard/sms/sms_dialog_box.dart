@@ -6,6 +6,7 @@ class SmsCustomDialogContacts extends StatelessWidget {
   @override
   SmsController _smsController = SmsController();
   Widget build(BuildContext context) {
+    print("my contact list is ${_smsController.contacts.length}");
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Dialog(
@@ -69,7 +70,9 @@ class SmsCustomDialogContacts extends StatelessWidget {
                 ListView.builder(
                   itemCount: _smsController.contacts.length,
                   shrinkWrap: true,
-                  itemBuilder: (BuildContext context, index) => Container(
+                  itemBuilder: (BuildContext context, index) {
+                    print("my contact list is ${_smsController.contacts.length}");
+                    return Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.grey),
@@ -79,7 +82,8 @@ class SmsCustomDialogContacts extends StatelessWidget {
                       subtitle: Text(
                           '${_smsController.contacts[index].phones.single}'),
                     ),
-                  ),
+                  );
+                  },
                 ),
                 Expanded(
                   child: Align(
