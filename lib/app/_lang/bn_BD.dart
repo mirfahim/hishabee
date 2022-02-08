@@ -250,7 +250,7 @@ const bn_BD = {
   'add_attribute': 'পণ্যেটির বৈশিষ্ট্য যুক্ত করুন',
   'product_image_optional': 'পণ্যেটির ছবি (না দিলেও হবে)',
   'add_a_suitable_product_image': 'পণ্যেটির একটি উপযুক্ত ছবি যুক্ত করুন',
-  'advance_options': 'অভিজ্ঞদের জন্য অপশন',
+  'advance_options': 'এডভ্যান্সড অপশন',
   'variation': 'পণ্যের ভিন্নতা',
   'add_more_variation': 'আরও ভিন্নতা যুক্ত করুন',
   'cancel': 'বাতিল করুন',
