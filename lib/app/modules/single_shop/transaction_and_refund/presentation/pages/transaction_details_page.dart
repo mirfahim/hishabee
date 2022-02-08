@@ -20,7 +20,7 @@ class TransactionDetailsPage extends StatelessWidget {
       : super(key: key);
 
   List<TransactionItem> getUniqueItems() {
-    final res = transaction.transactionItems.distinct((el) => el.name).toList();
+    var  res = transaction.transactionItems.distinct((el) => el.name).toList();
     return res;
   }
 

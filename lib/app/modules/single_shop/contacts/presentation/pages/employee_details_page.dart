@@ -169,7 +169,7 @@ class EmployeeDetailsPage extends StatelessWidget {
                             Container(
                               width: size.width * 0.3,
                               child: Text(
-                                employee.position,
+                                employee.position ?? "No data",
                                 style: TextStyle(
                                   fontFamily: 'Rubik',
                                   fontSize: 16,

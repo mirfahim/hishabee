@@ -336,7 +336,7 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                                                             0.3,
                                                                     child: Text(
                                                                       employee
-                                                                          .position,
+                                                                          .position ?? "No Data",
                                                                       style:
                                                                           TextStyle(
                                                                         color: Colors
