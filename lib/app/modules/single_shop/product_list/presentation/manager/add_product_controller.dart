@@ -17,6 +17,11 @@ class AddProductController extends GetxController {
   final image = Rxn<File>();
 
   final isOnline = false.obs;
+  final isStockAlert = false.obs;
+  final isWholeSale = false.obs;
+  final isVat = false.obs;
+  final isWarrenty = false.obs;
+  final isDiscount = false.obs;
 
   final productCategoryList = <Category>[].obs;
   final searchProductCategoryList = <Category>[].obs;
