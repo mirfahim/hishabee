@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
 
 class SmsCustomDialogContacts extends StatelessWidget {
@@ -67,23 +68,26 @@ class SmsCustomDialogContacts extends StatelessWidget {
                 SizedBox(
                   height: 15,
                 ),
-                ListView.builder(
-                  itemCount: _smsController.contacts.length,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, index) {
-                    print("my contact list is ${_smsController.contacts.length}");
-                    return Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.grey),
-                    child: ListTile(
-                      title:
-                          Text('${_smsController.contacts[index].displayName}'),
-                      subtitle: Text(
-                          '${_smsController.contacts[index].phones.single}'),
-                    ),
-                  );
-                  },
+                Obx(
+                  () => ListView.builder(
+                    itemCount: _smsController.contacts.value.length,
+                    shrinkWrap: true,
+                    itemBuilder: (BuildContext context, index) {
+                      print(
+                          "my contact list is ${_smsController.contacts.value.length}");
+                      return Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey),
+                        child: ListTile(
+                          title: Text(
+                              '${_smsController.contacts[index].displayName}'),
+                          subtitle: Text(
+                              '${_smsController.contacts[index].phones.single}'),
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 Expanded(
                   child: Align(

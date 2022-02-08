@@ -63,79 +63,87 @@ class _SMSPackagesState extends State<SMSPackages> {
               //   isLoading: _isLoading,
               //   child: _smsPackages != null
               //       ?
-              ListView.builder(
-                  itemCount: _smsPackages.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 10.0, right: 10),
-                      child: SizedBox(
-                        height: 80,
-                        child: Card(
-                          child: Row(
-                            children: [
-                              const SizedBox(
-                                width: 30,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 8.0, bottom: 8),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      _smsPackages[index].smsAmount.toString(),
-                                      style: const TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.bold),
+              _smsPackages == null
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ListView.builder(
+                      itemCount: _smsPackages.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 10.0, right: 10),
+                          child: SizedBox(
+                            height: 80,
+                            child: Card(
+                              child: Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 30,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, bottom: 8),
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          _smsPackages[index]
+                                              .smsAmount
+                                              .toString(),
+                                          style: const TextStyle(
+                                              fontSize: 20,
+                                              color: Colors.blue,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        const Text(
+                                          'S M S',
+                                          style: TextStyle(
+                                              fontSize: 20, color: Colors.blue),
+                                        )
+                                      ],
                                     ),
-                                    const Text(
-                                      'S M S',
-                                      style: TextStyle(
-                                          fontSize: 20, color: Colors.blue),
-                                    )
-                                  ],
-                                ),
+                                  ),
+                                  const SizedBox(
+                                    width: 30,
+                                  ),
+                                  const VerticalDivider(
+                                    width: 10,
+                                    thickness: 1,
+                                    color: Colors.black,
+                                    indent: 10,
+                                    endIndent: 10,
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 8.0, bottom: 8),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            '৳${_smsPackages[index].price.toString()}',
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                            )),
+                                        Text(
+                                            'Per SMS ${(_smsPackages[index].price.toInt() / _smsPackages[index].smsAmount.toInt())} TK only',
+                                            style: const TextStyle(
+                                              fontSize: 15,
+                                            ))
+                                      ],
+                                    ),
+                                  )
+                                ],
                               ),
-                              const SizedBox(
-                                width: 30,
-                              ),
-                              const VerticalDivider(
-                                width: 10,
-                                thickness: 1,
-                                color: Colors.black,
-                                indent: 10,
-                                endIndent: 10,
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(top: 8.0, bottom: 8),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        '৳${_smsPackages[index].price.toString()}',
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                        )),
-                                    Text(
-                                        'Per SMS ${(_smsPackages[index].price.toInt() / _smsPackages[index].smsAmount.toInt())} TK only',
-                                        style: const TextStyle(
-                                          fontSize: 15,
-                                        ))
-                                  ],
-                                ),
-                              )
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    );
-                  })
+                        );
+                      })
           // : Container(),
           // ),
           ),

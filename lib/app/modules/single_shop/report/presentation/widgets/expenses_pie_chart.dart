@@ -76,46 +76,46 @@ class ExpensesPieChart extends GetView<ReportController> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Padding(
-                    padding: const EdgeInsets.only(right: 20.0, left: 20),
-                    child: Obx(() => Container())
-                    // Obx(
-                    //   () {
-                    //     // final seriesData = controller.pieChartData.toList();
-                    //     // print("Emp: ${seriesData.isEmpty}");
-                    //     return
-                    //       seriesData.isEmpty
-                    //         ? Container()
-                    //         : charts.PieChart(
-                    //             seriesData,
-                    //             animate: animate,
-                    //             animationDuration: Duration(milliseconds: 500),
-                    //             behaviors: [
-                    //               new charts.DatumLegend(
-                    //                 outsideJustification:
-                    //                     charts.OutsideJustification.endDrawArea,
-                    //                 horizontalFirst: false,
-                    //                 desiredMaxRows: 1,
-                    //                 cellPadding: new EdgeInsets.only(
-                    //                     right: 4.0, bottom: 4.0),
-                    //                 entryTextStyle: charts.TextStyleSpec(
-                    //                     color: charts.MaterialPalette.black,
-                    //                     fontFamily: 'Georgia',
-                    //                     fontSize: 12),
-                    //               )
-                    //             ],
-                    //             defaultRenderer: new charts.ArcRendererConfig(
-                    //                 arcWidth: 100,
-                    //                 arcRendererDecorators: [
-                    //                   new charts.ArcLabelDecorator(
-                    //                       labelPosition:
-                    //                           charts.ArcLabelPosition.auto)
-                    //                 ]),
-                    //             // Add the series legend behavior to the chart to turn on series legends.
-                    //             // By default the legend will display above the chart.
-                    //           );
-                    //   },
-                    // ),
-                    ),
+                  padding: const EdgeInsets.only(right: 20.0, left: 20),
+                  child: Container(),
+                  // Obx(
+                  //   () {
+                  //     // final seriesData = controller.pieChartData.toList();
+                  //     // print("Emp: ${seriesData.isEmpty}");
+                  //     return
+                  //       seriesData.isEmpty
+                  //         ? Container()
+                  //         : charts.PieChart(
+                  //             seriesData,
+                  //             animate: animate,
+                  //             animationDuration: Duration(milliseconds: 500),
+                  //             behaviors: [
+                  //               new charts.DatumLegend(
+                  //                 outsideJustification:
+                  //                     charts.OutsideJustification.endDrawArea,
+                  //                 horizontalFirst: false,
+                  //                 desiredMaxRows: 1,
+                  //                 cellPadding: new EdgeInsets.only(
+                  //                     right: 4.0, bottom: 4.0),
+                  //                 entryTextStyle: charts.TextStyleSpec(
+                  //                     color: charts.MaterialPalette.black,
+                  //                     fontFamily: 'Georgia',
+                  //                     fontSize: 12),
+                  //               )
+                  //             ],
+                  //             defaultRenderer: new charts.ArcRendererConfig(
+                  //                 arcWidth: 100,
+                  //                 arcRendererDecorators: [
+                  //                   new charts.ArcLabelDecorator(
+                  //                       labelPosition:
+                  //                           charts.ArcLabelPosition.auto)
+                  //                 ]),
+                  //             // Add the series legend behavior to the chart to turn on series legends.
+                  //             // By default the legend will display above the chart.
+                  //           );
+                  //   },
+                  // ),
+                ),
               ),
             ),
           ],
