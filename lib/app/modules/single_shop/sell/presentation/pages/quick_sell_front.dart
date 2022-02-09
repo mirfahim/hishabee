@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_aware_dialog/flutter_keyboard_aware_dialog.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/calculator/views/pages/calculator_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/category_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindings/confirm_payment_binding.dart';
@@ -31,6 +32,14 @@ class QuickSell extends GetView<SellController> {
 
   @override
   Widget build(BuildContext context) {
+    double _currentValue = 0;
+    var _quickSellItem = [
+      Row(
+        children: [
+
+        ],
+      )
+    ];
     Size size = MediaQuery.of(context).size;
     final shopFeatureController = Get.find<ShopFeaturesController>();
     return Scaffold(
@@ -204,7 +213,7 @@ class QuickSell extends GetView<SellController> {
                                                   color: DEFAULT_BLACK, width: 1),
                                               borderRadius: BorderRadius.circular(6)),
                                           child: Padding(
-                                            padding: const EdgeInsets.all(10.0),
+                                            padding: const EdgeInsets.all(9.0),
                                             child: Row(
                                               mainAxisAlignment:
                                               MainAxisAlignment.spaceAround,
@@ -228,18 +237,39 @@ class QuickSell extends GetView<SellController> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: InkWell(
                                     onTap: () {
-                                      // DropdownButton(
-                                      //     items: [
-                                      //       DropdownMenuItem(
-                                      //         child: Row(
-                                      //           children: [
-                                      //             Checkbox(value: true, onChanged: (value){
-                                      //
-                                      //             }),
-                                      //             Text('Free SMS')
-                                      //           ],
-                                      //         ),
-                                      //       )], onChanged: (value){});
+                                      DropdownButton(
+                                          items: [
+                                            DropdownMenuItem(
+                                              child: Row(
+                                                children: [
+                                                  Checkbox(value: true, onChanged: (value){
+
+                                                  }),
+                                                  Text('Free SMS')
+                                                ],
+                                              ),
+                                            ),
+                                            DropdownMenuItem(
+                                              child: Row(
+                                                children: [
+                                                  Checkbox(value: true, onChanged: (value){
+
+                                                  }),
+                                                  Text('Free SMS')
+                                                ],
+                                              ),
+                                            ),
+                                            DropdownMenuItem(
+                                              child: Row(
+                                                children: [
+                                                  Checkbox(value: true, onChanged: (value){
+
+                                                  }),
+                                                  Text('Free SMS')
+                                                ],
+                                              ),
+                                            ),
+                                          ], onChanged: (value){});
                                     },
                                     child: Column(
                                       children: [
@@ -282,6 +312,21 @@ class QuickSell extends GetView<SellController> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 15.0),
                             child: TextFormField(
+                              // controller: controller.amount.value,
+                              onTap: (){
+                                CalcButton();
+                                // showModalBottomSheet(
+                                //     isScrollControlled: true,
+                                //     context: context,
+                                //     builder: (BuildContext context) {
+                                //       return SizedBox(
+                                //           height: 300,
+                                //           child: CalcButton());
+                                //     });
+                              },
+
+                                showCursor: true,
+                                readOnly: true,
                               onSaved: (value){
                                 controller.amount.value = int.parse(value);
                               },

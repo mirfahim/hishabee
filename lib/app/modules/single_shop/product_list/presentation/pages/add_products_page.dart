@@ -1372,8 +1372,8 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                       ),
                                       Icon(
                                         isAdvanced
-                                            ? Icons.keyboard_arrow_down_outlined
-                                            : Icons.keyboard_arrow_up_outlined,
+                                            ? Icons.keyboard_arrow_up_outlined
+                                            : Icons.keyboard_arrow_down_outlined,
                                         color: Color(0xFF185ADB),
                                         size: 35,
                                       )
@@ -1612,47 +1612,62 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                   padding: const EdgeInsets.all(12.0),
                                                   child: Column(
                                                     children: [
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          Text('want_to_sell_whole_sale'.tr,style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontFamily: "Roboto",
-                                                        fontWeight: FontWeight.bold,
-                                                        color: DEFAULT_BLUE_DARK,
-                                                      ),),
-                                                          Padding(
-                                                            padding: const EdgeInsets.only(
-                                                                right: 10.0),
-                                                            child: Obx(
-                                                                  () => FlutterSwitch(
-                                                                height: 25.0,
-                                                                width: 40.0,
-                                                                padding: 4.0,
-                                                                toggleSize: 20.0,
-                                                                borderRadius: 20.0,
-                                                                inactiveColor: Colors.black,
-                                                                activeColor: Color(0xFF185ADB),
-                                                                value: controller.isWholeSale.value,
-                                                                onToggle: (valueStock) {
-                                                                  controller.isWholeSale.value =
-                                                                      valueStock;
-                                                                  setState(() {
-                                                                    isWholeSale = valueStock;
-                                                                  });
+                                                      InkWell(
+                                                      onTap: (){
+                                                        setState(() {
+                                                          if(isWholeSale == false){
+                                                            controller.isWholeSale.value = true;
+                                                            isWholeSale = true;
+                                                          }else {
+                                                            controller
+                                                                .isWholeSale
+                                                                .value = false;
+                                                            isWholeSale = false;
+                                                          }
+                                                        });
+                                                      },
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text('want_to_sell_whole_sale'.tr,style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontFamily: "Roboto",
+                                                          fontWeight: FontWeight.bold,
+                                                          color: DEFAULT_BLUE_DARK,
+                                                        ),),
+                                                            Padding(
+                                                              padding: const EdgeInsets.only(
+                                                                  right: 10.0),
+                                                              child: Obx(
+                                                                    () => FlutterSwitch(
+                                                                  height: 25.0,
+                                                                  width: 40.0,
+                                                                  padding: 4.0,
+                                                                  toggleSize: 20.0,
+                                                                  borderRadius: 20.0,
+                                                                  inactiveColor: Colors.black,
+                                                                  activeColor: Color(0xFF185ADB),
+                                                                  value: controller.isWholeSale.value,
+                                                                  onToggle: (valueStock) {
+                                                                    controller.isWholeSale.value =
+                                                                        valueStock;
+                                                                    setState(() {
+                                                                      isWholeSale = valueStock;
+                                                                    });
 
-                                                                  // if(valueStock){
-                                                                  //
-                                                                  //
-                                                                  // }else{
-                                                                  //   isStockAlert = false;
-                                                                  // }
+                                                                    // if(valueStock){
+                                                                    //
+                                                                    //
+                                                                    // }else{
+                                                                    //   isStockAlert = false;
+                                                                    // }
 
-                                                                },
+                                                                  },
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
                                                       isWholeSale ? Padding(
                                                         padding: const EdgeInsets.only(top: 10.0),
@@ -1802,47 +1817,62 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                   padding: const EdgeInsets.all(12.0),
                                                   child: Column(
                                                     children: [
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          Text('want_to_have_alert_of_stock_empty'.tr,style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontFamily: "Roboto",
-                                                            fontWeight: FontWeight.bold,
-                                                            color: DEFAULT_BLUE_DARK,
-                                                          ),),
-                                                          Padding(
-                                                            padding: const EdgeInsets.only(
-                                                                right: 10.0),
-                                                            child: Obx(
-                                                                  () => FlutterSwitch(
-                                                                height: 25.0,
-                                                                width: 40.0,
-                                                                padding: 4.0,
-                                                                toggleSize: 20.0,
-                                                                borderRadius: 20.0,
-                                                                inactiveColor: Colors.black,
-                                                                activeColor: Color(0xFF185ADB),
-                                                                value: controller.isStockAlert.value,
-                                                                onToggle: (valueStock) {
-                                                                  controller.isStockAlert.value =
-                                                                      valueStock;
-                                                                  setState(() {
-                                                                    isStockAlert = valueStock;
-                                                                  });
+                                                      InkWell(
+                                                      onTap:(){
+                                                        setState(() {
+                                                          if(isStockAlert == false){
+                                                            controller.isStockAlert.value = true;
+                                                            isStockAlert = true;
+                                                          }else {
+                                                            controller
+                                                                .isStockAlert
+                                                                .value = false;
+                                                            isStockAlert = false;
+                                                          }
+                                                        });
+                                                      },
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text('want_to_have_alert_of_stock_empty'.tr,style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontFamily: "Roboto",
+                                                              fontWeight: FontWeight.bold,
+                                                              color: DEFAULT_BLUE_DARK,
+                                                            ),),
+                                                            Padding(
+                                                              padding: const EdgeInsets.only(
+                                                                  right: 10.0),
+                                                              child: Obx(
+                                                                    () => FlutterSwitch(
+                                                                  height: 25.0,
+                                                                  width: 40.0,
+                                                                  padding: 4.0,
+                                                                  toggleSize: 20.0,
+                                                                  borderRadius: 20.0,
+                                                                  inactiveColor: Colors.black,
+                                                                  activeColor: Color(0xFF185ADB),
+                                                                  value: controller.isStockAlert.value,
+                                                                  onToggle: (valueStock) {
+                                                                    controller.isStockAlert.value =
+                                                                        valueStock;
+                                                                    setState(() {
+                                                                      isStockAlert = valueStock;
+                                                                    });
 
-                                                                  // if(valueStock){
-                                                                  //
-                                                                  //
-                                                                  // }else{
-                                                                  //   isStockAlert = false;
-                                                                  // }
+                                                                    // if(valueStock){
+                                                                    //
+                                                                    //
+                                                                    // }else{
+                                                                    //   isStockAlert = false;
+                                                                    // }
 
-                                                                },
+                                                                  },
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
                                                       isStockAlert ? Padding(
                                                         padding: const EdgeInsets.only(top: 10.0),
@@ -1915,47 +1945,62 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                   padding: const EdgeInsets.all(12.0),
                                                   child: Column(
                                                     children: [
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          Text('vat'.tr,style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontFamily: "Roboto",
-                                                            fontWeight: FontWeight.bold,
-                                                            color: DEFAULT_BLUE_DARK,
-                                                          ),),
-                                                          Padding(
-                                                            padding: const EdgeInsets.only(
-                                                                right: 10.0),
-                                                            child: Obx(
-                                                                  () => FlutterSwitch(
-                                                                height: 25.0,
-                                                                width: 40.0,
-                                                                padding: 4.0,
-                                                                toggleSize: 20.0,
-                                                                borderRadius: 20.0,
-                                                                inactiveColor: Colors.black,
-                                                                activeColor: Color(0xFF185ADB),
-                                                                value: controller.isVat.value,
-                                                                onToggle: (valueStock) {
-                                                                  controller.isVat.value =
-                                                                      valueStock;
-                                                                  setState(() {
-                                                                    isVat = valueStock;
-                                                                  });
+                                                      InkWell(
+                                                      onTap:(){
+                                                        setState(() {
+                                                          if(isVat == false){
+                                                            controller.isVat.value = true;
+                                                            isVat = true;
+                                                          }else {
+                                                            controller
+                                                                .isVat
+                                                                .value = false;
+                                                            isVat = false;
+                                                          }
+                                                        });
+                                                      },
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text('vat'.tr,style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontFamily: "Roboto",
+                                                              fontWeight: FontWeight.bold,
+                                                              color: DEFAULT_BLUE_DARK,
+                                                            ),),
+                                                            Padding(
+                                                              padding: const EdgeInsets.only(
+                                                                  right: 10.0),
+                                                              child: Obx(
+                                                                    () => FlutterSwitch(
+                                                                  height: 25.0,
+                                                                  width: 40.0,
+                                                                  padding: 4.0,
+                                                                  toggleSize: 20.0,
+                                                                  borderRadius: 20.0,
+                                                                  inactiveColor: Colors.black,
+                                                                  activeColor: Color(0xFF185ADB),
+                                                                  value: controller.isVat.value,
+                                                                  onToggle: (valueStock) {
+                                                                    controller.isVat.value =
+                                                                        valueStock;
+                                                                    setState(() {
+                                                                      isVat = valueStock;
+                                                                    });
 
-                                                                  // if(valueStock){
-                                                                  //
-                                                                  //
-                                                                  // }else{
-                                                                  //   isStockAlert = false;
-                                                                  // }
+                                                                    // if(valueStock){
+                                                                    //
+                                                                    //
+                                                                    // }else{
+                                                                    //   isStockAlert = false;
+                                                                    // }
 
-                                                                },
+                                                                  },
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
                                                       isVat ? Padding(
                                                         padding: const EdgeInsets.only(top: 10.0),
@@ -2045,47 +2090,62 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                   child: Column(
                                                     // mainAxisAlignment: MainAxisAlignment.start,
                                                     children: [
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          Text('warranty'.tr,style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontFamily: "Roboto",
-                                                            fontWeight: FontWeight.bold,
-                                                            color: DEFAULT_BLUE_DARK,
-                                                          ),),
-                                                          Padding(
-                                                            padding: const EdgeInsets.only(
-                                                                right: 10.0),
-                                                            child: Obx(
-                                                                  () => FlutterSwitch(
-                                                                height: 25.0,
-                                                                width: 40.0,
-                                                                padding: 4.0,
-                                                                toggleSize: 20.0,
-                                                                borderRadius: 20.0,
-                                                                inactiveColor: Colors.black,
-                                                                activeColor: Color(0xFF185ADB),
-                                                                value: controller.isWarrenty.value,
-                                                                onToggle: (valueStock) {
-                                                                  controller.isWarrenty.value =
-                                                                      valueStock;
-                                                                  setState(() {
-                                                                    isWarrenty = valueStock;
-                                                                  });
+                                                      InkWell(
+                                                      onTap:(){
+                                                        setState(() {
+                                                          if(isWarrenty == false){
+                                                            controller.isWarrenty.value = true;
+                                                            isWarrenty = true;
+                                                          }else {
+                                                            controller
+                                                                .isWarrenty
+                                                                .value = false;
+                                                            isWarrenty = false;
+                                                          }
+                                                        });
+                                                      },
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text('warranty'.tr,style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontFamily: "Roboto",
+                                                              fontWeight: FontWeight.bold,
+                                                              color: DEFAULT_BLUE_DARK,
+                                                            ),),
+                                                            Padding(
+                                                              padding: const EdgeInsets.only(
+                                                                  right: 10.0),
+                                                              child: Obx(
+                                                                    () => FlutterSwitch(
+                                                                  height: 25.0,
+                                                                  width: 40.0,
+                                                                  padding: 4.0,
+                                                                  toggleSize: 20.0,
+                                                                  borderRadius: 20.0,
+                                                                  inactiveColor: Colors.black,
+                                                                  activeColor: Color(0xFF185ADB),
+                                                                  value: controller.isWarrenty.value,
+                                                                  onToggle: (valueStock) {
+                                                                    controller.isWarrenty.value =
+                                                                        valueStock;
+                                                                    setState(() {
+                                                                      isWarrenty = valueStock;
+                                                                    });
 
-                                                                  // if(valueStock){
-                                                                  //
-                                                                  //
-                                                                  // }else{
-                                                                  //   isStockAlert = false;
-                                                                  // }
+                                                                    // if(valueStock){
+                                                                    //
+                                                                    //
+                                                                    // }else{
+                                                                    //   isStockAlert = false;
+                                                                    // }
 
-                                                                },
+                                                                  },
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
                                                       isWarrenty ? Padding(
                                                         padding: const EdgeInsets.only(top: 10.0),
@@ -2192,47 +2252,62 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                   padding: const EdgeInsets.all(12.0),
                                                   child: Column(
                                                     children: [
-                                                      Row(
-                                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                        children: [
-                                                          Text('discount'.tr,style: TextStyle(
-                                                            fontSize: 16,
-                                                            fontFamily: "Roboto",
-                                                            fontWeight: FontWeight.bold,
-                                                            color: DEFAULT_BLUE_DARK,
-                                                          ),),
-                                                          Padding(
-                                                            padding: const EdgeInsets.only(
-                                                                right: 10.0),
-                                                            child: Obx(
-                                                                  () => FlutterSwitch(
-                                                                height: 25.0,
-                                                                width: 40.0,
-                                                                padding: 4.0,
-                                                                toggleSize: 20.0,
-                                                                borderRadius: 20.0,
-                                                                inactiveColor: Colors.black,
-                                                                activeColor: Color(0xFF185ADB),
-                                                                value: controller.isDiscount.value,
-                                                                onToggle: (valueStock) {
-                                                                  controller.isDiscount.value =
-                                                                      valueStock;
-                                                                  setState(() {
-                                                                    isDiscount = valueStock;
-                                                                  });
+                                                      InkWell(
+                                                        onTap:(){
+                                                          setState(() {
+                                                            if(isDiscount == false){
+                                                              controller.isDiscount.value = true;
+                                                              isDiscount = true;
+                                                            }else {
+                                                              controller
+                                                                  .isDiscount
+                                                                  .value = false;
+                                                              isDiscount = false;
+                                                            }
+                                                          });
+                                                        },
+                                                        child: Row(
+                                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                          children: [
+                                                            Text('discount'.tr,style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontFamily: "Roboto",
+                                                              fontWeight: FontWeight.bold,
+                                                              color: DEFAULT_BLUE_DARK,
+                                                            ),),
+                                                            Padding(
+                                                              padding: const EdgeInsets.only(
+                                                                  right: 10.0),
+                                                              child: Obx(
+                                                                    () => FlutterSwitch(
+                                                                  height: 25.0,
+                                                                  width: 40.0,
+                                                                  padding: 4.0,
+                                                                  toggleSize: 20.0,
+                                                                  borderRadius: 20.0,
+                                                                  inactiveColor: Colors.black,
+                                                                  activeColor: Color(0xFF185ADB),
+                                                                  value: controller.isDiscount.value,
+                                                                  onToggle: (valueStock) {
+                                                                    controller.isDiscount.value =
+                                                                        valueStock;
+                                                                    setState(() {
+                                                                      isDiscount = valueStock;
+                                                                    });
 
-                                                                  // if(valueStock){
-                                                                  //
-                                                                  //
-                                                                  // }else{
-                                                                  //   isStockAlert = false;
-                                                                  // }
+                                                                    // if(valueStock){
+                                                                    //
+                                                                    //
+                                                                    // }else{
+                                                                    //   isStockAlert = false;
+                                                                    // }
 
-                                                                },
+                                                                  },
+                                                                ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
+                                                          ],
+                                                        ),
                                                       ),
                                                       isDiscount ? Padding(
                                                         padding: const EdgeInsets.only(top: 10.0),
