@@ -512,15 +512,17 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                       ),
                                     ),
                                     Expanded(
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(top: 15.0),
-                                          child: Divider(
-                                            thickness: 2,
-                                            color: Colors.black,
-                                            endIndent: 15,
-                                            indent: 4,
-                                          ),
-                                        ),)
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 15.0),
+                                        child: Divider(
+                                          thickness: 2,
+                                          color: Colors.black,
+                                          endIndent: 15,
+                                          indent: 4,
+                                        ),
+                                      ),
+                                    )
                                   ],
                                 ),
                                 Padding(
@@ -961,7 +963,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                       showPictureOptionDialogue(context);
                                     },
                                     child: Obx(
-                                          () =>Container(
+                                      () => Container(
                                         decoration: BoxDecoration(
                                           color: Colors.white,
                                           borderRadius: BorderRadius.all(
@@ -981,7 +983,10 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                         width: 60,
                                         child: controller.image.value == null
                                             ? Icon(Icons.image)
-                                            :Image(image: FileImage(File(controller.image.value.path)),),
+                                            : Image(
+                                                image: FileImage(File(controller
+                                                    .image.value.path)),
+                                              ),
                                       ),
                                     ),
                                   ),
@@ -1378,7 +1383,6 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                       SizedBox(
                                         height: 10,
                                       ),
-
                                     ],
                                   ),
                                 )
@@ -2203,15 +2207,15 @@ class _AddProductsPageState extends State<AddProductsPage> {
     // if (selectedProductCategory == null || selectedSubCat == null) {
     //   _showMaterialDialog("Please Select Category and Sub Category");
     // } else {
-      String atData = "{";
-      for (Attribute a in attributeList) {
-        atData = atData + " \"${a.name} \": \"${a.value}\", ";
-      }
-      _productListController.getAllProduct();
-      atData = atData + "}";
-      attributeMap = atData;
-      sendProductInfo();
-      _productListController.getAllProduct();
+    String atData = "{";
+    for (Attribute a in attributeList) {
+      atData = atData + " \"${a.name} \": \"${a.value}\", ";
+    }
+    _productListController.getAllProduct();
+    atData = atData + "}";
+    attributeMap = atData;
+    sendProductInfo();
+    _productListController.getAllProduct();
     // }
   }
 
@@ -2220,59 +2224,59 @@ class _AddProductsPageState extends State<AddProductsPage> {
     //   _showMaterialDialog("Please Select Category and Sub Category");
     // }
     // else {
-      if (_formKey.currentState.validate()) {
-        _formKey.currentState.save();
-        setState(() {
-          adding = true;
-        });
-        bool costAvailable = cost == null ? false : true;
-        bool barCodeAvailable = mainProductBarCode == null ? false : true;
-        bool mainImageAvailable = mainImageUrl == null ? false : true;
-        attributeAvailable = attributeMap == null ? false : true;
-        vatApplicable = vatAmount == 0 ? false : true;
-        mainImageAvailable ? mainImageUrl = mainImageUrl : mainImageUrl = null;
-        barCodeAvailable
-            ? mainProductBarCode = mainProductBarCode
-            : mainProductBarCode = null;
-        mainImageAvailable ? mainImageUrl = mainImageUrl : mainImageUrl = null;
-        barCodeAvailable
-            ? mainProductBarCode = mainProductBarCode
-            : mainProductBarCode = null;
-        attributeAvailable ? attributeMap = attributeMap : attributeMap = null;
-        costAvailable ? cost = cost : cost = null;
-        vatApplicable ? vatAmount = vatAmount : vatAmount = 0;
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+      setState(() {
+        adding = true;
+      });
+      bool costAvailable = cost == null ? false : true;
+      bool barCodeAvailable = mainProductBarCode == null ? false : true;
+      bool mainImageAvailable = mainImageUrl == null ? false : true;
+      attributeAvailable = attributeMap == null ? false : true;
+      vatApplicable = vatAmount == 0 ? false : true;
+      mainImageAvailable ? mainImageUrl = mainImageUrl : mainImageUrl = null;
+      barCodeAvailable
+          ? mainProductBarCode = mainProductBarCode
+          : mainProductBarCode = null;
+      mainImageAvailable ? mainImageUrl = mainImageUrl : mainImageUrl = null;
+      barCodeAvailable
+          ? mainProductBarCode = mainProductBarCode
+          : mainProductBarCode = null;
+      attributeAvailable ? attributeMap = attributeMap : attributeMap = null;
+      costAvailable ? cost = cost : cost = null;
+      vatApplicable ? vatAmount = vatAmount : vatAmount = 0;
 
-        try {
-          final result = await controller.addProduct(
-            shopId: widget.shop.id,
-            subcategoryId: selectedSubCat == null ? null : selectedSubCat.id,
-            productName: productName,
-            price: price,
-            desc: desc,
-            imageUrl: mainImageUrl,
-            stockQuantity: stockQuantity ,
-            cost: cost,
-            vatApplicable: vatApplicable ,
-            barcode: mainProductBarCode ,
-            attribute: attributeMap ,
-            vatAmount: vatAmount ,
-          );
-          if (!isAdvanced) {
-            setState(() {
-              adding = false;
-            });
-          }
-          if (result.message != null) {
-            setState(() {
-              adding = false;
-            });
-            CustomDialog.showDialogAddProductDialog(result.message);
-          }
-        } finally {}
-        if (isAdvanced) {
-          addVariantProducts();
+      try {
+        final result = await controller.addProduct(
+          shopId: widget.shop.id,
+          subcategoryId: selectedSubCat == null ? null : selectedSubCat.id,
+          productName: productName,
+          price: price,
+          desc: desc,
+          imageUrl: mainImageUrl,
+          stockQuantity: stockQuantity,
+          cost: cost,
+          vatApplicable: vatApplicable,
+          barcode: mainProductBarCode,
+          attribute: attributeMap,
+          vatAmount: vatAmount,
+        );
+        if (!isAdvanced) {
+          setState(() {
+            adding = false;
+          });
         }
+        if (result.message != null) {
+          setState(() {
+            adding = false;
+          });
+          CustomDialog.showDialogAddProductDialog(result.message);
+        }
+      } finally {}
+      if (isAdvanced) {
+        addVariantProducts();
       }
+    }
     // }
   }
 
@@ -2373,7 +2377,8 @@ class _AddProductsPageState extends State<AddProductsPage> {
               onTap: () {
                 ImageHelper.getImageFromCamera().then((value) {
                   controller.image.value = value;
-                  print("image path is +++++++++++++ ${controller.image.value.path}");
+                  print(
+                      "image path is +++++++++++++ ${controller.image.value.path}");
                   navigator.pop();
                 });
               },
@@ -2393,7 +2398,10 @@ class _AddProductsPageState extends State<AddProductsPage> {
                         height: 60,
                         image: AssetImage('images/icons/camera.png'),
                       ),
-                      Text("Camera", style: TextStyle(fontSize: 15),)
+                      Text(
+                        "Camera",
+                        style: TextStyle(fontSize: 15),
+                      )
                     ],
                   ),
                 ),
@@ -2423,7 +2431,10 @@ class _AddProductsPageState extends State<AddProductsPage> {
                         height: 60,
                         image: AssetImage('images/icons/gallery.png'),
                       ),
-                      Text("Gallery", style: TextStyle(fontSize: 15),)
+                      Text(
+                        "Gallery",
+                        style: TextStyle(fontSize: 15),
+                      )
                     ],
                   ),
                 ),
