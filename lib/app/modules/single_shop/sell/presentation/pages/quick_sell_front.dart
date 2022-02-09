@@ -308,6 +308,7 @@ class QuickSell extends GetView<SellController> {
                                                       children: [
                                                         Checkbox(value: false, onChanged: (checked){}),
                                                         SizedBox(width: 20),
+
                                                         Text(
                                                             value,
                                                             style: TextStyle(color: Colors.black,
