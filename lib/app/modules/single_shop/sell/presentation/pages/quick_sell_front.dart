@@ -447,6 +447,7 @@ class QuickSell extends GetView<SellController> {
                                 ),
                               ),
                             ),
+                            // sada
                             SizedBox(
                               height: 10,
                             ),
