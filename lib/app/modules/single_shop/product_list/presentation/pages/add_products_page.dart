@@ -140,6 +140,8 @@ class _AddProductsPageState extends State<AddProductsPage> {
           })
         });
   }
+  String _selectedDropDownWarrenty = 'Days';
+  String _selectedDropDownDiscount = '৳';
 
   @override
   Widget build(BuildContext context) {
@@ -147,8 +149,6 @@ class _AddProductsPageState extends State<AddProductsPage> {
     final TextEditingController _warrentyTextEditingController = new TextEditingController();
     var items = ['Days', 'Month', 'Year'];
     var itemDiscount = ['৳', '%'];
-    String _selectedDropDownWarrenty = items[0];
-    String _selectedDropDownDiscount = itemDiscount[0];
     list = [];
 
     imageList = [];
@@ -528,7 +528,8 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                           Padding(
                                             padding: const EdgeInsets.only(left:5.0, right: 5, top: 8, bottom: 10),
                                             child: DottedBorder(
-                                              radius: Radius.circular(8) ,
+                                              radius: Radius.circular(6),
+                                              borderType: BorderType.RRect,
                                               dashPattern: [8, 4],
                                               strokeWidth: 2,
                                               color: Color(0xFF185ADB),
@@ -688,7 +689,8 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                   Padding(
                                     padding: const EdgeInsets.only(left:15.0, right: 15, top: 8, bottom: 10),
                                     child: DottedBorder(
-                                        radius: Radius.circular(20),
+                                      radius: Radius.circular(6),
+                                      borderType: BorderType.RRect,
                                       dashPattern: [8, 4],
                                       strokeWidth: 2,
                                       color: Color(0xFF185ADB),
@@ -2106,11 +2108,13 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                                       width: 50,
                                                                       height: 50,
                                                                       child: TextFormField(
+                                                                        maxLines: 1,
                                                                         inputFormatters: [
                                                                           FilteringTextInputFormatter.digitsOnly
                                                                         ],
                                                                         keyboardType: TextInputType.number,
                                                                         decoration: InputDecoration(
+                                                                          contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
                                                                           filled: true,
                                                                           fillColor: Colors.white,
                                                                           // border: new OutlineInputBorder(
@@ -2256,6 +2260,8 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                                         ],
                                                                         keyboardType: TextInputType.number,
                                                                         decoration: InputDecoration(
+                                                                            contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+
                                                                           filled: true,
                                                                           fillColor: Colors.white,
                                                                           // border: new OutlineInputBorder(
@@ -2362,7 +2368,9 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                     style: ElevatedButton.styleFrom(
                                                         primary: Color(0xFF185ADB)
                                                     ),
-                                                    onPressed: (){},
+                                                    onPressed: (){
+                                                      scanBarcodeNormal(100);
+                                                    },
                                                     child: Row(
                                                       children: [
                                                         SvgPicture.asset('images/svg_image/scanner_white.svg'),
