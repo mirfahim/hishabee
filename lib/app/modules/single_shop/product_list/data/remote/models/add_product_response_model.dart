@@ -10,7 +10,7 @@ import 'product_response_model.dart';
 AddProductResponseModel addProductResponseModelFromJson(String str) =>
     AddProductResponseModel.fromJson(json.decode(str));
 AddProductResponseModel addProductResponseModelFromRawJson(dynamic json) {
-  print("COPY: $json");
+  print("my add product response is : $json");
   return AddProductResponseModel.fromJson(json);
 }
 
@@ -47,8 +47,9 @@ class AddProductResponseModel {
       AddProductResponseModel(
         code: json["code"] == null ? null : json["code"],
         message: json["message"] == null ? null : json["message"],
-        product:
-            json["product"] == null ? null : Product.fromJson(json["product"]),
+        product: json["shop_product"] == null
+            ? null
+            : Product.fromJson(json["shop_product"]),
         attribute: json["attribute"] == null
             ? null
             : List<Attribute>.from(
@@ -58,7 +59,7 @@ class AddProductResponseModel {
   Map<String, dynamic> toJson() => {
         "code": code == null ? null : code,
         "message": message == null ? null : message,
-        "product": product == null ? null : product.toJson(),
+        "shop_product": product == null ? null : product.toJson(),
         "attribute": attribute == null
             ? null
             : List<dynamic>.from(attribute.map((x) => x.toJson())),

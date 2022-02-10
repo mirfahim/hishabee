@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +21,7 @@ import 'edit_products_page.dart';
 //product list
 class ProductListPage extends GetView<ProductListController> {
   var totalProductCost = 0.obs;
-   INetworkInfo networkInfo;
+  INetworkInfo networkInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -35,17 +34,25 @@ class ProductListPage extends GetView<ProductListController> {
       resizeToAvoidBottomInset: false,
       // backgroundColor: DEFAULT_BODY_BG_COLOR,
       appBar: AppBar(
-        title:  Text('product_list'.tr, style: TextStyle(color: Colors.black, fontFamily: 'Roboto'),),
-        leading:  IconButton(
-          icon: Icon(Icons.arrow_back,color: Colors.black,),
-          onPressed: (){
+        title: Text(
+          'product_list'.tr,
+          style: TextStyle(color: Colors.black, fontFamily: 'Roboto'),
+        ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
             Get.back();
           },
         ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
-            child: InkWell(onTap: (){},child: SvgPicture.asset('images/svg_image/help.svg')),
+            child: InkWell(
+                onTap: () {},
+                child: SvgPicture.asset('images/svg_image/help.svg')),
           )
         ],
         backgroundColor: Colors.amber,
@@ -68,18 +75,22 @@ class ProductListPage extends GetView<ProductListController> {
                         Column(
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left: 15,right: 15),
+                              padding: EdgeInsets.only(left: 15, right: 15),
                               child: Row(
                                 children: [
                                   Container(
-                                    width: MediaQuery.of(context).size.width /1.25,
+                                    width: MediaQuery.of(context).size.width /
+                                        1.25,
                                     decoration: BoxDecoration(
                                         color: Colors.white,
-                                        border: Border.all(color: Color(0xFF185ADB), width: 1.5),
-                                        borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                                        border: Border.all(
+                                            color: Color(0xFF185ADB),
+                                            width: 1.5),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(6.0))),
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                          MainAxisAlignment.spaceAround,
                                       children: [
                                         SizedBox(
                                           width: 10,
@@ -94,11 +105,13 @@ class ProductListPage extends GetView<ProductListController> {
                                                 controller.searchProduct(value);
                                               },
                                               keyboardType: TextInputType.text,
-                                              decoration:  InputDecoration(
+                                              decoration: InputDecoration(
                                                 hintText: "Search For Product",
-                                                icon: SvgPicture.asset('images/svg_image/search.svg'),
-                                                hintStyle:
-                                                TextStyle(fontSize: 14.0,fontFamily: 'Roboto'),
+                                                icon: SvgPicture.asset(
+                                                    'images/svg_image/search.svg'),
+                                                hintStyle: TextStyle(
+                                                    fontSize: 14.0,
+                                                    fontFamily: 'Roboto'),
                                                 border: InputBorder.none,
                                               ),
                                             ),
@@ -106,42 +119,61 @@ class ProductListPage extends GetView<ProductListController> {
                                         ),
                                         Expanded(
                                           child: Padding(
-                                            padding: const EdgeInsets.only(right: 10.0),
+                                            padding: const EdgeInsets.only(
+                                                right: 10.0),
                                             child: Container(
                                                 child: IntrinsicHeight(
-                                                  child:Row(
-                                                    children: [
-                                                      Container( height: 30,
-                                                          child: VerticalDivider(thickness: 2,color: Color(0xFF185ADB), indent: 0,endIndent: 0)),
-                                                      InkWell(
-                                                        onTap: (){
-                                                          _showCategoryDialog(
-                                                              controller.productCategoryList,
-                                                              size,
-                                                              context);
-                                                        },
-                                                        child: Padding(
-                                                          padding: const EdgeInsets.only(right: 5.0, left: 5),
-                                                          child: SvgPicture.asset('images/svg_image/filter.svg'),
-                                                        ),
-                                                      ),
-                                                      Text('filter'.tr,style: TextStyle(fontFamily: 'Roboto'),)
-                                                    ],
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                      height: 30,
+                                                      child: VerticalDivider(
+                                                          thickness: 2,
+                                                          color:
+                                                              Color(0xFF185ADB),
+                                                          indent: 0,
+                                                          endIndent: 0)),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      _showCategoryDialog(
+                                                          controller
+                                                              .productCategoryList,
+                                                          size,
+                                                          context);
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 5.0,
+                                                              left: 5),
+                                                      child: SvgPicture.asset(
+                                                          'images/svg_image/filter.svg'),
+                                                    ),
                                                   ),
-                                                )
-                                            ),
+                                                  Text(
+                                                    'filter'.tr,
+                                                    style: TextStyle(
+                                                        fontFamily: 'Roboto'),
+                                                  )
+                                                ],
+                                              ),
+                                            )),
                                           ),
                                         )
                                       ],
                                     ),
                                   ),
-                                  SizedBox(width: 10,),
-                                  Expanded(child: IconButton(
-                                      icon: SvgPicture.asset('images/svg_image/scanner.svg'),
-                                      onPressed: () async{
-                                        await controller.scanProduct();
-                                      },
-                                      color: Color(0xFF185ADB)))
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                      child: IconButton(
+                                          icon: SvgPicture.asset(
+                                              'images/svg_image/scanner.svg'),
+                                          onPressed: () async {
+                                            await controller.scanProduct();
+                                          },
+                                          color: Color(0xFF185ADB)))
                                 ],
                               ),
                             ),
@@ -349,40 +381,63 @@ class ProductListPage extends GetView<ProductListController> {
                             //     ),
                             //   ),
                             // ),
-                            SizedBox(height: 20,),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 15.0, right: 15),
+                              padding:
+                                  const EdgeInsets.only(left: 15.0, right: 15),
                               child: Row(
                                 children: [
-                                  Obx(()=>
-                                      Expanded(
-                                        child: Text('total_product'.tr + ":" + '${controller.searchList.length}',style: TextStyle(fontSize:14, fontWeight: FontWeight.bold,fontFamily: 'Roboto'),),
+                                  Obx(
+                                    () => Expanded(
+                                      child: Text(
+                                        'total_product'.tr +
+                                            ":" +
+                                            '${controller.searchList.length}',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: 'Roboto'),
                                       ),
+                                    ),
                                   ),
-                                      InkWell(
-                                        onTap: (){
-                                          if(controller.flag.value == 0){
-                                            controller.flag.value = 1;
-                                          }else{
-                                            controller.flag.value = 0;
-                                          }
-
-                                        },
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(right: 5.0),
-                                              child: Obx(()=> controller.flag.value == 0 ? SvgPicture.asset('images/svg_image/grid.svg') : SvgPicture.asset('images/svg_image/list.svg'))  ,
-                                            ),
-                                            Obx(()=>
-                                            controller.flag.value == 0 ?
-                                                Text('gridView'.tr, style: TextStyle(fontFamily: 'Roboto'),) : Text('listView'.tr, style: TextStyle(fontFamily: 'Roboto'),)
-                                            ) //sdsd
-
-                                          ],
+                                  InkWell(
+                                    onTap: () {
+                                      if (controller.flag.value == 0) {
+                                        controller.flag.value = 1;
+                                      } else {
+                                        controller.flag.value = 0;
+                                      }
+                                    },
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 5.0),
+                                          child: Obx(() => controller
+                                                      .flag.value ==
+                                                  0
+                                              ? SvgPicture.asset(
+                                                  'images/svg_image/grid.svg')
+                                              : SvgPicture.asset(
+                                                  'images/svg_image/list.svg')),
                                         ),
-                                      )
+                                        Obx(() => controller.flag.value == 0
+                                            ? Text(
+                                                'gridView'.tr,
+                                                style: TextStyle(
+                                                    fontFamily: 'Roboto'),
+                                              )
+                                            : Text(
+                                                'listView'.tr,
+                                                style: TextStyle(
+                                                    fontFamily: 'Roboto'),
+                                              )) //sdsd
+                                      ],
+                                    ),
+                                  )
                                   // )
                                 ],
                               ),
@@ -392,125 +447,196 @@ class ProductListPage extends GetView<ProductListController> {
                               padding: const EdgeInsets.only(
                                   top: 10.0, right: 15, left: 15, bottom: 5),
                               child: Obx(
-                                    () =>
-                                    controller.flag.value == 0 ?
-                                    Container(
-                                      // height: size.height - 200,
-                                      child: ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: NeverScrollableScrollPhysics(),
-                                      itemCount: controller.searchList.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-
-                                        Product product = controller.searchList[
-                                        controller.searchList.length - 1 -
-                                            index];
-                                        return InkWell(
-                                          onTap: () {
-                                            Get.to(
-                                                  () => ProductDetails(),
-                                              arguments: {
-                                                'product': product,
-                                                'shop': controller.shop.value,
-                                                'catList': controller
-                                                    .productCategoryList
-                                              },
-                                              binding: ProductListBinding(),
-                                            );
-                                          },
-                                          child:
-                                          // Obx(()=>
-                                          Column(
-                                            children: [
-                                              SizedBox(height: 10,),
-
-                                              ListTile(
-                                                leading: product.imageUrl != null ? CachedNetworkImage(
-                                                  imageUrl: product.imageUrl,
-                                                  placeholder: (context, url) => new CircularProgressIndicator(),
-                                                  errorWidget: (context, url, error) => new Icon(Icons.error),
-                                                ) : Container(
-                                                  height: 50,
-                                                  width: 50,
-                                                  child: Center(
-                                                    child: Image.asset(
-                                                        'images/hishabeeLogo.png',
-                                                        height: 35,
-                                                        width: 35),
-                                                  ),),
-                                                title: Text(product.name,style: TextStyle(fontFamily: 'Roboto'),maxLines: 3,),
-                                                trailing: Text('৳ ${product.sellingPrice}',style: TextStyle(fontFamily: 'Roboto'),),
-                                              ) ,
-
-                                              Divider(thickness: 2, color: Color(0xFFC4C4C4).withOpacity(.35),),
-                                            ],
-                                          )
-
-                                        );
-                                      }),
-                                    )
-                                        : Container(
-                                      height: size.height -300,
-                                      child: GridView.count(
-                                          crossAxisCount: 2,
-                                          crossAxisSpacing: 20,
-                                          mainAxisSpacing: 20,
-                                          children: List.generate(
-                                            controller.searchList.length, (index) {
-                                            Product product = controller.searchList[
-                                            controller.searchList.length - 1 -index];
+                                () => controller.flag.value == 0
+                                    ? Container(
+                                        // height: size.height - 200,
+                                        child: ListView.builder(
+                                            shrinkWrap: true,
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            itemCount:
+                                                controller.searchList.length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              Product product = controller
+                                                      .searchList[
+                                                  controller.searchList.length -
+                                                      1 -
+                                                      index];
                                               return InkWell(
-                                                onTap: (){
-                                                  Get.to(
-                                                        () => ProductDetails(),
-                                                    arguments: {
-                                                      'product': product,
-                                                      'shop': controller.shop.value,
-                                                      'catList': controller
-                                                          .productCategoryList
-                                                    },
-                                                    binding: ProductListBinding(),
-                                                  );
-                                                },
-                                                child: Container(
-                                            decoration: BoxDecoration(
-                                                  color: Color(0xFFF1F1F1),
-                                                  borderRadius: BorderRadius.circular(10)
-                                            ),
-                                            child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  product.imageUrl != null ?  Container(
-                                                    height: 50,
-                                                    width: 50,
-                                                    child: CachedNetworkImage(
-                                                      imageUrl: product.imageUrl,
-                                                      placeholder: (context, url) => new CircularProgressIndicator(),
-                                                      errorWidget: (context, url, error) => new Icon(Icons.error),
+                                                  onTap: () {
+                                                    Get.to(
+                                                      () => ProductDetails(),
+                                                      arguments: {
+                                                        'product': product,
+                                                        'shop': controller
+                                                            .shop.value,
+                                                        'catList': controller
+                                                            .productCategoryList
+                                                      },
+                                                      binding:
+                                                          ProductListBinding(),
+                                                    );
+                                                  },
+                                                  child:
+                                                      //
+                                                      Column(
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 10,
+                                                      ),
+                                                      ListTile(
+                                                        leading: product
+                                                                    .imageUrl !=
+                                                                null
+                                                            ? CachedNetworkImage(
+                                                                imageUrl: product
+                                                                    .imageUrl,
+                                                                placeholder: (context,
+                                                                        url) =>
+                                                                    new CircularProgressIndicator(),
+                                                                errorWidget: (context,
+                                                                        url,
+                                                                        error) =>
+                                                                    new Icon(Icons
+                                                                        .error),
+                                                              )
+                                                            : Container(
+                                                                height: 50,
+                                                                width: 50,
+                                                                child: Center(
+                                                                  child: Image.asset(
+                                                                      'images/hishabeeLogo.png',
+                                                                      height:
+                                                                          35,
+                                                                      width:
+                                                                          35),
+                                                                ),
+                                                              ),
+                                                        title: Text(
+                                                          product.name,
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'Roboto'),
+                                                          maxLines: 3,
+                                                        ),
+                                                        trailing: Text(
+                                                          '৳ ${product.sellingPrice}',
+                                                          style: TextStyle(
+                                                              fontFamily:
+                                                                  'Roboto'),
+                                                        ),
+                                                      ),
+                                                      Divider(
+                                                        thickness: 2,
+                                                        color: Color(0xFFC4C4C4)
+                                                            .withOpacity(.35),
+                                                      ),
+                                                    ],
+                                                  ));
+                                            }),
+                                      )
+                                    : Container(
+                                        height: size.height - 300,
+                                        child: GridView.count(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 20,
+                                            mainAxisSpacing: 20,
+                                            children: List.generate(
+                                              controller.searchList.length,
+                                              (index) {
+                                                Product product = controller
+                                                    .searchList[controller
+                                                        .searchList.length -
+                                                    1 -
+                                                    index];
+                                                return InkWell(
+                                                  onTap: () {
+                                                    Get.to(
+                                                      () => ProductDetails(),
+                                                      arguments: {
+                                                        'product': product,
+                                                        'shop': controller
+                                                            .shop.value,
+                                                        'catList': controller
+                                                            .productCategoryList
+                                                      },
+                                                      binding:
+                                                          ProductListBinding(),
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xFFF1F1F1),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        product.imageUrl != null
+                                                            ? Container(
+                                                                height: 50,
+                                                                width: 50,
+                                                                child:
+                                                                    CachedNetworkImage(
+                                                                  imageUrl: product
+                                                                      .imageUrl,
+                                                                  placeholder: (context,
+                                                                          url) =>
+                                                                      new CircularProgressIndicator(),
+                                                                  errorWidget: (context,
+                                                                          url,
+                                                                          error) =>
+                                                                      new Icon(Icons
+                                                                          .error),
+                                                                ),
+                                                              )
+                                                            : Container(
+                                                                height: 50,
+                                                                width: 50,
+                                                                child: Center(
+                                                                  child: Image.asset(
+                                                                      'images/hishabeeLogo.png',
+                                                                      height:
+                                                                          35,
+                                                                      width:
+                                                                          35),
+                                                                ),
+                                                              ),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Text(
+                                                          product.name,
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontFamily:
+                                                                  'Roboto'),
+                                                          maxLines: 3,
+                                                        ),
+                                                        SizedBox(
+                                                          height: 10,
+                                                        ),
+                                                        Text(
+                                                          '৳ ${product.sellingPrice}',
+                                                          style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontFamily:
+                                                                  'Roboto'),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ) : Container(
-                                                    height: 50,
-                                                    width: 50,
-                                                    child: Center(
-                                                      child: Image.asset(
-                                                          'images/hishabeeLogo.png',
-                                                          height: 35,
-                                                          width: 35),
-                                                    ),),
-                                                  SizedBox(height: 10,),
-                                                  Text(product.name, style: TextStyle(fontSize: 16, fontFamily: 'Roboto'),maxLines: 3,),
-                                                  SizedBox(height: 10,),
-                                                  Text('৳ ${product.sellingPrice}', style: TextStyle(fontSize: 16, fontFamily: 'Roboto'),),
-                                                ],
-                                            ),
-                                          ),
-                                              );},
-                                          )),
-                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            )),
+                                      ),
                               ),
                             ),
-
                           ],
                         ),
                       ],
@@ -556,24 +682,31 @@ class ProductListPage extends GetView<ProductListController> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           primary: Color(0xFF185ADB),
-
                         ),
-                        onPressed: (){
-                                  Get.to(
-                                        () => AddProductShowcase(
-                                      shop: controller.shop.value,
-                                      productCategoryList:
-                                      controller.productCategoryList,
-                                    ),
-                                    binding: ProductListBinding(),
-                                  );
+                        onPressed: () {
+                          Get.to(
+                            () => AddProductShowcase(
+                              shop: controller.shop.value,
+                              productCategoryList:
+                                  controller.productCategoryList,
+                            ),
+                            binding: ProductListBinding(),
+                          );
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.add, color: Colors.white,),
-                            SizedBox(width: 10,),
-                            Text('add_new_product'.tr, style: TextStyle(color: Colors.white),),
+                            Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'add_new_product'.tr,
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ],
                         ),
                       ),
@@ -591,226 +724,226 @@ class ProductListPage extends GetView<ProductListController> {
     String catagory;
     productCategoryList
         .forEach((Category c) => c.subCategory.forEach((SubCategory sc) {
-      if (sc.id == product.subCategory) {
-        catagory = sc.name;
-      }
-    }));
+              if (sc.id == product.subCategory) {
+                catagory = sc.name;
+              }
+            }));
     Size size = MediaQuery.of(context).size;
     TextEditingController controller =
-    TextEditingController(text: product.stock.toString());
+        TextEditingController(text: product.stock.toString());
     int stock = product.stock;
     showDialog(
         barrierDismissible: true,
         context: context,
         builder: (context) => KeyboardAwareDialog(
-          child: Container(
-            height: size.height * 0.5,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: size.height * 0.15,
-                  width: size.width,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child:
-                  product.imageUrl == null || product.imageUrl == "null"
-                      ? Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Center(
-                      child: Image.asset(
-                        'images/hishabeeLogo.png',
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  )
-                      : Center(
-                    child: CachedNetworkImage(
-                      imageUrl: product.imageUrl,
-                      height: size.height * 0.15,
-                      width: size.width * 0.8,
-                      placeholder: (context, url) =>
-                          CircularProgressIndicator(),
-                      errorWidget: (context, url, error) => Icon(
-                        Icons.error,
-                        color: Colors.red,
-                      ),
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                    product.name,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      // fontSize: 28,
-                      color: DEFAULT_BLACK,
-                    ),
-                  ),
-                ),
-                Row(
+              child: Container(
+                height: size.height * 0.5,
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      '$catagory',
-                      style: TextStyle(
-                        fontFamily: 'Rubik',
-                        // fontSize: 28,
-                        color: Colors.red,
+                    Container(
+                      height: size.height * 0.15,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                    ),
-                    SizedBox(
-                      height: 15,
-                      child: VerticalDivider(
-                        thickness: 1,
-                        color: Colors.red,
-                      ),
-                    ),
-                    Text(
-                      'TK ${product.sellingPrice}',
-                      style: TextStyle(
-                        fontFamily: 'Rubik',
-                        // fontSize: 28,
-                        color: Colors.red,
-                      ),
-                    ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          int temp = stock--;
-                          controller.text = (temp - 1).toString();
-                        },
-                        child: Container(
-                          height: 40,
-                          width: 40,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.red,
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              height: 25,
-                              width: 25,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.white,
-                              ),
-                              child: Center(
-                                child: Text(
-                                  " - ",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.red),
+                      child:
+                          product.imageUrl == null || product.imageUrl == "null"
+                              ? Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Center(
+                                    child: Image.asset(
+                                      'images/hishabeeLogo.png',
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                )
+                              : Center(
+                                  child: CachedNetworkImage(
+                                    imageUrl: product.imageUrl,
+                                    height: size.height * 0.15,
+                                    width: size.width * 0.8,
+                                    placeholder: (context, url) =>
+                                        CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) => Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                    ),
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
-                              ),
-                            ),
-                          ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        product.name,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          // fontSize: 28,
+                          color: DEFAULT_BLACK,
                         ),
                       ),
-                      SizedBox(width: 5),
-                      Container(
-                          width: size.width / 3,
-                          height: 40,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: Colors.grey)),
-                          child: TextFormField(
-                            textAlign: TextAlign.center,
-                            controller: controller,
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              focusedBorder: InputBorder.none,
-                              enabledBorder: InputBorder.none,
-                              contentPadding: EdgeInsets.only(
-                                  left: 5, right: 5, bottom: 10),
-                            ),
-                          )),
-                      SizedBox(width: 5),
-                      InkWell(
-                        onTap: () {
-                          int temp = stock++;
-                          controller.text = (temp + 1).toString();
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 5.0),
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: Colors.teal,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                height: 25,
-                                width: 25,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  color: Colors.white,
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    " + ",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.teal),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '$catagory',
+                          style: TextStyle(
+                            fontFamily: 'Rubik',
+                            // fontSize: 28,
+                            color: Colors.red,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 15,
+                          child: VerticalDivider(
+                            thickness: 1,
+                            color: Colors.red,
+                          ),
+                        ),
+                        Text(
+                          'TK ${product.sellingPrice}',
+                          style: TextStyle(
+                            fontFamily: 'Rubik',
+                            // fontSize: 28,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              int temp = stock--;
+                              controller.text = (temp - 1).toString();
+                            },
+                            child: Container(
+                              height: 40,
+                              width: 40,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.red,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  height: 25,
+                                  width: 25,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.white,
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      " - ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.red),
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 20.0,
-                    left: 20,
-                    right: 20,
-                    bottom: 20,
-                  ),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 40,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(4)),
-                    child: ElevatedButton(
-                      style:
-                      ElevatedButton.styleFrom(primary: DEFAULT_BLUE),
-                      onPressed: () {
-                        Get.find<ProductListController>()
-                            .updateStock(shop.id, product, stock);
-                      },
-                      child: Text(
-                        "update".tr,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Rubik',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                        ),
+                          SizedBox(width: 5),
+                          Container(
+                              width: size.width / 3,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  border: Border.all(color: Colors.grey)),
+                              child: TextFormField(
+                                textAlign: TextAlign.center,
+                                controller: controller,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  contentPadding: EdgeInsets.only(
+                                      left: 5, right: 5, bottom: 10),
+                                ),
+                              )),
+                          SizedBox(width: 5),
+                          InkWell(
+                            onTap: () {
+                              int temp = stock++;
+                              controller.text = (temp + 1).toString();
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5.0),
+                              child: Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: Colors.teal,
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    height: 25,
+                                    width: 25,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        " + ",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.teal),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ));
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        top: 20.0,
+                        left: 20,
+                        right: 20,
+                        bottom: 20,
+                      ),
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 40,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4)),
+                        child: ElevatedButton(
+                          style:
+                              ElevatedButton.styleFrom(primary: DEFAULT_BLUE),
+                          onPressed: () {
+                            Get.find<ProductListController>()
+                                .updateStock(shop.id, product, stock);
+                          },
+                          child: Text(
+                            "update".tr,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Rubik',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ));
   }
 
   _showCategoryDialog(
@@ -830,12 +963,12 @@ class ProductListPage extends GetView<ProductListController> {
                     height: size.height * 0.8,
                     width: size.width / 1.5,
                     child: Obx(
-                          () => ListView.builder(
+                      () => ListView.builder(
                         shrinkWrap: true,
                         itemCount: controller.filterCategory.length,
                         itemBuilder: (BuildContext context, int index) {
                           return Obx(
-                                () => CheckboxListTile(
+                            () => CheckboxListTile(
                               checkColor: Colors.white,
                               activeColor: DEFAULT_BLACK,
                               title: Text(
@@ -876,7 +1009,7 @@ class ProductListPage extends GetView<ProductListController> {
                       },
                     ),
                     Obx(
-                          () => TextButton(
+                      () => TextButton(
                         child: Text(
                           'Done',
                           style: TextStyle(

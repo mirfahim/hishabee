@@ -39,6 +39,8 @@ abstract class IProductProvider {
     String attribute,
     double vatAmount,
     String productType,
+    double wholeSalePrice,
+    String uniqueID,
   });
 
   Future<Response<AddVariationResponseModel>> addVariation({
@@ -151,14 +153,11 @@ class ProductProvider extends GetConnect implements IProductProvider {
     final creds = await _authRepository.getCredentials();
     final headers = {'Authorization': 'Bearer ${creds.accessToken}'};
 
-
-      return get(
-        url,
-        headers: headers,
-        decoder: productResponseModelFromRawJson,
-      );
-
-
+    return get(
+      url,
+      headers: headers,
+      decoder: productResponseModelFromRawJson,
+    );
   }
 
   @override
@@ -188,9 +187,12 @@ class ProductProvider extends GetConnect implements IProductProvider {
     String barcode,
     String attribute,
     double vatAmount,
+    double wholeSalePrice,
+    String uniqueID,
     String productType = "SIMPLE",
   }) async {
-    String url = "$BASE_URL/product/add";
+    String url =
+        "$BASE_URL/product?shop_id=$shopId&sub_category=$subcategoryId&name=$productName&selling_price=$price&description=$productName&image_src=$imageUrl&stock=$stockQuantity&cost_price=$cost&vat_applicable=true&barcode=$barcode&unit=1&vat_applicable=true&vat_percent=15&sell_online=true&shipping_cost=50&wholesale_price=$wholeSalePrice&wholesale_amount=10&gallery=[]&warranty=10&warranty_type=DAY&stock_alert=2&discount=10&discount_type=PERCENT&created_at=2022-02-08 12:12:12&updated_at=2022-02-08 12:12:13&version=0&unique_id=$uniqueID";
 
     final creds = await _authRepository.getCredentials();
     final headers = {'Authorization': 'Bearer ${creds.accessToken}'};
@@ -200,16 +202,18 @@ class ProductProvider extends GetConnect implements IProductProvider {
       "category": subcategoryId,
       "name": productName,
       "selling_price": price,
+      "cost": price,
       "description": desc,
       "image_url": imageUrl,
       "stock": stockQuantity,
-      "cost_price": cost,
+      "wholesale_price": wholeSalePrice,
       "vat_applicable": vatApplicable,
       "vat_percent": vatAmount,
       "barcode": barcode,
       "attribute": attribute,
       "product_type": productType,
     };
+    print("my all url are $body ");
 
     return post(
       url,

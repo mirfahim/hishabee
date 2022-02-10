@@ -254,7 +254,6 @@ const en_US = {
   'digital_payment': 'Digital Payment',
   'quickly_add_product_from_our_product_list':
       'Quickly Add product from our product list',
-  'customer_mobile_number':'Mobile Number(Customer)',
   'or_add_manually': 'Or, Add Manually:',
   'advance_options': 'Advance Options',
   'variation_name': 'Variation Name',
@@ -267,7 +266,6 @@ const en_US = {
   'whole_sale_rate': 'Whole Sale Rate',
   'warranty': 'Warranty',
   'scan_barcode':'Scan Barcode',
-  'sms_free_20':'SMS Free(20)',
   'add_product_picture_max_5':'Add Product Image(Max 5)',
   'amount_discount':'Amount of Discount',
   'start_from_sell':'Start from Sell',
