@@ -1,6 +1,7 @@
 import 'package:animated_widgets/widgets/rotation_animated.dart';
 import 'package:animated_widgets/widgets/shake_animated_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:contextmenu/contextmenu.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,11 +34,9 @@ class QuickSell extends GetView<SellController> {
 
   @override
   Widget build(BuildContext context) {
-    double _currentValue = 0;
-    var _quickSellItem = [
-      'Days', 'Month', 'Year'
-    ];
-    String _selectedDropDownWarrenty = 'Days';
+    RxBool smsCheckBox = false.obs;
+    RxBool mobileNumberCheckbox = false.obs;
+    RxBool profitCheckBox = false.obs;
     Size size = MediaQuery.of(context).size;
     final shopFeatureController = Get.find<ShopFeaturesController>();
     return Scaffold(
@@ -274,102 +273,72 @@ class QuickSell extends GetView<SellController> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: InkWell(
-                                      onTap: () {},
-                                      child: Column(
-                                        children: [
-                                          Card(
-
-                                              // shape:  RoundedRectangleBorder(
-                                              //   borderRadius: BorderRadius.circular(20.0),
-                                              // ),
-                                              // elevation: 5,
-                                              // child: Container(
-                                              //   decoration: BoxDecoration(
-                                              //       color: Colors.white,
-                                              //       // border: Border.all(
-                                              //       //     color: DEFAULT_BLACK, width: 1),
-                                              //       borderRadius: BorderRadius.circular(20)),
-                                              //   child: Padding(
-                                              //     padding: const EdgeInsets.all(8.0),
-                                              //     child: Icon(Icons.add,color: Colors.black,)
-                                              //   ),
-                                              // ),
-
-                                            child: DropdownButton<String>(
-
-                                              value: _selectedDropDownWarrenty,
-                                              items: _quickSellItem.map<DropdownMenuItem<String>>((String value) {
-                                                return DropdownMenuItem(
-
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: Row(
-                                                      children: [
-                                                        Checkbox(value: false, onChanged: (checked){}),
-                                                        SizedBox(width: 20),
-                                                        Text(
-                                                            value,
-                                                            style: TextStyle(color: Colors.black,
-                                                                fontFamily: 'Roboto',
-                                                                fontSize: 14,
-                                                                fontWeight: FontWeight.w500
-                                                            )),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  value: value,
-
-                                                );
-                                              }).toList(),
-                                              onChanged: (String value) {
-                                                // setState(() {
-                                                //   _selectedDropDownWarrenty = value;
-                                                // });
-                                                print('value changed item : ${value}');
-                                              },
-
+                                    child: PopupMenuButton(
+                                      icon: Card(
+                                        elevation: 5,
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                shape: BoxShape.circle
                                             ),
-                                          )
-                                          // Card(
-                                          //   shape:  RoundedRectangleBorder(
-                                          //     borderRadius: BorderRadius.circular(20.0),
-                                          //   ),
-                                          //   elevation: 5,
-                                          //   child: Container(
-                                          //     decoration: BoxDecoration(
-                                          //         color: Colors.white,
-                                          //         // border: Border.all(
-                                          //         //     color: DEFAULT_BLACK, width: 1),
-                                          //         borderRadius: BorderRadius.circular(20)),
-                                          //     child: Padding(
-                                          //       padding: const EdgeInsets.all(8.0),
-                                          //       child: Icon(Icons.add,color: Colors.black,)
-                                          //     ),
-                                          //   ),
-                                          // ),
-                                          // DropdownButton(
-                                          //     items: [
-                                          //       DropdownMenuItem(
-                                          //         child: Row(
-                                          //           children: [
-                                          //             Checkbox(value: true, onChanged: (value){
-                                          //
-                                          //             }),
-                                          //             Text('Free SMS')
-                                          //           ],
-                                          //         ),
-                                          //       )], onChanged: (value){})
-                                        ],
+                                            child: Icon(Icons.add, color: Colors.black,)),
                                       ),
+                                      itemBuilder: (context)=>[
+                                        PopupMenuItem(
+                                          child: Row(
+                                            children: [
+                                              Obx(()=>
+                                                  Checkbox(value: smsCheckBox.value, onChanged: (checked){
+                                                    smsCheckBox.value = checked;
+                                                  }),
+                                              ),
+                                              Text("sms_free_20".tr, style: TextStyle(
+                                                fontSize: 12,
+                                                fontFamily: 'Roboto',
+                                              )),
+                                            ],
+                                          ),
+                                          value: 1,
+                                        ),
+                                        PopupMenuItem(
+                                          child: Row(
+                                            children: [
+                                              Obx(()=>Checkbox(value: mobileNumberCheckbox.value, onChanged: (checked){
+                                                mobileNumberCheckbox.value = checked;
+                                              }),
+                                              ),
+                                              Text("customer_mobile_number".tr,style: TextStyle(
+                                                fontSize: 12,
+                                                fontFamily: 'Roboto',
+                                              ) ),
+                                            ],
+                                          ),
+                                          value: 2,
+                                        ),
+                                        PopupMenuItem(
+                                          child: Row(
+                                            children: [
+                                              Obx(()=>Checkbox(value: profitCheckBox.value, onChanged: (checked){
+                                                profitCheckBox.value = checked;
+                                              }),
+                                              ),
+                                              Text("profit".tr,style: TextStyle(
+                                                fontSize: 12,
+                                                fontFamily: 'Roboto',
+                                              ) ),
+                                            ],
+                                          ),
+                                          value: 2,
+                                        )
+                                      ],
                                     ),
-                                  ),
+                                  )
                                 ],
                               ),
                             ),
                             Padding(
                               padding:
-                                  const EdgeInsets.symmetric(vertical: 15.0),
+                                  const EdgeInsets.symmetric(vertical: 10.0),
                               child: TextFormField(
                                 // controller: controller.amount.value,
                                 onTap: () {
@@ -403,11 +372,12 @@ class QuickSell extends GetView<SellController> {
                                 ),
                               ),
                             ),
+                            mobileNumberCheckbox.value == true ?
                             Obx(
                               () => controller.customerField.value
                                   ? Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          vertical: 15.0),
+                                          vertical: 10.0),
                                       child: TextFormField(
                                         onSaved: (value) {
                                           controller.customerPhone.value =
@@ -430,12 +400,13 @@ class QuickSell extends GetView<SellController> {
                                       ),
                                     )
                                   : Container(),
-                            ),
+                            ) : Container(),
+                            profitCheckBox.value == true ?
                             Obx(
                               () => controller.profitField.value
                                   ? Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          vertical: 15.0),
+                                          vertical: 10.0),
                                       child: TextFormField(
                                         onSaved: (value) {
                                           controller.profit.value =
@@ -459,10 +430,10 @@ class QuickSell extends GetView<SellController> {
                                       ),
                                     )
                                   : Container(),
-                            ),
+                            ) : Container(),
                             Padding(
                               padding:
-                                  const EdgeInsets.symmetric(vertical: 15.0),
+                                  const EdgeInsets.symmetric(vertical: 10.0),
                               child: TextFormField(
                                 onSaved: (value) {
                                   controller.productDetails.value = value;
@@ -476,6 +447,7 @@ class QuickSell extends GetView<SellController> {
                                 ),
                               ),
                             ),
+                            // sada
                             SizedBox(
                               height: 10,
                             ),
