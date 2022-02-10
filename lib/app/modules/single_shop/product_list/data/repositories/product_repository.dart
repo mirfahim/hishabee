@@ -24,26 +24,31 @@ class ProductRepository implements IProductRepository {
   @override
   Future<AddProductResponseModel> addProduct(
       {int shopId,
-        int subcategoryId,
-        String productName,
-        double price,
-        String desc,
-        String imageUrl,
-        int stockQuantity,
-        double cost,
-        bool vatApplicable,
-        String barcode,
-        String attribute,
-        double vatAmount}) async {
+      int subcategoryId,
+      String productName,
+      double price,
+      List gallary,
+      String desc,
+      String imageUrl,
+      int stockQuantity,
+      double cost,
+      bool vatApplicable,
+      String barcode,
+      double wholeSalePrice,
+      String uniqueID,
+      String attribute,
+      double vatAmount}) async {
     final response = await productProvider.addProduct(
         shopId: shopId,
         subcategoryId: subcategoryId,
         productName: productName,
         price: price,
+        wholeSalePrice: wholeSalePrice,
         desc: desc,
         imageUrl: imageUrl,
         stockQuantity: stockQuantity,
         cost: cost,
+        uniqueID: uniqueID,
         vatApplicable: vatApplicable,
         barcode: barcode,
         attribute: attribute,
@@ -55,17 +60,17 @@ class ProductRepository implements IProductRepository {
   @override
   Future<AddProductResponseModel> addProductWithAttribute(
       {int shopId,
-        int subcategoryId,
-        String productName,
-        double price,
-        String desc,
-        String imageUrl,
-        int stockQuantity,
-        double cost,
-        bool vatApplicable,
-        String barcode,
-        String attribute,
-        double vatAmount}) async {
+      int subcategoryId,
+      String productName,
+      double price,
+      String desc,
+      String imageUrl,
+      int stockQuantity,
+      double cost,
+      bool vatApplicable,
+      String barcode,
+      String attribute,
+      double vatAmount}) async {
     final response = await productProvider.addProductWithAttribute(
         shopId: shopId,
         subcategoryId: subcategoryId,
@@ -86,13 +91,13 @@ class ProductRepository implements IProductRepository {
   @override
   Future<AddVariationResponseModel> addVariation(
       {int shopProductId,
-        String name,
-        double sellingPrice,
-        String imageSrc,
-        int stock,
-        double costPrice,
-        String barcode,
-        String criteria}) async {
+      String name,
+      double sellingPrice,
+      String imageSrc,
+      int stock,
+      double costPrice,
+      String barcode,
+      String criteria}) async {
     final response = await productProvider.addVariation(
       shopProductId: shopProductId,
       name: name,
@@ -122,18 +127,18 @@ class ProductRepository implements IProductRepository {
   @override
   Future<UpdateProductResponseModel> editProduct(
       {int id,
-        String barcode,
-        int variationId,
-        int category,
-        String name,
-        String varianceName,
-        double sellingPrice,
-        int stock,
-        double cost,
-        String description,
-        bool vatApplicable,
-        double vatPercentage,
-        String imageSource}) async {
+      String barcode,
+      int variationId,
+      int category,
+      String name,
+      String varianceName,
+      double sellingPrice,
+      int stock,
+      double cost,
+      String description,
+      bool vatApplicable,
+      double vatPercentage,
+      String imageSource}) async {
     final response = await productProvider.editProduct(
         id: id,
         barcode: barcode,
@@ -154,7 +159,7 @@ class ProductRepository implements IProductRepository {
 
   @override
   Future<List<Product>> getAllProduct(int shopId) async {
-    if( await networkInfo.isConnected()){
+    if (await networkInfo.isConnected()) {
       final response = await productProvider.getAllProduct(shopId);
       await localProductProvider.saveAllProduct(shopId, response.body);
 
@@ -167,14 +172,12 @@ class ProductRepository implements IProductRepository {
 
   @override
   Future<List<Product>> getAllProduct1(int shopId) async {
-
     if (await networkInfo.isConnected()) {
       final response = await productProvider.getAllProduct(shopId);
 
       await localProductProvider.saveAllProduct(shopId, response.body);
 
       return ResponseDecoder.decode(response);
-
     } else {
       print("data is coming from local database");
       return await localProductProvider.getAllProduct(shopId: shopId);
@@ -185,7 +188,7 @@ class ProductRepository implements IProductRepository {
   Future<List<Attribute>> getAllProductAttribute(int shopId) async {
     try {
       final result =
-      await localProductProvider.getAllProductAttribute(shopId: shopId);
+          await localProductProvider.getAllProductAttribute(shopId: shopId);
       return result;
     } catch (e) {
       if (await networkInfo.isConnected()) {

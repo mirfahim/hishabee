@@ -53,14 +53,16 @@ class AddProductController extends GetxController {
     String barcode,
     String attribute,
     double vatAmount,
+    double wholeSalePrice,
+    String uniqueID,
+    List gallary,
   }) async {
     //String imageUrl;
     String imageSrc;
     if (image.value != null) {
       imageUrl =
           await fileRepository.uploadFile(file: image.value, type: 'product');
-      imageSrc =
-          imageUrl
+      imageSrc = imageUrl
           .replaceAll("\\", "")
           .replaceAll('"', "")
           .replaceAll("{", "")
@@ -74,14 +76,17 @@ class AddProductController extends GetxController {
       subcategoryId: subcategoryId,
       productName: productName,
       price: price,
+      wholeSalePrice: wholeSalePrice,
       desc: desc ?? null,
       imageUrl: imageSrc ?? null,
       stockQuantity: stockQuantity ?? 0,
-      cost: cost ?? 0.0,
+      cost: cost ?? null,
       vatApplicable: vatApplicable ?? null,
       barcode: barcode ?? null,
       attribute: attribute ?? null,
       vatAmount: vatAmount ?? 0,
+      uniqueID: uniqueID,
+      gallary: gallary,
     );
 
     if (result.code == 200) {

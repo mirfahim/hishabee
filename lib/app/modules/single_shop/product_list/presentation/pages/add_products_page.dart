@@ -28,6 +28,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_lis
 import 'package:image_picker/image_picker.dart';
 import 'package:showcaseview/showcaseview.dart';
 
+import '../../../../shop_main/domain/repositories/i_file_repository.dart';
 import 'add_category_page.dart';
 
 class AddProductShowcase extends StatelessWidget {
@@ -75,6 +76,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
   String savedProductName;
   double price;
   double cost;
+  double wholeSalePrice;
   int stockQuantity;
   String desc;
   bool vatApplicable = false;
@@ -107,6 +109,9 @@ class _AddProductsPageState extends State<AddProductsPage> {
   List<File> listFileImage = [];
   Map<int, File> imageMap = new Map();
   Map<int, String> imageUrl = new Map();
+  String imageAPIURL;
+  String imageAPI;
+
   String mainImageUrl;
   String attributeMap;
   bool adding = false;
@@ -1919,6 +1924,9 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                                                 //     stockQuantity = 0;
                                                                                 //   }
                                                                                 // },
+                                                                                onChanged: (val) {
+                                                                                  wholeSalePrice = double.parse(val);
+                                                                                },
                                                                                 inputFormatters: [
                                                                                   FilteringTextInputFormatter.digitsOnly
                                                                                 ],
@@ -2462,6 +2470,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                                             ),
                                                                             child:
                                                                                 DropdownButton<String>(
+                                                                              underline: SizedBox(),
                                                                               value: _selectedDropDownWarrenty,
                                                                               items: items.map<DropdownMenuItem<String>>((String value) {
                                                                                 return DropdownMenuItem(
@@ -2656,6 +2665,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                                             ),
                                                                             child:
                                                                                 DropdownButton<String>(
+                                                                              underline: SizedBox(),
                                                                               elevation: 0,
                                                                               value: _selectedDropDownDiscount,
                                                                               items: itemDiscount.map<DropdownMenuItem<String>>((String value) {
@@ -2825,7 +2835,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                               child: Center(
                                                 child: Container(
                                                   height: 70,
-                                                  width: 300,
+                                                  width: 400,
                                                   child: ListView.separated(
                                                       scrollDirection:
                                                           Axis.horizontal,
@@ -2840,71 +2850,76 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                       itemBuilder:
                                                           (BuildContext context,
                                                               int index) {
-                                                        return Stack(children: [
-                                                          Container(
-                                                            height: 65,
-                                                            width: 65,
-                                                            decoration: BoxDecoration(
-                                                                shape: BoxShape
-                                                                    .rectangle,
-                                                                color:
-                                                                    Colors.grey,
-                                                                image: DecorationImage(
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                    image: FileImage(
-                                                                        listFileImage[
-                                                                            index]))),
-                                                          ),
-                                                          Align(
-                                                            alignment:
-                                                                Alignment(
-                                                                    2, -1),
-                                                            child: InkWell(
-                                                              onTap: () {
-                                                                print(
-                                                                    "working 1");
-
-                                                                setState(() {
-                                                                  listFileImage = List
-                                                                      .from(
-                                                                          listFileImage)
-                                                                    ..removeAt(
-                                                                        index);
-                                                                });
-
-                                                                print(
-                                                                    listFileImage
-                                                                        .length);
-                                                              },
-                                                              child: Container(
-                                                                width: 20.0,
-                                                                height: 20.0,
-                                                                child: Icon(
-                                                                  Icons.close,
-                                                                  color: Colors
-                                                                      .red,
-                                                                  size: 20,
+                                                        return Center(
+                                                          child: Stack(
+                                                              children: [
+                                                                Container(
+                                                                  height: 60,
+                                                                  width: 60,
+                                                                  decoration: BoxDecoration(
+                                                                      shape: BoxShape
+                                                                          .rectangle,
+                                                                      color: Colors
+                                                                          .grey,
+                                                                      image: DecorationImage(
+                                                                          fit: BoxFit
+                                                                              .cover,
+                                                                          image:
+                                                                              FileImage(listFileImage[index]))),
                                                                 ),
-                                                                decoration: BoxDecoration(
-                                                                    boxShadow: [
-                                                                      BoxShadow(
-                                                                          color: Colors
-                                                                              .black,
-                                                                          offset: Offset(
-                                                                              0,
-                                                                              1),
-                                                                          blurRadius:
-                                                                              2),
-                                                                    ],
-                                                                    shape: BoxShape
-                                                                        .circle,
-                                                                    color: Colors
-                                                                        .transparent),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ]);
+                                                                Align(
+                                                                  alignment:
+                                                                      Alignment(
+                                                                          2,
+                                                                          -1),
+                                                                  child:
+                                                                      InkWell(
+                                                                    onTap: () {
+                                                                      print(
+                                                                          "working 1");
+
+                                                                      setState(
+                                                                          () {
+                                                                        listFileImage = List.from(
+                                                                            listFileImage)
+                                                                          ..removeAt(
+                                                                              index);
+                                                                      });
+
+                                                                      print(listFileImage
+                                                                          .length);
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      width:
+                                                                          20.0,
+                                                                      height:
+                                                                          20.0,
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .close,
+                                                                        color: Colors
+                                                                            .red,
+                                                                        size:
+                                                                            20,
+                                                                      ),
+                                                                      decoration: BoxDecoration(
+                                                                          boxShadow: [
+                                                                            BoxShadow(
+                                                                                color: Colors.black,
+                                                                                offset: Offset(0, 1),
+                                                                                blurRadius: 2),
+                                                                          ],
+                                                                          shape: BoxShape
+                                                                              .circle,
+                                                                          color:
+                                                                              Colors.transparent),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ]),
+                                                        );
                                                       }),
                                                 ),
                                               ),
@@ -3732,7 +3747,10 @@ class _AddProductsPageState extends State<AddProductsPage> {
     });
   }
 
-  void addImageToList(File file) {
+  IFileRepository fileRepository;
+  var image = Rxn<File>();
+  String imageSrc;
+  void addImageToList(File file) async {
     if (listFileImage.length == 5) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -3747,10 +3765,27 @@ class _AddProductsPageState extends State<AddProductsPage> {
     }
   }
 
+  List<String> gallary = [];
+  imagesFromApi(File file) async {
+    print("image file path is ${file.path}");
+    imageAPI =
+        await fileRepository.uploadFile(file: image.value, type: 'product');
+    imageSrc = imageAPI
+        .replaceAll("\\", "")
+        .replaceAll('"', "")
+        .replaceAll("{", "")
+        .replaceAll("}", "")
+        .replaceAllMapped('url:', (match) => "");
+
+    gallary.insert(0, imageSrc);
+    print("my image url list is $gallary");
+  }
+
   saveProduct() async {
     // if (selectedProductCategory == null || selectedSubCat == null) {
     //   _showMaterialDialog("Please Select Category and Sub Category");
     // } else {
+    createUniqueID();
     String atData = "{";
     for (Attribute a in attributeList) {
       atData = atData + " \"${a.name} \": \"${a.value}\", ";
@@ -3761,6 +3796,15 @@ class _AddProductsPageState extends State<AddProductsPage> {
     sendProductInfo();
     _productListController.getAllProduct();
     // }
+  }
+
+  String uniqueID;
+  createUniqueID() {
+    String time = DateTime.now().millisecondsSinceEpoch.toString();
+    uniqueID = widget.shop.id.toString() +
+        widget.shop.userId.toString() +
+        time.toString();
+    print(" my unique ID is $uniqueID");
   }
 
   sendProductInfo() async {
@@ -3796,6 +3840,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
           subcategoryId: selectedSubCat == null ? null : selectedSubCat.id,
           productName: productName,
           price: price,
+          wholeSalePrice: wholeSalePrice,
           desc: desc,
           imageUrl: mainImageUrl,
           stockQuantity: stockQuantity,
@@ -3804,6 +3849,8 @@ class _AddProductsPageState extends State<AddProductsPage> {
           barcode: mainProductBarCode,
           attribute: attributeMap,
           vatAmount: vatAmount,
+          uniqueID: uniqueID,
+          gallary: imageList,
         );
         if (!isAdvanced) {
           setState(() {
@@ -3926,7 +3973,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                     print(
                         "image path is +++++++++++++ ${controller.image.value.path}");
                     addImageToList(controller.image.value);
-
+                    imagesFromApi(controller.image.value);
                     navigator.pop();
                   });
                 },
@@ -3967,6 +4014,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                   ImageHelper.getImageFromGallery().then((value) {
                     controller.image.value = value;
                     addImageToList(controller.image.value);
+                    imagesFromApi(controller.image.value);
                     navigator.pop();
                   });
                 },

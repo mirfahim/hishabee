@@ -24,12 +24,15 @@ abstract class IProductRepository {
     double price,
     String desc,
     String imageUrl,
+    List gallary,
     int stockQuantity,
     double cost,
     bool vatApplicable,
     String barcode,
     String attribute,
     double vatAmount,
+    double wholeSalePrice,
+    String uniqueID,
   });
 
   Future<AddVariationResponseModel> addVariation({
