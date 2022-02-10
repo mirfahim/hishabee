@@ -510,6 +510,9 @@ const en_US = {
   'are_you_sure_quesmark': 'Are you sure',
   'cart_back_empty':
       'Going back will remove all current items in the cart. Sure you want to proceed?',
+  'cart':'Cart',
+  'discount(%)':'Discount(%)',
+  'discount(৳)':'Discount(৳)',
   'account_type': 'Account Type',
   'bank_account_name': 'Bank Account Name',
   'bank_account_number': 'Bank Account Number',
