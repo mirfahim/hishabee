@@ -1,22 +1,8 @@
-
-
-
-
-
-
 ///TODO: this is implemented in the main app
-
-
-
-
-
-
-
 
 import 'package:flutter/material.dart';
 
 class SMSFront extends StatefulWidget {
-
   @override
   State<SMSFront> createState() => _SMSFrontState();
 }
@@ -39,7 +25,7 @@ class _SMSFrontState extends State<SMSFront> {
               icon: Icon(Icons.arrow_back),
             ),
             backgroundColor: Colors.amber,
-            title: Text('SMS'),
+            title: Text('SMSs'),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 5),

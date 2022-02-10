@@ -96,55 +96,52 @@ class SaleVsExpenseBarChart extends GetView<ReportController> {
                   // Describe your chart
                   label: 'Yearly sales bar chart',
                   hint: 'Press and hold to enable explore',
-                  child: Obx(
-                    () {
+                  child:
                       // final barChartData = controller.barChartData.toList();
-                      return Container();
-                      // barChartData.isEmpty
-                      //   ? Container()
-                      //   : charts.BarChart(
-                      //       barChartData,
-                      //       animate: animate,
-                      //       animationDuration: Duration(milliseconds: 500),
-                      //       defaultInteractions:
-                      //           !MediaQuery.of(context).accessibleNavigation,
-                      //       behaviors: [
-                      //         new charts.DomainA11yExploreBehavior(
-                      //           // Callback for generating the message that is vocalized.
-                      //           // An example of how to use is in [vocalizeDomainAndMeasures].
-                      //           // If none is set, the default only vocalizes the domain value.
-                      //           vocalizationCallback:
-                      //               vocalizeDomainAndMeasures,
-                      //           // The following settings are optional, but shown here for
-                      //           // demonstration purchases.
-                      //           // [exploreModeTrigger] Default is press and hold, can be
-                      //           // changed to tap.
-                      //           exploreModeTrigger:
-                      //               charts.ExploreModeTrigger.pressHold,
-                      //           // [exploreModeEnabledAnnouncement] Optionally notify the OS
-                      //           // when explore mode is enabled.
-                      //           exploreModeEnabledAnnouncement:
-                      //               'Explore mode enabled',
-                      //           // [exploreModeDisabledAnnouncement] Optionally notify the OS
-                      //           // when explore mode is disabled.
-                      //           exploreModeDisabledAnnouncement:
-                      //               'Explore mode disabled',
-                      //           // [minimumWidth] Default and minimum is 1.0. This is the
-                      //           // minimum width of the screen reader bounding box. The bounding
-                      //           // box width is calculated based on the domain axis step size.
-                      //           // Minimum width will be used if the step size is smaller.
-                      //           minimumWidth: 1.0,
-                      //         ),
-                      //         // Optionally include domain highlighter as a behavior.
-                      //         // This behavior is included in this example to show that when an
-                      //         // a11y node has focus, the chart's internal selection model is
-                      //         // also updated.
-                      //         new charts.DomainHighlighter(
-                      //             charts.SelectionModelType.info),
-                      //       ],
-                      //     );
-                    },
-                  ),
+                      Container(),
+                  // barChartData.isEmpty
+                  //   ? Container()
+                  //   : charts.BarChart(
+                  //       barChartData,
+                  //       animate: animate,
+                  //       animationDuration: Duration(milliseconds: 500),
+                  //       defaultInteractions:
+                  //           !MediaQuery.of(context).accessibleNavigation,
+                  //       behaviors: [
+                  //         new charts.DomainA11yExploreBehavior(
+                  //           // Callback for generating the message that is vocalized.
+                  //           // An example of how to use is in [vocalizeDomainAndMeasures].
+                  //           // If none is set, the default only vocalizes the domain value.
+                  //           vocalizationCallback:
+                  //               vocalizeDomainAndMeasures,
+                  //           // The following settings are optional, but shown here for
+                  //           // demonstration purchases.
+                  //           // [exploreModeTrigger] Default is press and hold, can be
+                  //           // changed to tap.
+                  //           exploreModeTrigger:
+                  //               charts.ExploreModeTrigger.pressHold,
+                  //           // [exploreModeEnabledAnnouncement] Optionally notify the OS
+                  //           // when explore mode is enabled.
+                  //           exploreModeEnabledAnnouncement:
+                  //               'Explore mode enabled',
+                  //           // [exploreModeDisabledAnnouncement] Optionally notify the OS
+                  //           // when explore mode is disabled.
+                  //           exploreModeDisabledAnnouncement:
+                  //               'Explore mode disabled',
+                  //           // [minimumWidth] Default and minimum is 1.0. This is the
+                  //           // minimum width of the screen reader bounding box. The bounding
+                  //           // box width is calculated based on the domain axis step size.
+                  //           // Minimum width will be used if the step size is smaller.
+                  //           minimumWidth: 1.0,
+                  //         ),
+                  //         // Optionally include domain highlighter as a behavior.
+                  //         // This behavior is included in this example to show that when an
+                  //         // a11y node has focus, the chart's internal selection model is
+                  //         // also updated.
+                  //         new charts.DomainHighlighter(
+                  //             charts.SelectionModelType.info),
+                  //       ],
+                  //     );
                 ),
               ),
             ),

@@ -79,30 +79,30 @@ class SaleLineChart extends GetView<ReportController> {
             ),
             Expanded(
               child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Obx(() => Container())
-                  // Obx(
-                  //   () {
-                  //     final seriesData = controller.saleLineData.toList();
-                  //     return seriesData.isEmpty
-                  //         ? Container()
-                  //         : charts.TimeSeriesChart(
-                  //             seriesData,
-                  //             animate: animate,
-                  //             animationDuration: Duration(milliseconds: 500),
-                  //             // behaviors: [
-                  //             //   charts.RangeAnnotation([
-                  //             //     charts.RangeAnnotationSegment(
-                  //             //         DateTime(2021, 5, 1),
-                  //             //         DateTime(2021, 5, 30),
-                  //             //         charts.RangeAnnotationAxisType.domain),
-                  //             //   ]),
-                  //             //   // charts.LinePointHighlighter()
-                  //             // ],
-                  //           );
-                  //   },
-                  // ),
-                  ),
+                padding: const EdgeInsets.all(8.0),
+                child: Container(),
+                // Obx(
+                //   () {
+                //     final seriesData = controller.saleLineData.toList();
+                //     return seriesData.isEmpty
+                //         ? Container()
+                //         : charts.TimeSeriesChart(
+                //             seriesData,
+                //             animate: animate,
+                //             animationDuration: Duration(milliseconds: 500),
+                //             // behaviors: [
+                //             //   charts.RangeAnnotation([
+                //             //     charts.RangeAnnotationSegment(
+                //             //         DateTime(2021, 5, 1),
+                //             //         DateTime(2021, 5, 30),
+                //             //         charts.RangeAnnotationAxisType.domain),
+                //             //   ]),
+                //             //   // charts.LinePointHighlighter()
+                //             // ],
+                //           );
+                //   },
+                // ),
+              ),
             ),
           ],
         ),
