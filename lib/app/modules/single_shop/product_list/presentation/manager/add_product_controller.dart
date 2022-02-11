@@ -19,6 +19,7 @@ class AddProductController extends GetxController {
   final isOnline = false.obs;
   final isStockAlert = false.obs;
   final isWholeSale = false.obs;
+  final isRetail = false.obs;
   final isVat = false.obs;
   final isWarrenty = false.obs;
   final isDiscount = false.obs;

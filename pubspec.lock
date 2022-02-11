@@ -900,13 +900,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.11"
-  material_color_utilities:
-    dependency: transitive
-    description:
-      name: material_color_utilities
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.3"
   math_expressions:
     dependency: "direct main"
     description:
@@ -934,7 +927,7 @@ packages:
       name: nm
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.3"
+    version: "0.4.2"
   number_display:
     dependency: "direct main"
     description:
@@ -1366,7 +1359,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.8"
+    version: "0.4.3"
   timezone:
     dependency: transitive
     description:

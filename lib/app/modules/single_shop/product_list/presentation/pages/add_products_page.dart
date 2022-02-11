@@ -82,7 +82,9 @@ class _AddProductsPageState extends State<AddProductsPage> {
   bool vatApplicable = false;
   bool isAdvanced = false;
   bool isStockAlert = false;
+  bool isOnline = false;
   bool isWholeSale = false;
+  bool isRetail = false;
   bool isVat = false;
   bool isWarrenty = false;
   bool isDiscount = false;
@@ -1079,60 +1081,153 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 5.0, right: 5, top: 8),
-                                    child: Container(
-                                      height: 48,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFF1F1F1),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 15.0),
-                                            child: Text(
-                                              // controller.isOnline.value
-                                              //     ? "ONLINE"
-                                              //     : "OFFLINE",
-                                              'want_to_sell_online'.tr,
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontFamily: "Roboto",
-                                                fontWeight: FontWeight.bold,
-                                                color: DEFAULT_BLUE_DARK,
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          if (isOnline ==
+                                              false) {
+                                            controller
+                                                .isOnline
+                                                .value = true;
+                                            isOnline =
+                                            true;
+                                          } else {
+                                            controller
+                                                .isOnline
+                                                .value = false;
+                                            isOnline =
+                                            false;
+                                          }
+                                        });
+                                      },
+                                      child: Container(
+                                        // height: 48,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFFF1F1F1),
+                                          borderRadius: BorderRadius.circular(5),
+                                        ),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(vertical: 12.0),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        left: 15.0),
+                                                    child: Text(
+                                                      // controller.isOnline.value
+                                                      //     ? "ONLINE"
+                                                      //     : "OFFLINE",
+                                                      'want_to_sell_online'.tr,
+                                                      style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontFamily: "Roboto",
+                                                        fontWeight: FontWeight.bold,
+                                                        color: DEFAULT_BLUE_DARK,
+                                                      ),
+                                                    ),
+                                                    // Obx(
+                                                    //   () =>
+                                                    // ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(
+                                                        right: 10.0),
+                                                    child: Obx(
+                                                      () => FlutterSwitch(
+                                                        height: 25.0,
+                                                        width: 40.0,
+                                                        padding: 4.0,
+                                                        toggleSize: 20.0,
+                                                        borderRadius: 20.0,
+                                                        inactiveColor: Colors.black,
+                                                        activeColor: Color(0xFF185ADB),
+                                                        value:
+                                                            controller.isOnline.value,
+                                                        onToggle: (value) {
+                                                          controller.isOnline.value =
+                                                              value;
+                                                          setState(
+                                                                  () {
+                                                                    isOnline =
+                                                                    value;
+                                                              });
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
-                                            // Obx(
-                                            //   () =>
-                                            // ),
+                                              isOnline ? Padding(
+                                                padding:
+                                                const EdgeInsets
+                                                    .only(
+                                                    top:
+                                                    10.0),
+                                                child: Container(
+                                                  child: Expanded(
+                                                    child:
+                                                    Column(
+                                                      mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                      crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                          const EdgeInsets.only(left: 10.0),
+                                                          child:
+                                                          Text(
+                                                            'delivery_charge'.tr,
+                                                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, fontFamily: 'Roboto'),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                          const EdgeInsets.all(8.0),
+                                                          child:
+                                                          Container(
+                                                            height: 48,
+                                                            child: TextFormField(
+                                                              // onChanged: (val) {
+                                                              //   if (val != "") {
+                                                              //     stockQuantity = int.parse(val);
+                                                              //   } else {
+                                                              //     stockQuantity = 0;
+                                                              //   }
+                                                              // },
+                                                              inputFormatters: [
+                                                                FilteringTextInputFormatter.digitsOnly
+                                                              ],
+                                                              keyboardType: TextInputType.number,
+                                                              decoration: InputDecoration(
+                                                                filled: true,
+                                                                fillColor: Colors.white,
+                                                                border: new OutlineInputBorder(borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                focusedBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                enabledBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                hintText: "delivery_charge".tr,
+                                                                hintStyle: TextStyle(fontFamily: 'Roboto', color: Colors.blueGrey, fontSize: 12),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ): Container()
+                                            ],
                                           ),
-                                          Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 10.0),
-                                            child: Obx(
-                                              () => FlutterSwitch(
-                                                height: 25.0,
-                                                width: 40.0,
-                                                padding: 4.0,
-                                                toggleSize: 20.0,
-                                                borderRadius: 20.0,
-                                                inactiveColor: Colors.black,
-                                                activeColor: Color(0xFF185ADB),
-                                                value:
-                                                    controller.isOnline.value,
-                                                onToggle: (value) {
-                                                  controller.isOnline.value =
-                                                      value;
-                                                },
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                        ),
                                       ),
                                     ),
                                   ),
+
                                 ],
                               ),
                             ),
@@ -1504,8 +1599,8 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Column(
-                                          // crossAxisAlignment:
-                                          //     CrossAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Padding(
                                               padding: const EdgeInsets.only(
@@ -1728,6 +1823,620 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                 ],
                                               ),
                                             ),
+
+                                            SizedBox(height: 10,),
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 15),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFFC4C4C4),
+                                                  borderRadius:
+                                                  BorderRadius.circular(10),
+                                                ),
+                                                child: Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      12.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text('product_unit'.tr,style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontFamily:
+                                                        "Roboto",
+                                                        fontWeight:
+                                                        FontWeight
+                                                            .bold,
+                                                        color:
+                                                        DEFAULT_BLUE_DARK,
+                                                      ),),
+                                                      InkWell(
+                                                        onTap: () {
+
+                                                        },
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                          child: Container(
+                                                            height: 48,
+                                                            child: TextFormField(
+
+                                                              inputFormatters: [
+                                                                FilteringTextInputFormatter.digitsOnly
+                                                              ],
+                                                              keyboardType: TextInputType.number,
+                                                              decoration: InputDecoration(
+                                                                suffixIcon: PopupMenuButton(
+                                                                    icon: Icon(Icons.arrow_drop_down, color: Color(0xFF707070),),
+                                                                    itemBuilder: (context) => [
+                                                                      PopupMenuItem(
+                                                                        child: Text("Feet"),
+                                                                        value: "Feet",
+                                                                      ),
+                                                                      PopupMenuItem(
+                                                                        child: Text("Kg"),
+                                                                        value: "Kg",
+                                                                      ),
+                                                                      PopupMenuItem(
+                                                                        child: Text("Liter"),
+                                                                        value: "Liter",
+                                                                      ),
+                                                                      PopupMenuItem(
+                                                                        child: Text("Meter"),
+                                                                        value: "Meter",
+                                                                      )
+                                                                    ]
+                                                                ),
+                                                                filled: true,
+                                                                fillColor: Colors.white,
+                                                                border: new OutlineInputBorder(borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                focusedBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                enabledBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                hintText: "product_unit".tr,
+                                                                hintStyle: TextStyle(fontFamily: 'Roboto', color: Colors.blueGrey, fontSize: 12),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      InkWell(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            if (isRetail ==
+                                                                false) {
+                                                              controller
+                                                                  .isRetail
+                                                                  .value = true;
+                                                              isRetail =
+                                                              true;
+                                                            } else {
+                                                              controller
+                                                                  .isRetail
+                                                                  .value = false;
+                                                              isRetail =
+                                                              false;
+                                                            }
+                                                          });
+                                                        },
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                            border: Border.all(color: Color(0xFFC4C4C4),width: 1)
+                                                          ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                            children: [
+                                                              Text(
+                                                                'want_to_sell_retail'
+                                                                    .tr,
+                                                                style: TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontFamily:
+                                                                  "Roboto",
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                                  color:
+                                                                  DEFAULT_BLUE_DARK,
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                const EdgeInsets
+                                                                    .only(
+                                                                    right:
+                                                                    10.0),
+                                                                child: Obx(
+                                                                      () =>
+                                                                      FlutterSwitch(
+                                                                        height: 25.0,
+                                                                        width: 40.0,
+                                                                        padding: 4.0,
+                                                                        toggleSize:
+                                                                        20.0,
+                                                                        borderRadius:
+                                                                        20.0,
+                                                                        inactiveColor:
+                                                                        Colors
+                                                                            .black,
+                                                                        activeColor:
+                                                                        Color(
+                                                                            0xFF185ADB),
+                                                                        value: controller
+                                                                            .isRetail
+                                                                            .value,
+                                                                        onToggle:
+                                                                            (valueStock) {
+                                                                          // controller
+                                                                          //     .isRetail
+                                                                          //     .value =
+                                                                          //     valueStock;
+                                                                          // setState(
+                                                                          //         () {
+                                                                          //           isRetail =
+                                                                          //           valueStock;
+                                                                          //     });
+                                                                              showModalBottomSheet<void>(
+
+                                                                                // context and builder are
+                                                                                // required properties in this widget
+                                                                                context: context,
+                                                                                builder: (BuildContext context) {
+
+                                                                                  // we set up a container inside which
+                                                                                  // we create center column and display text
+                                                                                  return Container(
+                                                                                    child: Padding(
+                                                                                      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 12),
+                                                                                      child: Column(
+                                                                                        // mainAxisAlignment: MainAxisAlignment.start,
+                                                                                        children: <Widget>[
+                                                                                          Container(
+                                                                                            decoration: BoxDecoration(
+                                                                                              color: Color(0xFF185ADB),
+                                                                                              borderRadius: BorderRadius.circular(6),
+                                                                                            ),
+                                                                                            child: Padding(
+                                                                                              padding: const EdgeInsets.all(8.0),
+                                                                                              child: Row(
+                                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                                children: [
+                                                                                                  Text('how_to_add_retail_type'.tr,
+                                                                                                  style: TextStyle(
+                                                                                                    color: Colors.white,
+                                                                                                    fontSize: 14,fontFamily: 'Roboto'
+                                                                                                  ),
+                                                                                                  ),
+                                                                                                  InkWell(onTap:(){},child: Image.asset('images/assets/youtube.png'))
+                                                                                                ],
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                          SizedBox(height: 10,),
+                                                                                          Container(
+                                                                                            decoration: BoxDecoration(
+                                                                                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                                                                                              borderRadius: BorderRadius.circular(6)
+                                                                                            ),
+                                                                                            child: Padding(
+                                                                                              padding: const EdgeInsets.all(8.0),
+                                                                                              child: Column(
+                                                                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                                children: [
+                                                                                                  Text('select_retail_unit'.tr,
+                                                                                                    style: TextStyle(
+                                                                                                    fontSize: 12, fontFamily: 'Roboto',
+                                                                                                  ),),
+                                                                                                  InkWell(
+                                                                                                    onTap: () {
+
+                                                                                                    },
+                                                                                                    child: Padding(
+                                                                                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                                                                                      child: Container(
+                                                                                                        height: 48,
+                                                                                                        child: TextFormField(
+
+                                                                                                          inputFormatters: [
+                                                                                                            FilteringTextInputFormatter.digitsOnly
+                                                                                                          ],
+                                                                                                          keyboardType: TextInputType.number,
+                                                                                                          decoration: InputDecoration(
+                                                                                                            suffixIcon: PopupMenuButton(
+                                                                                                                icon: Icon(Icons.arrow_drop_down, color: Color(0xFF707070),),
+                                                                                                                itemBuilder: (context) => [
+                                                                                                                  PopupMenuItem(
+                                                                                                                    child: Text("Feet"),
+                                                                                                                    value: "Feet",
+                                                                                                                  ),
+                                                                                                                  PopupMenuItem(
+                                                                                                                    child: Text("Kg"),
+                                                                                                                    value: "Kg",
+                                                                                                                  ),
+                                                                                                                  PopupMenuItem(
+                                                                                                                    child: Text("Liter"),
+                                                                                                                    value: "Liter",
+                                                                                                                  ),
+                                                                                                                  PopupMenuItem(
+                                                                                                                    child: Text("Meter"),
+                                                                                                                    value: "Meter",
+                                                                                                                  )
+                                                                                                                ]
+                                                                                                            ),
+                                                                                                            filled: true,
+                                                                                                            fillColor: Colors.white,
+                                                                                                            border: new OutlineInputBorder(borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                            focusedBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                            enabledBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                            hintText: "product_unit".tr,
+                                                                                                            hintStyle: TextStyle(fontFamily: 'Roboto', color: Colors.blueGrey, fontSize: 12),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  SizedBox(height: 10,),
+                                                                                                  Text('select_retails_price_amount'.tr,
+                                                                                                  style: TextStyle(
+                                                                                                    fontSize: 12, fontFamily: 'Roboto',fontWeight: FontWeight.w500
+                                                                                                  ),
+                                                                                                  ),
+                                                                                                  Text('example_of_retail'.tr,
+                                                                                                  style: TextStyle(
+                                                                                                    fontSize: 12, fontFamily: 'Roboto',color: Color(0xFF707070)
+                                                                                                  ),
+                                                                                                  ),
+                                                                                                  SizedBox(height: 10,),
+                                                                                                  Row(
+                                                                                                    mainAxisAlignment:
+                                                                                                    MainAxisAlignment
+                                                                                                        .start,
+                                                                                                    crossAxisAlignment:
+                                                                                                    CrossAxisAlignment
+                                                                                                        .center,
+                                                                                                    children: [
+                                                                                                      Expanded(
+                                                                                                        child:
+                                                                                                        Container(
+                                                                                                          height: 48,
+                                                                                                          child: TextFormField(
+                                                                                                            // onChanged: (val) {
+                                                                                                            //   if (val != "") {
+                                                                                                            //     stockQuantity = int.parse(val);
+                                                                                                            //   } else {
+                                                                                                            //     stockQuantity = 0;
+                                                                                                            //   }
+                                                                                                            // },
+                                                                                                            inputFormatters: [
+                                                                                                              FilteringTextInputFormatter.digitsOnly
+                                                                                                            ],
+                                                                                                            keyboardType: TextInputType.number,
+                                                                                                            decoration: InputDecoration(
+                                                                                                              filled: true,
+                                                                                                              fillColor: Colors.white,
+                                                                                                              border: new OutlineInputBorder(borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                              focusedBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                              enabledBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                              hintText: "1 feet".tr,
+                                                                                                              hintStyle: TextStyle(fontFamily: 'Roboto', color: Colors.blueGrey, fontSize: 12),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                      Padding(
+                                                                                                        padding: const EdgeInsets.all(8.0),
+                                                                                                        child: Text('=',  style: TextStyle(
+                                                                                                          fontSize: 16, fontFamily: 'Roboto'
+                                                                                                        ),),
+                                                                                                      ),
+                                                                                                      Expanded(
+                                                                                                        child:
+                                                                                                        Container(
+                                                                                                          height: 48,
+                                                                                                          child: TextFormField(
+                                                                                                            // onChanged: (val) {
+                                                                                                            //   if (val != "") {
+                                                                                                            //     stockQuantity = int.parse(val);
+                                                                                                            //   } else {
+                                                                                                            //     stockQuantity = 0;
+                                                                                                            //   }
+                                                                                                            // },
+                                                                                                            onChanged: (val) {
+                                                                                                              wholeSalePrice = double.parse(val);
+                                                                                                            },
+                                                                                                            inputFormatters: [
+                                                                                                              FilteringTextInputFormatter.digitsOnly
+                                                                                                            ],
+                                                                                                            keyboardType: TextInputType.number,
+                                                                                                            decoration: InputDecoration(
+                                                                                                              filled: true,
+                                                                                                              fillColor: Colors.white,
+                                                                                                              border: new OutlineInputBorder(borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                              focusedBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                              enabledBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                              hintText: "amount_porimap".tr,
+                                                                                                              hintStyle: TextStyle(fontFamily: 'Roboto', color: Colors.blueGrey, fontSize: 12),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                      Padding(
+                                                                                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                                                                        child: Text('meter'.tr, style: TextStyle(color: Color(0xFF979797), fontWeight: FontWeight.w400, fontSize: 12),),
+                                                                                                      )
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                  SizedBox(height: 10,),
+                                                                                                  Text('select_retails_price_price'.tr,
+                                                                                                    style: TextStyle(
+                                                                                                      fontSize: 12, fontFamily: 'Roboto',fontWeight: FontWeight.w500
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  Text('example_of_retail'.tr,
+                                                                                                    style: TextStyle(
+                                                                                                        fontSize: 12, fontFamily: 'Roboto',color: Color(0xFF707070)
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                  SizedBox(height: 10,),
+                                                                                                  Row(
+                                                                                                    mainAxisAlignment:
+                                                                                                    MainAxisAlignment
+                                                                                                        .start,
+                                                                                                    crossAxisAlignment:
+                                                                                                    CrossAxisAlignment
+                                                                                                        .center,
+                                                                                                    children: [
+                                                                                                      Expanded(
+                                                                                                        child:
+                                                                                                        Container(
+                                                                                                          height: 48,
+                                                                                                          child: TextFormField(
+                                                                                                            // onChanged: (val) {
+                                                                                                            //   if (val != "") {
+                                                                                                            //     stockQuantity = int.parse(val);
+                                                                                                            //   } else {
+                                                                                                            //     stockQuantity = 0;
+                                                                                                            //   }
+                                                                                                            // },
+                                                                                                            inputFormatters: [
+                                                                                                              FilteringTextInputFormatter.digitsOnly
+                                                                                                            ],
+                                                                                                            keyboardType: TextInputType.number,
+                                                                                                            decoration: InputDecoration(
+                                                                                                              filled: true,
+                                                                                                              fillColor: Colors.white,
+                                                                                                              border: new OutlineInputBorder(borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                              focusedBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                              enabledBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                              hintText: "1 feet".tr,
+                                                                                                              hintStyle: TextStyle(fontFamily: 'Roboto', color: Colors.blueGrey, fontSize: 12),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                      Padding(
+                                                                                                        padding: const EdgeInsets.all(8.0),
+                                                                                                        child: Text('=',  style: TextStyle(
+                                                                                                            fontSize: 16, fontFamily: 'Roboto'
+                                                                                                        ),),
+                                                                                                      ),
+                                                                                                      Expanded(
+                                                                                                        child:
+                                                                                                        Container(
+                                                                                                          height: 48,
+                                                                                                          child: TextFormField(
+                                                                                                            // onChanged: (val) {
+                                                                                                            //   if (val != "") {
+                                                                                                            //     stockQuantity = int.parse(val);
+                                                                                                            //   } else {
+                                                                                                            //     stockQuantity = 0;
+                                                                                                            //   }
+                                                                                                            // },
+                                                                                                            onChanged: (val) {
+                                                                                                              wholeSalePrice = double.parse(val);
+                                                                                                            },
+                                                                                                            inputFormatters: [
+                                                                                                              FilteringTextInputFormatter.digitsOnly
+                                                                                                            ],
+                                                                                                            keyboardType: TextInputType.number,
+                                                                                                            decoration: InputDecoration(
+                                                                                                              filled: true,
+                                                                                                              fillColor: Colors.white,
+                                                                                                              border: new OutlineInputBorder(borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                              focusedBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                              enabledBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                                                              hintText: "write_amount".tr,
+                                                                                                              hintStyle: TextStyle(fontFamily: 'Roboto', color: Colors.blueGrey, fontSize: 12),
+                                                                                                            ),
+                                                                                                          ),
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                      Padding(
+                                                                                                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                                                                                        child: Text('৳', style: TextStyle(color: Color(0xFF979797), fontWeight: FontWeight.w400, fontSize: 12),),
+                                                                                                      )
+                                                                                                    ],
+                                                                                                  ),
+                                                                                                  SizedBox(height:10)
+                                                                                                ],
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                          SizedBox(height:10),
+                                                                                          Row(
+                                                                                            mainAxisAlignment: MainAxisAlignment.center,
+                                                                                            children: [
+                                                                                              ElevatedButton(
+                                                                                                onPressed: (){
+
+                                                                                                },
+                                                                                                child: Text('delete'.tr, style: TextStyle(
+                                                                                                  fontSize: 14, fontFamily: 'Roboto', color: Colors.white, fontWeight: FontWeight.w500
+                                                                                                ),),
+                                                                                                style: ElevatedButton.styleFrom(primary: Color(0xFFFF0000)),
+                                                                                              ),
+                                                                                              SizedBox(width: 15,),
+                                                                                              ElevatedButton(
+                                                                                                onPressed: (){
+
+                                                                                                },
+                                                                                                  child: Text('save'.tr, style: TextStyle(
+                                                                                                      fontSize: 14, fontFamily: 'Roboto', color: Colors.white, fontWeight: FontWeight.w500
+                                                                                                  ),),
+                                                                                                style: ElevatedButton.styleFrom(primary: Color(0xFF669E4F)),
+                                                                                              )
+                                                                                            ],
+                                                                                          )
+
+                                                                                        ],
+                                                                                      ),
+                                                                                    ),
+                                                                                  );
+                                                                                },
+                                                                              );
+                                                                          // if(valueStock){
+                                                                          //
+                                                                          //
+                                                                          // }else{
+                                                                          //   isStockAlert = false;
+                                                                          // }
+                                                                        },
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      isRetail
+                                                          ? Padding(
+                                                        padding:
+                                                        const EdgeInsets
+                                                            .only(
+                                                            top:
+                                                            10.0),
+                                                        child: Container(
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                            crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                            children: [
+                                                              Expanded(
+                                                                child:
+                                                                Column(
+                                                                  mainAxisAlignment:
+                                                                  MainAxisAlignment.start,
+                                                                  crossAxisAlignment:
+                                                                  CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding:
+                                                                      const EdgeInsets.only(left: 10.0),
+                                                                      child:
+                                                                      Text(
+                                                                        'whole_sale_rate'.tr,
+                                                                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, fontFamily: 'Roboto'),
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding:
+                                                                      const EdgeInsets.all(8.0),
+                                                                      child:
+                                                                      Container(
+                                                                        height: 48,
+                                                                        child: TextFormField(
+                                                                          // onChanged: (val) {
+                                                                          //   if (val != "") {
+                                                                          //     stockQuantity = int.parse(val);
+                                                                          //   } else {
+                                                                          //     stockQuantity = 0;
+                                                                          //   }
+                                                                          // },
+                                                                          inputFormatters: [
+                                                                            FilteringTextInputFormatter.digitsOnly
+                                                                          ],
+                                                                          keyboardType: TextInputType.number,
+                                                                          decoration: InputDecoration(
+                                                                            filled: true,
+                                                                            fillColor: Colors.white,
+                                                                            border: new OutlineInputBorder(borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                            focusedBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                            enabledBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                            hintText: "whole_sale_rate".tr,
+                                                                            hintStyle: TextStyle(fontFamily: 'Roboto', color: Colors.blueGrey, fontSize: 12),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child:
+                                                                Column(
+                                                                  crossAxisAlignment:
+                                                                  CrossAxisAlignment.start,
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding:
+                                                                      const EdgeInsets.only(left: 10.0),
+                                                                      child:
+                                                                      Text(
+                                                                        'whole_sale_count'.tr,
+                                                                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500, fontFamily: 'Roboto'),
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding:
+                                                                      const EdgeInsets.all(8.0),
+                                                                      child:
+                                                                      Container(
+                                                                        height: 48,
+                                                                        child: TextFormField(
+                                                                          // onChanged: (val) {
+                                                                          //   if (val != "") {
+                                                                          //     stockQuantity = int.parse(val);
+                                                                          //   } else {
+                                                                          //     stockQuantity = 0;
+                                                                          //   }
+                                                                          // },
+                                                                          onChanged: (val) {
+                                                                            wholeSalePrice = double.parse(val);
+                                                                          },
+                                                                          inputFormatters: [
+                                                                            FilteringTextInputFormatter.digitsOnly
+                                                                          ],
+                                                                          keyboardType: TextInputType.number,
+                                                                          decoration: InputDecoration(
+                                                                            filled: true,
+                                                                            fillColor: Colors.white,
+                                                                            border: new OutlineInputBorder(borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                            focusedBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                            enabledBorder: new OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                            hintText: "whole_sale_count".tr,
+                                                                            hintStyle: TextStyle(fontFamily: 'Roboto', color: Colors.blueGrey, fontSize: 12),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      )
+                                                          : Container(),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            
                                             Padding(
                                               padding: EdgeInsets.only(top: 15),
                                               child: Container(
