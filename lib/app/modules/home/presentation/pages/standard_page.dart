@@ -275,7 +275,7 @@ class _StandardPageState extends State<StandardPage> {
                           Container(
                             color: Colors.amber[50],
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 InkWell(
                                     onTap: () {
