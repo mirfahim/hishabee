@@ -180,7 +180,7 @@ const bn_BD = {
   'employee_name': 'কর্মচারীর নাম',
   'position': 'পদ',
   'customer_address':'ক্রেতার ঠিকানা',
-  'customer_number':'ক্রেতা এর মোবাইল নম্বর',
+  'customer_number':'ক্রেতার মোবাইল নম্বর',
   'stock':'স্টক',
   'stock_history':'স্টকের ইতিহাস',
   'total_stocked_product':'মোট মজুদ মূল্য',
