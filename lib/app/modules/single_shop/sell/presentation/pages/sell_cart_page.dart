@@ -147,17 +147,21 @@ class SellCartPage extends GetView<SellController>{
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                              padding: const EdgeInsets.symmetric(horizontal: 0.0),
                                               child: Column(
                                                 mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    '${item.name}',
-                                                    textAlign: TextAlign.start,
-                                                    style: TextStyle(
-                                                        fontSize: 16,
-                                                        fontFamily: 'Roboto',
-                                                        fontWeight: FontWeight.bold),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 20.0),
+                                                    child: Text(
+                                                      '${item.name}',
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontFamily: 'Roboto',
+                                                          fontWeight: FontWeight.bold),
+                                                    ),
                                                   ),
                                                   SizedBox(height: 10,),
                                                   Row(
@@ -185,7 +189,7 @@ class SellCartPage extends GetView<SellController>{
                                                       ),
                                                       Text(
                                                         '${item.unit}',
-                                                        style: TextStyle(fontSize: 16, fontFamily: 'Roboto'),
+                                                        style: TextStyle(fontSize: 18, fontFamily: 'Roboto'),
                                                       ),
                                                       ElevatedButton(
                                                         onPressed: () {
@@ -506,7 +510,7 @@ class SellCartPage extends GetView<SellController>{
                           Row(
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(left: 30.0),
+                                padding: const EdgeInsets.only(left: 65.0),
                                 child: Text(
                                   'payment_method'.tr,
                                   textAlign: TextAlign.center,

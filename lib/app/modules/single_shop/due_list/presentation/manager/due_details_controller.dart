@@ -21,7 +21,7 @@ class DueDetailsController extends GetxController{
   final due = Due().obs;
   final shop = Shop().obs;
   final dueDate = DateTime.now().obs;
-  final dueLeft = 0.obs;
+  final dueLeft = 0.0.obs;
 
   final IDueRepository dueRepository;
   DueDetailsController(this.dueRepository);
@@ -40,8 +40,8 @@ class DueDetailsController extends GetxController{
     claCulateLeftDue(dueItem);
   }
   claCulateLeftDue(List<GetAllDueItemByUid> dueItemList){
-    var positive = 0;
-    var negative = 0;
+    var positive = 0.0;
+    var negative = 0.0;
     dueItemList.forEach((element) {
       if(element.amount > 0){
         positive = positive + element.amount;
@@ -63,7 +63,7 @@ class DueDetailsController extends GetxController{
   }
   deleteDue() async{
     CustomDialog.showLoadingDialog(message: 'Deleting Due');
-    AddDueRequest request = AddDueRequest(contactName: due.value.contactName, contactMobile: due.value.contactMobile,contactType: due.value.contactType,updatedAt: DateTime.now().toString(),createdAt: due.value.createdAt.toString(),version: -1,uniqueId: due.value.uniqueId,shopId: due.value.shopId,amount: due.value.dueAmount.toInt());
+    AddDueRequest request = AddDueRequest(contactName: due.value.contactName, contactMobile: due.value.contactMobile,contactType: due.value.contactType,updatedAt: DateTime.now().toString(),createdAt: due.value.createdAt.toString(),version: -1,uniqueId: due.value.uniqueId,shopId: due.value.shopId,amount: due.value.dueAmount);
     final response = await dueRepository.addNewDue(request);
     Get.back();
     if(response.code == 200){

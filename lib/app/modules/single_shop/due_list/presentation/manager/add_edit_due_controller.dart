@@ -30,9 +30,9 @@ class DueEditAddController extends GetxController{
 
   final shopId = 0.obs;
   final shop = Rxn<Shop>();
-  final dueType = 0.obs;
+  final dueType = 0.0.obs;
   final route = 0.obs;
-  final dueAmount = 0.obs;
+  final dueAmount = 0.0.obs;
   final dueDetails = ''.obs;
   final sms = false.obs;
   final dueDate = DateTime.now().obs;
@@ -126,7 +126,7 @@ class DueEditAddController extends GetxController{
       AddDueItemRequest dueItemRequest = AddDueItemRequest(
           shopId: due.value.shopId,
           createdAt: DateTime.now().toString(),
-          amount: dueType.value == 0 ? dueAmount.value : -dueAmount,
+          amount: dueType.value == 0.0 ? dueAmount.value : -dueAmount,
           dueUniqueId: due.value.uniqueId,
           uniqueId: selectedDueItem.value.uniqueId ?? dUniqueId,
           version: route.value == 0 || route.value == 1 ? 0 : selectedDueItem.value.version + 1,
@@ -159,7 +159,7 @@ class DueEditAddController extends GetxController{
       AddDueItemRequest dueItemRequest = AddDueItemRequest(
           shopId: response.due.shopId,
           createdAt: response.due.createdAt.toString(),
-          amount: response.due.dueAmount.toInt(),
+          amount: response.due.dueAmount,
           dueUniqueId: response.due.uniqueId,
           uniqueId: dIUniqueId,
           version: 0,

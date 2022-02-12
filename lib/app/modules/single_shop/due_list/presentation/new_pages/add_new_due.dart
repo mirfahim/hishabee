@@ -120,7 +120,7 @@ class DueNew extends GetView<DueEditAddController>{
                                 'দিলাম/বাকি',
                                 'নিলাম/জমা',
                               ],
-                              selectedButton: controller.dueType.value,
+                              selectedButton: controller.dueType.value.toInt(),
                             ),
                           ),
                         ),
@@ -206,7 +206,7 @@ class DueNew extends GetView<DueEditAddController>{
                                 return null;
                               },
                               onSaved: (value){
-                                controller.dueAmount.value = int.parse(value);
+                                controller.dueAmount.value = double.parse(value);
                               },
                               cursorColor: Colors.black,
                               keyboardType: TextInputType.number,

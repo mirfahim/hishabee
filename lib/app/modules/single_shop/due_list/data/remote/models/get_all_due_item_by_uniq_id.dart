@@ -33,7 +33,7 @@ class GetAllDueItemByUid {
   dynamic transactionType;
   dynamic note;
   int dueLeft;
-  int amount;
+  double amount;
   DateTime createdAt;
   DateTime updatedAt;
   int shopId;

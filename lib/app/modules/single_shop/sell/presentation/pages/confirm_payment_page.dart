@@ -348,7 +348,6 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                     width: 80,
                                                     child: SvgPicture.asset(
                                                       'images/svg_image/payment_cash.svg',
-                                                      color: DEFAULT_BLACK,
                                                     ),
                                                   ),
                                                   SizedBox(
@@ -384,7 +383,7 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                 binding: ConfirmPaymentBinding(),
                                                 arguments: {
                                                   "due": due,
-                                                  "dueType": 0,
+                                                  "dueType": 0.0,
                                                   "route": 0,
                                                   'dueItem': dueItem,
                                                   'customer': controller
@@ -433,8 +432,7 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                     height: 80,
                                                     width: 80,
                                                     child: SvgPicture.asset(
-                                                      'images/svg_image/due.svg',
-                                                      color: DEFAULT_BLACK,
+                                                      'images/svg_image/due_svg.svg',
                                                     ),
                                                   ),
                                                   SizedBox(
@@ -491,8 +489,7 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                           const EdgeInsets.all(
                                                               5.0),
                                                       child: SvgPicture.asset(
-                                                        'images/svg_image/qr_code.svg',
-                                                        color: DEFAULT_BLACK,
+                                                        'images/svg_image/nkash_qr.svg',
                                                       ),
                                                     ),
                                                   ),
@@ -974,7 +971,7 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                               disabledBorder:
                                                                   InputBorder.none,
                                                               hintText:
-                                                                  "Search For Employee",
+                                                                  "search_for_employee".tr,
                                                               hintStyle: TextStyle(
                                                                   fontSize: 14.0,
                                                                   fontFamily:
@@ -1185,7 +1182,7 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                         const EdgeInsets.only(
                                                             left: 10.0),
                                                         child: Text(
-                                                          "employee_name".tr,
+                                                          "employee_number".tr,
                                                           style: TextStyle(
                                                             fontFamily: 'Roboto',
                                                             fontWeight:
@@ -1225,86 +1222,7 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                             disabledBorder:
                                                             InputBorder.none,
                                                             hintText:
-                                                            "Employee name",
-                                                            hintStyle: TextStyle(
-                                                                fontSize: 14.0,
-                                                                fontFamily:
-                                                                'Roboto'),
-                                                            // border: InputBorder(bo),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(
-                                                  horizontal: 10.0,vertical: 10),
-                                              child: Container(
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    border: Border.all(
-                                                        color: Colors.grey
-                                                            .withOpacity(.35),
-                                                        width: 2),
-                                                    borderRadius: BorderRadius.all(
-                                                        Radius.circular(10.0))),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                                  children: [
-                                                    Expanded(
-                                                      child: Padding(
-                                                        padding:
-                                                        const EdgeInsets.only(
-                                                            left: 10.0),
-                                                        child: Text(
-                                                          "employee_address".tr,
-                                                          style: TextStyle(
-                                                            fontFamily: 'Roboto',
-                                                            fontWeight:
-                                                            FontWeight.bold,
-                                                            color: DEFAULT_BLACK,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Container( height: 30,
-                                                        child: VerticalDivider(thickness: 2,color: Colors.black, indent: 0,endIndent: 0)),
-                                                    Expanded(
-                                                      flex: 2,
-                                                      child: Padding(
-                                                        padding:
-                                                        const EdgeInsets.only(
-                                                            left: 3.0),
-                                                        child: TextFormField(
-                                                          onChanged: (value) {
-                                                            // controller.searchProduct(value);
-                                                          },
-                                                          keyboardType:
-                                                          TextInputType.text,
-                                                          decoration:
-                                                          InputDecoration(
-                                                            border:
-                                                            InputBorder.none,
-                                                            focusedBorder:
-                                                            InputBorder.none,
-                                                            enabledBorder:
-                                                            InputBorder.none,
-                                                            errorBorder:
-                                                            InputBorder.none,
-                                                            disabledBorder:
-                                                            InputBorder.none,
-                                                            hintText:
-                                                            "employess_address".tr,
+                                                            "employee_number".tr,
                                                             hintStyle: TextStyle(
                                                                 fontSize: 14.0,
                                                                 fontFamily:
@@ -1777,7 +1695,7 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                             disabledBorder:
                                                             InputBorder.none,
                                                             hintText:
-                                                            "Search For Customer",
+                                                            "search_for_customer".tr,
                                                             hintStyle: TextStyle(
                                                                 fontSize: 14.0,
                                                                 fontFamily:
@@ -2018,7 +1936,86 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                             disabledBorder:
                                                             InputBorder.none,
                                                             hintText:
-                                                            "Customer Mobile Number",
+                                                            "customer_number".tr,
+                                                            hintStyle: TextStyle(
+                                                                fontSize: 14.0,
+                                                                fontFamily:
+                                                                'Roboto'),
+                                                            // border: InputBorder(bo),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(
+                                                  horizontal: 10.0,vertical: 10),
+                                              child: Container(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    border: Border.all(
+                                                        color: Colors.grey
+                                                            .withOpacity(.35),
+                                                        width: 2),
+                                                    borderRadius: BorderRadius.all(
+                                                        Radius.circular(10.0))),
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            left: 10.0),
+                                                        child: Text(
+                                                          "customer_address".tr,
+                                                          style: TextStyle(
+                                                            fontFamily: 'Roboto',
+                                                            fontWeight:
+                                                            FontWeight.bold,
+                                                            color: DEFAULT_BLACK,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      width: 10,
+                                                    ),
+                                                    Container( height: 30,
+                                                        child: VerticalDivider(thickness: 2,color: Colors.black, indent: 0,endIndent: 0)),
+                                                    Expanded(
+                                                      flex: 2,
+                                                      child: Padding(
+                                                        padding:
+                                                        const EdgeInsets.only(
+                                                            left: 3.0),
+                                                        child: TextFormField(
+                                                          onChanged: (value) {
+                                                            // controller.searchProduct(value);
+                                                          },
+                                                          keyboardType:
+                                                          TextInputType.text,
+                                                          decoration:
+                                                          InputDecoration(
+                                                            border:
+                                                            InputBorder.none,
+                                                            focusedBorder:
+                                                            InputBorder.none,
+                                                            enabledBorder:
+                                                            InputBorder.none,
+                                                            errorBorder:
+                                                            InputBorder.none,
+                                                            disabledBorder:
+                                                            InputBorder.none,
+                                                            hintText:
+                                                            "customer_address".tr,
                                                             hintStyle: TextStyle(
                                                                 fontSize: 14.0,
                                                                 fontFamily:
