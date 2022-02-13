@@ -130,7 +130,7 @@ class SellDue extends GetView<SellDueEditAddController> {
                                   'Dilam/Baki',
                                   'Nilam/joma',
                                 ],
-                                selectedButton: controller.dueType.value,
+                                selectedButton: controller.dueType.value.toInt(),
                               ),
                             ),
                           ),
@@ -216,7 +216,7 @@ class SellDue extends GetView<SellDueEditAddController> {
                                   return null;
                                 },
                                 onSaved: (value){
-                                  controller.dueAmount.value = int.parse(value);
+                                  controller.dueAmount.value = double.parse(value);
                                 },
                                 cursorColor: Colors.black,
                                 keyboardType: TextInputType.number,

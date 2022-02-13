@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindings/confirm_payment_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
@@ -56,7 +58,21 @@ class SellCartPage extends GetView<SellController>{
           },
           icon: Icon(Icons.arrow_back),
         ),
-        title: Text('cart'.tr),
+        title: Text('cart'.tr,style: TextStyle(
+          fontFamily: 'Roboto',
+        ),),
+        titleSpacing: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: InkWell(
+                onTap: () {},
+                child: SvgPicture.asset(
+                  'images/svg_image/help.svg',
+                  height: 32,
+                )),
+          )
+        ],
         backgroundColor: DEFAULT_YELLOW_BG,
       ),
       body: SafeArea(
@@ -82,6 +98,7 @@ class SellCartPage extends GetView<SellController>{
               //     ],
               //   ),
               // ),
+              SizedBox(height: 10,),
               Expanded(
                 child: Container(
                     // height: size.height,
@@ -90,11 +107,10 @@ class SellCartPage extends GetView<SellController>{
                         itemBuilder: (context, index) {
                           var item = controller.cart[index];
                           return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 4.0),
-                              child: Card(
-                                  color: Colors.grey.shade50,
-                                  elevation: 10,
-                                  child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 0.0),
+                              child: Column(
+                                children: [
+                                  Container(
                                       child: Padding(
                                         padding: const EdgeInsets.all(5.0),
                                         child: Row(
@@ -131,15 +147,23 @@ class SellCartPage extends GetView<SellController>{
                                               ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                                              padding: const EdgeInsets.symmetric(horizontal: 0.0),
                                               child: Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    '${item.name}',
-                                                    style: TextStyle(
-                                                        fontSize: 24,
-                                                        fontWeight: FontWeight.bold),
+                                                  Padding(
+                                                    padding: const EdgeInsets.only(left: 20.0),
+                                                    child: Text(
+                                                      '${item.name}',
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontFamily: 'Roboto',
+                                                          fontWeight: FontWeight.bold),
+                                                    ),
                                                   ),
+                                                  SizedBox(height: 10,),
                                                   Row(
                                                     mainAxisAlignment:
                                                     MainAxisAlignment.start,
@@ -152,8 +176,9 @@ class SellCartPage extends GetView<SellController>{
                                                               index, item);
                                                         },
                                                         child: Icon(Icons.remove,
-                                                            color: Colors.black),
+                                                            color: Colors.black,),
                                                         style: ElevatedButton.styleFrom(
+                                                          side: BorderSide(width: 1.5, color: Color(0xFF707070)),
                                                           shape: CircleBorder(),
                                                           padding: EdgeInsets.all(3),
                                                           primary: Colors.white,
@@ -164,7 +189,7 @@ class SellCartPage extends GetView<SellController>{
                                                       ),
                                                       Text(
                                                         '${item.unit}',
-                                                        style: TextStyle(fontSize: 20),
+                                                        style: TextStyle(fontSize: 18, fontFamily: 'Roboto'),
                                                       ),
                                                       ElevatedButton(
                                                         onPressed: () {
@@ -174,6 +199,7 @@ class SellCartPage extends GetView<SellController>{
                                                         child: Icon(Icons.add,
                                                             color: Colors.black),
                                                         style: ElevatedButton.styleFrom(
+                                                          side: BorderSide(width: 1.5, color: Color(0xFF707070)),
                                                           shape: CircleBorder(),
                                                           padding: EdgeInsets.all(3),
                                                           primary: Colors.white,
@@ -192,22 +218,40 @@ class SellCartPage extends GetView<SellController>{
                                               padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                               child: Column(
                                                 children: [
-                                                  Text(
-                                                    '${item.sellingPrice}',
-                                                    style: TextStyle(fontSize: 20),
+                                                  Container(
+                                                    width: 60,
+                                                    child: Column(
+                                                      children: [
+                                                        Text(
+                                                          '৳ ${item.sellingPrice}',
+                                                          style: TextStyle(fontSize: 16, fontFamily: 'Roboto'),
+                                                        ),
+                                                        Divider(thickness: 1.5,color: Color(0xFFC4C4C4),),
+                                                      ],
+                                                    ),
                                                   ),
-                                                  IconButton(
-                                                    icon: Icon(Icons.delete,color: Colors.red,),
-                                                    onPressed: () {
+
+                                                  InkWell(
+                                                    onTap: (){
                                                       controller.removeFromCart(item);
                                                     },
-                                                  )
+                                                    child: SvgPicture.asset('images/svg_image/delete.svg', color: Color(0xFF707070),),
+                                                  ),
+                                                  // IconButton(
+                                                  //   icon: Icon(Icons.delete,color: Colors.red,),
+                                                  //   onPressed: () {
+                                                  //     controller.removeFromCart(item);
+                                                  //   },
+                                                  // )
                                                 ],
                                               ),
                                             ),
                                           ],
                                         ),
-                                      ))));
+                                      )),
+                                  Divider(thickness: 1, color: Color(0xFFC4C4C4).withOpacity(.35),indent: 10, endIndent: 10,)
+                                ],
+                              ));
                         }))),
               ),
               Padding(
@@ -231,19 +275,21 @@ class SellCartPage extends GetView<SellController>{
                   MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Total',
+                      'total'.tr,
                       style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: DEFAULT_BLUE),
+                        fontFamily: 'Roboto',
+                          fontSize: 18,
+                          // fontWeight: FontWeight.bold,
+                          color: Colors.black),
                     ),
                     Obx(() => Text(
-                      '${controller.totalCartProductPrice.value.abs()}',
+                      '৳ ${controller.totalCartProductPrice.value.abs()}',
                       style: TextStyle(
-                          fontSize: 20,
+                        fontFamily: 'Roboto',
+                          fontSize: 16,
                           fontWeight:
                           FontWeight.bold,
-                          color: DEFAULT_BLUE),
+                          color: Colors.black),
                     ))
                   ],
                 ),
@@ -262,8 +308,8 @@ class SellCartPage extends GetView<SellController>{
                       decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
-                              color: Colors.grey,
-                              width: 1.5),
+                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              width: 1),
                           borderRadius:
                           BorderRadius.all(
                               Radius.circular(
@@ -277,11 +323,13 @@ class SellCartPage extends GetView<SellController>{
                             width: 15,
                           ),
                           Text(
-                            "Discount(%)  |",
+                            "discount(%)".tr,
                             style: TextStyle(
                                 color: Colors.black,
+                                fontFamily: 'Roboto',
+                                fontSize: 18,
                                 fontWeight:
-                                FontWeight.w600),
+                                FontWeight.w500),
                           ),
                           Expanded(
                             child: Padding(
@@ -304,7 +352,7 @@ class SellCartPage extends GetView<SellController>{
                                 decoration:
                                 InputDecoration(
                                   //labelText: " discount",
-                                  hintText: " discount",
+                                  // hintText: " discount",
                                   hintStyle: TextStyle(
                                       fontSize: 14.0),
                                   border:
@@ -323,7 +371,7 @@ class SellCartPage extends GetView<SellController>{
                       decoration: BoxDecoration(
                           color: Colors.white,
                           border: Border.all(
-                              color: Colors.grey,
+                              color: Color(0xFFC4C4C4).withOpacity(.35),
                               width: 1.5),
                           borderRadius:
                           BorderRadius.all(
@@ -338,11 +386,13 @@ class SellCartPage extends GetView<SellController>{
                             width: 15,
                           ),
                           Text(
-                            "Discount(Tk)  |",
+                            "discount(৳)".tr,
                             style: TextStyle(
                                 color: Colors.black,
+                                fontFamily: 'Roboto',
+                                fontSize: 18,
                                 fontWeight:
-                                FontWeight.w600),
+                                FontWeight.w500),
                           ),
                           Expanded(
                             child: Padding(
@@ -364,7 +414,7 @@ class SellCartPage extends GetView<SellController>{
                                 TextInputType.text,
                                 decoration:
                                 InputDecoration(
-                                  hintText: " discount",
+                                  // hintText: " discount",
                                   hintStyle: TextStyle(
                                       fontSize: 14.0),
                                   border:
@@ -396,19 +446,21 @@ class SellCartPage extends GetView<SellController>{
                   MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Total',
+                      'grand_total'.tr,
                       style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: DEFAULT_BLUE),
+                          fontFamily: 'Roboto',
+                          fontSize: 18,
+                          // fontWeight: FontWeight.bold,
+                          color: Colors.black),
                     ),
                     Obx(() => Text(
-                      '${controller.totalCartPrice.value.abs()}',
+                      '৳ ${controller.totalCartPrice.value.abs()}',
                       style: TextStyle(
-                          fontSize: 20,
+                        fontFamily: 'Roboto',
+                          fontSize: 16,
                           fontWeight:
                           FontWeight.bold,
-                          color: DEFAULT_BLUE),
+                          color: Colors.black),
                     ))
                   ],
                 ),
@@ -452,12 +504,37 @@ class SellCartPage extends GetView<SellController>{
                       //     });
                     },
                     child: Center(
-                      child: Text(
-                        'Payment System',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 65.0),
+                                child: Text(
+                                  'payment_method'.tr,
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.white,
+                                      fontSize: 16),
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Obx(() => Text(
+                                '৳ ${controller.totalCartPrice.value.abs()}',
+                                style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 16,
+                                    fontWeight:
+                                    FontWeight.bold,
+                                    color: Colors.white),
+                              )),
+                            ],
+                          ),
+
+                          Icon(Icons.arrow_forward_ios, color: Colors.white,size: 16,)
+                        ],
                       ),
                     ),
                     style: ElevatedButton.styleFrom(

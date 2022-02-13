@@ -21,7 +21,7 @@ class AddDueRequest {
     this.createdAt,
   });
 
-  int amount;
+  double amount;
   int shopId;
   String uniqueId;
   String contactType;
@@ -32,7 +32,7 @@ class AddDueRequest {
   String createdAt;
 
   AddDueRequest copyWith({
-    int amount,
+    double amount,
     int shopId,
     String uniqueId,
     String contactType,

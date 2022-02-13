@@ -30,13 +30,13 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
     final double itemHeight = size.height * 0.13;
     final double itemWidth = size.width * 0.44;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 15.0, top: 5),
+      padding: const EdgeInsets.only(bottom: 15.0, top: 5,left: 20, right: 20),
       child: Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 // InkWell(
                 //   onTap: () {
@@ -75,83 +75,87 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
                 //     ),
                 //   ),
                 // ),
-                InkWell(
-                  onTap: () {
-                    Get.to(
-                      () => TransactionPage(),
-                      arguments: {
-                        "shop": shop,
-                      },
-                      binding: TransactionsBinding(),
-                    );
-                  },
-                  child: Container(
-                    height: itemHeight,
-                    width: itemWidth,
-                    decoration: SHOP_ITEM_DECORATION,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'images/shop_features/transcation.png',
-                          height:
-                              screen.responsiveValue(mobile: 40, tablet: 60),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "transaction_exchange_amp_refund".tr,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Rubik',
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: DEFAULT_BLACK,
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(
+                        () => TransactionPage(),
+                        arguments: {
+                          "shop": shop,
+                        },
+                        binding: TransactionsBinding(),
+                      );
+                    },
+                    child: Container(
+                      height: itemHeight,
+                      width: itemWidth,
+                      decoration: SHOP_ITEM_DECORATION,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'images/shop_features/transcation.png',
+                            height:
+                                screen.responsiveValue(mobile: 40, tablet: 60),
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "transaction_exchange_amp_refund".tr,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: DEFAULT_BLACK,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   width: size.width * 0.03,
                 ),
-                InkWell(
-                  onTap: () {
-                    Get.to(() => QuickSell(),
-                        arguments: {
-                          "shop": shop,
-                        },
-                        binding: SellBinding());
-                  },
-                  child: Container(
-                    height: itemHeight,
-                    width: itemWidth,
-                    decoration: SHOP_ITEM_DECORATION,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'images/shop_features/sell.png',
-                          height:
-                              screen.responsiveValue(mobile: 40, tablet: 60),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "sell_pos".tr,
-                          style: TextStyle(
-                            fontFamily: 'Rubik',
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: DEFAULT_BLACK,
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(() => QuickSell(),
+                          arguments: {
+                            "shop": shop,
+                          },
+                          binding: SellBinding());
+                    },
+                    child: Container(
+                      height: itemHeight,
+                      width: itemWidth,
+                      decoration: SHOP_ITEM_DECORATION,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'images/shop_features/sell.png',
+                            height:
+                                screen.responsiveValue(mobile: 40, tablet: 60),
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "sell_pos".tr,
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: DEFAULT_BLACK,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -161,88 +165,92 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
               height: itemHeight * 0.15,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                InkWell(
-                  // onTap: () {
-                  //   Get.to(() => DueListPage(),
-                  //       arguments: {
-                  //         "shop": shop,
-                  //       },
-                  //       binding: DueListBinding());
-                  // },
-                  child: Container(
-                    height: itemHeight,
-                    width: itemWidth,
-                    decoration: SHOP_ITEM_DECORATION,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'images/shop_features/duelist.png',
-                          height:
-                              screen.responsiveValue(mobile: 40, tablet: 60),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "dueList".tr,
-                          style: TextStyle(
-                            fontFamily: 'Rubik',
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: DEFAULT_BLACK,
+                Expanded(
+                  child: InkWell(
+                    // onTap: () {
+                    //   Get.to(() => DueListPage(),
+                    //       arguments: {
+                    //         "shop": shop,
+                    //       },
+                    //       binding: DueListBinding());
+                    // },
+                    child: Container(
+                      height: itemHeight,
+                      width: itemWidth,
+                      decoration: SHOP_ITEM_DECORATION,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'images/shop_features/duelist.png',
+                            height:
+                                screen.responsiveValue(mobile: 40, tablet: 60),
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "dueList".tr,
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: DEFAULT_BLACK,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   width: size.width * 0.03,
                 ),
-                InkWell(
-                  onTap: () {
-                    Get.to(
-                        () => ExpenseList(
-                              // shop: shop,
-                            ),
-                        arguments:
-                        // {
-                        //   "shop":
-                        shop,
-                        // },
-                        // binding: ExpenseBinding()
-                        );
-                  },
-                  child: Container(
-                    height: itemHeight,
-                    width: itemWidth,
-                    decoration: SHOP_ITEM_DECORATION,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'images/shop_features/expenses.png',
-                          height:
-                              screen.responsiveValue(mobile: 40, tablet: 60),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "expenses".tr,
-                          style: TextStyle(
-                            fontFamily: 'Rubik',
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: DEFAULT_BLACK,
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(
+                          () => ExpenseList(
+                                // shop: shop,
+                              ),
+                          arguments:
+                          // {
+                          //   "shop":
+                          shop,
+                          // },
+                          // binding: ExpenseBinding()
+                          );
+                    },
+                    child: Container(
+                      height: itemHeight,
+                      width: itemWidth,
+                      decoration: SHOP_ITEM_DECORATION,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'images/shop_features/expenses.png',
+                            height:
+                                screen.responsiveValue(mobile: 40, tablet: 60),
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "expenses".tr,
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: DEFAULT_BLACK,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 )
@@ -252,11 +260,11 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
               height: itemHeight * 0.15,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
-                  width: size.width * 0.03,
-                ),
+                // SizedBox(
+                //   width: size.width * 0.03,
+                // ),
                 InkWell(
                   onTap: () {
                     Get.toNamed(
@@ -350,7 +358,7 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
               height: itemHeight * 0.15,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 // InkWell(
                 //   onTap: () {

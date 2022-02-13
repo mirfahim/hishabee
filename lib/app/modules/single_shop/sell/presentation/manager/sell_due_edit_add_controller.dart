@@ -45,10 +45,10 @@ class SellDueEditAddController extends GetxController{
   final shop = Shop().obs;
 
   final shopId = 0.obs;
-  final dueType = 0.obs;
+  final dueType = 0.0.obs;
   final route = 0.obs;
-  final dueAmount = 0.obs;
-  final totalPrice = 0.obs;
+  final dueAmount = 0.0.obs;
+  final totalPrice = 0.0.obs;
   final itemLength = 0.obs;
   final note = ''.obs;
   final dueDetails = ''.obs;
@@ -153,7 +153,7 @@ class SellDueEditAddController extends GetxController{
     var uuid = Uuid();
     String dUniqueId = shopId.toString()+uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString();
     AddDueRequest request = AddDueRequest(
-        amount: dueType.value == 0 ? dueAmount.value : -dueAmount,
+        amount: dueType.value == 0.0 ? dueAmount.value : -dueAmount,
         shopId: shopId.value,
         uniqueId: dUniqueId,
         version: 0,
@@ -169,7 +169,7 @@ class SellDueEditAddController extends GetxController{
       AddDueItemRequest dueItemRequest = AddDueItemRequest(
         shopId: response.due.shopId,
         createdAt: response.due.createdAt.toString(),
-        amount: response.due.dueAmount.toInt(),
+        amount: response.due.dueAmount,
         dueUniqueId: response.due.uniqueId,
         uniqueId: dIUniqueId,
         version: 0,

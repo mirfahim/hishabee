@@ -109,8 +109,8 @@ class _SoldPageState extends State<SoldPage> {
         child: Column(
           children: [
             Container(
-              height: size.height - 62,
-              width: size.width - 250,
+              height: size.height - 70 ,
+              width: size.width,
               child: Stack(
                 children: <Widget>[
                   //CENTER -- Blast
