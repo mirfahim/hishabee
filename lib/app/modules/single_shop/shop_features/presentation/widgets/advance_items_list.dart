@@ -24,7 +24,6 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/report/_nav
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindings/sell_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/sell_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/stock/presentation/pages/stock_management.dart';
 // import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/_bindings/sms_bindings.dart';
 // import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/_navigation/sms_routes.dart';
 // import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/presentation/pages/sms_page.dart';
@@ -722,46 +721,47 @@ class AdvanceItemsList extends GetResponsiveView<ShopFeaturesController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                InkWell(
-                  onTap: () {
-                    Get.to(StockManagement());
-                    // Get.to(
-                    //   () => SmsPage(),
-                    //   arguments: {
-                    //     "shop": shop,
-                    //   },
-                    //   binding: SMSBindings(),
-                    // );
-                  },
-                  child: Container(
-                    height: itemHeight,
-                    width: itemWidth,
-                    decoration: SHOP_ITEM_DECORATION,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'images/shop_features/emi.png',
-                          height:
-                          screen.responsiveValue(mobile: 40, tablet: 60),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "stock".tr,
-                          style: TextStyle(
-                            fontFamily: 'Roboto',
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: DEFAULT_BLACK,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
+                // InkWell(
+                //   onTap: () {
+                //     Get.to(
+                //         StockManagement());
+                //     // Get.to(
+                //     //   () => SmsPage(),
+                //     //   arguments: {
+                //     //     "shop": shop,
+                //     //   },
+                //     //   binding: SMSBindings(),
+                //     // );
+                //   },
+                //   child: Container(
+                //     height: itemHeight,
+                //     width: itemWidth,
+                //     decoration: SHOP_ITEM_DECORATION,
+                //     child: Column(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       crossAxisAlignment: CrossAxisAlignment.center,
+                //       children: [
+                //         Image.asset(
+                //           'images/shop_features/emi.png',
+                //           height:
+                //           screen.responsiveValue(mobile: 40, tablet: 60),
+                //         ),
+                //         SizedBox(
+                //           height: 5,
+                //         ),
+                //         Text(
+                //           "stock".tr,
+                //           style: TextStyle(
+                //             fontFamily: 'Roboto',
+                //             fontSize: 16,
+                //             fontWeight: FontWeight.normal,
+                //             color: DEFAULT_BLACK,
+                //           ),
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // )
               ],
             )
           ],

@@ -9,20 +9,23 @@ import 'package:intl/intl.dart';
 
 Widget textFormFeildForExpense(
     {String hintText,
-    String labelText,
-    IconButton iconButton,
-    int maxLine,
-    TextEditingController texteditingController}) {
+      // String mainText,
+      String labelText,
+      IconButton iconButton,
+      int maxLine,
+      TextEditingController texteditingController}) {
   return TextFormField(
     cursorColor: Colors.black,
     minLines: maxLine,
     controller: texteditingController,
+    // initialValue: mainText,
     onChanged: (value) {
       // controller.mobileNumber.value = value;
     },
     maxLines: maxLine,
     decoration: InputDecoration(
       suffix: iconButton,
+      labelText: labelText,
       filled: true,
       contentPadding: EdgeInsets.symmetric(horizontal: 8),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -37,6 +40,10 @@ Widget textFormFeildForExpense(
 }
 
 var now = DateTime.now();
+var startOfMonth = DateTime(now.year, now.month, 1);
+var lastOfTheMonth = (now.month < 12)
+    ? new DateTime(now.year, now.month + 1, 0)
+    : new DateTime(now.year + 1, 1, 0);
 
 class ExpenseEditDelete extends StatefulWidget {
   String amount;
@@ -122,7 +129,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
           },
           icon: Icon(Icons.arrow_back),
         ),
-        title: Text('New Expense'),
+        title: Text('edit_expense'.tr),
         backgroundColor: bgColor,
       ),
       body: SafeArea(
@@ -137,26 +144,35 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Name of type of the Expense'),
+                    // const Text('Name of type of the Expense'),
                     const SizedBox(
                       height: 10,
                     ),
+                    Text('amount'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Rubik'),),
                     textFormFeildForExpense(
+                      // labelText: 'amount'.tr,
                         hintText: '${widget.amount}',
+                        // mainText: '${widget.amount}',
                         texteditingController: _textEditingControllerAmount),
                     const SizedBox(
                       height: 10,
                     ),
+                    Text('purpose'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Rubik'),),
                     textFormFeildForExpense(
+                      // labelText: 'purpose'.tr,
                         hintText: '${widget.reason}',
+                        // mainText: '${widget.reason}',
                         texteditingController: _textEditingControllerReason),
                     const SizedBox(
                       height: 10,
                     ),
+                    Text('description'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Rubik'),),
                     textFormFeildForExpense(
+                      // labelText: 'description'.tr,
                         hintText: '${widget.description}',
+                        // mainText: '${widget.description}',
                         texteditingController:
-                            _textEditingControllerDescription),
+                        _textEditingControllerDescription),
                     const SizedBox(
                       height: 30,
                     ),
@@ -195,18 +211,17 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                           shopId: widget.shopId,
                           categoryid: widget.categoryId,
                           type: widget.types,
-                          purpose: _textEditingControllerReason.text == null ? widget.reason : _textEditingControllerReason.text ,
-                          description: _textEditingControllerDescription.text == null ? widget.description : _textEditingControllerDescription.text,
-                          amount: _textEditingControllerAmount.text == null ? widget.amount : _textEditingControllerAmount.text,
+                          purpose: _textEditingControllerReason.text == '' ? widget.reason : _textEditingControllerReason.text ,
+                          description: _textEditingControllerDescription.text == '' ? widget.description : _textEditingControllerDescription.text,
+                          amount: _textEditingControllerAmount.text == '' ? widget.amount : _textEditingControllerAmount.text,
                         );
 
                         await _expenseController
                             .getAllExpense(
-                                shopId: '${widget.shopId}',
-                                userId: '${widget.userId}',
-
-                        startDate: '',
-                        endDate: '')
+                            shopId: '${widget.shopId}',
+                            userId: '${widget.userId}',
+                            startDate: '$startOfMonth',
+                            endDate: '$lastOfTheMonth')
                             .then((value) {
                           setState(() {
 
@@ -216,15 +231,19 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                 _expenseController.allExpenseList
                                     .map((e) => e.amount)
                                     .fold(
-                                        0,
+                                    0,
                                         (previousValue, element) =>
-                                            previousValue + element);
+                                    previousValue + element);
+                            _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
                           });
                         });
                         await _expenseController
                             .getAllExpense(
-                                shopId: '${widget.shopId}',
-                                userId: '${widget.userId}')
+                            shopId: '${widget.shopId}',
+                            userId: '${widget.userId}',
+                            startDate: '$startOfMonth',
+                            endDate: '$lastOfTheMonth'
+                        )
                             .then((value) {
                           setState(() {
                             // _expenseList = getExpenseFromModel(value);
@@ -234,12 +253,10 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                 _expenseController.allExpenseList
                                     .map((e) => e.amount)
                                     .fold(
-                                        0,
+                                    0,
                                         (previousValue, element) =>
-                                            previousValue + element);
-                            // _isLoading = false;
-                            print(
-                                'expense list: ${_expenseController.allExpenseList.value}');
+                                    previousValue + element);
+                            _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
                           });
                         });
 
@@ -259,9 +276,9 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                       style: TextButton.styleFrom(primary: Colors.blue),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children:  [
                           Icon(Icons.edit),
-                          Text('Edit the type')
+                          Text('edit'.tr)
                         ],
                       ),
                     ),
@@ -280,10 +297,10 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                         }
                         await _expenseController
                             .getAllExpense(
-                                shopId: '${widget.shopId}',
-                                userId: '${widget.userId}',
-                        startDate: '',
-                        endDate: '')
+                            shopId: '${widget.shopId}',
+                            userId: '${widget.userId}',
+                            startDate: '$startOfMonth',
+                            endDate: '$lastOfTheMonth')
                             .then((value) {
                           setState(() {
                             _expenseController.allExpenseList.value =
@@ -292,19 +309,18 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                 _expenseController.allExpenseList
                                     .map((e) => e.amount)
                                     .fold(
-                                        0,
+                                    0,
                                         (previousValue, element) =>
-                                            previousValue + element);
-                            // _isLoading = false;
-                            // print('expense list: ${_expenseController.allExpenseList.value}');
+                                    previousValue + element);
+                            _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
                           });
                         });
                         await _expenseController
                             .getAllExpense(
-                                shopId: '${widget.shopId}',
-                                userId: '${widget.userId}',
-                            startDate: '',
-                            endDate: '')
+                            shopId: '${widget.shopId}',
+                            userId: '${widget.userId}',
+                            startDate: '$startOfMonth',
+                            endDate: '$lastOfTheMonth')
                             .then((value) {
                           setState(() {
                             // _expenseList = getExpenseFromModel(value);
@@ -314,12 +330,10 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                 _expenseController.allExpenseList
                                     .map((e) => e.amount)
                                     .fold(
-                                        0,
+                                    0,
                                         (previousValue, element) =>
-                                            previousValue + element);
-                            // _isLoading = false;
-                            // print(
-                            // 'expense list: ${_expenseController.allExpenseList.value}');
+                                    previousValue + element);
+                            _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
                           });
                         });
 
@@ -329,8 +343,8 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                           setState(() {
                             _expenseController.allExpenseCategory.value =
                                 expenseCategoryResponseModelFromModel(value);
-                            print(
-                                'category: ${_expenseController.allExpenseCategory}');
+                            // print(
+                            //     'category: ${_expenseController.allExpenseCategory}');
                           });
                         });
                         Get.back();
@@ -340,9 +354,9 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                       style: TextButton.styleFrom(primary: Colors.red),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children:  [
                           Icon(Icons.delete),
-                          Text('Delete the type')
+                          Text('delete'.tr)
                         ],
                       ),
                     ),

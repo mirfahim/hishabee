@@ -6,6 +6,7 @@ import 'package:hishabee_business_manager_fl/controllers/expense/expense_control
 import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart';
 
 import 'expense_details_edit_delete.dart';
 
@@ -20,6 +21,9 @@ var lastOfTheMonth = (now.month < 12)
     ? new DateTime(now.year, now.month + 1, 0)
     : new DateTime(now.year + 1, 1, 0);
 var startOfTheYear = DateTime(DateTime.now().year);
+var weekDay;
+var weekFirst;
+var weekLast;
 
 int year;
 int month;
@@ -39,33 +43,43 @@ class _ExpenseList2State extends State<ExpenseList2> {
   Shop shop = Get.arguments;
   ExpenseController _expenseController = Get.find();
   List<ExpenseResponseModel> _expenseList;
+  ExpenseResponseModel _expenseResponseModel;
   var getShopId = GetStorage();
-  int flag = 1;
+  int flag = 3;
   @override
   void initState() {
     startDate = 'Start Date';
     endDate = 'End Date';
     now = DateTime.now();
     day = DateFormat.yMMMMd().format(now);
-    dayMain = DateTime.now().day.toInt();
+    dayMain = DateTime.now().day;
+    print('dayMain:$dayMain');
+
     month = DateTime.now().month.toInt();
+    print('month: $month');
     year = DateTime.now().year.toInt();
-    super.initState();
+    week = Jiffy([year, month, dayMain]).week;
+    weekFirst = DateTime.utc(year, month, ((week-1)*7));
+    weekLast = DateTime.utc(year, month, ((week-1)*7) + 6);
     _expenseController
         .getAllExpense(
-        shopId: '${shop.id}', userId: '${shop.userId}',startDate: '$startOfMonth', endDate: '$lastOfTheMonth')
+        shopId: '${shop.id}',
+        userId: '${shop.userId}',
+        startDate: '$startOfMonth',
+        endDate: '$lastOfTheMonth')
         .then((value) {
-      setState(() {
-        _expenseList = getExpenseFromModel(value);
-        _expenseController.allExpenseList.value = getExpenseFromModel(value);
-        _expenseController.totalExpense.value = _expenseController
-            .allExpenseList
-            .map((e) => e.amount)
-            .fold(0, (previousValue, element) => previousValue + element);
-        // _isLoading = false;
-        print('expense list: ${_expenseController.allExpenseList.value}');
-      });
+      // setState(() {
+      _expenseController.allExpenseList.value = getExpenseFromModel(value);
+      _expenseController.totalExpense.value = _expenseController.allExpenseList
+          .map((e) => e.amount)
+          .fold(0, (previousValue, element) => previousValue + element);
+      _expenseController.totalFixedExpense.value =
+          _expenseController.totalExpense.value;
+      // _isLoading = false;
+
+      // });
     });
+    super.initState();
   }
 
   @override
@@ -85,355 +99,383 @@ class _ExpenseList2State extends State<ExpenseList2> {
         backgroundColor: bgColor,
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            // height: height,
-            decoration: const BoxDecoration(color: Colors.white),
-            child: Padding(
-              padding: EdgeInsets.only(left: 10, right: 10, top: 20),
-              child: Column(
-                children: [
-                  Container(
-                    height: 250,
-                    decoration: BoxDecoration(
-                        color: DEFAULT_BLUE,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Total Cost'),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  if (flag == 1) {
-                                    setState(() {
-                                    });
-                                    // dayMinus();
-                                  } else if (flag == 3) {
-                                    // monthMinus();
-                                  } else if (flag == 4) {
-                                    // yearMinus();
-                                  } else if (flag == 2) {
-                                    // weekMinus();
-                                  }
-                                },
-                                icon: Icon(Icons.arrow_back_ios)),
-                            if (flag == 1)
-                              Text(DateFormat.yMMMMd().format(now)),
-                            if (flag == 2)
-                              Text(
-                                  '${DateFormat.yMMMMd().format(startOfTheWeek)} - ${DateFormat.yMMMMd().format(endOfTheWeek)}'),
-                            if (flag == 4) Text('$year'),
-                            if (flag == 3) Text(months[month - 1]),
-                            IconButton(
-                                onPressed: () {
-                                  if (flag == 1) {
-                                    setState(() {
-                                      // controller.countAdd.value++;
-                                    });
-                                    // dayAdd();
-                                  } else if (flag == 3) {
-                                    setState(() {});
-                                    // monthAdd();
-                                  } else if (flag == 4) {
-                                    // yearAdd();
-                                  }
-                                },
-                                icon: Icon(Icons.arrow_forward_ios))
-                          ],
-                        ),
-                        Obx(()=>Text('${_expenseController.totalExpense.value}'))
-                      ],
-                    ),
+        child: Container(
+          // height: height,
+          decoration: const BoxDecoration(color: Colors.white),
+          child: Padding(
+            padding: EdgeInsets.only(left: 10, right: 10, top: 20),
+            child: Column(
+              children: [
+                Container(
+                  height: 250,
+                  decoration: BoxDecoration(
+                      color: DEFAULT_BLUE,
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('total_cost'.tr,style: TextStyle(
+                          color: Color(0xFFFECD1A),
+                          fontFamily: 'Rubik',
+                          fontSize: 16),),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                if (flag == 1) {
+                                  setState(() {
+                                    dayMinus();
+                                    // day = DateFormat.yMMMMd().format(now);
+                                  });
+                                  // dayMinus();
+                                } else if (flag == 3) {
+                                  monthMinus();
+                                } else if (flag == 4) {
+                                  yearMinus();
+                                } else if (flag == 2) {
+                                  weekMinus();
+                                }
+                              },
+                              icon: Icon(Icons.arrow_back_ios, color: Colors.white,size: 16,)),
+                          if (flag == 1) Text(DateFormat.yMMMMd().format(now),style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Rubik',
+                              fontSize: 16),),
+                          if (flag == 2)
+                            Text(
+                              '${DateFormat.yMMMMd().format(startOfTheWeek)} - ${DateFormat.yMMMMd().format(endOfTheWeek)}',style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Rubik',
+                                fontSize: 16),),
+                          if (flag == 4) Text('$year',style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Rubik',
+                              fontSize: 16),),
+                          if (flag == 3) Text(months[month - 1],style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Rubik',
+                              fontSize: 16),),
+                          IconButton(
+                              onPressed: () {
+                                if (flag == 1) {
+                                  dayAdd();
+                                } else if (flag == 3) {
+                                  monthAdd();
+                                } else if (flag == 4) {
+                                  yearAdd();
+                                } else if(flag == 2){
+                                  weekAdd();
+                                }
+                              },
+                              icon: Icon(Icons.arrow_forward_ios, color: Colors.white,size: 16))
+                        ],
+                      ),
+                      Obx(() =>
+                          Text('৳ ${_expenseController.totalExpense.value}',style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Rubik',
+                              fontSize: 16),))
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 27,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                flag = 1;
-                                // controller
-                                //     .fetchEmployeWiseReport(
-                                //     shopId:
-                                //     '${getStorageId.read('shop_id')}',
-                                //     startDate: "$now",
-                                //     endDate: "$now")
-                                //     .then((value) {
-                                //   if (value != null) {
-                                //     setState(() {
-                                //       _list =
-                                //           employeReportModelFromJson(
-                                //               value);
-                                //       _foundData = _list;
-                                //       print(getStorageId
-                                //           .read('shop_id'));
-                                //       print(now);
-                                //       // checkingDone = true;
-                                //     });
-                                //   }
-                                //
-                                //   //  isLoading = false;
-                                // });
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 27,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              flag = 1;
+                              _expenseController
+                                  .getAllExpense(
+                                  shopId: '${shop.id}',
+                                  startDate: "$now",
+                                  endDate: "$now")
+                                  .then((value) {
+                                setState(() {
+                                  _expenseController.allExpenseList.value =
+                                      getExpenseFromModel(value);
+                                  _expenseController.totalExpense.value =
+                                      _expenseController.allExpenseList
+                                          .map((e) => e.amount)
+                                          .fold(
+                                          0,
+                                              (previousValue, element) =>
+                                          previousValue + element);
+                                });
                               });
-                            },
-                            child: Text(
-                              'Day',
-                              style: TextStyle(
-                                  color:
-                                      flag == 1 ? Colors.white : Colors.black,
-                                  fontSize: 10),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              side: BorderSide(width: 1, color: Colors.black),
-                              primary: flag == 1 ? Colors.black : Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
-                              ),
+                              // _expenseController.totalExpense.value = _expenseController
+                              //     .allExpenseList
+                              //     .map((e) => e.amount)
+                              //     .fold(0, (previousValue, element) => previousValue + element);
+                              print(
+                                  'expense list: ${_expenseController.allExpenseList.value}');
+                            });
+                          },
+                          child: Text(
+                            'day'.tr,
+                            style: TextStyle(
+                                color: flag == 1 ? Colors.white : Colors.black,
+                                fontSize: 10),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            side: BorderSide(width: 1, color: Colors.black),
+                            primary: flag == 1 ? Colors.black : Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          height: 27,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                flag = 2;
-                                // controller
-                                //     .fetchEmployeWiseReport(
-                                //     shopId:
-                                //     '${getStorageId.read('shop_id')}',
-                                //     startDate: "$startOfTheWeek",
-                                //     endDate: "$now")
-                                //     .then((value) {
-                                //   if (value != null) {
-                                //     setState(() {
-                                //       _list =
-                                //           employeReportModelFromJson(
-                                //               value);
-                                //       _foundData = _list;
-                                //       print(getStorageId
-                                //           .read('shop_id'));
-                                //       print(startOfTheWeek);
-                                //       print(now);
-                                //       // checkingDone = true;
-                                //     });
-                                //   }
-                                //
-                                //   //  isLoading = false;
-                                // });
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Container(
+                        height: 27,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              flag = 2;
+                              _expenseController
+                                  .getAllExpense(
+                                  shopId: '${shop.id}',
+                                  startDate: "$startOfTheWeek",
+                                  endDate: "$now")
+                                  .then((value) {
+                                setState(() {
+                                  _expenseController.allExpenseList.value =
+                                      getExpenseFromModel(value);
+                                  _expenseController.totalExpense.value =
+                                      _expenseController.allExpenseList
+                                          .map((e) => e.amount)
+                                          .fold(
+                                          0,
+                                              (previousValue, element) =>
+                                          previousValue + element);
+                                });
                               });
-                            },
-                            child: Text(
-                              'Week',
-                              style: TextStyle(
-                                  color:
-                                      flag == 2 ? Colors.white : Colors.black,
-                                  fontSize: 10),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              side: const BorderSide(
-                                  width: 1, color: Colors.black),
-                              primary: flag == 2 ? Colors.black : Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
-                              ),
+                              // _expenseController.totalExpense.value = _expenseController
+                              //     .allExpenseList
+                              //     .map((e) => e.amount)
+                              //     .fold(0, (previousValue, element) => previousValue + element);
+                              print(
+                                  'expense list: ${_expenseController.allExpenseList.value}');
+                            });
+                          },
+                          child: Text(
+                            'week'.tr,
+                            style: TextStyle(
+                                color: flag == 2 ? Colors.white : Colors.black,
+                                fontSize: 10),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            side:
+                            const BorderSide(width: 1, color: Colors.black),
+                            primary: flag == 2 ? Colors.black : Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          height: 27,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                flag = 3;
-                                // controller
-                                //     .fetchEmployeWiseReport(
-                                //     shopId:
-                                //     '${getStorageId.read('shop_id')}',
-                                //     startDate: "$startOfMonth",
-                                //     endDate: "$lastOfTheMonth")
-                                //     .then((value) {
-                                //   if (value != null) {
-                                //     setState(() {
-                                //       _list =
-                                //           employeReportModelFromJson(
-                                //               value);
-                                //       _foundData = _list;
-                                //       print(getStorageId
-                                //           .read('shop_id'));
-                                //       print(startOfMonth);
-                                //       print(lastOfTheMonth);
-                                //       // checkingDone = true;
-                                //     });
-                                //   }
-                                //
-                                //   //  isLoading = false;
-                                // });
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Container(
+                        height: 27,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              flag = 3;
+                              _expenseController
+                                  .getAllExpense(
+                                  shopId: '${shop.id}',
+                                  startDate: "$startOfMonth",
+                                  endDate: "$lastOfTheMonth")
+                                  .then((value) {
+                                setState(() {
+                                  _expenseController.allExpenseList.value =
+                                      getExpenseFromModel(value);
+                                  _expenseController.totalExpense.value =
+                                      _expenseController.allExpenseList
+                                          .map((e) => e.amount)
+                                          .fold(
+                                          0,
+                                              (previousValue, element) =>
+                                          previousValue + element);
+                                });
                               });
-                            },
-                            child: Text(
-                              'Month',
-                              style: TextStyle(
-                                  color:
-                                      flag == 3 ? Colors.white : Colors.black,
-                                  fontSize: 10),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              side: const BorderSide(
-                                  width: 1, color: Colors.black),
-                              primary: flag == 3 ? Colors.black : Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
-                              ),
+                              // _expenseController.totalExpense.value = _expenseController
+                              //     .allExpenseList
+                              //     .map((e) => e.amount)
+                              //     .fold(0, (previousValue, element) => previousValue + element);
+                              print(
+                                  'expense list: ${_expenseController.allExpenseList.value}');
+                            });
+                          },
+                          child: Text(
+                            'month'.tr,
+                            style: TextStyle(
+                                color: flag == 3 ? Colors.white : Colors.black,
+                                fontSize: 10),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            side:
+                            const BorderSide(width: 1, color: Colors.black),
+                            primary: flag == 3 ? Colors.black : Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          height: 27,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              setState(() {
-                                flag = 4;
-                                // controller
-                                //     .fetchEmployeWiseReport(
-                                //     shopId:
-                                //     '${getStorageId.read('shop_id')}',
-                                //     startDate: "$startOfTheYear",
-                                //     endDate: "$now")
-                                //     .then((value) {
-                                //   if (value != null) {
-                                //     setState(() {
-                                //       _list =
-                                //           employeReportModelFromJson(
-                                //               value);
-                                //       _foundData = _list;
-                                //       print(getStorageId
-                                //           .read('shop_id'));
-                                //       print(startOfTheYear);
-                                //       print(now);
-                                //       // checkingDone = true;
-                                //     });
-                                //   }
-                                //
-                                //   //  isLoading = false;
-                                // });
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Container(
+                        height: 27,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              flag = 4;
+                              _expenseController
+                                  .getAllExpense(
+                                  shopId: '${shop.id}',
+                                  startDate: "$startOfTheYear",
+                                  endDate: "$now")
+                                  .then((value) {
+                                setState(() {
+                                  _expenseController.allExpenseList.value =
+                                      getExpenseFromModel(value);
+                                  _expenseController.totalExpense.value =
+                                      _expenseController.allExpenseList
+                                          .map((e) => e.amount)
+                                          .fold(
+                                          0,
+                                              (previousValue, element) =>
+                                          previousValue + element);
+                                });
                               });
-                            },
-                            child: Text(
-                              'Year',
-                              style: TextStyle(
-                                  color:
-                                      flag == 4 ? Colors.white : Colors.black,
-                                  fontSize: 10),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                              side: const BorderSide(
-                                  width: 1, color: Colors.black),
-                              primary: flag == 4 ? Colors.black : Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6),
-                              ),
+                              // _expenseController.totalExpense.value = _expenseController
+                              //     .allExpenseList
+                              //     .map((e) => e.amount)
+                              //     .fold(0, (previousValue, element) => previousValue + element);
+                              print(
+                                  'expense list: ${_expenseController.allExpenseList.value}');
+                            });
+                          },
+                          child: Text(
+                            'year'.tr,
+                            style: TextStyle(
+                                color: flag == 4 ? Colors.white : Colors.black,
+                                fontSize: 10),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                            side:
+                            const BorderSide(width: 1, color: Colors.black),
+                            primary: flag == 4 ? Colors.black : Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(6),
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10.0, bottom: 10),
+                ),
+                Obx(
+                      () => Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 10.0),
-                      child: Container(
-                        height: 350,
-                        child: _expenseController.allExpenseList.length != 0 ?
-                        ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: _expenseController.allExpenseList.length,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 5.0, bottom: 5),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Get.to(
-                                      ExpenseEditDelete(
-                                        amount:
-                                            '${_expenseController.allExpenseList[index].amount}',
-                                        reason:
-                                            '${_expenseController.allExpenseList[index].purpose}',
-                                        description:
-                                            '${_expenseController.allExpenseList[index].details}',
-                                        types:
-                                            '${_expenseController.allExpenseList[index].type}',
-                                        shopId:
-                                            '${_expenseController.allExpenseList[index].shopId}',
-                                        categoryId:
-                                            '${_expenseController.allExpenseList[index].id}',
-                                        userId:
-                                            '${_expenseController.allExpenseList[index].userId}',
-                                      ),
-                                      arguments: shop);
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      color: Color(
-                                        0xFFF1F1F1,
-                                      ),
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Text(
-                                                '${_expenseController.allExpenseList[index].purpose}'),
-                                            Text(
-                                                'Type: ${_expenseController.allExpenseList[index].type}'),
-                                            Text(
-                                                '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}')
-                                          ],
+                      padding: const EdgeInsets.only(top: 10.0, bottom: 10),
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 10.0),
+                        child: Container(
+                          child: _expenseController.allExpenseList.length != 0
+                              ? ListView.builder(
+                            shrinkWrap: true,
+                            itemCount:
+                            _expenseController.allExpenseList.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 5.0, bottom: 5),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Get.to(
+                                        ExpenseEditDelete(
+                                          amount:
+                                          '${_expenseController.allExpenseList[index].amount}',
+                                          reason:
+                                          '${_expenseController.allExpenseList[index].purpose}',
+                                          description:
+                                          '${_expenseController.allExpenseList[index].details}',
+                                          types:
+                                          '${_expenseController.allExpenseList[index].type}',
+                                          shopId:
+                                          '${_expenseController.allExpenseList[index].shopId}',
+                                          categoryId:
+                                          '${_expenseController.allExpenseList[index].id}',
+                                          userId:
+                                          '${_expenseController.allExpenseList[index].userId}',
                                         ),
-                                        Text(
-                                            '${_expenseController.allExpenseList[index].amount}')
-                                      ],
+                                        arguments: shop);
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Color(
+                                          0xFFF1F1F1,
+                                        ),
+                                        borderRadius:
+                                        BorderRadius.circular(10)),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                  '${_expenseController.allExpenseList[index].purpose}'),
+                                              Text(
+                                                  'Type: ${_expenseController.allExpenseList[index].type}'),
+                                              Text(
+                                                  '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}')
+                                            ],
+                                          ),
+                                          Text(
+                                              '৳ ${_expenseController.allExpenseList[index].amount}')
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            );
-                          },
-                        ) : Container(child: Center(child: Text('No Data to Show')),),
+                              );
+                            },
+                          )
+                              : Container(
+                            child: Center(child: Text('No Data to Show')),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                )
+              ],
             ),
           ),
         ),
@@ -441,18 +483,111 @@ class _ExpenseList2State extends State<ExpenseList2> {
     );
   }
 
+  void getDataForDropDown(var startDate, var endDate) {
+    _expenseController
+        .getAllExpense(
+        shopId: '${shop.id}', startDate: "$startDate", endDate: "$endDate")
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          _expenseController.allExpenseList.value = getExpenseFromModel(value);
+          _expenseController.totalExpense.value = _expenseController
+              .allExpenseList
+              .map((e) => e.amount)
+              .fold(0, (previousValue, element) => previousValue + element);
+          print('expense list: ${_expenseController.allExpenseList.value}');
+        });
+      }
+
+      //  isLoading = false;
+    });
+  }
+
+  dayMinus() {
+    setState(() {
+      now = now.subtract(Duration(days: 1));
+      print(now);
+    });
+    getDataForDropDown(now, now);
+  }
+
+  dayAdd() {
+    setState(() {
+      now = now.add(Duration(days: 1));
+    });
+    getDataForDropDown(now, now);
+  }
+
+  monthMinus() {
+    setState(() {
+      month = Jiffy([year, month, Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime.day]).subtract(months: 1).month;
+      print(Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime.day);
+      print(Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
+    });
+    getDataForDropDown(
+        Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime,
+        Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
+  }
+
+  monthAdd() {
+    setState(() {
+      month = Jiffy([year, month, Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime.day]).add(months: 1).month;
+    });
+    getDataForDropDown(
+        Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime,
+        Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
+  }
+
+  yearMinus() {
+    setState(() {
+      year = Jiffy([year, month, dayMain]).subtract(years: 1).year;
+      print(Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime);
+      print(Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
+    });
+    getDataForDropDown(
+        Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime,
+        Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
+  }
+
+  yearAdd() {
+    setState(() {
+      year = Jiffy([year, month, dayMain]).add(years: 1).year;
+      print(year);
+    });
+    getDataForDropDown(
+        Jiffy([year, month, dayMain]).startOf(Units.YEAR).dateTime,
+        Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
+  }
+
+  weekMinus(){
+    setState(() {
+      // week = Jiffy([year, month, dayMain]).subtract(weeks: 1).week;
+      // weekDay = ((week-1)*7) + (true ? 0 : 6);
+      // print(DateTime.utc(year, 1, weekDay));
+      final now = DateTime.now();
+      final diff = now.difference(startOfTheWeek).inDays;
+      return diff <= 7;
+    });
+  }
+  weekAdd(){
+    setState(() {
+      week = Jiffy([year, month, dayMain]).subtract(weeks: 1).week;
+      weekDay = ((week-1)*7) + (false ? 0 : 6);
+      print(DateTime.utc(year, 1, weekDay));
+    });
+  }
   List<String> months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'Octobar',
-    'November',
-    'December'
+    'January'.tr,
+    'February'.tr,
+    'March'.tr,
+    'April'.tr,
+    'May'.tr,
+    'June'.tr,
+    'July'.tr,
+    'August'.tr,
+    'September'.tr,
+    'October'.tr,
+    'November'.tr,
+    'December'.tr
   ];
 }

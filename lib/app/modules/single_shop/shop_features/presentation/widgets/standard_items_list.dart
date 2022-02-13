@@ -10,7 +10,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_featur
 import 'package:hishabee_business_manager_fl/feature/dashboard/business_overview/business_overview.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/create_sms.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/digital_payment/digital_payment.dart';
-import 'package:hishabee_business_manager_fl/feature/dashboard/emi/digital_payment.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/stock/presentation/pages/stock_management.dart';
 
 class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
   final Shop shop;
@@ -25,85 +25,41 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
     final double itemHeight = size.height * 0.13;
     final double itemWidth = size.width * 0.44;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 15.0, top: 5),
+      padding: const EdgeInsets.only(bottom: 15.0, top: 5, left: 20, right: 20),
       child: Container(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                InkWell(
-                  onTap: () {
-                    Get.to(() => ProductListPage(),
-                        arguments: {
-                          "shop": shop,
-                        },
-                        binding: ProductListBinding());
-                  },
-                  child: Container(
-                    height: itemHeight,
-                    width: itemWidth,
-                    decoration: SHOP_ITEM_DECORATION,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'images/shop_features/productList.png',
-                          height:
-                              screen.responsiveValue(mobile: 40, tablet: 60),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "product_list".tr,
-                          style: TextStyle(
-                            fontFamily: 'Rubik',
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: DEFAULT_BLACK,
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(() => ProductListPage(),
+                          arguments: {
+                            "shop": shop,
+                          },
+                          binding: ProductListBinding());
+                    },
+                    child: Container(
+                      height: itemHeight,
+                      width: itemWidth,
+                      decoration: SHOP_ITEM_DECORATION,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'images/shop_features/productList.png',
+                            height:
+                                screen.responsiveValue(mobile: 40, tablet: 60),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: size.width * 0.03,
-                ),
-                InkWell(
-                  onTap: () {
-                    Get.to(
-                      () => SmsCreatePage(),
-                      arguments: {
-                        "shop": shop,
-                      },
-                      // binding: SMSBindings(),
-                    );
-                  },
-                  child: Container(
-                    height: itemHeight,
-                    width: itemWidth,
-                    decoration: SHOP_ITEM_DECORATION,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'images/shop_features/settings.png',
-                          height:
-                              screen.responsiveValue(mobile: 40, tablet: 60),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Text(
-                            "sms_marketing".tr,
-                            textAlign: TextAlign.center,
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "product_list".tr,
                             style: TextStyle(
                               fontFamily: 'Rubik',
                               fontSize: 16,
@@ -111,8 +67,56 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
                               color: DEFAULT_BLACK,
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: size.width * 0.03,
+                ),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(
+                        () => SmsCreatePage(),
+                        arguments: {
+                          "shop": shop,
+                        },
+                        // binding: SMSBindings(),
+                      );
+                    },
+                    child: Container(
+                      height: itemHeight,
+                      width: itemWidth,
+                      decoration: SHOP_ITEM_DECORATION,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'images/shop_features/settings.png',
+                            height:
+                                screen.responsiveValue(mobile: 40, tablet: 60),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Text(
+                              "sms_marketing".tr,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontFamily: 'Rubik',
+                                fontSize: 16,
+                                fontWeight: FontWeight.normal,
+                                color: DEFAULT_BLACK,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 )
@@ -159,11 +163,92 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
               height: itemHeight * 0.15,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(BusinessOverView(), arguments: shop);
+                    },
+                    child: Container(
+                      height: itemHeight,
+                      width: itemWidth,
+                      decoration: SHOP_ITEM_DECORATION,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'images/shop_features/bo.png',
+                            height:
+                                screen.responsiveValue(mobile: 40, tablet: 60),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "business_overview".tr,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: DEFAULT_BLACK,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: size.width * 0.03,
+                ),
+                Expanded(
+                  child: InkWell(
+                    onTap: () =>
+                        Get.to(DigitalPaymentDashboard(), arguments: shop),
+                    child: Container(
+                      height: itemHeight,
+                      width: itemWidth,
+                      decoration: SHOP_ITEM_DECORATION,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'images/shop_features/settings.png',
+                            height:
+                                screen.responsiveValue(mobile: 40, tablet: 60),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            "digital_marketing".tr,
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: DEFAULT_BLACK,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            ),
+            SizedBox(
+              height: itemHeight * 0.15,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 InkWell(
                   onTap: () {
-                    Get.to(BusinessOverView(), arguments: shop);
+                    Get.to(StockManagement(), arguments: shop);
                   },
                   child: Container(
                     height: itemHeight,
@@ -176,13 +261,13 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
                         Image.asset(
                           'images/shop_features/bo.png',
                           height:
-                              screen.responsiveValue(mobile: 40, tablet: 60),
+                          screen.responsiveValue(mobile: 40, tablet: 60),
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         Text(
-                          "business_overview".tr,
+                          "stock".tr,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Rubik',
@@ -198,38 +283,7 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
                 SizedBox(
                   width: size.width * 0.03,
                 ),
-                InkWell(
-                  onTap: () =>
-                      Get.to(DigitalPaymentDashboard(), arguments: shop),
-                  child: Container(
-                    height: itemHeight,
-                    width: itemWidth,
-                    decoration: SHOP_ITEM_DECORATION,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'images/shop_features/settings.png',
-                          height:
-                              screen.responsiveValue(mobile: 40, tablet: 60),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          "digital_marketing".tr,
-                          style: TextStyle(
-                            fontFamily: 'Rubik',
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: DEFAULT_BLACK,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
+
               ],
             ),
           ],

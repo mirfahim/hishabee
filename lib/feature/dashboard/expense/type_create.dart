@@ -7,6 +7,7 @@ import 'package:hishabee_business_manager_fl/controllers/expense/expense_control
 import 'package:hishabee_business_manager_fl/models/expense/expense_category.dart';
 
 import 'all_expenses.dart';
+import 'expense_details.dart';
 
 // Widget textFormFeildForExpense(
 //     {String hintText,
@@ -116,11 +117,11 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
                             i++) {
                           if (_textEditingController.value.text ==
                               _expenseController.allExpenseCategory[i].name) {
-                            print(
-                                '_textEditingController.value.text: ${_textEditingController.value.text}');
-                            print(
-                                '_expenseController.allExpenseCategory[i].name: ${_expenseController.allExpenseCategory[i].name}');
-                            print('The type Exist');
+                            // print(
+                            //     '_textEditingController.value.text: ${_textEditingController.value.text}');
+                            // print(
+                            //     '_expenseController.allExpenseCategory[i].name: ${_expenseController.allExpenseCategory[i].name}');
+                            // print('The type Exist');
                             break;
                           } else {
                             await _expenseController.createNewExpenseType(
@@ -132,6 +133,33 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
                                            expenseCategoryResponseModelFromModel(value);
                               });
                             });
+                            _expenseController.fixedCategory.add(
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(
+                                        NewExpense(
+                                          shopId: '${shop.id}',
+                                          type: '${_textEditingController.value.text}',
+                                        ),
+                                        arguments: shop);
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: const Color(0xFFC4C4C4).withOpacity(.35)),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset('images/assets/defaultImage.png'),
+                                        Text('${_textEditingController.value.text}',
+                                            style: TextStyle(fontFamily: 'Rubik', fontSize: 16))
+                                      ],
+                                    ),
+                                  ),
+                                ));
+                            // }));
                             Get.back();
                             Get.back();
                             break;
