@@ -181,6 +181,7 @@ const bn_BD = {
   'email_optional': 'ইমেইল (না দিলেও হবে)',
   'employee_name': 'কর্মচারীর নাম',
   'position': 'পদ',
+  'expense_type':'খরচের খাত',
   'customer_address':'ক্রেতার ঠিকানা',
   'customer_number':'ক্রেতার মোবাইল নম্বর',
   'stock':'স্টক',

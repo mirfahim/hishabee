@@ -99,7 +99,10 @@ class _ExpenseListState extends State<ExpenseList> {
               color: const Color(0xFFC4C4C4).withOpacity(.35)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text('salary'.tr)],
+            children: [
+
+              Text('salary'.tr)
+            ],
           ),
         ),
       ),
@@ -281,7 +284,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                       ],
                                     ),
                                     Obx(() => Text(
-                                      '৳ ${_expenseController.totalFixedExpense.value}',
+                                      '৳${_expenseController.totalFixedExpense.value}',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontSize: 22,
@@ -295,7 +298,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                   thickness: 1.5,
                                 ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -344,8 +347,8 @@ class _ExpenseListState extends State<ExpenseList> {
                                     : _expenseController
                                     .allFixedExpenseList.length,
                                     (index) => Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: 8.0, bottom: 5),
+                                  padding: const EdgeInsets.only(left: 5,
+                                      right: 5.0, bottom: 10),
                                   child: Container(
                                     decoration: BoxDecoration(
                                         borderRadius:
@@ -354,7 +357,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                             .withOpacity(.35)),
                                     child: Padding(
                                       padding:
-                                      const EdgeInsets.all(8.0),
+                                      const EdgeInsets.symmetric(vertical: 8.0),
                                       child: Column(
                                         mainAxisAlignment:
                                         MainAxisAlignment.center,
@@ -402,7 +405,7 @@ class _ExpenseListState extends State<ExpenseList> {
                           children: [
                             Text('new_expense'.tr,
                                 style: TextStyle(
-                                    fontFamily: 'Rubik', fontSize: 16)),
+                                    fontFamily: 'Roboto', fontSize: 16)),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 primary: Colors.white,
@@ -421,8 +424,8 @@ class _ExpenseListState extends State<ExpenseList> {
                                     'expense_type'.tr,
                                     style: TextStyle(
                                         color: Colors.blueAccent,
-                                        fontFamily: 'Rubik',
-                                        fontSize: 16),
+                                        fontFamily: 'Roboto',
+                                        fontSize: 14),
                                   )
                                 ],
                               ),
@@ -433,7 +436,7 @@ class _ExpenseListState extends State<ExpenseList> {
                           height: 10,
                         ),
                         Obx(() => Padding(
-                          padding: const EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(0.0),
                           child: GridView.count(
                             // childAspectRatio: 2.25,
                             primary: false,

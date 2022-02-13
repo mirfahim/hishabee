@@ -484,6 +484,7 @@ const en_US = {
   'stock':'Stock',
   'total_stock':'Total Stock',
   'search_product_with_name_or_category':'Search with Product Name or Category',
+  'expense_type':'Expense Type',
   'stock_history':'Stock History',
   'total_stocked_product':'Total Stocked Product',
   'new_product':'New Product',
