@@ -95,8 +95,9 @@ class _ExpenseList2State extends State<ExpenseList2> {
           },
           icon: Icon(Icons.arrow_back),
         ),
-        title: const Text('Expense book'),
+        title:  Text('expense_book'.tr),
         backgroundColor: bgColor,
+        titleSpacing: 0,
       ),
       body: SafeArea(
         child: Container(
@@ -107,77 +108,80 @@ class _ExpenseList2State extends State<ExpenseList2> {
             child: Column(
               children: [
                 Container(
-                  height: 250,
+                  // height: 250,
                   decoration: BoxDecoration(
                       color: DEFAULT_BLUE,
                       borderRadius: BorderRadius.circular(10)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('total_cost'.tr,style: TextStyle(
-                          color: Color(0xFFFECD1A),
-                          fontFamily: 'Rubik',
-                          fontSize: 16),),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                if (flag == 1) {
-                                  setState(() {
-                                    dayMinus();
-                                    // day = DateFormat.yMMMMd().format(now);
-                                  });
-                                  // dayMinus();
-                                } else if (flag == 3) {
-                                  monthMinus();
-                                } else if (flag == 4) {
-                                  yearMinus();
-                                } else if (flag == 2) {
-                                  weekMinus();
-                                }
-                              },
-                              icon: Icon(Icons.arrow_back_ios, color: Colors.white,size: 16,)),
-                          if (flag == 1) Text(DateFormat.yMMMMd().format(now),style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Rubik',
-                              fontSize: 16),),
-                          if (flag == 2)
-                            Text(
-                              '${DateFormat.yMMMMd().format(startOfTheWeek)} - ${DateFormat.yMMMMd().format(endOfTheWeek)}',style: TextStyle(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('total_cost'.tr,style: TextStyle(
+                            color: Color(0xFFFECD1A),
+                            fontFamily: 'Roboto',
+                            fontSize: 16),),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  if (flag == 1) {
+                                    setState(() {
+                                      dayMinus();
+                                      // day = DateFormat.yMMMMd().format(now);
+                                    });
+                                    // dayMinus();
+                                  } else if (flag == 3) {
+                                    monthMinus();
+                                  } else if (flag == 4) {
+                                    yearMinus();
+                                  } else if (flag == 2) {
+                                    weekMinus();
+                                  }
+                                },
+                                icon: Icon(Icons.arrow_back_ios, color: Colors.white,size: 16,)),
+                            if (flag == 1) Text(DateFormat.yMMMMd().format(now),style: TextStyle(
                                 color: Colors.white,
-                                fontFamily: 'Rubik',
+                                fontFamily: 'Roboto',
                                 fontSize: 16),),
-                          if (flag == 4) Text('$year',style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Rubik',
-                              fontSize: 16),),
-                          if (flag == 3) Text(months[month - 1],style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Rubik',
-                              fontSize: 16),),
-                          IconButton(
-                              onPressed: () {
-                                if (flag == 1) {
-                                  dayAdd();
-                                } else if (flag == 3) {
-                                  monthAdd();
-                                } else if (flag == 4) {
-                                  yearAdd();
-                                } else if(flag == 2){
-                                  weekAdd();
-                                }
-                              },
-                              icon: Icon(Icons.arrow_forward_ios, color: Colors.white,size: 16))
-                        ],
-                      ),
-                      Obx(() =>
-                          Text('৳ ${_expenseController.totalExpense.value}',style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Rubik',
-                              fontSize: 16),))
-                    ],
+                            if (flag == 2)
+                              Text(
+                                '${DateFormat.yMMMMd().format(startOfTheWeek)} - ${DateFormat.yMMMMd().format(endOfTheWeek)}',style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Roboto',
+                                  fontSize: 16),),
+                            if (flag == 4) Text('$year',style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Roboto',
+                                fontSize: 16),),
+                            if (flag == 3) Text(months[month - 1],style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Roboto',
+                                fontSize: 16),),
+                            IconButton(
+                                onPressed: () {
+                                  if (flag == 1) {
+                                    dayAdd();
+                                  } else if (flag == 3) {
+                                    monthAdd();
+                                  } else if (flag == 4) {
+                                    yearAdd();
+                                  } else if(flag == 2){
+                                    weekAdd();
+                                  }
+                                },
+                                icon: Icon(Icons.arrow_forward_ios, color: Colors.white,size: 16))
+                          ],
+                        ),
+                        Obx(() =>
+                            Text('৳ ${_expenseController.totalExpense.value}',style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Roboto',
+                                fontSize: 16),))
+                      ],
+                    ),
                   ),
                 ),
                 Padding(
@@ -445,20 +449,33 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                         crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                         children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                  '${_expenseController.allExpenseList[index].purpose}'),
-                                              Text(
-                                                  'Type: ${_expenseController.allExpenseList[index].type}'),
-                                              Text(
-                                                  '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}')
-                                            ],
+                                          Padding(
+                                            padding: const EdgeInsets.only(left: 10.0),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    '${_expenseController.allExpenseList[index].purpose}', style: TextStyle(
+                                                    fontSize: 14, fontFamily: 'Roboto',color: Color(0xFF232323)
+                                                ),),
+                                                SizedBox(height: 3,),
+                                                Text(
+                                                    'Type: ${_expenseController.allExpenseList[index].type}', style: TextStyle(
+                                                    fontSize: 14, fontFamily: 'Roboto',color: Color(0xFF707070)
+                                                ),),
+                                                SizedBox(height: 3,),
+                                                Text(
+                                                    '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}', style: TextStyle(
+                                                    fontSize: 12, fontFamily: 'Roboto',color: Color(0xFF707070)
+                                                ),)
+                                              ],
+                                            ),
                                           ),
                                           Text(
-                                              '৳ ${_expenseController.allExpenseList[index].amount}')
+                                              '৳ ${_expenseController.allExpenseList[index].amount}', style: TextStyle(
+                                            fontSize: 18, fontFamily: 'Roboto'
+                                          ),)
                                         ],
                                       ),
                                     ),

@@ -90,8 +90,18 @@ class ExpenseTypeEdit extends StatelessWidget {
                       decoration: InputDecoration(
                         filled: true,
                         contentPadding: EdgeInsets.symmetric(horizontal: 8),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                          ),
+                        ),
                         counterText: "",
                         hintText: name,
                         hintStyle: const TextStyle(

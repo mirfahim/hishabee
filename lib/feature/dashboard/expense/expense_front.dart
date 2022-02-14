@@ -100,7 +100,7 @@ class _ExpenseListState extends State<ExpenseList> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
+              Image.asset('images/assets/salary_expense.png'),
               Text('salary'.tr)
             ],
           ),
@@ -123,7 +123,13 @@ class _ExpenseListState extends State<ExpenseList> {
               color: const Color(0xFFC4C4C4).withOpacity(.35)),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [Text('rent'.tr)],
+            children: [
+              Image.asset('images/assets/rent_expense.png'),
+              Text('rent'.tr,style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 14
+              ),)
+            ],
           ),
         ),
       ),
@@ -145,9 +151,10 @@ class _ExpenseListState extends State<ExpenseList> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset('images/assets/utility_expense.png'),
               Text(
                 'bill'.tr,
-                style: TextStyle(fontFamily: 'Rubik', fontSize: 14),
+                style: TextStyle(fontFamily: 'Roboto', fontSize: 14),
               )
             ],
           ),
@@ -171,8 +178,9 @@ class _ExpenseListState extends State<ExpenseList> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Image.asset('images/assets/rent_expense.png'),
               Text('rent'.tr,
-                  style: TextStyle(fontFamily: 'Rubik', fontSize: 14))
+                  style: TextStyle(fontFamily: 'Roboto', fontSize: 14))
             ],
           ),
         ),
@@ -200,9 +208,9 @@ class _ExpenseListState extends State<ExpenseList> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset('images/assets/defaultImage.png'),
+                      SvgPicture.asset('images/svg_image/stock_product.svg'),
                       Text('${element.name}',
-                          style: TextStyle(fontFamily: 'Rubik', fontSize: 16))
+                          style: TextStyle(fontFamily: 'Roboto', fontSize: 16))
                     ],
                   ),
                 ),
@@ -267,6 +275,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(
                                           'total_cost'.tr,
@@ -298,7 +307,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                   thickness: 1.5,
                                 ),
                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              padding: const EdgeInsets.symmetric(horizontal: 4.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -337,7 +346,8 @@ class _ExpenseListState extends State<ExpenseList> {
                             Obx(() => GridView.count(
                               crossAxisCount: 3,
                               shrinkWrap: true,
-                              //physics: NeverScrollableScrollPhysics(),
+                              mainAxisSpacing: 0,
+                              crossAxisSpacing: 0,
                               childAspectRatio: 1.25,
                               children: List.generate(
                                 _expenseController.allFixedExpenseList
@@ -347,8 +357,8 @@ class _ExpenseListState extends State<ExpenseList> {
                                     : _expenseController
                                     .allFixedExpenseList.length,
                                     (index) => Padding(
-                                  padding: const EdgeInsets.only(left: 5,
-                                      right: 5.0, bottom: 10),
+                                  padding: const EdgeInsets.only(left: 2,
+                                      right: 2.0, bottom: 4),
                                   child: Container(
                                     decoration: BoxDecoration(
                                         borderRadius:
@@ -368,7 +378,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                                 color:
                                                 Color(0xFFDFE0EB),
                                                 fontSize: 16,
-                                                fontFamily: 'Rubik'),
+                                                fontFamily: 'Roboto'),
                                           ),
                                           Text(
                                             '${((_expenseController.allFixedExpenseList[index].amount / _expenseController.totalExpense.value) * 100).toStringAsFixed(1)}%',
@@ -376,7 +386,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                                 color:
                                                 Color(0xFFDFE0EB),
                                                 fontSize: 16,
-                                                fontFamily: 'Rubik'),
+                                                fontFamily: 'Roboto'),
                                           ),
                                           Text(
                                             '${_expenseController.allFixedExpenseList[index].type}',
@@ -384,7 +394,7 @@ class _ExpenseListState extends State<ExpenseList> {
                                                 color:
                                                 Color(0xFFDFE0EB),
                                                 fontSize: 16,
-                                                fontFamily: 'Rubik'),
+                                                fontFamily: 'Roboto'),
                                           )
                                         ],
                                       ),
@@ -435,19 +445,16 @@ class _ExpenseListState extends State<ExpenseList> {
                         SizedBox(
                           height: 10,
                         ),
-                        Obx(() => Padding(
-                          padding: const EdgeInsets.all(0.0),
-                          child: GridView.count(
-                            // childAspectRatio: 2.25,
-                            primary: false,
-                            crossAxisCount: 3,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 5,
-                            shrinkWrap: true,
-                            children: List.generate(
-                              _expenseController.fixedCategory.length,
-                                  (index) => _expenseController.fixedCategory[index],
-                            ),
+                        Obx(() => GridView.count(
+                          // childAspectRatio: 2.25,
+                          primary: false,
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 5,
+                          crossAxisSpacing: 5,
+                          shrinkWrap: true,
+                          children: List.generate(
+                            _expenseController.fixedCategory.length,
+                                (index) => _expenseController.fixedCategory[index],
                           ),
                         ))
                       ],

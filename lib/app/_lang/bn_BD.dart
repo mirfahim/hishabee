@@ -65,6 +65,10 @@ const bn_BD = {
   'stock_count': 'মজুত সংখ্যা',
   'maximum_expense_list':'সর্বোচ্চ খরচের তালিকা',
   'see_more_details':'বিস্তারিত দেখুন',
+  'day':'দিন',
+  'week':'সপ্তাহ',
+  'year':'বছর',
+  'expense_book':'খরচের তালিকা',
   'customer_information_needed':
       'বাকি দানের ক্ষেত্রে কাস্টমার এর তথ্য বাধ্যতামূলক',
   'due_payment': 'বাকি পরিশোধ',
@@ -475,6 +479,11 @@ const bn_BD = {
   'barcode_sticker_print': 'বারকোড স্টিকার প্রিন্ট',
   'unpaid': 'পরিশোধ করা হয়নি',
   'payment_status': 'পেমেন্ট অবস্থা',
+  'edit_expense':'খরচের খাতা পরিবর্তন',
+  'other_expense':'অনান্য খরচ',
+  'new_expenses':'নতুন খরচ',
+  'new_expense_name':'খরচের ধরণের নাম',
+  'create_new_expense_type':'খরচের খাত যোগ করুন',
   'note_colon': 'নোটঃ',
   'note': 'নোট',
   'contact_showcase':

@@ -49,7 +49,8 @@ class _AllExpensesState extends State<AllExpenses> {
           },
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text('Other Expenses'),
+        title:  Text('other_expense'.tr),
+        titleSpacing: 0,
         backgroundColor: DEFAULT_YELLOW_BG,
       ),
       body: SafeArea(
@@ -63,7 +64,7 @@ class _AllExpensesState extends State<AllExpenses> {
         height: height,
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10),
+          padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10, bottom: 30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -148,12 +149,12 @@ class _AllExpensesState extends State<AllExpenses> {
                                                   _expenseController
                                                       .allExpenseCategory[index]
                                                       .id);
-                                          _expenseController.allExpenseCategory
-                                              .removeWhere((element) =>
-                                          element.id ==
-                                              _expenseController
-                                                  .allExpenseCategory[index]
-                                                  .id);
+                                          // _expenseController.allExpenseCategory
+                                          //     .removeWhere((element) =>
+                                          // element.id ==
+                                          //     _expenseController
+                                          //         .allExpenseCategory[index]
+                                          //         .id);
                                           _expenseController
                                               .getAllExpenseCategory(shopId: '${shop.id}')
                                               .then((value) {
@@ -185,11 +186,11 @@ class _AllExpensesState extends State<AllExpenses> {
                   child: Text(
                     'create_new_expense_type'.tr,
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.blueAccent, fontSize: 12),
+                    style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'Roboto'),
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
+                  primary: DEFAULT_BLUE,
                   fixedSize: Size(width, 40),
                   side: BorderSide(color: Colors.blueAccent),
                   shape: RoundedRectangleBorder(
