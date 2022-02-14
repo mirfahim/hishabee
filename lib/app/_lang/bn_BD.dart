@@ -238,6 +238,9 @@ const bn_BD = {
   'utility_bill': 'ইউটিলিটি বিল',
   'other': 'অন্যান্য',
   'grand_total': 'সর্বমোট',
+  'total_get :':'মোট পাবো :',
+  'date_for_pay_due':'বাকি পরিশোধের তারিখ :',
+  'select_date':'নির্বাচন করুন',
   'additional_discount_on_full_amount': 'পুরো পরিমাণের উপর অতিরিক্ত ছাড়?',
   'tk_discount': 'টাকা ছাড়',
   'amount_discount': 'ডিস্কাউন্টের পরিমাণ',
@@ -413,6 +416,10 @@ const bn_BD = {
   'gift_points': 'গিফট পয়েন্টসঃ',
   'subscription_fee_colon': 'সাবস্ক্রিপশন ফিঃ',
   'total_payable_colon': 'মোট প্রদেয়ঃ',
+  'total_balance':'মোট ব্যালেন্স',
+  'given_due':'বাকি দিবো',
+  'get_due':'বাকি পাবো',
+  'new_due':'নতুন বাকি',
   'pay': 'পে করুন',
   'recharge_hishabee_wallet': 'রিচার্জ হিশাবি ওয়ালেট',
   'press_the_blue_map_icon_and_select_your_store_location_in_map':
@@ -483,6 +490,7 @@ const bn_BD = {
   'other_expense':'অনান্য খরচ',
   'new_expenses':'নতুন খরচ',
   'new_expense_name':'খরচের ধরণের নাম',
+  ''
   'create_new_expense_type':'খরচের খাত যোগ করুন',
   'note_colon': 'নোটঃ',
   'note': 'নোট',
@@ -529,6 +537,8 @@ const bn_BD = {
   'duplicate_product': 'প্রোডাক্ট ডুপ্লিকেট',
   'due_details': 'বাকির বিবরণ',
   'due_history': 'বাকির ইতিহাস',
+  'give/due':'দিলাম/বাকি',
+  'receive/taken':'পেলাম/জমা',
   'digital_balance_is_paid_to_your_account_at_the_end_of_every_month_please_update_your_account_information_to_receive_payment_correctly':
       'প্রতি মাসের শেষে আপনার অ্যাকাউন্টে ডিজিটাল ব্যালেন্স প্রদান করা হয়। সঠিকভাবে অর্থ গ্রহণের জন্য আপনার অ্যাকাউন্টের তথ্য আপডেট করুন',
   'bkash_transaction_fee_will_be_deducted':

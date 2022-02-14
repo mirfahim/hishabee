@@ -6,6 +6,7 @@ import 'package:hishabee_business_manager_fl/app/_utils/shop_item_card.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/_navigation/contact_routes.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/_bindings/due_list_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/pages/due_details_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/pages/due_list_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/expenses/_bindings/expense_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/expenses/presentation/pages/expenses_page.dart';
@@ -16,6 +17,8 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_featur
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/expense/expense_front.dart';
+import 'package:hishabee_business_manager_fl/new_UI/due/due_details_customer.dart';
+import 'package:hishabee_business_manager_fl/new_UI/due/due_front.dart';
 
 class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
   final Shop shop;
@@ -169,13 +172,13 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
               children: [
                 Expanded(
                   child: InkWell(
-                    // onTap: () {
-                    //   Get.to(() => DueListPage(),
-                    //       arguments: {
-                    //         "shop": shop,
-                    //       },
-                    //       binding: DueListBinding());
-                    // },
+                    onTap: () {
+                      Get.to(() => DueFront());
+                          // arguments: {
+                          //   "shop": shop,
+                          // },
+                          // binding: DueListBinding());
+                    },
                     child: Container(
                       height: itemHeight,
                       width: itemWidth,

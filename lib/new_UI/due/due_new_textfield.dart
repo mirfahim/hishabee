@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
-
+import 'package:get/get.dart';
 class DueNewTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -15,12 +15,14 @@ class DueNewTextField extends StatelessWidget {
             Icons.arrow_back,
             color: Colors.black,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Get.back();
+          },
         ),
         title: Column(
           children: [
             Text(
-              'নতুন বাকি',
+              'new_due'.tr,
               style: TextStyle(color: Colors.black, fontSize: 16),
             ),
             Text(
