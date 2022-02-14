@@ -21,6 +21,7 @@ class SmsController extends GetxController {
   final mobileNumbers = ''.obs;
   final totalSmsLeft = 0.obs;
   final changedSms = 0.obs;
+  final circular = false.obs;
   var visibility = false.obs;
   final selectedMobileNumber = [].obs;
   ApiService _apiService = ApiService();
@@ -68,7 +69,7 @@ class SmsController extends GetxController {
       // print("my contacts are ${contacts.}");
       // contacts.value = _contacts.toList();
       List allContact = _contacts.toList();
-      print("my all contact are $allContact");
+      //print("my all contact are ${contacts.value[0].phones[0].value}");
     } else if (status.isDenied) {
       List<Contact> _contacts = await ContactsService.getContacts();
       contacts.value = _contacts.toList();

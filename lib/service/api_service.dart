@@ -27,6 +27,7 @@ class ApiService {
       }
       if (method == apiMethods.get) {
         response = await http.get(apiURL, headers: header);
+        print("my response is $response");
       }
       if (method == apiMethods.delete) {
         response = await http.delete(apiURL, headers: header);
@@ -38,8 +39,8 @@ class ApiService {
 
       if (response != null &&
           (response.statusCode == 200 || response.statusCode == 201)) {
-        print(response.body);
         var res = convert.jsonDecode(response.body);
+        print("my response is $res");
         return res;
       } else {
         var res = convert.jsonDecode(response.body);

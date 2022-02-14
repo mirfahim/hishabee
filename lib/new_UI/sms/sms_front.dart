@@ -25,7 +25,7 @@ class _SMSFrontState extends State<SMSFront> {
               icon: Icon(Icons.arrow_back),
             ),
             backgroundColor: Colors.amber,
-            title: Text('SMSs'),
+            title: Text('SMS'),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 5),

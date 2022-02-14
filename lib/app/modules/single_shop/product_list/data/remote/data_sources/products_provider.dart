@@ -41,6 +41,7 @@ abstract class IProductProvider {
     String productType,
     double wholeSalePrice,
     String uniqueID,
+    List subUnit,
   });
 
   Future<Response<AddVariationResponseModel>> addVariation({
@@ -189,10 +190,11 @@ class ProductProvider extends GetConnect implements IProductProvider {
     double vatAmount,
     double wholeSalePrice,
     String uniqueID,
+    List subUnit,
     String productType = "SIMPLE",
   }) async {
     String url =
-        "$BASE_URL/product?shop_id=$shopId&sub_category=$subcategoryId&name=$productName&selling_price=$price&description=$productName&image_src=$imageUrl&stock=$stockQuantity&cost_price=$cost&vat_applicable=true&barcode=$barcode&unit=1&vat_applicable=true&vat_percent=15&sell_online=true&shipping_cost=50&wholesale_price=$wholeSalePrice&wholesale_amount=10&gallery=[]&warranty=10&warranty_type=DAY&stock_alert=2&discount=10&discount_type=PERCENT&created_at=2022-02-08 12:12:12&updated_at=2022-02-08 12:12:13&version=0&unique_id=$uniqueID";
+        "$BASE_URL/product?shop_id=$shopId&sub_category=$subcategoryId&name=$productName&selling_price=$price&description=$productName&image_src=$imageUrl&stock=$stockQuantity&sub_unit=$subUnit&cost_price=$cost&vat_applicable=true&barcode=$barcode&unit=1&vat_applicable=true&vat_percent=15&sell_online=true&shipping_cost=50&wholesale_price=$wholeSalePrice&wholesale_amount=10&gallery=[]&warranty=10&warranty_type=DAY&stock_alert=2&discount=10&discount_type=PERCENT&created_at=2022-02-08 12:12:12&updated_at=2022-02-08 12:12:13&version=0&unique_id=$uniqueID";
 
     final creds = await _authRepository.getCredentials();
     final headers = {'Authorization': 'Bearer ${creds.accessToken}'};
@@ -212,6 +214,7 @@ class ProductProvider extends GetConnect implements IProductProvider {
       "barcode": barcode,
       "attribute": attribute,
       "product_type": productType,
+      "sub_unit": subUnit
     };
     print("my all url are $body ");
 
