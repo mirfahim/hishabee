@@ -7,7 +7,13 @@ import 'package:hishabee_business_manager_fl/new_UI/due/due_new.dart';
 
 import 'due_details_customer.dart';
 import 'due_new_textfield.dart';
-class DueFront extends StatelessWidget {
+class DueFront extends StatefulWidget {
+  @override
+  State<DueFront> createState() => _DueFrontState();
+}
+
+class _DueFrontState extends State<DueFront> {
+  int flag = 1;
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -249,7 +255,265 @@ class DueFront extends StatelessWidget {
                       ),
                       Expanded(
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            showModalBottomSheet<void>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return StatefulBuilder(
+                                  builder: (BuildContext context, StateSetter setState){
+                                    return Container(
+                                      // height: height,
+                                      // color: DEFAULT_BODY_BG_COLOR,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 10.0, right: 10),
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Text('filter'.tr, style: TextStyle(
+                                                  fontSize: 14, fontFamily: 'Roboto'
+                                              ),),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              'select_date_due'.tr,
+                                              style: TextStyle(fontSize: 14,fontFamily: 'Roboto'),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Row(
+                                              children: [
+
+                                                InkWell(
+                                                  onTap:(){
+                                                    setState(() {
+                                                      flag = 1;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    height: 40,
+                                                    width: 70,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: Color(0XFFC4C4C4)),
+                                                        borderRadius: BorderRadius.circular(6),
+                                                        color: flag ==1 ? DEFAULT_BLUE : Colors.white),
+                                                    child: Center(
+                                                      child: Text(
+                                                        'today'.tr,
+                                                        style: TextStyle(fontFamily:'Roboto',fontSize: 14, color: flag ==1 ?  Colors.white: Colors.black),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                InkWell(
+                                                  onTap: (){
+                                                    setState(() {
+                                                      flag = 2;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    height: 40,
+                                                    width: 70,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(color: Color(0XFFC4C4C4)),
+                                                        borderRadius: BorderRadius.circular(6),
+                                                        color: flag == 2 ? DEFAULT_BLUE : Colors.white
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        'গতকাল',
+                                                        style: TextStyle(fontSize: 14, color: flag == 2 ?  Colors.white: Colors.black),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                InkWell(
+                                                  onTap: (){
+                                                    setState(() {
+                                                      flag = 3;
+                                                    });
+
+                                                  },
+                                                  child: Container(
+                                                    height: 40,
+                                                    width: 70,
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(color: Color(0XFFC4C4C4)),
+                                                      borderRadius: BorderRadius.circular(6),
+                                                      color: flag == 3 ? DEFAULT_BLUE : Colors.white
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        'গত ৭ দিন',
+                                                        style: TextStyle(fontSize: 14, color:flag == 3 ?  Colors.white: Colors.black),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                InkWell(
+                                                  onTap:(){
+                                                    setState((){
+                                                      flag = 4;
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    height: 40,
+                                                    width: 70,
+                                                    decoration: BoxDecoration(
+                                                      border: Border.all(color: Color(0XFFC4C4C4)),
+                                                      borderRadius: BorderRadius.circular(6),
+                                                      color: flag == 4 ? DEFAULT_BLUE: Colors.white
+                                                    ),
+                                                    child: Center(
+                                                      child: Text(
+                                                        'এই মাস',
+                                                        style: TextStyle(fontSize: 14, color:flag == 4 ?  Colors.white: Colors.black),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Container(
+                                                  height: 40,
+                                                  width: 70,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(color: Color(0XFFC4C4C4)),
+                                                    borderRadius: BorderRadius.circular(6),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      'গত মাস',
+                                                      style: TextStyle(fontSize: 14, color: Colors.black),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 10,
+                                                ),
+                                                Container(
+                                                  height: 40,
+                                                  width: 70,
+                                                  decoration: BoxDecoration(
+                                                    border: Border.all(color: Color(0XFFC4C4C4)),
+                                                    borderRadius: BorderRadius.circular(6),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      'সময় সীমা',
+                                                      style: TextStyle(fontSize: 14, color: Colors.black),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 20,
+                                            ),
+                                            Text(
+                                              'select_type'.tr,
+                                              style: TextStyle(fontSize: 16, fontFamily: 'Roboto'),
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Radio(
+                                                  value: 'customer'.tr,
+                                                  groupValue: 'groupValue',
+                                                  onChanged: (value) {},
+                                                  activeColor: Colors.blue,
+                                                ),
+                                                Text('কাস্টমার'),
+                                                Radio(
+                                                  value: 'supplier'.tr,
+                                                  groupValue: 'groupValue',
+                                                  onChanged: (value) {},
+                                                ),
+                                                Text('supplier'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 14),),
+                                                Radio(
+                                                  value: 'employee'.tr,
+                                                  groupValue: 'groupValue',
+                                                  onChanged: (value) {},
+                                                ),
+                                                Text('employee'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 14),),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
+                                            Text(
+                                              'select_due_type'.tr,
+                                              style: TextStyle(fontSize: 16, fontFamily: 'Roboto'),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Radio(
+                                                  value: 'কাস্টমার',
+                                                  groupValue: 'groupValue',
+                                                  onChanged: (value) {},
+                                                  activeColor: Colors.blue,
+                                                ),
+                                                Text('পাবো'.tr, style: TextStyle(fontFamily: 'Roboto', fontSize: 14),),
+                                                Radio(
+                                                  value: 'কাস্টমার',
+                                                  groupValue: 'groupValue',
+                                                  onChanged: (value) {},
+                                                ),
+                                                Text('give'.tr, style: TextStyle(fontFamily: 'Roboto',fontSize: 14),),
+                                                SizedBox(
+                                                  height: 20,
+                                                ),
+                                              ],
+                                            ),
+                                            ElevatedButton(
+                                              onPressed: () {},
+                                              child: Center(
+                                                child: Text(
+                                                  'confirm'.tr,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(color: Colors.white, fontSize: 18,fontFamily: 'Roboto'),
+                                                ),
+                                              ),
+                                              style: ElevatedButton.styleFrom(
+                                                primary: DEFAULT_BLUE,
+                                                fixedSize: Size(width, 50),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(10),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+
+                                );
+                              },
+                            );
+                          },
                           child: SvgPicture.asset('images/svg_image/filter.svg'),
                         ),
                       )
