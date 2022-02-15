@@ -16,6 +16,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presen
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/updated_Ui/transaction_list.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/expense/expense_front.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/new_pages/updated_UI/due_details_customer.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/new_pages/updated_UI/due_front.dart';
@@ -82,11 +83,11 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
                   child: InkWell(
                     onTap: () {
                       Get.to(
-                        () => TransactionPage(),
-                        arguments: {
-                          "shop": shop,
-                        },
-                        binding: TransactionsBinding(),
+                        () => TransactionList(),
+                        // arguments: {
+                        //   "shop": shop,
+                        // },
+                        // binding: TransactionsBinding(),
                       );
                     },
                     child: Container(
