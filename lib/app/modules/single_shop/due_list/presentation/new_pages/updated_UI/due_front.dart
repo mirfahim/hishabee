@@ -3,9 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:get/get.dart';
-import 'package:hishabee_business_manager_fl/new_UI/due/due_new.dart';
+
 
 import 'due_details_customer.dart';
+import 'due_history.dart';
+import 'due_history_edit_delete.dart';
 import 'due_new_textfield.dart';
 class DueFront extends StatefulWidget {
   @override
@@ -219,6 +221,21 @@ class _DueFrontState extends State<DueFront> {
                               ],
                             ),
                           ),
+                          SizedBox(height: 10,),
+                          TextButton(
+                              onPressed: (){
+                                Get.to(DueHistory());
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(Icons.access_time,color: Colors.white,),
+                                  SizedBox(width: 5,),
+                                  Text('due_history'.tr, style: TextStyle(
+                                    fontSize: 16, fontFamily: 'Roboto',color: Colors.white
+                                  ),)
+                                ],
+                              ))
                         ],
                       ),
                     ),
@@ -586,10 +603,11 @@ class _DueFrontState extends State<DueFront> {
                             ],
                           ),
                           trailing: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                '১০৯৯টাকা',
-                                style: TextStyle(color: Colors.red, fontSize: 18, fontFamily: 'Roboto'),
+                                '৳১০৯৯',
+                                style: TextStyle(color: Colors.red, fontSize: 16, fontFamily: 'Roboto'),
                               ),
                               Text('customer'.tr,style: TextStyle(
                                   color: Color(0xFF979797),
@@ -642,10 +660,11 @@ class _DueFrontState extends State<DueFront> {
                             ],
                           ),
                           trailing: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                '১০৯৯টাকা',
-                                style: TextStyle(color: Colors.green, fontSize: 18, fontFamily: 'Roboto'),
+                                '৳১০৯৯',
+                                style: TextStyle(color: Colors.green, fontSize: 16, fontFamily: 'Roboto'),
                               ),
                               Text('customer'.tr,style: TextStyle(
                                   color: Color(0xFF979797),

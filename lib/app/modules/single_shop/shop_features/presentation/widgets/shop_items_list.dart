@@ -17,8 +17,8 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_featur
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/expense/expense_front.dart';
-import 'package:hishabee_business_manager_fl/new_UI/due/due_details_customer.dart';
-import 'package:hishabee_business_manager_fl/new_UI/due/due_front.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/new_pages/updated_UI/due_details_customer.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/new_pages/updated_UI/due_front.dart';
 
 class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
   final Shop shop;

@@ -68,17 +68,9 @@ class DueDetailsCustomer extends StatelessWidget {
             Get.back();
           },
         ),
-        title: Column(
-          children: [
-            Text(
-              'dueList'.tr,
-              style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'Roboto'),
-            ),
-            Text(
-              'তুসার টেলিকম',
-              style: TextStyle(color: Colors.black, fontSize: 18),
-            ),
-          ],
+        title: Text(
+          'dueList'.tr,
+          style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'Roboto'),
         ),
         titleSpacing: 0,
         backgroundColor: Colors.amber,
@@ -217,7 +209,7 @@ class DueDetailsCustomer extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                  color: Color(0xFFF8F9FA),
+                  color: Color(0xFFC4C4C4).withOpacity(.5),
                   borderRadius: BorderRadius.circular(10)),
               child: ListTile(
                 title: Padding(

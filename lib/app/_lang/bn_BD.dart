@@ -545,6 +545,8 @@ const bn_BD = {
   'due_history': 'বাকির ইতিহাস',
   'give/due':'দিলাম/বাকি',
   'receive/taken':'পেলাম/জমা',
+  '৳receive/taken':'৳ পেলাম/জমা',
+  '৳given/due':'৳ দিলাম/বাকি',
   'digital_balance_is_paid_to_your_account_at_the_end_of_every_month_please_update_your_account_information_to_receive_payment_correctly':
       'প্রতি মাসের শেষে আপনার অ্যাকাউন্টে ডিজিটাল ব্যালেন্স প্রদান করা হয়। সঠিকভাবে অর্থ গ্রহণের জন্য আপনার অ্যাকাউন্টের তথ্য আপডেট করুন',
   'bkash_transaction_fee_will_be_deducted':

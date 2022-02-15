@@ -503,6 +503,8 @@ const en_US = {
   'get':'Get',
   'give':'Give',
   'new_due':'New Due',
+  '৳receive/taken':'৳ Receive/Taken',
+  '৳given/due':'৳ Given/Due',
   'get_due':'Get Due',
   'new_expense_name':'New Expense Name ',
   'total_get :':'Total Get :',
