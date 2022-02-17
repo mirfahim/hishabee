@@ -42,6 +42,7 @@ class _DigitalPaymentState extends State<SinglePaymentDetailsAndProceed> {
     Size size = MediaQuery.of(context).size;
     int flag = 1;
     return SafeArea(
+      // /sadasd
       child: Scaffold(
         backgroundColor: Colors.white,
         bottomSheet: Padding(
