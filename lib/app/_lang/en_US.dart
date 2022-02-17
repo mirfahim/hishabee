@@ -209,6 +209,7 @@ const en_US = {
   'add_customer': 'Add Customer',
   'address': 'Address',
   'mobile_no': 'Mobile No.',
+  'create_link':'Create New Link',
   'email_optional': 'Email (Optional)',
   'employee_name': 'Employee Name',
   'customer_address':'Customer\'s address',
@@ -273,6 +274,9 @@ const en_US = {
   'qr_code': 'QR Code',
   'due_payment': 'Due Payment',
   'digital_payment': 'Digital Payment',
+  'how_to_use_digital_payment':'How to use Digital Payment?',
+  'customer_will_confirm_payment_by_sharing_payment_link':'Customer Will Confirm Payment by Sharing Payment Link',
+  'payment_will_be_added_on_your_digital_balance':'Payment Will be Added on yout Digital Balance',
   'quickly_add_product_from_our_product_list':
       'Quickly Add product from our product list',
   'or_add_manually': 'Or, Add Manually:',

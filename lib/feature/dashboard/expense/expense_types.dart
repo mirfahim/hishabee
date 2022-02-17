@@ -13,7 +13,8 @@ import 'expense_details_edit_delete.dart';
 
 var now;
 var day;
-
+var firstDayOfWeek;
+var lastDayOfWeek;
 var startOfTheWeek = now.subtract(Duration(days: now.weekday - 1));
 var endOfTheWeek = now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
 var startOfMonth = DateTime(now.year, now.month, 1);
@@ -59,8 +60,8 @@ class _ExpenseList2State extends State<ExpenseList2> {
     print('month: $month');
     year = DateTime.now().year.toInt();
     week = Jiffy([year, month, dayMain]).week;
-    weekFirst = DateTime.utc(year, month, ((week-1)*7));
-    weekLast = DateTime.utc(year, month, ((week-1)*7) + 6);
+    weekFirst = DateFormat.yMd().format(DateTime.utc(year, month, ((week-1)*7))) ;
+    weekLast = DateFormat.yMd().format(DateTime.utc(year, month, ((week-1)*7) + 6));
     _expenseController
         .getAllExpense(
         shopId: '${shop.id}',
@@ -148,7 +149,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                 fontSize: 16),),
                             if (flag == 2)
                               Text(
-                                '${DateFormat.yMMMMd().format(startOfTheWeek)} - ${DateFormat.yMMMMd().format(endOfTheWeek)}',style: TextStyle(
+                                '${weekFirst} - ${weekLast}',style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Roboto',
                                   fontSize: 16),),
@@ -590,7 +591,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
     setState(() {
       week = Jiffy([year, month, dayMain]).subtract(weeks: 1).week;
       weekDay = ((week-1)*7) + (false ? 0 : 6);
-      print(DateTime.utc(year, 1, weekDay));
+      print(DateTime.utc(year, month, weekDay));
     });
   }
   List<String> months = [
