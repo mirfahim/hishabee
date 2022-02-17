@@ -74,60 +74,79 @@ class SmsCreatePage extends GetResponsiveView {
                 children: [
                   Obx(() {
                     return SizedBox(
+                      width: _smsController.selectedMobileNumber.length <= 0
+                          ? 0
+                          : 400,
                       height: _smsController.selectedMobileNumber.length <= 0
                           ? 0
-                          : 60,
+                          : 80,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: ListView.builder(
+                        child: GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 185,
+                                    childAspectRatio: 3 / 2,
+                                    crossAxisSpacing: 4,
+                                    mainAxisSpacing: 4),
                             itemCount:
                                 _smsController.selectedMobileNumber.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey,
-                                          borderRadius:
-                                              BorderRadius.circular(30)),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(5),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Text(_smsController
-                                                .selectedMobileNumber[index]),
-                                            IconButton(
-                                              onPressed: () {
-                                                _smsController
-                                                    .selectedMobileNumber
-                                                    .removeWhere((item) =>
-                                                        item ==
-                                                        _smsController
-                                                                .selectedMobileNumber[
-                                                            index]);
-                                              },
-                                              icon: Icon(
-                                                Icons.cancel,
-                                                color: Colors.red,
-                                              ),
-                                              iconSize: 16,
-                                              padding: EdgeInsets.all(0),
-                                            )
-                                          ],
+                            itemBuilder: (BuildContext ctx, index) {
+                              return Container(
+                                height: 30,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 2, right: 2),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            borderRadius:
+                                                BorderRadius.circular(30)),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(1),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(_smsController
+                                                  .selectedMobileNumber[index]),
+                                              IconButton(
+                                                onPressed: () {
+                                                  _smsController
+                                                      .selectedMobileNumber
+                                                      .removeWhere((item) =>
+                                                          item ==
+                                                          _smsController
+                                                                  .selectedMobileNumber[
+                                                              index]);
+                                                },
+                                                icon: Icon(
+                                                  Icons.cancel,
+                                                  color: Colors.red,
+                                                ),
+                                                iconSize: 16,
+                                                padding: EdgeInsets.all(0),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               );
                             }),
+                        // ListView.builder(
+                        //     itemCount:
+                        //         _smsController.selectedMobileNumber.length,
+                        //     scrollDirection: Axis.vertical,
+                        //     itemBuilder: (context, index) {
+
+                        //     }),
                       ),
                     );
                   }),
@@ -511,8 +530,10 @@ class SmsCreatePage extends GetResponsiveView {
                           ),
                           Obx(() => Text(
                                 _smsController.totalSmsLeft.value <= 0
-                                    ? "0"
-                                    : '${_smsController.totalSmsLeft.value}',
+                                    ? "SMS left" + " " + "0"
+                                    : "SMS left" +
+                                        " " +
+                                        '${_smsController.totalSmsLeft.value}',
                                 style:
                                     TextStyle(color: Colors.red, fontSize: 12),
                               ))

@@ -10,7 +10,6 @@ import 'package:jiffy/jiffy.dart';
 
 import 'expense_details_edit_delete.dart';
 
-
 var now;
 var day;
 
@@ -59,14 +58,14 @@ class _ExpenseList2State extends State<ExpenseList2> {
     print('month: $month');
     year = DateTime.now().year.toInt();
     week = Jiffy([year, month, dayMain]).week;
-    weekFirst = DateTime.utc(year, month, ((week-1)*7));
-    weekLast = DateTime.utc(year, month, ((week-1)*7) + 6);
+    weekFirst = DateTime.utc(year, month, ((week - 1) * 7));
+    weekLast = DateTime.utc(year, month, ((week - 1) * 7) + 6);
     _expenseController
         .getAllExpense(
-        shopId: '${shop.id}',
-        userId: '${shop.userId}',
-        startDate: '$startOfMonth',
-        endDate: '$lastOfTheMonth')
+            shopId: '${shop.id}',
+            userId: '${shop.userId}',
+            startDate: '$startOfMonth',
+            endDate: '$lastOfTheMonth')
         .then((value) {
       // setState(() {
       _expenseController.allExpenseList.value = getExpenseFromModel(value);
@@ -95,7 +94,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
           },
           icon: Icon(Icons.arrow_back),
         ),
-        title:  Text('expense_book'.tr),
+        title: Text('expense_book'.tr),
         backgroundColor: bgColor,
         titleSpacing: 0,
       ),
@@ -117,10 +116,13 @@ class _ExpenseList2State extends State<ExpenseList2> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('total_cost'.tr,style: TextStyle(
-                            color: Color(0xFFFECD1A),
-                            fontFamily: 'Roboto',
-                            fontSize: 16),),
+                        Text(
+                          'total_cost'.tr,
+                          style: TextStyle(
+                              color: Color(0xFFFECD1A),
+                              fontFamily: 'Roboto',
+                              fontSize: 16),
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -141,25 +143,43 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                     weekMinus();
                                   }
                                 },
-                                icon: Icon(Icons.arrow_back_ios, color: Colors.white,size: 16,)),
-                            if (flag == 1) Text(DateFormat.yMMMMd().format(now),style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Roboto',
-                                fontSize: 16),),
+                                icon: Icon(
+                                  Icons.arrow_back_ios,
+                                  color: Colors.white,
+                                  size: 16,
+                                )),
+                            if (flag == 1)
+                              Text(
+                                DateFormat.yMMMMd().format(now),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 16),
+                              ),
                             if (flag == 2)
                               Text(
-                                '${DateFormat.yMMMMd().format(startOfTheWeek)} - ${DateFormat.yMMMMd().format(endOfTheWeek)}',style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Roboto',
-                                  fontSize: 16),),
-                            if (flag == 4) Text('$year',style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Roboto',
-                                fontSize: 16),),
-                            if (flag == 3) Text(months[month - 1],style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Roboto',
-                                fontSize: 16),),
+                                '${DateFormat.yMMMMd().format(startOfTheWeek)} - ${DateFormat.yMMMMd().format(endOfTheWeek)}',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 16),
+                              ),
+                            if (flag == 4)
+                              Text(
+                                '$year',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 16),
+                              ),
+                            if (flag == 3)
+                              Text(
+                                months[month - 1],
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: 'Roboto',
+                                    fontSize: 16),
+                              ),
                             IconButton(
                                 onPressed: () {
                                   if (flag == 1) {
@@ -168,18 +188,21 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                     monthAdd();
                                   } else if (flag == 4) {
                                     yearAdd();
-                                  } else if(flag == 2){
+                                  } else if (flag == 2) {
                                     weekAdd();
                                   }
                                 },
-                                icon: Icon(Icons.arrow_forward_ios, color: Colors.white,size: 16))
+                                icon: Icon(Icons.arrow_forward_ios,
+                                    color: Colors.white, size: 16))
                           ],
                         ),
-                        Obx(() =>
-                            Text('৳ ${_expenseController.totalExpense.value}',style: TextStyle(
-                                color: Colors.white,
-                                fontFamily: 'Roboto',
-                                fontSize: 16),))
+                        Obx(() => Text(
+                              '৳ ${_expenseController.totalExpense.value}',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Roboto',
+                                  fontSize: 16),
+                            ))
                       ],
                     ),
                   ),
@@ -198,9 +221,9 @@ class _ExpenseList2State extends State<ExpenseList2> {
                               flag = 1;
                               _expenseController
                                   .getAllExpense(
-                                  shopId: '${shop.id}',
-                                  startDate: "$now",
-                                  endDate: "$now")
+                                      shopId: '${shop.id}',
+                                      startDate: "$now",
+                                      endDate: "$now")
                                   .then((value) {
                                 setState(() {
                                   _expenseController.allExpenseList.value =
@@ -209,9 +232,9 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                       _expenseController.allExpenseList
                                           .map((e) => e.amount)
                                           .fold(
-                                          0,
+                                              0,
                                               (previousValue, element) =>
-                                          previousValue + element);
+                                                  previousValue + element);
                                 });
                               });
                               // _expenseController.totalExpense.value = _expenseController
@@ -248,9 +271,9 @@ class _ExpenseList2State extends State<ExpenseList2> {
                               flag = 2;
                               _expenseController
                                   .getAllExpense(
-                                  shopId: '${shop.id}',
-                                  startDate: "$startOfTheWeek",
-                                  endDate: "$now")
+                                      shopId: '${shop.id}',
+                                      startDate: "$startOfTheWeek",
+                                      endDate: "$now")
                                   .then((value) {
                                 setState(() {
                                   _expenseController.allExpenseList.value =
@@ -259,9 +282,9 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                       _expenseController.allExpenseList
                                           .map((e) => e.amount)
                                           .fold(
-                                          0,
+                                              0,
                                               (previousValue, element) =>
-                                          previousValue + element);
+                                                  previousValue + element);
                                 });
                               });
                               // _expenseController.totalExpense.value = _expenseController
@@ -281,7 +304,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.zero,
                             side:
-                            const BorderSide(width: 1, color: Colors.black),
+                                const BorderSide(width: 1, color: Colors.black),
                             primary: flag == 2 ? Colors.black : Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
@@ -300,9 +323,9 @@ class _ExpenseList2State extends State<ExpenseList2> {
                               flag = 3;
                               _expenseController
                                   .getAllExpense(
-                                  shopId: '${shop.id}',
-                                  startDate: "$startOfMonth",
-                                  endDate: "$lastOfTheMonth")
+                                      shopId: '${shop.id}',
+                                      startDate: "$startOfMonth",
+                                      endDate: "$lastOfTheMonth")
                                   .then((value) {
                                 setState(() {
                                   _expenseController.allExpenseList.value =
@@ -311,9 +334,9 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                       _expenseController.allExpenseList
                                           .map((e) => e.amount)
                                           .fold(
-                                          0,
+                                              0,
                                               (previousValue, element) =>
-                                          previousValue + element);
+                                                  previousValue + element);
                                 });
                               });
                               // _expenseController.totalExpense.value = _expenseController
@@ -333,7 +356,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.zero,
                             side:
-                            const BorderSide(width: 1, color: Colors.black),
+                                const BorderSide(width: 1, color: Colors.black),
                             primary: flag == 3 ? Colors.black : Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
@@ -352,9 +375,9 @@ class _ExpenseList2State extends State<ExpenseList2> {
                               flag = 4;
                               _expenseController
                                   .getAllExpense(
-                                  shopId: '${shop.id}',
-                                  startDate: "$startOfTheYear",
-                                  endDate: "$now")
+                                      shopId: '${shop.id}',
+                                      startDate: "$startOfTheYear",
+                                      endDate: "$now")
                                   .then((value) {
                                 setState(() {
                                   _expenseController.allExpenseList.value =
@@ -363,9 +386,9 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                       _expenseController.allExpenseList
                                           .map((e) => e.amount)
                                           .fold(
-                                          0,
+                                              0,
                                               (previousValue, element) =>
-                                          previousValue + element);
+                                                  previousValue + element);
                                 });
                               });
                               // _expenseController.totalExpense.value = _expenseController
@@ -385,7 +408,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.zero,
                             side:
-                            const BorderSide(width: 1, color: Colors.black),
+                                const BorderSide(width: 1, color: Colors.black),
                             primary: flag == 4 ? Colors.black : Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
@@ -397,7 +420,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
                   ),
                 ),
                 Obx(
-                      () => Expanded(
+                  () => Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 10.0, bottom: 10),
                       child: Padding(
@@ -405,88 +428,112 @@ class _ExpenseList2State extends State<ExpenseList2> {
                         child: Container(
                           child: _expenseController.allExpenseList.length != 0
                               ? ListView.builder(
-                            shrinkWrap: true,
-                            itemCount:
-                            _expenseController.allExpenseList.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 5.0, bottom: 5),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    Get.to(
-                                        ExpenseEditDelete(
-                                          amount:
-                                          '${_expenseController.allExpenseList[index].amount}',
-                                          reason:
-                                          '${_expenseController.allExpenseList[index].purpose}',
-                                          description:
-                                          '${_expenseController.allExpenseList[index].details}',
-                                          types:
-                                          '${_expenseController.allExpenseList[index].type}',
-                                          shopId:
-                                          '${_expenseController.allExpenseList[index].shopId}',
-                                          categoryId:
-                                          '${_expenseController.allExpenseList[index].id}',
-                                          userId:
-                                          '${_expenseController.allExpenseList[index].userId}',
-                                        ),
-                                        arguments: shop);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Color(
-                                          0xFFF1F1F1,
-                                        ),
-                                        borderRadius:
-                                        BorderRadius.circular(10)),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment
-                                            .spaceBetween,
-                                        crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.only(left: 10.0),
-                                            child: Column(
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      _expenseController.allExpenseList.length,
+                                  itemBuilder: (context, index) {
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 5.0, bottom: 5),
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Get.to(
+                                              ExpenseEditDelete(
+                                                amount:
+                                                    '${_expenseController.allExpenseList[index].amount}',
+                                                reason:
+                                                    '${_expenseController.allExpenseList[index].purpose}',
+                                                description:
+                                                    '${_expenseController.allExpenseList[index].details}',
+                                                types:
+                                                    '${_expenseController.allExpenseList[index].type}',
+                                                shopId:
+                                                    '${_expenseController.allExpenseList[index].shopId}',
+                                                categoryId:
+                                                    '${_expenseController.allExpenseList[index].id}',
+                                                userId:
+                                                    '${_expenseController.allExpenseList[index].userId}',
+                                              ),
+                                              arguments: shop);
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Color(
+                                                0xFFF1F1F1,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(10)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.center,
                                               children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 10.0),
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        '${_expenseController.allExpenseList[index].purpose}',
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontFamily:
+                                                                'Roboto',
+                                                            color: Color(
+                                                                0xFF232323)),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 3,
+                                                      ),
+                                                      Text(
+                                                        'Type: ${_expenseController.allExpenseList[index].type}',
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontFamily:
+                                                                'Roboto',
+                                                            color: Color(
+                                                                0xFF707070)),
+                                                      ),
+                                                      SizedBox(
+                                                        height: 3,
+                                                      ),
+                                                      Text(
+                                                        '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}',
+                                                        style: TextStyle(
+                                                            fontSize: 12,
+                                                            fontFamily:
+                                                                'Roboto',
+                                                            color: Color(
+                                                                0xFF707070)),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
                                                 Text(
-                                                    '${_expenseController.allExpenseList[index].purpose}', style: TextStyle(
-                                                    fontSize: 14, fontFamily: 'Roboto',color: Color(0xFF232323)
-                                                ),),
-                                                SizedBox(height: 3,),
-                                                Text(
-                                                    'Type: ${_expenseController.allExpenseList[index].type}', style: TextStyle(
-                                                    fontSize: 14, fontFamily: 'Roboto',color: Color(0xFF707070)
-                                                ),),
-                                                SizedBox(height: 3,),
-                                                Text(
-                                                    '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}', style: TextStyle(
-                                                    fontSize: 12, fontFamily: 'Roboto',color: Color(0xFF707070)
-                                                ),)
+                                                  '৳ ${_expenseController.allExpenseList[index].amount}',
+                                                  style: TextStyle(
+                                                      fontSize: 18,
+                                                      fontFamily: 'Roboto'),
+                                                )
                                               ],
                                             ),
                                           ),
-                                          Text(
-                                              '৳ ${_expenseController.allExpenseList[index].amount}', style: TextStyle(
-                                            fontSize: 18, fontFamily: 'Roboto'
-                                          ),)
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          )
+                                    );
+                                  },
+                                )
                               : Container(
-                            child: Center(child: Text('No Data to Show')),
-                          ),
+                                  child: Center(child: Text('No Data to Show')),
+                                ),
                         ),
                       ),
                     ),
@@ -503,7 +550,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
   void getDataForDropDown(var startDate, var endDate) {
     _expenseController
         .getAllExpense(
-        shopId: '${shop.id}', startDate: "$startDate", endDate: "$endDate")
+            shopId: '${shop.id}', startDate: "$startDate", endDate: "$endDate")
         .then((value) {
       if (value != null) {
         setState(() {
@@ -537,7 +584,11 @@ class _ExpenseList2State extends State<ExpenseList2> {
 
   monthMinus() {
     setState(() {
-      month = Jiffy([year, month, Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime.day]).subtract(months: 1).month;
+      month = Jiffy([
+        year,
+        month,
+        Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime.day
+      ]).subtract(months: 1).month;
       print(Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime.day);
       print(Jiffy([year, month, dayMain]).endOf(Units.MONTH).dateTime);
     });
@@ -548,7 +599,11 @@ class _ExpenseList2State extends State<ExpenseList2> {
 
   monthAdd() {
     setState(() {
-      month = Jiffy([year, month, Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime.day]).add(months: 1).month;
+      month = Jiffy([
+        year,
+        month,
+        Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime.day
+      ]).add(months: 1).month;
     });
     getDataForDropDown(
         Jiffy([year, month, dayMain]).startOf(Units.MONTH).dateTime,
@@ -576,23 +631,28 @@ class _ExpenseList2State extends State<ExpenseList2> {
         Jiffy([year, month, dayMain]).endOf(Units.YEAR).dateTime);
   }
 
-  weekMinus(){
+  weekMinus() {
+    print("week is working");
     setState(() {
       // week = Jiffy([year, month, dayMain]).subtract(weeks: 1).week;
       // weekDay = ((week-1)*7) + (true ? 0 : 6);
       // print(DateTime.utc(year, 1, weekDay));
       final now = DateTime.now();
-      final diff = now.difference(startOfTheWeek).inDays;
-      return diff <= 7;
+      var now_1w = now.subtract(Duration(days: 7));
+      // final diff = now.difference(startOfTheWeek).inDays;
+      print("my week is  $now_1w");
+      return now_1w;
     });
   }
-  weekAdd(){
+
+  weekAdd() {
     setState(() {
       week = Jiffy([year, month, dayMain]).subtract(weeks: 1).week;
-      weekDay = ((week-1)*7) + (false ? 0 : 6);
+      weekDay = ((week - 1) * 7) + (false ? 0 : 6);
       print(DateTime.utc(year, 1, weekDay));
     });
   }
+
   List<String> months = [
     'January'.tr,
     'February'.tr,

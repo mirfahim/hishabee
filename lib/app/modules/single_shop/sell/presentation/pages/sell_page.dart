@@ -8,11 +8,13 @@ import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/analytics_event.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
 import 'package:hishabee_business_manager_fl/app/_widgets/overlay_youtube_video.dart';
 import 'package:hishabee_business_manager_fl/app/_workmanager/analytics_service.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/category_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/manager/add_product_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindings/confirm_payment_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/tabs_controller.dart';
@@ -2227,6 +2229,202 @@ class SearchBarWidget extends StatelessWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  showPictureOptionDialogue(BuildContext context) {
+    final AddProductController controller = Get.find();
+    Get.dialog(
+      Material(
+        color: Colors.transparent,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  ImageHelper.getImageFromCamera().then((value) {
+                    controller.image.value = value;
+                    print(
+                        "image path is +++++++++++++ ${controller.image.value.path}");
+
+                    navigator.pop();
+                  });
+                },
+                child: Container(
+                  height: 200,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 100,
+                          child: Image(
+                            height: 80,
+                            image: AssetImage('images/icons/camera.png'),
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            "Camera",
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  //getImageFromGallery(option);
+                  ImageHelper.getImageFromGallery().then((value) {
+                    controller.image.value = value;
+
+                    navigator.pop();
+                  });
+                },
+                child: Container(
+                  height: 200,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 100,
+                          child: Image(
+                            height: 80,
+                            image: AssetImage('images/icons/gallery.png'),
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            "Gallery",
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  showCalculatorOptionDialogue(BuildContext context) {
+    final AddProductController controller = Get.find();
+    Get.dialog(
+      Material(
+        color: Colors.transparent,
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  ImageHelper.getImageFromCamera().then((value) {
+                    controller.image.value = value;
+                    print(
+                        "image path is +++++++++++++ ${controller.image.value.path}");
+
+                    navigator.pop();
+                  });
+                },
+                child: Container(
+                  height: 200,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 100,
+                          child: Image(
+                            height: 80,
+                            image: AssetImage('images/icons/camera.png'),
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            "Camera",
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  //getImageFromGallery(option);
+                  ImageHelper.getImageFromGallery().then((value) {
+                    controller.image.value = value;
+
+                    navigator.pop();
+                  });
+                },
+                child: Container(
+                  height: 200,
+                  width: 150,
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 100,
+                          child: Image(
+                            height: 80,
+                            image: AssetImage('images/icons/gallery.png'),
+                          ),
+                        ),
+                        Container(
+                          child: Text(
+                            "Gallery",
+                            style: TextStyle(fontSize: 20, color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
