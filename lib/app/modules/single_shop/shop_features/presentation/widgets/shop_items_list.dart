@@ -10,6 +10,8 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/pr
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/pages/due_list_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/expenses/_bindings/expense_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/expenses/presentation/pages/expenses_page.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/marketing_shop/_binding/marketing_shop_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/marketing_shop/presentation/pages/marketing_shop_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindings/sell_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/quick_sell_front.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/sell_page.dart';
@@ -269,44 +271,89 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
                 // SizedBox(
                 //   width: size.width * 0.03,
                 // ),
-                InkWell(
-                  onTap: () {
-                    Get.toNamed(
-                      ContactRoutes.CONTACTS,
-                      arguments: {
-                        "shop": shop,
-                      },
-                    );
-                  },
-                  child: Container(
-                    height: itemHeight,
-                    width: itemWidth,
-                    decoration: SHOP_ITEM_DECORATION,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'images/shop_features/contacts.png',
-                          height:
-                              screen.responsiveValue(mobile: 40, tablet: 60),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "contact".tr,
-                          style: TextStyle(
-                            fontFamily: 'Rubik',
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: DEFAULT_BLACK,
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Get.toNamed(
+                        ContactRoutes.CONTACTS,
+                        arguments: {
+                          "shop": shop,
+                        },
+                      );
+                    },
+                    child: Container(
+                      height: itemHeight,
+                      width: itemWidth,
+                      decoration: SHOP_ITEM_DECORATION,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'images/shop_features/contacts.png',
+                            height:
+                                screen.responsiveValue(mobile: 40, tablet: 60),
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "contact".tr,
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: DEFAULT_BLACK,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
-                )
+                ),
+                SizedBox(width: 15,),
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(
+                            () => MarketingShopPage(),
+                        arguments: {
+                          "shop": shop,
+                        },
+                        binding: MarketingShopBinding(),
+                      );
+                    },
+                    child: Container(
+                      height: itemHeight,
+                      width: itemWidth,
+                      decoration: SHOP_ITEM_DECORATION,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          //need update Icon
+                          Image.asset(
+                            'images/shop_features/onlineOrders.png',
+                            height:
+                            screen.responsiveValue(mobile: 40, tablet: 60),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "hishabee_marketing".tr,
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: DEFAULT_BLACK,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 // InkWell(
                 //   onTap: () async {
                 //     if (shop.package == PackageName.standard) {
@@ -501,140 +548,144 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
             //   height: itemHeight * 0.15,
             // ),
             // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   mainAxisAlignment: MainAxisAlignment.start,
             //   children: [
-            //     InkWell(
-            //       onTap: () {
-            //         Get.to(
-            //           () => MarketingShopPage(),
-            //           arguments: {
-            //             "shop": shop,
-            //           },
-            //           binding: MarketingShopBinding(),
-            //         );
-            //       },
-            //       child: Container(
-            //         height: itemHeight,
-            //         width: itemWidth,
-            //         decoration: SHOP_ITEM_DECORATION,
-            //         child: Column(
-            //           mainAxisAlignment: MainAxisAlignment.center,
-            //           crossAxisAlignment: CrossAxisAlignment.center,
-            //           children: [
-            //             //need update Icon
-            //             Image.asset(
-            //               'images/shop_features/onlineOrders.png',
-            //               height:
-            //                   screen.responsiveValue(mobile: 40, tablet: 60),
-            //             ),
-            //             SizedBox(
-            //               height: 10,
-            //             ),
-            //             Text(
-            //               "hishabee_marketing".tr,
-            //               style: TextStyle(
-            //                 fontFamily: 'Rubik',
-            //                 fontSize: 16,
-            //                 fontWeight: FontWeight.normal,
-            //                 color: DEFAULT_BLACK,
+            //     Expanded(
+            //       child: InkWell(
+            //         onTap: () {
+            //           Get.to(
+            //             () => MarketingShopPage(),
+            //             arguments: {
+            //               "shop": shop,
+            //             },
+            //             binding: MarketingShopBinding(),
+            //           );
+            //         },
+            //         child: Container(
+            //           height: itemHeight,
+            //           width: itemWidth,
+            //           decoration: SHOP_ITEM_DECORATION,
+            //           child: Column(
+            //             mainAxisAlignment: MainAxisAlignment.center,
+            //             crossAxisAlignment: CrossAxisAlignment.center,
+            //             children: [
+            //               //need update Icon
+            //               Image.asset(
+            //                 'images/shop_features/onlineOrders.png',
+            //                 height:
+            //                     screen.responsiveValue(mobile: 40, tablet: 60),
             //               ),
-            //             ),
-            //           ],
+            //               SizedBox(
+            //                 height: 10,
+            //               ),
+            //               Text(
+            //                 "hishabee_marketing".tr,
+            //                 style: TextStyle(
+            //                   fontFamily: 'Rubik',
+            //                   fontSize: 16,
+            //                   fontWeight: FontWeight.normal,
+            //                   color: DEFAULT_BLACK,
+            //                 ),
+            //               ),
+            //             ],
+            //           ),
             //         ),
             //       ),
             //     ),
-            //     SizedBox(
-            //       width: size.width * 0.03,
-            //     ),
-            //     InkWell(
-            //       onTap: () {
-            //         Get.toNamed(
-            //           SettingsRoutes.SETTINGS,
-            //           arguments: {
-            //             "shop": shop,
-            //           },
-            //         );
-            //       },
-            //       child: Container(
-            //         height: itemHeight,
-            //         width: itemWidth,
-            //         decoration: SHOP_ITEM_DECORATION,
-            //         child: Column(
-            //           mainAxisAlignment: MainAxisAlignment.center,
-            //           crossAxisAlignment: CrossAxisAlignment.center,
-            //           children: [
-            //             Image.asset(
-            //               'images/shop_features/settings.png',
-            //               height:
-            //                   screen.responsiveValue(mobile: 40, tablet: 60),
-            //             ),
-            //             SizedBox(
-            //               height: 5,
-            //             ),
-            //             Text(
-            //               "app_setting".tr,
-            //               style: TextStyle(
-            //                 fontFamily: 'Rubik',
-            //                 fontSize: 16,
-            //                 fontWeight: FontWeight.normal,
-            //                 color: DEFAULT_BLACK,
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //     )
-            //   ],
-            // ),
-            // SizedBox(
-            //   height: 10,
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [
-            //     InkWell(
-            //       onTap: () {
-            //         Get.to(
-            //           () => SmsPage(),
-            //           arguments: {
-            //             "shop": shop,
-            //           },
-            //           binding: SMSBindings(),
-            //         );
-            //       },
-            //       child: Container(
-            //         height: itemHeight,
-            //         width: itemWidth,
-            //         decoration: SHOP_ITEM_DECORATION,
-            //         child: Column(
-            //           mainAxisAlignment: MainAxisAlignment.center,
-            //           crossAxisAlignment: CrossAxisAlignment.center,
-            //           children: [
-            //             Image.asset(
-            //               'images/shop_features/settings.png',
-            //               height:
-            //                   screen.responsiveValue(mobile: 40, tablet: 60),
-            //             ),
-            //             SizedBox(
-            //               height: 5,
-            //             ),
-            //             Text(
-            //               "sms_marketing".tr,
-            //               style: TextStyle(
-            //                 fontFamily: 'Rubik',
-            //                 fontSize: 16,
-            //                 fontWeight: FontWeight.normal,
-            //                 color: DEFAULT_BLACK,
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       ),
-            //     )
-            //   ],
-            // )
+            // //     SizedBox(
+            // //       width: size.width * 0.03,
+            // //     ),
+            // //     InkWell(
+            // //       onTap: () {
+            // //         Get.toNamed(
+            // //           SettingsRoutes.SETTINGS,
+            // //           arguments: {
+            // //             "shop": shop,
+            // //           },
+            // //         );
+            // //       },
+            // //       child: Container(
+            // //         height: itemHeight,
+            // //         width: itemWidth,
+            // //         decoration: SHOP_ITEM_DECORATION,
+            // //         child: Column(
+            // //           mainAxisAlignment: MainAxisAlignment.center,
+            // //           crossAxisAlignment: CrossAxisAlignment.center,
+            // //           children: [
+            // //             Image.asset(
+            // //               'images/shop_features/settings.png',
+            // //               height:
+            // //                   screen.responsiveValue(mobile: 40, tablet: 60),
+            // //             ),
+            // //             SizedBox(
+            // //               height: 5,
+            // //             ),
+            // //             Text(
+            // //               "app_setting".tr,
+            // //               style: TextStyle(
+            // //                 fontFamily: 'Rubik',
+            // //                 fontSize: 16,
+            // //                 fontWeight: FontWeight.normal,
+            // //                 color: DEFAULT_BLACK,
+            // //               ),
+            // //             ),
+            // //           ],
+            // //         ),
+            // //       ),
+            // //     )
+            // //   ],
+            // // ),
+            // // SizedBox(
+            // //   height: 10,
+            // // ),
+            // // Row(
+            // //   mainAxisAlignment: MainAxisAlignment.center,
+            // //   children: [
+            // //     InkWell(
+            // //       onTap: () {
+            // //         Get.to(
+            // //           () => SmsPage(),
+            // //           arguments: {
+            // //             "shop": shop,
+            // //           },
+            // //           binding: SMSBindings(),
+            // //         );
+            // //       },
+            // //       child: Container(
+            // //         height: itemHeight,
+            // //         width: itemWidth,
+            // //         decoration: SHOP_ITEM_DECORATION,
+            // //         child: Column(
+            // //           mainAxisAlignment: MainAxisAlignment.center,
+            // //           crossAxisAlignment: CrossAxisAlignment.center,
+            // //           children: [
+            // //             Image.asset(
+            // //               'images/shop_features/settings.png',
+            // //               height:
+            // //                   screen.responsiveValue(mobile: 40, tablet: 60),
+            // //             ),
+            // //             SizedBox(
+            // //               height: 5,
+            // //             ),
+            // //             Text(
+            // //               "sms_marketing".tr,
+            // //               style: TextStyle(
+            // //                 fontFamily: 'Rubik',
+            // //                 fontSize: 16,
+            // //                 fontWeight: FontWeight.normal,
+            // //                 color: DEFAULT_BLACK,
+            // //               ),
+            // //             ),
+            // //           ],
+            // //         ),
+            // //       ),
+            // //     )
+            // //   ],
+            // // )
+            // ])
           ],
         ),
+
       ),
     );
   }

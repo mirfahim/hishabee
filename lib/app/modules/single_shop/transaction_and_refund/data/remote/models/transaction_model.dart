@@ -51,7 +51,7 @@ class Transactions {
   int totalItem;
   int paymentMethod;
   double receivedAmount;
-  int changeAmount;
+  double changeAmount;
   String employeeName;
   String customerName;
   String customerAddress;
@@ -76,7 +76,7 @@ class Transactions {
     int totalItem,
     int paymentMethod,
     double receivedAmount,
-    int changeAmount,
+    double changeAmount,
     String employeeName,
     String customerName,
     String customerAddress,
