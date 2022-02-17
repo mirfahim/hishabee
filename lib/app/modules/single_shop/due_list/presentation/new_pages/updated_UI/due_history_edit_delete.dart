@@ -1,10 +1,40 @@
 import 'dart:io';
-
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:image_picker/image_picker.dart';
-
+DateTime startDate = DateTime.now();
+_selectStartDate(BuildContext context) async {
+  final DateTime picked = await showDatePicker(
+    helpText: "start_date".tr,
+    context: context,
+    initialDate: startDate, // Refer step 1
+    firstDate: DateTime(2000),
+    lastDate: DateTime(2025),
+    builder: (BuildContext context, Widget child) {
+      return Theme(
+        data: ThemeData.dark().copyWith(
+          colorScheme: ColorScheme.dark(
+            primary: DEFAULT_BLACK,
+            onPrimary: DEFAULT_BODY_BG_COLOR,
+            surface: Colors.green,
+            onSurface: DEFAULT_BLACK,
+          ),
+          dialogBackgroundColor: DEFAULT_BODY_BG_COLOR,
+        ),
+        child: child,
+      );
+    },
+  );
+  if (picked != null) {
+    // setState(() {
+    //   // widgets.controller.selectedStartDate.value = picked;
+    //   startDate = picked;
+    // });
+  }
+}
 Widget textFormFeildForExpense(
     {int lengthInputFormater,
     String regEx,
@@ -68,34 +98,26 @@ class _DuePageEditDeleteState extends State<DuePageEditDelete> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: bgColor,
       appBar: AppBar(
+        titleSpacing: 0,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
             color: Colors.black,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Get.back();
+          },
         ),
-        title: Column(
-          children: [
-            Text(
-              'বাকির ইতিহাস',
-              style: TextStyle(color: Colors.black, fontSize: 16),
-            ),
-            Text(
-              'তুসার টেলিকম',
-              style: TextStyle(color: Colors.black, fontSize: 12),
-            ),
-          ],
+        title: Text(
+          'due_history'.tr,
+          style: TextStyle(color: Colors.black, fontSize: 16),
         ),
         backgroundColor: Colors.amber,
       ),
       body: SingleChildScrollView(
         child: SafeArea(
           child: Container(
-            height: height,
-            color: DEFAULT_BODY_BG_COLOR,
             child: Padding(
               padding: EdgeInsets.only(left: 10, right: 10, top: 10),
               child: Column(
@@ -103,14 +125,14 @@ class _DuePageEditDeleteState extends State<DuePageEditDelete> {
                 children: [
                   // const Text('Give your Mobile Number'),
                   textFormFeildForExpense(
-                      labelText: 'Mobile Number',
-                      hintText: 'Give Your Mobile Number',
+                      labelText: 'due'.tr,
+                      hintText: 'due',
                       regEx: '[0-9]'),
                   SizedBox(
                     height: 20,
                   ),
                   textFormFeildForExpense(
-                      labelText: 'Expense Description',
+                      labelText: 'description'.tr,
                       maxLine: 7,
                       regEx: '[a-zA-z]'),
                   const SizedBox(
@@ -121,26 +143,43 @@ class _DuePageEditDeleteState extends State<DuePageEditDelete> {
                     children: [
                       Padding(
                         padding: EdgeInsets.only(left: 16, right: 16),
-                        child: GestureDetector(
-                          onTap: () {
-                            _openCamerForback();
-                          },
-                          child: (imageFileBack == null)
-                              ? Container(
-                                  height: 50,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.black)),
-                                  child: Icon(Icons.camera_alt),
+                        child: (imageFileBack == null)
+                            ? Row(
+                              children: [
+                                SvgPicture.asset('images/svg_image/empty-image.svg'),
+                                SizedBox(width: 10,),
+                                InkWell(
+                                  onTap: (){
+                                    _openCamerForback();
+                                  },
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      color: DEFAULT_BLUE,
+                                    ),
+                                    child: Icon(Icons.add, color: Colors.white,),
+                                  ),
                                 )
-                              : Image.file(
-                                  File(imageFileBack.path),
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 200,
-                                ),
-                        ),
+                              ],
+                            )
+                            : Image.file(
+                                File(imageFileBack.path),
+                                width: MediaQuery.of(context).size.width,
+                                height: 200,
+                              ),
                       ),
-                      Text('18th September, 2021')
+                      InkWell(child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6),
+                              border: Border.all(color: Color(0xFFC4C4C4).withOpacity(.35))
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text('১৮ অক্টোবর , ২০২১'),
+                          )
+                      ), onTap: (){
+                        _selectStartDate(context);
+                      },),
                     ],
                   ),
                   SizedBox(
@@ -149,7 +188,7 @@ class _DuePageEditDeleteState extends State<DuePageEditDelete> {
                   Container(
                     height: 50,
                     decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(.35),
+                      color: Color(0xFFF1F1F1),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     child: Row(
@@ -157,7 +196,10 @@ class _DuePageEditDeleteState extends State<DuePageEditDelete> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('পণ্যের তালিকাসমূহ'),
+                          child: Text('product_details'.tr, style: TextStyle(
+                            fontSize: 14, fontFamily: 'Roboto'
+
+                          ),),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -176,7 +218,7 @@ class _DuePageEditDeleteState extends State<DuePageEditDelete> {
                         height: 50,
                         width: 120,
                         decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(.35),
+                          color: Color(0xFFF1F1F1),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
@@ -186,7 +228,9 @@ class _DuePageEditDeleteState extends State<DuePageEditDelete> {
                               Icons.delete,
                               color: Colors.red,
                             ),
-                            Text('মুছে ফেলুন')
+                            Text('delete'.tr,style: TextStyle(
+                              fontSize: 12, fontFamily: 'Roboto'
+                            ),)
                           ],
                         ),
                       ),
@@ -194,7 +238,7 @@ class _DuePageEditDeleteState extends State<DuePageEditDelete> {
                         height: 50,
                         width: 120,
                         decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(.35),
+                          color: Color(0xFFF1F1F1),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(
@@ -204,7 +248,9 @@ class _DuePageEditDeleteState extends State<DuePageEditDelete> {
                               Icons.edit,
                               color: Colors.blue,
                             ),
-                            Text('এডিট করুন'),
+                            Text('edit'.tr, style: TextStyle(
+                                fontSize: 12, fontFamily: 'Roboto'
+                            ),),
                           ],
                         ),
                       ),

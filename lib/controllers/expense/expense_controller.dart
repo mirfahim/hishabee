@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
-import 'package:hishabee_business_manager_fl/feature/dashboard/expense/pay_salary_page.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/expense/custom_expense_page.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
 import 'package:hishabee_business_manager_fl/service/api_service.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class ExpenseController extends GetxController {
+
   RxInt totalExpense = 0.obs;
   RxInt fixedAmount = 0.obs;
+  RxInt totalFixedExpense = 0.obs;
   RxInt fixedAmountForEditDelete = 0.obs;
   RxList allExpenseList = [].obs;
+  RxList allFixedExpenseList = [].obs;
   RxList allExpenseCategory = [].obs;
   RxList allExpenseCategoryBased = [].obs;
   ApiService _apiService = ApiService();
   RxInt listCount = 6.obs;
   RxInt categoryWiseTotalAmount = 0.obs;
+  RxList fixedCategory = [].obs;
 
   Future<dynamic> getAllExpense({String shopId, String userId, String startDate, String endDate}) async {
     String url = "/expense/all?user_id=$userId&shop_id=$shopId&start_date=$startDate&end_date=$endDate";

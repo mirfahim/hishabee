@@ -4,7 +4,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/pr
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/pages/due_details_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/pages/due_item_details.dart';
 
-import '../../../../../new_UI/due/due_front.dart';
+import '../presentation/new_pages/updated_UI/due_front.dart';
 import 'due_page_routes.dart';
 
 

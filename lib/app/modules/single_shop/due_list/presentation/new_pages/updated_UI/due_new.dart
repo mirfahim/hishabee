@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
-
+import 'package:get/get.dart';
 class DueNew extends StatelessWidget {
-
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +15,9 @@ class DueNew extends StatelessWidget {
             Icons.arrow_back,
             color: Colors.black,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Get.back();
+          },
         ),
         title: Column(
           children: [

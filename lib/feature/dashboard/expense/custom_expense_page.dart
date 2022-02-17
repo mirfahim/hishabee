@@ -60,16 +60,16 @@ Widget textFormFeildForExpense(
 
 var now = DateTime.now();
 
-class PaySalaryPage extends StatefulWidget {
+class CustomExpensePage extends StatefulWidget {
   String shopId;
   String type;
   String userId;
-  PaySalaryPage({this.shopId, this.type, this.userId});
+  CustomExpensePage({this.shopId, this.type, this.userId});
   @override
-  State<PaySalaryPage> createState() => _PaySalaryPageState();
+  State<CustomExpensePage> createState() => _CustomExpensePageState();
 }
 
-class _PaySalaryPageState extends State<PaySalaryPage> {
+class _CustomExpensePageState extends State<CustomExpensePage> {
   XFile imageFileFront;
   DateTime startDate = DateTime.now();
   DateTime endDate;

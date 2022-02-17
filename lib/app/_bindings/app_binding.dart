@@ -14,6 +14,7 @@ import 'package:hishabee_business_manager_fl/controllers/digital_payment/dp_cont
 import 'package:hishabee_business_manager_fl/controllers/emi/emi_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/expense/expense_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
+import 'package:hishabee_business_manager_fl/controllers/stock/stock_controller.dart';
 
 class AppBinding extends Bindings {
   static final find = Get.find;
@@ -36,5 +37,6 @@ class AppBinding extends Bindings {
     Get.put(SmsController());
     Get.put(DpController());
     Get.put(ExpenseController());
+    Get.put(StockController());
   }
 }

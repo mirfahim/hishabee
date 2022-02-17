@@ -7,6 +7,7 @@ import 'package:hishabee_business_manager_fl/controllers/expense/expense_control
 import 'package:hishabee_business_manager_fl/models/expense/expense_category.dart';
 
 import 'all_expenses.dart';
+import 'expense_details.dart';
 
 // Widget textFormFeildForExpense(
 //     {String hintText,
@@ -64,7 +65,7 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
           },
           icon: Icon(Icons.arrow_back),
         ),
-        title: Text('New Expense'),
+        title: Text('new_expense'.tr),
         backgroundColor: DEFAULT_YELLOW_BG,
       ),
       body: SafeArea(
@@ -79,7 +80,11 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('Name of type of the Expense'),
+                     Text('new_expense_name'.tr, style: TextStyle(
+                       fontSize: 12, fontFamily: 'Roboto',
+
+
+                    ),),
                     const SizedBox(
                       height: 10,
                     ),
@@ -94,8 +99,18 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
                       decoration: InputDecoration(
                         filled: true,
                         contentPadding: EdgeInsets.symmetric(horizontal: 8),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                          ),
+                        ),
                         counterText: "",
                         hintText: 'type',
                         hintStyle: const TextStyle(
@@ -103,56 +118,121 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
                           color: Colors.black26,
                         ),
                       ),
-                    )
-                  ],
-                ),
-                Column(
-                  children: [
+                    ),
+                    SizedBox(height: 30,),
                     ElevatedButton(
                       onPressed: () async {
-                        // setState(() {
-                        for (int i = 0;
-                            i < _expenseController.allExpenseCategory.length;
-                            i++) {
-                          if (_textEditingController.value.text ==
-                              _expenseController.allExpenseCategory[i].name) {
-                            print(
-                                '_textEditingController.value.text: ${_textEditingController.value.text}');
-                            print(
-                                '_expenseController.allExpenseCategory[i].name: ${_expenseController.allExpenseCategory[i].name}');
-                            print('The type Exist');
-                            break;
-                          } else {
-                            await _expenseController.createNewExpenseType(
-                                shopId: '${shop.id}',
-                                name: _textEditingController.value.text);
-                            await _expenseController.getAllExpenseCategory(shopId: '${shop.id}').then((value){
-                              setState(() {
-                                _expenseController.allExpenseCategory.value =
-                                           expenseCategoryResponseModelFromModel(value);
-                              });
-                            });
-                            Get.back();
-                            Get.back();
-                            break;
-                          }
-                        }
-
-                        _textEditingController.clear();
-                        // setState(() {
-                        //   _expenseController.getAllExpenseCategory(
-                        //       shopId: '${shop.id}');
-                        // });
+                        await _expenseController.createNewExpenseType(
+                            shopId: '${shop.id}',
+                            name: _textEditingController.value.text);
+                        await _expenseController.getAllExpenseCategory(shopId: '${shop.id}').then((value){
+                          setState(() {
+                            _expenseController.allExpenseCategory.value =
+                                expenseCategoryResponseModelFromModel(value);
+                          });
+                        });
+                        _expenseController.fixedCategory.add(
+                            GestureDetector(
+                              onTap: () {
+                                Get.to(
+                                    NewExpense(
+                                      shopId: '${shop.id}',
+                                      type: '${_textEditingController.value.text}',
+                                    ),
+                                    arguments: shop);
+                              },
+                              child: Container(
+                                height: 40,
+                                width: 50,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: const Color(0xFFC4C4C4).withOpacity(.35)),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset('images/assets/emptyImage.png'),
+                                    Text('${_textEditingController.value.text}',
+                                        style: TextStyle(fontFamily: 'Roboto', fontSize: 16))
+                                  ],
+                                ),
+                              ),
+                            ));
+                        // }));
+                        Get.back();
+                        Get.back();
+                        // break;
                       },
-                      child: const Center(
+                      // onPressed: () async {
+                      //   // setState(() {
+                      //   for (int i = 0;
+                      //   i < _expenseController.allExpenseCategory.length;
+                      //   i++) {
+                      //     if (_textEditingController.value.text ==
+                      //         _expenseController.allExpenseCategory[i].name) {
+                      //       // print(
+                      //       //     '_textEditingController.value.text: ${_textEditingController.value.text}');
+                      //       // print(
+                      //       //     '_expenseController.allExpenseCategory[i].name: ${_expenseController.allExpenseCategory[i].name}');
+                      //       // print('The type Exist');
+                      //       break;
+                      //     } else {
+                      //       await _expenseController.createNewExpenseType(
+                      //           shopId: '${shop.id}',
+                      //           name: _textEditingController.value.text);
+                      //       await _expenseController.getAllExpenseCategory(shopId: '${shop.id}').then((value){
+                      //         setState(() {
+                      //           _expenseController.allExpenseCategory.value =
+                      //               expenseCategoryResponseModelFromModel(value);
+                      //         });
+                      //       });
+                      //       _expenseController.fixedCategory.add(
+                      //           GestureDetector(
+                      //             onTap: () {
+                      //               Get.to(
+                      //                   NewExpense(
+                      //                     shopId: '${shop.id}',
+                      //                     type: '${_textEditingController.value.text}',
+                      //                   ),
+                      //                   arguments: shop);
+                      //             },
+                      //             child: Container(
+                      //               height: 40,
+                      //               width: 50,
+                      //               decoration: BoxDecoration(
+                      //                   borderRadius: BorderRadius.circular(10),
+                      //                   color: const Color(0xFFC4C4C4).withOpacity(.35)),
+                      //               child: Column(
+                      //                 mainAxisAlignment: MainAxisAlignment.center,
+                      //                 children: [
+                      //                   Image.asset('images/assets/emptyImage.png'),
+                      //                   Text('${_textEditingController.value.text}',
+                      //                       style: TextStyle(fontFamily: 'Roboto', fontSize: 16))
+                      //                 ],
+                      //               ),
+                      //             ),
+                      //           ));
+                      //       // }));
+                      //       Get.back();
+                      //       Get.back();
+                      //       break;
+                      //     }
+                      //   }
+                      //
+                      //   _textEditingController.clear();
+                      //   // setState(() {
+                      //   //   _expenseController.getAllExpenseCategory(
+                      //   //       shopId: '${shop.id}');
+                      //   // });
+                      // },
+                      child:  Center(
                         child: Text(
-                          'Save',
+                          'save'.tr,
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          style: TextStyle(color: Colors.white, fontSize: 16),
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        primary: DEFAULT_BLACK,
+                        primary: DEFAULT_BLUE,
                         fixedSize: Size(width, 40),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(2),

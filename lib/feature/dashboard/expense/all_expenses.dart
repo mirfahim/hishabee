@@ -26,7 +26,7 @@ class _AllExpensesState extends State<AllExpenses> {
   @override
   void initState() {
     _expenseController
-        .getAllExpenseCategory(shopId: '${getShopId.read('shop_id')}')
+        .getAllExpenseCategory(shopId: '${shop.id}')
         .then((value) {
       setState(() {
         _expenseController.allExpenseCategory.value =
@@ -49,7 +49,8 @@ class _AllExpensesState extends State<AllExpenses> {
           },
           icon: const Icon(Icons.arrow_back),
         ),
-        title: const Text('Other Expenses'),
+        title:  Text('other_expense'.tr),
+        titleSpacing: 0,
         backgroundColor: DEFAULT_YELLOW_BG,
       ),
       body: SafeArea(
@@ -63,13 +64,13 @@ class _AllExpensesState extends State<AllExpenses> {
         height: height,
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10),
+          padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10, bottom: 30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Obx(
                 () => Container(
-                  height: height - 200,
+                  // height: height - 200,
                   child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.vertical,
@@ -124,6 +125,14 @@ class _AllExpensesState extends State<AllExpenses> {
                                           //     name:
                                           //         '${_expenseController.allExpenseCategory[index].name}');
                                           // Get.back();
+                                          _expenseController
+                                              .getAllExpenseCategory(shopId: '${shop.id}')
+                                              .then((value) {
+                                            setState(() {
+                                              _expenseController.allExpenseCategory.value =
+                                                  expenseCategoryResponseModelFromModel(value);
+                                            });
+                                          });
                                         },
                                         icon: Icon(Icons.edit),
                                         color: Colors.blue,
@@ -140,24 +149,20 @@ class _AllExpensesState extends State<AllExpenses> {
                                                   _expenseController
                                                       .allExpenseCategory[index]
                                                       .id);
-                                          // print(
-                                          //     'category id: ${_expenseController.allExpenseCategory[index].id}');
-
-                                          // _expenseController
-                                          //     .getAllExpenseCategory(
-                                          //         shopId:
-                                          //             '${getShopId.read('shop_id')}')
-                                          //     .then((value) {
-                                          //   setState(() {
+                                          // _expenseController.allExpenseCategory
+                                          //     .removeWhere((element) =>
+                                          // element.id ==
                                           //     _expenseController
-                                          //             .allExpenseCategory
-                                          //             .value =
-                                          //         expenseCategoryResponseModelFromModel(
-                                          //             value);
-                                          //     print(
-                                          //         'category: ${_expenseController.allExpenseCategory}');
-                                          //   });
-                                          // });
+                                          //         .allExpenseCategory[index]
+                                          //         .id);
+                                          _expenseController
+                                              .getAllExpenseCategory(shopId: '${shop.id}')
+                                              .then((value) {
+                                            setState(() {
+                                              _expenseController.allExpenseCategory.value =
+                                                  expenseCategoryResponseModelFromModel(value);
+                                            });
+                                          });
                                           Get.back();
                                         },
                                         icon: Icon(Icons.delete),
@@ -177,15 +182,15 @@ class _AllExpensesState extends State<AllExpenses> {
                 onPressed: () {
                   Get.to(ExpenseTypeSecond(), arguments: shop);
                 },
-                child: const Center(
+                child: Center(
                   child: Text(
-                    'New Expense Type',
+                    'create_new_expense_type'.tr,
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.blueAccent, fontSize: 12),
+                    style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'Roboto'),
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
+                  primary: DEFAULT_BLUE,
                   fixedSize: Size(width, 40),
                   side: BorderSide(color: Colors.blueAccent),
                   shape: RoundedRectangleBorder(
