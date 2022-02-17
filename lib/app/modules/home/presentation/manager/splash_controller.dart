@@ -14,13 +14,13 @@ import 'package:hishabee_business_manager_fl/app/modules/shop_main/domain/reposi
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/presentation/views/pages/select_shop_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/_binding/shop_features_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/pages/shop_features_page.dart';
-// import 'package:app_tracking_transparency/app_tracking_transparency.dart';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 
 class SplashController extends GetxController {
   final IAuthRepository authRepository;
   final IShopRepository shopRepository;
   final IAnalyticsRepository analyticsRepository;
-//  final status = AppTrackingTransparency.requestTrackingAuthorization();
+  final status = AppTrackingTransparency.requestTrackingAuthorization();
   final isLoggedIn = false.obs;
   final shop = Rxn<Shop>();
 
