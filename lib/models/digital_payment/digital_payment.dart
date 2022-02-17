@@ -33,7 +33,7 @@ class DigitalPaymentModel {
   dynamic customerName;
   dynamic customerMobile;
   dynamic customerAddress;
-  int amount;
+  var amount;
   var createdAt;
   DateTime updatedAt;
 
@@ -51,7 +51,7 @@ class DigitalPaymentModel {
         customerAddress: json["customer_address"],
         amount: json["amount"],
         createdAt:
-            DateFormat('yyyy-mm-dd').format(DateTime.parse(json["created_at"])),
+            DateFormat('yMMMd').format(DateTime.parse(json["created_at"])),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
 }
