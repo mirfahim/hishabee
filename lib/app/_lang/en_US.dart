@@ -279,6 +279,10 @@ const en_US = {
   'payment_will_be_added_on_your_digital_balance':'Payment Will be Added on yout Digital Balance',
   'quickly_add_product_from_our_product_list':
       'Quickly Add product from our product list',
+  'your_digital_payment_link':'Your Digital Payment Link',
+  'digital_payment_link':'Digital Payment Link',
+  'amount_of_digital_payment':'Amount of Digital Payment',
+  'sms_payment_link_share':'SMS Payment Link Share (free - 30)',
   'or_add_manually': 'Or, Add Manually:',
   'advance_options': 'Advance Options',
   'variation_name': 'Variation Name',

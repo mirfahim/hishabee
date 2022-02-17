@@ -482,6 +482,8 @@ const bn_BD = {
   'withdraw_request': 'টাকা তোলার রিকুয়েস্ট',
   'wallet_transaction_history': 'ওয়ালেট লেনদেনের ইতিহাস',
   'view_details': 'বিস্তারিত দেখুন',
+  'amount_of_digital_payment':'ডিজিটাল পেমেন্টের পরিমাণ',
+  'sms_payment_link_share':'এস এম এসে পেমেন্ট লিংক শেয়ার করুন (ফ্রি -৩০)',
   '_5_digit_pin_number': '৫ সংখ্যার পিন নম্বর',
   'enter_the_amount_of_tk_you_want_to_recharge_to_your_wallet_balance':
       '[হিসাবি ওয়ালেটে কতটাকা রিচার্জ করতে চান তা লিখুন]',
@@ -589,7 +591,9 @@ const bn_BD = {
   'share_link': 'শেয়ার লিংক ',
   'customer_will_confirm_payment_by_sharing_payment_link':'পেমেন্ট লিংক দিয়ে কাস্টমার পেমেন্ট নিশ্চিত করবে',
   'payment_will_be_added_on_your_digital_balance':'পেমেন্ট আপনার ডিজিটাল ব্যালেন্সে যুক্ত হবে',
+  'your_digital_payment_link':'আপনার ডিজিটাল পেমেন্টের লিংক',
   'online_message': 'অনলাইন ম্যাসেজ',
+  'digital_payment_link':'ডিজিটাল পেমেন্টের লিংক',
   'write_message': 'ম্যাসেজ লিখুন...',
   'please_confirm': 'আপনি পেমেন্ট পেয়েছেন তা নিশ্চিত করুন',
   'no_payment_action': 'কোনও পেমেন্ট অ্যাকশন পাওয়া যায় নি..!',

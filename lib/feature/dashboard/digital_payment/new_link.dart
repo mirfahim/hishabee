@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/digital_payment/dp_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/digital_payment.dart';
 import 'package:hishabee_business_manager_fl/models/business_overview/product_report.dart';
 import 'package:hishabee_business_manager_fl/models/digital_payment/new_link.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
+import 'package:intl/intl.dart';
 
 class Newlink extends StatefulWidget {
   @override
@@ -13,6 +17,7 @@ class Newlink extends StatefulWidget {
 }
 
 class _NewlinkState extends State<Newlink> {
+  DateTime startDate = DateTime.now();
   DpController controller = Get.find();
   TextEditingController _amountController = TextEditingController();
   @override
@@ -54,84 +59,193 @@ class _NewlinkState extends State<Newlink> {
             ),
           ),
         ),
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_rounded,
+              size: 25,
+              color: Colors.black,
+            ),
+            onPressed: () => Get.back(),
+          ),
+          title: Text(
+            'digital_payment',
+          ),
+          titleSpacing: 0,
+        ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(bottom: 50.0),
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
-              child: Stack(children: [
-                SizedBox(
-                  height: size.height * 0.2,
-                  width: size.width,
-                  child: Image.asset(
-                    "images/topBg.png",
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 14),
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back_rounded,
-                          size: 25,
-                          color: Colors.black,
-                        ),
-                        onPressed: () => Get.back(),
+              child: Column(children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text("name".tr,
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.w600)),
                       ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 27.0, right: 55, left: 25),
-                      child: Text(
-                        'Digital Payment',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Positioned(
-                    top: 60,
-                    left: 10,
-                    right: 10,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text("Amount",
-                                style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w600)),
+                      TextFormField(
+                        cursorColor: Colors.black,
+                        keyboardType: TextInputType.text,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp('[a-zA-Z0-9]'),
                           ),
-                          Container(
-                            decoration: Utils.getBoxShape(),
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 18.0),
-                              child: TextFormField(
-                                controller: _amountController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: 'Payable Amount',
-                                    hintStyle: TextStyle(
-                                        fontSize: 13.0,
-                                        color: Colors.grey[500])),
+                        ],
+                        decoration: InputDecoration(
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: InkWell(onTap:(){},child: SvgPicture.asset('images/svg_image/contacts_transaction.svg')),
+                          ),
+                          suffixIconConstraints: BoxConstraints(
+                              maxWidth: 32,maxHeight: 32
+                          ),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFFC4C4C4),
+                              width: 1.5,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFFC4C4C4),
+                              width: 1.5,
+                            ),
+                          ),
+                          counterText: "",
+                          hintText: 'name'.tr,
+                          hintStyle: const TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 12,
+                            color: Color(0xFf707070),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text("mobile_number".tr,
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                fontFamily: 'Roboto',
+                                )),
+                      ),
+                      TextFormField(
+                        cursorColor: Colors.black,
+                        keyboardType: TextInputType.text,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp('[a-zA-Z0-9]'),
+                          ),
+                        ],
+                        decoration: InputDecoration(
+
+                          contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFFC4C4C4),
+                              width: 1.5,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFFC4C4C4),
+                              width: 1.5,
+                            ),
+                          ),
+                          counterText: "",
+                          hintText: 'mobile_number'.tr,
+                          hintStyle: const TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 12,
+                            color: Color(0xFf707070),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Text("amount".tr,
+                            style: TextStyle(
+                                fontSize: 16.0,
+                                fontFamily: 'Roboto',
+                                )),
+                      ),
+                      TextFormField(
+                        cursorColor: Colors.black,
+                        keyboardType: TextInputType.text,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp('[a-zA-Z0-9]'),
+                          ),
+                        ],
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFFC4C4C4),
+                              width: 1.5,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFFC4C4C4),
+                              width: 1.5,
+                            ),
+                          ),
+                          counterText: "",
+                          hintText: 'amount'.tr,
+                          hintStyle: const TextStyle(
+                            fontFamily: 'Roboto',
+                            fontSize: 12,
+                            color: Color(0xFf707070),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 15,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              getDialog();
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black),
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 3, vertical: 7),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.calendar_today),
+                                    Text(
+                                        '${DateFormat.yMMMMd().format(startDate)}'),
+                                  ],
+                                ),
                               ),
                             ),
                           )
                         ],
-                      ),
-                    )),
+                      )
+                    ],
+                  ),
+                ),
 
 ////,
               ]),
@@ -140,5 +254,40 @@ class _NewlinkState extends State<Newlink> {
         ),
       ),
     );
+  }
+  void getDialog() async {
+    await _selectStartDate(context);
+    // await _selectEndDate(context);
+    // widgets.controller.getRangeTransaction();
+  }
+
+  _selectStartDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      helpText: "start_date".tr,
+      context: context,
+      initialDate: startDate, // Refer step 1
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData.dark().copyWith(
+            colorScheme: ColorScheme.dark(
+              primary: DEFAULT_BLACK,
+              onPrimary: DEFAULT_BODY_BG_COLOR,
+              surface: Colors.green,
+              onSurface: DEFAULT_BLACK,
+            ),
+            dialogBackgroundColor: DEFAULT_BODY_BG_COLOR,
+          ),
+          child: child,
+        );
+      },
+    );
+    if (picked != null) {
+      setState(() {
+        // widgets.controller.selectedStartDate.value = picked;
+        startDate = picked;
+      });
+    }
   }
 }
