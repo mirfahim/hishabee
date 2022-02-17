@@ -21,6 +21,7 @@ abstract class IProductRepository {
     int shopId,
     int subcategoryId,
     String productName,
+    var subUnit,
     double price,
     String desc,
     String imageUrl,

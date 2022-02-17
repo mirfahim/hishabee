@@ -81,7 +81,8 @@ class _SmsCustomSupplyerDialogContactsState
                       onTap: () {
                         _smsController.selectedMobileNumber
                             .add(_foundData[index].mobile);
-                        print(_smsController.selectedMobileNumber);
+                        print(
+                            "my selected number is ${_smsController.selectedMobileNumber}");
                       },
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,

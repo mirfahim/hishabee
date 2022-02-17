@@ -45,6 +45,7 @@ class AddProductController extends GetxController {
     int shopId,
     int subcategoryId,
     String productName,
+    var subUnit,
     double price,
     String desc,
     String imageUrl,
@@ -88,6 +89,7 @@ class AddProductController extends GetxController {
       vatAmount: vatAmount ?? 0,
       uniqueID: uniqueID,
       gallary: gallary,
+      subUnit: subUnit ?? null,
     );
 
     if (result.code == 200) {

@@ -341,14 +341,11 @@ class SmsCreatePage extends GetResponsiveView {
                     padding: EdgeInsets.only(left: 10, right: 10),
                     child: ElevatedButton(
                       onPressed: () async {
-
-                        await _smsController.getAllContacts();
-                        Future.delayed(Duration.zero, () async {
-                          Navigator.of(context).push(PageRouteBuilder(
-                              pageBuilder: (context, _, __) =>
-                                  SmsCustomDialogContacts(),
-                              opaque: false));
-                        });
+                        await _smsController.getAllContacts().then(
+                            Navigator.of(context).push(PageRouteBuilder(
+                                pageBuilder: (context, _, __) =>
+                                    SmsCustomDialogContacts(),
+                                opaque: false)));
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -513,7 +510,9 @@ class SmsCreatePage extends GetResponsiveView {
                             style: TextStyle(color: Colors.blue, fontSize: 12),
                           ),
                           Obx(() => Text(
-                                '${_smsController.totalSmsLeft.value}',
+                                _smsController.totalSmsLeft.value <= 0
+                                    ? "0"
+                                    : '${_smsController.totalSmsLeft.value}',
                                 style:
                                     TextStyle(color: Colors.red, fontSize: 12),
                               ))

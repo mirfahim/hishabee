@@ -17,6 +17,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'app/_bindings/app_binding.dart';
 import 'app/_services/localization_service.dart';
 import 'app/app.dart';
+//-> /bin/sh "$FLUTTER_ROOT/packages/flutter_tools/bin/xcode_backend.sh" build
 
 const hiveDbDirectory = 'hishabee-db';
 const AndroidNotificationChannel channel = AndroidNotificationChannel(

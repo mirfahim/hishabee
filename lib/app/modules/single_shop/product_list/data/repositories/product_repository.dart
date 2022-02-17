@@ -28,6 +28,7 @@ class ProductRepository implements IProductRepository {
       String productName,
       double price,
       List gallary,
+      var subUnit,
       String desc,
       String imageUrl,
       int stockQuantity,
@@ -52,7 +53,8 @@ class ProductRepository implements IProductRepository {
         vatApplicable: vatApplicable,
         barcode: barcode,
         attribute: attribute,
-        vatAmount: vatAmount);
+        vatAmount: vatAmount,
+        subUnit: subUnit);
 
     return ResponseDecoder.decode(response);
   }

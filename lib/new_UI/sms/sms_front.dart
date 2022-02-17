@@ -1,22 +1,8 @@
-
-
-
-
-
-
 ///TODO: this is implemented in the main app
-
-
-
-
-
-
-
 
 import 'package:flutter/material.dart';
 
 class SMSFront extends StatefulWidget {
-
   @override
   State<SMSFront> createState() => _SMSFrontState();
 }

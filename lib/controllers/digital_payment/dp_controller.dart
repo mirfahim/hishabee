@@ -9,7 +9,7 @@ class DpController extends GetxController {
       //dynamic is nullable so if we didnt get any response we can handle it
       {String shopId}) async {
     String url =
-        "/digital_payment/all?shop_id=105"; //todo it should be dynamic later ....
+        "/digital_payment/all?shop_id=$shopId"; //todo it should be dynamic later ....
     return _apiService.makeApiRequiest(
         method: apiMethods.get,
         url: url,

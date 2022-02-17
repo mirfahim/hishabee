@@ -1,5 +1,3 @@
-
-
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +21,7 @@ class SmsController extends GetxController {
   final mobileNumbers = ''.obs;
   final totalSmsLeft = 0.obs;
   final changedSms = 0.obs;
+  final circular = false.obs;
   var visibility = false.obs;
   final selectedMobileNumber = [].obs;
   ApiService _apiService = ApiService();
@@ -60,38 +59,37 @@ class SmsController extends GetxController {
   }
 
   getAllContacts() async {
-
-
     var status = await Permission.contacts.request();
-    if(status.isGranted) {
+    if (status.isGranted) {
+      List<Contact> _contacts = await ContactsService.getContacts();
+      _contacts.forEach((contact) {
+        print(contact.displayName);
+        contacts.value = _contacts.toList();
+      });
+      // print("my contacts are ${contacts.}");
+      // contacts.value = _contacts.toList();
+      List allContact = _contacts.toList();
+      //print("my all contact are ${contacts.value[0].phones[0].value}");
+    } else if (status.isDenied) {
       List<Contact> _contacts = await ContactsService.getContacts();
       contacts.value = _contacts.toList();
-      List allContact =  _contacts.toList();
-      print("my all contact are $allContact");
-    } else if(status.isDenied){
-      List<Contact> _contacts = await ContactsService.getContacts();
-      contacts.value = _contacts.toList();
-    }else {
+    } else {
       showDialog(
-
           builder: (BuildContext context) => CupertinoAlertDialog(
-            title: Text('Contacts list permission'),
-            content: Text(
-                'This app needs contact list access'),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                child: Text('Deny'),
-                onPressed: () => Navigator.of(context).pop(),
-              ),
-              CupertinoDialogAction(
-                child: Text('Settings'),
-                onPressed: () => openAppSettings(),
-              ),
-            ],
-          ));
+                title: Text('Contacts list permission'),
+                content: Text('This app needs contact list access'),
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                    child: Text('Deny'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  CupertinoDialogAction(
+                    child: Text('Settings'),
+                    onPressed: () => openAppSettings(),
+                  ),
+                ],
+              ));
     }
-
-
   }
 
   Future<dynamic> getAllCustomerContact(String shopId) {

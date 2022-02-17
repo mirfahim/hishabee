@@ -12,7 +12,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_lis
 
 class ProductListController extends GetxController {
   final IProductRepository productRepository;
-   ILocalProductProvider localProductProvider;
+  ILocalProductProvider localProductProvider;
   var productList = <Product>[].obs;
   final searchList = <Product>[].obs;
   final catList = Rxn<Category>();
@@ -24,6 +24,7 @@ class ProductListController extends GetxController {
 
   final shop = Rxn<Shop>();
   final productCategoryList = <Category>[].obs;
+  final unitList = <Category>[].obs;
   final filterCategory = <SubCategory>[].obs;
   final checkedFilterCategory = <SubCategory>[].obs;
   final tempSubCatList = <SubCategory>[].obs;
@@ -73,7 +74,7 @@ class ProductListController extends GetxController {
   getAllProduct() async {
     var list = await productRepository.getAllProduct(shop.value.id);
     totalProductCount.value = list.length;
-    print(totalProductCount.value );
+    print(totalProductCount.value);
     if (list != null) {
       productList.assignAll(list);
       searchList.assignAll(list);
@@ -106,22 +107,18 @@ class ProductListController extends GetxController {
       List<String> list = [];
       for (int i = 0; i < 2; i++) {
         var res = await FlutterBarcodeScanner.scanBarcode(
-
             "#ff6666", "Cancel", true, ScanMode.DEFAULT);
 
         list.add(res);
-          print("Working .................... 11111 $res");
+        print("Working .................... 11111 $res");
       }
       if (list[0] == list[1]) {
         barcodeScanRes = list[1];
         print("Working .................... 22222 $barcodeScanRes");
-
-
       }
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
       print("Working .................... 33333 $barcodeScanRes");
-
     }
 
     final result = productList
@@ -130,11 +127,9 @@ class ProductListController extends GetxController {
     if (result.isNotEmpty) {
       print("my scan list is $result");
       searchList.assignAll(result);
-
     } else {
       print("vulval");
       CustomDialog.showStringDialog("No Product Found");
-
 
       searchList.assignAll(productList);
     }
