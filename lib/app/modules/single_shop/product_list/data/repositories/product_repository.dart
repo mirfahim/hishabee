@@ -28,7 +28,7 @@ class ProductRepository implements IProductRepository {
       String productName,
       double price,
       List gallary,
-      List subUnit,
+      var subUnit,
       String desc,
       String imageUrl,
       int stockQuantity,

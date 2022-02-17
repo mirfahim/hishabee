@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/digital_payment/dp_controller.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/digital_payment/digital_payments_details.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/digital_payment/new_link.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/digital_payment/single_payment_details_proceed.dart';
 import 'package:hishabee_business_manager_fl/models/digital_payment/digital_payment.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -12,7 +14,7 @@ class DigitalPaymentDashboard extends StatefulWidget {
 }
 
 class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
-  List<DigitalPaymentModel> _list = <DigitalPaymentModel>[];
+  List<DigitalPaymentModel> _list = [];
   bool isLoading = true;
   DpController controller = Get.find();
   Shop shop = Get.arguments;
@@ -199,81 +201,105 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Active Links",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black87,
-                                fontSize: 16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Recent Payments",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black87,
+                                    fontSize: 16.0),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(DigitalPaymentDetails());
+                                },
+                                child: Text(
+                                  "View Details",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.blue,
+                                      fontSize: 16.0),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         _list.length > 0
                             ? ListView.builder(
                                 shrinkWrap: true,
                                 itemCount: _list.length,
-                                itemBuilder: (context, index) => Card(
-                                      elevation: 2.0,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "#" +
-                                                      _list[index]
-                                                          .id
-                                                          .toString(),
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                Text(
+                                itemBuilder: (context, index) =>
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.to(SinglePaymentDetailsAndProceed(),
+                                            arguments: shop);
+                                      },
+                                      child: Card(
+                                        elevation: 2.0,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(12.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "#" +
+                                                        _list[index]
+                                                            .id
+                                                            .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        color: Colors.black,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  Text(
+                                                    "" +
+                                                        _list[index]
+                                                            .amount
+                                                            .toString() +
+                                                        " BDT",
+                                                    style: TextStyle(
+                                                        fontSize: 12,
+                                                        fontWeight:
+                                                            FontWeight.w600),
+                                                  ),
+                                                  Text(
+                                                    "" +
+                                                        _list[index]
+                                                            .createdAt
+                                                            .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 11,
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                                  ),
+                                                ],
+                                              ),
+                                              Text(
                                                   "" +
                                                       _list[index]
-                                                          .amount
-                                                          .toString() +
-                                                      " BDT",
-                                                  style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                                Text(
-                                                  "" +
-                                                      _list[index]
-                                                          .createdAt
+                                                          .paymentStatus
                                                           .toString(),
                                                   style: TextStyle(
-                                                      fontSize: 11,
+                                                      fontSize: 13,
+                                                      color: Colors.red,
                                                       fontWeight:
-                                                          FontWeight.w400),
-                                                ),
-                                              ],
-                                            ),
-                                            Text(
-                                                "" +
-                                                    _list[index]
-                                                        .paymentStatus
-                                                        .toString(),
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    color: Colors.red,
-                                                    fontWeight:
-                                                        FontWeight.w700))
-                                          ],
+                                                          FontWeight.w700))
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ))
-                            : Center(child: CircularProgressIndicator())
+                            : Center(child: Text("No Payments found"))
                       ],
                     )),
 
@@ -287,7 +313,7 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
   }
 
   void getData() {
-    controller.fetchDp(shopId: "").then((value) {
+    controller.fetchDp(shopId: "8").then((value) {
       if (value != null) {
         setState(() {
           isLoading = false;

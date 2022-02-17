@@ -367,8 +367,8 @@ class DigitalBalancePage extends GetView<DigitalBalancePageController> {
                               child: ListView.builder(
                                 // physics: NeverScrollableScrollPhysics(),
                                 shrinkWrap: true,
-                                itemCount: controller.walletResponse.value.wallet
-                                    .walletTransaction.length,
+                                itemCount: controller.walletResponse.value
+                                    .wallet.walletTransaction.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   final item = controller.walletResponse.value
                                       .wallet.walletTransaction[index];
@@ -401,7 +401,8 @@ class DigitalBalancePage extends GetView<DigitalBalancePageController> {
                                                 item.type == "RECHARGE" ||
                                                         item.type ==
                                                             "DIGITAL_PAYMENT" ||
-                                                        item.type == "CASHBACK" ||
+                                                        item.type ==
+                                                            "CASHBACK" ||
                                                         item.type ==
                                                             "MARKETING_CREDIT" ||
                                                         item.type == "ADD"
@@ -447,9 +448,11 @@ class DigitalBalancePage extends GetView<DigitalBalancePageController> {
                                                       child: Text(
                                                         "${item.note}",
                                                         style: TextStyle(
-                                                            color: DEFAULT_BLACK,
+                                                            color:
+                                                                DEFAULT_BLACK,
                                                             fontWeight:
-                                                                FontWeight.bold),
+                                                                FontWeight
+                                                                    .bold),
                                                       ),
                                                     ),
                                                     SizedBox(
@@ -490,7 +493,8 @@ class DigitalBalancePage extends GetView<DigitalBalancePageController> {
                                                                 children: <
                                                                     Widget>[
                                                                   Icon(
-                                                                    Icons.receipt,
+                                                                    Icons
+                                                                        .receipt,
                                                                     color:
                                                                         DEFAULT_BLACK,
                                                                     size: 20,
@@ -506,8 +510,7 @@ class DigitalBalancePage extends GetView<DigitalBalancePageController> {
                                                                         fontSize:
                                                                             16,
                                                                         fontWeight:
-                                                                            FontWeight
-                                                                                .bold),
+                                                                            FontWeight.bold),
                                                                   ),
                                                                 ],
                                                               )),

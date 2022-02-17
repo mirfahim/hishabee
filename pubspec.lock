@@ -43,13 +43,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.2"
-  app_tracking_transparency:
-    dependency: "direct main"
-    description:
-      name: app_tracking_transparency
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.0.2+1"
   archive:
     dependency: transitive
     description:
@@ -581,7 +574,7 @@ packages:
       name: flutter_native_splash
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.3"
+    version: "1.3.2"
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -900,13 +893,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.12.11"
-  material_color_utilities:
-    dependency: transitive
-    description:
-      name: material_color_utilities
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.3"
   math_expressions:
     dependency: "direct main"
     description:
@@ -934,7 +920,7 @@ packages:
       name: nm
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.2"
+    version: "0.4.4"
   number_display:
     dependency: "direct main"
     description:
@@ -1317,7 +1303,7 @@ packages:
       name: sqflite_common
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.0.1+1"
   stack_trace:
     dependency: transitive
     description:
@@ -1366,7 +1352,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.4.8"
+    version: "0.4.7"
   timezone:
     dependency: transitive
     description:
@@ -1513,7 +1499,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.3.10"
+    version: "2.3.6"
   xdg_directories:
     dependency: transitive
     description:
@@ -1543,5 +1529,5 @@ packages:
     source: hosted
     version: "8.0.0"
 sdks:
-  dart: ">=2.15.1 <3.0.0"
+  dart: ">=2.15.0-7.0.dev <3.0.0"
   flutter: ">=2.5.0"

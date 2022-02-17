@@ -32,6 +32,13 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
+	<string>????</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Location Access.</string>
+    <key>NSUserTrackingUsageDescription</key>
+    <string>This identifier will be used to deliver personalized ads to you.</string>
+	<key>CFBundleName</key>
+
 	<array>
 		<dict>
 			<key>CFBundleURLSchemes</key>

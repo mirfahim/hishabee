@@ -92,8 +92,10 @@ class _AddProductsPageState extends State<AddProductsPage> {
   bool isRetail = false;
   bool isVat = false;
   bool isWarrenty = false;
+  int selectedUnitIndex;
   bool isDiscount = false;
   double vatAmount;
+  String unitPrice;
 
   // Map<String, String> attributes;
   List<Attribute> attributeList = [];
@@ -110,6 +112,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
   UnitListController _unitListController = UnitListController();
   var list;
   List<dynamic> imageList;
+  var unitList;
   // List<UnitList> _getAllUnit;
   final picker = ImagePicker();
   File _image;
@@ -1751,7 +1754,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                                                                         //   }
                                                                                                         // },
                                                                                                         onChanged: (val) {
-                                                                                                          wholeSalePrice = double.parse(val);
+                                                                                                          unitPrice = val;
                                                                                                         },
                                                                                                         inputFormatters: [
                                                                                                           FilteringTextInputFormatter.digitsOnly
@@ -4154,27 +4157,28 @@ class _AddProductsPageState extends State<AddProductsPage> {
       attributeAvailable ? attributeMap = attributeMap : attributeMap = null;
       costAvailable ? cost = cost : cost = null;
       vatApplicable ? vatAmount = vatAmount : vatAmount = 0;
-
+      unitList = <Map<String, String>>[
+        {"sub_unit": _selectedUnit, "price": unitPrice}
+      ];
       try {
         final result = await controller.addProduct(
-            shopId: widget.shop.id,
-            subcategoryId: selectedSubCat == null ? null : selectedSubCat.id,
-            productName: productName,
-            price: price,
-            wholeSalePrice: wholeSalePrice,
-            desc: desc,
-            imageUrl: mainImageUrl,
-            stockQuantity: stockQuantity,
-            cost: cost,
-            vatApplicable: vatApplicable,
-            barcode: mainProductBarCode,
-            attribute: attributeMap,
-            vatAmount: vatAmount,
-            uniqueID: uniqueID,
-            gallary: imageList,
-            subUnit: [
-              {"sub_unit": 4, "price": 20}
-            ]);
+          shopId: widget.shop.id,
+          subcategoryId: selectedSubCat == null ? null : selectedSubCat.id,
+          productName: productName,
+          price: price,
+          wholeSalePrice: wholeSalePrice,
+          desc: desc,
+          imageUrl: mainImageUrl,
+          stockQuantity: stockQuantity,
+          cost: cost,
+          vatApplicable: vatApplicable,
+          barcode: mainProductBarCode,
+          attribute: attributeMap,
+          vatAmount: vatAmount,
+          uniqueID: uniqueID,
+          gallary: imageList,
+          subUnit: unitList,
+        );
         if (!isAdvanced) {
           setState(() {
             adding = false;

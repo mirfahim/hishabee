@@ -12,14 +12,18 @@ class SmsCustomDialogContacts extends StatefulWidget {
 }
 
 class _SmsCustomDialogContactsState extends State<SmsCustomDialogContacts> {
-  SmsController _smsController = SmsController();
+  SmsController _smsController = Get.find();
   List listOfContacts = [];
   List searchListContacts = [];
-  bool checkedValue = false;
+
+  int checkedValue;
   @override
   void initState() {
     _smsController.getAllContacts();
     listOfContacts = _smsController.contacts.value;
+    setState(() {
+      searchListContacts = _smsController.contacts.value;
+    });
     super.initState();
 
     ///whatever you want to run on page build.
@@ -53,28 +57,11 @@ class _SmsCustomDialogContactsState extends State<SmsCustomDialogContacts> {
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  height: 40,
-                  width: width,
-                  decoration: BoxDecoration(
-                      color: Color(0xFFF1F1F1),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text('Customer'),
-                        Text('Supplier'),
-                        Text('Workers')
-                      ],
-                    ),
-                  ),
-                ),
                 SizedBox(
                   height: 15,
                 ),
                 TextFormField(
+                  onChanged: (value) => _runFilter(value),
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.search),
                     contentPadding: EdgeInsets.symmetric(horizontal: 8),
@@ -97,51 +84,51 @@ class _SmsCustomDialogContactsState extends State<SmsCustomDialogContacts> {
                             ),
                           )
                         : ListView.builder(
-                            itemCount:
-                                _smsController.contacts.value.length >= 30
-                                    ? 30
-                                    : _smsController.contacts.value.length,
+                            itemCount: searchListContacts.length >= 30
+                                ? 30
+                                : searchListContacts.length,
                             shrinkWrap: true,
                             itemBuilder: (BuildContext context, index) {
-                              print(
-                                  "my contact list is +++ ${_smsController.contacts.value}");
                               return Padding(
                                 padding: const EdgeInsets.all(4.0),
                                 child: ListTile(
-                                  onTap: () {},
+                                  onTap: () {
+                                    _smsController.selectedMobileNumber.add(
+                                        _smsController
+                                            .contacts.value[index].displayName);
+                                    print(
+                                        "my selected contacts is ${_smsController.selectedMobileNumber}");
+                                    setState(() {
+                                      checkedValue = index;
+                                    });
+                                  },
                                   title: Text(_smsController
                                       .contacts.value[index].displayName),
-                                  trailing: Container(
-                                    height: 30,
-                                    width: 30,
-                                    decoration: BoxDecoration(),
-                                  ),
+                                  trailing: checkedValue == index
+                                      ? Container(
+                                          height: 20,
+                                          width: 20,
+                                          child: Center(
+                                            child: Icon(
+                                              Icons.check,
+                                              color: Colors.blue,
+                                            ),
+                                          ),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(),
+                                          ),
+                                        )
+                                      : Container(
+                                          height: 20,
+                                          width: 20,
+                                          child: Center(
+                                            child: Icon(Icons.check),
+                                          ),
+                                          decoration: BoxDecoration(
+                                            border: Border.all(),
+                                          ),
+                                        ),
                                 ),
-                                // child: GestureDetector(
-                                //   onTap: () {
-                                //
-                                //   },
-                                //   child: Container(
-                                //     decoration: BoxDecoration(
-                                //         borderRadius: BorderRadius.circular(10),
-                                //         color: Colors.grey[100]),
-                                //     child: CheckboxListTile(
-                                //       title: Text(_smsController
-                                //           .contacts.value[index].displayName),
-                                //       value: checkedValue,
-                                //       onChanged: (newValue) {
-                                //         setState(() {
-                                //           checkedValue = newValue;
-                                //           _smsController.selectedMobileNumber
-                                //               .add(_smsController.contacts
-                                //                   .value[index].displayName);
-                                //         });
-                                //       },
-                                //       controlAffinity: ListTileControlAffinity
-                                //           .leading, //  <-- leading Checkbox
-                                //     ),
-                                //   ),
-                                // ),
                               );
                             },
                           ),
@@ -177,4 +164,22 @@ class _SmsCustomDialogContactsState extends State<SmsCustomDialogContacts> {
           ),
         ),
       );
+
+  void _runFilter(String enteredKeyword) {
+    List results = [];
+    if (enteredKeyword.isEmpty) {
+      results = _smsController.contacts.value;
+    } else {
+      results = _smsController.contacts.value
+          .where((item) => item.displayName
+              .toLowerCase()
+              .contains(enteredKeyword.toLowerCase()))
+          .toList();
+    }
+
+    // Refresh the UI
+    setState(() {
+      searchListContacts = results;
+    });
+  }
 }

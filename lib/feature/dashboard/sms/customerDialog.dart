@@ -78,7 +78,7 @@ class _SmsCustomCustomerDialogContactsState
                     child: GestureDetector(
                       onTap: () {
                         _smsController.selectedMobileNumber
-                            .add('\"${_foundData[index].mobile}\"');
+                            .add('${_foundData[index].mobile}');
                         print('customer number');
                         print(_smsController.selectedMobileNumber);
                       },
