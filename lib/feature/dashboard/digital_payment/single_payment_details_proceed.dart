@@ -7,8 +7,10 @@ import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/utility.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/digital_payment/dp_controller.dart';
+import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/digital_payment/digital_payments_details.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/digital_payment/new_link.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/sms/create_sms.dart';
 import 'package:hishabee_business_manager_fl/models/digital_payment/digital_payment.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
@@ -30,6 +32,7 @@ class _DigitalPaymentState extends State<SinglePaymentDetailsAndProceed> {
   List<DigitalPaymentModel> _list = [];
   bool isLoading = true;
   DpController controller = Get.find();
+  SmsController _smsController = SmsController();
   Shop shop = Get.arguments;
   @override
   void initState() {
@@ -44,7 +47,6 @@ class _DigitalPaymentState extends State<SinglePaymentDetailsAndProceed> {
     return SafeArea(
       // /sadasd
       child: Scaffold(
-        backgroundColor: Colors.white,
         bottomSheet: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Row(
@@ -323,23 +325,38 @@ class _DigitalPaymentState extends State<SinglePaymentDetailsAndProceed> {
                 SizedBox(
                   height: 15,
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF1F1F1),
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Row(
-                    children: [
+                InkWell(
+                  onTap: (){
+                    _smsController.selectedMobileNumber.value.add(widget.mobileNumber);
+                    _smsController.textInTheMessageField.value = "https://app.hishabee.business/pay/@" +
+                        shop.slug.toString();
+                    Get.to(
+                          () => SmsCreatePage(),
+                      arguments: {
+                        "shop": shop,
+                      },
+                    );
+                    print(_smsController.selectedMobileNumber.value);
+                    print(_smsController.textInTheMessageField.value);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFFF1F1F1),
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Row(
+                      children: [
 
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SvgPicture.asset('images/svg_image/sms.svg'),
-                      ),
-                      SizedBox(width: 5,),
-                      Text('sms_payment_link_share'.tr, style: TextStyle(
-                        fontSize: 12, fontFamily: 'Roboto'
-                      ),)
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SvgPicture.asset('images/svg_image/sms.svg'),
+                        ),
+                        SizedBox(width: 5,),
+                        Text('sms_payment_link_share'.tr, style: TextStyle(
+                          fontSize: 12, fontFamily: 'Roboto'
+                        ),)
+                      ],
+                    ),
                   ),
                 )
                 // Padding(

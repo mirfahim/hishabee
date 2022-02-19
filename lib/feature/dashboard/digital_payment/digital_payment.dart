@@ -360,11 +360,12 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
   }
 
   void getData() {
-    controller.fetchDp(shopId: "8").then((value) {
+    controller.fetchDp(shopId: "${shop.id}").then((value) {
       if (value != null) {
         setState(() {
           isLoading = false;
           _list = digitalPaymentModelFromJson(value);
+          // print('shop id: ${shop.id}');
         });
       }
     });

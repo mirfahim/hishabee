@@ -3,8 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
+import 'package:hishabee_business_manager_fl/controllers/stock/stock_controller.dart';
+import 'package:hishabee_business_manager_fl/models/stock/stock_history.dart';
 
-class StockHistory extends GetView {
+class StockHistory extends StatefulWidget {
+
+  @override
+  State<StockHistory> createState() => _StockHistoryState();
+}
+
+class _StockHistoryState extends State<StockHistory> {
+  
+  StockController _stockController = Get.find();
+
+  // Shop shop = Get.arguments;
+
+  @override
+  void initState() {
+    _stockController.stockHistory(shopId: 18,startDate: '2022-01-01', endDate: '2022-06-01').then((value) =>
+    _stockController.allStockHistory.value = getStockHistoryFromModel(value));
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -278,100 +298,107 @@ class StockHistory extends GetView {
                 )
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0xFFF1F1F1),
-                  borderRadius: BorderRadius.circular(10)
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: SvgPicture.asset('images/svg_image/empty-image.svg'),
-                        title: Text('Gents Pant', style: TextStyle(
-                          fontSize: 14,fontFamily: 'Roboto'
-                        ),),
-                        subtitle: Text('২০ অক্টোবর ২০২১ ,  সকাল ১২:১০'),
+            ListView.builder(
+              itemCount: 1,
+              shrinkWrap: true,
+              itemBuilder: (context, index) {
+                // StockHistory stock = _stockController.allStockHistory['data'];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xFFF1F1F1),
+                      borderRadius: BorderRadius.circular(10)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: Column(
+                        children: [
+                          ListTile(
+                            leading: SvgPicture.asset('images/svg_image/empty-image.svg'),
+                            title: Text('', style: TextStyle(
+                              fontSize: 14,fontFamily: 'Roboto'
+                            ),),
+                            subtitle: Text('২০ অক্টোবর ২০২১ ,  সকাল ১২:১০'),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text('stock_price'.tr, style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: 'Roboto',
+                                      color: Color(0xFF707070)
+                                    ),),
+                                    Text('৳ 500', style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'Roboto',
+                                        color: Color(0xFF232323)
+                                    ),)
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text('previous_stock'.tr, style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: 'Roboto',
+                                        color: Color(0xFF707070)
+                                    ),),
+                                    Text('500', style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'Roboto',
+                                        color: Color(0xFF232323)
+                                    ),)
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text('increase_stock'.tr, style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: 'Roboto',
+                                        color: Color(0xFF707070)
+                                    ),),
+                                    Text('+500', style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'Roboto',
+                                        color: Color(0xFF669E4F)
+                                    ),)
+                                  ],
+                                ),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Text('present_stock'.tr, style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: 'Roboto',
+                                        color: Color(0xFF707070)
+                                    ),),
+                                    Text('500', style: TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: 'Roboto',
+                                        color: Color(0xFF232323)
+                                    ),)
+                                  ],
+                                )
+                              ],
+                            ),
+                          )
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text('stock_price'.tr, style: TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: 'Roboto',
-                                  color: Color(0xFF707070)
-                                ),),
-                                Text('৳ 500', style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Roboto',
-                                    color: Color(0xFF232323)
-                                ),)
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text('previous_stock'.tr, style: TextStyle(
-                                    fontSize: 12,
-                                    fontFamily: 'Roboto',
-                                    color: Color(0xFF707070)
-                                ),),
-                                Text('500', style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Roboto',
-                                    color: Color(0xFF232323)
-                                ),)
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text('increase_stock'.tr, style: TextStyle(
-                                    fontSize: 12,
-                                    fontFamily: 'Roboto',
-                                    color: Color(0xFF707070)
-                                ),),
-                                Text('+500', style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Roboto',
-                                    color: Color(0xFF669E4F)
-                                ),)
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text('present_stock'.tr, style: TextStyle(
-                                    fontSize: 12,
-                                    fontFamily: 'Roboto',
-                                    color: Color(0xFF707070)
-                                ),),
-                                Text('500', style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'Roboto',
-                                    color: Color(0xFF232323)
-                                ),)
-                              ],
-                            )
-                          ],
-                        ),
-                      )
-                    ],
+                    ),
                   ),
-                ),
-              ),
+                );
+              }
             )
           ],
         ),
