@@ -20,7 +20,7 @@ class DigitalPaymentDashboard extends StatefulWidget {
 class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
   List<DigitalPaymentModel> _list = [];
   bool isLoading = true;
-  DpController controller = Get.find();
+  DpController _dpController = Get.find();
   Shop shop = Get.arguments;
   @override
   void initState() {
@@ -220,7 +220,7 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Get.to(DigitalPaymentDetails());
+                                Get.to(DigitalPaymentDetails(), arguments: shop);
                               },
                               child: Text(
                                 "view_details".tr,
@@ -337,7 +337,9 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
                                                         .toString(),
                                                 style: TextStyle(
                                                     fontSize: 13,
-                                                    color: Colors.red,
+                                                    color: _list[index]
+                                                        .paymentStatus
+                                                        .toString() == 'Pending' ? Colors.red : Colors.green,
                                                     fontWeight:
                                                     FontWeight.w700)),
                                           ),
@@ -360,7 +362,7 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
   }
 
   void getData() {
-    controller.fetchDp(shopId: "${shop.id}").then((value) {
+    _dpController.fetchDp(shopId: shop.id).then((value) {
       if (value != null) {
         setState(() {
           isLoading = false;

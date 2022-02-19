@@ -21,8 +21,8 @@ class _StockHistoryState extends State<StockHistory> {
 
   @override
   void initState() {
-    _stockController.stockHistory(shopId: 18,startDate: '2022-01-01', endDate: '2022-06-01').then((value) =>
-    _stockController.allStockHistory.value = getStockHistoryFromModel(value));
+    _stockController.AllStockHistory(shopId: 18,startDate: '2022-01-01', endDate: '2022-06-01').then((value) =>
+    _stockController.stockHistory.value = stockHistoryFromJson(value));
     super.initState();
   }
   @override
@@ -299,12 +299,12 @@ class _StockHistoryState extends State<StockHistory> {
               ],
             ),
             ListView.builder(
-              itemCount: 1,
+              itemCount: _stockController.stockHistory.value.data.length,
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 // StockHistory stock = _stockController.allStockHistory['data'];
                 return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+                  padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Container(
                     decoration: BoxDecoration(
                       color: Color(0xFFF1F1F1),
@@ -319,7 +319,7 @@ class _StockHistoryState extends State<StockHistory> {
                             title: Text('', style: TextStyle(
                               fontSize: 14,fontFamily: 'Roboto'
                             ),),
-                            subtitle: Text('২০ অক্টোবর ২০২১ ,  সকাল ১২:১০'),
+                            subtitle: Text('${_stockController.stockHistory.value.data[index].createdAt}'),
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -335,7 +335,7 @@ class _StockHistoryState extends State<StockHistory> {
                                       fontFamily: 'Roboto',
                                       color: Color(0xFF707070)
                                     ),),
-                                    Text('৳ 500', style: TextStyle(
+                                    Text('৳ ${_stockController.stockHistory.value.data[index].stockValue}', style: TextStyle(
                                         fontSize: 16,
                                         fontFamily: 'Roboto',
                                         color: Color(0xFF232323)
@@ -351,7 +351,7 @@ class _StockHistoryState extends State<StockHistory> {
                                         fontFamily: 'Roboto',
                                         color: Color(0xFF707070)
                                     ),),
-                                    Text('500', style: TextStyle(
+                                    Text('${_stockController.stockHistory.value.data[index].beforeStock}', style: TextStyle(
                                         fontSize: 16,
                                         fontFamily: 'Roboto',
                                         color: Color(0xFF232323)
@@ -367,7 +367,7 @@ class _StockHistoryState extends State<StockHistory> {
                                         fontFamily: 'Roboto',
                                         color: Color(0xFF707070)
                                     ),),
-                                    Text('+500', style: TextStyle(
+                                    Text('${_stockController.stockHistory.value.data[index].increase}', style: TextStyle(
                                         fontSize: 16,
                                         fontFamily: 'Roboto',
                                         color: Color(0xFF669E4F)
@@ -383,7 +383,7 @@ class _StockHistoryState extends State<StockHistory> {
                                         fontFamily: 'Roboto',
                                         color: Color(0xFF707070)
                                     ),),
-                                    Text('500', style: TextStyle(
+                                    Text('${_stockController.stockHistory.value.data[index].quantity}', style: TextStyle(
                                         fontSize: 16,
                                         fontFamily: 'Roboto',
                                         color: Color(0xFF232323)

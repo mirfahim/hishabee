@@ -99,322 +99,307 @@ class _StandardPageState extends State<StandardPage> {
   }
 
   _showHeader() => Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Stack(
+          Row(
             children: [
-              Container(
-                height: size.height * 0.2,
-                width: size.width,
-                child: Image.asset(
-                  "images/topBg.png",
-                  fit: BoxFit.fill,
-                ),
-              ),
-              Row(
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 5.0, left: 20, right: 20),
-                    child: Text(
-                      widget.shop.name,
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Rubik-VariableFont_wght',
-                        color: DEFAULT_BLUE_DARK,
-                      ),
-                    ),
-                  ),
-                  Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 14, right: 15.0),
-                    child: IconButton(
-                        icon: Icon(
-                          Icons.contact_support,
-                          size: 35,
-                          color: DEFAULT_BLUE,
-                        ),
-                        onPressed: () {
-                          final String url = "https://youtu.be/Wbk83HfsJ4w";
-                          final String title = "use_showcase".tr;
-                          HelpButton.setBox(ButtonKey.dashKey);
-                          Navigator.of(context)
-                              .push(TutorialOverlay(url, title));
-                        }),
-                  )
-                ],
-              ),
               Padding(
-                padding: const EdgeInsets.only(top: 45.0, left: 20, right: 20),
+                padding:
+                    const EdgeInsets.only(top: 5.0, left: 20, right: 20),
                 child: Text(
-                  _timeString,
+                  widget.shop.name,
                   style: TextStyle(
-                    fontFamily: 'Rubik',
-                    fontSize: 13,
-                    fontWeight: FontWeight.normal,
-                    color: DEFAULT_BLUE,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Rubik-VariableFont_wght',
+                    color: DEFAULT_BLUE_DARK,
                   ),
                 ),
               ),
-              showCaseTap == true
-                  ? Positioned(
-                      right: 60,
-                      top: 22,
-                      child: OpacityAnimatedWidget.tween(
-                        opacityEnabled: 1, //define start value
-                        opacityDisabled: 0, //and end value
-                        enabled: showCase,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: DEFAULT_BLACK,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    height: 40,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      "use_showcase".tr,
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 16),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Container(
-                              child: Icon(
-                                Icons.play_arrow_sharp,
-                                size: 30,
-                                color: DEFAULT_BLACK,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  : Container(),
+              Spacer(),
               Padding(
-                padding: const EdgeInsets.only(
-                  top: 80.0,
-                ),
-                child: Container(
-                    height: 135,
-                    margin: EdgeInsets.only(left: 15, right: 15),
-                    child: Card(
-                      elevation: 6.0,
-                      child: Column(
-                        children: [
-                          Container(
-                            color: Theme.of(context).primaryColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 0.0),
-                                    child: Text(
-                                      'today_s_sale'.tr,
+                padding: const EdgeInsets.only(top: 14, right: 15.0),
+                child: IconButton(
+                    icon: Icon(
+                      Icons.contact_support,
+                      size: 35,
+                      color: DEFAULT_BLUE,
+                    ),
+                    onPressed: () {
+                      final String url = "https://youtu.be/Wbk83HfsJ4w";
+                      final String title = "use_showcase".tr;
+                      HelpButton.setBox(ButtonKey.dashKey);
+                      Navigator.of(context)
+                          .push(TutorialOverlay(url, title));
+                    }),
+              )
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 0.0, left: 20, right: 20),
+            child: Text(
+              _timeString,
+              style: TextStyle(
+                fontFamily: 'Rubik',
+                fontSize: 13,
+                fontWeight: FontWeight.normal,
+                color: DEFAULT_BLUE,
+              ),
+            ),
+          ),
+          // showCaseTap == true
+          //     ? OpacityAnimatedWidget.tween(
+          //       opacityEnabled: 1, //define start value
+          //       opacityDisabled: 0, //and end value
+          //       enabled: showCase,
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         children: [
+          //           Container(
+          //             decoration: BoxDecoration(
+          //               color: DEFAULT_BLACK,
+          //               borderRadius: BorderRadius.circular(4),
+          //             ),
+          //             child: Row(
+          //               children: [
+          //                 Container(
+          //                   height: 40,
+          //                 ),
+          //                 Padding(
+          //                   padding: const EdgeInsets.all(8.0),
+          //                   child: Text(
+          //                     "use_showcase".tr,
+          //                     style: TextStyle(
+          //                         color: Colors.white, fontSize: 16),
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //           Container(
+          //             child: Icon(
+          //               Icons.play_arrow_sharp,
+          //               size: 30,
+          //               color: DEFAULT_BLACK,
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     )
+          //     : Container(),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 0.0,
+            ),
+            child: Container(
+                margin: EdgeInsets.only(left: 15, right: 15),
+                child: Card(
+                  elevation: 6.0,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        color: Theme.of(context).primaryColor,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 0.0),
+                                child: Text(
+                                  'today_s_sale'.tr,
+                                  style: TextStyle(
+                                    fontFamily: 'Rubik',
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.normal,
+                                    color: DEFAULT_BLACK,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 5.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      "tk".tr,
                                       style: TextStyle(
                                         fontFamily: 'Rubik',
                                         fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                        color: DEFAULT_BLUE,
+                                      ),
+                                    ),
+                                    Obx(
+                                      () => Text(
+                                        ' ${display(Get.find<ShopFeaturesController>().todaysSale.value)}',
+                                        style: TextStyle(
+                                          fontFamily:
+                                              'Rubik-VariableFont_wght',
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.bold,
+                                          color: DEFAULT_BLUE,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      '/=',
+                                      style: TextStyle(
+                                        fontFamily: 'Rubik',
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                        color: DEFAULT_BLUE,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        color: Colors.amber[50],
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            InkWell(
+                                onTap: () {
+                                  // Get.to(() => ExpensesPage(),
+                                  //     binding: ShopFeaturesBinding(),
+                                  //     arguments: widget.shop);
+                                },
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Today\'s Expense',
+                                      style: TextStyle(
+                                        fontFamily: 'Rubik',
+                                        fontSize: 10,
                                         fontWeight: FontWeight.normal,
                                         color: DEFAULT_BLACK,
                                       ),
                                     ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 5.0),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "tk".tr,
-                                          style: TextStyle(
-                                            fontFamily: 'Rubik',
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: DEFAULT_BLUE,
-                                          ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(top: 8.0),
+                                      child: Text(
+                                        ' ${widget.shop.walletBalance}',
+                                        style: TextStyle(
+                                          fontFamily:
+                                              'Rubik-VariableFont_wght',
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.red,
                                         ),
-                                        Obx(
-                                          () => Text(
-                                            ' ${display(Get.find<ShopFeaturesController>().todaysSale.value)}',
-                                            style: TextStyle(
-                                              fontFamily:
-                                                  'Rubik-VariableFont_wght',
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold,
-                                              color: DEFAULT_BLUE,
-                                            ),
-                                          ),
-                                        ),
-                                        Text(
-                                          '/=',
-                                          style: TextStyle(
-                                            fontFamily: 'Rubik',
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: DEFAULT_BLUE,
-                                          ),
-                                        ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                )),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                color: Colors.grey[300],
+                                height: 40,
+                                width: 2,
                               ),
                             ),
-                          ),
-                          Container(
-                            color: Colors.amber[50],
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                InkWell(
-                                    onTap: () {
-                                      // Get.to(() => ExpensesPage(),
-                                      //     binding: ShopFeaturesBinding(),
-                                      //     arguments: widget.shop);
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Today\'s Expense',
-                                          style: TextStyle(
-                                            fontFamily: 'Rubik',
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.normal,
-                                            color: DEFAULT_BLACK,
-                                          ),
+                            InkWell(
+                                onTap: () {
+                                  // Get.to(
+                                  //   () =>
+                                  //       DigitalBalancePage(widget.shop),
+                                  //   binding: ShopFeaturesBinding(),
+                                  // );
+                                },
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Today\'s Due',
+                                      style: TextStyle(
+                                        fontFamily: 'Rubik',
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.normal,
+                                        color: DEFAULT_BLACK,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(top: 8.0),
+                                      child: Text(
+                                        ' ${widget.shop.walletBalance}',
+                                        style: TextStyle(
+                                          fontFamily:
+                                              'Rubik-VariableFont_wght',
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: DEFAULT_BLUE,
                                         ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 8.0),
-                                          child: Text(
-                                            ' ${widget.shop.walletBalance}',
-                                            style: TextStyle(
-                                              fontFamily:
-                                                  'Rubik-VariableFont_wght',
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.red,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    color: Colors.grey[300],
-                                    height: 40,
-                                    width: 2,
-                                  ),
-                                ),
-                                InkWell(
-                                    onTap: () {
-                                      // Get.to(
-                                      //   () =>
-                                      //       DigitalBalancePage(widget.shop),
-                                      //   binding: ShopFeaturesBinding(),
-                                      // );
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Today\'s Due',
-                                          style: TextStyle(
-                                            fontFamily: 'Rubik',
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.normal,
-                                            color: DEFAULT_BLACK,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 8.0),
-                                          child: Text(
-                                            ' ${widget.shop.walletBalance}',
-                                            style: TextStyle(
-                                              fontFamily:
-                                                  'Rubik-VariableFont_wght',
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: DEFAULT_BLUE,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Container(
-                                    color: Colors.grey[300],
-                                    height: 40,
-                                    width: 2,
-                                  ),
-                                ),
-                                InkWell(
-                                    onTap: () {
-                                      Get.to(
-                                        () => DigitalBalancePage(widget.shop),
-                                        binding: ShopFeaturesBinding(),
-                                      );
-                                    },
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Digital Balance',
-                                          style: TextStyle(
-                                            fontFamily: 'Rubik',
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.normal,
-                                            color: DEFAULT_BLACK,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 8.0),
-                                          child: Text(
-                                            ' ${widget.shop.walletBalance}',
-                                            style: TextStyle(
-                                              fontFamily:
-                                                  'Rubik-VariableFont_wght',
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.green,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                              ],
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                color: Colors.grey[300],
+                                height: 40,
+                                width: 2,
+                              ),
                             ),
-                          )
-                        ],
-                      ),
-                    )),
-              ),
-            ],
+                            InkWell(
+                                onTap: () {
+                                  Get.to(
+                                    () => DigitalBalancePage(widget.shop),
+                                    binding: ShopFeaturesBinding(),
+                                  );
+                                },
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.center,
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Digital Balance',
+                                      style: TextStyle(
+                                        fontFamily: 'Rubik',
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.normal,
+                                        color: DEFAULT_BLACK,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(top: 8.0),
+                                      child: Text(
+                                        ' ${widget.shop.walletBalance}',
+                                        style: TextStyle(
+                                          fontFamily:
+                                              'Rubik-VariableFont_wght',
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.green,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )),
           ),
           SizedBox(
             height: 12,

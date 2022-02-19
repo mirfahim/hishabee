@@ -109,14 +109,13 @@ class _DigitalPaymentState extends State<SinglePaymentDetailsAndProceed> {
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_rounded,
-              size: 25,
-              color: Colors.black,
             ),
             onPressed: () => Get.back(),
           ),
           titleSpacing: 0,
           title: Text(
             'digital_payment'.tr,
+            style: TextStyle(fontSize: 18),
           ),
         ),
         body: SingleChildScrollView(
@@ -165,7 +164,9 @@ class _DigitalPaymentState extends State<SinglePaymentDetailsAndProceed> {
                     child: Text('${widget.status}', style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 12,
-                        color: DEFAULT_BLUE
+                        color: widget
+                            .status
+                            .toString() == 'Pending' ? Colors.red : DEFAULT_BLUE
                     ),),
                   ),
                 ),
@@ -701,7 +702,7 @@ class _DigitalPaymentState extends State<SinglePaymentDetailsAndProceed> {
   }
 
   void getData() {
-    controller.fetchDp(shopId: "8").then((value) {
+    controller.fetchDp(shopId: shop.id).then((value) {
       if (value != null) {
         setState(() {
           isLoading = false;
