@@ -6,10 +6,12 @@ import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/category_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/manager/product_list_controller.dart';
+import 'package:hishabee_business_manager_fl/controllers/stock/stock_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/stock/presentation/pages/stock_history.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/stock/presentation/pages/update_product.dart';
 
 class StockManagement extends GetView {
+  StockController _stockController = Get.put(StockController());
   Shop shop = Get.arguments;
   @override
   Widget build(BuildContext context) {
@@ -74,9 +76,11 @@ class StockManagement extends GetView {
           Padding(
             padding: const EdgeInsets.only(top: 8.0, bottom: 8, right: 10),
             child: InkWell(
-              onTap: (){
-                Get.to(StockHistory(), arguments: shop);
-
+              onTap: () {
+                Get.to(
+                    StockHistory(),
+                    arguments: shop
+                );
               },
               child: Container(
                 decoration: BoxDecoration(
