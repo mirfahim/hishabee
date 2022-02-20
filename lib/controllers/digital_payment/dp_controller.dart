@@ -3,11 +3,14 @@ import 'package:hishabee_business_manager_fl/service/api_service.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class DpController extends GetxController {
-  //DP = Digital Payment . All the Module of digital payment is here
   ApiService _apiService = ApiService();
+  final _totalComplete = 0.0.obs;
+  final _totalPending = 0.0.obs;
+  final _totalCancel = 0.0.obs;
+
   Future<dynamic> fetchDp(
       //dynamic is nullable so if we didnt get any response we can handle it
-      {String shopId}) async {
+      {int shopId}) async {
     String url =
         "/digital_payment/all?shop_id=$shopId"; //todo it should be dynamic later ....
     return _apiService.makeApiRequiest(

@@ -6,6 +6,7 @@ import 'dart:convert';
 
 List<ShopType> shopTypeFromJson(String str) =>
     List<ShopType>.from(json.decode(str).map((x) => ShopType.fromJson(x)));
+
 List<ShopType> shopTypeFromRawJson(dynamic json) => List<ShopType>.from(
     (json as List<dynamic>).map((x) => ShopType.fromJson(x)));
 

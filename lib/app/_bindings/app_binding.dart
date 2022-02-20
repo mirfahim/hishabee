@@ -38,5 +38,6 @@ class AppBinding extends Bindings {
     Get.put(DpController());
     Get.put(ExpenseController());
     Get.put(StockController());
+    Get.put(DpController());
   }
 }

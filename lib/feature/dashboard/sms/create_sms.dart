@@ -22,7 +22,7 @@ import 'customerDialog.dart';
 class SmsCreatePage extends GetResponsiveView {
   final TextEditingController messageController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
-  SmsController _smsController = Get.find();
+  SmsController _smsController = SmsController();
   Shop shop = Get.arguments['shop'];
   var storageSms = GetStorage('sms');
   var storageSmsCount = GetStorage('sms_count');

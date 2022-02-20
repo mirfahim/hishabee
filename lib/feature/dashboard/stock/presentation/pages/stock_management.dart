@@ -75,7 +75,7 @@ class StockManagement extends GetView {
             padding: const EdgeInsets.only(top: 8.0, bottom: 8, right: 10),
             child: InkWell(
               onTap: (){
-                Get.to(StockHistory());
+                Get.to(StockHistory(), arguments: shop);
 
               },
               child: Container(
