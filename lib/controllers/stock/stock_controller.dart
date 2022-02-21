@@ -7,10 +7,10 @@ import 'package:hishabee_business_manager_fl/utility/utils.dart';
 class StockController extends GetxController{
 
   ApiService _apiService = ApiService();
-  var stockHistory = Rxn<StockHistory>();
+  var stockHistory = Rxn<StockHistoryModel>();
 
   Future<dynamic> AllStockHistory(
-      {int shopId, String startDate, String endDate}) async {
+      {String shopId, String startDate, String endDate}) async {
     String url = "/stock_history?shop_id=$shopId&start_date=$startDate&end_date=$endDate";
     return _apiService.makeApiRequiest(
         method: apiMethods.get,

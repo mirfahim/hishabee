@@ -460,14 +460,14 @@ class QuickSell extends GetView<SellController> {
                               // controller: controller.amount.value,
                               onTap: () {
                                 CalcButton();
-                                // showModalBottomSheet(
-                                //     isScrollControlled: true,
-                                //     context: context,
-                                //     builder: (BuildContext context) {
-                                //       return SizedBox(
-                                //           height: 300,
-                                //           child: CalcButton());
-                                //     });
+                                showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return SizedBox(
+                                          height: 300,
+                                          child: CalcButton());
+                                    });
                               },
 
                               showCursor: true,
@@ -644,72 +644,76 @@ class QuickSell extends GetView<SellController> {
                         ),
                         Row(
                           children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width /1.25,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border.all(color: Color(0xFF185ADB), width: 2),
-                                  borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                              child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.spaceAround,
-                                children: [
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Expanded(
-                                    flex: 2,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 3.0),
-                                      child: TextFormField(
-                                        onChanged: (value) {
-                                          controller.searchProduct(value);
-                                        },
-                                        keyboardType: TextInputType.text,
-                                        decoration:  InputDecoration(
-                                          hintText: "Search For Product",
-                                          icon: SvgPicture.asset('images/svg_image/search.svg'),
-                                          hintStyle:
-                                          TextStyle(fontSize: 14.0,fontFamily: 'Roboto'),
-                                          // border: InputBorder(bo),
+                            Expanded(
+                              flex: 9,
+                              child: Container(
+                                // width: MediaQuery.of(context).size.width /1.25,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(color: Color(0xFF185ADB), width: 2),
+                                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                                child: Row(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceAround,
+                                  children: [
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 3.0),
+                                        child: TextFormField(
+                                          onChanged: (value) {
+                                            controller.searchProduct(value);
+                                          },
+                                          keyboardType: TextInputType.text,
+                                          decoration:  InputDecoration(
+                                            hintText: "Search For Product",
+                                            icon: SvgPicture.asset('images/svg_image/search.svg'),
+                                            hintStyle:
+                                            TextStyle(fontSize: 14.0,fontFamily: 'Roboto'),
+                                            // border: InputBorder(bo),
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(right: 10.0),
-                                      child: Container(
-                                          child: IntrinsicHeight(
-                                            child:Row(
-                                              children: [
-                                                Container( height: 30,
-                                                    child: VerticalDivider(thickness: 2,color: Color(0xFF185ADB), indent: 0,endIndent: 0)),
-                                                InkWell(
-                                                  onTap: (){
-                                                    _showCategoryDialog(
-                                                        controller.categoryList,
-                                                        size,
-                                                        context);
-                                                  },
-                                                  child: Padding(
-                                                    padding: const EdgeInsets.only(right: 5.0, left: 5),
-                                                    child: SvgPicture.asset('images/svg_image/filter.svg'),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(right: 10.0),
+                                        child: Container(
+                                            child: IntrinsicHeight(
+                                              child:Row(
+                                                children: [
+                                                  Container( height: 30,
+                                                      child: VerticalDivider(thickness: 2,color: Color(0xFF185ADB), indent: 0,endIndent: 0)),
+                                                  InkWell(
+                                                    onTap: (){
+                                                      _showCategoryDialog(
+                                                          controller.categoryList,
+                                                          size,
+                                                          context);
+                                                    },
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.only(right: 5.0, left: 5),
+                                                      child: SvgPicture.asset('images/svg_image/filter.svg'),
+                                                    ),
                                                   ),
-                                                ),
-                                                Text('filter'.tr,style: TextStyle(fontFamily: 'Roboto'),)
-                                              ],
-                                            ),
-                                          )
+                                                  Text('filter'.tr,style: TextStyle(fontFamily: 'Roboto'),)
+                                                ],
+                                              ),
+                                            )
+                                        ),
                                       ),
-                                    ),
-                                  )
-                                ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                             SizedBox(width: 10,),
-                            Expanded(child: IconButton(
+                            Expanded(
+                                child: IconButton(
                                 icon: SvgPicture.asset('images/svg_image/scanner.svg'),
                                 onPressed: () async{
                                   await controller.scanProduct();

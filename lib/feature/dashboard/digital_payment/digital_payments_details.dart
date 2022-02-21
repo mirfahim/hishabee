@@ -105,149 +105,152 @@ class _CustomerWiseReportState extends State<DigitalPaymentDetails> {
           padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10),
           child: Column(
             children: [
-              Expanded(
-                flex: 2,
-                child: Container(
-                  // height: 250,
-                  decoration: BoxDecoration(
-                      color: DEFAULT_BLUE,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('digital_payment'.tr,style: TextStyle(
-                          color: Color(0xFFFECD1A),
-                          fontFamily: 'Roboto',
-                          fontSize: 16),),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                if (flag == 1) {
-                                  setState(() {
-                                    dayMinus();
-                                    // day = DateFormat.yMMMMd().format(now);
-                                  });
-                                  // dayMinus();
-                                } else if (flag == 3) {
-                                  monthMinus();
-                                } else if (flag == 4) {
-                                  yearMinus();
-                                } else if (flag == 2) {
-                                  weekMinus();
-                                }
-                              },
-                              icon: Icon(Icons.arrow_back_ios, color: Colors.white,size: 16,)),
-                          if (flag == 1) Text(DateFormat.yMMMMd().format(now),style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Roboto',
-                              fontSize: 16),),
-                          if (flag == 2)
-                            Text(
-                              '${weekFirst} - ${weekLast}',style: TextStyle(
+              Flexible(
+                flex: 3,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 0.0),
+                  child: Container(
+                    // height: 250,
+                    decoration: BoxDecoration(
+                        color: DEFAULT_BLUE,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('digital_payment'.tr,style: TextStyle(
+                            color: Color(0xFFFECD1A),
+                            fontFamily: 'Roboto',
+                            fontSize: 16),),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IconButton(
+                                onPressed: () {
+                                  if (flag == 1) {
+                                    setState(() {
+                                      dayMinus();
+                                      // day = DateFormat.yMMMMd().format(now);
+                                    });
+                                    // dayMinus();
+                                  } else if (flag == 3) {
+                                    monthMinus();
+                                  } else if (flag == 4) {
+                                    yearMinus();
+                                  } else if (flag == 2) {
+                                    weekMinus();
+                                  }
+                                },
+                                icon: Icon(Icons.arrow_back_ios, color: Colors.white,size: 16,)),
+                            if (flag == 1) Text(DateFormat.yMMMMd().format(now),style: TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'Roboto',
                                 fontSize: 16),),
-                          if (flag == 4) Text('$year',style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Roboto',
-                              fontSize: 16),),
-                          if (flag == 3) Text(months[month - 1],style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'Roboto',
-                              fontSize: 16),),
-                          IconButton(
-                              onPressed: () {
-                                if (flag == 1) {
-                                  dayAdd();
-                                } else if (flag == 3) {
-                                  monthAdd();
-                                } else if (flag == 4) {
-                                  yearAdd();
-                                } else if(flag == 2){
-                                  weekAdd();
-                                }
-                              },
-                              icon: Icon(Icons.arrow_forward_ios, color: Colors.white,size: 16))
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: const Color(0xFFC4C4C4).withOpacity(.35)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Column(
-                                children: [
-                                  Text('৳$totalComplete', style: TextStyle(
+                            if (flag == 2)
+                              Text(
+                                '${weekFirst} - ${weekLast}',style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Roboto',
+                                  fontSize: 16),),
+                            if (flag == 4) Text('$year',style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Roboto',
+                                fontSize: 16),),
+                            if (flag == 3) Text(months[month - 1],style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: 'Roboto',
+                                fontSize: 16),),
+                            IconButton(
+                                onPressed: () {
+                                  if (flag == 1) {
+                                    dayAdd();
+                                  } else if (flag == 3) {
+                                    monthAdd();
+                                  } else if (flag == 4) {
+                                    yearAdd();
+                                  } else if(flag == 2){
+                                    weekAdd();
+                                  }
+                                },
+                                icon: Icon(Icons.arrow_forward_ios, color: Colors.white,size: 16))
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: const Color(0xFFC4C4C4).withOpacity(.35)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  children: [
+                                    Text('৳$totalComplete', style: TextStyle(
+                                        color: Colors.white, fontFamily: 'Roboto'
+                                    ),),
+                                    SizedBox(height: 3,),
+                                    Text('$totalCompletePercentage%', style: TextStyle(
+                                        color: Colors.white, fontFamily: 'Roboto'
+                                    ),),
+                                    SizedBox(height: 3,),
+                                    Text('complete'.tr, style: TextStyle(
                                       color: Colors.white, fontFamily: 'Roboto'
-                                  ),),
-                                  SizedBox(height: 3,),
-                                  Text('$totalCompletePercentage%', style: TextStyle(
-                                      color: Colors.white, fontFamily: 'Roboto'
-                                  ),),
-                                  SizedBox(height: 3,),
-                                  Text('complete'.tr, style: TextStyle(
-                                    color: Colors.white, fontFamily: 'Roboto'
-                                  ),)
-                                ],
+                                    ),)
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: const Color(0xFFC4C4C4).withOpacity(.35)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Column(
-                                children: [
-                                  Text('৳$totalPending', style: TextStyle(
-                                      color: Colors.white, fontFamily: 'Roboto'
-                                  ),),
-                                  SizedBox(height: 3,),
-                                  Text('$totalPendingPercentage%', style: TextStyle(
-                                      color: Colors.white, fontFamily: 'Roboto'
-                                  ),),
-                                  SizedBox(height: 3,),
-                                  Text('pending', style: TextStyle(
-                                      color: Colors.white, fontFamily: 'Roboto'
-                                  ),)
-                                ],
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: const Color(0xFFC4C4C4).withOpacity(.35)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  children: [
+                                    Text('৳$totalPending', style: TextStyle(
+                                        color: Colors.white, fontFamily: 'Roboto'
+                                    ),),
+                                    SizedBox(height: 3,),
+                                    Text('$totalPendingPercentage%', style: TextStyle(
+                                        color: Colors.white, fontFamily: 'Roboto'
+                                    ),),
+                                    SizedBox(height: 3,),
+                                    Text('pending', style: TextStyle(
+                                        color: Colors.white, fontFamily: 'Roboto'
+                                    ),)
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: const Color(0xFFC4C4C4).withOpacity(.35)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Column(
-                                children: [
-                                  Text('৳$totalCanceled', style: TextStyle(
-                                      color: Colors.white, fontFamily: 'Roboto'
-                                  ),),
-                                  SizedBox(height: 3,),
-                                  Text('$totalCanceledPercentage%', style: TextStyle(
-                                      color: Colors.white, fontFamily: 'Roboto'
-                                  ),),
-                                  SizedBox(height: 3,),
-                                  Text('canceled', style: TextStyle(
-                                      color: Colors.white, fontFamily: 'Roboto'
-                                  ),)
-                                ],
+                            Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: const Color(0xFFC4C4C4).withOpacity(.35)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  children: [
+                                    Text('৳$totalCanceled', style: TextStyle(
+                                        color: Colors.white, fontFamily: 'Roboto'
+                                    ),),
+                                    SizedBox(height: 3,),
+                                    Text('$totalCanceledPercentage%', style: TextStyle(
+                                        color: Colors.white, fontFamily: 'Roboto'
+                                    ),),
+                                    SizedBox(height: 3,),
+                                    Text('canceled', style: TextStyle(
+                                        color: Colors.white, fontFamily: 'Roboto'
+                                    ),)
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                        ],
-                      )
-                    ],
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

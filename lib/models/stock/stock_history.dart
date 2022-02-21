@@ -4,15 +4,15 @@
 
 import 'dart:convert';
 
-List<StockHistory> getStockHistoryFromModel(List<Map<String, dynamic>> str) =>
-    List<StockHistory>.from(str.map((x) => StockHistory.fromJson(x)));
+List<StockHistoryModel> getStockHistoryFromModel(List<Map<String, dynamic>> str) =>
+    List<StockHistoryModel>.from(str.map((x) => StockHistoryModel.fromJson(x)));
 
-StockHistory stockHistoryFromJson(dynamic str) => StockHistory.fromJson(str);
+StockHistoryModel stockHistoryFromJson(dynamic str) => StockHistoryModel.fromJson(str);
 
-String stockHistoryToJson(StockHistory data) => json.encode(data.toJson());
+String stockHistoryToJson(StockHistoryModel data) => json.encode(data.toJson());
 
-class StockHistory {
-  StockHistory({
+class StockHistoryModel {
+  StockHistoryModel({
     this.currentPage,
     this.data,
     this.firstPageUrl,
@@ -40,7 +40,7 @@ class StockHistory {
   int to;
   int total;
 
-  factory StockHistory.fromJson(Map<String, dynamic> json) => StockHistory(
+  factory StockHistoryModel.fromJson(Map<String, dynamic> json) => StockHistoryModel(
     currentPage: json["current_page"],
     data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
     firstPageUrl: json["first_page_url"],

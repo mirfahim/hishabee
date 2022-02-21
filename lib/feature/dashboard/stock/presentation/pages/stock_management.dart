@@ -10,7 +10,14 @@ import 'package:hishabee_business_manager_fl/controllers/stock/stock_controller.
 import 'package:hishabee_business_manager_fl/feature/dashboard/stock/presentation/pages/stock_history.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/stock/presentation/pages/update_product.dart';
 
-class StockManagement extends GetView {
+class StockManagement extends StatefulWidget {
+
+
+  @override
+  _StockManagementState createState() => _StockManagementState();
+}
+
+class _StockManagementState extends State<StockManagement> {
   StockController _stockController = Get.put(StockController());
   Shop shop = Get.arguments;
   @override
@@ -119,7 +126,7 @@ class StockManagement extends GetView {
                   color: DEFAULT_BLUE, borderRadius: BorderRadius.circular(10)),
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15),
+                const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -280,7 +287,7 @@ class StockManagement extends GetView {
                           prefixIcon: Icon(Icons.search),
                           hintText: 'search_product_with_name_or_category'.tr,
                           hintStyle:
-                              TextStyle(fontSize: 12, fontFamily: 'Roboto')),
+                          TextStyle(fontSize: 12, fontFamily: 'Roboto')),
                     ),
                   ),
                 ),
@@ -307,18 +314,18 @@ class StockManagement extends GetView {
                                 //   }),
                                 // ),
                                 Text('stock_wise_product'.tr,
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontFamily: 'Roboto',
-                                  fontWeight: FontWeight.w400
-                                ),),
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.w400
+                                  ),),
                                 SizedBox(height: 10,),
                                 Row(
                                   children: [
                                     Expanded(child: Container(
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFC4C4C4).withOpacity(.35),
-                                        borderRadius: BorderRadius.circular(6)
+                                          color: Color(0xFFC4C4C4).withOpacity(.35),
+                                          borderRadius: BorderRadius.circular(6)
                                       ),
                                       child: Row(
                                         children: [
@@ -332,7 +339,7 @@ class StockManagement extends GetView {
 
                                           ),
                                           Text('new_product'.tr,style: TextStyle(
-                                            fontSize: 12, fontFamily: 'Roboto'
+                                              fontSize: 12, fontFamily: 'Roboto'
                                           ),),
                                           Padding(
                                             padding: const EdgeInsets.symmetric(horizontal: 2.0),
@@ -554,3 +561,6 @@ class StockManagement extends GetView {
     );
   }
 }
+
+
+

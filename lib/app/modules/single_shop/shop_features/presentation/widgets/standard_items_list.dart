@@ -248,8 +248,7 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
               children: [
                 InkWell(
                   onTap: () {
-                    Get.to(StockManagement(),
-                      arguments: shop);
+                    Get.to(StockManagement(),arguments: shop);
                   },
                   child: Container(
                     height: itemHeight,

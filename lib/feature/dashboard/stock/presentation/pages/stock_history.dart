@@ -10,29 +10,33 @@ import 'package:loading_overlay/loading_overlay.dart';
 
 class StockHistory extends StatefulWidget {
 
+
   @override
   State<StockHistory> createState() => _StockHistoryState();
 }
 
 class _StockHistoryState extends State<StockHistory> {
-  
-  StockController _stockController = Get.find();
-
   Shop shop = Get.arguments;
-
+  StockController _stockController = Get.put(StockController());
+  StockHistoryModel _stockHistory;
   bool _isLoading = true;
 
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _stockController.AllStockHistory(shopId: 18,startDate: '2022-01-01', endDate: '2022-06-01').then((value) =>
-      _stockController.stockHistory.value = stockHistoryFromJson(value));
-      print('stock response: ${_stockController.stockHistory.value.data.length}');
-        _isLoading = false;
-    });
 
+      _stockController.AllStockHistory(shopId: '18',startDate: '2022-01-01', endDate: '2022-06-01').
+      then((value) {
+        _stockController.stockHistory.value = stockHistoryFromJson(value);
+        print('stock response: ${_stockController.stockHistory.value.data.length}');
+        setState(() {
+          _stockHistory = stockHistoryFromJson(value);
+          _isLoading = false;
+          print(_stockHistory.data.length);
+        });
+      });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +54,7 @@ class _StockHistoryState extends State<StockHistory> {
       body: LoadingOverlay(
         isLoading: _isLoading,
         opacity: 1,
-        child: Padding(
+        child: _stockHistory != null ? Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10),
           child: Column(
             children: [
@@ -310,7 +314,7 @@ class _StockHistoryState extends State<StockHistory> {
                 ],
               ),
               FutureBuilder(
-                  future: _stockController.AllStockHistory(),
+                  future: _stockController.AllStockHistory(shopId: '18',startDate: '2022-01-01', endDate: '2022-06-01'),
                   builder: (context, snapshot) {
 
                     if(snapshot.data == null){
@@ -426,7 +430,7 @@ class _StockHistoryState extends State<StockHistory> {
               )
             ],
           ),
-        ),
+        ) : Container(child: Text('no Data'),),
       ),
     );
   }

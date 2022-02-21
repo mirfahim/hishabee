@@ -81,6 +81,7 @@ class _DigitalPaymentState extends State<DigitalPaymentDashboard> {
           child: Column(
             children: [
               Expanded(
+                flex: 2,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
