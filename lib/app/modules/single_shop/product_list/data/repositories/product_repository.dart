@@ -24,6 +24,7 @@ class ProductRepository implements IProductRepository {
   @override
   Future<AddProductResponseModel> addProduct(
       {int shopId,
+      int version,
       int subcategoryId,
       String productName,
       double price,

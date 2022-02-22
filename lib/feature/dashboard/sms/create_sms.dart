@@ -475,19 +475,26 @@ class SmsCreatePage extends GetResponsiveView {
                     child: ElevatedButton(
                       onPressed: () async {
                         FocusScope.of(context).requestFocus(new FocusNode());
-                        _smsController.createSms(
-                            shopId: '${storageSms.read("shop_id")}',
-                            number: "${_smsController.selectedMobileNumber}",
-                            message:
-                                "${_smsController.textInTheMessageField.value}",
-                            smsCount: '${_smsController.messageCount.value} ');
-                        // numberController.clear();
-                        await smsCount();
-                        await smsCount();
-                        messageController.clear();
-                        _smsController.textInTheMessageField.value = '';
-                        _smsController.messageCount.value = 1;
-                        _smsController.selectedMobileNumber.value = [];
+                        if (_smsController.totalSmsLeft.value <= 0) {
+                          print(
+                              "sms left ${_smsController.totalSmsLeft.value}");
+                          createSnackBar("You have no sms left", BuildContext);
+                        } else {
+                          _smsController.createSms(
+                              shopId: '${storageSms.read("shop_id")}',
+                              number: "${_smsController.selectedMobileNumber}",
+                              message:
+                                  "${_smsController.textInTheMessageField.value}",
+                              smsCount:
+                                  '${_smsController.messageCount.value} ');
+                          // numberController.clear();
+                          await smsCount();
+                          await smsCount();
+                          messageController.clear();
+                          _smsController.textInTheMessageField.value = '';
+                          _smsController.messageCount.value = 1;
+                          _smsController.selectedMobileNumber.value = [];
+                        }
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -554,6 +561,14 @@ class SmsCreatePage extends GetResponsiveView {
             ),
           )),
     );
+  }
+
+  void createSnackBar(String message, context) {
+    final snackBar =
+        new SnackBar(content: new Text(message), backgroundColor: Colors.red);
+
+    // Find the Scaffold in the Widget tree and use it to show a SnackBar!
+    Scaffold.of(context).showSnackBar(snackBar);
   }
 
   Future<dynamic> smsCount() async {

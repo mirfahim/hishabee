@@ -44,6 +44,7 @@ class AddProductController extends GetxController {
   Future<AddProductResponseModel> addProduct({
     int shopId,
     int subcategoryId,
+    int version,
     String productName,
     var subUnit,
     double price,
@@ -90,6 +91,7 @@ class AddProductController extends GetxController {
       uniqueID: uniqueID,
       gallary: gallary,
       subUnit: subUnit ?? null,
+      version: version,
     );
 
     if (result.code == 200) {
