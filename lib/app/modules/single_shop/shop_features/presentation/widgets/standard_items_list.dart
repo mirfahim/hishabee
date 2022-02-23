@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/shop_item_card.dart';
@@ -8,6 +9,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_lis
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/pages/product_list_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/business_overview/business_overview.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/printer/printer_front.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/create_sms.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/digital_payment/digital_payment.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/stock/presentation/pages/stock_management.dart';
@@ -206,8 +208,12 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
                 ),
                 Expanded(
                   child: InkWell(
-                    onTap: () =>
-                        Get.to(DigitalPaymentDashboard(), arguments: shop),
+                    onTap: () {
+                        Get.to(
+                            DigitalPaymentDashboard(),
+                            arguments: shop);
+                        print('standard: ${shop.id}');
+  },
                     child: Container(
                       height: itemHeight,
                       width: itemWidth,
@@ -246,44 +252,81 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                InkWell(
-                  onTap: () {
-                    Get.to(StockManagement(),arguments: shop);
-                  },
-                  child: Container(
-                    height: itemHeight,
-                    width: itemWidth,
-                    decoration: SHOP_ITEM_DECORATION,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'images/shop_features/bo.png',
-                          height:
-                          screen.responsiveValue(mobile: 40, tablet: 60),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          "stock".tr,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'Rubik',
-                            fontSize: 16,
-                            fontWeight: FontWeight.normal,
-                            color: DEFAULT_BLACK,
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(
+                          StockManagement(), arguments: shop);
+
+                    },
+                    child: Container(
+                      height: itemHeight,
+                      width: itemWidth,
+                      decoration: SHOP_ITEM_DECORATION,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'images/shop_features/bo.png',
+                            height:
+                            screen.responsiveValue(mobile: 40, tablet: 60),
                           ),
-                        ),
-                      ],
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "stock".tr,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: DEFAULT_BLACK,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
                   width: size.width * 0.03,
                 ),
-
+                Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Get.to(
+                          PrinterFront(),
+                          arguments: shop);
+                    },
+                    child: Container(
+                      height: itemHeight,
+                      width: itemWidth,
+                      decoration: SHOP_ITEM_DECORATION,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset('images/svg_image/printer.svg', height: 30,),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "printer".tr,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              color: DEFAULT_BLACK,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ],

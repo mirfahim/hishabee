@@ -9,7 +9,7 @@ class StockController extends GetxController{
   ApiService _apiService = ApiService();
   var stockHistory = Rxn<StockHistoryModel>();
 
-  Future<dynamic> AllStockHistory(
+  Future<dynamic> allStockHistory(
       {String shopId, String startDate, String endDate}) async {
     String url = "/stock_history?shop_id=$shopId&start_date=$startDate&end_date=$endDate";
     return _apiService.makeApiRequiest(

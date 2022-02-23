@@ -12,7 +12,6 @@ import 'package:hishabee_business_manager_fl/feature/dashboard/stock/presentatio
 
 class StockManagement extends StatefulWidget {
 
-
   @override
   _StockManagementState createState() => _StockManagementState();
 }
@@ -85,9 +84,14 @@ class _StockManagementState extends State<StockManagement> {
             child: InkWell(
               onTap: () {
                 Get.to(
-                    StockHistory(),
-                    arguments: shop
+                    StockHistory(
+                      // shop: widget.shop,
+                    ),
+                    arguments: {
+                      'shop': shop
+                    }
                 );
+                // print('from stock history: ${shop.id}');
               },
               child: Container(
                 decoration: BoxDecoration(

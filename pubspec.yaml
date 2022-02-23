@@ -25,6 +25,7 @@ dependencies:
     sdk: flutter
   group_radio_button: ^1.1.0
   dotted_border: 2.0.0
+  bluetooth_print: ^3.0.1
   contextmenu: ^2.0.1
   path_drawing: 0.5.1+1
   font_awesome_flutter: ^9.2.0

@@ -10,14 +10,15 @@ import 'package:loading_overlay/loading_overlay.dart';
 
 class StockHistory extends StatefulWidget {
 
-
+// Shop shop;
+// StockHistory({this.shop});
   @override
   State<StockHistory> createState() => _StockHistoryState();
 }
 
 class _StockHistoryState extends State<StockHistory> {
-  Shop shop = Get.arguments;
-  StockController _stockController = Get.put(StockController());
+  Shop shop = Get.arguments['shop'];
+  StockController _stockController = Get.find();
   StockHistoryModel _stockHistory;
   bool _isLoading = true;
 
@@ -25,16 +26,7 @@ class _StockHistoryState extends State<StockHistory> {
   void initState() {
     super.initState();
 
-      _stockController.AllStockHistory(shopId: '18',startDate: '2022-01-01', endDate: '2022-06-01').
-      then((value) {
-        _stockController.stockHistory.value = stockHistoryFromJson(value);
-        print('stock response: ${_stockController.stockHistory.value.data.length}');
-        setState(() {
-          _stockHistory = stockHistoryFromJson(value);
-          _isLoading = false;
-          print(_stockHistory.data.length);
-        });
-      });
+    _stockHistoryData();
   }
 
   @override
@@ -314,7 +306,7 @@ class _StockHistoryState extends State<StockHistory> {
                 ],
               ),
               FutureBuilder(
-                  future: _stockController.AllStockHistory(shopId: '18',startDate: '2022-01-01', endDate: '2022-06-01'),
+                  future: _stockController.allStockHistory(shopId: '${shop.id}',startDate: '2022-01-01', endDate: '2022-06-01'),
                   builder: (context, snapshot) {
 
                     if(snapshot.data == null){
@@ -433,5 +425,16 @@ class _StockHistoryState extends State<StockHistory> {
         ) : Container(child: Text('no Data'),),
       ),
     );
+  }
+  void _stockHistoryData(){
+    _stockController.allStockHistory(shopId: shop.id.toString(),startDate: '2022-01-01', endDate: '2022-06-01').
+    then((value) {
+      _stockController.stockHistory.value = stockHistoryFromJson(value);
+      print('stock response: ${_stockController.stockHistory.value.data.length}');
+      setState(() {
+        _stockHistory = stockHistoryFromJson(value);
+        _isLoading = false;
+      });
+    });
   }
 }
