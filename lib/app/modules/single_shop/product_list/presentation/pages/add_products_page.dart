@@ -134,6 +134,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
   String barcodeI;
   String imageUrlI;
   var showCaseTap;
+
   List<UnitList> _getAllUnit;
   @override
   void initState() {
@@ -4089,18 +4090,20 @@ class _AddProductsPageState extends State<AddProductsPage> {
   }
 
   List<String> gallary = [];
-  imagesFromApi(File file) async {
-    print("image file path is ${file.path}");
-    imageAPI =
-        await fileRepository.uploadFile(file: image.value, type: 'product');
+  void imagesFromApi(File files) async {
+    print("image file path is $files");
+    imageAPI = await fileRepository.uploadFile(
+        file: File(files.path), type: 'product');
     imageSrc = imageAPI
         .replaceAll("\\", "")
         .replaceAll('"', "")
         .replaceAll("{", "")
         .replaceAll("}", "")
         .replaceAllMapped('url:', (match) => "");
+    setState(() {
+      gallary.insert(0, imageSrc);
+    });
 
-    gallary.insert(0, imageSrc);
     print("my image url list is $gallary");
   }
 
@@ -4108,6 +4111,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
     // if (selectedProductCategory == null || selectedSubCat == null) {
     //   _showMaterialDialog("Please Select Category and Sub Category");
     // } else {
+
     createUniqueID();
     String atData = "{";
     for (Attribute a in attributeList) {
@@ -4131,11 +4135,6 @@ class _AddProductsPageState extends State<AddProductsPage> {
   }
 
   sendProductInfo() async {
-    // if (selectedProductCategory == null || selectedSubCat == null) {
-    //   _showMaterialDialog("Please Select Category and Sub Category");
-    // }
-    // else {
-
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       setState(() {
@@ -4176,8 +4175,9 @@ class _AddProductsPageState extends State<AddProductsPage> {
           attribute: attributeMap,
           vatAmount: vatAmount,
           uniqueID: uniqueID,
-          gallary: imageList,
+          gallary: gallary,
           subUnit: unitList,
+          version: 1,
         );
         if (!isAdvanced) {
           setState(() {
@@ -4262,7 +4262,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
           productName: productName,
           price: price,
           desc: desc,
-          //imageUrl: mainImageUrl,
+          //  imageUrl: mainImageUrl,
           stockQuantity: stockI,
           cost: costI,
           vatApplicable: vatApplicable,

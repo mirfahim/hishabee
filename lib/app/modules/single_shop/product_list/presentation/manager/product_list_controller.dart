@@ -15,6 +15,7 @@ class ProductListController extends GetxController {
   ILocalProductProvider localProductProvider;
   var productList = <Product>[].obs;
   final searchList = <Product>[].obs;
+
   final catList = Rxn<Category>();
   var loading = false.obs;
   var isChecked = <bool>[].obs;

@@ -23,6 +23,7 @@ class Product {
       this.sellingPrice,
       this.costPrice,
       this.stock,
+      this.version,
       this.wholeSalePrice,
       this.barcode,
       this.imageUrl,
@@ -85,6 +86,7 @@ class Product {
   num sellingPrice;
   num costPrice;
   int stock;
+  int version;
   var wholeSalePrice;
   String barcode;
   String uniqueID;
@@ -142,11 +144,12 @@ class Product {
 
   Product copyWith({
     int id,
+    int version,
     int shopProductId,
     dynamic productVarianceId,
     String name,
     String subUnit,
-    int sellingPrice,
+    num sellingPrice,
     int costPrice,
     int stock,
     String barcode,
@@ -218,6 +221,7 @@ class Product {
         approved: approved ?? this.approved,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
+        version: version ?? this.version,
         variationCriteria: variationCriteria ?? this.variationCriteria,
         userId: userId ?? this.userId,
         shopId: shopId ?? this.shopId,
@@ -270,6 +274,7 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json["id"] == null ? null : json["id"],
+        version: json["version"] == null ? null : json["version"],
         shopProductId:
             json["shop_product_id"] == null ? null : json["shop_product_id"],
         productVarianceId: json["product_variance_id"],
@@ -353,6 +358,7 @@ class Product {
 
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
+        "version": version == null ? null : version,
         "shop_product_id": shopProductId == null ? null : shopProductId,
         "product_variance_id": productVarianceId,
         "name": name == null ? null : name,
