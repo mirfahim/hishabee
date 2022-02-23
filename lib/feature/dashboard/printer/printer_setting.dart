@@ -45,7 +45,8 @@ class _PrinterSettingState extends State<PrinterSetting> {
                   onTap: (){},
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6)
+                      borderRadius: BorderRadius.circular(6),
+                      color: Color(0xFF00AF91)
                     ),
                   ),
                 ),
