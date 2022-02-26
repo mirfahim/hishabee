@@ -275,7 +275,7 @@ const bn_BD = {
   'emi_information':'কিস্তির তথ্য ',
   'bank_information':'ব্যাংক তথ্য ',
   'next':'এগিয়ে যান ',
-  'emi_options':'কিস্তি সমূহ',
+  'emi_options:':'কিস্তি সমূহ:',
   '3_months_emi':'৩ মাসের কিস্তি',
   '6_months_emi':'৬ মাসের কিস্তি',
   '9_months_emi':'৯ মাসের কিস্তি',
@@ -320,6 +320,7 @@ const bn_BD = {
   'qr_code': 'কিউআর কোড',
   'total_payble_with_charge':'মোট পরিশোধ (চার্জ সহ)',
   'create_paymentlink':'পেমেন্ট লিংক তৈরী করুন ',
+  'for':'এর জন্য ',
   'digital_payment': 'ডিজিটাল পেমেন্ট',
   'quickly_add_product_from_our_product_list':
       'আমাদের পণ্য তালিকা থেকে দ্রুত পণ্য যুক্ত করুন',

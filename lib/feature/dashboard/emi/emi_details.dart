@@ -49,7 +49,7 @@ class _EmiDetailsState extends State<EmiDetails> {
         ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +65,7 @@ class _EmiDetailsState extends State<EmiDetails> {
                     ),
                   ),
                   SizedBox(height: 20,),
-                  Text("৳ ${Get.arguments[4]}" + "  " +bank.name,style: TextStyle(
+                  Text("৳ ${Get.arguments[4]}" + '  ' +bank.name + ' '+"for".tr,style: TextStyle(
                   fontFamily: 'Roboto',fontSize: 16
                   )),
                   SizedBox(height: 10,),
@@ -117,27 +117,29 @@ class _EmiDetailsState extends State<EmiDetails> {
                                         Text(
                                           "3_months_emi".tr,
                                           style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 16.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w600),
                                         ),
                                         Text(
                                           "total_payable_amount:".tr +
-                                              getAmount(
+                                              " ৳"+getAmount(
                                                       double.parse(
                                                           Get.arguments[
                                                               4]),
                                                       Utils.month3fee)
                                                   .toString(),
                                           style: TextStyle(
-                                              fontSize: 10.0,
+                                              fontSize: 14.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w500),
                                         ),
                                       ],
                                     ),
                                     Text(
-                                      getMonthly(
+                                      "৳"+getMonthly(
                                                   getAmount(
                                                       double.parse(
                                                           Get.arguments[
@@ -149,6 +151,7 @@ class _EmiDetailsState extends State<EmiDetails> {
                                           "/month".tr,
                                       style: TextStyle(
                                           fontSize: 15.0,
+                                          fontFamily: 'Roboto',
                                           fontWeight:
                                               FontWeight.w600),
                                     ),
@@ -202,27 +205,29 @@ class _EmiDetailsState extends State<EmiDetails> {
                                         Text(
                                           "6_months_emi".tr,
                                           style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 16.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w600),
                                         ),
                                         Text(
                                           "total_payable_amount:".tr +
-                                              getAmount(
+                                              " ৳"+getAmount(
                                                       double.parse(
                                                           Get.arguments[
                                                               4]),
                                                       Utils.month6fee)
                                                   .toString(),
                                           style: TextStyle(
-                                              fontSize: 10.0,
+                                              fontSize: 14.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w500),
                                         ),
                                       ],
                                     ),
                                     Text(
-                                      getMonthly(
+                                      "৳"+getMonthly(
                                                   getAmount(
                                                       double.parse(
                                                           Get.arguments[
@@ -234,6 +239,7 @@ class _EmiDetailsState extends State<EmiDetails> {
                                           "/month".tr,
                                       style: TextStyle(
                                           fontSize: 15.0,
+                                          fontFamily: 'Roboto',
                                           fontWeight:
                                               FontWeight.w600),
                                     ),
@@ -287,27 +293,29 @@ class _EmiDetailsState extends State<EmiDetails> {
                                         Text(
                                           "9_months_emi".tr,
                                           style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 16.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w600),
                                         ),
                                         Text(
                                           "total_payable_amount:".tr +
-                                              getAmount(
+                                              " ৳"+getAmount(
                                                       double.parse(
                                                           Get.arguments[
                                                               4]),
                                                       Utils.month9fee)
                                                   .toString(),
                                           style: TextStyle(
-                                              fontSize: 10.0,
+                                              fontSize: 14.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w500),
                                         ),
                                       ],
                                     ),
                                     Text(
-                                      getMonthly(
+                                      "৳"+getMonthly(
                                                   getAmount(
                                                       double.parse(
                                                           Get.arguments[
@@ -319,6 +327,7 @@ class _EmiDetailsState extends State<EmiDetails> {
                                           "/month".tr,
                                       style: TextStyle(
                                           fontSize: 15.0,
+                                          fontFamily: 'Roboto',
                                           fontWeight:
                                               FontWeight.w600),
                                     ),
@@ -372,13 +381,14 @@ class _EmiDetailsState extends State<EmiDetails> {
                                         Text(
                                           "12_months_emi".tr,
                                           style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 16.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w600),
                                         ),
                                         Text(
                                           "total_payable_amount:".tr +
-                                              getAmount(
+                                              " ৳"+getAmount(
                                                       double.parse(
                                                           Get.arguments[
                                                               4]),
@@ -386,14 +396,15 @@ class _EmiDetailsState extends State<EmiDetails> {
                                                           .month12fee)
                                                   .toString(),
                                           style: TextStyle(
-                                              fontSize: 10.0,
+                                              fontSize: 14.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w500),
                                         ),
                                       ],
                                     ),
                                     Text(
-                                      getMonthly(
+                                      "৳"+getMonthly(
                                                   getAmount(
                                                       double.parse(
                                                           Get.arguments[
@@ -405,6 +416,7 @@ class _EmiDetailsState extends State<EmiDetails> {
                                           "/month".tr,
                                       style: TextStyle(
                                           fontSize: 15.0,
+                                          fontFamily: 'Roboto',
                                           fontWeight:
                                               FontWeight.w600),
                                     ),
@@ -458,13 +470,14 @@ class _EmiDetailsState extends State<EmiDetails> {
                                         Text(
                                           "18_months_emi".tr,
                                           style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 16.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w600),
                                         ),
                                         Text(
                                           "total_payable_amount:".tr +
-                                              getAmount(
+                                              " ৳"+getAmount(
                                                       double.parse(
                                                           Get.arguments[
                                                               4]),
@@ -472,14 +485,15 @@ class _EmiDetailsState extends State<EmiDetails> {
                                                           .month18fee)
                                                   .toString(),
                                           style: TextStyle(
-                                              fontSize: 10.0,
+                                              fontSize: 14.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w500),
                                         ),
                                       ],
                                     ),
                                     Text(
-                                      getMonthly(
+                                      "৳"+getMonthly(
                                                   getAmount(
                                                       double.parse(
                                                           Get.arguments[
@@ -491,6 +505,7 @@ class _EmiDetailsState extends State<EmiDetails> {
                                           "/month".tr,
                                       style: TextStyle(
                                           fontSize: 15.0,
+                                          fontFamily: 'Roboto',
                                           fontWeight:
                                               FontWeight.w600),
                                     ),
@@ -544,13 +559,14 @@ class _EmiDetailsState extends State<EmiDetails> {
                                         Text(
                                           "24_months_emi".tr,
                                           style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 16.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w600),
                                         ),
                                         Text(
                                           "total_payable_amount:".tr +
-                                              getAmount(
+                                              " ৳"+getAmount(
                                                       double.parse(
                                                           Get.arguments[
                                                               4]),
@@ -558,14 +574,15 @@ class _EmiDetailsState extends State<EmiDetails> {
                                                           .month24fee)
                                                   .toString(),
                                           style: TextStyle(
-                                              fontSize: 10.0,
+                                              fontSize: 14.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w500),
                                         ),
                                       ],
                                     ),
                                     Text(
-                                      getMonthly(
+                                      "৳"+getMonthly(
                                                   getAmount(
                                                       double.parse(
                                                           Get.arguments[
@@ -577,6 +594,7 @@ class _EmiDetailsState extends State<EmiDetails> {
                                           "/month".tr,
                                       style: TextStyle(
                                           fontSize: 15.0,
+                                          fontFamily: 'Roboto',
                                           fontWeight:
                                               FontWeight.w600),
                                     ),
@@ -630,13 +648,14 @@ class _EmiDetailsState extends State<EmiDetails> {
                                         Text(
                                           "30_months_emi".tr,
                                           style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 16.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w600),
                                         ),
                                         Text(
                                           "total_payable_amount:".tr +
-                                              getAmount(
+                                              " ৳"+getAmount(
                                                       double.parse(
                                                           Get.arguments[
                                                               4]),
@@ -644,14 +663,15 @@ class _EmiDetailsState extends State<EmiDetails> {
                                                           .month30fee)
                                                   .toString(),
                                           style: TextStyle(
-                                              fontSize: 10.0,
+                                              fontSize: 14.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w500),
                                         ),
                                       ],
                                     ),
                                     Text(
-                                      getMonthly(
+                                      "৳"+getMonthly(
                                                   getAmount(
                                                       double.parse(
                                                           Get.arguments[
@@ -663,6 +683,7 @@ class _EmiDetailsState extends State<EmiDetails> {
                                           "/month".tr,
                                       style: TextStyle(
                                           fontSize: 15.0,
+                                          fontFamily: 'Roboto',
                                           fontWeight:
                                               FontWeight.w600),
                                     ),
@@ -717,13 +738,14 @@ class _EmiDetailsState extends State<EmiDetails> {
                                         Text(
                                           "36_months_emi".tr,
                                           style: TextStyle(
-                                              fontSize: 14.0,
+                                              fontSize: 16.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w600),
                                         ),
                                         Text(
                                           "total_payable_amount:".tr +
-                                              getAmount(
+                                              " ৳"+getAmount(
                                                       double.parse(
                                                           Get.arguments[
                                                               4]),
@@ -731,14 +753,15 @@ class _EmiDetailsState extends State<EmiDetails> {
                                                           .month36fee)
                                                   .toString(),
                                           style: TextStyle(
-                                              fontSize: 10.0,
+                                              fontSize: 14.0,
+                                              fontFamily: 'Roboto',
                                               fontWeight:
                                                   FontWeight.w500),
                                         ),
                                       ],
                                     ),
                                     Text(
-                                      getMonthly(
+                                      "৳"+getMonthly(
                                                   getAmount(
                                                       double.parse(
                                                           Get.arguments[
@@ -750,6 +773,7 @@ class _EmiDetailsState extends State<EmiDetails> {
                                           "/month".tr,
                                       style: TextStyle(
                                           fontSize: 15.0,
+                                          fontFamily: 'Roboto',
                                           fontWeight:
                                               FontWeight.w600),
                                     ),

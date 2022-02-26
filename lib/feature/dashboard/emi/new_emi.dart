@@ -234,6 +234,9 @@ class _NewEmiState extends State<NewEmi> {
                             ),
                           ),
                         )),
+                    SizedBox(
+                      height: 5,
+                    ),
                     Text(
                       '[amount_must_be_greater_than_5000]'.tr,
                       style: TextStyle(fontSize: 10),
