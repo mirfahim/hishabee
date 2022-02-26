@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/digital_payment/dp_controller.dart';
-import 'package:hishabee_business_manager_fl/feature/dashboard/emi/digital_payment.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/emi/emi_digital_payment.dart';
 import 'package:hishabee_business_manager_fl/models/business_overview/product_report.dart';
 import 'package:hishabee_business_manager_fl/models/digital_payment/new_link.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
@@ -35,10 +35,10 @@ class _NewlinkState extends State<Newlink> {
                     .generatePaymentLink(amount: "", shopId: "")
                     .then((value) {
                   var resonseObject = newLinkModelFromJson(value);
-                  Get.to(DigitalPayment(), arguments: [
-                    resonseObject.url.toString(), //url 0
-                    _amountController.text //amount 1
-                  ]);
+                  // Get.to(DigitalPayment(), arguments: [
+                  //   resonseObject.url.toString(), //url 0
+                  //   _amountController.text //amount 1
+                  // ]);
                 });
               } else {
                 Utils.showToast("Please Insert the Amount");

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/emi/emi_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/new_emi.dart';
 import 'package:hishabee_business_manager_fl/models/emi/utils/bank_model.dart';
@@ -7,8 +8,9 @@ import 'package:hishabee_business_manager_fl/models/emi/utils/customer_model.dar
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class BankPopup extends StatefulWidget {
-  String name, address, phone;
-  BankPopup(this.name, this.address, this.phone);
+  Shop shop;
+  String name, address, phone, emiMoney;
+  BankPopup(this.name, this.address, this.phone, this.shop, this.emiMoney);
   @override
   _BankPopupState createState() => _BankPopupState();
 }
@@ -16,7 +18,7 @@ class BankPopup extends StatefulWidget {
 class _BankPopupState extends State<BankPopup> {
   List<BankModel> _list = <BankModel>[];
   List<BankModel> _foundData = <BankModel>[];
-  EmiController controller = Get.find();
+  EmiController _controller = Get.find();
   @override
   void initState() {
     getData();
@@ -70,12 +72,14 @@ class _BankPopupState extends State<BankPopup> {
                       itemCount: _foundData.length,
                       itemBuilder: (context, index) => InkWell(
                             onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (builder) => NewEmi(
-                                      widget.name,
-                                      widget.phone,
-                                      widget.address,
-                                      _foundData[index].name)));
+                              _controller.bankName.value = _foundData[index].name;
+                              Navigator.pop(context);
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (builder) => NewEmi(
+                              //         widget.name,
+                              //         widget.phone,
+                              //         widget.address,
+                              //         _foundData[index].name, widget.shop, widget.emiMoney)));
                             },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
@@ -121,7 +125,7 @@ class _BankPopupState extends State<BankPopup> {
   }
 
   void getData() {
-    controller.fetchCustomer(shopId: "").then((value) {
+    _controller.fetchCustomer(shopId: '${widget.shop.id}').then((value) {
       if (value != null) {
         setState(() {
           _list = Utils.bankList;

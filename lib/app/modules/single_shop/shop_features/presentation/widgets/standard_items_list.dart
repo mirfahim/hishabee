@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/app/_services/sharedPref_service.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/shop_item_card.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
@@ -10,6 +11,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_lis
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/business_overview/business_overview.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/printer/printer_front.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/printer/printer_setting.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/create_sms.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/digital_payment/digital_payment.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/stock/presentation/pages/stock_management.dart';
@@ -296,9 +298,14 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      Get.to(
+                      print('shared prefrense bluetooth name${SharedPref.to.prefss.getString('bluetooth_name')}');
+                      SharedPref.to.prefss.getString('bluetooth_name').isEmpty ?
+                          Get.to(
                           PrinterFront(),
-                          arguments: shop);
+                          arguments: shop) :
+                          Get.to(
+                          PrinterSetting(),
+                      );
                     },
                     child: Container(
                       height: itemHeight,

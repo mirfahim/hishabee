@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/emi/emi_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/new_emi.dart';
@@ -11,6 +14,10 @@ var now = DateTime.now();
 var day = DateFormat.yMMMMd().format(now);
 var year = DateFormat.y().format(now);
 var month = DateFormat.MMMM().format(now);
+DateTime firstDatePicked;
+DateTime endDatePicked;
+var startDate;
+var endDate;
 
 class EMI extends StatefulWidget {
   @override
@@ -20,7 +27,10 @@ class EMI extends StatefulWidget {
 class _EMIState extends State<EMI> {
   List<EmiModel> _list = <EmiModel>[];
   List<EmiModel> _foundData = <EmiModel>[];
-  EmiController controller = Get.find();
+  EmiController controller = EmiController();
+  Shop shop = Get.arguments;
+  int flag = 1;
+
   @override
   void initState() {
     getData();
@@ -31,465 +41,454 @@ class _EMIState extends State<EMI> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    int flag = 1;
-    Shop shop = Get.arguments;
 
-    var storage = GetStorage();
-    storage.write("shop_id", shop.id.toString());
+    // var storage = GetStorage();
+    // storage.write("shop_id", shop.id.toString());
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 50.0),
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: Stack(
-                children: [
-                  SizedBox(
-                    height: size.height * 0.2,
-                    width: size.width,
-                    child: Image.asset(
-                      "images/topBg.png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 14, right: 15.0),
-                        child: IconButton(
-                          icon: const Icon(
-                            Icons.arrow_back_rounded,
-                            size: 25,
-                            color: Colors.black,
-                          ),
-                          onPressed: () => Get.back(),
-                        ),
-                      ),
-                      const Padding(
-                        padding:
-                            EdgeInsets.only(top: 14.0, left: 10, right: 15),
-                        child: Text(
-                          'EMI',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding:
-                            EdgeInsets.only(top: 14.0, left: 60, right: 15),
-                        child: InkWell(
-                          onTap: () => Get.to(NewEmi("", "", "", "")),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                border: Border.all(
-                                    color: Colors.blue[600], width: 1.5),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(6.0))),
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.add_circle_outline,
-                                    color: Colors.blueAccent.shade700,
-                                  ),
-                                  SizedBox(
-                                    width: 6,
-                                  ),
-                                  Text(
-                                    'NEW EMI  ',
-                                    style: TextStyle(
-                                        color: Colors.blueAccent.shade700,
-                                        fontWeight: FontWeight.bold),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Positioned(
-                    top: 80,
-                    left: 10,
-                    right: 10,
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_rounded),
+            color: Colors.black,
+            onPressed: () => Get.back(),
+          ),
+          title: Text(
+            'emi'.tr,
+          ),
+          titleSpacing: 0,
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(top: 10.0, right: 15, bottom: 10),
+              child: InkWell(
+                onTap: () => Get.to(NewEmi("", "", "", "",shop,""), arguments: shop),
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      border: Border.all(color: Colors.blue[600], width: 1.5),
+                      borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
+                        Icon(
+                          Icons.add_circle_outline,
+                          color: Colors.blueAccent.shade700,
+                        ),
+                        SizedBox(
+                          width: 6,
+                        ),
                         Text(
-                          'Filter By',
+                          'new_emi'.tr,
                           style: TextStyle(
-                              fontSize: 14.0, fontWeight: FontWeight.normal),
-                        ),
-                        ElevatedButton.icon(
-                          label: Padding(
-                            padding:
-                                const EdgeInsets.only(top: 12.0, bottom: 12.0),
-                            child: Text(
-                              'Start Date',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12.0),
-                            ),
-                          ),
-                          icon: Icon(
-                            Icons.arrow_drop_down_rounded,
-                            color: Colors.black,
-                            size: 40.0,
-                          ),
-                          style: ButtonStyle(
-                              maximumSize: MaterialStateProperty.all<Size>(
-                                  Size(150, 44)),
-                              elevation: MaterialStateProperty.all<double>(1.0),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white.withOpacity(0.9)),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      side: BorderSide(
-                                          color: Colors.grey.shade100,
-                                          width: 2.0)))),
-                          onPressed: () {},
-                        ),
-                        ElevatedButton.icon(
-                          label: Padding(
-                            padding:
-                                const EdgeInsets.only(top: 12.0, bottom: 12.0),
-                            child: Text(
-                              'End Date',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 12.0),
-                            ),
-                          ),
-                          icon: Icon(
-                            Icons.arrow_drop_down_rounded,
-                            color: Colors.black,
-                            size: 40.0,
-                          ),
-                          style: ButtonStyle(
-                              maximumSize: MaterialStateProperty.all<Size>(
-                                  Size(150, 44)),
-                              elevation: MaterialStateProperty.all<double>(1.0),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.white.withOpacity(0.9)),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(4.0),
-                                      side: BorderSide(
-                                          color: Colors.grey.shade100,
-                                          width: 2.0)))),
-                          onPressed: () {},
-                        ),
+                              color: Colors.blueAccent.shade700,
+                              fontWeight: FontWeight.bold),
+                        )
                       ],
                     ),
                   ),
-                  Positioned(
-                    top: 135,
-                    left: 10,
-                    right: 10,
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 4.0),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    height: 27,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          flag = 1;
-                                        });
-                                      },
-                                      child: Text(
-                                        ' Day ',
-                                        style: TextStyle(
-                                            color: flag == 1
-                                                ? Colors.white
-                                                : Colors.black,
-                                            fontSize: 10),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        side: BorderSide(
-                                            width: 1, color: Colors.black),
-                                        primary: flag == 1
-                                            ? Colors.black
-                                            : Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                      ),
-                                    ),
+                ),
+              ),
+            )
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    'name_or_mobile_number'.tr,
+                    style: TextStyle(fontSize: 16, fontFamily: 'Roboto'),
+                  ),
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(
+                      bottom: 12.0,
+                    ),
+                    child: Container(
+                      height: 50.0,
+                      child: TextField(
+                        onChanged: (value) => _runFilter(value),
+                        style: TextStyle(fontSize: 14.0),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6),
+                                borderSide: BorderSide(color: Colors.pink)),
+                            hintText: 'Search',
+                            hintStyle: TextStyle(fontSize: 12.0),
+                            filled: true,
+                            fillColor: Color(0xFFC4C4C4).withOpacity(.35),
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Color(0xFFC4C4C4),
+                              size: 30,
+                            )),
+                      ),
+                    )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'filter'.tr,
+                        style: TextStyle(
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: 'Roboto'),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: ElevatedButton(
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(top: 12.0, bottom: 12.0),
+                          child: Row(
+                            children: [
+                              Flexible(
+                                flex: 4,
+                                child: Text(
+                                  startDate ?? 'start_date'.tr,
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    color: DEFAULT_BLUE,
                                   ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    height: 27,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          flag = 2;
-                                        });
-                                      },
-                                      child: Text(
-                                        '  Week  ',
-                                        style: TextStyle(
-                                            color: flag == 2
-                                                ? Colors.white
-                                                : Colors.black,
-                                            fontSize: 10),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        padding: EdgeInsets.zero,
-                                        side: const BorderSide(
-                                            width: 1, color: Colors.black),
-                                        primary: flag == 2
-                                            ? Colors.black
-                                            : Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    height: 27,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          flag = 3;
-                                        });
-                                      },
-                                      child: Text(
-                                        ' Month ',
-                                        style: TextStyle(
-                                            color: flag == 3
-                                                ? Colors.white
-                                                : Colors.black,
-                                            fontSize: 10),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        padding: EdgeInsets.zero,
-                                        side: const BorderSide(
-                                            width: 1, color: Colors.black),
-                                        primary: flag == 3
-                                            ? Colors.black
-                                            : Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: 10,
-                                  ),
-                                  Container(
-                                    height: 27,
-                                    child: ElevatedButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          flag = 4;
-                                        });
-                                      },
-                                      child: Text(
-                                        ' Year ',
-                                        style: TextStyle(
-                                            color: flag == 4
-                                                ? Colors.white
-                                                : Colors.black,
-                                            fontSize: 10),
-                                      ),
-                                      style: ElevatedButton.styleFrom(
-                                        padding: EdgeInsets.zero,
-                                        side: const BorderSide(
-                                            width: 1, color: Colors.black),
-                                        primary: flag == 4
-                                            ? Colors.black
-                                            : Colors.white,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(6),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                IconButton(
-                                    onPressed: () {
-                                      if (flag == 1) {
-                                        setState(() {
-                                          day = DateFormat.yMMMMd().format(
-                                              now.subtract(Duration(days: 1)));
-                                          // day = DateFormat.yMMMMd().format(now);
-                                        });
-                                      }
-                                    },
-                                    icon: Icon(Icons.arrow_back_ios)),
-                                if (flag == 1) Text(day),
-                                if (flag == 4) Text(year),
-                                if (flag == 3) Text(month),
-                                IconButton(
-                                    onPressed: () {
-                                      if (flag == 1) {
-                                        setState(() {
-                                          day = DateFormat.yMMMMd().format(
-                                              now.add(Duration(days: 1)));
-                                        });
-                                      }
-                                    },
-                                    icon: Icon(Icons.arrow_forward_ios))
-                              ],
-                            ),
-                            Divider(
-                              thickness: 3,
-                              color: Colors.grey[300],
-                            ),
-
-                            ///
-
-                            Padding(
-                                padding: const EdgeInsets.only(
-                                    bottom: 12.0, top: 12.0),
-                                child: Container(
-                                  height: 50.0,
-                                  child: TextField(
-                                    onChanged: (value) => _runFilter(value),
-                                    style: TextStyle(fontSize: 14.0),
-                                    decoration: InputDecoration(
-                                        hintText: 'Search',
-                                        focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                width: 2,
-                                                color: Colors.blue[900])),
-                                        hintStyle: TextStyle(fontSize: 12.0),
-                                        border: OutlineInputBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(6.0),
-                                            borderSide: BorderSide(
-                                                width: 2,
-                                                color: Colors.blue[900])),
-                                        filled: true,
-                                        fillColor: Colors.grey[100],
-                                        prefixIcon: Icon(
-                                          Icons.search,
-                                          color: Colors.blue[900],
-                                          size: 30,
-                                        )),
+                              // Spacer(),
+                              Flexible(
+                                child: Icon(
+                                  Icons.arrow_drop_down_rounded,
+                                  color: Colors.black,
+                                  size: 30.0,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        style: ButtonStyle(
+                            // maximumSize: MaterialStateProperty.all<Size>(
+                            //     Size(150, 44)),
+                            // elevation: MaterialStateProperty.all<double>(1.0),
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    side: BorderSide(
+                                        color: Colors.grey.withOpacity(.35),
+                                        width: 1.0)))),
+                        onPressed: () {
+                          DatePicker.showDatePicker(context,
+                              showTitleActions: true,
+                              minTime: DateTime(2018, 3, 5),
+                              maxTime: DateTime(2222, 6, 7),
+                              onChanged: (startDateTime) {
+                            setState(() {
+                              firstDatePicked = startDateTime;
+                              startDate =
+                                  DateFormat.MMMMd().format(firstDatePicked);
+                              // getDataForDropDown(startDate, endDate);
+                            });
+                          });
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      flex: 2,
+                      child: ElevatedButton(
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(top: 12.0, bottom: 12.0),
+                          child: Row(
+                            children: [
+                              Flexible(
+                                flex: 4,
+                                child: Text(
+                                  endDate ?? 'end_date'.tr,
+                                  style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    color: DEFAULT_BLUE,
                                   ),
-                                )),
+                                ),
+                              ),
+                              Flexible(
+                                child: Icon(
+                                  Icons.arrow_drop_down_rounded,
+                                  color: Colors.black,
+                                  size: 30.0,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        style: ButtonStyle(
+                            // maximumSize: MaterialStateProperty.all<Size>(
+                            //     Size(150, 44)),
+                            elevation: MaterialStateProperty.all<double>(1.0),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.white.withOpacity(0.9)),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    side: BorderSide(
+                                        color: Colors.grey.withOpacity(.35),
+                                        width: 1.0)))),
+                        onPressed: () {
+                          DatePicker.showDatePicker(context,
+                              showTitleActions: true,
+                              minTime: DateTime(2018, 3, 5),
+                              maxTime: DateTime(2222, 6, 7),
+                              onChanged: (endDateTime) {
+                            setState(() {
+                              endDatePicked = endDateTime;
+                              endDate =
+                                  DateFormat.MMMMd().format(endDatePicked);
+                              // getDataForDropDown(startDate, endDate);
+                            });
+                          });
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(bottom: 4.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                height: 27,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      flag = 1;
+                                    });
+                                  },
+                                  child: Text(
+                                    'day'.tr,
+                                    style: TextStyle(
+                                        color: flag == 1
+                                            ? Colors.white
+                                            : Colors.grey,
+                                        fontSize: 10),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    side: BorderSide(
+                                        width: 1, color: Colors.grey),
+                                    primary:
+                                        flag == 1 ? Colors.black : Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                height: 27,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      flag = 2;
+                                      print('flag of week $flag');
+                                    });
+                                  },
+                                  child: Text(
+                                    'week'.tr,
+                                    style: TextStyle(
+                                        color: flag == 2
+                                            ? Colors.white
+                                            : Colors.grey,
+                                        fontSize: 10),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    side: const BorderSide(
+                                        width: 1, color: Colors.grey),
+                                    primary:
+                                        flag == 2 ? Colors.black : Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                height: 27,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      flag = 3;
+                                    });
+                                  },
+                                  child: Text(
+                                    'month'.tr,
+                                    style: TextStyle(
+                                        color: flag == 3
+                                            ? Colors.white
+                                            : Colors.grey,
+                                        fontSize: 10),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    side: const BorderSide(
+                                        width: 1, color: Colors.grey),
+                                    primary:
+                                        flag == 3 ? Colors.black : Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Container(
+                                height: 27,
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      flag = 4;
+                                    });
+                                  },
+                                  child: Text(
+                                    'year'.tr,
+                                    style: TextStyle(
+                                        color: flag == 4
+                                            ? Colors.white
+                                            : Colors.grey,
+                                        fontSize: 10),
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    padding: EdgeInsets.zero,
+                                    side: const BorderSide(
+                                        width: 1, color: Colors.grey),
+                                    primary:
+                                        flag == 4 ? Colors.black : Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(6),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Divider(
+                          thickness: 5,
+                          color: Colors.grey[300],
+                        ),
 
-                            ListView.builder(
-                                shrinkWrap: true,
-                                itemCount: _foundData.length,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context, index) => Container(
-                                      width: MediaQuery.of(context).size.width,
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Row(
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: Text('list_of_emi'.tr, style: TextStyle(
+                            fontSize: 16, fontFamily: 'Roboto'
+
+                          ),),
+                        ),
+
+                        ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: _foundData.length,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) => Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(right: 8.0, bottom: 8, top: 8),
+                                        child: Icon(
+                                          Icons.account_circle_outlined,
+                                          size: 40,
+                                          color: Colors.grey[400],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 2,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              _foundData[index].customerName,
+                                              style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontFamily: 'Roboto',
+                                                  ),
+                                            ),
+                                            Text(
+                                              _foundData[index].customerMobile,
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontFamily: 'Roboto',
+                                                  fontWeight: FontWeight.w200),
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                      Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceAround,
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Icon(
-                                              Icons.account_circle_outlined,
-                                              size: 40,
-                                              color: Colors.grey[400],
+                                          Text(
+                                            "৳${_foundData[index].payableAmount.toString()}",
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontFamily: 'Roboto',
+                                                color: Colors.red[700],
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                          Text(
+                                            _foundData[index].paymentStatus,
+                                            style: TextStyle(
+                                                fontSize: 11,
+                                                fontFamily: 'Roboto',
+                                                color: Colors.red[700],
                                             ),
-                                          ),
-                                          Expanded(
-                                            flex: 2,
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  _foundData[index]
-                                                      .customerName,
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w700),
-                                                ),
-                                                Text(
-                                                  _foundData[index]
-                                                      .customerMobile,
-                                                  style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight:
-                                                          FontWeight.w200),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            children: [
-                                              Text(
-                                                _foundData[index]
-                                                    .payableAmount
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    color: Colors.red[700],
-                                                    fontWeight:
-                                                        FontWeight.w500),
-                                              ),
-                                              Text(
-                                                _foundData[index].paymentStatus,
-                                                style: TextStyle(
-                                                    fontSize: 11,
-                                                    color: Colors.red[700],
-                                                    fontWeight:
-                                                        FontWeight.w200),
-                                              )
-                                            ],
-                                          ),
+                                          )
                                         ],
                                       ),
-                                    ))
+                                    ],
+                                  ),
+                                )),
+                        Center(
+                          child: TextButton(onPressed: (){}, child: Text('know_more_about_emi'.tr,style: TextStyle(
+                            fontSize: 14, color: DEFAULT_BLUE
+                          ),)),
+                        )
 
 ////,
-                            ,
-                          ]),
-                    ),
-                  ),
-                ],
-              ),
+                        ,
+                      ]),
+                ),
+              ],
             ),
           ),
         ),
@@ -516,7 +515,7 @@ class _EMIState extends State<EMI> {
   }
 
   void getData() {
-    controller.fetchAllEmi(shopId: "").then((value) {
+    controller.fetchAllEmi(shopId: "${shop.id}").then((value) {
       if (value != null) {
         setState(() {
           _list = emiModelFromJson(value);
