@@ -67,9 +67,10 @@ class _BankPopupState extends State<BankPopup> {
                 width: MediaQuery.of(context).size.width/ 1,
                 height: MediaQuery.of(context).size.height - 300,
                 child: ListView.builder(
+                    scrollDirection: Axis.vertical,
                     shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
                     itemCount: _foundData.length,
+                    // physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) => InkWell(
                           onTap: () {
                             _controller.bankName.value = _foundData[index].name;
