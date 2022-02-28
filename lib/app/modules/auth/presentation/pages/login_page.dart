@@ -14,20 +14,7 @@ class LoginPage extends GetResponsiveView<LoginController> {
     return Scaffold(
       // backgroundColor: DEFAULT_YELLOW_BG,
       body: SafeArea(
-        child: Container(
-          height: screen.context.height,
-          width: screen.context.width,
-          child: SingleChildScrollView(
-            child: Stack(
-              children: [
-                // LoginHeader(),
-                LoginBody(controller: controller),
-                // LoginPageSecond(controller: controller)
-                ///TODO built by samin
-              ],
-            ),
-          ),
-        ),
+        child: LoginPageSecond(controller: controller),
       ),
     );
   }

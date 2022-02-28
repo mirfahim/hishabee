@@ -4,6 +4,8 @@ import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/data/remote/models/login_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/domain/repositories/i_auth_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/_navigation/shop_main_routes.dart';
+import 'package:hishabee_business_manager_fl/service/api_service.dart';
+import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class LoginController extends GetxController {
   final mobileNumber = ''.obs;
@@ -12,7 +14,7 @@ class LoginController extends GetxController {
   final loginResponse = Rxn<LoginResponseModel>();
   final storage = GetStorage();
   final IAuthRepository authRepository;
-
+  ApiService _apiService = ApiService();
   LoginController(this.authRepository);
 
   @override
@@ -25,6 +27,14 @@ class LoginController extends GetxController {
     await getCredentials();
   }
 
+  Future<dynamic> newLogin({String mobileNumber}) async{
+    String url = "/number_check?mobile_number=$mobileNumber";
+    return _apiService.makeApiRequiest(
+        method: apiMethods.post,
+        url: url,
+        body: null,
+        headers: null);
+  }
   void login() async {
     if (mobileNumber.value.length < 11 || pin.value.length < 5) {
       CustomDialog.showStringDialog(

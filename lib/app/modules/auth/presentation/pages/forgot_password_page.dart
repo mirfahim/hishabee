@@ -31,11 +31,11 @@ class ForgotPasswordPage extends GetResponsiveView<ForgotPasswordController> {
                     child: RichText(
                       text: TextSpan(
                         text: 'don_t_have_an_account'.tr,
-                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        style: TextStyle(color: Colors.black, fontSize: 16, fontFamily: 'Roboto'),
                         children: <TextSpan>[
                           TextSpan(
                             text: 'sign_up'.tr,
-                            style: TextStyle(color: DEFAULT_BLUE, fontSize: 16),
+                            style: TextStyle(color: DEFAULT_BLUE, fontSize: 16, fontFamily: 'Roboto'),
                           )
                         ],
                       ),

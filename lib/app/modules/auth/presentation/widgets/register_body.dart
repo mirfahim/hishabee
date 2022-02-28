@@ -21,12 +21,8 @@ class SignUpBody extends GetResponsiveView {
       child: Form(
         key: _formKey,
         child: Container(
-          width: screen.context.width,
-          height: screen.context.height <= 600
-              ? screen.context.height * 1.2
-              : screen.context.height,
           decoration: BoxDecoration(
-            color: DEFAULT_BODY_BG_COLOR,
+            color: Colors.white,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(
                 30,
@@ -197,7 +193,7 @@ class SignUpBody extends GetResponsiveView {
                       .tr,
                   style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 20),
                 Text(
                   "confirm_password".tr,
                   style: TextStyle(
@@ -316,10 +312,15 @@ class SignUpBody extends GetResponsiveView {
                     width: screen.context.width,
                     margin: EdgeInsets.only(bottom: 35.0),
                     child: Obx(
-                      () => DefaultButton(
-                          text: "register".tr,
-                          buttonColor: DEFAULT_BLACK,
-                          screen: screen,
+                      () => ElevatedButton(
+                          child: Text("register".tr,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: screen.responsiveValue(mobile: 16, tablet: 20),
+                              fontWeight: FontWeight.bold,
+                            ),),
+                          style: ElevatedButton.styleFrom(primary: Colors.black),
+
                           onPressed: !controller.termsAgreed.value
                               ? null
                               : () {
