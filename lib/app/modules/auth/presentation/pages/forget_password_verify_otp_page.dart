@@ -8,12 +8,11 @@ class VerifyOtpForForgetPassword
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height / 2 - 5);
+    final double itemHeight = (size.height / 2.5);
     final double itemWidth = (size.width);
     ScrollController scrollController = new ScrollController();
     return Scaffold(
-      backgroundColor: Color(0xfffffada),
-      body: ListView(
+      body: Column(
         children: [
           Container(
             margin: EdgeInsets.only(top: 40),
@@ -24,6 +23,7 @@ class VerifyOtpForForgetPassword
                   Text(
                     "verification_code_title".tr,
                     style: TextStyle(
+                      fontFamily: 'Roboto',
                       fontWeight: FontWeight.bold,
                       fontSize: 26,
                     ),
@@ -32,8 +32,10 @@ class VerifyOtpForForgetPassword
                     height: 20,
                   ),
                   Text(
-                    'We sent you a 6 digit code',
+                    'আপনাকে একটি ৬ সংখ্যার কোড পাঠানো হয়েছে ',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontFamily: 'Roboto',
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
                     ),
@@ -46,6 +48,7 @@ class VerifyOtpForForgetPassword
                         child: Text(
                           'to +88 ${controller.mobileNumber.value}',
                           style: TextStyle(
+                            fontFamily: 'Roboto',
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
                               color: DEFAULT_BLACK),
@@ -59,12 +62,12 @@ class VerifyOtpForForgetPassword
           ),
           Padding(
             padding: const EdgeInsets.only(
-                top: 10.0, bottom: 10, right: 20, left: 20),
+                top: 10.0, bottom: 0, right: 20, left: 20),
             child: Container(
               width: size.width,
               height: 70,
               decoration: BoxDecoration(
-                  border: Border.all(color: DEFAULT_BLUE, width: 3)),
+                  border: Border.all(color: DEFAULT_BLUE, width: 2), borderRadius: BorderRadius.circular(6)),
               child: Align(
                 alignment: Alignment.center,
                 child: Obx(() => Text(
@@ -72,10 +75,11 @@ class VerifyOtpForForgetPassword
                           ? '000000'
                           : controller.code.value,
                       style: TextStyle(
-                        fontFamily: 'Rubik',
+                        letterSpacing: 3,
+                        fontFamily: 'Roboto',
                         fontSize: 28,
                         fontWeight: FontWeight.w600,
-                        color: DEFAULT_BLACK,
+                        color: DEFAULT_BLACK.withOpacity(.35),
                       ),
                       overflow: TextOverflow.fade,
                     )),
@@ -84,7 +88,7 @@ class VerifyOtpForForgetPassword
           ),
           Container(
             child: GridView.count(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.symmetric(vertical: 10),
               shrinkWrap: true,
               controller: scrollController,
               childAspectRatio: (itemWidth / itemHeight),
@@ -98,7 +102,8 @@ class VerifyOtpForForgetPassword
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                            shape: BoxShape.circle,
+                            // borderRadius: BorderRadius.circular(200),
                             border: Border.all(
                               width: 1,
                               color: DEFAULT_BLACK,
@@ -111,7 +116,7 @@ class VerifyOtpForForgetPassword
                             child: Text(
                               "1",
                               style: TextStyle(
-                                fontFamily: 'Rubik',
+                                fontFamily: 'Roboto',
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
                                 color: DEFAULT_BLACK,
@@ -126,7 +131,8 @@ class VerifyOtpForForgetPassword
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                            shape: BoxShape.circle,
+                            // borderRadius: BorderRadius.circular(200),
                             border: Border.all(
                               width: 1,
                               color: DEFAULT_BLACK,
@@ -139,7 +145,7 @@ class VerifyOtpForForgetPassword
                             child: Text(
                               "2",
                               style: TextStyle(
-                                fontFamily: 'Rubik',
+                                fontFamily: 'Roboto',
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
                                 color: DEFAULT_BLACK,
@@ -154,7 +160,8 @@ class VerifyOtpForForgetPassword
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                            shape: BoxShape.circle,
+                            // borderRadius: BorderRadius.circular(200),
                             border: Border.all(
                               width: 1,
                               color: DEFAULT_BLACK,
@@ -167,7 +174,7 @@ class VerifyOtpForForgetPassword
                             child: Text(
                               "3",
                               style: TextStyle(
-                                fontFamily: 'Rubik',
+                                fontFamily: 'Roboto',
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
                                 color: DEFAULT_BLACK,
@@ -182,7 +189,8 @@ class VerifyOtpForForgetPassword
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                            shape: BoxShape.circle,
+                            // borderRadius: BorderRadius.circular(200),
                             border: Border.all(
                               width: 1,
                               color: DEFAULT_BLACK,
@@ -195,7 +203,7 @@ class VerifyOtpForForgetPassword
                             child: Text(
                               "4",
                               style: TextStyle(
-                                fontFamily: 'Rubik',
+                                fontFamily: 'Roboto',
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
                                 color: DEFAULT_BLACK,
@@ -210,7 +218,8 @@ class VerifyOtpForForgetPassword
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                            shape: BoxShape.circle,
+                            // borderRadius: BorderRadius.circular(200),
                             border: Border.all(
                               width: 1,
                               color: DEFAULT_BLACK,
@@ -223,7 +232,7 @@ class VerifyOtpForForgetPassword
                             child: Text(
                               "5",
                               style: TextStyle(
-                                fontFamily: 'Rubik',
+                                fontFamily: 'Roboto',
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
                                 color: DEFAULT_BLACK,
@@ -238,7 +247,8 @@ class VerifyOtpForForgetPassword
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                            shape: BoxShape.circle,
+                            // borderRadius: BorderRadius.circular(200),
                             border: Border.all(
                               width: 1,
                               color: DEFAULT_BLACK,
@@ -251,7 +261,7 @@ class VerifyOtpForForgetPassword
                             child: Text(
                               "6",
                               style: TextStyle(
-                                fontFamily: 'Rubik',
+                                fontFamily: 'Roboto',
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
                                 color: DEFAULT_BLACK,
@@ -266,7 +276,8 @@ class VerifyOtpForForgetPassword
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                            shape: BoxShape.circle,
+                            // borderRadius: BorderRadius.circular(200),
                             border: Border.all(
                               width: 1,
                               color: DEFAULT_BLACK,
@@ -279,7 +290,7 @@ class VerifyOtpForForgetPassword
                             child: Text(
                               "7",
                               style: TextStyle(
-                                fontFamily: 'Rubik',
+                                fontFamily: 'Roboto',
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
                                 color: DEFAULT_BLACK,
@@ -294,7 +305,8 @@ class VerifyOtpForForgetPassword
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                            shape: BoxShape.circle,
+                            // borderRadius: BorderRadius.circular(200),
                             border: Border.all(
                               width: 1,
                               color: DEFAULT_BLACK,
@@ -307,7 +319,7 @@ class VerifyOtpForForgetPassword
                             child: Text(
                               "8",
                               style: TextStyle(
-                                fontFamily: 'Rubik',
+                                fontFamily: 'Roboto',
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
                                 color: DEFAULT_BLACK,
@@ -322,7 +334,8 @@ class VerifyOtpForForgetPassword
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                            shape: BoxShape.circle,
+                            // borderRadius: BorderRadius.circular(200),
                             border: Border.all(
                               width: 1,
                               color: DEFAULT_BLACK,
@@ -335,7 +348,7 @@ class VerifyOtpForForgetPassword
                             child: Text(
                               "9",
                               style: TextStyle(
-                                fontFamily: 'Rubik',
+                                fontFamily: 'Roboto',
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
                                 color: DEFAULT_BLACK,
@@ -350,7 +363,8 @@ class VerifyOtpForForgetPassword
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                            shape: BoxShape.circle,
+                            // borderRadius: BorderRadius.circular(200),
                             border: Border.all(
                               width: 1,
                               color: DEFAULT_BLACK,
@@ -373,7 +387,8 @@ class VerifyOtpForForgetPassword
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                            shape: BoxShape.circle,
+                            // borderRadius: BorderRadius.circular(200),
                             border: Border.all(
                               width: 1,
                               color: DEFAULT_BLACK,
@@ -386,7 +401,7 @@ class VerifyOtpForForgetPassword
                             child: Text(
                               "0",
                               style: TextStyle(
-                                fontFamily: 'Rubik',
+                                fontFamily: 'Roboto',
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
                                 color: DEFAULT_BLACK,
@@ -401,7 +416,8 @@ class VerifyOtpForForgetPassword
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
+                            shape: BoxShape.circle,
+                            // borderRadius: BorderRadius.circular(200),
                             border: Border.all(
                               width: 1,
                               color: DEFAULT_BLACK,
@@ -422,8 +438,10 @@ class VerifyOtpForForgetPassword
                     default:
                       return Container(
                         decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          // borderRadius: BorderRadius.circular(200),
                           border: Border.all(
-                            width: 0.5,
+                            width: 1,
                             color: DEFAULT_BLACK,
                           ),
                         ),
@@ -433,7 +451,7 @@ class VerifyOtpForForgetPassword
                             child: Text(
                               "${index + 1}",
                               style: TextStyle(
-                                fontFamily: 'Rubik',
+                                fontFamily: 'Roboto',
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
                                 color: DEFAULT_BLACK,

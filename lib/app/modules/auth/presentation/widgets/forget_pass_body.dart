@@ -104,10 +104,11 @@ class ForgetPinBody extends GetResponsiveView {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: DEFAULT_BLACK),
                   onPressed: () async {
-                    if (formKey.currentState.validate()) {
-                      formKey.currentState.save();
-                      controller.sendOtp();
-                    }
+                    controller.sendOtp();
+                    // if (formKey.currentState.validate()) {
+                    //   formKey.currentState.save();
+                    //   controller.sendOtp();
+                    // }
                   },
                   child: Text(
                     "submit".tr,

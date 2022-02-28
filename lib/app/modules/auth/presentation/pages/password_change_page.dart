@@ -23,6 +23,15 @@ class PasswordChangePage extends GetView<PasswordChangeController> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Text(
+                    "welcome".tr,
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 18,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   SizedBox(
                     height: 15,
                   ),
@@ -58,9 +67,9 @@ class PasswordChangePage extends GetView<PasswordChangeController> {
                 width: size.width,
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    left: 30,
+                    left: 10,
                     top: 50,
-                    right: 30,
+                    right: 10,
                   ),
                   child: Form(
                     key: formKey,
@@ -68,9 +77,10 @@ class PasswordChangePage extends GetView<PasswordChangeController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Enter New Password",
+                          "পাঁচ সংখ্যার পিন নম্বর ",
                           style: TextStyle(
                             fontSize: 18,
+                            fontFamily: 'Roboto',
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -100,7 +110,7 @@ class PasswordChangePage extends GetView<PasswordChangeController> {
                                   ),
                                 ],
                                 decoration: InputDecoration(
-                                  hintText: "New Password",
+                                  hintText: "পিন নম্বর",
                                   border: InputBorder.none,
                                   counterText: "",
                                 ),
@@ -108,10 +118,16 @@ class PasswordChangePage extends GetView<PasswordChangeController> {
                             ),
                           ),
                         ),
+                        SizedBox(height: 5,),
+                        Text('[একটি পাঁচ সংখ্যার পিন নম্বর লিখুন। আপনি আপনার একাউন্ট লগইন করতে এটি পরে ব্যবহার করবেন]', style: TextStyle(
+                          fontSize: 10, fontFamily: 'Roboto'
+                        ),),
+                        SizedBox(height: 20,),
                         Text(
-                          "Confirm Password",
+                          "পিন নিশ্চিত করুন",
                           style: TextStyle(
                             fontSize: 18,
+                            fontFamily: 'Roboto',
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -141,7 +157,7 @@ class PasswordChangePage extends GetView<PasswordChangeController> {
                                   ),
                                 ],
                                 decoration: InputDecoration(
-                                  hintText: "Confirm Password",
+                                  hintText: "পিন নিশ্চিত করুন",
                                   border: InputBorder.none,
                                   counterText: "",
                                 ),
@@ -149,6 +165,12 @@ class PasswordChangePage extends GetView<PasswordChangeController> {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text('[পিন নম্বরটি আবার দিন]', style: TextStyle(
+                          fontSize: 12, fontFamily: 'Roboto'
+                        ),),
                         SizedBox(
                           height: 20,
                         ),
