@@ -4091,8 +4091,8 @@ class _AddProductsPageState extends State<AddProductsPage> {
   List<String> gallary = [];
   imagesFromApi(File file) async {
     print("image file path is ${file.path}");
-    imageAPI =
-        await fileRepository.uploadFile(file: image.value, type: 'product');
+
+    imageAPI = await fileRepository.uploadFile(file: file, type: 'product');
     imageSrc = imageAPI
         .replaceAll("\\", "")
         .replaceAll('"', "")
