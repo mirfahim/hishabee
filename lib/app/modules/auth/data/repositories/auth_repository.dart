@@ -56,14 +56,16 @@ class AuthRepository implements IAuthRepository {
     String mobileNumber,
     String pin,
     String pinConfirmation,
-    String fcmToken,
+    // String fcmToken,
+    String address
   }) async {
     final response = await authProvider.register(
       brandName: brandName,
       mobileNumber: mobileNumber,
       pin: pin,
       pinConfirmation: pinConfirmation,
-      fcmToken: fcmToken,
+      // fcmToken: fcmToken,
+      address: address,
     );
     return ResponseDecoder.decode(response);
   }

@@ -19,9 +19,10 @@ class _SmsCustomDialogContactsState extends State<SmsCustomDialogContacts> {
   int checkedValue;
   @override
   void initState() {
-    _smsController.getAllContacts();
+    // _smsController.getAllContacts();
     listOfContacts = _smsController.contacts.value;
     setState(() {
+      _smsController.getAllContacts();
       searchListContacts = _smsController.contacts.value;
     });
     super.initState();
@@ -111,10 +112,12 @@ class _SmsCustomDialogContactsState extends State<SmsCustomDialogContacts> {
                                           child: Center(
                                             child: Icon(
                                               Icons.check,
+                                              size: 12,
                                               color: Colors.blue,
                                             ),
                                           ),
                                           decoration: BoxDecoration(
+                                            color: Colors.blue,
                                             border: Border.all(),
                                           ),
                                         )
@@ -122,7 +125,10 @@ class _SmsCustomDialogContactsState extends State<SmsCustomDialogContacts> {
                                           height: 20,
                                           width: 20,
                                           child: Center(
-                                            child: Icon(Icons.check),
+                                            child: Icon(
+                                              Icons.check,
+                                              size: 12,
+                                            ),
                                           ),
                                           decoration: BoxDecoration(
                                             border: Border.all(),

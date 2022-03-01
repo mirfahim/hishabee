@@ -23,7 +23,7 @@ class UnitListController extends GetxController {
     String userID,
   }) async {
     String url = "/units?user_id=1097";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get,
         url: url,
         body: null,

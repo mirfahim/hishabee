@@ -1,6 +1,3 @@
-
-
-
 import 'dart:math';
 
 import 'package:animated_widgets/widgets/scale_animated.dart';
@@ -33,8 +30,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/domain/repositories/i_transaction_repository.dart';
 import 'package:uuid/uuid.dart';
 
-
-class SellDueEditAddController extends GetxController{
+class SellDueEditAddController extends GetxController {
   var classStatus = ["কাস্টমার", "সাপ্লায়ার", "কর্মচারী"].obs;
   var selectedClassStatus = 'কাস্টমার'.obs;
   final employeeList = [].obs;
@@ -54,7 +50,7 @@ class SellDueEditAddController extends GetxController{
   final dueDetails = ''.obs;
   final sms = false.obs;
   final dueDate = DateTime.now().obs;
-  final selectedDueItem =  GetAllDueItemByUid().obs;
+  final selectedDueItem = GetAllDueItemByUid().obs;
 
   final due = Due().obs;
   final cartList = <Product>[].obs;
@@ -70,12 +66,13 @@ class SellDueEditAddController extends GetxController{
   final amountTextEditingController = TextEditingController().obs;
 
   ConfettiController _controllerCenter =
-  ConfettiController(duration: const Duration(microseconds: 100));
+      ConfettiController(duration: const Duration(microseconds: 100));
 
   final IContactRepository contactRepository;
   final IDueRepository dueRepository;
   final ITransactionRepository transactionRepository;
-  SellDueEditAddController(this.contactRepository, this.dueRepository, this.transactionRepository);
+  SellDueEditAddController(
+      this.contactRepository, this.dueRepository, this.transactionRepository);
 
   @override
   onInit() {
@@ -100,14 +97,22 @@ class SellDueEditAddController extends GetxController{
     due.value = Get.arguments['due'];
     nameTextEditingController.value.text = due.value.contactName ?? '';
     numberTextEditingController.value.text = due.value.contactMobile ?? '';
-    selectedClassStatus.value = due.value.contactType == null ? 'কাস্টমার':
-    due.value.contactType == 'CUSTOMER' ? 'কাস্টমার' :
-    due.value.contactType == 'EMPLOYEE' ? 'কর্মচারী' :
-    due.value.contactType == 'SUPPLIER' ? 'সাপ্লায়ার' : 'কাস্টমার';
+    selectedClassStatus.value = due.value.contactType == null
+        ? 'কাস্টমার'
+        : due.value.contactType == 'CUSTOMER'
+            ? 'কাস্টমার'
+            : due.value.contactType == 'EMPLOYEE'
+                ? 'কর্মচারী'
+                : due.value.contactType == 'SUPPLIER'
+                    ? 'সাপ্লায়ার'
+                    : 'কাস্টমার';
     dueType.value = Get.arguments['dueType'];
     route.value = Get.arguments['route'];
     selectedDueItem.value = Get.arguments['dueItem'];
-    selectedDueItem.value.amount != null ? amountTextEditingController.value.text = selectedDueItem.value.amount.toString() : '';
+    selectedDueItem.value.amount != null
+        ? amountTextEditingController.value.text =
+            selectedDueItem.value.amount.toString()
+        : '';
     selectedCustomer.value = Get.arguments['customer'];
     selectedDueItem.value.amount = Get.arguments['dueAmount'];
     shop.value = Get.arguments['shop'];
@@ -117,20 +122,16 @@ class SellDueEditAddController extends GetxController{
     cartList.assignAll(Get.arguments['cart']);
   }
 
-
   getAllEmployee() async {
     try {
       var response =
-      await contactRepository.getAllEmployee(shopId: shopId.value);
+          await contactRepository.getAllEmployee(shopId: shopId.value);
       employeeList.assignAll(response);
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 
   getAllSupplier() async {
-    var response =
-    await contactRepository.getAllSupplier(shopId: shopId.value);
+    var response = await contactRepository.getAllSupplier(shopId: shopId.value);
 
     supplierList.assignAll(response);
   }
@@ -138,20 +139,25 @@ class SellDueEditAddController extends GetxController{
   getAllCustomer() async {
     try {
       var response =
-      await contactRepository.getAllCustomer(shopId: shopId.value);
+          await contactRepository.getAllCustomer(shopId: shopId.value);
 
       customerList.assignAll(response);
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
-  addNewDue() async{
+
+  addNewDue() async {
     CustomDialog.showLoadingDialog(message: 'Adding Due');
     formKey.currentState.validate();
     formKey.currentState.save();
-    var contactType = selectedClassStatus.value == 'কাস্টমার' ? 'CUSTOMER' : selectedClassStatus.value == 'সাপ্লায়ার' ? 'SUPPLIER' : 'EMPLOYEE';
+    var contactType = selectedClassStatus.value == 'কাস্টমার'
+        ? 'CUSTOMER'
+        : selectedClassStatus.value == 'সাপ্লায়ার'
+            ? 'SUPPLIER'
+            : 'EMPLOYEE';
     var uuid = Uuid();
-    String dUniqueId = shopId.toString()+uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString();
+    String dUniqueId = shopId.toString() +
+        uuid.v1().toString() +
+        DateTime.now().microsecondsSinceEpoch.toString();
     AddDueRequest request = AddDueRequest(
         amount: dueType.value == 0.0 ? dueAmount.value : -dueAmount,
         shopId: shopId.value,
@@ -161,11 +167,12 @@ class SellDueEditAddController extends GetxController{
         updatedAt: dueDate.value.toString(),
         contactType: contactType,
         contactMobile: numberTextEditingController.value.text,
-        contactName: nameTextEditingController.value.text
-    );
-    String dIUniqueId = shopId.toString()+uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString();
+        contactName: nameTextEditingController.value.text);
+    String dIUniqueId = shopId.toString() +
+        uuid.v1().toString() +
+        DateTime.now().microsecondsSinceEpoch.toString();
     AddDueResponse response = await dueRepository.addNewDue(request);
-    if(response.code == 200){
+    if (response.code == 200) {
       AddDueItemRequest dueItemRequest = AddDueItemRequest(
         shopId: response.due.shopId,
         createdAt: response.due.createdAt.toString(),
@@ -173,12 +180,12 @@ class SellDueEditAddController extends GetxController{
         dueUniqueId: response.due.uniqueId,
         uniqueId: dIUniqueId,
         version: 0,
-        updatedAt:response.due.updatedAt.toString(),
+        updatedAt: response.due.updatedAt.toString(),
         dueLeft: response.due.dueAmount.toInt(),
       );
-      if(response.code == 200){
+      if (response.code == 200) {
         final responseItem = await dueRepository.addNewDueItem(dueItemRequest);
-        if(responseItem.code == 200){
+        if (responseItem.code == 200) {
           Get.back();
           Get.find<DueFrontController>().getAllDue();
           quickSell();
@@ -190,16 +197,22 @@ class SellDueEditAddController extends GetxController{
   quickSell() async {
     formKey.currentState.save();
     var uuid = Uuid();
-    String tUniqueId = shop.value.id.toString()+uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString();
-    String uniqueId = shop.value.id.toString()+uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString();
+    String tUniqueId = shop.value.id.toString() +
+        uuid.v1().toString() +
+        DateTime.now().microsecondsSinceEpoch.toString();
+    String uniqueId = shop.value.id.toString() +
+        uuid.v1().toString() +
+        DateTime.now().microsecondsSinceEpoch.toString();
     String funiqueId = uniqueId.replaceAll("'", "");
-    String sellUniqueId = uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString()+shop.value.id.toString();
+    String sellUniqueId = uuid.v1().toString() +
+        DateTime.now().microsecondsSinceEpoch.toString() +
+        shop.value.id.toString();
     String fSellUniqueId = sellUniqueId.replaceAll("'", "");
     QuickSellRequest quickSellRequest = QuickSellRequest(
       createdAt: DateTime.now().toString(),
       shopId: shop.value.id,
       details: '',
-      price: totalPrice.value.toInt(),
+      price: totalPrice.value,
       version: 0,
       uniqueId: funiqueId,
       transactionUniqueId: fSellUniqueId,
@@ -232,12 +245,11 @@ class SellDueEditAddController extends GetxController{
     print("${response.code}");
     if (response.code == 200) {
       final response = await transactionRepository.addTransaction(transaction);
-      if(response.code == 200){
+      if (response.code == 200) {
         formKey.currentState.reset();
         Get.find<SellController>().clearCart();
         Get.find<ShopFeaturesController>().initData();
-        Get.to(() =>
-            SoldPage(
+        Get.to(() => SoldPage(
               shop: shop.value,
               route: 2,
               totalPrice: totalPrice.value.toInt(),

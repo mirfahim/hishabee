@@ -59,7 +59,7 @@ class ConfirmPaymentController extends GetxController {
   final payWithQr = false.obs;
 
   ConfettiController _controllerCenter =
-  ConfettiController(duration: const Duration(microseconds: 100));
+      ConfettiController(duration: const Duration(microseconds: 100));
 
   final IContactRepository contactRepository;
   final ITransactionRepository transactionRepository;
@@ -113,14 +113,14 @@ class ConfirmPaymentController extends GetxController {
 
   getAllEmployee() async {
     final result =
-    await contactRepository.getAllEmployee(shopId: shop.value.id);
+        await contactRepository.getAllEmployee(shopId: shop.value.id);
 
     employees.assignAll(result);
   }
 
   getAllCustomer() async {
     final result =
-    await contactRepository.getAllCustomer(shopId: shop.value.id);
+        await contactRepository.getAllCustomer(shopId: shop.value.id);
 
     customers.assignAll(result);
     searchCustomerList.assignAll(result);
@@ -320,12 +320,12 @@ class ConfirmPaymentController extends GetxController {
       sc.calculateTotalCartPrice();
       if (result.code == 200) {
         Get.to(() => SellDigitalPaymentPage(
-          customerMobile: selectedCustomer.value.mobile,
-          shop: shop.value,
-          url: result.url,
-          customerEmail: selectedCustomer.value.email,
-          amount: result.transaction.totalPrice,
-        ));
+              customerMobile: selectedCustomer.value.mobile,
+              shop: shop.value,
+              url: result.url,
+              customerEmail: selectedCustomer.value.email,
+              amount: result.transaction.totalPrice,
+            ));
       } else {
         CustomDialog.showStringDialog(result.message);
       }
@@ -345,20 +345,25 @@ class ConfirmPaymentController extends GetxController {
     cred.value = result;
   }
 
-
   quickSell() async {
     formKey.currentState.save();
     var uuid = Uuid();
-    String tUniqueId = shop.value.id.toString()+uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString();
-    String uniqueId = shop.value.id.toString()+uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString();
+    String tUniqueId = shop.value.id.toString() +
+        uuid.v1().toString() +
+        DateTime.now().microsecondsSinceEpoch.toString();
+    String uniqueId = shop.value.id.toString() +
+        uuid.v1().toString() +
+        DateTime.now().microsecondsSinceEpoch.toString();
     String funiqueId = uniqueId.replaceAll("'", "");
-    String sellUniqueId = uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString()+shop.value.id.toString();
+    String sellUniqueId = uuid.v1().toString() +
+        DateTime.now().microsecondsSinceEpoch.toString() +
+        shop.value.id.toString();
     String fSellUniqueId = sellUniqueId.replaceAll("'", "");
     QuickSellRequest quickSellRequest = QuickSellRequest(
       createdAt: DateTime.now().toString(),
       shopId: shop.value.id,
       details: '',
-      price: totalPrice.value.toInt(),
+      price: totalPrice.value,
       version: 0,
       uniqueId: funiqueId,
       transactionUniqueId: fSellUniqueId,
@@ -391,12 +396,11 @@ class ConfirmPaymentController extends GetxController {
     print("${response.code}");
     if (response.code == 200) {
       final response = await transactionRepository.addTransaction(transaction);
-      if(response.code == 200){
+      if (response.code == 200) {
         formKey.currentState.reset();
         Get.find<SellController>().clearCart();
         Get.find<ShopFeaturesController>().initData();
-        Get.to(() =>
-            SoldPage(
+        Get.to(() => SoldPage(
               shop: shop.value,
               route: 2,
               totalPrice: totalPrice.value.toInt(),

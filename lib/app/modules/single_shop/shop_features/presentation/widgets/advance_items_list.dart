@@ -632,89 +632,87 @@ class AdvanceItemsList extends GetResponsiveView<ShopFeaturesController> {
                 //     ),
                 //   ),
                 // ),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      Get.to(EMI(), arguments: shop);
-                      // Get.to(
-                      //   () => SmsPage(),
-                      //   arguments: {
-                      //     "shop": shop,
-                      //   },
-                      //   binding: SMSBindings(),
-                      // );
-                    },
-                    child: Container(
-                      height: itemHeight,
-                      width: itemWidth,
-                      decoration: SHOP_ITEM_DECORATION,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'images/shop_features/emi.png',
-                            height:
-                                screen.responsiveValue(mobile: 40, tablet: 60),
+                InkWell(
+                  onTap: () {
+                    Get.to(EMI(), arguments: shop);
+                    // Get.to(
+                    //   () => SmsPage(),
+                    //   arguments: {
+                    //     "shop": shop,
+                    //   },
+                    //   binding: SMSBindings(),
+                    // );
+                  },
+                  child: Container(
+                    height: itemHeight,
+                    width: itemWidth,
+                    decoration: SHOP_ITEM_DECORATION,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'images/shop_features/emi.png',
+                          height:
+                              screen.responsiveValue(mobile: 40, tablet: 60),
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          "emi".tr,
+                          style: TextStyle(
+                            fontFamily: 'Rubik',
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            color: DEFAULT_BLACK,
                           ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "emi".tr,
-                            style: TextStyle(
-                              fontFamily: 'Rubik',
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal,
-                              color: DEFAULT_BLACK,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
                 SizedBox(width: 10,),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {
-                      Get.toNamed(
-                        SettingsRoutes.SETTINGS,
-                        arguments: {
-                          "shop": shop,
-                        },
-                      );
-                    },
-                    child: Container(
-                      height: itemHeight,
-                      width: itemWidth,
-                      decoration: SHOP_ITEM_DECORATION,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'images/shop_features/settings.png',
-                            height:
-                            screen.responsiveValue(mobile: 40, tablet: 60),
-                          ),
-                          SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            "app_setting".tr,
-                            style: TextStyle(
-                              fontFamily: 'Rubik',
-                              fontSize: 16,
-                              fontWeight: FontWeight.normal,
-                              color: DEFAULT_BLACK,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                )
+                // Expanded(
+                //   child: InkWell(
+                //     onTap: () {
+                //       Get.toNamed(
+                //         SettingsRoutes.SETTINGS,
+                //         arguments: {
+                //           "shop": shop,
+                //         },
+                //       );
+                //     },
+                //     child: Container(
+                //       height: itemHeight,
+                //       width: itemWidth,
+                //       decoration: SHOP_ITEM_DECORATION,
+                //       child: Column(
+                //         mainAxisAlignment: MainAxisAlignment.center,
+                //         crossAxisAlignment: CrossAxisAlignment.center,
+                //         children: [
+                //           Image.asset(
+                //             'images/shop_features/settings.png',
+                //             height:
+                //             screen.responsiveValue(mobile: 40, tablet: 60),
+                //           ),
+                //           SizedBox(
+                //             height: 5,
+                //           ),
+                //           Text(
+                //             "app_setting".tr,
+                //             style: TextStyle(
+                //               fontFamily: 'Rubik',
+                //               fontSize: 16,
+                //               fontWeight: FontWeight.normal,
+                //               color: DEFAULT_BLACK,
+                //             ),
+                //           ),
+                //         ],
+                //       ),
+                //     ),
+                //   ),
+                // )
               ],
             ),
             SizedBox(height: 10,),

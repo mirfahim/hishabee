@@ -19,6 +19,7 @@ abstract class IProductRepository {
 
   Future<AddProductResponseModel> addProduct({
     int shopId,
+    int version,
     int subcategoryId,
     String productName,
     var subUnit,

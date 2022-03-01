@@ -98,6 +98,7 @@ class CustomDialog {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         color: DEFAULT_BLUE,
+                        fontFamily: 'Roboto',
                         fontSize: 18),
                   ),
           ],

@@ -149,7 +149,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                 fontSize: 16),),
                             if (flag == 2)
                               Text(
-                                '${weekFirst} - ${weekLast}',style: TextStyle(
+                                '$weekFirst - $weekLast',style: TextStyle(
                                   color: Colors.white,
                                   fontFamily: 'Roboto',
                                   fontSize: 16),),
@@ -239,7 +239,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
                         ),
                       ),
                       SizedBox(
-                        width: 30,
+                        width: 10,
                       ),
                       Container(
                         height: 27,
@@ -291,7 +291,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
                         ),
                       ),
                       SizedBox(
-                        width: 30,
+                        width: 10,
                       ),
                       Container(
                         height: 27,
@@ -343,7 +343,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
                         ),
                       ),
                       SizedBox(
-                        width: 30,
+                        width: 10,
                       ),
                       Container(
                         height: 27,

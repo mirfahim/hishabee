@@ -15,15 +15,15 @@ class ForgetPinHeader extends GetResponsiveView {
   Widget builder() {
     return Positioned(
       top: screen.height * 0.05,
-      left: 30,
+      left: 15,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             "Welcome",
             style: TextStyle(
-              fontFamily: 'Rubik',
-              fontSize: 18,
+              fontFamily: 'Roboto',
+              fontSize: 16,
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -33,8 +33,8 @@ class ForgetPinHeader extends GetResponsiveView {
           Text(
             "forgot_password".tr,
             style: TextStyle(
-              fontFamily: 'Rubik',
-              fontSize: 22,
+              fontFamily: 'Roboto',
+              fontSize: 20,
               color: DEFAULT_BLUE,
               fontWeight: FontWeight.bold,
             ),

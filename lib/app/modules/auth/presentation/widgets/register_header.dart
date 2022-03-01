@@ -34,7 +34,7 @@ class SignUpHeader extends StatelessWidget {
               child: Text(
                 "welcome".tr,
                 style: TextStyle(
-                  fontFamily: 'Rubik',
+                  fontFamily: 'Roboto',
                   fontSize: 18,
                   color: DEFAULT_BLACK,
                   fontWeight: FontWeight.bold,
@@ -48,8 +48,8 @@ class SignUpHeader extends StatelessWidget {
           child: Text(
             "sign_up".tr,
             style: TextStyle(
-              fontFamily: 'Rubik',
-              fontSize: 24,
+              fontFamily: 'Roboto',
+              fontSize: 20,
               color: DEFAULT_BLUE,
               fontWeight: FontWeight.normal,
             ),

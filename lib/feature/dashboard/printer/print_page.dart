@@ -1,6 +1,8 @@
 import 'package:bluetooth_print/bluetooth_print.dart';
 import 'package:bluetooth_print/bluetooth_print_model.dart';
 import 'package:flutter/material.dart';
+import 'package:hishabee_business_manager_fl/app/_services/sharedPref_service.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/printer/printer_setting.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
@@ -14,6 +16,7 @@ class PrintPage extends StatefulWidget {
 class _PrintPageState extends State<PrintPage> {
   BluetoothPrint bluetoothPrint = BluetoothPrint.instance;
 
+  Shop shop = Get.arguments;
   List<BluetoothDevice> _devices = [];
 
   String deviceMsg = '';
@@ -66,15 +69,20 @@ class _PrintPageState extends State<PrintPage> {
               itemBuilder: (c,i){
               return InkWell(
                 onTap: (){
-                  PrinterSetting(deviceName: _devices[i].name, deviceAddress: _devices[i].address,);
+                  Get.to(
+                      PrinterSetting(),
+                    arguments: shop
+                  );
+                  SharedPref.to.prefss.setString('bluetooth_name', _devices[i].name);
+                  SharedPref.to.prefss.setString('bluetooth_address',  _devices[i].address);
                 },
                 child: ListTile(
                   leading: Icon(Icons.print),
                   title: Text(_devices[i].name),
                   subtitle: Text(_devices[i].address),
-                  onTap: (){
-                    // _startPrint(_devices[i]);
-                  },
+                  // onTap: (){
+                  //   // _startPrint(_devices[i]);
+                  // },
                 ),
               );
               })

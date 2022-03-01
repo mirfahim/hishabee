@@ -191,11 +191,12 @@ class ProductProvider extends GetConnect implements IProductProvider {
     double wholeSalePrice,
     String uniqueID,
     var subUnit,
+    int version,
     String productType = "SIMPLE",
   }) async {
     print("my sub unit list is +++ $subUnit");
     String url =
-        "$BASE_URL/product?shop_id=$shopId&sub_category=$subcategoryId&name=$productName&selling_price=$price&description=$productName&image_src=$imageUrl&stock=$stockQuantity&sub_unit=$subUnit&cost_price=$cost&vat_applicable=true&barcode=$barcode&unit=1&vat_applicable=true&vat_percent=15&sell_online=true&shipping_cost=50&wholesale_price=$wholeSalePrice&wholesale_amount=10&gallery=[]&warranty=10&warranty_type=DAY&stock_alert=2&discount=10&discount_type=PERCENT&created_at=2022-02-08 12:12:12&updated_at=2022-02-08 12:12:13&version=0&unique_id=$uniqueID";
+        "$BASE_URL/product?shop_id=$shopId&sub_category=$subcategoryId&name=$productName&selling_price=$price&description=$productName&image_src=$imageUrl&stock=$stockQuantity&sub_unit=$subUnit&cost_price=$cost&vat_applicable=true&barcode=$barcode&unit=1&vat_applicable=true&vat_percent=15&sell_online=true&shipping_cost=50&wholesale_price=$wholeSalePrice&wholesale_amount=10&gallery=[]&warranty=10&warranty_type=DAY&stock_alert=2&discount=10&discount_type=PERCENT&created_at=2022-02-08 12:12:12&updated_at=2022-02-08 12:12:13&version=$version&unique_id=$uniqueID";
 
     final creds = await _authRepository.getCredentials();
     var subUnitResponse = json.encode(subUnit);
@@ -217,6 +218,7 @@ class ProductProvider extends GetConnect implements IProductProvider {
       "attribute": attribute,
       "product_type": productType,
       "sub_unit": subUnitResponse,
+      "version": version,
     };
     print("my all url are $body ");
 
@@ -423,6 +425,60 @@ class ProductProvider extends GetConnect implements IProductProvider {
       body,
       headers: headers,
       decoder: addSubCategoryResponseFromRawJson,
+    );
+  }
+
+  @override
+  Future<Response<AddProductResponseModel>> deleteProductWithVersion({
+    int shopId,
+    int subcategoryId,
+    String productName,
+    double price,
+    String desc,
+    String imageUrl,
+    int stockQuantity,
+    double cost,
+    bool vatApplicable,
+    String barcode,
+    String attribute,
+    double vatAmount,
+    double wholeSalePrice,
+    String uniqueID,
+    var subUnit,
+    String productType = "SIMPLE",
+  }) async {
+    print("my sub unit list is +++ $subUnit");
+    String url =
+        "$BASE_URL/product?shop_id=$shopId&sub_category=$subcategoryId&name=$productName&selling_price=$price&description=$productName&image_src=$imageUrl&stock=$stockQuantity&sub_unit=$subUnit&cost_price=$cost&vat_applicable=true&barcode=$barcode&unit=1&vat_applicable=true&vat_percent=15&sell_online=true&shipping_cost=50&wholesale_price=$wholeSalePrice&wholesale_amount=10&gallery=[]&warranty=10&warranty_type=DAY&stock_alert=2&discount=10&discount_type=PERCENT&created_at=2022-02-08 12:12:12&updated_at=2022-02-08 12:12:13&version=-1&unique_id=$uniqueID";
+
+    final creds = await _authRepository.getCredentials();
+    var subUnitResponse = json.encode(subUnit);
+    final headers = {'Authorization': 'Bearer ${creds.accessToken}'};
+
+    final body = {
+      "shop_id": shopId,
+      "category": subcategoryId,
+      "name": productName,
+      "selling_price": price,
+      "cost": price,
+      "description": desc,
+      "image_url": imageUrl,
+      "stock": stockQuantity,
+      "wholesale_price": wholeSalePrice,
+      "vat_applicable": vatApplicable,
+      "vat_percent": vatAmount,
+      "barcode": barcode,
+      "attribute": attribute,
+      "product_type": productType,
+      "sub_unit": subUnitResponse,
+    };
+    print("my all url are $body ");
+
+    return post(
+      url,
+      body,
+      headers: headers,
+      decoder: addProductResponseModelFromRawJson,
     );
   }
 }

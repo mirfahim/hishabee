@@ -42,6 +42,7 @@ class SellController extends GetxController
   var isChecked = <bool>[].obs;
   final checkedFilterCategory = <SubCategory>[].obs;
 
+
   final animate = false.obs;
 
   final discount1 = 0.0.obs;
@@ -57,12 +58,9 @@ class SellController extends GetxController
   final customerPhone = ''.obs;
   final customerAddress = ''.obs;
   final productDetails = ''.obs;
-  final amount = 0.obs;
+  final amount = 0.0.obs;
   final profit = 0.obs;
   final sellType = 0.obs;
-  AnimationController _animationController;
-  Animation animation;
-
   ///
 
   final productCount = 1.obs;
@@ -81,13 +79,12 @@ class SellController extends GetxController
   final IProductRepository _productRepository;
   final ITransactionRepository transactionRepository;
   final IShopRepository _shopRepository;
-  SellController(this._productRepository, this.transactionRepository,
-      this._shopRepository);
+  SellController(this._productRepository, this.transactionRepository, this._shopRepository);
 
   final animationX = 0.0.obs;
   final animationY = 0.0.obs;
   ConfettiController _controllerCenter =
-      ConfettiController(duration: const Duration(microseconds: 100));
+  ConfettiController(duration: const Duration(microseconds: 100));
 
   @override
   void onInit() async {
@@ -137,7 +134,7 @@ class SellController extends GetxController
     searchTextEditingController.dispose();
   }
 
-  getArguments() async {
+  getArguments() async{
     shop.value = Get.arguments["shop"];
   }
 
@@ -162,36 +159,14 @@ class SellController extends GetxController
     });
   }
 
-  void initialAnimationImage() {
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 3));
-    animation = Tween<Offset>(begin: Offset(0.5, 0.5), end: Offset.zero)
-        .animate(_animationController);
-    _animationController.forward().whenComplete(() {
-      // when animation completes, put your code here
-    });
-  }
-
-  void animationImage() {
-    print("working");
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 3));
-    animation = Tween<Offset>(begin: Offset(0.5, 0.5), end: Offset.zero)
-        .animate(_animationController);
-    _animationController.forward().whenComplete(() {
-      // when animation completes, put your code here
-    });
-  }
-
   Future<void> searchProduct(String searchProductName) async {
     final result = productList
         .where((Product product) => product.productName
-            .toLowerCase()
-            .contains(searchProductName.toLowerCase()))
+        .toLowerCase()
+        .contains(searchProductName.toLowerCase()))
         .toList();
     searchList.assignAll(result);
   }
-
   Future<void> scanProduct() async {
     String barcodeScanRes;
     try {
@@ -219,8 +194,8 @@ class SellController extends GetxController
       searchList.assignAll(productList);
     }
   }
-
   checkFilterCategory(int index, bool value) {
+
     isChecked[index] = value;
     if (isChecked[index]) {
       checkedFilterCategory.add(filterCategory[index]);
@@ -229,7 +204,6 @@ class SellController extends GetxController
     }
     print(checkedFilterCategory.length);
   }
-
   filterProductsByCategory() {
     if (checkedFilterCategory.length > 0) {
       searchList.clear();
@@ -285,7 +259,7 @@ class SellController extends GetxController
     calculateTotalCartPrice();
   }
 
-  increaseCartItem(int index, Product product) {
+  increaseCartItem(int index,Product product){
     cart.removeAt(index);
     product.unit = product.unit + 1;
     product.sellingPrice = product.basePrice * product.unit;
@@ -293,8 +267,8 @@ class SellController extends GetxController
     calculateTotalCartPrice();
   }
 
-  decreaseCartItem(int index, Product product) {
-    if (product.unit > 1) {
+  decreaseCartItem(int index,Product product){
+    if(product.unit > 1){
       cart.removeAt(index);
       product.unit = product.unit - 1;
       product.sellingPrice = product.basePrice * product.unit;
@@ -322,16 +296,10 @@ class SellController extends GetxController
   quickSell() async {
     formKey.currentState.save();
     var uuid = Uuid();
-    String tUniqueId = shop.value.id.toString() +
-        uuid.v1().toString() +
-        DateTime.now().microsecondsSinceEpoch.toString();
-    String uniqueId = shop.value.id.toString() +
-        uuid.v1().toString() +
-        DateTime.now().microsecondsSinceEpoch.toString();
+    String tUniqueId = shop.value.id.toString()+uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString();
+    String uniqueId = shop.value.id.toString()+uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString();
     String funiqueId = uniqueId.replaceAll("'", "");
-    String sellUniqueId = uuid.v1().toString() +
-        DateTime.now().microsecondsSinceEpoch.toString() +
-        shop.value.id.toString();
+    String sellUniqueId = uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString()+shop.value.id.toString();
     String fSellUniqueId = sellUniqueId.replaceAll("'", "");
     QuickSellRequest quickSellRequest = QuickSellRequest(
       createdAt: DateTime.now().toString(),
@@ -370,7 +338,7 @@ class SellController extends GetxController
     print("${response.code}");
     if (response.code == 200) {
       final response = await transactionRepository.addTransaction(transaction);
-      if (response.code == 200) {
+      if(response.code == 200){
         formKey.currentState.reset();
         clearCart();
         Get.find<ShopFeaturesController>().initData();

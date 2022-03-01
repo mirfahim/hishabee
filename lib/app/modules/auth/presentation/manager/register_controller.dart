@@ -7,6 +7,7 @@ import 'package:hishabee_business_manager_fl/app/_workmanager/analytics_service.
 import 'package:hishabee_business_manager_fl/app/modules/auth/_bindings/auth_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/domain/repositories/i_auth_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/presentation/pages/verify_otp_page.dart';
+import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class RegisterController extends GetxController {
   final IAuthRepository authRepository;
@@ -16,6 +17,7 @@ class RegisterController extends GetxController {
   final pin = ''.obs;
   final pinConfirmation = ''.obs;
   final termsAgreed = false.obs;
+  final address = ''.obs;
 
   RegisterController(this.authRepository);
 
@@ -28,30 +30,56 @@ class RegisterController extends GetxController {
 
   Future<void> register() async {
     CustomDialog.showLoadingDialog(message: "Registering");
-    try {
-      String token = await FirebaseMessaging.instance.getToken();
-
-      final response = await authRepository.register(
-        brandName: brandName.value,
-        mobileNumber: mobileNumber.value,
-        pin: pin.value,
-        pinConfirmation: pinConfirmation.value,
-        // fcmToken: token,
-      );
-      CustomDialog.hideDialog();
-      if (response.code == 200) {
-        await AnalyticsService.sendAnalytics(
-            event: AnalyticsEvent.signupCompleted);
-        Get.to(
-            () => VerifyOtpPage(
-                  mobileNo: mobileNumber.value,
-                ),
-            binding: AuthBinding());
-      } else {
-        CustomDialog.showStringDialog(response.message);
-      }
-    } catch (e) {
-      CustomDialog.showStringDialog(e);
+    final response = await authRepository.register(
+      brandName: brandName.value,
+      mobileNumber: mobileNumber.value,
+      pin: pin.value,
+      pinConfirmation: pinConfirmation.value,
+      address: address.value,
+      // fcmToken: token,
+    );
+    print('from registration controller ${response.code}');
+    CustomDialog.hideDialog();
+    if (response.code == 200) {
+      await AnalyticsService.sendAnalytics(
+          event: AnalyticsEvent.signupCompleted);
+      Get.to(
+              () => VerifyOtpPage(
+            mobileNo: mobileNumber.value,
+          ),
+          binding: AuthBinding());
+    } else {
+      // CustomDialog.showStringDialog(response.message);
+      Utils.showToast(response.message);
     }
+    // try {
+    //   // String token = await FirebaseMessaging.instance.getToken();
+    //
+    //   // final response = await authRepository.register(
+    //   //   brandName: brandName.value,
+    //   //   mobileNumber: mobileNumber.value,
+    //   //   pin: pin.value,
+    //   //   pinConfirmation: pinConfirmation.value,
+    //   //   address: address.value,
+    //   //   // fcmToken: token,
+    //   // );
+    //   // print('from registration controller ${response.code}');
+    //   // CustomDialog.hideDialog();
+    //   // if (response.code == 200) {
+    //   //   await AnalyticsService.sendAnalytics(
+    //   //       event: AnalyticsEvent.signupCompleted);
+    //   //   Get.to(
+    //   //       () => VerifyOtpPage(
+    //   //             mobileNo: mobileNumber.value,
+    //   //           ),
+    //   //       binding: AuthBinding());
+    //   // } else {
+    //   //   // CustomDialog.showStringDialog(response.message);
+    //   //   Utils.showToast(response.message);
+    //   // }
+    // } catch (e) {
+    //   // CustomDialog.showStringDialog(e);
+    //   Utils.showToast(e);
+    // }
   }
 }

@@ -66,7 +66,10 @@ class _PrinterFrontState extends State<PrinterFront> {
             SizedBox(height: 10,),
             InkWell(
               onTap: (){
-                Get.to(AddPrinter());
+                Get.to(
+                    AddPrinter(),
+                  arguments: shop
+                );
               },
               child: Container(
                 decoration: BoxDecoration(

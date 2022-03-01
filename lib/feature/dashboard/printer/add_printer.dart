@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/data/local/models/contact_us_model.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/printer/print_page.dart';
 class AddPrinter extends StatelessWidget {
 
+  Shop shop = Get.arguments;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +16,10 @@ class AddPrinter extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10),
         child: InkWell(
           onTap: (){
-            Get.to(PrintPage());
+            Get.to(
+                PrintPage(),
+              arguments: shop
+            );
           },
           child: Container(
             width: MediaQuery.of(context).size.width,

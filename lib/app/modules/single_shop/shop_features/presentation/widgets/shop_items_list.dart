@@ -112,7 +112,7 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
                             "transaction_exchange_amp_refund".tr,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              fontFamily: 'Rubik',
+                              fontFamily: 'Roboto',
                               fontSize: 16,
                               fontWeight: FontWeight.normal,
                               color: DEFAULT_BLACK,

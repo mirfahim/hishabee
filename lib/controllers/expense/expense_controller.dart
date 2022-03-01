@@ -23,7 +23,7 @@ class ExpenseController extends GetxController {
 
   Future<dynamic> getAllExpense({String shopId, String userId, String startDate, String endDate}) async {
     String url = "/expense/all?user_id=$userId&shop_id=$shopId&start_date=$startDate&end_date=$endDate";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get,
         url: url,
         body: null,
@@ -32,7 +32,7 @@ class ExpenseController extends GetxController {
 
   Future<dynamic> getAllExpenseCategory({String shopId}) async {
     String url = "/expense_category?shop_id=$shopId";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get,
         url: url,
         body: null,
@@ -42,14 +42,14 @@ class ExpenseController extends GetxController {
   Future<dynamic> createNewExpenseType({String shopId, String name}) async {
     CustomDialog.showLoadingDialog(message: 'Creating Expense Type');
     String url = "/expense_category/?name=$name&shop_id=$shopId";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
 
   Future<dynamic> deleteCategory({String categoryid}) async {
     CustomDialog.showLoadingDialog(message: 'please wait');
     String url = "/expense_category?id=$categoryid";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.delete, url: url, body: null, headers: null);
   }
 
@@ -57,7 +57,7 @@ class ExpenseController extends GetxController {
       {String categoryid, String name, String shopId}) async {
     CustomDialog.showLoadingDialog(message: 'Updating Expense Type');
     String url = "/expense_category/?name=$name&shop_id=$shopId&id=$categoryid";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.put, url: url, body: null, headers: null);
   }
 
@@ -70,7 +70,7 @@ class ExpenseController extends GetxController {
     CustomDialog.showLoadingDialog(message: 'Creating New Expense');
     String url =
         "/expense/add?shop_id=$shopId&type=$type&purpose=$purpose&details=$details&amount=$amount";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
 
@@ -84,14 +84,14 @@ class ExpenseController extends GetxController {
     CustomDialog.showLoadingDialog(message: 'Updating...');
     String url =
         "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose&details=$description&amount=$amount&id=$categoryid&image&image_changed=true";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.put, url: url, body: null, headers: null);
   }
 
   Future<dynamic> deleteExpense({String categoryid}) async {
     CustomDialog.showLoadingDialog(message: 'please wait');
     String url = "/expense/delete?id=$categoryid";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.delete, url: url, body: null, headers: null);
   }
 }

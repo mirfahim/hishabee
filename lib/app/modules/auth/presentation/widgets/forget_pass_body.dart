@@ -40,9 +40,9 @@ class ForgetPinBody extends GetResponsiveView {
         width: screen.context.width,
         child: Padding(
           padding: const EdgeInsets.only(
-            left: 30,
+            left: 15,
             top: 50,
-            right: 30,
+            right: 15,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +51,7 @@ class ForgetPinBody extends GetResponsiveView {
                 "mobile_number".tr,
                 style: TextStyle(
                   fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Roboto'
                 ),
               ),
               Padding(
@@ -67,29 +67,26 @@ class ForgetPinBody extends GetResponsiveView {
                   ),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Form(
-                      key: formKey,
-                      child: TextFormField(
-                        onChanged: (value) {
-                          controller.mobileNumber.value = value;
-                        },
-                        maxLength: 11,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                            RegExp('[0-9]'),
-                          ),
-                        ],
-                        decoration: InputDecoration(
-                          prefix: Text(
-                            "+88 ",
-                            style: TextStyle(
-                                color: DEFAULT_BLACK.withOpacity(0.7)),
-                          ),
-                          hintText: "Mobile Number",
-                          border: InputBorder.none,
-                          counterText: "",
+                    child: TextFormField(
+                      onChanged: (value) {
+                        controller.mobileNumber.value = value;
+                      },
+                      maxLength: 11,
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                          RegExp('[0-9]'),
                         ),
+                      ],
+                      decoration: InputDecoration(
+                        prefix: Text(
+                          "+88 ",
+                          style: TextStyle(
+                              color: DEFAULT_BLACK.withOpacity(0.7)),
+                        ),
+                        hintText: "mobile_number".tr,
+                        border: InputBorder.none,
+                        counterText: "",
                       ),
                     ),
                   ),
@@ -107,10 +104,11 @@ class ForgetPinBody extends GetResponsiveView {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: DEFAULT_BLACK),
                   onPressed: () async {
-                    if (formKey.currentState.validate()) {
-                      formKey.currentState.save();
-                      controller.sendOtp();
-                    }
+                    controller.sendOtp();
+                    // if (formKey.currentState.validate()) {
+                    //   formKey.currentState.save();
+                    //   controller.sendOtp();
+                    // }
                   },
                   child: Text(
                     "submit".tr,
@@ -127,10 +125,11 @@ class ForgetPinBody extends GetResponsiveView {
                 child: Obx(
                   () => Text(
                     controller.serverError.value.isEmpty
-                        ? "[A 6 digit verification code will be sent to this number]"
+                        ? "[একটি ৬ সংখ্যার কোড এই নম্বর এর পাঠানো হবে ]"
                         : "${controller.serverError.value}",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
+                        fontFamily: 'Roboto',
                         fontSize: 12,
                         color: controller.serverError.value.isEmpty
                             ? DEFAULT_BLACK

@@ -2,6 +2,7 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/strings.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/data/repositories/auth_repository.dart';
@@ -14,7 +15,7 @@ import 'package:hishabee_business_manager_fl/service/api_service.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SmsController extends GetxController {
+class ProductControllerWithVersion extends GetxController {
   final maxLengthForText = 160.obs;
   final textInTheMessageField = ''.obs;
   final messageCount = 1.obs;
@@ -42,6 +43,16 @@ class SmsController extends GetxController {
     String url = "/sms/packages";
     return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
+  }
+
+  Future<dynamic> deleteProductWithVersion(
+    int shopId,
+    String uniqueID,
+  ) async {
+    String url =
+        "$BASE_URL/product?shop_id=$shopId&sub_category=1&name=nodata&selling_price=12&description=nodataproductName&image_src=nodataimageUrl&stock=nodata&sub_unit=nodata&cost_price=12&vat_applicable=true&barcode=nodata&unit=1&vat_applicable=true&vat_percent=15&sell_online=true&shipping_cost=50&wholesale_price=nodata&wholesale_amount=10&gallery=[]&warranty=10&warranty_type=DAY&stock_alert=2&discount=10&discount_type=PERCENT&created_at=2022-02-08 12:12:12&updated_at=2022-02-08 12:12:13&version=0&unique_id=$uniqueID";
+    return _apiService.makeApiRequest(
+        method: apiMethods.post, url: url, body: null, headers: null);
   }
 
   Future<dynamic> createSms(

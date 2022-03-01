@@ -12,7 +12,7 @@ class BoController extends GetxController {
       String startDate,
       String endDate}) async {
     String url = "/overview?shop_id=$shopId&start_date=$startDate&end_date=$endDate";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get,
         url: url,
         body: null,
@@ -23,21 +23,21 @@ class BoController extends GetxController {
       {String shopId, String startDate, String endDate}) async {
     String url =
         "/overview/product?shop_id=$shopId&start_date=$startDate&end_date=$endDate";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
   fetchCustomerWiseReport({String shopId, String startDate, String endDate}) {
     String url =
         "/overview/customer?shop_id=$shopId&start_date=$startDate&end_date=$endDate";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
   fetchEmployeWiseReport({String shopId, String startDate, String endDate}) {
     String url =
         "/overview/employee?shop_id=$shopId&start_date=$startDate&end_date=$endDate";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 

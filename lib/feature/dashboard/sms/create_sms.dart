@@ -74,60 +74,79 @@ class SmsCreatePage extends GetResponsiveView {
                 children: [
                   Obx(() {
                     return SizedBox(
+                      width: _smsController.selectedMobileNumber.length <= 0
+                          ? 0
+                          : 400,
                       height: _smsController.selectedMobileNumber.length <= 0
                           ? 0
-                          : 60,
+                          : 80,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: ListView.builder(
+                        child: GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 185,
+                                    childAspectRatio: 3 / 2,
+                                    crossAxisSpacing: 4,
+                                    mainAxisSpacing: 4),
                             itemCount:
                                 _smsController.selectedMobileNumber.length,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.grey,
-                                          borderRadius:
-                                              BorderRadius.circular(30)),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(5),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Text(_smsController
-                                                .selectedMobileNumber[index]),
-                                            IconButton(
-                                              onPressed: () {
-                                                _smsController
-                                                    .selectedMobileNumber
-                                                    .removeWhere((item) =>
-                                                        item ==
-                                                        _smsController
-                                                                .selectedMobileNumber[
-                                                            index]);
-                                              },
-                                              icon: Icon(
-                                                Icons.cancel,
-                                                color: Colors.red,
-                                              ),
-                                              iconSize: 16,
-                                              padding: EdgeInsets.all(0),
-                                            )
-                                          ],
+                            itemBuilder: (BuildContext ctx, index) {
+                              return Container(
+                                height: 30,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 2, right: 2),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            borderRadius:
+                                                BorderRadius.circular(30)),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(1),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(_smsController
+                                                  .selectedMobileNumber[index]),
+                                              IconButton(
+                                                onPressed: () {
+                                                  _smsController
+                                                      .selectedMobileNumber
+                                                      .removeWhere((item) =>
+                                                          item ==
+                                                          _smsController
+                                                                  .selectedMobileNumber[
+                                                              index]);
+                                                },
+                                                icon: Icon(
+                                                  Icons.cancel,
+                                                  color: Colors.red,
+                                                ),
+                                                iconSize: 16,
+                                                padding: EdgeInsets.all(0),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               );
                             }),
+                        // ListView.builder(
+                        //     itemCount:
+                        //         _smsController.selectedMobileNumber.length,
+                        //     scrollDirection: Axis.vertical,
+                        //     itemBuilder: (context, index) {
+
+                        //     }),
                       ),
                     );
                   }),
@@ -456,19 +475,26 @@ class SmsCreatePage extends GetResponsiveView {
                     child: ElevatedButton(
                       onPressed: () async {
                         FocusScope.of(context).requestFocus(new FocusNode());
-                        _smsController.createSms(
-                            shopId: '${storageSms.read("shop_id")}',
-                            number: "${_smsController.selectedMobileNumber}",
-                            message:
-                                "${_smsController.textInTheMessageField.value}",
-                            smsCount: '${_smsController.messageCount.value} ');
-                        // numberController.clear();
-                        await smsCount();
-                        await smsCount();
-                        messageController.clear();
-                        _smsController.textInTheMessageField.value = '';
-                        _smsController.messageCount.value = 1;
-                        _smsController.selectedMobileNumber.value = [];
+                        if (_smsController.totalSmsLeft.value <= 0) {
+                          print(
+                              "sms left ${_smsController.totalSmsLeft.value}");
+                          createSnackBar("You have no sms left", BuildContext);
+                        } else {
+                          _smsController.createSms(
+                              shopId: '${storageSms.read("shop_id")}',
+                              number: "${_smsController.selectedMobileNumber}",
+                              message:
+                                  "${_smsController.textInTheMessageField.value}",
+                              smsCount:
+                                  '${_smsController.messageCount.value} ');
+                          // numberController.clear();
+                          await smsCount();
+                          await smsCount();
+                          messageController.clear();
+                          _smsController.textInTheMessageField.value = '';
+                          _smsController.messageCount.value = 1;
+                          _smsController.selectedMobileNumber.value = [];
+                        }
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -511,8 +537,10 @@ class SmsCreatePage extends GetResponsiveView {
                           ),
                           Obx(() => Text(
                                 _smsController.totalSmsLeft.value <= 0
-                                    ? "0"
-                                    : '${_smsController.totalSmsLeft.value}',
+                                    ? "SMS left" + " " + "0"
+                                    : "SMS left" +
+                                        " " +
+                                        '${_smsController.totalSmsLeft.value}',
                                 style:
                                     TextStyle(color: Colors.red, fontSize: 12),
                               ))
@@ -533,6 +561,14 @@ class SmsCreatePage extends GetResponsiveView {
             ),
           )),
     );
+  }
+
+  void createSnackBar(String message, context) {
+    final snackBar =
+        new SnackBar(content: new Text(message), backgroundColor: Colors.red);
+
+    // Find the Scaffold in the Widget tree and use it to show a SnackBar!
+    Scaffold.of(context).showSnackBar(snackBar);
   }
 
   Future<dynamic> smsCount() async {
