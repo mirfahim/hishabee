@@ -82,7 +82,7 @@ class SignUpBody extends GetResponsiveView {
                 Text(
                   "mobile_number".tr,
                   style: TextStyle(
-                    fontFamily: 'Rubik',
+                    fontFamily: 'Roboto',
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),
@@ -144,6 +144,41 @@ class SignUpBody extends GetResponsiveView {
                   ),
                 ),
                 SizedBox(height: 15),
+                Text(
+                  "address".tr,
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Container(
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: TextFormField(
+                        cursorColor: DEFAULT_BLACK,
+                        onSaved: (value) {
+                          controller.address.value = value;
+                        },
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: "address".tr,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10,),
                 Text(
                   "password".tr,
                   style: TextStyle(

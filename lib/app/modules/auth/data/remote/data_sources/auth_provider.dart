@@ -22,7 +22,7 @@ abstract class IAuthProvider {
     String mobileNumber,
     String pin,
     String pinConfirmation,
-    String fcmToken,
+    String fcmToken, String address,
   });
 
   Future<Response<GenericResponseModel>> resetPin({String mobileNumber});
@@ -99,6 +99,7 @@ class AuthProvider extends GetConnect implements IAuthProvider {
     String pin,
     String pinConfirmation,
     String fcmToken,
+    String address
   }) async {
     String url = '$BASE_URL/register';
     final body = {
@@ -107,6 +108,7 @@ class AuthProvider extends GetConnect implements IAuthProvider {
       "pin": pin,
       "pin_confirmation": pinConfirmation,
       "fcm_token": fcmToken,
+      "address": address
     };
 
     return post(url, body, decoder: registerResponseModelFromRawJson);

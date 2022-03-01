@@ -12,7 +12,7 @@ class StockController extends GetxController{
   Future<dynamic> allStockHistory(
       {String shopId, String startDate, String endDate}) async {
     String url = "/stock_history?shop_id=$shopId&start_date=$startDate&end_date=$endDate";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get,
         url: url,
         body: null,

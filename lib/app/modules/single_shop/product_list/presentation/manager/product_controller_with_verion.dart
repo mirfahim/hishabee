@@ -32,7 +32,7 @@ class ProductControllerWithVersion extends GetxController {
   Future<dynamic> fetchAllSms(
       {String shopId, String statDate, String endDate}) async {
     String url = "/sms?shop_id=$shopId";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get,
         url: url,
         body: null,
@@ -41,7 +41,7 @@ class ProductControllerWithVersion extends GetxController {
 
   Future<dynamic> fetchSmsPackage() async {
     String url = "/sms/packages";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
@@ -51,7 +51,7 @@ class ProductControllerWithVersion extends GetxController {
   ) async {
     String url =
         "$BASE_URL/product?shop_id=$shopId&sub_category=1&name=nodata&selling_price=12&description=nodataproductName&image_src=nodataimageUrl&stock=nodata&sub_unit=nodata&cost_price=12&vat_applicable=true&barcode=nodata&unit=1&vat_applicable=true&vat_percent=15&sell_online=true&shipping_cost=50&wholesale_price=nodata&wholesale_amount=10&gallery=[]&warranty=10&warranty_type=DAY&stock_alert=2&discount=10&discount_type=PERCENT&created_at=2022-02-08 12:12:12&updated_at=2022-02-08 12:12:13&version=0&unique_id=$uniqueID";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
 
@@ -59,13 +59,13 @@ class ProductControllerWithVersion extends GetxController {
       {String shopId, String number, String message, String smsCount}) async {
     String url =
         "/sms/add?shop_id=$shopId&number=$number&message=$message&sms_count=$smsCount";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
 
   Future<dynamic> checkSubcription(String shopId) async {
     String url = '/subscription/verify?shop_id=$shopId';
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
@@ -105,19 +105,19 @@ class ProductControllerWithVersion extends GetxController {
 
   Future<dynamic> getAllCustomerContact(String shopId) {
     String url = '/customer/all?shop_id=$shopId';
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
   Future<dynamic> getAllEmployeContact(String shopId) {
     String url = '/employee/all?shop_id=$shopId';
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
   Future<dynamic> getAllSuplierContact(String shopId) {
     String url = '/supplier/all?shop_id=$shopId';
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 

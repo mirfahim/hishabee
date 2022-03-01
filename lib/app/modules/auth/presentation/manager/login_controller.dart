@@ -29,11 +29,11 @@ class LoginController extends GetxController {
 
   Future<dynamic> newLogin({String mobileNumber}) async{
     String url = "/number_check?mobile_number=$mobileNumber";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.post,
         url: url,
         body: null,
-        headers: null);
+        headers: {"Content-Type": "application/json"});
   }
   void login() async {
     if (mobileNumber.value.length < 11 || pin.value.length < 5) {

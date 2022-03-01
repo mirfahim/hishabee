@@ -57,6 +57,7 @@ class AuthRepository implements IAuthRepository {
     String pin,
     String pinConfirmation,
     String fcmToken,
+    String address
   }) async {
     final response = await authProvider.register(
       brandName: brandName,
@@ -64,6 +65,7 @@ class AuthRepository implements IAuthRepository {
       pin: pin,
       pinConfirmation: pinConfirmation,
       fcmToken: fcmToken,
+      address: address,
     );
     return ResponseDecoder.decode(response);
   }

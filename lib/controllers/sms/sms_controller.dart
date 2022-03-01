@@ -31,7 +31,7 @@ class SmsController extends GetxController {
   Future<dynamic> fetchAllSms(
       {String shopId, String statDate, String endDate}) async {
     String url = "/sms?shop_id=$shopId";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get,
         url: url,
         body: null,
@@ -40,7 +40,7 @@ class SmsController extends GetxController {
 
   Future<dynamic> fetchSmsPackage() async {
     String url = "/sms/packages";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
@@ -48,13 +48,13 @@ class SmsController extends GetxController {
       {String shopId, String number, String message, String smsCount}) async {
     String url =
         "/sms/add?shop_id=$shopId&number=$number&message=$message&sms_count=$smsCount";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
 
   Future<dynamic> checkSubcription(String shopId) async {
     String url = '/subscription/verify?shop_id=$shopId';
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
@@ -94,19 +94,19 @@ class SmsController extends GetxController {
 
   Future<dynamic> getAllCustomerContact(String shopId) {
     String url = '/customer/all?shop_id=$shopId';
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
   Future<dynamic> getAllEmployeContact(String shopId) {
     String url = '/employee/all?shop_id=$shopId';
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
   Future<dynamic> getAllSuplierContact(String shopId) {
     String url = '/supplier/all?shop_id=$shopId';
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 

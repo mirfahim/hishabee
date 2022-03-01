@@ -26,7 +26,7 @@ class EmiController extends GetxController {
     String shopId,
   }) async {
     String url = "/digital_payment/emi_list?shop_id=$shopId";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get,
         url: url,
         body: null,
@@ -35,7 +35,7 @@ class EmiController extends GetxController {
 
   fetchCustomer({String shopId}) async {
     String url = "/customer/all?shop_id=$shopId";
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.get,
         url: url,
         body: null,
@@ -53,9 +53,9 @@ class EmiController extends GetxController {
     String url =
         "/digital_payment/emi?shop_id=$shop_id&amount=$amount&customer_name=$customerName&customer_mobile=$customerPhone&customer_address=$customerAddress&installment=$installment&payable_amount=$payable&app_platform=ANDROID&version_code=79";
     print("POST REQUEST APP");
-    print(_apiService.makeApiRequiest(
+    print(_apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null));
-    return _apiService.makeApiRequiest(
+    return _apiService.makeApiRequest(
         method: apiMethods.post,
         url: url,
         body: null,

@@ -16,6 +16,7 @@ class RegisterController extends GetxController {
   final pin = ''.obs;
   final pinConfirmation = ''.obs;
   final termsAgreed = false.obs;
+  final address = ''.obs;
 
   RegisterController(this.authRepository);
 
@@ -36,7 +37,8 @@ class RegisterController extends GetxController {
         mobileNumber: mobileNumber.value,
         pin: pin.value,
         pinConfirmation: pinConfirmation.value,
-        // fcmToken: token,
+        address: address.value,
+        fcmToken: token,
       );
       CustomDialog.hideDialog();
       if (response.code == 200) {

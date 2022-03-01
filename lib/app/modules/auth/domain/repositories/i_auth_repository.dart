@@ -23,6 +23,7 @@ abstract class IAuthRepository {
     String pin,
     String pinConfirmation,
     String fcmToken,
+    String address
   });
 
   Future<GenericResponseModel> resetPin({String mobileNumber});
