@@ -208,7 +208,7 @@ class _ExpenseListState extends State<ExpenseList> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      SvgPicture.asset('images/svg_image/stock_product.svg'),
+                      SvgPicture.asset('images/svg_image/empty-image.svg', height: 30,),
                       Text('${element.name}',
                           style: TextStyle(fontFamily: 'Roboto', fontSize: 16))
                     ],

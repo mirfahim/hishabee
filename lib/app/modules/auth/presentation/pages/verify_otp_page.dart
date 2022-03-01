@@ -56,7 +56,8 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Colors.white,
+        title: Text('ভেরিফিকেশন', style: TextStyle(fontFamily: 'Roboto'),),
+        // backgroundColor: Colors.white,
       ),
       body: ListView(
         children: [
@@ -84,10 +85,12 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
                     height: 20,
                   ),
                   Text(
-                    'We sent you a 6 digit code to',
+                    '৬ ডিজিটের ভেরিফিকেশন কোড সেন্ড করা হয়েছে এই নম্বর এ',
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
+                      fontFamily: 'Roboto'
                     ),
                   ),
                   Padding(
@@ -166,7 +169,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
           Center(
             child: RichText(
               text: TextSpan(
-                text: "Retry in",
+                text: "retry_in".tr,
                 style: TextStyle(
                     color: DEFAULT_BLACK.withOpacity(0.5), fontSize: 14),
                 children: <TextSpan>[
@@ -175,7 +178,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
                     style: TextStyle(color: DEFAULT_BLUE, fontSize: 16),
                   ),
                   TextSpan(
-                    text: " Second",
+                    text: " second_later".tr,
                     style: TextStyle(
                         color: DEFAULT_BLACK.withOpacity(0.5), fontSize: 14),
                   )
@@ -192,7 +195,7 @@ class _VerifyOtpPageState extends State<VerifyOtpPage> {
                       _verifyPhone();
                     },
                     child: Text(
-                      "Resend Code",
+                      "resend_code".tr,
                       style: TextStyle(
                         color: DEFAULT_BLACK,
                         fontSize: 18,

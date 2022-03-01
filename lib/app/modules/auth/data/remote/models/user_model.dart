@@ -60,7 +60,7 @@ class User {
     brandName: nameValues.map[json["brand_name"]],
     email: json["email"],
     emailVerifiedAt: json["email_verified_at"],
-    verifiedAt: DateTime.parse(json["verified_at"]),
+    verifiedAt: json["verified_at"] == null ? null : DateTime.parse(json["verified_at"]),
     ownerName: json["owner_name"],
     mobileNumber: json["mobile_number"],
     website: json["website"],
