@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/new_pages/updated_UI/controller/due_history_controller.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:get/get.dart';
 
@@ -15,6 +16,7 @@ class DueFront extends StatefulWidget {
 }
 
 class _DueFrontState extends State<DueFront> {
+  DueControllerNew _dueControllerNew = Get.put(DueControllerNew()) ;
   int flag = 1;
   @override
   Widget build(BuildContext context) {
