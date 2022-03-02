@@ -41,26 +41,26 @@ class ContactsPage extends GetResponsiveView<ContactController> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 10.0,
-              left: 15,
-            ),
-            child: Obx(
-              () => Text(
-                controller.shop.value.name,
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black,
-                ),
-              ),
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(
+          //     top: 10.0,
+          //     left: 15,
+          //   ),
+          //   child: Obx(
+          //     () => Text(
+          //       controller.shop.value.name,
+          //       style: TextStyle(
+          //         fontFamily: 'Roboto',
+          //         fontSize: 18,
+          //         fontWeight: FontWeight.w600,
+          //         color: Colors.black,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(top: 20.0, left: 5, right: 5),
+              padding: const EdgeInsets.only(top: 10.0, left: 5, right: 5),
               child: Obx(
                 () => DefaultTabController(
                   length: 3,
@@ -114,86 +114,47 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                               Container(
                                 child: Column(
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 5.0,
-                                        left: 5.0,
-                                        right: 5.0,
-                                      ),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: 45,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            primary: Colors.black,
-                                            onPrimary: DEFAULT_BLUE,
-                                          ),
-                                          onPressed: () {
-                                            Employee employee = new Employee();
-                                            Get.toNamed(
-                                                ContactRoutes.ADD_CONTACT,
-                                                arguments: {
-                                                  'shop': controller.shop.value,
-                                                  "type": ContactType.EMPLOYEE,
-                                                  "contact": employee,
-                                                });
-                                          },
-                                          child: Text(
-                                            "add_new_employee".tr,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: 'Rubik',
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 8.0,
-                                        left: 5.0,
-                                        right: 5.0,
-                                      ),
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: 45,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            primary: Colors.black,
-                                            onPrimary: DEFAULT_BLUE,
-                                          ),
-                                          onPressed: () {
-                                            Get.toNamed(
-                                              ContactRoutes.SALARY_REPORT,
-                                              arguments: {
-                                                "shop": controller.shop.value
-                                              },
-                                            );
-                                          },
-                                          child: Text(
-                                            "salary_report".tr,
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontFamily: 'Rubik',
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+
+                                    // Padding(
+                                    //   padding: const EdgeInsets.only(
+                                    //     top: 8.0,
+                                    //     left: 5.0,
+                                    //     right: 5.0,
+                                    //   ),
+                                    //   child: Container(
+                                    //     width:
+                                    //         MediaQuery.of(context).size.width,
+                                    //     height: 45,
+                                    //     decoration: BoxDecoration(
+                                    //       borderRadius:
+                                    //           BorderRadius.circular(4),
+                                    //     ),
+                                    //     child: ElevatedButton(
+                                    //       style: ElevatedButton.styleFrom(
+                                    //         primary: Colors.black,
+                                    //         onPrimary: DEFAULT_BLUE,
+                                    //       ),
+                                    //       onPressed: () {
+                                    //         Get.toNamed(
+                                    //           ContactRoutes.SALARY_REPORT,
+                                    //           arguments: {
+                                    //             "shop": controller.shop.value
+                                    //           },
+                                    //         );
+                                    //       },
+                                    //       child: Text(
+                                    //         "salary_report".tr,
+                                    //         style: TextStyle(
+                                    //           color: Colors.white,
+                                    //           fontFamily: 'Rubik',
+                                    //           fontWeight: FontWeight.normal,
+                                    //           fontSize: 16,
+                                    //         ),
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    SizedBox(height: 10,),
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsets.only(
@@ -378,43 +339,36 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                child: Column(
-                                  children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 5.0,
-                                        left: 5.0,
-                                        right: 5.0,
-                                      ),
+                                      padding: const EdgeInsets.all(10),
                                       child: Container(
                                         width:
-                                            MediaQuery.of(context).size.width,
+                                        MediaQuery.of(context).size.width,
                                         height: 45,
                                         decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(4)),
+                                          borderRadius:
+                                          BorderRadius.circular(4),
+                                        ),
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
-                                              primary: Colors.black),
+                                            primary: Colors.black,
+                                            onPrimary: DEFAULT_BLUE,
+                                          ),
                                           onPressed: () {
-                                            Customer customer = new Customer();
+                                            Employee employee = new Employee();
                                             Get.toNamed(
                                                 ContactRoutes.ADD_CONTACT,
                                                 arguments: {
                                                   'shop': controller.shop.value,
-                                                  "type": ContactType.CUSTOMER,
-                                                  "contact": customer,
+                                                  "type": ContactType.EMPLOYEE,
+                                                  "contact": employee,
                                                 });
                                           },
                                           child: Text(
-                                            "add_new_customer".tr,
+                                            "add_new_employee".tr,
                                             style: TextStyle(
                                               color: Colors.white,
-                                              fontFamily: 'Rubik',
+                                              fontFamily: 'Roboto',
                                               fontWeight: FontWeight.normal,
                                               fontSize: 16,
                                             ),
@@ -422,6 +376,12 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                         ),
                                       ),
                                     ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                child: Column(
+                                  children: [
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -573,50 +533,69 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                child: Column(
-                                  children: [
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                        top: 5.0,
-                                        left: 5.0,
-                                        right: 5.0,
-                                      ),
+                                      padding: const EdgeInsets.all(10),
                                       child: Container(
                                         width:
-                                            MediaQuery.of(context).size.width,
+                                        MediaQuery.of(context).size.width,
                                         height: 45,
                                         decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
+                                            borderRadius:
+                                            BorderRadius.circular(4)),
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
                                               primary: Colors.black),
                                           onPressed: () {
-                                            Supplier supplier = new Supplier();
+                                            Customer customer = new Customer();
                                             Get.toNamed(
                                                 ContactRoutes.ADD_CONTACT,
                                                 arguments: {
                                                   'shop': controller.shop.value,
-                                                  "type": ContactType.SUPPLIER,
-                                                  "contact": supplier,
+                                                  "type": ContactType.CUSTOMER,
+                                                  "contact": customer,
                                                 });
                                           },
                                           child: Text(
-                                            "add_new_supplier".tr,
+                                            "add_new_customer".tr,
                                             style: TextStyle(
                                               color: Colors.white,
-                                              fontFamily: 'Rubik',
+                                              fontFamily: 'Roboto',
                                               fontWeight: FontWeight.normal,
                                               fontSize: 16,
                                             ),
                                           ),
                                         ),
                                       ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                child: Column(
+                                  children: [
+                                    TextField(
+                                      onChanged: (value) => controller.runFilter(value),
+                                      style: TextStyle(fontSize: 14.0),
+                                      decoration: InputDecoration(
+                                          hintText: 'Search',
+                                          focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Colors.blue[900])),
+                                          hintStyle: TextStyle(fontSize: 12.0),
+                                          border: OutlineInputBorder(
+                                              borderRadius:
+                                              BorderRadius.circular(6.0),
+                                              borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Colors.blue[900])),
+                                          filled: true,
+                                          fillColor: Colors.grey[100],
+                                          prefixIcon: Icon(
+                                            Icons.search,
+                                            color: Colors.blue[900],
+                                            size: 30,
+                                          )),
                                     ),
                                     Expanded(
                                       child: Padding(
@@ -633,12 +612,13 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                               removeTop: true,
                                               child: ListView.builder(
                                                 itemCount: controller
-                                                    .supplierList.length,
+                                                    .supplierFoundData.length,
                                                 itemBuilder:
                                                     (BuildContext context,
                                                         int index) {
                                                   Supplier supplier = controller
-                                                      .supplierList[index];
+                                                      .supplierFoundData[index];
+                                                  print(supplier);
                                                   return Container(
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
@@ -822,6 +802,41 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                                   );
                                                 },
                                               ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: Container(
+                                        width:
+                                        MediaQuery.of(context).size.width,
+                                        height: 45,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(4),
+                                        ),
+                                        child: ElevatedButton(
+                                          style: ElevatedButton.styleFrom(
+                                              primary: Colors.black),
+                                          onPressed: () {
+                                            Supplier supplier = new Supplier();
+                                            Get.toNamed(
+                                                ContactRoutes.ADD_CONTACT,
+                                                arguments: {
+                                                  'shop': controller.shop.value,
+                                                  "type": ContactType.SUPPLIER,
+                                                  "contact": supplier,
+                                                });
+                                          },
+                                          child: Text(
+                                            "add_new_supplier".tr,
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontFamily: 'Roboto',
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 16,
                                             ),
                                           ),
                                         ),
