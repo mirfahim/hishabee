@@ -12,6 +12,7 @@ const en_US = {
   'retry_in':'Retry in',
   'second_later':'Second',
   'resend_code':'Resend Code',
+  'new_shop':'New Shop',
   'select_retail_unit':'Select Retail Unit',
   'select_retails_price_amount':'Select Retail Price Unit',
   'select_retails_price_price':'Select Retail Price',

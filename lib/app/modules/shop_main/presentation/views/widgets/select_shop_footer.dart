@@ -24,27 +24,38 @@ class SelectShopFooter extends GetResponsiveView<SelectShopController> {
           mainAxisAlignment: MainAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: [
-            DefaultButton(
-                screen: screen,
-                text: "create_shop".tr,
-                buttonColor: DEFAULT_BLACK,
-                onPressed: () {
-                  Get.toNamed(ShopMainRoutes.CREATE_SHOP);
-                }),
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  Get.toNamed(ShopMainRoutes.MANAGE_SHOP,
-                      arguments: {"user": controller.user.value});
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'manage_shops'.tr,
-                    style: TextStyle(
-                      color: DEFAULT_BLUE,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 14,
+            // DefaultButton(
+            //     screen: screen,
+            //     text: "create_shop".tr,
+            //     buttonColor: DEFAULT_BLACK,
+            //     onPressed: () {
+            //       Get.toNamed(ShopMainRoutes.CREATE_SHOP);
+            //     }),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: Center(
+                child: GestureDetector(
+                  onTap: () {
+                    Get.toNamed(ShopMainRoutes.MANAGE_SHOP,
+                        arguments: {"user": controller.user.value});
+                  },
+                  child: Container(
+                    width: screen.width,
+                    decoration: BoxDecoration(
+                        border: Border.all(color: DEFAULT_BLUE),
+                      borderRadius: BorderRadius.circular(6)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0),
+                      child: Text(
+                        'manage_shops'.tr,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: DEFAULT_BLUE,
+                          fontFamily: 'Roboto',
+                          fontSize: 14,
+                        ),
+                      ),
                     ),
                   ),
                 ),

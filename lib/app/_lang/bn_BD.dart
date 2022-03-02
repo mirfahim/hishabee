@@ -134,6 +134,8 @@ const bn_BD = {
   'retry_in':'পুনরায় চেষ্টা করুন',
   'second_later':'সেকেন্ড পর',
   'resend_code':'পুনরায় কোড পাঠান',
+  'new_shop':'নতুন দোকান',
+  'select':'সিলেক্ট করুন ',
   'digital_balance':'ডিজিটাল ব্যালান্স',
   'customer_name_not_given': 'গ্রাহকের নাম: [দেওয়া হয়নি]',
   'payment_method_cash': 'অর্থ প্রদানের: নগদ',

@@ -20,64 +20,47 @@ class ContactsPage extends GetResponsiveView<ContactController> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Container(
-              height: size.height * 0.2,
-              width: size.width,
-              child: Image.asset(
-                "images/topBg.png",
-                fit: BoxFit.fill,
-              ),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            size: 25,
+            color: DEFAULT_BLACK,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text(
+          'contacts'.tr,
+          style: TextStyle(
+            fontFamily: 'Roboto',
+          ),
+        ),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 10.0,
+              left: 15,
             ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 20.0,
-              ),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      size: 25,
-                      color: DEFAULT_BLACK,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  Text(
-                    'contacts'.tr,
-                    style: TextStyle(
-                      fontFamily: 'Rubik',
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: DEFAULT_BLACK,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 65.0,
-                left: 15,
-              ),
-              child: Obx(
-                () => Text(
-                  controller.shop.value.name,
-                  style: TextStyle(
-                    fontFamily: 'Rubik',
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
+            child: Obx(
+              () => Text(
+                controller.shop.value.name,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black,
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 85.0, left: 5, right: 5),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20.0, left: 5, right: 5),
               child: Obx(
                 () => DefaultTabController(
                   length: 3,
@@ -769,6 +752,7 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                                                             0.3,
                                                                     child: Text(
                                                                       supplier
+                                                                          .address ==null ? '' : supplier
                                                                           .address,
                                                                       style: TextStyle(
                                                                           fontWeight: FontWeight
@@ -785,7 +769,8 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                                                             0.3,
                                                                     child: Text(
                                                                       supplier
-                                                                          .suppliedItems,
+                                                                          .suppliedItems == null ? '': supplier
+                                                                          .suppliedItems ,
                                                                       style: TextStyle(
                                                                           fontWeight: FontWeight
                                                                               .bold,
@@ -854,8 +839,8 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
