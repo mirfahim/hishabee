@@ -887,7 +887,7 @@ class QuickSell extends GetView<SellController> {
                                                     controller.animate.value,
                                                 duration:
                                                     Duration(milliseconds: 100),
-                                                shakeAngle: Rotation.deg(z: 15),
+                                                shakeAngle: Rotation.deg(z: 07),
                                                 curve: Curves.linear,
                                                 child: Container(
                                                   height: 30,
