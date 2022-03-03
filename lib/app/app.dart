@@ -44,7 +44,7 @@ class _MyAppState extends State<MyApp> {
             title: 'Hishabee Business Manager',
             getPages: AppPages.pages,
             initialRoute: HomeRoutes.SPLASH,
-            darkTheme: ThemeData.dark(),
+            darkTheme: ThemeData.light(),
             themeMode: ThemeMode.system,
             theme: themeData,
           );

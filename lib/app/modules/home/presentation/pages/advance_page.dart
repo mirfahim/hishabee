@@ -85,6 +85,7 @@ class _AdvancePageState extends State<AdvancePage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.amber,
           automaticallyImplyLeading: false,
           toolbarHeight: 80,
           title: Column(
@@ -261,7 +262,7 @@ class _AdvancePageState extends State<AdvancePage> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(topLeft: Radius.circular(6), topRight:Radius.circular(6)),
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.amber,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),

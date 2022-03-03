@@ -31,16 +31,18 @@ class SplashPage extends GetView<SplashController> {
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
       body: SafeArea(
-        child: Expanded(
-          child: Center(
-            child: Container(
-              // height: size.height,
-              // width: size.width /2,
-              child: Image.asset(
-                "images/splashNew.png",
-                fit: BoxFit.cover,
+        child: Center(
+          child: Stack(
+            children: [
+              Container(
+                // height: size.height,
+                // width: size.width /2,
+                child: Image.asset(
+                  "images/splashNew.png",
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
+            ],
           ),
         ),
       ),

@@ -11,6 +11,8 @@ class ContactController extends GetxController {
   final customerList = [].obs;
   final supplierList = [].obs;
   final supplierFoundData = [].obs;
+  final customerFoundData = [].obs;
+  final employeeFoundData = [].obs;
   final tabIndex = 0.obs;
 
   ContactController(this.contactRepository);
@@ -38,7 +40,7 @@ class ContactController extends GetxController {
     await getAllEmployee();
   }
 
-  void runFilter(String enteredKeyword) {
+  void runFilterForSupplier(String enteredKeyword) {
     List results = [];
     if (enteredKeyword.isEmpty) {
       results = supplierList.value;
@@ -54,6 +56,39 @@ class ContactController extends GetxController {
       supplierFoundData.value = results;
 
   }
+
+  void runFilterForEmployee(String enteredKeyword) {
+    List results = [];
+    if (enteredKeyword.isEmpty) {
+      results = employeeList.value;
+    } else {
+      results = employeeList.value
+          .where((item) =>
+          item.name.toLowerCase().contains(enteredKeyword.toLowerCase()))
+          .toList();
+    }
+
+    // Refresh the UI
+
+    employeeFoundData.value = results;
+
+  }
+  void runFilterForCustomer(String enteredKeyword) {
+    List results = [];
+    if (enteredKeyword.isEmpty) {
+      results = customerList.value;
+    } else {
+      results = customerList.value
+          .where((item) =>
+          item.name.toLowerCase().contains(enteredKeyword.toLowerCase()))
+          .toList();
+    }
+
+    // Refresh the UI
+
+    customerFoundData.value = results;
+
+  }
   getArguments() {
     shop.value = Get.arguments["shop"];
   }
@@ -63,6 +98,7 @@ class ContactController extends GetxController {
       var response =
           await contactRepository.getAllEmployee(shopId: shop.value.id);
       employeeList.assignAll(response);
+      employeeFoundData.value = employeeList;
     } catch (e) {
       CustomDialog.showStringDialog(e.toString());
     }
@@ -86,6 +122,7 @@ class ContactController extends GetxController {
           await contactRepository.getAllCustomer(shopId: shop.value.id);
 
       customerList.assignAll(response);
+      customerFoundData.value = customerList;
     } catch (e) {
       CustomDialog.showStringDialog(e.toString());
     }

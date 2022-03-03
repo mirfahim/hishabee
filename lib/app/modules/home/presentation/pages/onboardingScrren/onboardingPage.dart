@@ -203,6 +203,7 @@ class OnboardingPage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: FloatingActionButton(
+                    backgroundColor: Colors.amber,
                     onPressed: _controller.fowardAction,
                     child: Icon(
                       Icons.arrow_forward,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/_navigation/auth_routes.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/presentation/manager/login_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/presentation/pages/pin_confrimation_new.dart';
@@ -102,6 +103,7 @@ class LoginPageSecond extends StatelessWidget {
               padding: const EdgeInsets.all(10.0),
               child: ElevatedButton(
                 onPressed: () async{
+                  CustomDialog.showLoadingDialog(message: 'Loading');
                   var responseCode = await controller.newLogin(mobileNumber: controller.mobileNumber.value).
 
                   then((value){
@@ -115,6 +117,7 @@ class LoginPageSecond extends StatelessWidget {
                   print('from number check: $responseCode');
                   if(responseCode == 200 || responseCode == 201){
                       Get.to(PinVerification(loginController: controller,));
+                      // CustomDialog.hideDialog();
                       print('from number check: $responseCode');
                   }
                   else if(responseCode == 400){

@@ -154,6 +154,33 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                     //     ),
                                     //   ),
                                     // ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                      child: TextField(
+                                        onChanged: (value) => controller.runFilterForEmployee(value),
+                                        style: TextStyle(fontSize: 14.0),
+                                        decoration: InputDecoration(
+                                            hintText: 'Search',
+                                            focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 2,
+                                                    color: Colors.blue[900])),
+                                            hintStyle: TextStyle(fontSize: 12.0),
+                                            border: OutlineInputBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(6.0),
+                                                borderSide: BorderSide(
+                                                    width: 2,
+                                                    color: Colors.blue[900])),
+                                            filled: true,
+                                            fillColor: Colors.grey[100],
+                                            prefixIcon: Icon(
+                                              Icons.search,
+                                              color: Colors.blue[900],
+                                              size: 30,
+                                            )),
+                                      ),
+                                    ),
                                     SizedBox(height: 10,),
                                     Expanded(
                                       child: Padding(
@@ -173,12 +200,12 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                               removeTop: true,
                                               child: ListView.builder(
                                                 itemCount: controller
-                                                    .employeeList.length,
+                                                    .employeeFoundData.length,
                                                 itemBuilder:
                                                     (BuildContext context,
                                                         int index) {
                                                   Employee employee = controller
-                                                      .employeeList[index];
+                                                      .employeeFoundData[index];
 
                                                   return Container(
                                                     decoration: BoxDecoration(
@@ -382,6 +409,33 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                               Container(
                                 child: Column(
                                   children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                      child: TextField(
+                                        onChanged: (value) => controller.runFilterForCustomer(value),
+                                        style: TextStyle(fontSize: 14.0),
+                                        decoration: InputDecoration(
+                                            hintText: 'Search',
+                                            focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 2,
+                                                    color: Colors.blue[900])),
+                                            hintStyle: TextStyle(fontSize: 12.0),
+                                            border: OutlineInputBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(6.0),
+                                                borderSide: BorderSide(
+                                                    width: 2,
+                                                    color: Colors.blue[900])),
+                                            filled: true,
+                                            fillColor: Colors.grey[100],
+                                            prefixIcon: Icon(
+                                              Icons.search,
+                                              color: Colors.blue[900],
+                                              size: 30,
+                                            )),
+                                      ),
+                                    ),
                                     Expanded(
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
@@ -396,12 +450,12 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                               removeTop: true,
                                               child: ListView.builder(
                                                 itemCount: controller
-                                                    .customerList.length,
+                                                    .customerFoundData.length,
                                                 itemBuilder:
                                                     (BuildContext context,
                                                         int index) {
                                                   Customer customer = controller
-                                                      .customerList[index];
+                                                      .customerFoundData[index];
                                                   return Container(
                                                     decoration: BoxDecoration(
                                                       color: Colors.white,
@@ -573,29 +627,32 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                               Container(
                                 child: Column(
                                   children: [
-                                    TextField(
-                                      onChanged: (value) => controller.runFilter(value),
-                                      style: TextStyle(fontSize: 14.0),
-                                      decoration: InputDecoration(
-                                          hintText: 'Search',
-                                          focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                  width: 2,
-                                                  color: Colors.blue[900])),
-                                          hintStyle: TextStyle(fontSize: 12.0),
-                                          border: OutlineInputBorder(
-                                              borderRadius:
-                                              BorderRadius.circular(6.0),
-                                              borderSide: BorderSide(
-                                                  width: 2,
-                                                  color: Colors.blue[900])),
-                                          filled: true,
-                                          fillColor: Colors.grey[100],
-                                          prefixIcon: Icon(
-                                            Icons.search,
-                                            color: Colors.blue[900],
-                                            size: 30,
-                                          )),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                      child: TextField(
+                                        onChanged: (value) => controller.runFilterForSupplier(value),
+                                        style: TextStyle(fontSize: 14.0),
+                                        decoration: InputDecoration(
+                                            hintText: 'Search',
+                                            focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 2,
+                                                    color: Colors.blue[900])),
+                                            hintStyle: TextStyle(fontSize: 12.0),
+                                            border: OutlineInputBorder(
+                                                borderRadius:
+                                                BorderRadius.circular(6.0),
+                                                borderSide: BorderSide(
+                                                    width: 2,
+                                                    color: Colors.blue[900])),
+                                            filled: true,
+                                            fillColor: Colors.grey[100],
+                                            prefixIcon: Icon(
+                                              Icons.search,
+                                              color: Colors.blue[900],
+                                              size: 30,
+                                            )),
+                                      ),
                                     ),
                                     Expanded(
                                       child: Padding(
