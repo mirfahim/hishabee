@@ -19,16 +19,19 @@ class SelectShopHeader extends GetResponsiveView<SelectShopController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Obx(
-                () => Text(
-                  "Hi, ${controller.user.value.name}",
+              // Obx(
+              //   () =>
+                    Text(
+                  "Hi, User",
+                      // "${controller.user.value.name}",
                   style: TextStyle(
                     fontSize: 16,
+                    fontFamily: 'Roboto',
                     color: DEFAULT_BLACK,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-              ),
+              // ),
               SizedBox(
                 height: 5,
               ),

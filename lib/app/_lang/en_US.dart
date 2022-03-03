@@ -415,6 +415,7 @@ const en_US = {
   'advanced_package': 'Advanced \nPackage',
   'features': 'Features',
   'select': 'Select',
+  'delete_delete':'Delete',
   'do_selected': 'Select',
   'sales_system': 'Sales System',
   'accounts_books': 'Accounts Books',

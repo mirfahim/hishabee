@@ -364,6 +364,7 @@ const bn_BD = {
   'go_back': 'ফেরত যান',
   'edit_shop': 'দোকান এডিট করুন',
   'shop_name': 'দোকানের নাম',
+  'delete_delete':'ডিলিট',
   'shop_type': 'দোকানের ধরন',
   'administrator_pin': 'এডমিন পিন',
   'shop_no': 'দোকান নং (না দিলেও হবে)',

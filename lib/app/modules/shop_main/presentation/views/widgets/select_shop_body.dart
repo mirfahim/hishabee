@@ -32,7 +32,8 @@ class SelectShopBody extends GetResponsiveView<SelectShopController> {
             ),
           ),
         ),
-        child: Padding(
+        child:
+          Padding(
           padding: const EdgeInsets.only(left: 25.0, right: 25, top: 20),
           child: Container(
             child: controller.obx(
