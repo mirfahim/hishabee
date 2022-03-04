@@ -111,26 +111,32 @@ class AddContactsController extends GetxController {
 
     CustomDialog.showLoadingDialog(message: "Adding customer");
 
-    try {
+    // try {
       if (image.value != null) {
         imageSource = await fileRepository.uploadFile(
             file: image.value, type: contactType.value);
+        String imageUrl = imageSource
+            .replaceAll("\\", "")
+            .replaceAll('"', "")
+            .replaceAll("{", "")
+            .replaceAll("}", "")
+            .replaceAllMapped('url:', (match) => "");
         customer = await contactRepository.addNewCustomer(
           name: name.value,
           email: email.value,
           mobile: mobile.value,
           address: address.value,
           shopId: shop.value.id,
-          imageSource: imageSource,
+          imageSource: imageUrl,
         );
-      }
+      // }
 
-      customer = await contactRepository.addNewCustomer(
-          name: name.value,
-          email: email.value,
-          mobile: mobile.value,
-          address: address.value,
-          shopId: shop.value.id);
+      // customer = await contactRepository.addNewCustomer(
+      //     name: name.value,
+      //     email: email.value,
+      //     mobile: mobile.value,
+      //     address: address.value,
+      //     shopId: shop.value.id);
 
       final cc = Get.find<ContactController>();
 
@@ -144,14 +150,15 @@ class AddContactsController extends GetxController {
           Get.back();
         });
       }
-    } catch (e) {
-      CustomDialog.showStringDialog(e);
-      final cc = Get.find<ContactController>();
-      cc.tabIndex.value = 1;
-
-      await cc.getAllCustomer();
-      Get.offAllNamed(ContactRoutes.CONTACTS);
     }
+    // catch (e) {
+    //   CustomDialog.showStringDialog(e);
+    //   final cc = Get.find<ContactController>();
+    //   cc.tabIndex.value = 1;
+    //
+    //   await cc.getAllCustomer();
+    //   Get.offAllNamed(ContactRoutes.CONTACTS);
+    // }
   }
 
   addNewSupplier() async {

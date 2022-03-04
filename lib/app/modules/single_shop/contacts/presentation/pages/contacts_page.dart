@@ -21,6 +21,7 @@ class ContactsPage extends GetResponsiveView<ContactController> {
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
       appBar: AppBar(
+        backgroundColor: Colors.amber,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back,
@@ -35,6 +36,7 @@ class ContactsPage extends GetResponsiveView<ContactController> {
           'contacts'.tr,
           style: TextStyle(
             fontFamily: 'Roboto',
+            color: Colors.black
           ),
         ),
       ),
@@ -84,6 +86,7 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                   "employee".tr,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
+                                    color: Colors.black
                                   ),
                                 ),
                               ),
@@ -92,6 +95,7 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                   "customer".tr,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
+                                      color: Colors.black
                                   ),
                                 ),
                               ),
@@ -100,6 +104,7 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                   "supplier".tr,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
+                                      color: Colors.black
                                   ),
                                 ),
                               ),
@@ -290,11 +295,12 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                                                             0.3,
                                                                     child: Text(
                                                                       employee
-                                                                          .name,
+                                                                          .name ?? '[Not Given]',
                                                                       style:
                                                                           TextStyle(
                                                                         fontWeight:
                                                                             FontWeight.bold,
+                                                                            color: Colors.black
                                                                       ),
                                                                     ),
                                                                   ),
@@ -330,7 +336,7 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                                                     .centerRight,
                                                                 child: Text(
                                                                   employee
-                                                                      .mobile,
+                                                                      .mobile ?? '[Not Given]',
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -536,12 +542,13 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                                                     size.width *
                                                                         0.3,
                                                                 child: Text(
-                                                                  customer.name,
+                                                                  customer.name ?? '[Not Given]',
                                                                   style:
                                                                       TextStyle(
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .bold,
+                                                                        color: Colors.black
                                                                   ),
                                                                 ),
                                                               ),
@@ -556,7 +563,7 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                                                     .centerRight,
                                                                 child: Text(
                                                                   customer
-                                                                      .mobile,
+                                                                      .mobile ?? '[Not Given]',
                                                                   style:
                                                                       TextStyle(
                                                                     color: Colors
@@ -759,10 +766,11 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                                                             0.3,
                                                                     child: Text(
                                                                       supplier.name ??
-                                                                          '',
+                                                                          '[Not Given]',
                                                                       style: TextStyle(
                                                                           fontWeight: FontWeight
                                                                               .bold,
+                                                                          color: Colors.black,
                                                                           fontSize:
                                                                               14),
                                                                     ),
@@ -773,7 +781,7 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                                                             0.3,
                                                                     child: Text(
                                                                       supplier.email ??
-                                                                          '',
+                                                                          '[Not Given]',
                                                                       style: TextStyle(
                                                                           fontWeight: FontWeight
                                                                               .bold,
@@ -789,8 +797,9 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                                                             0.3,
                                                                     child: Text(
                                                                       supplier
-                                                                          .address ==null ? '' : supplier
+                                                                          .address ==null ? '[Not Given]' : supplier
                                                                           .address,
+                                                                      maxLines: 1,
                                                                       style: TextStyle(
                                                                           fontWeight: FontWeight
                                                                               .bold,
@@ -806,7 +815,7 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                                                             0.3,
                                                                     child: Text(
                                                                       supplier
-                                                                          .suppliedItems == null ? '': supplier
+                                                                          .suppliedItems == null ? '[Not Given]': supplier
                                                                           .suppliedItems ,
                                                                       style: TextStyle(
                                                                           fontWeight: FontWeight

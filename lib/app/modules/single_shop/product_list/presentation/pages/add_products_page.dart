@@ -138,7 +138,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
   @override
   void initState() {
     print("working 11111111");
-    _unitListController.fetchAllUnit(userID: '1097').then((value) {
+    _unitListController.fetchAllUnit(userID: '${widget.shop.userId}').then((value) {
       _getAllUnit = getUnitFromModel(value);
       print(" my al unit length is ${_getAllUnit.length}");
     });
@@ -189,6 +189,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
       backgroundColor: DEFAULT_BODY_BG_COLOR,
       appBar: AppBar(
         titleSpacing: 0,
+        backgroundColor: Colors.amber,
         title: Text(
           'add_new_product'.tr,
           style: TextStyle(

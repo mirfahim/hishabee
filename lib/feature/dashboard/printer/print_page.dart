@@ -54,12 +54,15 @@ class _PrintPageState extends State<PrintPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('printer'.tr),
+        backgroundColor: Colors.amber,
+        title: Text('printer'.tr, style: TextStyle(
+          color: Colors.black
+        ),),
         leading: IconButton(
           onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Colors.black,),
         ),
         titleSpacing: 0,
       ),

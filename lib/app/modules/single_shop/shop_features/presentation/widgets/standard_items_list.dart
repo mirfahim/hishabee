@@ -302,7 +302,7 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
                   child: InkWell(
                     onTap: () {
                       print('shared prefrense bluetooth name${SharedPref.to.prefss.getString('bluetooth_name')}');
-                      SharedPref.to.prefss.getString('bluetooth_name').isEmpty ?
+                      SharedPref.to.prefss.getString('bluetooth_name') == null  ?
                           Get.to(
                           PrinterFront(),
                           arguments: shop) :
