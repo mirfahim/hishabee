@@ -51,7 +51,7 @@ class Transactions {
   int totalItem;
   int paymentMethod;
   double receivedAmount;
-  double changeAmount;
+  var changeAmount;
   String employeeName;
   String customerName;
   String customerAddress;
@@ -76,7 +76,7 @@ class Transactions {
     int totalItem,
     int paymentMethod,
     double receivedAmount,
-    double changeAmount,
+    var changeAmount,
     String employeeName,
     String customerName,
     String customerAddress,
@@ -119,79 +119,79 @@ class Transactions {
       );
 
   factory Transactions.fromJson(Map<String, dynamic> json) => Transactions(
-    id: json["id"] == null ? null : json["id"],
-    userId: json["user_id"] == null ? null : json["user_id"],
-    shopId: json["shop_id"] == null ? null : json["shop_id"],
-    totalPrice:
-    json["total_price"] == null ? null : json["total_price"].toDouble(),
-    totalDiscount:
-    json["total_discount"] == null ? null : json["total_discount"],
-    totalItem: json["total_item"] == null ? null : json["total_item"],
-    paymentMethod:
-    json["payment_method"] == null ? null : json["payment_method"],
-    receivedAmount: json["received_amount"] == null
-        ? null
-        : json["received_amount"].toDouble(),
-    changeAmount:
-    json["change_amount"] == null ? null : json["change_amount"],
-    employeeName:
-    json["employee_name"] == null ? null : json["employee_name"],
-    customerName:
-    json["customer_name"] == null ? null : json["customer_name"],
-    customerAddress:
-    json["customer_address"] == null ? null : json["customer_address"],
-    customerMobile:
-    json["customer_mobile"] == null ? null : json["customer_mobile"],
-    transactionBarcode: json["transaction_barcode"] == null
-        ? null
-        : json["transaction_barcode"],
-    createdAt: json["created_at"] == null
-        ? null
-        : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null
-        ? null
-        : DateTime.parse(json["updated_at"]),
-    totalVat:
-    json["total_vat"] == null ? null : json["total_vat"].toDouble(),
-    note: json["note"] == null ? null : json["note"],
-    paymentStatus:
-    json["payment_status"] == null ? null : json["payment_status"],
-    localId: json["local_id"] == null ? null : json["local_id"],
-    employeeMobile:
-    json["employee_mobile"] == null ? null : json["employee_mobile"],
-    time: json["time"] == null ? null : DateTime.parse(json["time"]),
-    transactionItems: json["transaction_items"] == null
-        ? null
-        : List<TransactionItem>.from(json["transaction_items"]
-        .map((x) => TransactionItem.fromJson(x))),
-  );
+        id: json["id"] == null ? null : json["id"],
+        userId: json["user_id"] == null ? null : json["user_id"],
+        shopId: json["shop_id"] == null ? null : json["shop_id"],
+        totalPrice:
+            json["total_price"] == null ? null : json["total_price"].toDouble(),
+        totalDiscount:
+            json["total_discount"] == null ? null : json["total_discount"],
+        totalItem: json["total_item"] == null ? null : json["total_item"],
+        paymentMethod:
+            json["payment_method"] == null ? null : json["payment_method"],
+        receivedAmount: json["received_amount"] == null
+            ? null
+            : json["received_amount"].toDouble(),
+        changeAmount:
+            json["change_amount"] == null ? null : json["change_amount"],
+        employeeName:
+            json["employee_name"] == null ? null : json["employee_name"],
+        customerName:
+            json["customer_name"] == null ? null : json["customer_name"],
+        customerAddress:
+            json["customer_address"] == null ? null : json["customer_address"],
+        customerMobile:
+            json["customer_mobile"] == null ? null : json["customer_mobile"],
+        transactionBarcode: json["transaction_barcode"] == null
+            ? null
+            : json["transaction_barcode"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        totalVat:
+            json["total_vat"] == null ? null : json["total_vat"].toDouble(),
+        note: json["note"] == null ? null : json["note"],
+        paymentStatus:
+            json["payment_status"] == null ? null : json["payment_status"],
+        localId: json["local_id"] == null ? null : json["local_id"],
+        employeeMobile:
+            json["employee_mobile"] == null ? null : json["employee_mobile"],
+        time: json["time"] == null ? null : DateTime.parse(json["time"]),
+        transactionItems: json["transaction_items"] == null
+            ? null
+            : List<TransactionItem>.from(json["transaction_items"]
+                .map((x) => TransactionItem.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id == null ? null : id,
-    "user_id": userId == null ? null : userId,
-    "shop_id": shopId == null ? null : shopId,
-    "total_price": totalPrice == null ? null : totalPrice,
-    "total_discount": totalDiscount == null ? null : totalDiscount,
-    "total_item": totalItem == null ? null : totalItem,
-    "payment_method": paymentMethod == null ? null : paymentMethod,
-    "received_amount": receivedAmount == null ? null : receivedAmount,
-    "change_amount": changeAmount == null ? null : changeAmount,
-    "employee_name": employeeName == null ? null : employeeName,
-    "customer_name": customerName == null ? null : customerName,
-    "customer_address": customerAddress == null ? null : customerAddress,
-    "customer_mobile": customerMobile == null ? null : customerMobile,
-    "transaction_barcode":
-    transactionBarcode == null ? null : transactionBarcode,
-    "created_at": createdAt == null ? null : createdAt.toIso8601String(),
-    "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
-    "total_vat": totalVat == null ? null : totalVat,
-    "note": note == null ? null : note,
-    "payment_status": paymentStatus == null ? null : paymentStatus,
-    "local_id": localId == null ? null : localId,
-    "employee_mobile": employeeMobile == null ? null : employeeMobile,
-    "time": time == null ? null : time.toIso8601String(),
-    "transaction_items": transactionItems == null
-        ? null
-        : List<dynamic>.from(transactionItems.map((x) => x.toJson())),
-  };
+        "id": id == null ? null : id,
+        "user_id": userId == null ? null : userId,
+        "shop_id": shopId == null ? null : shopId,
+        "total_price": totalPrice == null ? null : totalPrice,
+        "total_discount": totalDiscount == null ? null : totalDiscount,
+        "total_item": totalItem == null ? null : totalItem,
+        "payment_method": paymentMethod == null ? null : paymentMethod,
+        "received_amount": receivedAmount == null ? null : receivedAmount,
+        "change_amount": changeAmount == null ? null : changeAmount,
+        "employee_name": employeeName == null ? null : employeeName,
+        "customer_name": customerName == null ? null : customerName,
+        "customer_address": customerAddress == null ? null : customerAddress,
+        "customer_mobile": customerMobile == null ? null : customerMobile,
+        "transaction_barcode":
+            transactionBarcode == null ? null : transactionBarcode,
+        "created_at": createdAt == null ? null : createdAt.toIso8601String(),
+        "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
+        "total_vat": totalVat == null ? null : totalVat,
+        "note": note == null ? null : note,
+        "payment_status": paymentStatus == null ? null : paymentStatus,
+        "local_id": localId == null ? null : localId,
+        "employee_mobile": employeeMobile == null ? null : employeeMobile,
+        "time": time == null ? null : time.toIso8601String(),
+        "transaction_items": transactionItems == null
+            ? null
+            : List<dynamic>.from(transactionItems.map((x) => x.toJson())),
+      };
 }

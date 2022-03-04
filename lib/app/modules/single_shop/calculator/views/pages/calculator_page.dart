@@ -1,43 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_simple_calculator/flutter_simple_calculator.dart';
+import 'package:get/get.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/analytics_event.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/_workmanager/analytics_service.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/calculator/calculator_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
+//import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
 import 'package:math_expressions/math_expressions.dart';
 
-class CalcButton extends StatefulWidget {
-  @override
-  _CalcButtonState createState() => _CalcButtonState();
-}
-
-class _CalcButtonState extends State<CalcButton> {
-  double _currentValue = 0;
-  @override
+class CalcButton extends GetView<SellController> {
   Widget build(BuildContext context) {
-
-    return SimpleCalculator(
-      value: _currentValue,
-      // hideExpression: false,
-      hideSurroundingBorder: true,
-      onChanged: (key, value, expression) {
-        setState(() {
-          _currentValue = value;
-        });
-      },
-      onTappedDisplay: (value, details) {},
-      theme: const CalculatorThemeData(
-        borderColor: Colors.white,
-        borderWidth: 1,
-        displayColor: Colors.black,
-        displayStyle: const TextStyle(fontSize: 80, color: DEFAULT_YELLOW_BG),
-        expressionColor: Colors.white,
-        expressionStyle: const TextStyle(fontSize: 16, color: Colors.black),
-        operatorColor: DEFAULT_BLACK,
-        operatorStyle: const TextStyle(fontSize: 30, color: Colors.white),
-        commandColor: DEFAULT_BLACK,
-        commandStyle: const TextStyle(fontSize: 30, color: Colors.white),
-        numColor: Colors.grey,
-        numStyle: const TextStyle(fontSize: 25, color: Colors.white),
+    return Obx(
+      () => SimpleCalculator(
+        value: controller.amountCal.toDouble(),
+        hideExpression: false,
+        hideSurroundingBorder: true,
+        onChanged: (key, value, expression) {
+          controller.amountCal.value = value;
+        },
+        onTappedDisplay: (value, details) {},
+        theme: const CalculatorThemeData(
+          borderColor: Colors.white,
+          borderWidth: 1,
+          displayColor: Colors.black,
+          displayStyle: const TextStyle(fontSize: 80, color: DEFAULT_YELLOW_BG),
+          expressionColor: Colors.white,
+          expressionStyle: const TextStyle(fontSize: 16, color: Colors.black),
+          operatorColor: DEFAULT_BLACK,
+          operatorStyle: const TextStyle(fontSize: 30, color: Colors.white),
+          commandColor: DEFAULT_BLACK,
+          commandStyle: const TextStyle(fontSize: 30, color: Colors.white),
+          numColor: Colors.grey,
+          numStyle: const TextStyle(fontSize: 25, color: Colors.white),
+        ),
       ),
     );
   }

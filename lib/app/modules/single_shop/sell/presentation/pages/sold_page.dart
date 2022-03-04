@@ -22,8 +22,10 @@ class SoldPage extends StatefulWidget {
   final Shop shop;
   final int route;
   final int totalPrice;
+  final List productlist;
 
-  const SoldPage({Key key, this.shop, this.route,this.totalPrice})
+  const SoldPage(
+      {Key key, this.shop, this.route, this.totalPrice, this.productlist})
       : super(key: key);
 
   @override
@@ -109,7 +111,7 @@ class _SoldPageState extends State<SoldPage> {
         child: Column(
           children: [
             Container(
-              height: size.height - 70 ,
+              height: size.height - 70,
               width: size.width,
               child: Stack(
                 children: <Widget>[
@@ -131,7 +133,7 @@ class _SoldPageState extends State<SoldPage> {
                       ],
                       // manually specify the colors to be used
                       createParticlePath:
-                      drawStar, // define a custom shape/path.
+                          drawStar, // define a custom shape/path.
                     ),
                   ),
                   Align(
@@ -147,8 +149,7 @@ class _SoldPageState extends State<SoldPage> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
                           border: Border.all(
-                              color: Colors.lightBlueAccent,
-                              width: 5),
+                              color: Colors.lightBlueAccent, width: 5),
                           color: Colors.blue,
                         ),
                         child: Icon(
@@ -159,7 +160,7 @@ class _SoldPageState extends State<SoldPage> {
                       ),
                     ),
                   ),
-                  /*hideDone == false
+                  hideDone == false
                       ? Align(
                           alignment: Alignment.center,
                           child: ScaleAnimatedWidget.tween(
@@ -173,8 +174,7 @@ class _SoldPageState extends State<SoldPage> {
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
                                 border: Border.all(
-                                    color: Colors.lightBlueAccent,
-                                    width: 5),
+                                    color: Colors.lightBlueAccent, width: 5),
                                 color: Colors.blue,
                               ),
                               child: Icon(
@@ -187,8 +187,8 @@ class _SoldPageState extends State<SoldPage> {
                         )
                       : SingleChildScrollView(
                           child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 100.0, bottom: 100),
+                            padding:
+                                const EdgeInsets.only(top: 100.0, bottom: 100),
                             child: Center(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -198,7 +198,7 @@ class _SoldPageState extends State<SoldPage> {
                                     children: [
                                       Container(
                                         height: 60,
-                                        width: size.width - 250,
+                                        width: size.width,
                                         color: DEFAULT_YELLOW_BG,
                                         child: Row(
                                           children: [
@@ -221,28 +221,23 @@ class _SoldPageState extends State<SoldPage> {
                                               child: Container(
                                                 child: Column(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Text(
                                                       "${widget.shop.name}",
                                                       style: TextStyle(
-                                                          color:
-                                                              DEFAULT_BLACK,
+                                                          color: DEFAULT_BLACK,
                                                           fontSize: 12,
                                                           fontWeight:
-                                                              FontWeight
-                                                                  .bold),
+                                                              FontWeight.bold),
                                                     ),
                                                     Text(
                                                       "${widget.shop.publicNumber}",
                                                       style: TextStyle(
-                                                          color:
-                                                              DEFAULT_BLACK,
+                                                          color: DEFAULT_BLACK,
                                                           fontSize: 12,
                                                           fontWeight:
-                                                              FontWeight
-                                                                  .bold),
+                                                              FontWeight.bold),
                                                     ),
                                                   ],
                                                 ),
@@ -268,60 +263,51 @@ class _SoldPageState extends State<SoldPage> {
                                             MainAxisAlignment.spaceAround,
                                         children: [
                                           Padding(
-                                            padding:
-                                                const EdgeInsets.all(8.0),
+                                            padding: const EdgeInsets.all(8.0),
                                             child: Container(
                                               child: Column(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Text(
                                                     "Customer",
                                                     style: TextStyle(
-                                                        color:
-                                                            DEFAULT_BLACK,
+                                                        color: DEFAULT_BLACK,
                                                         fontSize: 12,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .normal),
+                                                            FontWeight.normal),
                                                   ),
                                                   SizedBox(height: 5),
                                                   Text(
-                                                    widget.customer.name
-                                                            .isEmpty || widget.customer.name == null
+                                                    widget.shop.name.isEmpty ||
+                                                            widget.shop.name ==
+                                                                null
                                                         ? "Not Given"
-                                                        : "${widget.customer.name}",
+                                                        : "${widget.shop.name}",
                                                     style: TextStyle(
-                                                        color:
-                                                            DEFAULT_BLACK,
+                                                        color: DEFAULT_BLACK,
                                                         fontSize: 12,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                            FontWeight.bold),
                                                   ),
                                                 ],
                                               ),
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsets.all(8.0),
+                                            padding: const EdgeInsets.all(8.0),
                                             child: Container(
                                               child: Column(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Text(
                                                     "Sell Time",
                                                     style: TextStyle(
-                                                        color:
-                                                            DEFAULT_BLACK,
+                                                        color: DEFAULT_BLACK,
                                                         fontSize: 12,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .normal),
+                                                            FontWeight.normal),
                                                   ),
                                                   SizedBox(
                                                     height: 5,
@@ -330,46 +316,38 @@ class _SoldPageState extends State<SoldPage> {
                                                     Utility.dateTimeFormat
                                                         .format(DateTime.now()),
                                                     style: TextStyle(
-                                                        color:
-                                                            DEFAULT_BLACK,
+                                                        color: DEFAULT_BLACK,
                                                         fontSize: 12,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                            FontWeight.bold),
                                                   ),
                                                 ],
                                               ),
                                             ),
                                           ),
                                           Padding(
-                                            padding:
-                                                const EdgeInsets.all(8.0),
+                                            padding: const EdgeInsets.all(8.0),
                                             child: Container(
                                               child: Column(
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .center,
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Text(
                                                     "Total Amount",
                                                     style: TextStyle(
-                                                        color:
-                                                            DEFAULT_BLACK,
+                                                        color: DEFAULT_BLACK,
                                                         fontSize: 12,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .normal),
+                                                            FontWeight.normal),
                                                   ),
                                                   SizedBox(height: 5),
                                                   Text(
                                                     "${widget.totalPrice}",
                                                     style: TextStyle(
-                                                        color:
-                                                            DEFAULT_BLACK,
+                                                        color: DEFAULT_BLACK,
                                                         fontSize: 12,
                                                         fontWeight:
-                                                            FontWeight
-                                                                .bold),
+                                                            FontWeight.bold),
                                                   ),
                                                 ],
                                               ),
@@ -387,8 +365,7 @@ class _SoldPageState extends State<SoldPage> {
                                             MainAxisAlignment.spaceAround,
                                         children: [
                                           Padding(
-                                            padding:
-                                                const EdgeInsets.all(8.0),
+                                            padding: const EdgeInsets.all(8.0),
                                             child: Container(
                                               width: size.width * 0.35,
                                               child: Text(
@@ -415,8 +392,8 @@ class _SoldPageState extends State<SoldPage> {
                                                   style: TextStyle(
                                                       color: DEFAULT_BLACK,
                                                       fontSize: 12,
-                                                      fontWeight: FontWeight
-                                                          .normal),
+                                                      fontWeight:
+                                                          FontWeight.normal),
                                                 ),
                                               ),
                                             ),
@@ -441,12 +418,11 @@ class _SoldPageState extends State<SoldPage> {
                                           ),
                                           Expanded(
                                             child: Padding(
-                                              padding:
-                                                  const EdgeInsets.only(
-                                                      top: 8.0,
-                                                      bottom: 8,
-                                                      left: 5,
-                                                      right: 5),
+                                              padding: const EdgeInsets.only(
+                                                  top: 8.0,
+                                                  bottom: 8,
+                                                  left: 5,
+                                                  right: 5),
                                               child: Container(
                                                 width: size.width * 0.17,
                                                 child: Text(
@@ -454,8 +430,8 @@ class _SoldPageState extends State<SoldPage> {
                                                   style: TextStyle(
                                                       color: DEFAULT_BLACK,
                                                       fontSize: 12,
-                                                      fontWeight: FontWeight
-                                                          .normal),
+                                                      fontWeight:
+                                                          FontWeight.normal),
                                                 ),
                                               ),
                                             ),
@@ -474,12 +450,12 @@ class _SoldPageState extends State<SoldPage> {
                                           physics:
                                               NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
-                                          itemCount: widget.productList.length,
-                                          itemBuilder:
-                                              (BuildContext context,
-                                                  int index) {
-                                            Product item = widget
-                                                .productList[index];
+                                          itemCount: 2, // widget.shop.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            Product item =
+                                                widget.productlist[index];
+
                                             return Container(
                                               width: size.width,
                                               decoration: BoxDecoration(
@@ -498,15 +474,13 @@ class _SoldPageState extends State<SoldPage> {
                                                                 .all(8.0),
                                                         child: Container(
                                                           width:
-                                                              size.width *
-                                                                  0.35,
+                                                              size.width * 0.35,
                                                           child: Text(
                                                             "${item.name}",
                                                             style: TextStyle(
                                                                 color:
                                                                     DEFAULT_BLACK,
-                                                                fontSize:
-                                                                    12,
+                                                                fontSize: 12,
                                                                 fontWeight:
                                                                     FontWeight
                                                                         .normal),
@@ -523,8 +497,7 @@ class _SoldPageState extends State<SoldPage> {
                                                                 right: 5),
                                                         child: Container(
                                                           width:
-                                                              size.width *
-                                                                  0.15,
+                                                              size.width * 0.15,
                                                           child: Center(
                                                             child: Align(
                                                               alignment:
@@ -538,7 +511,8 @@ class _SoldPageState extends State<SoldPage> {
                                                                     fontSize:
                                                                         12,
                                                                     fontWeight:
-                                                                        FontWeight.normal),
+                                                                        FontWeight
+                                                                            .normal),
                                                               ),
                                                             ),
                                                           ),
@@ -554,19 +528,16 @@ class _SoldPageState extends State<SoldPage> {
                                                                 right: 5),
                                                         child: Container(
                                                           width:
-                                                              size.width *
-                                                                  0.15,
+                                                              size.width * 0.15,
                                                           child: Align(
-                                                            alignment:
-                                                                Alignment
-                                                                    .center,
+                                                            alignment: Alignment
+                                                                .center,
                                                             child: Text(
                                                               "1",
                                                               style: TextStyle(
                                                                   color:
                                                                       DEFAULT_BLACK,
-                                                                  fontSize:
-                                                                      12,
+                                                                  fontSize: 12,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .normal),
@@ -584,13 +555,11 @@ class _SoldPageState extends State<SoldPage> {
                                                                   left: 5,
                                                                   right: 5),
                                                           child: Container(
-                                                            width:
-                                                                size.width *
-                                                                    0.17,
+                                                            width: size.width *
+                                                                0.17,
                                                             child: Align(
-                                                              alignment:
-                                                                  Alignment
-                                                                      .centerRight,
+                                                              alignment: Alignment
+                                                                  .centerRight,
                                                               child: Text(
                                                                 "${item.sellingPrice * 1}",
                                                                 style: TextStyle(
@@ -599,7 +568,8 @@ class _SoldPageState extends State<SoldPage> {
                                                                     fontSize:
                                                                         12,
                                                                     fontWeight:
-                                                                        FontWeight.normal),
+                                                                        FontWeight
+                                                                            .normal),
                                                               ),
                                                             ),
                                                           ),
@@ -621,8 +591,7 @@ class _SoldPageState extends State<SoldPage> {
                                       Align(
                                         alignment: Alignment.centerRight,
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsets.all(5.0),
+                                          padding: const EdgeInsets.all(5.0),
                                           child: Row(
                                             children: [
                                               Spacer(),
@@ -635,23 +604,20 @@ class _SoldPageState extends State<SoldPage> {
                                                         FontWeight.bold),
                                               ),
                                               Padding(
-                                                padding:
-                                                    const EdgeInsets.only(
-                                                        left: 20.0),
+                                                padding: const EdgeInsets.only(
+                                                    left: 20.0),
                                                 child: Container(
                                                   width: size.width * 0.17,
                                                   child: Align(
-                                                    alignment: Alignment
-                                                        .centerRight,
+                                                    alignment:
+                                                        Alignment.centerRight,
                                                     child: Text(
                                                       "${widget.totalPrice} Tk",
                                                       style: TextStyle(
-                                                          color:
-                                                              DEFAULT_BLACK,
+                                                          color: DEFAULT_BLACK,
                                                           fontSize: 12,
                                                           fontWeight:
-                                                              FontWeight
-                                                                  .bold),
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
                                                 ),
@@ -663,8 +629,7 @@ class _SoldPageState extends State<SoldPage> {
                                       Align(
                                         alignment: Alignment.centerRight,
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsets.all(5.0),
+                                          padding: const EdgeInsets.all(5.0),
                                           child: Row(
                                             children: [
                                               Spacer(),
@@ -677,23 +642,20 @@ class _SoldPageState extends State<SoldPage> {
                                                         FontWeight.bold),
                                               ),
                                               Padding(
-                                                padding:
-                                                    const EdgeInsets.only(
-                                                        left: 20.0),
+                                                padding: const EdgeInsets.only(
+                                                    left: 20.0),
                                                 child: Container(
                                                   width: size.width * 0.17,
                                                   child: Align(
-                                                    alignment: Alignment
-                                                        .centerRight,
+                                                    alignment:
+                                                        Alignment.centerRight,
                                                     child: Text(
                                                       "0 Tk",
                                                       style: TextStyle(
-                                                          color:
-                                                              DEFAULT_BLACK,
+                                                          color: DEFAULT_BLACK,
                                                           fontSize: 12,
                                                           fontWeight:
-                                                              FontWeight
-                                                                  .bold),
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
                                                 ),
@@ -705,8 +667,7 @@ class _SoldPageState extends State<SoldPage> {
                                       Align(
                                         alignment: Alignment.centerRight,
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsets.all(5.0),
+                                          padding: const EdgeInsets.all(5.0),
                                           child: Row(
                                             children: [
                                               Spacer(),
@@ -719,23 +680,20 @@ class _SoldPageState extends State<SoldPage> {
                                                         FontWeight.bold),
                                               ),
                                               Padding(
-                                                padding:
-                                                    const EdgeInsets.only(
-                                                        left: 20.0),
+                                                padding: const EdgeInsets.only(
+                                                    left: 20.0),
                                                 child: Container(
                                                   width: size.width * 0.17,
                                                   child: Align(
-                                                    alignment: Alignment
-                                                        .centerRight,
+                                                    alignment:
+                                                        Alignment.centerRight,
                                                     child: Text(
                                                       "0 Tk",
                                                       style: TextStyle(
-                                                          color:
-                                                              DEFAULT_BLACK,
+                                                          color: DEFAULT_BLACK,
                                                           fontSize: 12,
                                                           fontWeight:
-                                                              FontWeight
-                                                                  .bold),
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
                                                 ),
@@ -756,8 +714,7 @@ class _SoldPageState extends State<SoldPage> {
                                       Align(
                                         alignment: Alignment.centerRight,
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsets.all(5.0),
+                                          padding: const EdgeInsets.all(5.0),
                                           child: Row(
                                             children: [
                                               Spacer(),
@@ -770,23 +727,20 @@ class _SoldPageState extends State<SoldPage> {
                                                         FontWeight.bold),
                                               ),
                                               Padding(
-                                                padding:
-                                                    const EdgeInsets.only(
-                                                        left: 20.0),
+                                                padding: const EdgeInsets.only(
+                                                    left: 20.0),
                                                 child: Container(
                                                   width: size.width * 0.17,
                                                   child: Align(
-                                                    alignment: Alignment
-                                                        .centerRight,
+                                                    alignment:
+                                                        Alignment.centerRight,
                                                     child: Text(
                                                       "${widget.totalPrice} Tk",
                                                       style: TextStyle(
-                                                          color:
-                                                              DEFAULT_BLACK,
+                                                          color: DEFAULT_BLACK,
                                                           fontSize: 12,
                                                           fontWeight:
-                                                              FontWeight
-                                                                  .bold),
+                                                              FontWeight.bold),
                                                     ),
                                                   ),
                                                 ),
@@ -798,10 +752,8 @@ class _SoldPageState extends State<SoldPage> {
                                       Align(
                                         alignment: Alignment.bottomCenter,
                                         child: Padding(
-                                          padding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 15.0,
-                                                  vertical: 10),
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 15.0, vertical: 10),
                                           child: Container(
                                             child: Row(
                                               mainAxisAlignment:
@@ -811,12 +763,13 @@ class _SoldPageState extends State<SoldPage> {
                                                   children: [
                                                     IconButton(
                                                         onPressed: () {
-                                                          *//*Get.to(() =>
-                                                              SellReceiptPage(
-                                                                  widget
-                                                                      .shop,
-                                                                  widget
-                                                                      .transaction));*//*
+                                                          //
+                                                          // Get.to(() =>
+                                                          //     SellReceiptPage(
+                                                          //         widget
+                                                          //             .shop,
+                                                          //       widgtet.transaction
+                                                          //         ));
                                                         },
                                                         icon: Icon(Icons
                                                             .arrow_circle_down)),
@@ -828,12 +781,12 @@ class _SoldPageState extends State<SoldPage> {
                                                   children: [
                                                     IconButton(
                                                         onPressed: () {
-                                                          *//*Get.to(() =>
-                                                              SellReceiptPage(
-                                                                  widget
-                                                                      .shop,
-                                                                  widget
-                                                                      .transaction));*//*
+                                                          // Get.to(() =>
+                                                          //     SellReceiptPage(
+                                                          //         widget
+                                                          //             .shop,
+                                                          //         widget
+                                                          //             .transaction));//*
                                                         },
                                                         icon: Icon(Icons
                                                             .arrow_circle_down)),
@@ -851,7 +804,7 @@ class _SoldPageState extends State<SoldPage> {
                               ),
                             ),
                           ),
-                        ),*/
+                        ),
                   Align(
                     alignment: Alignment.topCenter,
                     child: ConfettiWidget(
@@ -876,31 +829,33 @@ class _SoldPageState extends State<SoldPage> {
                         width: size.width,
                         child: Column(
                           children: [
-                            hideDone == true ? Row(
-                              children: [
-                                Spacer(),
-                                Container(
-                                  child: IconButton(
-                                    icon: Icon(
-                                      Icons.cancel_presentation,
-                                      size: 32,
-                                      color: DEFAULT_BLACK,
-                                    ),
-                                    onPressed: () {
-                                      if (widget.route == 1) {
-                                        Get.back();
-                                        Get.back();
-                                      } else {
-                                        Get.back();
-                                        Get.back();
-                                        Get.back();
-                                        Get.back();
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ) : Container(),
+                            hideDone == true
+                                ? Row(
+                                    children: [
+                                      Spacer(),
+                                      Container(
+                                        child: IconButton(
+                                          icon: Icon(
+                                            Icons.cancel_presentation,
+                                            size: 32,
+                                            color: DEFAULT_BLACK,
+                                          ),
+                                          onPressed: () {
+                                            if (widget.route == 1) {
+                                              Get.back();
+                                              Get.back();
+                                            } else {
+                                              Get.back();
+                                              Get.back();
+                                              Get.back();
+                                              Get.back();
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                : Container(),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
@@ -961,70 +916,70 @@ class _SoldPageState extends State<SoldPage> {
                         children: [
                           hideDone == false
                               ? Padding(
-                            padding: const EdgeInsets.only(bottom: 5),
-                            child: Container(
-                              width: size.width,
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15.0, vertical: 10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "change_amount".tr,
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 18,
-                                          fontWeight:
-                                          FontWeight.bold),
+                                  padding: const EdgeInsets.only(bottom: 5),
+                                  child: Container(
+                                    width: size.width,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 15.0, vertical: 10),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "change_amount".tr,
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                            "0 TK",
+                                            style: TextStyle(
+                                                color: DEFAULT_BLUE,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    Text(
-                                      "0 TK",
-                                      style: TextStyle(
-                                          color: DEFAULT_BLUE,
-                                          fontSize: 18,
-                                          fontWeight:
-                                          FontWeight.bold),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
+                                  ),
+                                )
                               : Container(),
-                          hideDone == true ? InkWell(
-                            onTap: () {
-                              if (widget.route == 1) {
-                                Get.back();
-                                Get.back();
-                              } else {
-                                Get.back();
-                                Get.back();
-                                Get.back();
-                              }
-                            },
-                            child: Container(
-                              height: 40,
-                              width: size.width,
-                              decoration: BoxDecoration(
-                                color: DEFAULT_BLACK,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "start_another_sale".tr,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ) : Container(),
+                          hideDone == true
+                              ? InkWell(
+                                  onTap: () {
+                                    if (widget.route == 1) {
+                                      Get.back();
+                                      Get.back();
+                                    } else {
+                                      Get.back();
+                                      Get.back();
+                                      Get.back();
+                                    }
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: size.width,
+                                    decoration: BoxDecoration(
+                                      color: DEFAULT_BLACK,
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "start_another_sale".tr,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Container(),
                         ],
                       ),
                     ),

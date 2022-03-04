@@ -39,7 +39,7 @@ class SellReceiptPage extends StatelessWidget {
                 children: [
                   pw.Container(
                     height: 60,
-                    width: 300,
+                    width: 600,
                     //color: DEFAULT_YELLOW_BG,
                     child: pw.Row(
                       children: [

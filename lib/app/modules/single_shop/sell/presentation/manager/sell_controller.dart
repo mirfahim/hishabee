@@ -23,6 +23,7 @@ class SellController extends GetxController {
   // final sell = "".obs;
   final isGrid = false.obs;
   final showCase = true.obs;
+  final amountCal = 0.0.obs;
   final showHide = false.obs;
   final sms = false.obs;
   final shop = Rxn<Shop>();
