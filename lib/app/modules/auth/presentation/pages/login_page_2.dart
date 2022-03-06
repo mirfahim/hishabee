@@ -116,15 +116,20 @@ class LoginPageSecond extends StatelessWidget {
                   });
                   print('from number check: $responseCode');
                   if(responseCode == 200 || responseCode == 201){
+                    CustomDialog.hideDialog();
                       Get.to(PinVerification(loginController: controller,));
                       // CustomDialog.hideDialog();
                       print('from number check: $responseCode');
                   }
                   else if(responseCode == 400){
                     Utils.showToast(message);
+                    CustomDialog.hideDialog();
+
                   }
                   else if(responseCode == 403){
+                    CustomDialog.hideDialog();
                     Get.toNamed(AuthRoutes.REGISTER);
+
                   }
 
                 },

@@ -251,6 +251,7 @@ class SmsCreatePage extends GetResponsiveView {
                                 Icon(
                                   Icons.people,
                                   color: Colors.black,
+                                  size: 20,
                                 ),
                                 SizedBox(
                                   width: 4,
@@ -258,7 +259,7 @@ class SmsCreatePage extends GetResponsiveView {
                                 Text(
                                   'Customer',
                                   style: TextStyle(
-                                      color: Colors.black, fontSize: 12),
+                                      color: Colors.black, fontSize: 10),
                                 )
                               ],
                             ),
@@ -291,6 +292,7 @@ class SmsCreatePage extends GetResponsiveView {
                                 Icon(
                                   Icons.people,
                                   color: Colors.black,
+                                  size: 20,
                                 ),
                                 SizedBox(
                                   width: 4,
@@ -298,7 +300,7 @@ class SmsCreatePage extends GetResponsiveView {
                                 Text(
                                   'Employee',
                                   style: TextStyle(
-                                      color: Colors.black, fontSize: 12),
+                                      color: Colors.black, fontSize: 10),
                                 )
                               ],
                             ),
@@ -331,6 +333,7 @@ class SmsCreatePage extends GetResponsiveView {
                                 Icon(
                                   Icons.people,
                                   color: Colors.black,
+                                  size: 20,
                                 ),
                                 SizedBox(
                                   width: 4,
@@ -338,7 +341,7 @@ class SmsCreatePage extends GetResponsiveView {
                                 Text(
                                   'Supplier',
                                   style: TextStyle(
-                                      color: Colors.black, fontSize: 12),
+                                      color: Colors.black, fontSize: 10),
                                 )
                               ],
                             ),
