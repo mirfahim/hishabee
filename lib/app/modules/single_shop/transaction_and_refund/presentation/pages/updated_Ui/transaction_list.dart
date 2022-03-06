@@ -117,13 +117,13 @@ class TransactionList extends StatelessWidget {
                   child: InkWell(
                     onTap: () {
                       showModalBottomSheet<void>(
+                        isScrollControlled: true,
                         context: context,
                         builder: (BuildContext context) {
                           return StatefulBuilder(
                             builder: (BuildContext context, StateSetter setState){
                               return Container(
-                                // height: height - 100,
-                                // color: DEFAULT_BODY_BG_COLOR,
+                                height: MediaQuery.of(context).copyWith().size.height * 0.75,
                                 child: Padding(
                                   padding: const EdgeInsets.only(left: 10.0, right: 10),
                                   child: Column(
