@@ -69,7 +69,7 @@ class _EmiDetailsState extends State<EmiDetails> {
                   fontFamily: 'Roboto',fontSize: 16
                   )),
                   SizedBox(height: 10,),
-                  Text("emi_options".tr,style: TextStyle(
+                  Text('emi_options:'.tr,style: TextStyle(
                       fontFamily: 'Roboto',fontSize: 16
                   )),
                   SizedBox(height: 20,),

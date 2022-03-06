@@ -308,6 +308,7 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
                           arguments: shop) :
                           Get.to(
                           PrinterSetting(),
+                            arguments: shop
                       );
                     },
                     child: Container(

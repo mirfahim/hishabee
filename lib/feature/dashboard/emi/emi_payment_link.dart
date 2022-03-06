@@ -181,7 +181,7 @@ class EmiPaymentLink extends StatelessWidget {
                           child: InkWell(
                             onTap: () => _controller
                                 .submitEmi(
-                                    shop_id: storage.read("shop_id"),
+                                    shop_id: '${shop.id}',
                                     amount:
                                         withoutInterestAmount.toString(),
                                     customerName: Get.arguments[1],

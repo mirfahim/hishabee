@@ -47,7 +47,9 @@ class _PrintPageState extends State<PrintPage> {
           });
         }
       });
-    });
+    }
+
+    );
 
   }
   @override
@@ -83,9 +85,9 @@ class _PrintPageState extends State<PrintPage> {
                   leading: Icon(Icons.print),
                   title: Text(_devices[i].name),
                   subtitle: Text(_devices[i].address),
-                  // onTap: (){
-                  //   // _startPrint(_devices[i]);
-                  // },
+                  onTap: (){
+                    // _startPrint(_devices[i]);
+                  },
                 ),
               );
               })
