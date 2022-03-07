@@ -692,6 +692,7 @@ const en_US = {
   '30_months_emi':'30 Months EMI',
   'enter_amount_more_than_5000':'Enter amount more than ৳5000',
   'emi_options:':'EMI other options:',
+  'product_category':'Product Category',
   'next':'Next',
   '/month':'/Month ',
   'emi_amount':'EMI Amount',

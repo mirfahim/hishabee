@@ -284,6 +284,7 @@ const bn_BD = {
   'bank_information':'ব্যাংক তথ্য ',
   'next':'এগিয়ে যান ',
   'emi_options:':'কিস্তি সমূহ:',
+  'product_category':'পণ্যের ক্যাটাগরি',
   '3_months_emi':'৩ মাসের কিস্তি',
   '6_months_emi':'৬ মাসের কিস্তি',
   '9_months_emi':'৯ মাসের কিস্তি',
