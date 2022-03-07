@@ -258,8 +258,8 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                                                       .circular(
                                                                           30),
                                                               child: Container(
-                                                                  child: employee
-                                                                              .imageSrc ==
+                                                                  child:
+                                                                  employee.imageSrc ==
                                                                           null
                                                                       ? Image
                                                                           .asset(
@@ -269,7 +269,8 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                                                           width:
                                                                               50,
                                                                         )
-                                                                      : Container(
+                                                                      :
+                                                                  Container(
                                                                           height:
                                                                               50,
                                                                           width:

@@ -131,15 +131,17 @@ class EditContactPage extends GetResponsiveView<EditContactsController> {
                                   color: Colors.white,
                                 ),
                                 child: Obx(
-                                  () => controller.contact.value.imageSrc ==
+                                  () => controller.image.value ==
                                           null
                                       ? Image.asset(
                                           'images/icons/profile_placeholder.png',
                                           height: 60,
                                           width: 60,
                                         )
-                                      : controller.image.value != null
-                                          ? Container(
+                                      :
+                                  // controller.image.value != null
+                                  //         ?
+                                  Container(
                                               height: 60,
                                               width: 60,
                                               child: ClipRRect(
@@ -151,19 +153,19 @@ class EditContactPage extends GetResponsiveView<EditContactsController> {
                                                 ),
                                               ),
                                             )
-                                          : Container(
-                                              height: 60,
-                                              width: 60,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(40),
-                                                child: CachedNetworkImage(
-                                                  imageUrl: controller
-                                                      .contact.value.imageSrc,
-                                                  fit: BoxFit.fill,
-                                                ),
-                                              ),
-                                            ),
+                                          // : Container(
+                                          //     height: 60,
+                                          //     width: 60,
+                                          //     child: ClipRRect(
+                                          //       borderRadius:
+                                          //           BorderRadius.circular(40),
+                                          //       child: CachedNetworkImage(
+                                          //         imageUrl: controller
+                                          //             .contact.value.imageSrc,
+                                          //         fit: BoxFit.fill,
+                                          //       ),
+                                          //     ),
+                                          //   ),
                                 ),
                               ),
                             ),
