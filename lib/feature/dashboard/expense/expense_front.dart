@@ -390,52 +390,54 @@ class _ExpenseListState extends State<ExpenseList> {
                                     ? 6
                                     : _expenseController
                                     .allFixedExpenseList.length,
-                                    (index) =>
-                                        Padding(
-                                  padding: const EdgeInsets.only(left: 2,
-                                      right: 2.0, bottom: 4),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(10),
-                                        color: Color(0xFFC4C4C4)
-                                            .withOpacity(.35)),
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(vertical: 8.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '৳ ${_expenseController.allFixedExpenseList[index].amount}',
-                                            style: TextStyle(
-                                                color:
-                                                Color(0xFFDFE0EB),
-                                                fontSize: 16,
-                                                fontFamily: 'Roboto'),
-                                          ),
-                                          Text(
-                                            '${((_expenseController.allFixedExpenseList[index].amount / _expenseController.totalExpense.value) * 100).toStringAsFixed(1)}%',
-                                            style: TextStyle(
-                                                color:
-                                                Color(0xFFDFE0EB),
-                                                fontSize: 16,
-                                                fontFamily: 'Roboto'),
-                                          ),
-                                          Text(
-                                            '${_expenseController.allFixedExpenseList[index].type}',
-                                            style: TextStyle(
-                                                color:
-                                                Color(0xFFDFE0EB),
-                                                fontSize: 16,
-                                                fontFamily: 'Roboto'),
-                                          )
-                                        ],
+                                    (index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(left: 2,
+                                        right: 2.0, bottom: 4),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(10),
+                                          color: Color(0xFFC4C4C4)
+                                              .withOpacity(.35)),
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              '৳ ${_expenseController.allFixedExpenseList[index].amount}',
+                                              style: TextStyle(
+                                                  color:
+                                                  Color(0xFFDFE0EB),
+                                                  fontSize: 16,
+                                                  fontFamily: 'Roboto'),
+                                            ),
+                                            Text(
+                                              '${((_expenseController.allFixedExpenseList[index].amount / _expenseController.totalExpense.value) * 100).toStringAsFixed(1)}%',
+                                              style: TextStyle(
+                                                  color:
+                                                  Color(0xFFDFE0EB),
+                                                  fontSize: 16,
+                                                  fontFamily: 'Roboto'),
+                                            ),
+                                            Text(
+                                              '${_expenseController.allFixedExpenseList[index].type}',
+                                              style: TextStyle(
+                                                  color:
+                                                  Color(0xFFDFE0EB),
+                                                  fontSize: 16,
+                                                  fontFamily: 'Roboto'),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
+                                  );
+                                    }
+                                        ,
                               ),
                             )), //TODO: Expense percentage according to category
                               ],

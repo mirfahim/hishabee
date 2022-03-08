@@ -137,13 +137,16 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
       appBar: AppBar(
+        titleSpacing: 0,
         leading: IconButton(
           onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back,color: Colors.black, ),
         ),
-        title: Text('New Expense'),
+        title: Text('new_expenses'.tr, style: TextStyle(
+          color: Colors.black
+        ),),
         backgroundColor: DEFAULT_YELLOW_BG,
       ),
       body: SafeArea(

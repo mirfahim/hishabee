@@ -3,7 +3,7 @@ const en_US = {
   'or_add_as_usual_product':'or add as usual product',
   'add_quick_product':'Add Quick Product',
   'picture':'picture',
-  'visit':'Visit',
+
   'delivery_charge':'Delivery Charge',
   'product_unit':'Product Unit',
   'todays_expense':'Today\'s Expense',
