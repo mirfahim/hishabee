@@ -170,7 +170,7 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                           // ),
                           // // const Text('Amount of expenses'),
                           textFormFeildForExpense(
-                              labelText: 'Amount of Expenses',
+                              labelText: 'amount'.tr,
                               keyboardType: TextInputType.number,
 
                               regEx: '[0-9]',
@@ -190,7 +190,7 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                               // controller.mobileNumber.value = value;
                             },
                             decoration: InputDecoration(
-                              label: Text('Expense Reason'),
+                              label: Text('expense_reason'.tr),
                               filled: true,
                               contentPadding: EdgeInsets.symmetric(horizontal: 8),
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -216,7 +216,7 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                               // controller.mobileNumber.value = value;
                             },
                             decoration: InputDecoration(
-                              label: Text('Expense Description'),
+                              label: Text('expense_description'.tr),
                               filled: true,
                               contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -294,7 +294,7 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                                   type: widget.type,
                                   purpose: _textEditingControllerReason.text,
                                   details:
-                                      _textEditingControllerDescription.text,
+                                      _textEditingControllerDescription.text ?? '[Nothing Given]',
                                   amount: _textEditingControllerAmount.text);
 
                              await _expenseController

@@ -1,15 +1,41 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/marketing_shop/presentation/manager/marketing_shop_controller.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class MarketingShopPage extends GetView<MarketingShopController> {
+class MarketingShopPage extends StatefulWidget {
+  @override
+  State<MarketingShopPage> createState() => _MarketingShopPageState();
+}
+
+class _MarketingShopPageState extends State<MarketingShopPage> {
+  MarketingShopController controller = Get.find();
+
+  @override
+  void initState() {
+    if (Platform.isAndroid) {
+      WebView.platform = AndroidWebView();
+    }
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Marketing Shop'),
+        leading: IconButton(
+          onPressed: (){
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.black,),
+        ),
+        titleSpacing: 0,
+        backgroundColor: Colors.amber,
+        title: Text('marketing_shop'.tr, style: TextStyle(
+          color: Colors.black
+        ),),
       ),
       body: SafeArea(
         child: Obx(
@@ -52,7 +78,7 @@ class MarketingShopPage extends GetView<MarketingShopController> {
     return JavascriptChannel(
         name: 'Toaster',
         onMessageReceived: (JavascriptMessage message) {
-          Scaffold.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(message.message)),
           );
         });

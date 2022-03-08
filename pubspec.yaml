@@ -78,7 +78,8 @@ dependencies:
   json_annotation: ^4.3.0
   darq: ^1.1.1
   date_util: ^0.1.4
-  webview_flutter: ^2.1.2
+#  webview_flutter: ^2.1.2
+  webview_flutter: ^3.0.1
   firebase_core: ^1.8.0
   firebase_auth: ^3.1.4
   firebase_messaging: ^10.0.9

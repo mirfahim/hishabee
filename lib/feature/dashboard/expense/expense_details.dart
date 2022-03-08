@@ -183,7 +183,7 @@ class _NewExpenseState extends State<NewExpense> {
                         // controller.mobileNumber.value = value;
                       },
                       decoration: InputDecoration(
-                        label: Text('Expense Reason'),
+                        label: Text('expense_reason'.tr),
                         filled: true,
                         contentPadding: EdgeInsets.symmetric(horizontal: 8),
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -209,7 +209,7 @@ class _NewExpenseState extends State<NewExpense> {
                         // controller.mobileNumber.value = value;
                       },
                       decoration: InputDecoration(
-                        label: Text('Expense Description'),
+                        label: Text('expense_description'.tr),
                         filled: true,
                         contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
@@ -287,7 +287,7 @@ class _NewExpenseState extends State<NewExpense> {
                           type: widget.type,
                           purpose: _textEditingControllerReason.text,
                           details:
-                          _textEditingControllerDescription.text,
+                          _textEditingControllerDescription.text ?? '[Nothing given]',
                           amount: _textEditingControllerAmount.text,
                         );
 
