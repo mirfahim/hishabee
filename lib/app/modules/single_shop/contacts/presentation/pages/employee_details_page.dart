@@ -278,8 +278,7 @@ class EmployeeDetailsPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                                 child: IconButton(
-                                    icon: SvgPicture.asset(
-                                        'images/svg_image/gmail.svg'),
+                                    icon: Icon(Icons.message),
                                     onPressed: () {
                                       if (employee.mobile != null) {
                                         // String number =

@@ -138,9 +138,11 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
           onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Colors.black,),
         ),
-        title: Text('edit_expense'.tr),
+        title: Text('edit_expense'.tr, style: TextStyle(
+          color: Colors.black
+        ),),
         backgroundColor: bgColor,
       ),
       body: SafeArea(

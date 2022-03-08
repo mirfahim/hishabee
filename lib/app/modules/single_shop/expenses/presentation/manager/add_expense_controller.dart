@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_core/models/generic_response_model.dart';
@@ -21,7 +23,7 @@ class AddExpenseController extends GetxController {
   final shop = Rxn<Shop>();
   final employeeList = <Employee>[].obs;
   final searchEmployeeList = <Employee>[].obs;
-
+  final image = Rxn<File>();
   final selectedEmployee = Rxn<Employee>();
   final selectedMonth = Rxn<DateTime>();
   final month = "--Select Month--".obs;

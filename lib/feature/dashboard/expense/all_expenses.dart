@@ -10,6 +10,7 @@ import 'package:hishabee_business_manager_fl/feature/dashboard/expense/type_crea
 import 'package:hishabee_business_manager_fl/models/expense/expense_category.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
+import 'expense_details.dart';
 import 'expense_front.dart';
 
 class AllExpenses extends StatefulWidget {
@@ -47,9 +48,11 @@ class _AllExpensesState extends State<AllExpenses> {
           onPressed: () {
             Get.back();
           },
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: Colors.black,),
         ),
-        title:  Text('other_expense'.tr),
+        title:  Text('other_expense'.tr, style: TextStyle(
+            color: Colors.black
+        ),),
         titleSpacing: 0,
         backgroundColor: DEFAULT_YELLOW_BG,
       ),
@@ -149,12 +152,7 @@ class _AllExpensesState extends State<AllExpenses> {
                                                   _expenseController
                                                       .allExpenseCategory[index]
                                                       .id);
-                                          // _expenseController.allExpenseCategory
-                                          //     .removeWhere((element) =>
-                                          // element.id ==
-                                          //     _expenseController
-                                          //         .allExpenseCategory[index]
-                                          //         .id);
+
                                           _expenseController
                                               .getAllExpenseCategory(shopId: '${shop.id}')
                                               .then((value) {

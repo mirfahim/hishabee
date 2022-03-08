@@ -43,10 +43,12 @@ class SmsCreatePage extends GetResponsiveView {
               onPressed: () {
                 Get.back();
               },
-              icon: Icon(Icons.arrow_back),
+              icon: Icon(Icons.arrow_back, color: Colors.black,),
             ),
             backgroundColor: Colors.amber,
-            title: Text('SMS'),
+            title: Text('SMS',style: TextStyle(
+              color: Colors.black
+            ),),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 5),
@@ -56,11 +58,13 @@ class SmsCreatePage extends GetResponsiveView {
                   },
                   child: Row(
                     children: const [
-                      Icon(Icons.history),
+                      Icon(Icons.history, color: Colors.black,),
                       SizedBox(
                         width: 5,
                       ),
-                      Text('Message History')
+                      Text('Message History', style: TextStyle(
+                        color: Colors.black
+                      ),)
                     ],
                   ),
                 ),
@@ -84,7 +88,7 @@ class SmsCreatePage extends GetResponsiveView {
                         padding: const EdgeInsets.all(8.0),
                         child: GridView.builder(
                             gridDelegate:
-                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                                 SliverGridDelegateWithMaxCrossAxisExtent(
                                     maxCrossAxisExtent: 185,
                                     childAspectRatio: 3 / 2,
                                     crossAxisSpacing: 4,
