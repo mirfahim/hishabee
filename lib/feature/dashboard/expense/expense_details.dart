@@ -287,7 +287,7 @@ class _NewExpenseState extends State<NewExpense> {
                           type: widget.type,
                           purpose: _textEditingControllerReason.text,
                           details:
-                          _textEditingControllerDescription.text ?? '[Nothing given]',
+                          _textEditingControllerDescription.text == '' ? '[Nothing given]' : _textEditingControllerDescription.text,
                           amount: _textEditingControllerAmount.text,
                         );
 

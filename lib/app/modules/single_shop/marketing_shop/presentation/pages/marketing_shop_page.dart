@@ -52,6 +52,9 @@ class _MarketingShopPageState extends State<MarketingShopPage> {
                             return NavigationDecision.prevent;
                           }
                         },
+
+                        initialMediaPlaybackPolicy: AutoMediaPlaybackPolicy
+                            .require_user_action_for_all_media_types,
                         javascriptMode: JavascriptMode.unrestricted,
                         onWebViewCreated:
                             (WebViewController webViewController) {

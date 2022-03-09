@@ -294,7 +294,7 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                                   type: widget.type,
                                   purpose: _textEditingControllerReason.text,
                                   details:
-                                      _textEditingControllerDescription.text ?? '[Nothing Given]',
+                                      _textEditingControllerDescription.text == '' ? '[Nothing Given]' : _textEditingControllerDescription.text,
                                   amount: _textEditingControllerAmount.text);
 
                              await _expenseController
