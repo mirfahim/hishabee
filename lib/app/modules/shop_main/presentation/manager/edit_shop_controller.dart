@@ -90,17 +90,23 @@ class EditShopController extends GetxController {
 
   editShop() async {
     String logoUrl;
+    String imageUrl;
     if (image.value.path != '') {
       CustomDialog.showLoadingDialog(message: 'Uploading file...');
       logoUrl =
           await _fileRepository.uploadFile(file: image.value, type: 'shop');
-
+      imageUrl = logoUrl
+          .replaceAll("\\", "")
+          .replaceAll('"', "")
+          .replaceAll("{", "")
+          .replaceAll("}", "")
+          .replaceAllMapped('url:', (match) => "");
       CustomDialog.hideDialog();
     }
 
     CustomDialog.showLoadingDialog(message: 'Updating shop...');
-
-    if (logoUrl != null) {
+    print(imageUrl);
+    if (imageUrl != null) {
       editShopResponse.value = await _shopRepository.editShop(
         shopId: shop.value.id,
         name: shopName.value,
@@ -113,7 +119,7 @@ class EditShopController extends GetxController {
         floorNumber: floorNumber.value,
         vatPercent: vatPercent.value,
         areaId: selectedArea.value.id,
-        logoUrl: logoUrl,
+        logoUrl: imageUrl,
         publicNumber: publicNumber.value,
         referralCode: referralCode.value,
       );
@@ -130,10 +136,13 @@ class EditShopController extends GetxController {
         floorNumber: floorNumber.value,
         vatPercent: vatPercent.value,
         areaId: selectedArea.value.id,
+        logoUrl: shop.value.logoUrl,
         publicNumber: publicNumber.value,
         referralCode: referralCode.value,
       );
+      print('print from edit shop ${editShopResponse.value.code}');
     }
+    print('print from edit shop ${editShopResponse.value.code}');
     CustomDialog.hideDialog();
     if (editShopResponse.value.code == 200) {
       final ManageShopController manageShopController = Get.find();
