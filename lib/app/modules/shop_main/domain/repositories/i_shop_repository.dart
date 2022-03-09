@@ -16,7 +16,7 @@ abstract class IShopRepository {
     String logoUrl,
   });
 
-  Future<EditShopResponseModel> editShop({
+  Future<dynamic> editShop({
     int shopId,
     String name,
     int typeId,

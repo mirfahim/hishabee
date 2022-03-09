@@ -206,7 +206,7 @@ class SignUpBody extends GetResponsiveView {
                         obscureText: true,
                         keyboardType: TextInputType.number,
                         inputFormatters: [
-                          LengthLimitingTextInputFormatter(5),
+                          // LengthLimitingTextInputFormatter(5),
                           FilteringTextInputFormatter.allow(
                             RegExp('[0-9]'),
                           ),

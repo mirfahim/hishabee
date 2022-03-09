@@ -21,7 +21,7 @@ abstract class ISHopProvider {
     String logoUrl,
   });
 
-  Future<Response<EditShopResponseModel>> editShop({
+  Future<dynamic> editShop({
     int shopId,
     String name,
     int typeId,
@@ -93,7 +93,7 @@ class ShopProvider extends GetConnect implements ISHopProvider {
   }
 
   @override
-  Future<Response<EditShopResponseModel>> editShop({
+  Future<dynamic> editShop({
     int shopId,
     String name,
     int typeId,

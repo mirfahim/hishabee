@@ -59,6 +59,10 @@ Widget textFormFeildForExpense(
 }
 
 var now = DateTime.now();
+var startOfMonth = DateTime(now.year, now.month, 1);
+var lastOfTheMonth = (now.month < 12)
+    ? new DateTime(now.year, now.month + 1, 0)
+    : new DateTime(now.year + 1, 1, 0);
 
 class CustomExpensePage extends StatefulWidget {
   String shopId;
@@ -133,13 +137,16 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
       appBar: AppBar(
+        titleSpacing: 0,
         leading: IconButton(
           onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back,color: Colors.black, ),
         ),
-        title: Text('New Expense'),
+        title: Text('new_expenses'.tr, style: TextStyle(
+          color: Colors.black
+        ),),
         backgroundColor: DEFAULT_YELLOW_BG,
       ),
       body: SafeArea(
@@ -163,45 +170,64 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                           // ),
                           // // const Text('Amount of expenses'),
                           textFormFeildForExpense(
-                              labelText: 'Amount of Expenses',
+                              labelText: 'amount'.tr,
                               keyboardType: TextInputType.number,
-                              // iconButton: IconButton(
-                              //   icon: Icon(Icons.people),
-                              //   color: buttonColor,
-                              //   onPressed: () {},
-                              // ),
+
                               regEx: '[0-9]',
                               textEditingController:
                                   _textEditingControllerAmount),
                           SizedBox(
                             height: 20,
                           ),
-                          textFormFeildForExpense(
-                              labelText: 'Expense Reason',
-                              keyboardType: TextInputType.text,
-                              // iconButton: IconButton(
-                              //   icon: Icon(Icons.people),
-                              //   color: buttonColor,
-                              //   onPressed: () {},
-                              // ),
-                              regEx: '[a-zA-z]',
-                              textEditingController:
-                                  _textEditingControllerReason),
+                          TextFormField(
+                            cursorColor: Colors.black,
+                            keyboardType: TextInputType.text,
+                            minLines: 1,
+                            controller: _textEditingControllerReason,
+
+                            // maxLength: maxLength,
+                            onChanged: (value) {
+                              // controller.mobileNumber.value = value;
+                            },
+                            decoration: InputDecoration(
+                              label: Text('expense_reason'.tr),
+                              filled: true,
+                              contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                              counterText: "",
+                              // hintText: hintText,
+                              hintStyle: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black26,
+                              ),
+                            ),
+                          ),
                           SizedBox(
                             height: 20,
                           ),
-                          textFormFeildForExpense(
-                              labelText: 'Expense Description',
-                              maxLine: 7,
-                              keyboardType: TextInputType.text,
-                              // iconButton: IconButton(
-                              //   icon: Icon(Icons.people),
-                              //   color: buttonColor,
-                              //   onPressed: () {},
-                              // ),
-                              regEx: '[a-zA-z]',
-                              textEditingController:
-                                  _textEditingControllerDescription),
+                          TextFormField(
+                            cursorColor: Colors.black,
+                            keyboardType: TextInputType.text,
+                            maxLines: 7,
+                            controller: _textEditingControllerDescription,
+
+                            // maxLength: maxLength,
+                            onChanged: (value) {
+                              // controller.mobileNumber.value = value;
+                            },
+                            decoration: InputDecoration(
+                              label: Text('expense_description'.tr),
+                              filled: true,
+                              contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                              counterText: "",
+                              // hintText: hintText,
+                              hintStyle: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black26,
+                              ),
+                            ),
+                          ),
                           const SizedBox(
                             height: 30,
                           ),
@@ -268,50 +294,68 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                                   type: widget.type,
                                   purpose: _textEditingControllerReason.text,
                                   details:
-                                      _textEditingControllerDescription.text,
+                                      _textEditingControllerDescription.text == '' ? '[Nothing Given]' : _textEditingControllerDescription.text,
                                   amount: _textEditingControllerAmount.text);
 
                              await _expenseController
-                                  .getAllExpense(
-                                      shopId: '${widget.shopId}',
-                                      userId: '${widget.userId}')
-                                  .then((value) {
-                                setState(() {
-                                  // _expenseList = getExpenseFromModel(value);
-                                  _expenseController.allExpenseList.value =
-                                      getExpenseFromModel(value);
-                                  _expenseController.totalExpense.value =
-                                      _expenseController.allExpenseList
-                                          .map((e) => e.amount)
-                                          .fold(
-                                              0,
-                                              (previousValue, element) =>
-                                                  previousValue + element);
-                                  _isLoading = false;
-                                  // print('expense list: ${_expenseController.allExpenseList.value}');
-                                });
-                              });
+                                 .getAllExpense(
+                                 shopId: '${widget.shopId}',
+                                 userId: '${widget.userId}',
+                                 startDate: '$startOfMonth',
+                                 endDate: '$lastOfTheMonth')
+                                 .then((value) {
+                               setState(() {
+                                 _expenseController.allExpenseList.value =
+                                     getExpenseFromModel(value);
+                                 _expenseController.totalExpense.value =
+                                     _expenseController.allExpenseList
+                                         .map((e) => e.amount)
+                                         .fold(
+                                         0,
+                                             (previousValue, element) =>
+                                         previousValue + element);
+                                 _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
+                                 // _isLoading = false;
+                                 // print('expense list: ${_expenseController.allExpenseList.value}');
+                               });
+                             });
                              await _expenseController
-                                  .getAllExpense(
-                                      shopId: '${widget.shopId}',
-                                      userId: '${widget.userId}')
-                                  .then((value) {
-                                setState(() {
-                                  // _expenseList = getExpenseFromModel(value);
-                                  _expenseController.allExpenseList.value =
-                                      getExpenseFromModel(value);
-                                  _expenseController.totalExpense.value =
-                                      _expenseController.allExpenseList
-                                          .map((e) => e.amount)
-                                          .fold(
-                                              0,
-                                              (previousValue, element) =>
-                                                  previousValue + element);
-                                  // _isLoading = false;
-                                  print(
-                                      'expense list: ${_expenseController.allExpenseList.value}');
-                                });
-                              });
+                                 .getAllExpense(
+                                 shopId: '${widget.shopId}',
+                                 userId: '${widget.userId}',
+                                 startDate: '$startOfMonth',
+                                 endDate: '$lastOfTheMonth')
+                                 .then((value) {
+                               setState(() {
+                                 // _expenseList = getExpenseFromModel(value);
+                                 _expenseController.allExpenseList.value =
+                                     getExpenseFromModel(value);
+                                 _expenseController.totalExpense.value =
+                                     _expenseController.allExpenseList
+                                         .map((e) => e.amount)
+                                         .fold(
+                                         0,
+                                             (previousValue, element) =>
+                                         previousValue + element);
+                                 _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
+                                 // _isLoading = false;
+                                 // print(
+                                 //     'expense list: ${_expenseController.allExpenseList.value}');
+                               });
+                             });
+
+                             await _expenseController
+                                 .getAllExpenseCategory(
+                                 shopId: '${widget.shopId}')
+                                 .then((value) {
+                               setState(() {
+                                 _expenseController.allExpenseCategory.value =
+                                     expenseCategoryResponseModelFromModel(
+                                         value);
+                                 // print(
+                                 //     'category: ${_expenseController.allExpenseCategory}');
+                               });
+                             });
 
                              await _expenseController
                                   .getAllExpenseCategory(

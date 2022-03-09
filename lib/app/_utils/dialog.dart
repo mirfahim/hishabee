@@ -221,7 +221,7 @@ class CustomDialog {
                 Text(
                   'TK ${product.sellingPrice}',
                   style: TextStyle(
-                    fontFamily: 'Rubik',
+                    fontFamily: 'Roboto',
                     // fontSize: 28,
                     color: Colors.red,
                   ),

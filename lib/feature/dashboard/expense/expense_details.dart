@@ -136,13 +136,16 @@ class _NewExpenseState extends State<NewExpense> {
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
       appBar: AppBar(
+        titleSpacing: 0,
         leading: IconButton(
           onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Colors.black,),
         ),
-        title: Text('new_expense'.tr),
+        title: Text('new_expense'.tr, style: TextStyle(
+          color: Colors.black
+        ),),
         backgroundColor: DEFAULT_YELLOW_BG,
       ),
       body: SafeArea(
@@ -169,22 +172,55 @@ class _NewExpenseState extends State<NewExpense> {
                     SizedBox(
                       height: 20,
                     ),
-                    textFormFeildForExpense(
-                        labelText: 'reason'.tr,
-                        keyboardType: TextInputType.text,
-                        regEx: '[a-zA-z]',
-                        textEditingController:
-                        _textEditingControllerReason),
+                    TextFormField(
+                      cursorColor: Colors.black,
+                      keyboardType: TextInputType.text,
+                      minLines: 1,
+                      controller: _textEditingControllerReason,
+
+                      // maxLength: maxLength,
+                      onChanged: (value) {
+                        // controller.mobileNumber.value = value;
+                      },
+                      decoration: InputDecoration(
+                        label: Text('expense_reason'.tr),
+                        filled: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                        counterText: "",
+                        // hintText: hintText,
+                        hintStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black26,
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       height: 20,
                     ),
-                    textFormFeildForExpense(
-                        labelText: 'description'.tr,
-                        maxLine: 7,
-                        keyboardType: TextInputType.text,
-                        regEx: '[a-zA-z]',
-                        textEditingController:
-                        _textEditingControllerDescription),
+                    TextFormField(
+                      cursorColor: Colors.black,
+                      keyboardType: TextInputType.text,
+                      maxLines: 7,
+                      controller: _textEditingControllerDescription,
+
+                      // maxLength: maxLength,
+                      onChanged: (value) {
+                        // controller.mobileNumber.value = value;
+                      },
+                      decoration: InputDecoration(
+                        label: Text('expense_description'.tr),
+                        filled: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                        counterText: "",
+                        // hintText: hintText,
+                        hintStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black26,
+                        ),
+                      ),
+                    ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -251,7 +287,7 @@ class _NewExpenseState extends State<NewExpense> {
                           type: widget.type,
                           purpose: _textEditingControllerReason.text,
                           details:
-                          _textEditingControllerDescription.text,
+                          _textEditingControllerDescription.text == '' ? '[Nothing given]' : _textEditingControllerDescription.text,
                           amount: _textEditingControllerAmount.text,
                         );
 

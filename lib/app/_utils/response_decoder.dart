@@ -10,7 +10,7 @@ abstract class ResponseDecoder {
     }
 
     if (response.hasError) {
-      return Future.error(response.statusText);
+      // return Future.error(response.statusText);
     } else {
       return response.body;
     }

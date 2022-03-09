@@ -11,13 +11,17 @@ import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/m
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/_navigation/contact_routes.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/contact_type_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/employee_model.dart';
+import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/sms/create_sms.dart';
+import 'package:hishabee_business_manager_fl/new_UI/sms/sms_front.dart';
 
 class EmployeeDetailsPage extends StatelessWidget {
   final Employee employee;
   final Shop shop;
-  const EmployeeDetailsPage({Key key, this.employee, this.shop})
+   EmployeeDetailsPage({Key key, this.employee, this.shop})
       : super(key: key);
 
+  SmsController _smsController = SmsController();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -274,13 +278,20 @@ class EmployeeDetailsPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                                 child: IconButton(
-                                    icon: SvgPicture.asset(
-                                        'images/svg_image/gmail.svg'),
+                                    icon: Icon(Icons.message),
                                     onPressed: () {
                                       if (employee.mobile != null) {
-                                        String number =
-                                            "sms:${employee.mobile}";
-                                        Utility.launchURL(number);
+                                        // String number =
+                                        //     "sms:${employee.mobile}";
+                                        // Utility.launchURL(number);
+                                        _smsController.mobileNumbers.value = employee.mobile;
+                                        Get.to(
+                                              () => SmsCreatePage(),
+                                          arguments: {
+                                            "shop": shop,
+                                          },
+                                          // binding: SMSBindings(),
+                                        );
                                       } else {
                                         CustomDialog.showStringDialog(
                                             "Number not found");

@@ -29,7 +29,8 @@ class _PrinterSettingState extends State<PrinterSetting> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('printer'.tr),
+        backgroundColor: Colors.amber,
+        title: Text('printer'.tr, style: TextStyle(color: Colors.black),),
         leading: IconButton(
           onPressed: () {
             // SharedPref.to.prefss.getString('bluetooth_name').isEmpty ?
@@ -40,7 +41,7 @@ class _PrinterSettingState extends State<PrinterSetting> {
                 //   binding: ShopFeaturesBinding()
                 // );
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Colors.black,),
         ),
         titleSpacing: 0,
         actions: [

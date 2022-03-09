@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
 
 import 'expense_details_edit_delete.dart';
+import 'expense_front.dart';
 
 
 var now;
@@ -94,9 +95,11 @@ class _ExpenseList2State extends State<ExpenseList2> {
           onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Colors.black,),
         ),
-        title:  Text('expense_book'.tr),
+        title:  Text('expense_book'.tr, style: TextStyle(
+            color: Colors.black
+        ),),
         backgroundColor: bgColor,
         titleSpacing: 0,
       ),

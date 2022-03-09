@@ -7,7 +7,7 @@ import 'package:hishabee_business_manager_fl/app/modules/shop_main/domain/reposi
 class ManageShopController extends GetxController {
   final user = Rxn<User>();
   final shops = <Shop>[].obs;
-
+  final RxBool isLoading = true.obs;
   final IShopRepository _shopRepository;
 
   ManageShopController(this._shopRepository);
@@ -35,5 +35,8 @@ class ManageShopController extends GetxController {
   Future<void> getAllShop() async {
     final response = await _shopRepository.getAllShop();
     shops.assignAll(response);
+    if(shops.isNotEmpty){
+      isLoading.value = false;
+    }
   }
 }

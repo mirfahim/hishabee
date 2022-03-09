@@ -42,7 +42,6 @@ class _ExpenseListState extends State<ExpenseList> {
   var getShopId = GetStorage('shop_id');
 
   @override
-  @override
   void initState() {
     setState(() {
 
@@ -77,6 +76,40 @@ class _ExpenseListState extends State<ExpenseList> {
       });
     });
     super.initState();
+  }
+
+  getData(){
+    setState(() {
+      _expenseController
+          .getAllExpense(
+          shopId: '${shop.id}',
+          userId: '${shop.userId}',
+          startDate: '$startOfMonth',
+          endDate: '$lastOfTheMonth')
+          .then((value) {
+
+        _expenseController.allExpenseList.value = getExpenseFromModel(value);
+        _expenseController.allFixedExpenseList.value =
+            _expenseController.allExpenseList.value;
+
+        _expenseController.totalExpense.value = _expenseController.allExpenseList
+            .map((e) => e.amount)
+            .fold(0, (previousValue, element) => previousValue + element);
+        _expenseController.totalFixedExpense.value =
+            _expenseController.totalExpense.value;
+        _isLoading = false;
+      });
+
+    });
+
+    _expenseController
+        .getAllExpenseCategory(shopId: '${shop.id}')
+        .then((value) {
+      setState(() {
+        _expenseController.allExpenseCategory.value =
+            expenseCategoryResponseModelFromModel(value);
+      });
+    });
   }
 
   @override
@@ -235,14 +268,15 @@ class _ExpenseListState extends State<ExpenseList> {
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
       appBar: AppBar(
+        titleSpacing: 0,
         leading: IconButton(
           onPressed: () {
             Get.back();
           },
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: Colors.black,),
         ),
         title: Text('expense'.tr,
-            style: TextStyle(fontFamily: 'Roboto')),
+            style: TextStyle(fontFamily: 'Roboto', color: Colors.black)),
         backgroundColor: bgColor,
       ),
       body: SafeArea(
@@ -356,51 +390,54 @@ class _ExpenseListState extends State<ExpenseList> {
                                     ? 6
                                     : _expenseController
                                     .allFixedExpenseList.length,
-                                    (index) => Padding(
-                                  padding: const EdgeInsets.only(left: 2,
-                                      right: 2.0, bottom: 4),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                        BorderRadius.circular(10),
-                                        color: Color(0xFFC4C4C4)
-                                            .withOpacity(.35)),
-                                    child: Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(vertical: 8.0),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '৳ ${_expenseController.allFixedExpenseList[index].amount}',
-                                            style: TextStyle(
-                                                color:
-                                                Color(0xFFDFE0EB),
-                                                fontSize: 16,
-                                                fontFamily: 'Roboto'),
-                                          ),
-                                          Text(
-                                            '${((_expenseController.allFixedExpenseList[index].amount / _expenseController.totalExpense.value) * 100).toStringAsFixed(1)}%',
-                                            style: TextStyle(
-                                                color:
-                                                Color(0xFFDFE0EB),
-                                                fontSize: 16,
-                                                fontFamily: 'Roboto'),
-                                          ),
-                                          Text(
-                                            '${_expenseController.allFixedExpenseList[index].type}',
-                                            style: TextStyle(
-                                                color:
-                                                Color(0xFFDFE0EB),
-                                                fontSize: 16,
-                                                fontFamily: 'Roboto'),
-                                          )
-                                        ],
+                                    (index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(left: 2,
+                                        right: 2.0, bottom: 4),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                          BorderRadius.circular(10),
+                                          color: Color(0xFFC4C4C4)
+                                              .withOpacity(.35)),
+                                      child: Padding(
+                                        padding:
+                                        const EdgeInsets.symmetric(vertical: 8.0),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              '৳ ${_expenseController.allFixedExpenseList[index].amount}',
+                                              style: TextStyle(
+                                                  color:
+                                                  Color(0xFFDFE0EB),
+                                                  fontSize: 16,
+                                                  fontFamily: 'Roboto'),
+                                            ),
+                                            Text(
+                                              '${((_expenseController.allFixedExpenseList[index].amount / _expenseController.totalExpense.value) * 100).toStringAsFixed(1)}%',
+                                              style: TextStyle(
+                                                  color:
+                                                  Color(0xFFDFE0EB),
+                                                  fontSize: 16,
+                                                  fontFamily: 'Roboto'),
+                                            ),
+                                            Text(
+                                              '${_expenseController.allFixedExpenseList[index].type}',
+                                              style: TextStyle(
+                                                  color:
+                                                  Color(0xFFDFE0EB),
+                                                  fontSize: 16,
+                                                  fontFamily: 'Roboto'),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
+                                  );
+                                    }
+                                        ,
                               ),
                             )), //TODO: Expense percentage according to category
                               ],

@@ -76,7 +76,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
   final ProductListController _productListController = Get.find();
   Category selectedProductCategory;
   SubCategory selectedSubCat;
-  String _selectedUnit;
+  String _selectedUnit = '';
   String productName;
   String savedProductName;
   double price;
@@ -138,7 +138,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
   @override
   void initState() {
     print("working 11111111");
-    _unitListController.fetchAllUnit(userID: '1097').then((value) {
+    _unitListController.fetchAllUnit(userID: '${widget.shop.userId}').then((value) {
       _getAllUnit = getUnitFromModel(value);
       print(" my al unit length is ${_getAllUnit.length}");
     });
@@ -189,6 +189,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
       backgroundColor: DEFAULT_BODY_BG_COLOR,
       appBar: AppBar(
         titleSpacing: 0,
+        backgroundColor: Colors.amber,
         title: Text(
           'add_new_product'.tr,
           style: TextStyle(
@@ -989,94 +990,92 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                           const EdgeInsets.only(
                                                               top: 10.0),
                                                       child: Container(
-                                                        child: Expanded(
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .start,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .only(
-                                                                        left:
-                                                                            10.0),
-                                                                child: Text(
-                                                                  'delivery_charge'
-                                                                      .tr,
-                                                                  style: TextStyle(
-                                                                      fontSize:
-                                                                          14,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                      fontFamily:
-                                                                          'Roboto'),
-                                                                ),
+                                                        child: Column(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .only(
+                                                                      left:
+                                                                          10.0),
+                                                              child: Text(
+                                                                'delivery_charge'
+                                                                    .tr,
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        14,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500,
+                                                                    fontFamily:
+                                                                        'Roboto'),
                                                               ),
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                            .all(
-                                                                        8.0),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                          .all(
+                                                                      8.0),
+                                                              child:
+                                                                  Container(
+                                                                height: 48,
                                                                 child:
-                                                                    Container(
-                                                                  height: 48,
-                                                                  child:
-                                                                      TextFormField(
-                                                                    // onChanged: (val) {
-                                                                    //   if (val != "") {
-                                                                    //     stockQuantity = int.parse(val);
-                                                                    //   } else {
-                                                                    //     stockQuantity = 0;
-                                                                    //   }
-                                                                    // },
-                                                                    inputFormatters: [
-                                                                      FilteringTextInputFormatter
-                                                                          .digitsOnly
-                                                                    ],
-                                                                    keyboardType:
-                                                                        TextInputType
-                                                                            .number,
-                                                                    decoration:
-                                                                        InputDecoration(
-                                                                      filled:
-                                                                          true,
-                                                                      fillColor:
-                                                                          Colors
-                                                                              .white,
-                                                                      border: new OutlineInputBorder(
-                                                                          borderSide:
-                                                                              new BorderSide(color: Color(0xFFC4C4C4))),
-                                                                      focusedBorder: new OutlineInputBorder(
-                                                                          borderRadius: BorderRadius.circular(
-                                                                              10),
-                                                                          borderSide:
-                                                                              new BorderSide(color: Color(0xFFC4C4C4))),
-                                                                      enabledBorder: new OutlineInputBorder(
-                                                                          borderRadius: BorderRadius.circular(
-                                                                              10),
-                                                                          borderSide:
-                                                                              new BorderSide(color: Color(0xFFC4C4C4))),
-                                                                      hintText:
-                                                                          "delivery_charge"
-                                                                              .tr,
-                                                                      hintStyle: TextStyle(
-                                                                          fontFamily:
-                                                                              'Roboto',
-                                                                          color: Colors
-                                                                              .blueGrey,
-                                                                          fontSize:
-                                                                              12),
-                                                                    ),
+                                                                    TextFormField(
+                                                                  // onChanged: (val) {
+                                                                  //   if (val != "") {
+                                                                  //     stockQuantity = int.parse(val);
+                                                                  //   } else {
+                                                                  //     stockQuantity = 0;
+                                                                  //   }
+                                                                  // },
+                                                                  inputFormatters: [
+                                                                    FilteringTextInputFormatter
+                                                                        .digitsOnly
+                                                                  ],
+                                                                  keyboardType:
+                                                                      TextInputType
+                                                                          .number,
+                                                                  decoration:
+                                                                      InputDecoration(
+                                                                    filled:
+                                                                        true,
+                                                                    fillColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    border: new OutlineInputBorder(
+                                                                        borderSide:
+                                                                            new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                    focusedBorder: new OutlineInputBorder(
+                                                                        borderRadius: BorderRadius.circular(
+                                                                            10),
+                                                                        borderSide:
+                                                                            new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                    enabledBorder: new OutlineInputBorder(
+                                                                        borderRadius: BorderRadius.circular(
+                                                                            10),
+                                                                        borderSide:
+                                                                            new BorderSide(color: Color(0xFFC4C4C4))),
+                                                                    hintText:
+                                                                        "delivery_charge"
+                                                                            .tr,
+                                                                    hintStyle: TextStyle(
+                                                                        fontFamily:
+                                                                            'Roboto',
+                                                                        color: Colors
+                                                                            .blueGrey,
+                                                                        fontSize:
+                                                                            12),
                                                                   ),
                                                                 ),
-                                                              )
-                                                            ],
-                                                          ),
+                                                              ),
+                                                            )
+                                                          ],
                                                         ),
                                                       ),
                                                     )
@@ -1412,92 +1411,84 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                               DEFAULT_BLUE_DARK,
                                                         ),
                                                       ),
-                                                      InkWell(
-                                                        onTap: () {},
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  vertical:
-                                                                      8.0),
-                                                          child: Container(
-                                                            height: 48,
-                                                            child:
-                                                                TextFormField(
-                                                              inputFormatters: [
-                                                                FilteringTextInputFormatter
-                                                                    .digitsOnly
-                                                              ],
-                                                              keyboardType:
-                                                                  TextInputType
-                                                                      .number,
-                                                              decoration:
-                                                                  InputDecoration(
-                                                                suffixIcon:
-                                                                    PopupMenuButton(
-                                                                  icon: Icon(
-                                                                    Icons
-                                                                        .arrow_drop_down,
-                                                                    color: Color(
-                                                                        0xFF707070),
-                                                                  ),
-                                                                  itemBuilder: (context) =>
-                                                                      _getAllUnit
-                                                                          .map((e) =>
-                                                                              PopupMenuItem(
-                                                                                child: Text(e.name),
-                                                                                value: e.name,
-                                                                              ))
-                                                                          .toList(),
-                                                                  onSelected:
-                                                                      (value) {
-                                                                    setState(
-                                                                        () {
-                                                                      _selectedUnit =
-                                                                          value;
-                                                                      print(
-                                                                          "my selected unit is $_selectedUnit");
-                                                                    });
-                                                                  },
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                vertical:
+                                                                    8.0),
+                                                        child: Container(
+                                                          height: 48,
+                                                          child:
+                                                              TextFormField(
+                                                            inputFormatters: [
+                                                              FilteringTextInputFormatter
+                                                                  .digitsOnly
+                                                            ],
+                                                            keyboardType:
+                                                                TextInputType
+                                                                    .number,
+                                                            decoration:
+                                                                InputDecoration(
+                                                              suffixIcon:
+                                                                  PopupMenuButton(
+                                                                icon: Icon(Icons.arrow_drop_down,
+                                                                  color: Color(
+                                                                      0xFF707070),
                                                                 ),
-                                                                filled: true,
-                                                                fillColor:
-                                                                    Colors
-                                                                        .white,
-                                                                border: new OutlineInputBorder(
-                                                                    borderSide:
-                                                                        new BorderSide(
-                                                                            color:
-                                                                                Color(0xFFC4C4C4))),
-                                                                focusedBorder: new OutlineInputBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10),
-                                                                    borderSide:
-                                                                        new BorderSide(
-                                                                            color:
-                                                                                Color(0xFFC4C4C4))),
-                                                                enabledBorder: new OutlineInputBorder(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            10),
-                                                                    borderSide:
-                                                                        new BorderSide(
-                                                                            color:
-                                                                                Color(0xFFC4C4C4))),
-                                                                hintText: _selectedUnit ==
-                                                                        null
-                                                                    ? "product_unit"
-                                                                        .tr
-                                                                    : _selectedUnit,
-                                                                hintStyle: TextStyle(
-                                                                    fontFamily:
-                                                                        'Roboto',
-                                                                    color: Colors
-                                                                        .blueGrey,
-                                                                    fontSize:
-                                                                        12),
+                                                                itemBuilder: (context) =>_getAllUnit.map((e) =>
+                                                                            PopupMenuItem(
+                                                                              child: Text(e.name),
+                                                                              value: e.name,
+                                                                            ))
+                                                                        .toList(),
+                                                                onSelected:
+                                                                    (value) {
+                                                                  setState(() {
+                                                                    _selectedUnit =
+                                                                        value;
+                                                                    print(
+                                                                        "my selected unit is $value");
+                                                                  });
+                                                                },
                                                               ),
+                                                              filled: true,
+                                                              fillColor:
+                                                                  Colors
+                                                                      .white,
+                                                              border: new OutlineInputBorder(
+                                                                  borderSide:
+                                                                      new BorderSide(
+                                                                          color:
+                                                                              Color(0xFFC4C4C4))),
+                                                              focusedBorder: new OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                          10),
+                                                                  borderSide:
+                                                                      new BorderSide(
+                                                                          color:
+                                                                              Color(0xFFC4C4C4))),
+                                                              enabledBorder: new OutlineInputBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                          10),
+                                                                  borderSide:
+                                                                      new BorderSide(
+                                                                          color:
+                                                                              Color(0xFFC4C4C4))),
+                                                              hintText: _selectedUnit ==
+                                                                      null
+                                                                  ? "product_unit"
+                                                                      .tr
+                                                                  : _selectedUnit,
+                                                              hintStyle: TextStyle(
+                                                                  fontFamily:
+                                                                      'Roboto',
+                                                                  color: Colors
+                                                                      .blueGrey,
+                                                                  fontSize:
+                                                                      12),
                                                             ),
                                                           ),
                                                         ),
@@ -1587,8 +1578,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                                       //     });
                                                                       showModalBottomSheet<
                                                                           void>(
-                                                                        // context and builder are
-                                                                        // required properties in this widget
+                                                                        isScrollControlled: true,
                                                                         context:
                                                                             context,
                                                                         builder:
@@ -1599,6 +1589,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                                           return StatefulBuilder(builder:
                                                                               (context, setState) {
                                                                             return Container(
+                                                                              height: size.height * .75,
                                                                               child: Padding(
                                                                                 padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
                                                                                 child: Expanded(
@@ -3381,7 +3372,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                       Padding(
                         padding: const EdgeInsets.only(top: 10.0),
                         child: Text(
-                          "Product Category",
+                          "product_category".tr,
                           style: TextStyle(
                             color: DEFAULT_BLACK,
                             fontSize: 16,

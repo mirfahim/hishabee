@@ -47,19 +47,24 @@ class _PrintPageState extends State<PrintPage> {
           });
         }
       });
-    });
+    }
+
+    );
 
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('printer'.tr),
+        backgroundColor: Colors.amber,
+        title: Text('printer'.tr, style: TextStyle(
+          color: Colors.black
+        ),),
         leading: IconButton(
           onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Colors.black,),
         ),
         titleSpacing: 0,
       ),
@@ -80,9 +85,9 @@ class _PrintPageState extends State<PrintPage> {
                   leading: Icon(Icons.print),
                   title: Text(_devices[i].name),
                   subtitle: Text(_devices[i].address),
-                  // onTap: (){
-                  //   // _startPrint(_devices[i]);
-                  // },
+                  onTap: (){
+                    // _startPrint(_devices[i]);
+                  },
                 ),
               );
               })

@@ -9,6 +9,7 @@ import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
 import 'package:hishabee_business_manager_fl/app/_widgets/page_background.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/contact_type_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/presentation/manager/add_contact_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/presentation/pages/contact_dialogBox.dart';
 
 class AddContactPage extends GetResponsiveView<AddContactsController> {
   final formKey = GlobalKey<FormState>();
@@ -18,6 +19,33 @@ class AddContactPage extends GetResponsiveView<AddContactsController> {
     Size size = MediaQuery.of(screen.context).size;
     return Scaffold(
         backgroundColor: DEFAULT_BODY_BG_COLOR,
+        appBar: AppBar(
+          titleSpacing: 0,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back,
+            ),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+          title: Text(
+            controller.contactType.value.toLowerCase() ==
+                "employee"
+                ? "add_employee".tr
+                : controller.contactType.value
+                .toLowerCase() ==
+                "customer"
+                ? "add_customer".tr
+                : "add_supplier".tr,
+            style: TextStyle(
+              fontFamily: 'Rubik',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: DEFAULT_BLACK,
+            ),
+          ),
+        ),
         body: SafeArea(
           child: Form(
             key: formKey,
@@ -27,106 +55,84 @@ class AddContactPage extends GetResponsiveView<AddContactsController> {
                 removeTop: true,
                 child: ListView(
                   children: [
-                    Stack(
-                      children: [
-                        Container(
-                          height: size.height * 0.2,
-                          width: size.width,
-                          child: Image.asset(
-                            "images/topBg.png",
-                            fit: BoxFit.fill,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 20.0),
-                          child: Row(
-                            children: [
-                              IconButton(
-                                icon: Icon(
-                                  Icons.arrow_back,
-                                  size: 25,
-                                ),
-                                onPressed: () {
-                                  Navigator.pop(screen.context);
-                                },
-                              ),
-                              Text(
-                                controller.contactType.value.toLowerCase() ==
-                                        "employee"
-                                    ? "add_employee".tr
-                                    : controller.contactType.value
-                                                .toLowerCase() ==
-                                            "customer"
-                                        ? "add_customer".tr
-                                        : "add_supplier".tr,
-                                style: TextStyle(
-                                  fontFamily: 'Rubik',
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: DEFAULT_BLACK,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            top: 70.0,
-                            left: 15,
-                          ),
-                          child: Obx(
-                            () => Text(
-                              controller.shop.value.name,
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
-                              ),
+                    SizedBox(height: 10,),
+                    Padding(
+                      padding: EdgeInsets.only(left: 10, right: 10),
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          Get.dialog(ContactBox(),);
+                          // await controller.getAllContacts().then(
+                          //     Navigator.of(context).push(PageRouteBuilder(
+                          //         pageBuilder: (context, _, __) =>
+                          //             SmsCustomDialogContacts(),
+                          //         opaque: false)));
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            Icon(
+                              Icons.contacts,
+                              color: Colors.black,
                             ),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              'Import from contacts',
+                              style: TextStyle(color: Colors.black, fontSize: 12),
+                            )
+                          ],
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          side: const BorderSide(width: 1, color: Colors.black),
+                          primary: Colors.white,
+                          fixedSize: Size(size.width, 20),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(2),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 120.0),
-                          child: Center(
-                            child: GestureDetector(
-                              onTap: () {
-                                _showPictureOptionDialogue();
-                              },
-                              child: Container(
-                                height: 65,
-                                width: 65,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(40),
-                                  border: Border.all(
-                                      color: Colors.yellow, width: 1),
-                                  color: Colors.white,
-                                ),
-                                child: Obx(
-                                  () => controller.image.value == null
-                                      ? Image.asset(
-                                          'images/icons/profile_placeholder.png',
-                                          height: 60,
-                                          width: 60,
-                                        )
-                                      : Container(
-                                          height: 60,
-                                          width: 60,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(40),
-                                            child: Image.file(
-                                              controller.image.value,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Center(
+                        child: GestureDetector(
+                          onTap: () {
+                            _showPictureOptionDialogue();
+                          },
+                          child: Container(
+                            height: 65,
+                            width: 65,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40),
+                              border: Border.all(
+                                  color: Colors.yellow, width: 1),
+                              color: Colors.white,
+                            ),
+                            child: Obx(
+                              () => controller.image.value == null
+                                  ? Image.asset(
+                                      'images/icons/profile_placeholder.png',
+                                      height: 60,
+                                      width: 60,
+                                    )
+                                  : Container(
+                                      height: 60,
+                                      width: 60,
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(40),
+                                        child: Image.file(
+                                          controller.image.value,
+                                          fit: BoxFit.fill,
                                         ),
-                                ),
-                              ),
+                                      ),
+                                    ),
                             ),
                           ),
                         ),
-                      ],
+                      ),
                     ),
                     Container(
                       width: size.width / 2,
@@ -135,7 +141,7 @@ class AddContactPage extends GetResponsiveView<AddContactsController> {
                         children: [
                           Padding(
                             padding:
-                                const EdgeInsets.symmetric(horizontal: 25.0),
+                                const EdgeInsets.symmetric(horizontal: 15.0),
                             child: Text(
                               controller.contactType.value.toLowerCase() ==
                                       "employee"
@@ -162,11 +168,13 @@ class AddContactPage extends GetResponsiveView<AddContactsController> {
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(4),
                                 border:
-                                    Border.all(width: 1, color: Colors.grey),
+                                Border.all(width: 1, color: Colors.grey),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
                                 child: TextFormField(
+                                  controller: controller.nameController,
+                                  // initialValue: controller.name.value,
                                   validator: (value) {
                                     if (value.isEmpty) {
                                       return 'Please enter ${controller.contactType.value} name';
@@ -181,7 +189,7 @@ class AddContactPage extends GetResponsiveView<AddContactsController> {
                                     focusedBorder: InputBorder.none,
                                     enabledBorder: InputBorder.none,
                                     hintText:
-                                        "${controller.contactType.value} Name",
+                                    "${controller.contactType.value} Name",
                                     hintStyle: TextStyle(
                                       fontFamily: 'Rubik',
                                       color: Colors.blueGrey,
@@ -190,7 +198,8 @@ class AddContactPage extends GetResponsiveView<AddContactsController> {
                                 ),
                               ),
                             ),
-                          ),
+                          )
+                          ,
                         ],
                       ),
                     ),
@@ -414,6 +423,8 @@ class AddContactPage extends GetResponsiveView<AddContactsController> {
                               child: Padding(
                                 padding: const EdgeInsets.only(left: 15.0),
                                 child: TextFormField(
+                                  controller: controller.mobileController,
+                                  // initialValue: controller.mobile.value,
                                   validator: (value) {
                                     if (value.isEmpty) {
                                       return 'Please enter mobile number';
@@ -433,7 +444,7 @@ class AddContactPage extends GetResponsiveView<AddContactsController> {
                                       "+88 ",
                                       style: TextStyle(
                                           color:
-                                              DEFAULT_BLACK.withOpacity(0.7)),
+                                          DEFAULT_BLACK.withOpacity(0.7)),
                                     ),
                                     counterText: "",
                                     border: InputBorder.none,
@@ -445,7 +456,7 @@ class AddContactPage extends GetResponsiveView<AddContactsController> {
                                       color: Colors.blueGrey,
                                     ),
                                   ),
-                                ),
+                                )
                               ),
                             ),
                           ),

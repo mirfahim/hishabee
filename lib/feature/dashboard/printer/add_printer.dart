@@ -37,22 +37,15 @@ class AddPrinter extends StatelessWidget {
         ),
       ),
       appBar: AppBar(
-        title: Text('printer'.tr),
+        backgroundColor: Colors.amber,
+        title: Text('printer'.tr,style: TextStyle(color: Colors.black),),
         leading: IconButton(
           onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Colors.black,),
         ),
         titleSpacing: 0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: InkWell(
-                onTap: () {},
-                child: SvgPicture.asset('images/svg_image/help.svg')),
-          )
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),

@@ -57,6 +57,12 @@ class EditContactsController extends GetxController {
       if (image.value != null) {
         imageSource = await fileRepository.uploadFile(
             file: image.value, type: contactType.value);
+        String imageUrl = imageSource
+            .replaceAll("\\", "")
+            .replaceAll('"', "")
+            .replaceAll("{", "")
+            .replaceAll("}", "")
+            .replaceAllMapped('url:', (match) => "");
         employee = await contactRepository.updateEmployee(
           shopId: shop.value.id,
           id: contact.value.id,
@@ -67,19 +73,21 @@ class EditContactsController extends GetxController {
           employeeId: employeeId.value,
           position: position.value,
           monthlySalary: monthlySalary.value,
-          imageSource: imageSource,
+          imageSource: imageUrl,
         );
+      }else{
+        employee = await contactRepository.updateEmployee(
+            shopId: shop.value.id,
+            id: contact.value.id,
+            name: name.value,
+            address: address.value,
+            mobile: mobile.value,
+            email: email.value,
+            employeeId: employeeId.value,
+            position: position.value,
+            monthlySalary: monthlySalary.value);
       }
-      employee = await contactRepository.updateEmployee(
-          shopId: shop.value.id,
-          id: contact.value.id,
-          name: name.value,
-          address: address.value,
-          mobile: mobile.value,
-          email: email.value,
-          employeeId: employeeId.value,
-          position: position.value,
-          monthlySalary: monthlySalary.value);
+
 
       final cc = Get.find<ContactController>();
 
@@ -142,6 +150,7 @@ class EditContactsController extends GetxController {
         Future.delayed(Duration(seconds: 1), () {
           Get.back();
           Get.back();
+          Get.back();
         });
       }
     } catch (e) {
@@ -189,10 +198,10 @@ class EditContactsController extends GetxController {
       if (Get.isDialogOpen) {
         Get.back();
         CustomDialog.showStringDialog('Contact updated successfully');
-        Future.delayed(Duration(seconds: 1), () {
-          Get.back();
-          Get.back();
-        });
+        // Future.delayed(Duration(seconds: 1), () {
+        //   Get.back();
+        //   Get.back();
+        // });
       }
     } catch (e) {
       CustomDialog.showStringDialog(e.toString());

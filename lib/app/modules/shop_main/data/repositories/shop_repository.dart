@@ -40,7 +40,7 @@ class ShopRepository implements IShopRepository {
   }
 
   @override
-  Future<EditShopResponseModel> editShop({
+  Future<dynamic> editShop({
     var shopId,
     String name,
     var typeId,

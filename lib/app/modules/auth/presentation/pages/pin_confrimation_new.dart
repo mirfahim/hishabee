@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/presentation/manager/login_controller.dart';
 import 'package:get/get.dart';
 
@@ -82,7 +83,7 @@ class PinVerification extends StatelessWidget {
                           cursorColor: Colors.black,
                           keyboardType: TextInputType.number,
                           inputFormatters: [
-                            LengthLimitingTextInputFormatter(5),
+                            // LengthLimitingTextInputFormatter(5),
                             FilteringTextInputFormatter.allow(
                               RegExp('[0-9]'),
                             ),
@@ -176,7 +177,6 @@ class PinVerification extends StatelessWidget {
                         Center(
                           child: ElevatedButton(
                             onPressed: () async {
-
                               loginController.login();
 
                             },

@@ -58,9 +58,11 @@ class ExpenseTypeEdit extends StatelessWidget {
           onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back, color: Colors.black,),
         ),
-        title: Text('New Expense'),
+        title: Text('New Expense', style: TextStyle(
+            color: Colors.black
+        ),),
         backgroundColor: DEFAULT_YELLOW_BG,
       ),
       body: SafeArea(

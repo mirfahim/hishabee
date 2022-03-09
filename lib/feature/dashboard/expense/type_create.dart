@@ -63,9 +63,11 @@ class _ExpenseTypeSecondState extends State<ExpenseTypeSecond> {
           onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back,color: Colors.black,),
         ),
-        title: Text('new_expense'.tr),
+        title: Text('new_expense'.tr, style: TextStyle(
+            color: Colors.black
+        ),),
         backgroundColor: DEFAULT_YELLOW_BG,
       ),
       body: SafeArea(

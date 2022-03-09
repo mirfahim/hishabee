@@ -42,9 +42,9 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                 width: screen.width,
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    left: 30,
+                    left: 15,
                     top: 30,
-                    right: 30,
+                    right: 15,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -180,7 +180,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                               child: Text(
                                 "shop_type".tr,
                                 style: TextStyle(
-                                  fontFamily: 'Rubik',
+                                  fontFamily: 'Roboto',
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: DEFAULT_BLACK,
@@ -219,7 +219,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                                                     .value.name,
                                             overflow: TextOverflow.ellipsis,
                                             style: TextStyle(
-                                              fontFamily: 'Rubik',
+                                              fontFamily: 'Roboto',
                                               // fontSize: 18,
                                               fontWeight: FontWeight.bold,
                                               color: DEFAULT_BLACK,
@@ -301,7 +301,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: TextStyle(
-                                                      fontFamily: 'Rubik',
+                                                      fontFamily: 'Roboto',
                                                       // fontSize: 18,
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -341,7 +341,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                                       child: Text(
                                         "district".tr,
                                         style: TextStyle(
-                                          fontFamily: 'Rubik',
+                                          fontFamily: 'Roboto',
                                           fontSize: 16,
                                           fontWeight: FontWeight.bold,
                                           color: DEFAULT_BLACK,
@@ -385,7 +385,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: TextStyle(
-                                                      fontFamily: 'Rubik',
+                                                      fontFamily: 'Roboto',
                                                       // fontSize: 18,
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -426,7 +426,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                               child: Text(
                                 "area".tr,
                                 style: TextStyle(
-                                  fontFamily: 'Rubik',
+                                  fontFamily: 'Roboto',
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   color: DEFAULT_BLACK,
@@ -488,7 +488,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                       Text(
                         "address".tr,
                         style: TextStyle(
-                          fontFamily: 'Rubik',
+                          fontFamily: 'Roboto',
                           fontSize: 16,
                           color: DEFAULT_BLACK,
                           fontWeight: FontWeight.bold,
@@ -509,67 +509,70 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                             child: Row(
                               children: [
                                 Flexible(
-                                  child: Obx(() {
-                                    return TextFormField(
-                                      // initialValue: controller.selectedPlace
-                                      //             .value.formattedAddress ==
-                                      //         null
-                                      //     ? controller.shop.value.address
-                                      //     : controller.selectedPlace.value
-                                      //         .formattedAddress,
-                                      decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: "Address",
-                                      ),
-                                      validator: (value) {
-                                        if (value.isEmpty) {
-                                          return 'Address can not be empty';
-                                        }
-                                        return null;
-                                      },
-                                      onSaved: (value) {
-                                        controller.address.value = value;
-                                      },
-                                    );
-                                  }),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    // Get.to(PlacePicker(
-                                    //   apiKey: GMAP_API,
-                                    //   initialPosition:
-                                    //       controller.initialPosition,
-                                    //   useCurrentLocation: true,
-                                    //   selectInitialPosition: true,
-                                    //   onPlacePicked: (result) {
-                                    //     controller.selectedPlace.value = result;
-                                    //     Get.back();
-                                    //   },
-                                    // ));
-                                  },
-                                  child: Container(
-                                    height: 35,
-                                    child: Image(
-                                      image: AssetImage('images/mapIcon.png'),
+                                  child: TextFormField(
+                                    initialValue: controller.shop
+                                                .value.address ==
+                                            null
+                                        ? controller.shop
+                                        .value.address
+                                        : controller.shop
+                                        .value.address
+                                            ,
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: "Address",
                                     ),
-                                  ),
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return 'Address can not be empty';
+                                      }
+                                      return null;
+                                    },
+                                    onSaved: (value) {
+                                      controller.address.value = value;
+                                    },
+                                    onChanged: (value){
+                                      controller.address.value = value;
+                                    },
+                                  )
                                 ),
+                                // GestureDetector(
+                                //   onTap: () {
+                                //     // Get.to(PlacePicker(
+                                //     //   apiKey: GMAP_API,
+                                //     //   initialPosition:
+                                //     //       controller.initialPosition,
+                                //     //   useCurrentLocation: true,
+                                //     //   selectInitialPosition: true,
+                                //     //   onPlacePicked: (result) {
+                                //     //     controller.selectedPlace.value = result;
+                                //     //     Get.back();
+                                //     //   },
+                                //     // ));
+                                //   },
+                                //   child: Container(
+                                //     height: 35,
+                                //     child: Image(
+                                //       image: AssetImage('images/mapIcon.png'),
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          "press_the_blue_map_icon_and_select_your_store_location_in_map"
-                              .tr,
-                          style: TextStyle(
-                              color: DEFAULT_BLACK,
-                              fontSize: 12,
-                              fontWeight: FontWeight.normal),
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.all(8.0),
+                      //   child: Text(
+                      //     "press_the_blue_map_icon_and_select_your_store_location_in_map"
+                      //         .tr,
+                      //     style: TextStyle(
+                      //         color: DEFAULT_BLACK,
+                      //         fontSize: 12,
+                      //         fontWeight: FontWeight.normal),
+                      //   ),
+                      // ),
                       SizedBox(height: 15),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -578,9 +581,9 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "latitude".tr,
+                                "Latitude",
                                 style: TextStyle(
-                                  fontFamily: 'Rubik',
+                                  fontFamily: 'Roboto',
                                   fontSize: 16,
                                   color: DEFAULT_BLACK,
                                   fontWeight: FontWeight.bold,
@@ -604,7 +607,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                                       child: Text(
                                         "${controller.shop.value.lat.toStringAsPrecision(5)}",
                                         style: TextStyle(
-                                          fontFamily: 'Rubik',
+                                          fontFamily: 'Roboto',
                                           fontSize: 20,
                                           color: Colors.grey,
                                         ),
@@ -619,7 +622,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "longitude".tr,
+                                "Longitude",
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: DEFAULT_BLACK,
@@ -644,7 +647,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                                       child: Text(
                                         "${controller.shop.value.lng.toStringAsPrecision(5)}",
                                         style: TextStyle(
-                                          fontFamily: 'Rubik',
+                                          fontFamily: 'Roboto',
                                           fontSize: 20,
                                           color: Colors.grey,
                                         ),
@@ -718,7 +721,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                       Text(
                         "public_phone".tr,
                         style: TextStyle(
-                          fontFamily: 'Rubik',
+                          fontFamily: 'Roboto',
                           fontSize: 16,
                           color: DEFAULT_BLACK,
                           fontWeight: FontWeight.bold,
@@ -776,116 +779,116 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                         ),
                       ),
                       SizedBox(height: 15),
-                      Row(
-                        children: [
-                          Flexible(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "shop_no".tr,
-                                  style: TextStyle(
-                                    fontFamily: 'Rubik',
-                                    fontSize: 16,
-                                    color: DEFAULT_BLACK,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8),
-                                      child: Obx(() {
-                                        return TextFormField(
-                                          initialValue: controller
-                                              .shop.value.shopNumber
-                                              .toString(),
-                                          keyboardType: TextInputType.number,
-                                          decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: "556",
-                                          ),
-                                          onSaved: (value) {
-                                            controller.shopNumber.value = value
-                                                    .isEmpty
-                                                ? controller.shopNumber.value
-                                                : int.parse(value);
-                                          },
-                                        );
-                                      }),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Flexible(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "floor_no".tr,
-                                  style: TextStyle(
-                                    fontFamily: 'Rubik',
-                                    fontSize: 16,
-                                    color: DEFAULT_BLACK,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      border: Border.all(
-                                        color: Colors.grey,
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8),
-                                      child: Obx(() {
-                                        return TextFormField(
-                                          initialValue: controller
-                                              .shop.value.floorNumber
-                                              .toString(),
-                                          keyboardType: TextInputType.number,
-                                          decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: "2",
-                                          ),
-                                          onSaved: (value) {
-                                            controller.floorNumber.value = value
-                                                    .isEmpty
-                                                ? controller.floorNumber.value
-                                                : int.parse(value);
-                                          },
-                                        );
-                                      }),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 15),
+                      // Row(
+                      //   children: [
+                      //     Flexible(
+                      //       child: Column(
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           Text(
+                      //             "shop_no".tr,
+                      //             style: TextStyle(
+                      //               fontFamily: 'Rubik',
+                      //               fontSize: 16,
+                      //               color: DEFAULT_BLACK,
+                      //               fontWeight: FontWeight.bold,
+                      //             ),
+                      //           ),
+                      //           Padding(
+                      //             padding: const EdgeInsets.only(top: 8.0),
+                      //             child: Container(
+                      //               decoration: BoxDecoration(
+                      //                 color: Colors.white,
+                      //                 borderRadius: BorderRadius.circular(5),
+                      //                 border: Border.all(
+                      //                   color: Colors.grey,
+                      //                 ),
+                      //               ),
+                      //               child: Padding(
+                      //                 padding: const EdgeInsets.symmetric(
+                      //                     horizontal: 8),
+                      //                 child: Obx(() {
+                      //                   return TextFormField(
+                      //                     initialValue: controller
+                      //                         .shop.value.shopNumber
+                      //                         .toString(),
+                      //                     keyboardType: TextInputType.number,
+                      //                     decoration: InputDecoration(
+                      //                       border: InputBorder.none,
+                      //                       hintText: "556",
+                      //                     ),
+                      //                     onSaved: (value) {
+                      //                       controller.shopNumber.value = value
+                      //                               .isEmpty
+                      //                           ? controller.shopNumber.value
+                      //                           : int.parse(value);
+                      //                     },
+                      //                   );
+                      //                 }),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //     SizedBox(width: 10),
+                      //     Flexible(
+                      //       child: Column(
+                      //         crossAxisAlignment: CrossAxisAlignment.start,
+                      //         children: [
+                      //           Text(
+                      //             "floor_no".tr,
+                      //             style: TextStyle(
+                      //               fontFamily: 'Rubik',
+                      //               fontSize: 16,
+                      //               color: DEFAULT_BLACK,
+                      //               fontWeight: FontWeight.bold,
+                      //             ),
+                      //           ),
+                      //           Padding(
+                      //             padding: const EdgeInsets.only(top: 8.0),
+                      //             child: Container(
+                      //               decoration: BoxDecoration(
+                      //                 color: Colors.white,
+                      //                 borderRadius: BorderRadius.circular(5),
+                      //                 border: Border.all(
+                      //                   color: Colors.grey,
+                      //                 ),
+                      //               ),
+                      //               child: Padding(
+                      //                 padding: const EdgeInsets.symmetric(
+                      //                     horizontal: 8),
+                      //                 child: Obx(() {
+                      //                   return TextFormField(
+                      //                     initialValue: controller
+                      //                         .shop.value.floorNumber
+                      //                         .toString(),
+                      //                     keyboardType: TextInputType.number,
+                      //                     decoration: InputDecoration(
+                      //                       border: InputBorder.none,
+                      //                       hintText: "2",
+                      //                     ),
+                      //                     onSaved: (value) {
+                      //                       controller.floorNumber.value = value
+                      //                               .isEmpty
+                      //                           ? controller.floorNumber.value
+                      //                           : int.parse(value);
+                      //                     },
+                      //                   );
+                      //                 }),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      // SizedBox(height: 15),
                       Text(
                         "referral_id_optional".tr,
                         style: TextStyle(
-                          fontFamily: 'Rubik',
+                          fontFamily: 'Roboto',
                           fontSize: 16,
                           color: DEFAULT_BLACK,
                           fontWeight: FontWeight.bold,
@@ -923,10 +926,12 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                       SizedBox(height: 15),
                       getDefaultBlueButton(screen.context, 'edit_shop'.tr,
                           () async {
-                        if (formKey.currentState.validate()) {
-                          formKey.currentState.save();
-                          await controller.editShop();
-                        }
+                            formKey.currentState.save();
+                            await controller.editShop();
+                        // if (formKey.currentState.validate()) {
+                        //   formKey.currentState.save();
+                        //   await controller.editShop();
+                        // }
                       }),
                       SizedBox(height: 35),
                       Center(
@@ -987,7 +992,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                           child: Text(
                             shopTypes[index].name,
                             style: TextStyle(
-                                color: DEFAULT_BLUE, fontFamily: "Rubik"),
+                                color: DEFAULT_BLUE, fontFamily: "Roboto"),
                           )),
                       SizedBox(height: 5),
                       Divider(),
@@ -1252,7 +1257,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                                                   .districtSearch[index].name,
                                               style: TextStyle(
                                                   color: DEFAULT_BLUE,
-                                                  fontFamily: "Rubik"),
+                                                  fontFamily: "Roboto"),
                                             )),
                                         SizedBox(height: 10),
                                         Divider(),
@@ -1332,7 +1337,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                                                   .districtSearch[index].name,
                                               style: TextStyle(
                                                   color: DEFAULT_BLUE,
-                                                  fontFamily: "Rubik"),
+                                                  fontFamily: "Roboto"),
                                             )),
                                         SizedBox(height: 10),
                                         Divider(),
@@ -1413,7 +1418,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                                               controller.areaSearch[index].name,
                                               style: TextStyle(
                                                   color: DEFAULT_BLUE,
-                                                  fontFamily: "Rubik"),
+                                                  fontFamily: "Roboto"),
                                             )),
                                         SizedBox(height: 10),
                                         Divider(),
@@ -1486,7 +1491,7 @@ class EditShopPage extends GetResponsiveView<EditShopController> {
                                               controller.areaSearch[index].name,
                                               style: TextStyle(
                                                   color: DEFAULT_BLUE,
-                                                  fontFamily: "Rubik"),
+                                                  fontFamily: "Roboto"),
                                             )),
                                         SizedBox(height: 10),
                                         Divider(),

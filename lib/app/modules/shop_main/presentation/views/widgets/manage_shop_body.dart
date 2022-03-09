@@ -24,161 +24,166 @@ class ManageShopBody extends GetResponsiveView<ManageShopController> {
             ),
           ),
         ),
-        height: screen.height,
-        width: screen.width,
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 30,
-            top: 20,
-            right: 30,
+        // height: screen.height,
+        // width: screen.width,
+        child: Obx(()=> controller.isLoading.value == true ? Center(
+          child: CircularProgressIndicator(
+            color: Colors.amber,
           ),
-          child: Container(
-            height: screen.context.height - 0.3,
-            child: Obx(
-              () => MediaQuery.removePadding(
-                context: screen.context,
-                removeTop: true,
-                child: StaggeredGridView.countBuilder(
-                    crossAxisCount: 2,
-                    itemCount: controller.shops.length,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 5,
-                    itemBuilder: (context, index) {
-                      var name = controller.shops[index].name;
-                      var fisrtLetterOfName = name.substring(0, 1);
-                      return InkWell(
-                        onTap: () {},
+        ) : Padding(
+            padding: const EdgeInsets.only(left: 25.0, right: 25, top: 20),
+            child: Container(
+              // height: screen.context.height - 0.3,
+              child: StaggeredGridView.countBuilder(
+                  crossAxisCount: 2,
+                  itemCount: controller.shops.length,
+                  // mainAxisSpacing: 5,
+                  // crossAxisSpacing: 5,
+                  itemBuilder: (context, index) {
+                    var name = controller.shops[index].name;
+                    var firstLetterOfName = name.substring(0, 1);
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 5.0, right: 5, top: 10),
+                      child: Card(
                         child: Container(
-                          height: screen.height * 0.22,
-                          width: screen.width * 0.3,
-                          color: Colors.transparent,
+                          decoration: BoxDecoration(
+                            color: DEFAULT_BLUE
+                                .withOpacity(0.06),
+                            borderRadius:
+                            BorderRadius.circular(6),
+                          ),
                           child: Column(
                             children: [
-                              Container(
-                                height: screen.height * 0.17,
-                                width: screen.width * 0.3,
-                                decoration: BoxDecoration(
-                                  color: DEFAULT_YELLOW_BG.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Stack(
-                                  children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                    child:
                                     controller.shops[index].logoUrl == null ||
-                                            controller.shops[index].logoUrl ==
-                                                "null"
+                                        controller.shops[index].logoUrl ==
+                                            "null"
                                         ? Center(
-                                            child: Text(
-                                              "${fisrtLetterOfName.toUpperCase()}",
-                                              style: TextStyle(
-                                                  fontSize: 70,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: DEFAULT_BLUE),
-                                            ),
-                                          )
-                                        : ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                            child: CachedNetworkImage(
-                                              imageUrl: controller
-                                                  .shops[index].logoUrl,
-                                              fit: BoxFit.fill,
-                                              placeholder: (context, url) =>
-                                                  Center(
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                backgroundColor:
-                                                    Colors.amber[400],
-                                              )),
-                                              errorWidget:
-                                                  (context, url, error) =>
-                                                      Center(
-                                                          child: Icon(
-                                                Icons.error,
-                                                color: Colors.red,
-                                              )),
-                                            ),
-                                          ),
-                                    Align(
-                                      alignment: Alignment.center,
                                       child: Container(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            InkWell(
-                                              onTap: () {
-                                                Get.toNamed(
-                                                  ShopMainRoutes.EDIT_SHOP,
-                                                  arguments: {
-                                                    'shop':
-                                                        controller.shops[index]
-                                                  },
-                                                );
-                                              },
-                                              child: Container(
-                                                height: 40,
-                                                width: 40,
-                                                decoration: BoxDecoration(
-                                                  color: DEFAULT_BLUE,
-                                                  border: Border.all(
-                                                      color: Colors.white,
-                                                      width: 2),
-                                                  borderRadius:
-                                                      BorderRadius.circular(4),
-                                                ),
-                                                child: Icon(
-                                                  Icons.edit,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ),
-                                            InkWell(
-                                              onTap: () {
-                                                CustomDialog
-                                                    .deleteAlertDialog();
-                                              },
-                                              child: Container(
-                                                height: 40,
-                                                width: 40,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.red,
-                                                  border: Border.all(
-                                                      color: Colors.white,
-                                                      width: 2),
-                                                  borderRadius:
-                                                      BorderRadius.circular(4),
-                                                ),
-                                                child: Icon(
-                                                  Icons.delete_forever,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            )
-                                          ],
-                                        ),
+
+                                        child: Image.asset('images/bee.png'), height: 60,),
+                                    )
+                                        : Center(
+                                      child: CachedNetworkImage(
+                                        imageUrl: controller
+                                            .shops[index].logoUrl,
+                                        height: 60,
                                       ),
                                     )
-                                  ],
+                                  // Center(
+                                  //       child: CachedNetworkImage(
+                                  //         imageUrl: controller
+                                  //             .shops[index].logoUrl,
+                                  //         // fit: BoxFit.fill,
+                                  //         placeholder: (context, url) =>
+                                  //             Center(
+                                  //                 child:
+                                  //                     CircularProgressIndicator(
+                                  //           backgroundColor:
+                                  //               Colors.amber[400],
+                                  //         )),
+                                  //         errorWidget:
+                                  //             (context, url, error) =>
+                                  //                 Center(
+                                  //                     child: Icon(
+                                  //           Icons.error,
+                                  //           color: Colors.red,
+                                  //         )),
+                                  //       ),
+                                  //     ),
+
                                 ),
                               ),
                               Text(
                                 controller.shops[index].name,
+                                maxLines: 1,
+                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: DEFAULT_BLACK,
-                                  fontFamily: 'Rubik',
+                                  fontFamily: 'Roboto',
                                   fontWeight: FontWeight.w600,
                                   fontSize: 18,
+                                ),
+                              ),
+                              Text(
+                                controller.shops[index].address,
+                                textAlign: TextAlign.center,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  color: DEFAULT_BLACK.withOpacity(.5),
+                                  fontFamily: 'Roboto',
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              SizedBox(height: 10,),
+                              Align(
+                                alignment: Alignment.center,
+                                child: Container(
+                                  child: Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            Get.toNamed(
+                                              ShopMainRoutes.EDIT_SHOP,
+                                              arguments: {
+                                                'shop':
+                                                controller.shops[index]
+                                              },
+                                            );
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: DEFAULT_BLUE,
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                              child: Text('edit'.tr, textAlign: TextAlign.center, style: TextStyle(
+                                                fontFamily: 'Roboto', color: Colors.white,
+
+                                              ),),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: InkWell(
+                                          onTap: () {
+                                            CustomDialog
+                                                .deleteAlertDialog();
+                                          },
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.red,
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(vertical: 10.0),
+                                              child: Text('delete_delete'.tr,textAlign: TextAlign.center, style: TextStyle(
+                                                fontFamily: 'Roboto', color: Colors.white,
+
+                                              ),),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      );
-                    },
-                    staggeredTileBuilder: (index) => StaggeredTile.fit(1)),
-              ),
-            ),
-          ),
+                      ),
+                    );
+                  },
+                  staggeredTileBuilder: (index) => StaggeredTile.fit(1)),
+            )),
         ),
       ),
     );
