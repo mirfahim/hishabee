@@ -10,7 +10,8 @@ import 'package:intl/intl.dart';
 import '../../../../../../new_UI/constants.dart';
 import '../../../contacts/data/remote/models/contact_model.dart';
 
-class DueNew extends GetView<DueEditAddController>{
+class DueNew extends GetView<DueEditAddController> {
+  DueNew();
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -45,7 +46,11 @@ class DueNew extends GetView<DueEditAddController>{
                                   Get.back();
                                 },
                               ),
-                              Text('add_due'.tr,style: TextStyle(fontSize: 16,color: DEFAULT_BLUE),),
+                              Text(
+                                'wce'.tr,
+                                style: TextStyle(
+                                    fontSize: 16, color: DEFAULT_BLUE),
+                              ),
                             ],
                           ),
                         ),
@@ -57,7 +62,7 @@ class DueNew extends GetView<DueEditAddController>{
                           height: 10,
                         ),
                         Obx(
-                              ()=> RadioGroup.builder(
+                          () => RadioGroup.builder(
                             horizontalAlignment: MainAxisAlignment.start,
                             activeColor: DEFAULT_BLACK,
                             groupValue: controller.selectedClassStatus.value,
@@ -67,8 +72,10 @@ class DueNew extends GetView<DueEditAddController>{
                               controller.selectedEmployee.value = null;
                               controller.selectedCustomer.value = null;
                               controller.selectedSupplier.value = null;
-                              controller.nameTextEditingController.value.text = '';
-                              controller.numberTextEditingController.value.text = '';
+                              controller.nameTextEditingController.value.text =
+                                  '';
+                              controller
+                                  .numberTextEditingController.value.text = '';
                               controller.selectedClassStatus.value = value;
                             },
                             items: controller.classStatus,
@@ -83,7 +90,9 @@ class DueNew extends GetView<DueEditAddController>{
                         Text(
                           'বাকির ধরণ নির্বাচন করুন',
                           style: TextStyle(
-                              color: Colors.black, fontSize: 14, fontFamily: 'Rubik'),
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontFamily: 'Rubik'),
                         ),
                         SizedBox(
                           height: 15,
@@ -91,12 +100,12 @@ class DueNew extends GetView<DueEditAddController>{
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: Obx(
-                                ()=> GroupButton(
+                            () => GroupButton(
                               spacing: size.width * 0.05,
                               isRadio: true,
                               borderRadius: BorderRadius.circular(8),
-                              textPadding:
-                              EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
+                              textPadding: EdgeInsets.only(
+                                  left: 20, right: 20, top: 20, bottom: 20),
                               unselectedBorderColor: DEFAULT_BLACK,
                               selectedColor: Colors.black,
                               unselectedColor: Colors.white,
@@ -129,7 +138,7 @@ class DueNew extends GetView<DueEditAddController>{
                         ),
                         Text('নাম'),
                         Obx(
-                              ()=> Container(
+                          () => Container(
                             height: 50,
                             decoration: BoxDecoration(
                               border: Border.all(color: Colors.black),
@@ -140,11 +149,13 @@ class DueNew extends GetView<DueEditAddController>{
                                 Container(
                                   width: size.width * 0.75,
                                   child: TextFormField(
-                                    controller: controller.nameTextEditingController.value,
+                                    controller: controller
+                                        .nameTextEditingController.value,
                                     cursorColor: Colors.black,
                                     keyboardType: TextInputType.text,
                                     decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                                      contentPadding:
+                                          EdgeInsets.symmetric(horizontal: 8),
                                       hintText: 'নাম',
                                       hintStyle: const TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -154,10 +165,14 @@ class DueNew extends GetView<DueEditAddController>{
                                   ),
                                 ),
                                 IconButton(
-                                  onPressed: (){
+                                  onPressed: () {
                                     contactDialog(context);
                                   },
-                                  icon: Icon(Icons.arrow_drop_down,size: 30,color: DEFAULT_BLACK,),
+                                  icon: Icon(
+                                    Icons.arrow_drop_down,
+                                    size: 30,
+                                    color: DEFAULT_BLACK,
+                                  ),
                                 ),
                               ],
                             ),
@@ -168,8 +183,9 @@ class DueNew extends GetView<DueEditAddController>{
                         ),
                         Text('মোবাইল নাম্বার'),
                         Obx(
-                              ()=> TextFormField(
-                            controller:controller.numberTextEditingController.value,
+                          () => TextFormField(
+                            controller:
+                                controller.numberTextEditingController.value,
                             cursorColor: Colors.black,
                             keyboardType: TextInputType.number,
                             inputFormatters: [
@@ -178,7 +194,8 @@ class DueNew extends GetView<DueEditAddController>{
                               ),
                             ],
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                              contentPadding:
+                                  EdgeInsets.symmetric(horizontal: 8),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4)),
                               counterText: "",
@@ -196,17 +213,21 @@ class DueNew extends GetView<DueEditAddController>{
                         Text('বাকির পরিমাণ'),
                         Form(
                           key: controller.formKey,
-                          child:Obx(
-                                ()=> TextFormField(
-                              initialValue: controller.selectedDueItem.value.amount.toString() ?? '',
-                              validator: (value){
-                                if(value.isEmpty){
+                          child: Obx(
+                            () => TextFormField(
+                              initialValue: controller
+                                      .selectedDueItem.value.amount
+                                      .toString() ??
+                                  '',
+                              validator: (value) {
+                                if (value.isEmpty) {
                                   return 'Due Amount Should not be empty';
                                 }
                                 return null;
                               },
-                              onSaved: (value){
-                                controller.dueAmount.value = double.parse(value);
+                              onSaved: (value) {
+                                controller.dueAmount.value =
+                                    double.parse(value);
                               },
                               cursorColor: Colors.black,
                               keyboardType: TextInputType.number,
@@ -216,7 +237,8 @@ class DueNew extends GetView<DueEditAddController>{
                                 ),
                               ],
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                                contentPadding:
+                                    EdgeInsets.symmetric(horizontal: 8),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(4)),
                                 hintText: 'বাকির পরিমাণ',
@@ -233,7 +255,7 @@ class DueNew extends GetView<DueEditAddController>{
                         ),
                         Text('বিবরণ ( না দিলেও হবে)'),
                         TextFormField(
-                          onChanged: (value){
+                          onChanged: (value) {
                             controller.dueDetails.value = value;
                           },
                           maxLines: 5,
@@ -245,7 +267,8 @@ class DueNew extends GetView<DueEditAddController>{
                             ),
                           ],
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.symmetric(horizontal: 8,vertical: 8),
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 8),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(4)),
                             hintText: 'বিবরণ',
@@ -266,24 +289,23 @@ class DueNew extends GetView<DueEditAddController>{
                             width: 180,
                             decoration: BoxDecoration(
                                 color: Colors.transparent,
-                                border: Border.all(
-                                    color: DEFAULT_BLACK, width: 1),
+                                border:
+                                    Border.all(color: DEFAULT_BLACK, width: 1),
                                 borderRadius: BorderRadius.circular(4)),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceAround,
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Icon(Icons.calendar_today_rounded),
                                   SizedBox(
                                     width: 5,
                                   ),
                                   Obx(
-                                        () => Text(
-                                      DateFormat('dd MMMM yyyy').format(
-                                          controller
-                                              .dueDate.value),
+                                    () => Text(
+                                      DateFormat('dd MMMM yyyy')
+                                          .format(controller.dueDate.value),
                                       style: TextStyle(
                                           color: DEFAULT_BLACK,
                                           fontWeight: FontWeight.bold),
@@ -312,12 +334,12 @@ class DueNew extends GetView<DueEditAddController>{
                                     style: TextStyle(color: Colors.blue),
                                   ),
                                   Obx(
-                                        ()=> FlutterSwitch(
+                                    () => FlutterSwitch(
                                         value: controller.sms.value,
-                                        onToggle: (value){
-                                          if(controller.sms.value){
+                                        onToggle: (value) {
+                                          if (controller.sms.value) {
                                             controller.sms.value = false;
-                                          }else{
+                                          } else {
                                             controller.sms.value = true;
                                           }
                                         }),
@@ -332,13 +354,15 @@ class DueNew extends GetView<DueEditAddController>{
                         ),
                         ElevatedButton(
                           onPressed: () {
+                            print("working on save");
                             controller.addNewDue();
                           },
                           child: Center(
                             child: Text(
                               'সেভ করুন',
                               textAlign: TextAlign.center,
-                              style: TextStyle(color: Colors.white, fontSize: 20),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
@@ -360,6 +384,7 @@ class DueNew extends GetView<DueEditAddController>{
       ),
     );
   }
+
   contactDialog(BuildContext context) {
     final dueEditAddController = Get.find<DueEditAddController>();
     showDialog(
@@ -416,27 +441,41 @@ class DueNew extends GetView<DueEditAddController>{
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Obx(
-                        () => ListView.builder(
+                    () => ListView.builder(
                       shrinkWrap: true,
                       physics: ScrollPhysics(),
-                      itemCount: controller.selectedClassStatus.value == "কাস্টমার" ? controller.customerList.length : controller.selectedClassStatus.value == "সাপ্লায়ার" ? controller.supplierList.length : controller.employeeList.length,
+                      itemCount: controller.selectedClassStatus.value ==
+                              "কাস্টমার"
+                          ? controller.customerList.length
+                          : controller.selectedClassStatus.value == "সাপ্লায়ার"
+                              ? controller.supplierList.length
+                              : controller.employeeList.length,
                       itemBuilder: (BuildContext context, int index) {
                         Contact item;
-                        controller.selectedClassStatus.value == "কাস্টমার" ?
-                        item = controller.customerList[index] :
-                        controller.selectedClassStatus.value == "সাপ্লায়ার" ?
-                        item = controller.supplierList[index] : item = controller.employeeList[index];
+                        controller.selectedClassStatus.value == "কাস্টমার"
+                            ? item = controller.customerList[index]
+                            : controller.selectedClassStatus.value ==
+                                    "সাপ্লায়ার"
+                                ? item = controller.supplierList[index]
+                                : item = controller.employeeList[index];
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             InkWell(
                               onTap: () {
-                                controller.selectedClassStatus.value == "কাস্টমার" ?
-                                controller.selectedCustomer.value = item :
-                                controller.selectedClassStatus.value == "সাপ্লায়ার" ?
-                                controller.selectedSupplier.value = item : controller.selectedEmployee.value = item;
-                                controller.nameTextEditingController.value.text = item.name;
-                                controller.numberTextEditingController.value.text = item.mobile;
+                                controller.selectedClassStatus.value ==
+                                        "কাস্টমার"
+                                    ? controller.selectedCustomer.value = item
+                                    : controller.selectedClassStatus.value ==
+                                            "সাপ্লায়ার"
+                                        ? controller.selectedSupplier.value =
+                                            item
+                                        : controller.selectedEmployee.value =
+                                            item;
+                                controller.nameTextEditingController.value
+                                    .text = item.name;
+                                controller.numberTextEditingController.value
+                                    .text = item.mobile;
                                 Navigator.pop(context);
                               },
                               child: Container(
@@ -487,6 +526,7 @@ class DueNew extends GetView<DueEditAddController>{
       ),
     );
   }
+
   _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       helpText: "select date",

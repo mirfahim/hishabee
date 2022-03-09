@@ -77,11 +77,11 @@ class GetAllDueResponseModel {
             ? null
             : List<Due>.from(json["data"].map((x) => Due.fromJson(x))),
         firstPageUrl:
-        json["first_page_url"] == null ? null : json["first_page_url"],
+            json["first_page_url"] == null ? null : json["first_page_url"],
         from: json["from"] == null ? null : json["from"],
         lastPage: json["last_page"] == null ? null : json["last_page"],
         lastPageUrl:
-        json["last_page_url"] == null ? null : json["last_page_url"],
+            json["last_page_url"] == null ? null : json["last_page_url"],
         nextPageUrl: json["next_page_url"],
         path: json["path"] == null ? null : json["path"],
         perPage: json["per_page"] == null ? null : json["per_page"],
@@ -91,21 +91,21 @@ class GetAllDueResponseModel {
       );
 
   Map<String, dynamic> toJson() => {
-    "current_page": currentPage == null ? null : currentPage,
-    "data": data == null
-        ? null
-        : List<dynamic>.from(data.map((x) => x.toJson())),
-    "first_page_url": firstPageUrl == null ? null : firstPageUrl,
-    "from": from == null ? null : from,
-    "last_page": lastPage == null ? null : lastPage,
-    "last_page_url": lastPageUrl == null ? null : lastPageUrl,
-    "next_page_url": nextPageUrl,
-    "path": path == null ? null : path,
-    "per_page": perPage == null ? null : perPage,
-    "prev_page_url": prevPageUrl,
-    "to": to == null ? null : to,
-    "total": total == null ? null : total,
-  };
+        "current_page": currentPage == null ? null : currentPage,
+        "data": data == null
+            ? null
+            : List<dynamic>.from(data.map((x) => x.toJson())),
+        "first_page_url": firstPageUrl == null ? null : firstPageUrl,
+        "from": from == null ? null : from,
+        "last_page": lastPage == null ? null : lastPage,
+        "last_page_url": lastPageUrl == null ? null : lastPageUrl,
+        "next_page_url": nextPageUrl,
+        "path": path == null ? null : path,
+        "per_page": perPage == null ? null : perPage,
+        "prev_page_url": prevPageUrl,
+        "to": to == null ? null : to,
+        "total": total == null ? null : total,
+      };
 }
 
 class Due {
@@ -167,40 +167,40 @@ class Due {
       );
 
   factory Due.fromJson(Map<String, dynamic> json) => Due(
-    id: json["id"] == null ? null : json["id"],
-    userId: json["user_id"] == null ? null : json["user_id"],
-    shopId: json["shop_id"] == null ? null : json["shop_id"],
-    dueAmount:
-    json["due_amount"] == null ? null : json["due_amount"].toDouble(),
-    createdAt: json["created_at"] == null
-        ? null
-        : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null
-        ? null
-        : DateTime.parse(json["updated_at"]),
-    dueAlert: json["due_alert"],
-    contactMobile:
-    json["contact_mobile"] == null ? null : json["contact_mobile"],
-    contactName: json["contact_name"] == null ? null : json["contact_name"],
-    contactType: json["contact_type"] == null ? null : json["contact_type"],
-    version: json["version"] == null ? null : json["version"],
-    uniqueId: json["unique_id"] == null ? null : json["unique_id"],
-  );
+        id: json["id"] == null ? null : json["id"],
+        userId: json["user_id"] == null ? null : json["user_id"],
+        shopId: json["shop_id"] == null ? null : json["shop_id"],
+        dueAmount:
+            json["due_amount"] == null ? null : json["due_amount"].toDouble(),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        dueAlert: json["due_alert"],
+        contactMobile:
+            json["contact_mobile"] == null ? null : json["contact_mobile"],
+        contactName: json["contact_name"] == null ? null : json["contact_name"],
+        contactType: json["contact_type"] == null ? null : json["contact_type"],
+        version: json["version"] == null ? null : json["version"],
+        uniqueId: json["unique_id"] == null ? null : json["unique_id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id == null ? null : id,
-    "user_id": userId == null ? null : userId,
-    "shop_id": shopId == null ? null : shopId,
-    "due_amount": dueAmount == null ? null : dueAmount,
-    "created_at": createdAt == null ? null : createdAt.toIso8601String(),
-    "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
-    "due_alert": dueAlert,
-    "contact_mobile": contactMobile == null ? null : contactMobile,
-    "contact_name": contactName == null ? null : contactName,
-    "contact_type": contactType == null ? null : contactType,
-    "version": version == null ? null : version,
-    "unique_id": uniqueId == null ? null : uniqueId,
-  };
+        "id": id == null ? null : id,
+        "user_id": userId == null ? null : userId,
+        "shop_id": shopId == null ? null : shopId,
+        "due_amount": dueAmount == null ? null : dueAmount,
+        "created_at": createdAt == null ? null : createdAt.toIso8601String(),
+        "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
+        "due_alert": dueAlert,
+        "contact_mobile": contactMobile == null ? null : contactMobile,
+        "contact_name": contactName == null ? null : contactName,
+        "contact_type": contactType == null ? null : contactType,
+        "version": version == null ? null : version,
+        "unique_id": uniqueId == null ? null : uniqueId,
+      };
 
   @override
   String toString() {

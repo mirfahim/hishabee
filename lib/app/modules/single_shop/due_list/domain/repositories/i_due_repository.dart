@@ -13,10 +13,13 @@ abstract class IDueRepository {
     int userId,
     int shopId,
     num amount,
+    String image,
     int customerId,
     String customerMobile,
     String customerName,
     String customerAddress,
+    String contactType,
+    int version,
   });
 
   Future<GetAllDueResponseModel> getAllDue({int shopId});

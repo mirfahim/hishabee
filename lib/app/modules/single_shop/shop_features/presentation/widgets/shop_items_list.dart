@@ -36,7 +36,7 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
     final double itemHeight = size.height * 0.13;
     final double itemWidth = size.width * 0.44;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 15.0, top: 5,left: 20, right: 20),
+      padding: const EdgeInsets.only(bottom: 15.0, top: 5, left: 20, right: 20),
       child: Container(
         child: Column(
           // mainAxisAlignment: MainAxisAlignment.center,
@@ -176,11 +176,12 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      Get.to(() => DueFront());
-                          // arguments: {
-                          //   "shop": shop,
-                          // },
-                          // binding: DueListBinding());
+                      Get.to(() => DueFront(), binding: DueListBinding());
+                      // );
+                      // arguments: {
+                      //   "shop": shop,
+                      // },
+                      //
                     },
                     child: Container(
                       height: itemHeight,
@@ -219,16 +220,16 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
                   child: InkWell(
                     onTap: () {
                       Get.to(
-                          () => ExpenseList(
-                                // shop: shop,
-                              ),
-                          arguments:
-                          // {
-                          //   "shop":
-                          shop,
-                          // },
-                          // binding: ExpenseBinding()
-                          );
+                        () => ExpenseList(
+                            // shop: shop,
+                            ),
+                        arguments:
+                            // {
+                            //   "shop":
+                            shop,
+                        // },
+                        // binding: ExpenseBinding()
+                      );
                     },
                     child: Container(
                       height: itemHeight,
@@ -311,12 +312,14 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
                     ),
                   ),
                 ),
-                SizedBox(width: 15,),
+                SizedBox(
+                  width: 15,
+                ),
                 Expanded(
                   child: InkWell(
                     onTap: () {
                       Get.to(
-                            () => MarketingShopPage(),
+                        () => MarketingShopPage(),
                         arguments: {
                           "shop": shop,
                         },
@@ -335,7 +338,7 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
                           Image.asset(
                             'images/shop_features/onlineOrders.png',
                             height:
-                            screen.responsiveValue(mobile: 40, tablet: 60),
+                                screen.responsiveValue(mobile: 40, tablet: 60),
                           ),
                           SizedBox(
                             height: 10,
@@ -685,7 +688,6 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
             // ])
           ],
         ),
-
       ),
     );
   }

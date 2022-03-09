@@ -53,7 +53,8 @@ class DueListBinding extends Bindings {
     Get.lazyPut<IQrProvider>(() => QrProvider(find()));
     Get.lazyPut<IQrRepository>(() => QrRepository(find()));
     // Get.lazyPut(() => PayDueQrCodeController(find(), find(), find()));
-    // Get.lazyPut(() => AddDueController(find(), find()));
+    Get.lazyPut(() => AddDueController(find(), find(), find()));
+    Get.lazyPut(() => DueEditAddController(find(), find()));
     // Get.lazyPut(() => DueListController(find()));
     // Get.lazyPut(() => DuePaymentController(find(), find()));
     Get.lazyPut<IDigitalPaymentProvider>(() => DigitalPaymentProvider(find()));
@@ -62,12 +63,10 @@ class DueListBinding extends Bindings {
     // Get.lazyPut(() => DueDigitalPaymentController(find()));
     Get.lazyPut(() => DueFrontController(find()));
     Get.lazyPut(() => DueDetailsController(find()));
-    Get.lazyPut<ILocalContactProvider>(
-            () => LocalContactProvider());
-    Get.lazyPut<IContactProvider>(
-            () => ContactProvider(find()));
+    Get.lazyPut<ILocalContactProvider>(() => LocalContactProvider());
+    Get.lazyPut<IContactProvider>(() => ContactProvider(find()));
     Get.lazyPut<IContactRepository>(
-            () => ContactRepository(find(),find(),find()));
-    Get.lazyPut(() => DueEditAddController(find(),find()));
+        () => ContactRepository(find(), find(), find()));
+    Get.lazyPut(() => DueEditAddController(find(), find()));
   }
 }
