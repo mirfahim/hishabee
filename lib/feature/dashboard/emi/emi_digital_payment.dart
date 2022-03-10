@@ -105,16 +105,18 @@ class _SinglePaymentDetailsAndProceed extends State<SinglePaymentDetailsAndProce
         //   ),
         // ),
         appBar: AppBar(
-          // leading: IconButton(
-          //   icon: const Icon(
-          //     Icons.arrow_back_rounded,
-          //   ),
-          //   onPressed: () => Get.back(),
-          // ),
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_rounded,
+              color: Colors.black,
+            ),
+            onPressed: () => Get.back(),
+          ),
+          backgroundColor: Colors.amber,
           titleSpacing: 0,
           title: Text(
             'digital_payment'.tr,
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(fontSize: 18,color: Colors.black),
           ),
         ),
         body: SingleChildScrollView(
