@@ -492,7 +492,7 @@ class _EMIState extends State<EMI> {
                                             CrossAxisAlignment.end,
                                         children: [
                                           Text(
-                                            "৳${_foundData[index].payableAmount.toString()}",
+                                            "৳${_foundData[index].payableAmount.toString() ?? ''}",
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontFamily: 'Roboto',
@@ -500,7 +500,7 @@ class _EMIState extends State<EMI> {
                                                 fontWeight: FontWeight.w500),
                                           ),
                                           Text(
-                                            _foundData[index].paymentStatus,
+                                            _foundData[index].paymentStatus ?? '',
                                             style: TextStyle(
                                                 fontSize: 11,
                                                 fontFamily: 'Roboto',

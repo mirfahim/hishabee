@@ -223,7 +223,7 @@ class _NewEmiState extends State<NewEmi> {
                               const EdgeInsets.only(left: 8.0),
                           child: TextFormField(
                             controller: _emiMainController.emiMoney,
-                            keyboardType: TextInputType.text,
+                            keyboardType: TextInputType.number,
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
                                 RegExp('[0-9]'),

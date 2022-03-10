@@ -14,22 +14,24 @@ import 'package:hishabee_business_manager_fl/feature/dashboard/digital_payment/n
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/create_sms.dart';
 import 'package:hishabee_business_manager_fl/models/digital_payment/digital_payment.dart';
 import 'package:intl/intl.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'emi.dart';
 
 class SinglePaymentDetailsAndProceed extends StatefulWidget {
-
   var digitalPaymentAmount;
 
+  SinglePaymentDetailsAndProceed({this.digitalPaymentAmount});
 
-  SinglePaymentDetailsAndProceed({ this.digitalPaymentAmount});
   @override
-  State<SinglePaymentDetailsAndProceed> createState() => _SinglePaymentDetailsAndProceed();
+  State<SinglePaymentDetailsAndProceed> createState() =>
+      _SinglePaymentDetailsAndProceed();
 }
 
-class _SinglePaymentDetailsAndProceed extends State<SinglePaymentDetailsAndProceed> {
+class _SinglePaymentDetailsAndProceed
+    extends State<SinglePaymentDetailsAndProceed> {
   Shop shop = Get.arguments[0];
   String url = Get.arguments[1];
   List<DigitalPaymentModel> _list = [];
@@ -37,6 +39,7 @@ class _SinglePaymentDetailsAndProceed extends State<SinglePaymentDetailsAndProce
   DpController controller = Get.find();
   EmiController _emiController = Get.find();
   SmsController _smsController = SmsController();
+
   // Shop shop = Get.arguments;
   @override
   void initState() {
@@ -126,30 +129,36 @@ class _SinglePaymentDetailsAndProceed extends State<SinglePaymentDetailsAndProce
         // ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(left: 10,top: 30.0, right: 10),
+            padding: const EdgeInsets.only(left: 10, top: 30.0, right: 10),
             child: Column(
               children: [
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  'amount_of_digital_payment'.tr,
+                  style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  '৳${widget.digitalPaymentAmount}',
+                  style: TextStyle(
+                      fontFamily: 'Roboto', fontSize: 24, color: DEFAULT_BLUE),
+                ),
 
-                SizedBox(height: 30,),
-                Text('amount_of_digital_payment'.tr, style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold
-                ),),
-                SizedBox(height: 10,),
-                Text('৳${widget.digitalPaymentAmount}', style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 24,
-                    color: DEFAULT_BLUE
-                ),),
-
-                SizedBox(height: 30,),
+                SizedBox(
+                  height: 30,
+                ),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       color: Color(0xFFF1F1F1),
-                      borderRadius:
-                      BorderRadius.all(Radius.circular(6.0))),
+                      borderRadius: BorderRadius.all(Radius.circular(6.0))),
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
@@ -208,16 +217,15 @@ class _SinglePaymentDetailsAndProceed extends State<SinglePaymentDetailsAndProce
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Color(0xFFF1F1F1),
-                                border: Border.all(
-                                    color:
-                                    Color(0xFFF1F1F1)),
-                                borderRadius:
-                                BorderRadius.circular(10)),
+                                border: Border.all(color: Color(0xFFF1F1F1)),
+                                borderRadius: BorderRadius.circular(10)),
                             child: Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Icon(Icons.open_in_browser, color: DEFAULT_BLUE,),
+                                Icon(
+                                  Icons.open_in_browser,
+                                  color: DEFAULT_BLUE,
+                                ),
                                 Padding(
                                   padding: const EdgeInsets.only(
                                       left: 10.0,
@@ -243,9 +251,7 @@ class _SinglePaymentDetailsAndProceed extends State<SinglePaymentDetailsAndProce
                       Expanded(
                         child: InkWell(
                           onTap: () {
-                            Clipboard.setData(ClipboardData(
-                                text:
-                                "${url}"));
+                            Clipboard.setData(ClipboardData(text: "${url}"));
                             var snackBar = SnackBar(
                               content: Text('Copied to clipboard '),
                               duration: Duration(milliseconds: 200),
@@ -253,21 +259,16 @@ class _SinglePaymentDetailsAndProceed extends State<SinglePaymentDetailsAndProce
 
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(snackBar);
-
                           },
                           child: Container(
                             decoration: BoxDecoration(
                                 color: Color(0xFFF1F1F1),
-                                border: Border.all(
-                                    color:
-                                    Color(0xFFF1F1F1)),
-                                borderRadius:
-                                BorderRadius.circular(10)),
+                                border: Border.all(color: Color(0xFFF1F1F1)),
+                                borderRadius: BorderRadius.circular(10)),
                             child: Align(
                               alignment: Alignment.center,
                               child: Row(
-                                mainAxisAlignment:
-                                MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   SvgPicture.asset(
                                     'images/svg_image/copy.svg',
@@ -281,12 +282,12 @@ class _SinglePaymentDetailsAndProceed extends State<SinglePaymentDetailsAndProce
                                         bottom: 20),
                                     child: Align(
                                         child: Text(
-                                          'copy_url'.tr,
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              fontFamily: 'Roboto',
-                                              color: DEFAULT_BLUE),
-                                        )),
+                                      'copy_url'.tr,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontFamily: 'Roboto',
+                                          color: DEFAULT_BLUE),
+                                    )),
                                   )
                                 ],
                               ),
@@ -665,11 +666,19 @@ class _SinglePaymentDetailsAndProceed extends State<SinglePaymentDetailsAndProce
                 SizedBox(
                   height: 10,
                 ),
-                Divider(thickness: 1, color: Colors.grey,),
+                Divider(
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
                 Center(
-                  child: Text('Share Link',textAlign: TextAlign.center, style: TextStyle(
-                    fontSize: 20, fontFamily: 'Roboto', fontWeight: FontWeight.bold
-                  ),),
+                  child: Text(
+                    'Share Link',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
                 SizedBox(
                   height: 10,
@@ -680,33 +689,44 @@ class _SinglePaymentDetailsAndProceed extends State<SinglePaymentDetailsAndProce
                   children: [
                     Expanded(
                       child: GestureDetector(
-                        onTap:(){
-                          launch('sms:?body=Please pay BDT ${widget.digitalPaymentAmount} to ${shop.name} through this: link $url');
+                        onTap: () {
+                          launch(
+                              'sms:?body=Please pay BDT ${widget.digitalPaymentAmount} to ${shop.name} through this: link $url');
                         },
                         child: Column(
                           children: [
-                            SvgPicture.asset('images/svg_image/sms.svg', height: 40,),
-                            SizedBox(height: 10,),
-                            Text('S M S', style: TextStyle(
-                              fontSize: 18
-                            ),)
+                            SvgPicture.asset(
+                              'images/svg_image/sms.svg',
+                              height: 40,
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'S M S',
+                              style: TextStyle(fontSize: 18),
+                            )
                           ],
                         ),
                       ),
                     ),
                     Expanded(
                       child: GestureDetector(
-                        onTap: (){
-                          var whatsappUrl ="whatsapp://send?phone=";
+                        onTap: () {
+                          var whatsappUrl = "whatsapp://send?phone=";
                           launch(url);
                         },
                         child: Column(
                           children: [
-                            SvgPicture.asset('images/svg_image/whatsapp.svg', height: 40),
-                            SizedBox(height: 10,),
-                            Text('WhatsApp', style: TextStyle(
-                                fontSize: 18
-                            ),)
+                            SvgPicture.asset('images/svg_image/whatsapp.svg',
+                                height: 40),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              'WhatsApp',
+                              style: TextStyle(fontSize: 18),
+                            )
                           ],
                         ),
                       ),
@@ -714,11 +734,15 @@ class _SinglePaymentDetailsAndProceed extends State<SinglePaymentDetailsAndProce
                     Expanded(
                       child: Column(
                         children: [
-                          SvgPicture.asset('images/svg_image/messenger.svg', height: 40),
-                          SizedBox(height: 10,),
-                          Text('Messenger', style: TextStyle(
-                              fontSize: 18
-                          ),)
+                          SvgPicture.asset('images/svg_image/messenger.svg',
+                              height: 40),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Messenger',
+                            style: TextStyle(fontSize: 18),
+                          )
                         ],
                       ),
                     ),
@@ -733,57 +757,119 @@ class _SinglePaymentDetailsAndProceed extends State<SinglePaymentDetailsAndProce
                   children: [
                     Expanded(
                       child: GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           // Utility.launchURL(url);
                           print(shop.name);
-                          launch('mailto:?subject=Payment to ${shop.name}&body=Please pay BDT ${widget.digitalPaymentAmount} to ${shop.name} through this: link $url');
+                          launch(
+                              'mailto:?subject=Payment to ${shop.name}&body=Please pay BDT ${widget.digitalPaymentAmount} to ${shop.name} through this: link $url');
                         },
                         child: Column(
                           children: [
-                            SvgPicture.asset('images/svg_image/gmail.svg', height: 40,),
-                            SizedBox(height: 5,),
-                            Text('Email', style: TextStyle(
-                                fontFamily: 'Roboto', fontSize: 18
-                            ),)
+                            SvgPicture.asset(
+                              'images/svg_image/gmail.svg',
+                              height: 40,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              'Email',
+                              style:
+                                  TextStyle(fontFamily: 'Roboto', fontSize: 18),
+                            )
                           ],
                         ),
                       ),
                     ),
                     Expanded(
-                      child: Column(
-                        children: [
-                          SvgPicture.asset('images/svg_image/scanner.svg', height: 40,),
-                          SizedBox(height: 5,),
-                          Text('QR Code', style: TextStyle(
-                              fontFamily: 'Roboto', fontSize: 18
-                          ),)
-                        ],
+                      child: GestureDetector(
+                        onTap: () {
+                          showModalBottomSheet(
+                              context: context,
+                              builder: (builder) {
+                                return Column(
+                                  children: [
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    Text(
+                                      'QR Code Payment Link',
+                                      style: TextStyle(),
+                                    ),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    QrImage(data: url, size: 200),
+                                    SizedBox(
+                                      height: 20,
+                                    ),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: Text('done'.tr,style: TextStyle(
+                                          color: Colors.white
+                                        ),),
+                                      style: ElevatedButton.styleFrom(
+                                        primary: DEFAULT_BLUE
+                                      ),
+                                    )
+                                  ],
+                                );
+                              });
+                        },
+                        child: Column(
+                          children: [
+                            SvgPicture.asset(
+                              'images/svg_image/scanner.svg',
+                              height: 40,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              'QR Code',
+                              style:
+                                  TextStyle(fontFamily: 'Roboto', fontSize: 18),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                     Expanded(
                       child: GestureDetector(
-                        onTap: (){
-                          Share.share(
-                              "$url"
-                          );
+                        onTap: () {
+                          Share.share("$url");
                         },
                         child: Column(
                           children: [
-                            SvgPicture.asset('images/svg_image/share.svg', height: 40,),
-                            SizedBox(height: 5,),
-                            Text('Others', style: TextStyle(
-                                fontFamily: 'Roboto', fontSize: 18
-                            ),)
+                            SvgPicture.asset(
+                              'images/svg_image/share.svg',
+                              height: 40,
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              'Others',
+                              style:
+                                  TextStyle(fontFamily: 'Roboto', fontSize: 18),
+                            )
                           ],
                         ),
                       ),
                     )
                   ],
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 GestureDetector(
-                  onTap: (){
-                    Get.to(EMI(), arguments: shop);
+                  onTap: () {
+                    int count = 0;
+                    Navigator.popUntil(context, (route) {
+                      return count++ == 3;
+                    });
                     _emiController.nameController.text = '';
                     _emiController.mobileController.text = '';
                     _emiController.addressController.text = '';
@@ -798,9 +884,11 @@ class _SinglePaymentDetailsAndProceed extends State<SinglePaymentDetailsAndProce
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Text('go_back'.tr, textAlign: TextAlign.center, style: TextStyle(
-                        color: Colors.white
-                      ),),
+                      child: Text(
+                        'go_back'.tr,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 )
