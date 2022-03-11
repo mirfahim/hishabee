@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/utility.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/marketing_shop/presentation/manager/marketing_shop_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class MarketingShopPage extends StatefulWidget {
@@ -46,10 +48,15 @@ class _MarketingShopPageState extends State<MarketingShopPage> {
                       return WebView(
                         initialUrl: controller.url.value,
                         navigationDelegate: (NavigationRequest request) {
-                          if (request.url.startsWith('https:')) {
-                            return NavigationDecision.navigate;
-                          } else {
+                          if (request.url.startsWith('tel:')) {
+                            launch('tel:01761685693');
                             return NavigationDecision.prevent;
+                          }else if(request.url.startsWith('intent:')){
+                            Utility.launchURL('https://m.me/111150717184573');
+                            return NavigationDecision.prevent;
+                          }
+                            else {
+                            return NavigationDecision.navigate;
                           }
                         },
 

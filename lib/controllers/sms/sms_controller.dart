@@ -15,6 +15,8 @@ import 'package:hishabee_business_manager_fl/utility/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SmsController extends GetxController {
+  final name = ''.obs;
+  final mobile = ''.obs;
   final maxLengthForText = 160.obs;
   final textInTheMessageField = ''.obs;
   final messageCount = 1.obs;
@@ -23,7 +25,11 @@ class SmsController extends GetxController {
   final changedSms = 0.obs;
   final circular = false.obs;
   var visibility = false.obs;
-  final selectedMobileNumber = [].obs;
+  final searchListContact = [].obs;
+  final contactList = [].obs;
+  RxList selectedMobileNumber = [].obs;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController mobileController = TextEditingController();
   ApiService _apiService = ApiService();
   var storageSmsCount = GetStorage('sms_count');
   RxList<Contact> contacts = <Contact>[].obs;
@@ -52,13 +58,48 @@ class SmsController extends GetxController {
         method: apiMethods.post, url: url, body: null, headers: null);
   }
 
+  getAllContacts() async {
+    var status = await Permission.contacts.request();
+    if (status.isGranted) {
+      List<Contact> _contacts = await ContactsService.getContacts();
+      _contacts.forEach((contact) {
+        print(contact.displayName);
+        contactList.value = _contacts.toList();
+        searchListContact.value = _contacts.toList();
+      });
+      // print("my contacts are ${contacts.}");
+      // contacts.value = _contacts.toList();
+      List allContact = _contacts.toList();
+      //print("my all contact are ${contacts.value[0].phones[0].value}");
+    } else if (status.isDenied) {
+      List<Contact> _contacts = await ContactsService.getContacts();
+      contactList.value = _contacts.toList();
+      searchListContact.value = _contacts.toList();
+    } else {
+      showDialog(
+          builder: (BuildContext context) => CupertinoAlertDialog(
+            title: Text('Contacts list permission'),
+            content: Text('This app needs contact list access'),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text('Deny'),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              CupertinoDialogAction(
+                child: Text('Settings'),
+                onPressed: () => openAppSettings(),
+              ),
+            ],
+          ));
+    }
+  }
   Future<dynamic> checkSubcription(String shopId) async {
     String url = '/subscription/verify?shop_id=$shopId';
     return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }
 
-  getAllContacts() async {
+  getAllContactsFromPhone() async {
     var status = await Permission.contacts.request();
     if (status.isGranted) {
       List<Contact> _contacts = await ContactsService.getContacts();
