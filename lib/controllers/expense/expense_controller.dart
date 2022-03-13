@@ -84,7 +84,7 @@ class ExpenseController extends GetxController {
       String date}) async {
     CustomDialog.showLoadingDialog(message: 'Updating...');
     String url =
-        "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose&details=$description&amount=$amount&id=$categoryid&image&image_changed=true&created_date=$date";
+        "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose&details=$description&amount=$amount&id=$categoryid&image&image_changed=true&created_at=$date";
     return _apiService.makeApiRequest(
         method: apiMethods.put, url: url, body: null, headers: null);
   }
