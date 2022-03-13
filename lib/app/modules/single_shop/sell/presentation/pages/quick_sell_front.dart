@@ -34,15 +34,14 @@ import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.da
 import 'confirm_payment_page.dart';
 
 class QuickSell extends GetView<SellController> {
-   QuickSell({Key key}) : super(key: key);
+  QuickSell({Key key}) : super(key: key);
   RxBool smsCheckBox = false.obs;
   RxBool mobileNumberCheckbox = false.obs;
   RxBool profitCheckBox = false.obs;
-  // Size size = MediaQuery.of(context).size;
+
   @override
   Widget build(BuildContext context) {
-
-
+    Size size = MediaQuery.of(context).size;
     final shopFeatureController = Get.find<ShopFeaturesController>();
     return Scaffold(
       // bottomSheet: controller.sellType.value != 0 ? InkWell(

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:gson/gson.dart';
+
 import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
@@ -26,7 +26,7 @@ class SmsCreatePage extends GetResponsiveView {
   Widget build(BuildContext context) {
     _smsController.textInTheMessageField.value = '- ${shop.name}';
     // messageController.text = '- ${shop.name}';
-     var width = MediaQuery.of(context).size.width;
+    var width = MediaQuery.of(context).size.width;
     _smsController.totalSmsLeft.value =
         storageSmsCount.read('sms_count') == null
             ? shop.smsCount
@@ -40,12 +40,16 @@ class SmsCreatePage extends GetResponsiveView {
               onPressed: () {
                 Get.back();
               },
-              icon: Icon(Icons.arrow_back, color: Colors.black,),
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
             ),
             backgroundColor: Colors.amber,
-            title: Text('SMS',style: TextStyle(
-              color: Colors.black
-            ),),
+            title: Text(
+              'SMS',
+              style: TextStyle(color: Colors.black),
+            ),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 5),
@@ -55,13 +59,17 @@ class SmsCreatePage extends GetResponsiveView {
                   },
                   child: Row(
                     children: const [
-                      Icon(Icons.history, color: Colors.black,),
+                      Icon(
+                        Icons.history,
+                        color: Colors.black,
+                      ),
                       SizedBox(
                         width: 5,
                       ),
-                      Text('Message History', style: TextStyle(
-                        color: Colors.black
-                      ),)
+                      Text(
+                        'Message History',
+                        style: TextStyle(color: Colors.black),
+                      )
                     ],
                   ),
                 ),
