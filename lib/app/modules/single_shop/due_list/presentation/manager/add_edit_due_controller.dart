@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/data_holder.dart';
@@ -20,7 +19,7 @@ import 'package:uuid/uuid.dart';
 
 import 'due_list_controller.dart';
 
-class DueEditAddController extends GetxController{
+class DueEditAddController extends GetxController {
   var classStatus = ["কাস্টমার", "সাপ্লায়ার", "কর্মচারী"].obs;
   var selectedClassStatus = 'কাস্টমার'.obs;
   final employeeList = [].obs;
@@ -36,7 +35,7 @@ class DueEditAddController extends GetxController{
   final dueDetails = ''.obs;
   final sms = false.obs;
   final dueDate = DateTime.now().obs;
-  final selectedDueItem =  GetAllDueItemByUid().obs;
+  final selectedDueItem = GetAllDueItemByUid().obs;
 
   final due = Due().obs;
 
@@ -78,29 +77,34 @@ class DueEditAddController extends GetxController{
     due.value = Get.arguments['due'];
     nameTextEditingController.value.text = due.value.contactName ?? '';
     numberTextEditingController.value.text = due.value.contactMobile ?? '';
-    selectedClassStatus.value = due.value.contactType == null ? 'কাস্টমার':
-    due.value.contactType == 'CUSTOMER' ? 'কাস্টমার' :
-    due.value.contactType == 'EMPLOYEE' ? 'কর্মচারী' :
-    due.value.contactType == 'SUPPLIER' ? 'সাপ্লায়ার' : 'কাস্টমার';
+    selectedClassStatus.value = due.value.contactType == null
+        ? 'কাস্টমার'
+        : due.value.contactType == 'CUSTOMER'
+            ? 'কাস্টমার'
+            : due.value.contactType == 'EMPLOYEE'
+                ? 'কর্মচারী'
+                : due.value.contactType == 'SUPPLIER'
+                    ? 'সাপ্লায়ার'
+                    : 'কাস্টমার';
     dueType.value = Get.arguments['dueType'];
     route.value = Get.arguments['route'];
     selectedDueItem.value = Get.arguments['dueItem'];
-    selectedDueItem.value.amount != null ? amountTextEditingController.value.text = selectedDueItem.value.amount.toString() : '';
+    selectedDueItem.value.amount != null
+        ? amountTextEditingController.value.text =
+            selectedDueItem.value.amount.toString()
+        : '';
   }
 
   getAllEmployee() async {
     try {
       var response =
-      await contactRepository.getAllEmployee(shopId: shopId.value);
+          await contactRepository.getAllEmployee(shopId: shopId.value);
       employeeList.assignAll(response);
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
 
   getAllSupplier() async {
-    var response =
-    await contactRepository.getAllSupplier(shopId: shopId.value);
+    var response = await contactRepository.getAllSupplier(shopId: shopId.value);
 
     supplierList.assignAll(response);
   }
@@ -108,41 +112,50 @@ class DueEditAddController extends GetxController{
   getAllCustomer() async {
     try {
       var response =
-      await contactRepository.getAllCustomer(shopId: shopId.value);
+          await contactRepository.getAllCustomer(shopId: shopId.value);
 
       customerList.assignAll(response);
-    } catch (e) {
-
-    }
+    } catch (e) {}
   }
-  addNewDue() async{
+
+  addNewDue() async {
+    print("working _________");
     CustomDialog.showLoadingDialog(message: 'Adding Due');
     formKey.currentState.validate();
     formKey.currentState.save();
-    var contactType = selectedClassStatus.value == 'কাস্টমার' ? 'CUSTOMER' : selectedClassStatus.value == 'সাপ্লায়ার' ? 'SUPPLIER' : 'EMPLOYEE';
-    if(due.value.contactName != null && nameTextEditingController.value.text == due.value.contactName){
+    var contactType = selectedClassStatus.value == 'কাস্টমার'
+        ? 'CUSTOMER'
+        : selectedClassStatus.value == 'সাপ্লায়ার'
+            ? 'SUPPLIER'
+            : 'EMPLOYEE';
+    if (due.value.contactName != null &&
+        nameTextEditingController.value.text == due.value.contactName) {
       var uuid = Uuid();
-      String dUniqueId = shopId.toString()+uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString();
+      String dUniqueId = shopId.toString() +
+          uuid.v1().toString() +
+          DateTime.now().microsecondsSinceEpoch.toString();
       AddDueItemRequest dueItemRequest = AddDueItemRequest(
           shopId: due.value.shopId,
           createdAt: DateTime.now().toString(),
           amount: dueType.value == 0.0 ? dueAmount.value : -dueAmount,
           dueUniqueId: due.value.uniqueId,
           uniqueId: selectedDueItem.value.uniqueId ?? dUniqueId,
-          version: route.value == 0 || route.value == 1 ? 0 : selectedDueItem.value.version + 1,
+          version: route.value == 0 || route.value == 1
+              ? 0
+              : selectedDueItem.value.version + 1,
           updatedAt: DateTime.now().toString(),
-          dueLeft: (due.value.dueAmount + dueAmount.value).toInt()
-      );
+          dueLeft: (due.value.dueAmount + dueAmount.value).toInt());
       final response = await dueRepository.addNewDueItem(dueItemRequest);
       Get.back();
-      if(response.code == 200){
+      if (response.code == 200) {
         Get.find<DueDetailsController>().getAllDueItem();
         Get.back();
       }
-    }
-    else{
+    } else {
       var uuid = Uuid();
-      String dUniqueId = shopId.toString()+uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString();
+      String dUniqueId = shopId.toString() +
+          uuid.v1().toString() +
+          DateTime.now().microsecondsSinceEpoch.toString();
       AddDueRequest request = AddDueRequest(
           amount: dueType.value == 0 ? dueAmount.value : -dueAmount,
           shopId: shopId.value,
@@ -152,9 +165,10 @@ class DueEditAddController extends GetxController{
           updatedAt: dueDate.value.toString(),
           contactType: contactType,
           contactMobile: numberTextEditingController.value.text,
-          contactName: nameTextEditingController.value.text
-      );
-      String dIUniqueId = shopId.toString()+uuid.v1().toString()+DateTime.now().microsecondsSinceEpoch.toString();
+          contactName: nameTextEditingController.value.text);
+      String dIUniqueId = shopId.toString() +
+          uuid.v1().toString() +
+          DateTime.now().microsecondsSinceEpoch.toString();
       AddDueResponse response = await dueRepository.addNewDue(request);
       AddDueItemRequest dueItemRequest = AddDueItemRequest(
           shopId: response.due.shopId,
@@ -163,12 +177,11 @@ class DueEditAddController extends GetxController{
           dueUniqueId: response.due.uniqueId,
           uniqueId: dIUniqueId,
           version: 0,
-          updatedAt:response.due.updatedAt.toString(),
-          dueLeft: response.due.dueAmount.toInt()
-      );
-      if(response.code == 200){
+          updatedAt: response.due.updatedAt.toString(),
+          dueLeft: response.due.dueAmount.toInt());
+      if (response.code == 200) {
         final responseItem = await dueRepository.addNewDueItem(dueItemRequest);
-        if(responseItem.code == 200){
+        if (responseItem.code == 200) {
           Get.back();
           Get.find<DueFrontController>().getAllDue();
           Get.back();
@@ -176,5 +189,4 @@ class DueEditAddController extends GetxController{
       }
     }
   }
-
 }

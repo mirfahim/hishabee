@@ -16,6 +16,9 @@ abstract class IDueProvider {
     int userId,
     int shopId,
     num amount,
+    int version,
+    String image,
+    String contactType,
     int customerId,
     String customerMobile,
     String customerName,
@@ -25,7 +28,8 @@ abstract class IDueProvider {
   Future<Response<GetAllDueResponseModel>> getAllDue({int shopId});
 
   Future<Response<AddDueResponse>> addNewDue(AddDueRequest addDueRequest);
-  Future<Response<AddDueItemResponse>> addNewDueItem(AddDueItemRequest addDueItemRequest);
+  Future<Response<AddDueItemResponse>> addNewDueItem(
+      AddDueItemRequest addDueItemRequest);
 
   Future<Response<List<GetAllDueItemByUid>>> getAllDueItemByUid({String uid});
 
@@ -48,6 +52,9 @@ class DueProvider extends GetConnect implements IDueProvider {
     int shopId,
     num amount,
     int customerId,
+    String image,
+    int version,
+    String contactType,
     String customerMobile,
     String customerName,
     String customerAddress,
@@ -107,7 +114,8 @@ class DueProvider extends GetConnect implements IDueProvider {
   }
 
   @override
-  Future<Response<List<GetAllDueItemByUid>>> getAllDueItemByUid({String uid}) async{
+  Future<Response<List<GetAllDueItemByUid>>> getAllDueItemByUid(
+      {String uid}) async {
     String url = "$BASE_URL/due/items?unique_id=$uid";
 
     final creds = await authRepository.getCredentials();
@@ -120,8 +128,9 @@ class DueProvider extends GetConnect implements IDueProvider {
   }
 
   @override
-  Future<Response<AddDueResponse>> addNewDue(AddDueRequest addDueRequest) async{
-    String url ="$BASE_URL/due/add";
+  Future<Response<AddDueResponse>> addNewDue(
+      AddDueRequest addDueRequest) async {
+    String url = "$BASE_URL/due/add";
     final creds = await authRepository.getCredentials();
 
     var body = {
@@ -145,8 +154,9 @@ class DueProvider extends GetConnect implements IDueProvider {
   }
 
   @override
-  Future<Response<AddDueItemResponse>> addNewDueItem(AddDueItemRequest addDueItemRequest) async{
-    String url ="$BASE_URL/due_item/add";
+  Future<Response<AddDueItemResponse>> addNewDueItem(
+      AddDueItemRequest addDueItemRequest) async {
+    String url = "$BASE_URL/due_item/add";
     final creds = await authRepository.getCredentials();
 
     var body = {

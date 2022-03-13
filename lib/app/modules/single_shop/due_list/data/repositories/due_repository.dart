@@ -21,6 +21,9 @@ class DueRepository implements IDueRepository {
   Future<AddDueResponseModel> addDue({
     int userId,
     int shopId,
+    int version,
+    String image,
+    String contactType,
     num amount,
     int customerId,
     String customerMobile,
@@ -31,6 +34,7 @@ class DueRepository implements IDueRepository {
       userId: userId,
       shopId: shopId,
       amount: amount,
+      image: image,
       customerId: customerId,
       customerMobile: customerMobile,
       customerName: customerName,
@@ -60,19 +64,20 @@ class DueRepository implements IDueRepository {
   }
 
   @override
-  Future<AddDueResponse> addNewDue(AddDueRequest addDueRequest) async{
+  Future<AddDueResponse> addNewDue(AddDueRequest addDueRequest) async {
     final response = await dueProvider.addNewDue(addDueRequest);
     return ResponseDecoder.decode(response);
   }
 
   @override
-  Future<AddDueItemResponse> addNewDueItem(AddDueItemRequest addDueItemRequest) async{
+  Future<AddDueItemResponse> addNewDueItem(
+      AddDueItemRequest addDueItemRequest) async {
     final response = await dueProvider.addNewDueItem(addDueItemRequest);
     return ResponseDecoder.decode(response);
   }
 
   @override
-  Future<List<GetAllDueItemByUid>> getAllDueItemByUid({String uid}) async{
+  Future<List<GetAllDueItemByUid>> getAllDueItemByUid({String uid}) async {
     final response = await dueProvider.getAllDueItemByUid(uid: uid);
     return ResponseDecoder.decode(response);
   }

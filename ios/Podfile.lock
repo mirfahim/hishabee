@@ -1,6 +1,8 @@
 PODS:
   - app_tracking_transparency (0.0.1):
     - Flutter
+  - bluetooth_print (0.0.1):
+    - Flutter
   - connectivity_plus (0.0.1):
     - Flutter
     - Reachability
@@ -194,6 +196,7 @@ PODS:
 
 DEPENDENCIES:
   - app_tracking_transparency (from `.symlinks/plugins/app_tracking_transparency/ios`)
+  - bluetooth_print (from `.symlinks/plugins/bluetooth_print/ios`)
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
   - contacts_service (from `.symlinks/plugins/contacts_service/ios`)
   - facebook_app_events (from `.symlinks/plugins/facebook_app_events/ios`)
@@ -246,6 +249,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   app_tracking_transparency:
     :path: ".symlinks/plugins/app_tracking_transparency/ios"
+  bluetooth_print:
+    :path: ".symlinks/plugins/bluetooth_print/ios"
   connectivity_plus:
     :path: ".symlinks/plugins/connectivity_plus/ios"
   contacts_service:
@@ -297,6 +302,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   app_tracking_transparency: 5b1745ef9ade815f7455cb6a0848349589afb7c5
+  bluetooth_print: da8f47e8881a0b1f0fd8d73cd6fa84c9bd41ac28
   connectivity_plus: 5f0eb61093bec56935f21a1699dd2758bc895587
   contacts_service: 849e1f84281804c8bfbec1b4c3eedcb23c5d3eca
   facebook_app_events: 7b4bf3ceb2115c280223361fd224505651f36c1a

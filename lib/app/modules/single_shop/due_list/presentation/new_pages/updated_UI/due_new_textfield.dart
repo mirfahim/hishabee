@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/manager/add_due_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/manager/add_edit_due_controller.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:get/get.dart';
 
@@ -35,16 +37,18 @@ _selectStartDate(BuildContext context) async {
   }
 }
 
-class DueNewTextField extends StatelessWidget {
+class DueNewTextField extends GetView<AddDueController> {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
       bottomSheet: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
         child: ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            controller.addDue();
+          },
           child: Center(
             child: Text(
               'save'.tr,
@@ -92,7 +96,9 @@ class DueNewTextField extends StatelessWidget {
                   Text(
                     'select_type'.tr,
                     style: TextStyle(
-                        color: Colors.black, fontSize: 16, fontFamily: 'Roboto'),
+                        color: Colors.black,
+                        fontSize: 16,
+                        fontFamily: 'Roboto'),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -103,25 +109,37 @@ class DueNewTextField extends StatelessWidget {
                         onChanged: (value) {},
                         activeColor: Colors.blue,
                       ),
-                      Text('customer'.tr, style: TextStyle(
-                        fontSize: 14, fontFamily: 'Roboto',color: Color(0xFF232323)
-                      ),),
+                      Text(
+                        'customer'.tr,
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Roboto',
+                            color: Color(0xFF232323)),
+                      ),
                       Radio(
                         value: 'কাস্টমার',
                         groupValue: 'groupValue',
                         onChanged: (value) {},
                       ),
-                      Text('supplier'.tr, style: TextStyle(
-                          fontSize: 14, fontFamily: 'Roboto',color: Color(0xFF232323)
-                      ),),
+                      Text(
+                        'supplier'.tr,
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Roboto',
+                            color: Color(0xFF232323)),
+                      ),
                       Radio(
                         value: 'কাস্টমার',
                         groupValue: 'groupValue',
                         onChanged: (value) {},
                       ),
-                      Text('employee'.tr, style: TextStyle(
-                          fontSize: 14, fontFamily: 'Roboto',color: Color(0xFF232323)
-                      ),),
+                      Text(
+                        'employee'.tr,
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Roboto',
+                            color: Color(0xFF232323)),
+                      ),
                     ],
                   ),
                   SizedBox(
@@ -130,7 +148,9 @@ class DueNewTextField extends StatelessWidget {
                   Text(
                     'select_due_type'.tr,
                     style: TextStyle(
-                        color: Color(0xFF232323), fontSize: 16, fontFamily: 'Roboto '),
+                        color: Color(0xFF232323),
+                        fontSize: 16,
+                        fontFamily: 'Roboto '),
                   ),
                   SizedBox(
                     height: 15,
@@ -189,9 +209,13 @@ class DueNewTextField extends StatelessWidget {
                   SizedBox(
                     height: 15,
                   ),
-                  Text('name'.tr, style: TextStyle(
-                    fontSize: 16, fontFamily: 'Roboto', fontWeight: FontWeight.w500
-                  ),),
+                  Text(
+                    'name'.tr,
+                    style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Roboto',
+                        fontWeight: FontWeight.w500),
+                  ),
                   TextFormField(
                     cursorColor: Colors.black,
                     keyboardType: TextInputType.number,
@@ -202,8 +226,12 @@ class DueNewTextField extends StatelessWidget {
                     ],
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
-                          onPressed:(){},
-                          icon: Icon(Icons.arrow_drop_down,size: 30,),),
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.arrow_drop_down,
+                          size: 30,
+                        ),
+                      ),
                       contentPadding: EdgeInsets.symmetric(horizontal: 8),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
@@ -218,9 +246,11 @@ class DueNewTextField extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text('mobile_number'.tr, style: TextStyle(
-                      fontSize: 16, fontFamily: 'Roboto',fontWeight: FontWeight.w500
-                  )),
+                  Text('mobile_number'.tr,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500)),
                   TextFormField(
                     cursorColor: Colors.black,
                     keyboardType: TextInputType.number,
@@ -244,9 +274,11 @@ class DueNewTextField extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text('due_amount'.tr, style: TextStyle(
-                      fontSize: 16, fontFamily: 'Roboto',fontWeight: FontWeight.w500
-                  )),
+                  Text('due_amount'.tr,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500)),
                   TextFormField(
                     cursorColor: Colors.black,
                     keyboardType: TextInputType.number,
@@ -270,9 +302,11 @@ class DueNewTextField extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text('description'.tr, style: TextStyle(
-                  fontSize: 16, fontFamily: 'Roboto',fontWeight: FontWeight.w500
-                  )),
+                  Text('description'.tr,
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontFamily: 'Roboto',
+                          fontWeight: FontWeight.w500)),
                   TextFormField(
                     maxLines: 5,
                     cursorColor: Colors.black,
@@ -283,7 +317,8 @@ class DueNewTextField extends StatelessWidget {
                       ),
                     ],
                     decoration: InputDecoration(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 8, vertical: 10),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10)),
                       counterText: "",
@@ -300,36 +335,40 @@ class DueNewTextField extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      InkWell(child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: Color(0xFFC4C4C4).withOpacity(.35))
-                        ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text('১৮ অক্টোবর , ২০২১'),
-                          )
-                      ), onTap: (){
-                        _selectStartDate(context);
-                      },),
                       InkWell(
-                        onTap: (){},
                         child: Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(6),
-                                border: Border.all(color: Color(0xFFC4C4C4).withOpacity(.35))
-                            ),
+                                border: Border.all(
+                                    color: Color(0xFFC4C4C4).withOpacity(.35))),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text('১৮ অক্টোবর , ২০২১'),
+                            )),
+                        onTap: () {
+                          _selectStartDate(context);
+                        },
+                      ),
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                border: Border.all(
+                                    color: Color(0xFFC4C4C4).withOpacity(.35))),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
                                 children: [
-                                  SvgPicture.asset('images/svg_image/receipt_add.svg'),
-                                  SizedBox(width: 5,),
+                                  SvgPicture.asset(
+                                      'images/svg_image/receipt_add.svg'),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
                                   Text('রিসিপ্ট যুক্ত করুন'),
                                 ],
                               ),
-                            )
-                        ),
+                            )),
                       )
                     ],
                   ),
@@ -364,7 +403,6 @@ class DueNewTextField extends StatelessWidget {
                   SizedBox(
                     height: 20,
                   ),
-
                 ],
               ),
             ),
