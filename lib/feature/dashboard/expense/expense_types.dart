@@ -420,7 +420,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                   onTap: () {
                                     Get.to(
                                         ExpenseEditDelete(
-                                          date: '${_expenseController.allExpenseList[index].createdAt}',
+                                          date: '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}',
                                           amount:
                                           '${_expenseController.allExpenseList[index].amount}',
                                           reason:

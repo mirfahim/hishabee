@@ -49,7 +49,7 @@ Widget textFormFeildForExpense(
     ),
   );
 }
-
+int flag = 0;
 var now = DateTime.now();
 var startOfMonth = DateTime(now.year, now.month, 1);
 var lastOfTheMonth = (now.month < 12)
@@ -89,7 +89,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
       TextEditingController();
   ExpenseController _expenseController = Get.find();
 
-  DateTime startDate;
+  DateTime selectedDate;
   DateTime initialDate = DateTime.now();
   DateTime endDate;
 
@@ -125,6 +125,8 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
     if (picked != null) {
       setState(() {
         // widgets.controller.selectedStartDate.value = picked;
+        flag = 1;
+        selectedDate = picked;
         initialDate = picked;
       });
     }
@@ -210,8 +212,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                               child: Row(
                                 children: [
                                   Icon(Icons.calendar_today),
-                                  Text(
-                                      '${DateFormat.yMMMMd().format(DateTime.now())}'),
+                                  Text('${widget.date}' ),
                                 ],
                               ),
                             ),
@@ -238,7 +239,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                     purpose: _textEditingControllerReason.text == '' ? widget.reason : _textEditingControllerReason.text ,
                                     description: _textEditingControllerDescription.text == '' ? widget.description : _textEditingControllerDescription.text,
                                     amount: _textEditingControllerAmount.text == '' ? widget.amount : _textEditingControllerAmount.text,
-                                    date: '$startDate' == '' ? '${widget.date}' : '$initialDate'
+                                    date: flag == 0 ? '${widget.date}' : '$selectedDate'
                                   );
 
                                   await _expenseController
