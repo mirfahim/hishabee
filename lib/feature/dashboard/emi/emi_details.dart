@@ -30,8 +30,9 @@ class _EmiDetailsState extends State<EmiDetails> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.amber,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_rounded),
+            icon: Icon(Icons.arrow_back_rounded, color: Colors.black,),
             color: Colors.black,
             onPressed: (){
               _emiController.nameController.clear();
@@ -43,7 +44,9 @@ class _EmiDetailsState extends State<EmiDetails> {
             },
           ),
           title: Text(
-            'emi'.tr,
+            'emi'.tr,style: TextStyle(
+            color: Colors.black
+          ),
           ),
           titleSpacing: 0,
         ),

@@ -30,79 +30,81 @@ class _BankPopupState extends State<BankPopup> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     int flag = 1;
-    return AlertDialog(
-      content: Padding(
-        padding: const EdgeInsets.only(bottom: 50.0),
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                  padding: const EdgeInsets.only(bottom: 12.0, top: 12.0),
-                  child: Container(
-                    height: 50.0,
-                    child: TextField(
-                      onChanged: (value) => _runFilter(value),
-                      style: TextStyle(fontSize: 14.0),
-                      decoration: InputDecoration(
-                          hintText: 'Search',
-                          focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 2, color: Colors.blue[900])),
-                          hintStyle: TextStyle(fontSize: 12.0),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6.0),
-                              borderSide: BorderSide(
-                                  width: 2, color: Colors.blue[900])),
-                          filled: true,
-                          fillColor: Colors.grey[100],
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.blue[900],
-                            size: 30,
+    return SingleChildScrollView(
+      child: AlertDialog(
+        content: Padding(
+          padding: const EdgeInsets.only(bottom: 50.0),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                    padding: const EdgeInsets.only(bottom: 12.0, top: 12.0),
+                    child: Container(
+                      height: 50.0,
+                      child: TextField(
+                        onChanged: (value) => _runFilter(value),
+                        style: TextStyle(fontSize: 14.0),
+                        decoration: InputDecoration(
+                            hintText: 'Search',
+                            focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 2, color: Colors.blue[900])),
+                            hintStyle: TextStyle(fontSize: 12.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6.0),
+                                borderSide: BorderSide(
+                                    width: 2, color: Colors.blue[900])),
+                            filled: true,
+                            fillColor: Colors.grey[100],
+                            prefixIcon: Icon(
+                              Icons.search,
+                              color: Colors.blue[900],
+                              size: 30,
+                            )),
+                      ),
+                    )),
+                Container(
+                  width: MediaQuery.of(context).size.width/ 1,
+                  height: MediaQuery.of(context).size.height - 300,
+                  child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: _foundData.length,
+                      // physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) => InkWell(
+                            onTap: () {
+                              _controller.bankName.value = _foundData[index].name;
+                              Navigator.pop(context);
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (builder) => NewEmi(
+                              //         widget.name,
+                              //         widget.phone,
+                              //         widget.address,
+                              //         _foundData[index].name, widget.shop, widget.emiMoney)));
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Text(
+                                      _foundData[index].name,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16.0),
+                                    )),
+                                Divider()
+                              ],
+                            ),
                           )),
-                    ),
-                  )),
-              Container(
-                width: MediaQuery.of(context).size.width/ 1,
-                height: MediaQuery.of(context).size.height - 300,
-                child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: _foundData.length,
-                    // physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => InkWell(
-                          onTap: () {
-                            _controller.bankName.value = _foundData[index].name;
-                            Navigator.pop(context);
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //     builder: (builder) => NewEmi(
-                            //         widget.name,
-                            //         widget.phone,
-                            //         widget.address,
-                            //         _foundData[index].name, widget.shop, widget.emiMoney)));
-                          },
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Text(
-                                    _foundData[index].name,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16.0),
-                                  )),
-                              Divider()
-                            ],
-                          ),
-                        )),
-              )
+                )
 
-              ////,
-              ,
-            ]),
+                ////,
+                ,
+              ]),
+        ),
       ),
     );
   }

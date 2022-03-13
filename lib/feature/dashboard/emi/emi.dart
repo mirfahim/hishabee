@@ -446,7 +446,8 @@ class _EMIState extends State<EMI> {
                             shrinkWrap: true,
                             itemCount: _foundData.length,
                             physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) => Container(
+                            itemBuilder: (context, index) => _foundData.length != null ?
+                            Container(
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
@@ -468,14 +469,14 @@ class _EMIState extends State<EMI> {
                                               CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              _foundData[index].customerName,
+                                              _foundData[index].customerName ?? '[Not Given]',
                                               style: TextStyle(
                                                   fontSize: 14,
                                                   fontFamily: 'Roboto',
                                                   ),
                                             ),
                                             Text(
-                                              _foundData[index].customerMobile,
+                                              _foundData[index].customerMobile ?? '[Not Given]',
                                               style: TextStyle(
                                                   fontSize: 12,
                                                   fontFamily: 'Roboto',
@@ -491,7 +492,7 @@ class _EMIState extends State<EMI> {
                                             CrossAxisAlignment.end,
                                         children: [
                                           Text(
-                                            "৳${_foundData[index].payableAmount.toString()}",
+                                            "৳${_foundData[index].payableAmount.toString() ?? ''}",
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontFamily: 'Roboto',
@@ -499,7 +500,7 @@ class _EMIState extends State<EMI> {
                                                 fontWeight: FontWeight.w500),
                                           ),
                                           Text(
-                                            _foundData[index].paymentStatus,
+                                            _foundData[index].paymentStatus ?? '',
                                             style: TextStyle(
                                                 fontSize: 11,
                                                 fontFamily: 'Roboto',
@@ -510,7 +511,9 @@ class _EMIState extends State<EMI> {
                                       ),
                                     ],
                                   ),
-                                )),
+                                ): Center(
+                              child: Text('Text Loading', style: TextStyle(fontSize: 16),),
+                            )),
                         Center(
                           child: TextButton(onPressed: (){}, child: Text('know_more_about_emi'.tr,style: TextStyle(
                             fontSize: 14, color: DEFAULT_BLUE
@@ -547,8 +550,8 @@ class _EMIState extends State<EMI> {
     });
   }
 
-  void getData() {
-    controller.fetchAllEmi(shopId: "${shop.id}").then((value) {
+  void getData() async{
+    await controller.fetchAllEmi(shopId: "${shop.id}").then((value) {
       if (value != null) {
         setState(() {
           _list = emiModelFromJson(value);

@@ -126,7 +126,7 @@ class LoginPageSecond extends StatelessWidget {
                     CustomDialog.hideDialog();
 
                   }
-                  else if(responseCode == 403){
+                  else if(responseCode == 403 || responseCode == 404){
                     CustomDialog.hideDialog();
                     Get.toNamed(AuthRoutes.REGISTER);
 

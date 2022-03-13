@@ -1,22 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:gson/gson.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hishabee_business_manager_fl/app/modules/home/presentation/manager/splash_controller.dart';
-import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/data_sources/shop_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/customer_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/emplyeDialog.dart';
-import 'package:hishabee_business_manager_fl/feature/dashboard/sms/sms_dialog_box.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/sms_packages.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/sms_page.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/supplyerDialog.dart';
-import 'package:hishabee_business_manager_fl/models/sms/sms_package_model.dart';
-import 'package:hishabee_business_manager_fl/new_UI/expense_list/helper_for_dialog.dart';
 
+import 'contacts.dart';
 import 'customerDialog.dart';
 
 class SmsCreatePage extends GetResponsiveView {
@@ -29,7 +24,9 @@ class SmsCreatePage extends GetResponsiveView {
 
   @override
   Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
+    _smsController.textInTheMessageField.value = '- ${shop.name}';
+    // messageController.text = '- ${shop.name}';
+     var width = MediaQuery.of(context).size.width;
     _smsController.totalSmsLeft.value =
         storageSmsCount.read('sms_count') == null
             ? shop.smsCount
@@ -43,16 +40,12 @@ class SmsCreatePage extends GetResponsiveView {
               onPressed: () {
                 Get.back();
               },
-              icon: Icon(
-                Icons.arrow_back,
-                color: Colors.black,
-              ),
+              icon: Icon(Icons.arrow_back, color: Colors.black,),
             ),
             backgroundColor: Colors.amber,
-            title: Text(
-              'SMS',
-              style: TextStyle(color: Colors.black),
-            ),
+            title: Text('SMS',style: TextStyle(
+              color: Colors.black
+            ),),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 5),
@@ -62,17 +55,13 @@ class SmsCreatePage extends GetResponsiveView {
                   },
                   child: Row(
                     children: const [
-                      Icon(
-                        Icons.history,
-                        color: Colors.black,
-                      ),
+                      Icon(Icons.history, color: Colors.black,),
                       SizedBox(
                         width: 5,
                       ),
-                      Text(
-                        'Message History',
-                        style: TextStyle(color: Colors.black),
-                      )
+                      Text('Message History', style: TextStyle(
+                        color: Colors.black
+                      ),)
                     ],
                   ),
                 ),
@@ -377,11 +366,7 @@ class SmsCreatePage extends GetResponsiveView {
                     padding: EdgeInsets.only(left: 10, right: 10),
                     child: ElevatedButton(
                       onPressed: () async {
-                        await _smsController.getAllContacts().then(
-                            Navigator.of(context).push(PageRouteBuilder(
-                                pageBuilder: (context, _, __) =>
-                                    SmsCustomDialogContacts(),
-                                opaque: false)));
+                        Get.to(ContactBoxForSms());
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,

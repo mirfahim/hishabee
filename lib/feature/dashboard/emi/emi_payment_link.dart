@@ -21,6 +21,7 @@ class EmiPaymentLink extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.amber,
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_rounded,
@@ -31,7 +32,9 @@ class EmiPaymentLink extends StatelessWidget {
           ),
           titleSpacing: 0,
           title: Text(
-            'emi'.tr,
+            'emi'.tr,style: TextStyle(
+              color: Colors.black
+          ),
           )
         ),
         body: SingleChildScrollView(

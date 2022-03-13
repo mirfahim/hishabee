@@ -40,9 +40,11 @@ class _NewEmiState extends State<NewEmi> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.amber,
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_rounded,
+              color: Colors.black,
             ),
             onPressed: (){
               _emiMainController.nameController.clear();
@@ -55,7 +57,9 @@ class _NewEmiState extends State<NewEmi> {
             },
           ),
           title: Text(
-            'emi'.tr,
+            'emi'.tr, style: TextStyle(
+            color: Colors.black
+          ),
           ),
           titleSpacing: 0,
         ),
@@ -219,7 +223,7 @@ class _NewEmiState extends State<NewEmi> {
                               const EdgeInsets.only(left: 8.0),
                           child: TextFormField(
                             controller: _emiMainController.emiMoney,
-                            keyboardType: TextInputType.text,
+                            keyboardType: TextInputType.number,
                             inputFormatters: [
                               FilteringTextInputFormatter.allow(
                                 RegExp('[0-9]'),

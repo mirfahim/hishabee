@@ -22,7 +22,7 @@ abstract class IAuthRepository {
     String mobileNumber,
     String pin,
     String pinConfirmation,
-    // String fcmToken,
+    String fcmToken,
     String address
   });
 

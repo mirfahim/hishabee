@@ -9,6 +9,7 @@ const bn_BD = {
   'expense_reason':'খরচের কারণ',
   'expense_description':'খরচের বর্ণনা',
   'marketing_shop':'মার্কেটিং শপ',
+  'visit_link':'লিঙ্কে প্রবেশ করুন',
   'other_details_of_product': 'পণ্যের অন্যান্য তথ্য',
   'number_of_stock': 'পণ্যের সংখ্যা',
   'details_of_product': 'পণ্যের বিস্তারিত',

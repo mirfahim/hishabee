@@ -22,7 +22,7 @@ abstract class IAuthProvider {
     String mobileNumber,
     String pin,
     String pinConfirmation,
-    // String fcmToken,
+    String fcmToken,
     String address,
   });
 
@@ -64,7 +64,7 @@ class AuthProvider extends GetConnect implements IAuthProvider {
     final body = {
       "mobile_number": mobileNumber,
       "pin": pin,
-      // "fcm_token": fcmToken,
+      "fcm_token": fcmToken,
     };
 
     return post(url, body, decoder: loginResponseModelFromRawJson);
@@ -99,7 +99,7 @@ class AuthProvider extends GetConnect implements IAuthProvider {
     String mobileNumber,
     String pin,
     String pinConfirmation,
-    // String fcmToken,
+    String fcmToken,
     String address
   }) async {
     String url = '$BASE_URL/register';
@@ -108,7 +108,7 @@ class AuthProvider extends GetConnect implements IAuthProvider {
       "mobile_number": mobileNumber,
       "pin": pin,
       "pin_confirmation": pinConfirmation,
-      // "fcm_token": fcmToken,
+      "fcm_token": fcmToken,
       "address": address
     };
 

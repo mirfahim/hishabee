@@ -85,11 +85,11 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
                   child: InkWell(
                     onTap: () {
                       Get.to(
-                        () => TransactionList(),
-                        // arguments: {
-                        //   "shop": shop,
-                        // },
-                        // binding: TransactionsBinding(),
+                        () => TransactionPage(),
+                        arguments: {
+                          "shop": shop,
+                        },
+                        binding: TransactionsBinding(),
                       );
                     },
                     child: Container(

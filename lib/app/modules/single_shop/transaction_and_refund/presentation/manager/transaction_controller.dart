@@ -40,11 +40,11 @@ class TransactionController extends GetxController {
   void onInit() async {
     getArguments();
     getBox();
-    AnalyticsService.sendAnalyticsToServer(
-        event: AnalyticsEvent.transactionList);
-    Future.delayed(const Duration(seconds: 5), () {
-      showCase.value = false;
-    });
+    // AnalyticsService.sendAnalyticsToServer(
+    //     event: AnalyticsEvent.transactionList);
+    // Future.delayed(const Duration(seconds: 5), () {
+    //   showCase.value = false;
+    // });
 
     super.onInit();
   }
@@ -88,7 +88,7 @@ class TransactionController extends GetxController {
       final res = result.orderByDescending((element) => element.createdAt);
       transactionItemList.assignAll(res);
     } catch (e) {
-      CustomDialog.showStringDialog("No Data Found");
+      // CustomDialog.showStringDialog("No Data Found");
     }
   }
 
@@ -127,7 +127,7 @@ class TransactionController extends GetxController {
 
   getYesterdayTransaction() {
     final result = transactionList.value.data.where((element) {
-      if (element.createdAt != null) {
+      if (element.shopId != null) {
         return Utility.isYesterDay(element.createdAt);
       }
       return false;

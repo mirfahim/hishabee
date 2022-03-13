@@ -158,6 +158,7 @@ const en_US = {
   'sale': 'Sale',
   'sale_vs_expense': 'Sale Vs Expense',
   'scan': 'Scan',
+  'visit_link':'Visit Link',
   'expense_reason':'Expense Reason',
   'expense_description':'Expense Description',
   'marketing_shop':'Marketing Shop',

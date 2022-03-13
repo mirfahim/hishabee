@@ -34,14 +34,14 @@ import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.da
 import 'confirm_payment_page.dart';
 
 class QuickSell extends GetView<SellController> {
-  const QuickSell({Key key}) : super(key: key);
-
+   QuickSell({Key key}) : super(key: key);
+  RxBool smsCheckBox = false.obs;
+  RxBool mobileNumberCheckbox = false.obs;
+  RxBool profitCheckBox = false.obs;
+  // Size size = MediaQuery.of(context).size;
   @override
   Widget build(BuildContext context) {
-    RxBool smsCheckBox = false.obs;
-    RxBool mobileNumberCheckbox = false.obs;
-    RxBool profitCheckBox = false.obs;
-    Size size = MediaQuery.of(context).size;
+
 
     final shopFeatureController = Get.find<ShopFeaturesController>();
     return Scaffold(
@@ -490,12 +490,12 @@ class QuickSell extends GetView<SellController> {
                               // controller: controller.amount.value,
                               onTap: () {
                                 // CalcButton();
-                                // print("working 123");
-                                // showCalculatorOptionDialogue(context);
+                                print("working 123");
+                                showCalculatorOptionDialogue(context);
                               },
 
                               showCursor: true,
-                              readOnly: false,
+                              readOnly: true,
                               onSaved: (value) {
                                 controller.amount.value = double.parse(value);
                               },
@@ -521,9 +521,6 @@ class QuickSell extends GetView<SellController> {
                                               vertical: 10.0),
                                           child: TextFormField(
                                             onSaved: (value) {
-                                              print("working mobile number");
-                                              print(
-                                                  "mobile number field is ${mobileNumberCheckbox.value}");
                                               controller.customerPhone.value =
                                                   value;
                                             },
@@ -1204,7 +1201,7 @@ class QuickSell extends GetView<SellController> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           elevation: 0,
           child: Container(
-            height: 300,
+            height: 200,
             width: 400,
             child: CalcButton(),
           ));

@@ -95,6 +95,7 @@ dependencies:
 #  flutter_open_whatsapp: ^0.1.2
   number_display: ^3.0.0
   qr_flutter: ^4.0.0
+  gson: ^0.1.4
   app_tracking_transparency: ^2.0.2+1
   flutter_native_splash: ^1.2.4
   in_app_purchase: ^1.0.9

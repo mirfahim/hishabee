@@ -135,11 +135,11 @@ class Transactions {
         changeAmount:
             json["change_amount"] == null ? null : json["change_amount"],
         employeeName:
-            json["employee_name"] == null ? null : json["employee_name"],
+            json["employee_name"] == null ? '' : json["employee_name"],
         customerName:
-            json["customer_name"] == null ? null : json["customer_name"],
+            json["customer_name"] == null ? '' : json["customer_name"],
         customerAddress:
-            json["customer_address"] == null ? null : json["customer_address"],
+            json["customer_address"] == null ? '' : json["customer_address"],
         customerMobile:
             json["customer_mobile"] == null ? null : json["customer_mobile"],
         transactionBarcode: json["transaction_barcode"] == null

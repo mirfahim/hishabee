@@ -42,11 +42,42 @@ class _AllExpensesState extends State<AllExpenses> {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
+      bottomSheet: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        child: ElevatedButton(
+          onPressed: () {
+            Get.to(ExpenseTypeSecond(), arguments: shop);
+          },
+          child: Center(
+            child: Text(
+              'create_new_expense_type'.tr,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'Roboto'),
+            ),
+          ),
+          style: ElevatedButton.styleFrom(
+            primary: DEFAULT_BLUE,
+            fixedSize: Size(width, 40),
+            side: BorderSide(color: Colors.blueAccent),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+        ),
+      ),
       backgroundColor: DEFAULT_YELLOW_BG,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
             Get.back();
+            // _expenseController
+            //     .getAllExpenseCategory(shopId: '${shop.id}')
+            //     .then((value) {
+            //   setState(() {
+            //     _expenseController.allExpenseCategory.value =
+            //         expenseCategoryResponseModelFromModel(value);
+            //   });
+            // });
           },
           icon: const Icon(Icons.arrow_back, color: Colors.black,),
         ),
@@ -67,136 +98,113 @@ class _AllExpensesState extends State<AllExpenses> {
         height: height,
         color: Colors.white,
         child: Padding(
-          padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10, bottom: 30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Obx(
-                () => Container(
-                  // height: height - 200,
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: _expenseController.allExpenseCategory.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 5.0, bottom: 5),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: Color(0xFFF1F1F1),
-                            ),
-                            height: 50,
-                            width: MediaQuery.of(context).size.width,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, top: 8, bottom: 8),
-                                  child: Row(
-                                    children: [
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                          '${_expenseController.allExpenseCategory[index].name}')
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 8.0, bottom: 8),
-                                  child: Row(
-                                    children: [
-                                      IconButton(
-                                        onPressed: () async{
-                                          Get.to(
-                                              ExpenseTypeEdit(
-                                            shopId:
-                                                '${getShopId.read('shop_id')}',
-                                            categoryId:
-                                                '${_expenseController.allExpenseCategory[index].id}',
-                                            name:
-                                                '${_expenseController.allExpenseCategory[index].name}',
-                                          ));
-                                          // await _expenseController.updateCategory(
-                                          //     shopId:
-                                          //         '${getShopId.read('shop_id')}',
-                                          //     categoryid:
-                                          //         '${_expenseController.allExpenseCategory[index].id}',
-                                          //     name:
-                                          //         '${_expenseController.allExpenseCategory[index].name}');
-                                          // Get.back();
-                                          _expenseController
-                                              .getAllExpenseCategory(shopId: '${shop.id}')
-                                              .then((value) {
-                                            setState(() {
-                                              _expenseController.allExpenseCategory.value =
-                                                  expenseCategoryResponseModelFromModel(value);
-                                            });
-                                          });
-                                        },
-                                        icon: Icon(Icons.edit),
-                                        color: Colors.blue,
-                                      ),
-                                      IconButton(
-                                        onPressed: () async {
-                                          await _expenseController.deleteCategory(
-                                              categoryid:
-                                                  '${_expenseController.allExpenseCategory[index].id}');
+          padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10, bottom: 50),
+          child: Obx(
+            () => Container(
 
-                                          _expenseController.allExpenseCategory
-                                              .removeWhere((element) =>
-                                                  element.id ==
-                                                  _expenseController
-                                                      .allExpenseCategory[index]
-                                                      .id);
+              // height: height - 200,
+              child: ListView.builder(
+                  shrinkWrap: true,
 
-                                          _expenseController
-                                              .getAllExpenseCategory(shopId: '${shop.id}')
-                                              .then((value) {
-                                            setState(() {
-                                              _expenseController.allExpenseCategory.value =
-                                                  expenseCategoryResponseModelFromModel(value);
-                                            });
-                                          });
-                                          Get.back();
-                                        },
-                                        icon: Icon(Icons.delete),
-                                        color: Colors.red,
-                                      ),
-                                    ],
+                  scrollDirection: Axis.vertical,
+                  itemCount: _expenseController.allExpenseCategory.length,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 5.0, bottom: 5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Color(0xFFF1F1F1),
+                        ),
+                        height: 50,
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 8.0, top: 8, bottom: 8),
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 10,
                                   ),
-                                )
-                              ],
+                                  Text(
+                                      '${_expenseController.allExpenseCategory[index].name}')
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      }),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  Get.to(ExpenseTypeSecond(), arguments: shop);
-                },
-                child: Center(
-                  child: Text(
-                    'create_new_expense_type'.tr,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 16, fontFamily: 'Roboto'),
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  primary: DEFAULT_BLUE,
-                  fixedSize: Size(width, 40),
-                  side: BorderSide(color: Colors.blueAccent),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              )
-            ],
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 8.0, bottom: 8),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    onPressed: () async{
+                                      Get.to(
+                                          ExpenseTypeEdit(
+                                        shopId:
+                                            '${getShopId.read('shop_id')}',
+                                        categoryId:
+                                            '${_expenseController.allExpenseCategory[index].id}',
+                                        name:
+                                            '${_expenseController.allExpenseCategory[index].name}',
+                                      ));
+                                      // await _expenseController.updateCategory(
+                                      //     shopId:
+                                      //         '${getShopId.read('shop_id')}',
+                                      //     categoryid:
+                                      //         '${_expenseController.allExpenseCategory[index].id}',
+                                      //     name:
+                                      //         '${_expenseController.allExpenseCategory[index].name}');
+                                      // Get.back();
+                                      _expenseController
+                                          .getAllExpenseCategory(shopId: '${shop.id}')
+                                          .then((value) {
+                                        setState(() {
+                                          _expenseController.allExpenseCategory.value =
+                                              expenseCategoryResponseModelFromModel(value);
+                                        });
+                                      });
+                                    },
+                                    icon: Icon(Icons.edit),
+                                    color: Colors.blue,
+                                  ),
+                                  IconButton(
+                                    onPressed: () async {
+                                      await _expenseController.deleteCategory(
+                                          categoryid:
+                                              '${_expenseController.allExpenseCategory[index].id}');
+
+                                      _expenseController.allExpenseCategory
+                                          .removeWhere((element) =>
+                                              element.id ==
+                                              _expenseController
+                                                  .allExpenseCategory[index]
+                                                  .id);
+
+                                      _expenseController
+                                          .getAllExpenseCategory(shopId: '${shop.id}')
+                                          .then((value) {
+                                        setState(() {
+                                          _expenseController.allExpenseCategory.value =
+                                              expenseCategoryResponseModelFromModel(value);
+                                        });
+                                      });
+                                      Get.back();
+                                    },
+                                    icon: Icon(Icons.delete),
+                                    color: Colors.red,
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            ),
           ),
         ),
       )

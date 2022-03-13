@@ -18,7 +18,7 @@ class RegisterController extends GetxController {
   final pinConfirmation = ''.obs;
   final termsAgreed = false.obs;
   final address = ''.obs;
-
+  String token;
   RegisterController(this.authRepository);
 
   @override
@@ -36,7 +36,7 @@ class RegisterController extends GetxController {
       pin: pin.value,
       pinConfirmation: pinConfirmation.value,
       address: address.value,
-      // fcmToken: token,
+      fcmToken: token,
     );
     print('from registration controller ${response.code}');
     CustomDialog.hideDialog();
@@ -52,34 +52,34 @@ class RegisterController extends GetxController {
       // CustomDialog.showStringDialog(response.message);
       Utils.showToast(response.message);
     }
-    // try {
-    //   // String token = await FirebaseMessaging.instance.getToken();
-    //
-    //   // final response = await authRepository.register(
-    //   //   brandName: brandName.value,
-    //   //   mobileNumber: mobileNumber.value,
-    //   //   pin: pin.value,
-    //   //   pinConfirmation: pinConfirmation.value,
-    //   //   address: address.value,
-    //   //   // fcmToken: token,
-    //   // );
-    //   // print('from registration controller ${response.code}');
-    //   // CustomDialog.hideDialog();
-    //   // if (response.code == 200) {
-    //   //   await AnalyticsService.sendAnalytics(
-    //   //       event: AnalyticsEvent.signupCompleted);
-    //   //   Get.to(
-    //   //       () => VerifyOtpPage(
-    //   //             mobileNo: mobileNumber.value,
-    //   //           ),
-    //   //       binding: AuthBinding());
-    //   // } else {
-    //   //   // CustomDialog.showStringDialog(response.message);
-    //   //   Utils.showToast(response.message);
-    //   // }
-    // } catch (e) {
-    //   // CustomDialog.showStringDialog(e);
-    //   Utils.showToast(e);
-    // }
+    try {
+       token = await FirebaseMessaging.instance.getToken();
+
+      final response = await authRepository.register(
+        brandName: brandName.value,
+        mobileNumber: mobileNumber.value,
+        pin: pin.value,
+        pinConfirmation: pinConfirmation.value,
+        address: address.value,
+        // fcmToken: token,
+      );
+      print('from registration controller ${response.code}');
+      CustomDialog.hideDialog();
+      if (response.code == 200) {
+        await AnalyticsService.sendAnalytics(
+            event: AnalyticsEvent.signupCompleted);
+        Get.to(
+            () => VerifyOtpPage(
+                  mobileNo: mobileNumber.value,
+                ),
+            binding: AuthBinding());
+      } else {
+        // CustomDialog.showStringDialog(response.message);
+        Utils.showToast(response.message);
+      }
+    } catch (e) {
+      // CustomDialog.showStringDialog(e);
+      Utils.showToast(e);
+    }
   }
 }
