@@ -63,6 +63,7 @@ class ApiService {
 
   handleError(err) {
     var message = 'Something went wrong. Please try again later';
+    print(message);
     if (err != null && err['messages'] != null && err['messages'].length > 0) {
       message = err['messages'][0];
     }

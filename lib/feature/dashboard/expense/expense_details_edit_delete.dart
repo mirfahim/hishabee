@@ -128,6 +128,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
         flag = 1;
         selectedDate = picked;
         initialDate = picked;
+        widget.date = DateFormat.yMMMMd().format(picked);
       });
     }
   }
@@ -212,7 +213,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                               child: Row(
                                 children: [
                                   Icon(Icons.calendar_today),
-                                  Text('${widget.date}' ),
+                                  Text(widget.date),
                                 ],
                               ),
                             ),
@@ -232,6 +233,9 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                               padding: const EdgeInsets.all(4.0),
                               child: TextButton(
                                 onPressed: () async{
+                                  print(_textEditingControllerReason.text);
+                                  print(_textEditingControllerDescription.text);
+                                  print(_textEditingControllerAmount.text);
                                   await _expenseController.updateExpense(
                                     shopId: widget.shopId,
                                     categoryid: widget.categoryId,
@@ -296,6 +300,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                   //         'category: ${_expenseController.allExpenseCategory}');
                                   //   });
                                   // });
+                                  Get.back();
                                   Get.back();
                                   Get.back();
                                 },

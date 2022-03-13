@@ -10,6 +10,7 @@ import 'package:jiffy/jiffy.dart';
 
 import 'expense_details_edit_delete.dart';
 import 'expense_front.dart';
+import 'expense_total_details.dart';
 
 
 var now;
@@ -418,25 +419,42 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                     top: 5.0, bottom: 5),
                                 child: GestureDetector(
                                   onTap: () {
-                                    Get.to(
-                                        ExpenseEditDelete(
-                                          date: '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}',
-                                          amount:
-                                          '${_expenseController.allExpenseList[index].amount}',
-                                          reason:
-                                          '${_expenseController.allExpenseList[index].purpose}',
-                                          description:
-                                          '${_expenseController.allExpenseList[index].details}',
-                                          types:
-                                          '${_expenseController.allExpenseList[index].type}',
-                                          shopId:
-                                          '${_expenseController.allExpenseList[index].shopId}',
-                                          categoryId:
-                                          '${_expenseController.allExpenseList[index].id}',
-                                          userId:
-                                          '${_expenseController.allExpenseList[index].userId}',
-                                        ),
-                                        arguments: shop);
+                                    Get.to(ExpenseTotalDetails(
+                                            date: '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}',
+                                            amount:
+                                            '${_expenseController.allExpenseList[index].amount}',
+                                            reason:
+                                            '${_expenseController.allExpenseList[index].purpose}',
+                                            description:
+                                            '${_expenseController.allExpenseList[index].details}' == 'null' ? '[Not Given]' : '${_expenseController.allExpenseList[index].details}',
+                                            types:
+                                            '${_expenseController.allExpenseList[index].type}',
+                                            shopId:
+                                            '${_expenseController.allExpenseList[index].shopId}',
+                                            categoryId:
+                                            '${_expenseController.allExpenseList[index].id}',
+                                            userId:
+                                            '${_expenseController.allExpenseList[index].userId}',
+                                    ), arguments: shop);
+                                    // Get.to(
+                                    //     ExpenseEditDelete(
+                                    //       date: '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}',
+                                    //       amount:
+                                    //       '${_expenseController.allExpenseList[index].amount}',
+                                    //       reason:
+                                    //       '${_expenseController.allExpenseList[index].purpose}',
+                                    //       description:
+                                    //       '${_expenseController.allExpenseList[index].details}',
+                                    //       types:
+                                    //       '${_expenseController.allExpenseList[index].type}',
+                                    //       shopId:
+                                    //       '${_expenseController.allExpenseList[index].shopId}',
+                                    //       categoryId:
+                                    //       '${_expenseController.allExpenseList[index].id}',
+                                    //       userId:
+                                    //       '${_expenseController.allExpenseList[index].userId}',
+                                    //     ),
+                                    //     arguments: shop);
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(
