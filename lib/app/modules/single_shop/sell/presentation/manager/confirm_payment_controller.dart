@@ -397,6 +397,7 @@ class ConfirmPaymentController extends GetxController {
     print("${response.code}");
     if (response.code == 200) {
       final response = await transactionRepository.addTransaction(transaction);
+      //final responseTrns = await transactionRepository.getAllTransaction();
       if (response.code == 200) {
         formKey.currentState.reset();
         Get.find<SellController>().clearCart();
@@ -406,6 +407,7 @@ class ConfirmPaymentController extends GetxController {
               route: 2,
               totalPrice: totalPrice.value.toInt(),
               productList: sc.cart,
+              transaction: transaction,
             ));
       }
     }

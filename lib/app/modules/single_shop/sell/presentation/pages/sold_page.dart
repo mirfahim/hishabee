@@ -14,6 +14,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_lis
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/widgets/sell_receipt.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_response.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
@@ -22,11 +23,16 @@ class SoldPage extends StatefulWidget {
   final Shop shop;
   final int route;
   final int totalPrice;
-
+  final transaction;
   final RxList<Product> productList;
 
   const SoldPage(
-      {Key key, this.shop, this.route, this.totalPrice, this.productList})
+      {Key key,
+      this.shop,
+      this.route,
+      this.totalPrice,
+      this.productList,
+      this.transaction})
       : super(key: key);
 
   @override
@@ -766,16 +772,15 @@ class _SoldPageState extends State<SoldPage> {
                                                     IconButton(
                                                         onPressed: () {
                                                           //
-                                                          // Get.to(() =>
-                                                          //     SellReceiptPage(
-                                                          //         widget
-                                                          //             .shop,
-                                                          //       widgtet.transaction
-                                                          //         ));
+                                                          Get.to(() =>
+                                                              SellReceiptPage(
+                                                                  widget.shop,
+                                                                  widget
+                                                                      .transaction));
                                                         },
                                                         icon: Icon(Icons
                                                             .arrow_circle_down)),
-                                                    Text("Recpit Print"),
+                                                    Text("Receipt Print"),
                                                   ],
                                                 ),
                                                 SizedBox(width: 20),
@@ -783,16 +788,16 @@ class _SoldPageState extends State<SoldPage> {
                                                   children: [
                                                     IconButton(
                                                         onPressed: () {
-                                                          // Get.to(() =>
-                                                          //     SellReceiptPage(
-                                                          //         widget
-                                                          //             .shop,
-                                                          //         widget
-                                                          //             .transaction));//*
+                                                          Get.to(() =>
+                                                              SellReceiptPage(
+                                                                  widget.shop,
+                                                                  widget
+                                                                      .transaction));
+                                                          //*
                                                         },
                                                         icon: Icon(Icons
                                                             .arrow_circle_down)),
-                                                    Text("Recpit Share"),
+                                                    Text("Receipt Share"),
                                                   ],
                                                 )
                                               ],

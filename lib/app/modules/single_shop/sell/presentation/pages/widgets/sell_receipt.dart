@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_response.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 import 'package:pdf/pdf.dart';
@@ -11,7 +12,7 @@ import 'package:printing/printing.dart';
 class SellReceiptPage extends StatelessWidget {
   const SellReceiptPage(this.shop, this.transaction);
   final Shop shop;
-  final Transactions transaction;
+  final transaction;
 
   @override
   Widget build(BuildContext context) {
