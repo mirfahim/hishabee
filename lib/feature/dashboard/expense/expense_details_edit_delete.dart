@@ -64,6 +64,7 @@ class ExpenseEditDelete extends StatefulWidget {
   String categoryId;
   String shopId;
   String userId;
+  String date;
 
   ExpenseEditDelete(
       {this.amount,
@@ -72,7 +73,9 @@ class ExpenseEditDelete extends StatefulWidget {
       this.types,
       this.shopId,
       this.categoryId,
-      this.userId});
+      this.userId,
+      this.date
+      });
 
   @override
   State<ExpenseEditDelete> createState() => _ExpenseEditDeleteState();
@@ -86,8 +89,8 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
       TextEditingController();
   ExpenseController _expenseController = Get.find();
 
-  DateTime startDate = DateTime.now();
-
+  DateTime startDate;
+  DateTime initialDate = DateTime.now();
   DateTime endDate;
 
   void getDialog() async {
@@ -100,7 +103,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
     final DateTime picked = await showDatePicker(
       helpText: "start_date".tr,
       context: context,
-      initialDate: startDate,
+      initialDate: initialDate,
       // Refer step 1
       firstDate: DateTime(2000),
       lastDate: DateTime(2025),
@@ -122,7 +125,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
     if (picked != null) {
       setState(() {
         // widgets.controller.selectedStartDate.value = picked;
-        startDate = picked;
+        initialDate = picked;
       });
     }
   }
@@ -208,7 +211,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                 children: [
                                   Icon(Icons.calendar_today),
                                   Text(
-                                      '${DateFormat.yMMMMd().format(startDate)}'),
+                                      '${DateFormat.yMMMMd().format(DateTime.now())}'),
                                 ],
                               ),
                             ),
@@ -235,6 +238,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                     purpose: _textEditingControllerReason.text == '' ? widget.reason : _textEditingControllerReason.text ,
                                     description: _textEditingControllerDescription.text == '' ? widget.description : _textEditingControllerDescription.text,
                                     amount: _textEditingControllerAmount.text == '' ? widget.amount : _textEditingControllerAmount.text,
+                                    date: '$startDate' == '' ? '${widget.date}' : '$initialDate'
                                   );
 
                                   await _expenseController

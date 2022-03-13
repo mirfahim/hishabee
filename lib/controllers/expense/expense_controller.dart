@@ -54,7 +54,7 @@ class ExpenseController extends GetxController {
   }
 
   Future<dynamic> updateCategory(
-      {String categoryid, String name, String shopId}) async {
+      {String categoryid, String name, String shopId,}) async {
     CustomDialog.showLoadingDialog(message: 'Updating Expense Type');
     String url = "/expense_category/?name=$name&shop_id=$shopId&id=$categoryid";
     return _apiService.makeApiRequest(
@@ -80,10 +80,11 @@ class ExpenseController extends GetxController {
       String shopId,
       String purpose,
       String description,
-      String amount}) async {
+      String amount,
+      String date}) async {
     CustomDialog.showLoadingDialog(message: 'Updating...');
     String url =
-        "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose&details=$description&amount=$amount&id=$categoryid&image&image_changed=true";
+        "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose&details=$description&amount=$amount&id=$categoryid&image&image_changed=true&created_date=$date";
     return _apiService.makeApiRequest(
         method: apiMethods.put, url: url, body: null, headers: null);
   }
