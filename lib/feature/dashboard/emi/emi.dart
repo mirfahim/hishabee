@@ -8,12 +8,28 @@ import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/m
 import 'package:hishabee_business_manager_fl/controllers/emi/emi_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/new_emi.dart';
 import 'package:hishabee_business_manager_fl/models/emi/emi_model.dart';
-import 'package:intl/intl.dart'; // for date format
+import 'package:intl/intl.dart';
+import 'package:jiffy/jiffy.dart'; // for date format
 
-var now = DateTime.now();
-var day = DateFormat.yMMMMd().format(now);
-var year = DateFormat.y().format(now);
-var month = DateFormat.MMMM().format(now);
+var now;
+var day;
+var firstDayOfWeek;
+var lastDayOfWeek;
+var startOfTheWeek = now.subtract(Duration(days: now.weekday - 1));
+var endOfTheWeek = now.add(Duration(days: DateTime.daysPerWeek - now.weekday));
+var startOfMonth = DateTime(now.year, now.month, 1);
+var lastOfTheMonth = (now.month < 12)
+    ? new DateTime(now.year, now.month + 1, 0)
+    : new DateTime(now.year + 1, 1, 0);
+var startOfTheYear = DateTime(DateTime.now().year);
+var weekDay;
+var weekFirst;
+var weekLast;
+
+int year;
+int month;
+int week;
+var dayMain;
 DateTime firstDatePicked;
 DateTime endDatePicked;
 var startDate;
@@ -33,6 +49,19 @@ class _EMIState extends State<EMI> {
 
   @override
   void initState() {
+    startDate = 'Start Date';
+    endDate = 'End Date';
+    now = DateTime.now();
+    day = DateFormat.yMMMMd().format(now);
+    dayMain = DateTime.now().day;
+    print('dayMain:$dayMain');
+
+    month = DateTime.now().month.toInt();
+    print('month: $month');
+    year = DateTime.now().year.toInt();
+    week = Jiffy([year, month, dayMain]).week;
+    weekFirst = DateFormat.yMd().format(DateTime.utc(year, month, ((week-1)*7))) ;
+    weekLast = DateFormat.yMd().format(DateTime.utc(year, month, ((week-1)*7) + 6));
     getData();
 
     super.initState();
@@ -47,6 +76,7 @@ class _EMIState extends State<EMI> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.amber,
           leading: IconButton(
             icon: Icon(Icons.arrow_back_rounded),
             color: Colors.black,
@@ -54,6 +84,9 @@ class _EMIState extends State<EMI> {
           ),
           title: Text(
             'emi'.tr,
+            style: TextStyle(
+              color: Colors.black
+            ),
           ),
           titleSpacing: 0,
           actions: [
@@ -528,4 +561,34 @@ class _EMIState extends State<EMI> {
       //  isLoading = false;
     });
   }
+  // void getDataForDropDown(var startDate, var endDate) {
+  //   controller
+  //       .fetchAllEmi(
+  //       shopId: '${shop.id}', startDate: "$startDate", endDate: "$endDate")
+  //       .then((value) {
+  //     if (value != null) {
+  //       setState(() {
+  //         _list = emiModelFromJson(value);
+  //
+  //         print('EMI list: $_list');
+  //       });
+  //     }
+  //
+  //     //  isLoading = false;
+  //   });
+  // }
+  List<String> months = [
+    'January'.tr,
+    'February'.tr,
+    'March'.tr,
+    'April'.tr,
+    'May'.tr,
+    'June'.tr,
+    'July'.tr,
+    'August'.tr,
+    'September'.tr,
+    'October'.tr,
+    'November'.tr,
+    'December'.tr
+  ];
 }
