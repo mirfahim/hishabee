@@ -492,6 +492,7 @@ class SellReceiptPage extends StatelessWidget {
         },
       ),
     );
+
     return pdf.save();
   }
 }
