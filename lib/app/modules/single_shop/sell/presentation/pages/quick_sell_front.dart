@@ -490,12 +490,12 @@ class QuickSell extends GetView<SellController> {
                               // controller: controller.amount.value,
                               onTap: () {
                                 // CalcButton();
-                                print("working 123");
-                                showCalculatorOptionDialogue(context);
+                                // print("working 123");
+                                // showCalculatorOptionDialogue(context);
                               },
 
                               showCursor: true,
-                              readOnly: true,
+                              readOnly: false,
                               onSaved: (value) {
                                 controller.amount.value = double.parse(value);
                               },
@@ -521,6 +521,9 @@ class QuickSell extends GetView<SellController> {
                                               vertical: 10.0),
                                           child: TextFormField(
                                             onSaved: (value) {
+                                              print("working mobile number");
+                                              print(
+                                                  "mobile number field is ${mobileNumberCheckbox.value}");
                                               controller.customerPhone.value =
                                                   value;
                                             },
@@ -1201,7 +1204,7 @@ class QuickSell extends GetView<SellController> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           elevation: 0,
           child: Container(
-            height: 200,
+            height: 300,
             width: 400,
             child: CalcButton(),
           ));

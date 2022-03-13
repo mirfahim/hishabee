@@ -346,6 +346,7 @@ class ConfirmPaymentController extends GetxController {
   }
 
   quickSell() async {
+    final SellController sc = Get.find();
     formKey.currentState.save();
     var uuid = Uuid();
     String tUniqueId = shop.value.id.toString() +
@@ -404,6 +405,7 @@ class ConfirmPaymentController extends GetxController {
               shop: shop.value,
               route: 2,
               totalPrice: totalPrice.value.toInt(),
+              productList: sc.cart,
             ));
       }
     }

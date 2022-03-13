@@ -22,10 +22,11 @@ class SoldPage extends StatefulWidget {
   final Shop shop;
   final int route;
   final int totalPrice;
-  final List productlist;
+
+  final RxList<Product> productList;
 
   const SoldPage(
-      {Key key, this.shop, this.route, this.totalPrice, this.productlist})
+      {Key key, this.shop, this.route, this.totalPrice, this.productList})
       : super(key: key);
 
   @override
@@ -38,6 +39,7 @@ class _SoldPageState extends State<SoldPage> {
   ConfettiController _controllerCenterLeft;
   ConfettiController _controllerTopCenter;
   ConfettiController _controllerBottomCenter;
+  final SellController sc = Get.find();
 
   bool hideDone = false;
 
@@ -55,6 +57,7 @@ class _SoldPageState extends State<SoldPage> {
         ConfettiController(duration: const Duration(seconds: 10));
     _controllerBottomCenter =
         ConfettiController(duration: const Duration(seconds: 10));
+
     super.initState();
     _controllerCenter.play();
     //to generatePdf
@@ -450,11 +453,10 @@ class _SoldPageState extends State<SoldPage> {
                                           physics:
                                               NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
-                                          itemCount: 2, // widget.shop.length,
+                                          itemCount: sc.cart.length,
                                           itemBuilder: (BuildContext context,
                                               int index) {
-                                            Product item =
-                                                widget.productlist[index];
+                                            Product item = sc.cart[index];
 
                                             return Container(
                                               width: size.width,

@@ -22,7 +22,7 @@ import 'customerDialog.dart';
 class SmsCreatePage extends GetResponsiveView {
   final TextEditingController messageController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
-  SmsController _smsController = SmsController();
+  SmsController _smsController = Get.find();
   Shop shop = Get.arguments['shop'];
   var storageSms = GetStorage('sms');
   var storageSmsCount = GetStorage('sms_count');
@@ -43,12 +43,16 @@ class SmsCreatePage extends GetResponsiveView {
               onPressed: () {
                 Get.back();
               },
-              icon: Icon(Icons.arrow_back, color: Colors.black,),
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
             ),
             backgroundColor: Colors.amber,
-            title: Text('SMS',style: TextStyle(
-              color: Colors.black
-            ),),
+            title: Text(
+              'SMS',
+              style: TextStyle(color: Colors.black),
+            ),
             actions: [
               Padding(
                 padding: const EdgeInsets.only(right: 5),
@@ -58,13 +62,17 @@ class SmsCreatePage extends GetResponsiveView {
                   },
                   child: Row(
                     children: const [
-                      Icon(Icons.history, color: Colors.black,),
+                      Icon(
+                        Icons.history,
+                        color: Colors.black,
+                      ),
                       SizedBox(
                         width: 5,
                       ),
-                      Text('Message History', style: TextStyle(
-                        color: Colors.black
-                      ),)
+                      Text(
+                        'Message History',
+                        style: TextStyle(color: Colors.black),
+                      )
                     ],
                   ),
                 ),
@@ -88,7 +96,7 @@ class SmsCreatePage extends GetResponsiveView {
                         padding: const EdgeInsets.all(8.0),
                         child: GridView.builder(
                             gridDelegate:
-                                 SliverGridDelegateWithMaxCrossAxisExtent(
+                                SliverGridDelegateWithMaxCrossAxisExtent(
                                     maxCrossAxisExtent: 185,
                                     childAspectRatio: 3 / 2,
                                     crossAxisSpacing: 4,
@@ -96,6 +104,8 @@ class SmsCreatePage extends GetResponsiveView {
                             itemCount:
                                 _smsController.selectedMobileNumber.length,
                             itemBuilder: (BuildContext ctx, index) {
+                              print(
+                                  "my selected sms count is ${_smsController.selectedMobileNumber.length}");
                               return Container(
                                 height: 30,
                                 child: Row(
