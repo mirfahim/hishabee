@@ -11,8 +11,7 @@ import '../../../../../../new_UI/constants.dart';
 import '../../_navigation/sell_page_route.dart';
 import 'confirm_payment_page.dart';
 
-class SellCartPage extends GetView<SellController>{
-
+class SellCartPage extends GetView<SellController> {
   DateTime startDate = DateTime.now();
 
   DateTime endDate;
@@ -46,6 +45,7 @@ class SellCartPage extends GetView<SellController>{
       startDate = picked;
     }
   }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -58,9 +58,12 @@ class SellCartPage extends GetView<SellController>{
           },
           icon: Icon(Icons.arrow_back),
         ),
-        title: Text('cart'.tr,style: TextStyle(
-          fontFamily: 'Roboto',
-        ),),
+        title: Text(
+          'cart'.tr,
+          style: TextStyle(
+            fontFamily: 'Roboto',
+          ),
+        ),
         titleSpacing: 0,
         actions: [
           Padding(
@@ -98,7 +101,9 @@ class SellCartPage extends GetView<SellController>{
               //     ],
               //   ),
               // ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               Expanded(
                 child: Container(
                     // height: size.height,
@@ -107,156 +112,198 @@ class SellCartPage extends GetView<SellController>{
                         itemBuilder: (context, index) {
                           var item = controller.cart[index];
                           return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 0.0),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 0.0),
                               child: Column(
                                 children: [
                                   Container(
                                       child: Padding(
-                                        padding: const EdgeInsets.all(5.0),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.only(right: 10.0),
-                                              child: Container(
-                                                child: item.imageUrl != null
-                                                    ? ClipRRect(
-                                                  borderRadius:
-                                                  BorderRadius.circular(40),
-                                                  child: CachedNetworkImage(
-                                                    height: 50,
-                                                    width: 50,
-                                                    imageUrl: item.imageUrl,
-                                                    placeholder: (context, url) =>
-                                                        CircularProgressIndicator(),
-                                                    errorWidget:
-                                                        (context, url, error) =>
-                                                        Icon(
-                                                          Icons.error,
-                                                          color: Colors.red,
-                                                        ),
-                                                    fit: BoxFit.fill,
-                                                  ),
-                                                )
-                                                    : Center(
-                                                  child: Image.asset(
-                                                      'images/hishabeeLogo.png',
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 10.0),
+                                          child: Container(
+                                            child: item.imageUrl != null
+                                                ? ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40),
+                                                    child: CachedNetworkImage(
                                                       height: 50,
-                                                      width: 50),
+                                                      width: 50,
+                                                      imageUrl: item.imageUrl,
+                                                      placeholder: (context,
+                                                              url) =>
+                                                          CircularProgressIndicator(),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Icon(
+                                                        Icons.error,
+                                                        color: Colors.red,
+                                                      ),
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  )
+                                                : Center(
+                                                    child: Image.asset(
+                                                        'images/hishabeeLogo.png',
+                                                        height: 50,
+                                                        width: 50),
+                                                  ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 0.0),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 20.0),
+                                                child: Text(
+                                                  '${item.name}',
+                                                  textAlign: TextAlign.left,
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontFamily: 'Roboto',
+                                                      fontWeight:
+                                                          FontWeight.bold),
                                                 ),
                                               ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 0.0),
-                                              child: Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
                                                 children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets.only(left: 20.0),
-                                                    child: Text(
-                                                      '${item.name}',
-                                                      textAlign: TextAlign.left,
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      controller
+                                                          .decreaseCartItem(
+                                                              index, item);
+                                                    },
+                                                    child: Icon(
+                                                      Icons.remove,
+                                                      color: Colors.black,
+                                                    ),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      side: BorderSide(
+                                                          width: 1.5,
+                                                          color: Color(
+                                                              0xFF707070)),
+                                                      shape: CircleBorder(),
+                                                      padding:
+                                                          EdgeInsets.all(3),
+                                                      primary: Colors.white,
+                                                      // <-- Button color
+                                                      onPrimary: Colors
+                                                          .red, // <-- Splash color
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    '${item.unit}',
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontFamily: 'Roboto'),
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      controller
+                                                          .increaseCartItem(
+                                                              index, item);
+                                                    },
+                                                    child: Icon(Icons.add,
+                                                        color: Colors.black),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      side: BorderSide(
+                                                          width: 1.5,
+                                                          color: Color(
+                                                              0xFF707070)),
+                                                      shape: CircleBorder(),
+                                                      padding:
+                                                          EdgeInsets.all(3),
+                                                      primary: Colors.white,
+                                                      // <-- Button color
+                                                      onPrimary: Colors
+                                                          .red, // <-- Splash color
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Spacer(),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20.0),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                width: 60,
+                                                child: Column(
+                                                  children: [
+                                                    Text(
+                                                      '৳ ${item.sellingPrice}',
                                                       style: TextStyle(
                                                           fontSize: 16,
-                                                          fontFamily: 'Roboto',
-                                                          fontWeight: FontWeight.bold),
+                                                          fontFamily: 'Roboto'),
                                                     ),
-                                                  ),
-                                                  SizedBox(height: 10,),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                    children: [
-                                                      ElevatedButton(
-                                                        onPressed: () {
-                                                          controller.decreaseCartItem(
-                                                              index, item);
-                                                        },
-                                                        child: Icon(Icons.remove,
-                                                            color: Colors.black,),
-                                                        style: ElevatedButton.styleFrom(
-                                                          side: BorderSide(width: 1.5, color: Color(0xFF707070)),
-                                                          shape: CircleBorder(),
-                                                          padding: EdgeInsets.all(3),
-                                                          primary: Colors.white,
-                                                          // <-- Button color
-                                                          onPrimary: Colors
-                                                              .red, // <-- Splash color
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        '${item.unit}',
-                                                        style: TextStyle(fontSize: 18, fontFamily: 'Roboto'),
-                                                      ),
-                                                      ElevatedButton(
-                                                        onPressed: () {
-                                                          controller.increaseCartItem(
-                                                              index, item);
-                                                        },
-                                                        child: Icon(Icons.add,
-                                                            color: Colors.black),
-                                                        style: ElevatedButton.styleFrom(
-                                                          side: BorderSide(width: 1.5, color: Color(0xFF707070)),
-                                                          shape: CircleBorder(),
-                                                          padding: EdgeInsets.all(3),
-                                                          primary: Colors.white,
-                                                          // <-- Button color
-                                                          onPrimary: Colors
-                                                              .red, // <-- Splash color
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
+                                                    Divider(
+                                                      thickness: 1.5,
+                                                      color: Color(0xFFC4C4C4),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            Spacer(),
-                                            Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                                              child: Column(
-                                                children: [
-                                                  Container(
-                                                    width: 60,
-                                                    child: Column(
-                                                      children: [
-                                                        Text(
-                                                          '৳ ${item.sellingPrice}',
-                                                          style: TextStyle(fontSize: 16, fontFamily: 'Roboto'),
-                                                        ),
-                                                        Divider(thickness: 1.5,color: Color(0xFFC4C4C4),),
-                                                      ],
-                                                    ),
-                                                  ),
 
-                                                  InkWell(
-                                                    onTap: (){
-                                                      controller.removeFromCart(item);
-                                                    },
-                                                    child: SvgPicture.asset('images/svg_image/delete.svg', color: Color(0xFF707070),),
-                                                  ),
-                                                  // IconButton(
-                                                  //   icon: Icon(Icons.delete,color: Colors.red,),
-                                                  //   onPressed: () {
-                                                  //     controller.removeFromCart(item);
-                                                  //   },
-                                                  // )
-                                                ],
+                                              InkWell(
+                                                onTap: () {
+                                                  controller
+                                                      .removeFromCart(item);
+                                                },
+                                                child: SvgPicture.asset(
+                                                  'images/svg_image/delete.svg',
+                                                  color: Color(0xFF707070),
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                              // IconButton(
+                                              //   icon: Icon(Icons.delete,color: Colors.red,),
+                                              //   onPressed: () {
+                                              //     controller.removeFromCart(item);
+                                              //   },
+                                              // )
+                                            ],
+                                          ),
                                         ),
-                                      )),
-                                  Divider(thickness: 1, color: Color(0xFFC4C4C4).withOpacity(.35),indent: 10, endIndent: 10,)
+                                      ],
+                                    ),
+                                  )),
+                                  Divider(
+                                    thickness: 1,
+                                    color: Color(0xFFC4C4C4).withOpacity(.35),
+                                    indent: 10,
+                                    endIndent: 10,
+                                  )
                                 ],
                               ));
                         }))),
               ),
               Padding(
-                padding:
-                EdgeInsets.symmetric(vertical: 5),
+                padding: EdgeInsets.symmetric(vertical: 5),
                 child: Divider(
                   thickness: 2,
                   color: Colors.grey.withOpacity(.35),
@@ -268,29 +315,26 @@ class SellCartPage extends GetView<SellController>{
                 height: 5,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'total'.tr,
                       style: TextStyle(
-                        fontFamily: 'Roboto',
+                          fontFamily: 'Roboto',
                           fontSize: 18,
                           // fontWeight: FontWeight.bold,
                           color: Colors.black),
                     ),
                     Obx(() => Text(
-                      '৳ ${controller.totalCartProductPrice.value.abs()}',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                          fontSize: 16,
-                          fontWeight:
-                          FontWeight.bold,
-                          color: Colors.black),
-                    ))
+                          '৳ ${controller.totalCartProductPrice.value.abs()}',
+                          style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ))
                   ],
                 ),
               ),
@@ -298,11 +342,9 @@ class SellCartPage extends GetView<SellController>{
                 height: 10,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       decoration: BoxDecoration(
@@ -310,14 +352,9 @@ class SellCartPage extends GetView<SellController>{
                           border: Border.all(
                               color: Color(0xFFC4C4C4).withOpacity(.35),
                               width: 1),
-                          borderRadius:
-                          BorderRadius.all(
-                              Radius.circular(
-                                  6.0))),
+                          borderRadius: BorderRadius.all(Radius.circular(6.0))),
                       child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment
-                            .spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SizedBox(
                             width: 15,
@@ -328,35 +365,23 @@ class SellCartPage extends GetView<SellController>{
                                 color: Colors.black,
                                 fontFamily: 'Roboto',
                                 fontSize: 18,
-                                fontWeight:
-                                FontWeight.w500),
+                                fontWeight: FontWeight.w500),
                           ),
                           Expanded(
                             child: Padding(
-                              padding:
-                              const EdgeInsets.only(
-                                  left: 8.0),
+                              padding: const EdgeInsets.only(left: 8.0),
                               child: TextFormField(
                                 onChanged: (value) {
-                                  controller.discount1
-                                      .value =
-                                      double.parse(
-                                          value.isEmpty
-                                              ? '0.0'
-                                              : value);
-                                  controller
-                                      .calculateTotalCartPrice();
+                                  controller.discount1.value = double.parse(
+                                      value.isEmpty ? '0.0' : value);
+                                  controller.calculateTotalCartPrice();
                                 },
-                                keyboardType:
-                                TextInputType.text,
-                                decoration:
-                                InputDecoration(
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
                                   //labelText: " discount",
                                   // hintText: " discount",
-                                  hintStyle: TextStyle(
-                                      fontSize: 14.0),
-                                  border:
-                                  InputBorder.none,
+                                  hintStyle: TextStyle(fontSize: 14.0),
+                                  border: InputBorder.none,
                                 ),
                               ),
                             ),
@@ -373,14 +398,9 @@ class SellCartPage extends GetView<SellController>{
                           border: Border.all(
                               color: Color(0xFFC4C4C4).withOpacity(.35),
                               width: 1.5),
-                          borderRadius:
-                          BorderRadius.all(
-                              Radius.circular(
-                                  6.0))),
+                          borderRadius: BorderRadius.all(Radius.circular(6.0))),
                       child: Row(
-                        mainAxisAlignment:
-                        MainAxisAlignment
-                            .spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           SizedBox(
                             width: 15,
@@ -391,34 +411,22 @@ class SellCartPage extends GetView<SellController>{
                                 color: Colors.black,
                                 fontFamily: 'Roboto',
                                 fontSize: 18,
-                                fontWeight:
-                                FontWeight.w500),
+                                fontWeight: FontWeight.w500),
                           ),
                           Expanded(
                             child: Padding(
-                              padding:
-                              const EdgeInsets.only(
-                                  left: 8.0),
+                              padding: const EdgeInsets.only(left: 8.0),
                               child: TextFormField(
                                 onChanged: (value) {
-                                  controller.discount2
-                                      .value =
-                                      double.parse(
-                                          value.isEmpty
-                                              ? "0.0"
-                                              : value);
-                                  controller
-                                      .calculateTotalCartPrice();
+                                  controller.discount2.value = double.parse(
+                                      value.isEmpty ? "0.0" : value);
+                                  controller.calculateTotalCartPrice();
                                 },
-                                keyboardType:
-                                TextInputType.text,
-                                decoration:
-                                InputDecoration(
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
                                   // hintText: " discount",
-                                  hintStyle: TextStyle(
-                                      fontSize: 14.0),
-                                  border:
-                                  InputBorder.none,
+                                  hintStyle: TextStyle(fontSize: 14.0),
+                                  border: InputBorder.none,
                                 ),
                               ),
                             ),
@@ -439,11 +447,9 @@ class SellCartPage extends GetView<SellController>{
                 height: 5,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: Row(
-                  mainAxisAlignment:
-                  MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'grand_total'.tr,
@@ -454,40 +460,30 @@ class SellCartPage extends GetView<SellController>{
                           color: Colors.black),
                     ),
                     Obx(() => Text(
-                      '৳ ${controller.totalCartPrice.value.abs()}',
-                      style: TextStyle(
-                        fontFamily: 'Roboto',
-                          fontSize: 16,
-                          fontWeight:
-                          FontWeight.bold,
-                          color: Colors.black),
-                    ))
+                          '৳ ${controller.totalCartPrice.value.abs()}',
+                          style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ))
                   ],
                 ),
               ),
               Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 10),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: Container(
                   height: 50,
                   width: size.width,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(ConfirmPaymentPage(), binding: ConfirmPaymentBinding(),
-                      arguments: {
-                        'shop':
-                        controller
-                            .shop
-                            .value,
-                        'cart':
-                        controller
-                            .cart,
-                        'totalPrice':
-                        controller
-                            .totalCartPrice
-                            .value,
-                      }
-                      );
+                      Get.to(ConfirmPaymentPage(),
+                          binding: ConfirmPaymentBinding(),
+                          arguments: {
+                            'shop': controller.shop.value,
+                            'cart': controller.cart,
+                            'totalPrice': controller.totalCartPrice.value,
+                          });
                       // Get.toNamed(SellPageRoutes.CONFIRM_PAYMENT_PAGE,
                       //     arguments: {
                       //       'shop':
@@ -522,26 +518,27 @@ class SellCartPage extends GetView<SellController>{
                               ),
                               SizedBox(width: 10),
                               Obx(() => Text(
-                                '৳ ${controller.totalCartPrice.value.abs()}',
-                                style: TextStyle(
-                                    fontFamily: 'Roboto',
-                                    fontSize: 16,
-                                    fontWeight:
-                                    FontWeight.bold,
-                                    color: Colors.white),
-                              )),
+                                    '৳ ${controller.totalCartPrice.value.abs()}',
+                                    style: TextStyle(
+                                        fontFamily: 'Roboto',
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                  )),
                             ],
                           ),
-
-                          Icon(Icons.arrow_forward_ios, color: Colors.white,size: 16,)
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.white,
+                            size: 16,
+                          )
                         ],
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
                       primary: DEFAULT_BLUE,
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                        BorderRadius.circular(4),
+                        borderRadius: BorderRadius.circular(4),
                       ),
                     ),
                   ),
@@ -551,5 +548,4 @@ class SellCartPage extends GetView<SellController>{
       ),
     );
   }
-  
 }

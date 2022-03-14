@@ -490,11 +490,11 @@ class QuickSell extends GetView<SellController> {
                               onTap: () {
                                 // CalcButton();
                                 print("working 123");
-                                showCalculatorOptionDialogue(context);
+                                //   showCalculatorOptionDialogue(context);
                               },
 
                               showCursor: true,
-                              readOnly: true,
+                              readOnly: false,
                               onSaved: (value) {
                                 controller.amount.value = double.parse(value);
                               },
