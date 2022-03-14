@@ -7,10 +7,12 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/expense/expense_controller.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_category.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
+import 'package:hishabee_business_manager_fl/service/api_service.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -78,6 +80,7 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
   DateTime startDate = DateTime.now();
   DateTime endDate;
   XFile imageFileBack;
+  String imageSource;
   ExpenseController _expenseController = Get.find();
   final imagePicker = ImagePicker();
   Shop shop = Get.arguments;
@@ -86,12 +89,161 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
   TextEditingController _textEditingControllerReason = TextEditingController();
   TextEditingController _textEditingControllerDescription =
       TextEditingController();
-  _openCamerForback() async {
-    var pictureBack = await imagePicker.pickImage(source: ImageSource.camera);
+  ApiService _apiService = ApiService();
 
-    setState(() {
-      imageFileBack = pictureBack;
-    });
+  _showPictureOptionDialogue() {
+
+    try {
+      if (Platform.isIOS) {
+        showDialog(
+            context: context,
+            builder: (_) => CupertinoAlertDialog(
+              title: Text("Picture option"),
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      ImageHelper.getImageFromCamera().then((value) {
+                        _expenseController.image.value = value;
+                        navigator.pop();
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image(
+                              height: 80,
+                              image: AssetImage('images/icons/camera.png'),
+                            ),
+                            Text("Camera")
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      //getImageFromGallery(option);
+                      ImageHelper.getImageFromGallery().then((value) {
+                        _expenseController.image.value = value;
+                        navigator.pop();
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image(
+                              height: 80,
+                              image: AssetImage('images/icons/gallery.png'),
+                            ),
+                            Text("Gallery")
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  child: Text('Close'),
+                  onPressed: () {
+                    navigator.pop();
+                  },
+                )
+              ],
+            ));
+      } else {
+        showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              title: Text("Picture option"),
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      ImageHelper.getImageFromCamera().then((value) {
+                        _expenseController.image.value = value;
+                        navigator.pop();
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image(
+                              height: 80,
+                              image: AssetImage('images/icons/camera.png'),
+                            ),
+                            Text("Camera")
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      //getImageFromGallery(option);
+                      ImageHelper.getImageFromGallery().then((value) {
+                        _expenseController.image.value = value;
+                        navigator.pop();
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image(
+                              height: 80,
+                              image: AssetImage('images/icons/gallery.png'),
+                            ),
+                            Text("Gallery")
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  child: Text('Close'),
+                  onPressed: () {
+                    navigator.pop();
+                  },
+                )
+              ],
+            ));
+      }
+    } catch (e) {}
   }
 
   void getDialog() async {
@@ -234,31 +386,36 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: Padding(
-                                  padding: EdgeInsets.only(left: 16, right: 16),
-                                  child: GestureDetector(
-                                    onTap: () {
-                                      _openCamerForback();
-                                    },
-                                    child: (imageFileBack == null)
-                                        ? Container(
-                                            height: 50,
-                                            width: 50,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.black)),
-                                            child: Icon(Icons.camera_alt),
-                                          )
-                                        : Image.file(
-                                            File(imageFileBack.path),
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: 100,
-                                          ),
-                                  ),
+                              Padding(
+                                padding: EdgeInsets.only(left: 16, right: 16),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    _showPictureOptionDialogue();
+                                  },
+                                  child: (_expenseController.image.value == null)
+                                      ? Container(
+                                          height: 50,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                              border: Border.all(
+                                                  color: Colors.black)),
+                                          child: Icon(Icons.camera_alt),
+                                        )
+                                      : Obx(()=>
+                                      Container(
+                                        height: 50,
+                                        width: 50,
+                                        child: Image.file(
+                                          _expenseController.image.value,
+                                          alignment: Alignment.topLeft,
+                                          width: MediaQuery.of(context)
+                                              .size
+                                              .width,
+                                          height: 100,
+                                        ),
+                                      ),
+                                  )
+
                                 ),
                               ),
                               GestureDetector(
@@ -289,13 +446,23 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                           ),
                           ElevatedButton(
                             onPressed: () async{
+                              imageSource = await _apiService.uploadFile(
+                                  file: File(_expenseController.image.value.path), type: '');
+                              String imageUrl = imageSource
+                                  .replaceAll("\\", "")
+                                  .replaceAll('"', "")
+                                  .replaceAll("{", "")
+                                  .replaceAll("}", "")
+                                  .replaceAllMapped('url:', (match) => "");
                              await _expenseController.createNewExpense(
                                   shopId: widget.shopId,
                                   type: widget.type,
                                   purpose: _textEditingControllerReason.text,
                                   details:
                                       _textEditingControllerDescription.text == '' ? '[Nothing Given]' : _textEditingControllerDescription.text,
-                                  amount: _textEditingControllerAmount.text);
+                                  amount: _textEditingControllerAmount.text,
+                                  imageURL: imageUrl
+                             );
 
                              await _expenseController
                                  .getAllExpense(

@@ -16,6 +16,7 @@ class ExpenseTotalDetails extends StatelessWidget {
   String shopId;
   String userId;
   String date;
+  String imageUrl;
 
   ExpenseTotalDetails({this.amount,
     this.reason,
@@ -24,7 +25,7 @@ class ExpenseTotalDetails extends StatelessWidget {
     this.shopId,
     this.categoryId,
     this.userId,
-    this.date});
+    this.date, this.imageUrl});
   ExpenseController _expenseController = Get.find();
   Shop shop = Get.arguments;
   @override
@@ -160,29 +161,55 @@ class ExpenseTotalDetails extends StatelessWidget {
                       const SizedBox(
                         height: 30,
                       ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: GestureDetector(
-                          onTap: () {
-                            // getDialog();
-                          },
-                          child: Container(
-                            width: 180,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 3, vertical: 7),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.calendar_today),
-                                  Text(date),
-                                ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 16, right: 16),
+                            child: (_expenseController.image.value == null)
+                                ? Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Colors.black)),
+                              child: Icon(Icons.camera_alt),
+                            )
+                                : Obx(()=>
+                                Container(
+                                  height: 50,
+                                  width: 50,
+                                  child: Image.file(
+                                    _expenseController.image.value,
+                                    alignment: Alignment.topLeft,
+                                    width: MediaQuery.of(context)
+                                        .size
+                                        .width,
+                                    height: 100,
+                                  ),
+                                ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Container(
+                              width: 150,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black),
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 3, vertical: 7),
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.calendar_today),
+                                    Text(date),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                       SizedBox(height: 20,),
                       Row(

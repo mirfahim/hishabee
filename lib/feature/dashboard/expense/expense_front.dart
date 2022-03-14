@@ -50,7 +50,8 @@ class _ExpenseListState extends State<ExpenseList> {
           shopId: '${shop.id}',
           userId: '${shop.userId}',
           startDate: '$startOfMonth',
-          endDate: '$lastOfTheMonth')
+          endDate: '$lastOfTheMonth',
+      )
           .then((value) {
 
         _expenseController.allExpenseList.value = getExpenseFromModel(value);

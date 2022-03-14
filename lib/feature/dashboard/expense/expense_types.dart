@@ -420,6 +420,7 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                 child: GestureDetector(
                                   onTap: () {
                                     Get.to(ExpenseTotalDetails(
+                                      imageUrl: '${_expenseController.allExpenseList[index].image}',
                                             date: '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}',
                                             amount:
                                             '${_expenseController.allExpenseList[index].amount}',
