@@ -790,7 +790,7 @@ class _SoldPageState extends State<SoldPage> {
                                                         },
                                                         icon: Icon(Icons
                                                             .arrow_circle_down)),
-                                                    Text("Recpit Share"),
+                                                    Text("Receipt Share"),
                                                   ],
                                                 )
                                               ],
