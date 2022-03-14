@@ -414,6 +414,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                       Text(widget.date),
                                     ],
                                   ),
+                                  //asdasdasd
                                 ),
                               ),
                             ),
