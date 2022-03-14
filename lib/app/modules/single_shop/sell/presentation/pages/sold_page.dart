@@ -23,14 +23,20 @@ class SoldPage extends StatefulWidget {
   final Shop shop;
   final int route;
   final int totalPrice;
+  final int discount;
+  final int vat;
+  final int totalAmount;
   final transaction;
   final RxList<Product> productList;
 
   const SoldPage(
       {Key key,
       this.shop,
-      this.route,
+      this.discount,
       this.totalPrice,
+      this.vat,
+      this.route,
+      this.totalAmount,
       this.productList,
       this.transaction})
       : super(key: key);
@@ -658,7 +664,7 @@ class _SoldPageState extends State<SoldPage> {
                                                     alignment:
                                                         Alignment.centerRight,
                                                     child: Text(
-                                                      "0 Tk",
+                                                      " ${widget.discount.toString()} Tk",
                                                       style: TextStyle(
                                                           color: DEFAULT_BLACK,
                                                           fontSize: 12,
@@ -696,7 +702,8 @@ class _SoldPageState extends State<SoldPage> {
                                                     alignment:
                                                         Alignment.centerRight,
                                                     child: Text(
-                                                      "0 Tk",
+                                                      " ${widget.vat.toString()}" +
+                                                          " tk",
                                                       style: TextStyle(
                                                           color: DEFAULT_BLACK,
                                                           fontSize: 12,
