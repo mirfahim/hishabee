@@ -16,6 +16,7 @@ class AddPrinter extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10),
         child: InkWell(
           onTap: (){
+            print('samin');
             Get.to(
                 PrintPage(),
               arguments: shop

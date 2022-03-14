@@ -74,6 +74,7 @@ class _PrintPageState extends State<PrintPage> {
               itemBuilder: (c,i){
               return InkWell(
                 onTap: (){
+                  print('printer setting');
                   Get.to(
                       PrinterSetting(),
                     arguments: shop
