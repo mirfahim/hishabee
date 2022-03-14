@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:io';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/domain/repositories/i_file_repository.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/expense/custom_expense_page.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
 import 'package:hishabee_business_manager_fl/service/api_service.dart';
@@ -20,8 +22,9 @@ class ExpenseController extends GetxController {
   RxInt listCount = 6.obs;
   RxInt categoryWiseTotalAmount = 0.obs;
   RxList fixedCategory = [].obs;
+  final image = Rxn<File>();
 
-  Future<dynamic> getAllExpense({String shopId, String userId, String startDate, String endDate}) async {
+  Future<dynamic> getAllExpense({String shopId, String userId, String startDate, String endDate,}) async {
     String url = "/expense/all?user_id=$userId&shop_id=$shopId&start_date=$startDate&end_date=$endDate";
     return _apiService.makeApiRequest(
         method: apiMethods.get,
@@ -54,7 +57,7 @@ class ExpenseController extends GetxController {
   }
 
   Future<dynamic> updateCategory(
-      {String categoryid, String name, String shopId,}) async {
+      {String categoryid, String name, String shopId}) async {
     CustomDialog.showLoadingDialog(message: 'Updating Expense Type');
     String url = "/expense_category/?name=$name&shop_id=$shopId&id=$categoryid";
     return _apiService.makeApiRequest(
@@ -66,10 +69,12 @@ class ExpenseController extends GetxController {
       String type,
       String purpose,
       String details,
-      String amount}) async {
+      String amount,
+      String imageURL}) async {
     CustomDialog.showLoadingDialog(message: 'Creating New Expense');
+    String imageSource = await _apiService.uploadFile(file: image.value, type: '');
     String url =
-        "/expense/add?shop_id=$shopId&type=$type&purpose=$purpose&details=$details&amount=$amount";
+        "/expense/add?shop_id=$shopId&type=$type&purpose=$purpose&details=$details&amount=$amount&image_src=$imageSource";
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
@@ -81,10 +86,12 @@ class ExpenseController extends GetxController {
       String purpose,
       String description,
       String amount,
-      String date}) async {
+      String date, String imageUrl, bool imageChange}) async {
     CustomDialog.showLoadingDialog(message: 'Updating...');
+    // CustomDialog.showLoadingDialog(message: 'Creating New Expense');
+    String imageSource = await _apiService.uploadFile(file: image.value, type: '');
     String url =
-        "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose&details=$description&amount=$amount&id=$categoryid&image&image_changed=true&created_at=$date";
+        "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose&details=$description&amount=$amount&id=$categoryid&image=$imageSource&image_changed=$imageChange&created_at=$date";
     return _apiService.makeApiRequest(
         method: apiMethods.put, url: url, body: null, headers: null);
   }

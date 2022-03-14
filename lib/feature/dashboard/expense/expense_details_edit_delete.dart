@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/expense/expense_controller.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_category.dart';
@@ -55,7 +59,7 @@ var startOfMonth = DateTime(now.year, now.month, 1);
 var lastOfTheMonth = (now.month < 12)
     ? new DateTime(now.year, now.month + 1, 0)
     : new DateTime(now.year + 1, 1, 0);
-
+bool imageChanged = false;
 class ExpenseEditDelete extends StatefulWidget {
   String amount;
   String reason;
@@ -65,6 +69,7 @@ class ExpenseEditDelete extends StatefulWidget {
   String shopId;
   String userId;
   String date;
+  String image;
 
   ExpenseEditDelete(
       {this.amount,
@@ -74,7 +79,8 @@ class ExpenseEditDelete extends StatefulWidget {
       this.shopId,
       this.categoryId,
       this.userId,
-      this.date
+      this.date,
+        this.image
       });
 
   @override
@@ -98,7 +104,164 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
     // await _selectEndDate(context);
     // widgets.controller.getRangeTransaction();
   }
+  _showPictureOptionDialogue() {
 
+    try {
+      if (Platform.isIOS) {
+        showDialog(
+            context: context,
+            builder: (_) => CupertinoAlertDialog(
+              title: Text("Picture option"),
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      ImageHelper.getImageFromCamera().then((value) {
+                        _expenseController.image.value = value;
+                        imageChanged = true;
+                        navigator.pop();
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image(
+                              height: 80,
+                              image: AssetImage('images/icons/camera.png'),
+                            ),
+                            Text("Camera")
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      //getImageFromGallery(option);
+                      ImageHelper.getImageFromGallery().then((value) {
+                        _expenseController.image.value = value;
+                        imageChanged = true;
+                        navigator.pop();
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image(
+                              height: 80,
+                              image: AssetImage('images/icons/gallery.png'),
+                            ),
+                            Text("Gallery")
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  child: Text('Close'),
+                  onPressed: () {
+                    navigator.pop();
+                  },
+                )
+              ],
+            ));
+      } else {
+        showDialog(
+            context: context,
+            builder: (_) => AlertDialog(
+              title: Text("Picture option"),
+              content: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      ImageHelper.getImageFromCamera().then((value) {
+                        _expenseController.image.value = value;
+                        imageChanged = true;
+                        navigator.pop();
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image(
+                              height: 80,
+                              image: AssetImage('images/icons/camera.png'),
+                            ),
+                            Text("Camera")
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      //getImageFromGallery(option);
+                      ImageHelper.getImageFromGallery().then((value) {
+                        _expenseController.image.value = value;
+                        imageChanged = true;
+                        navigator.pop();
+                      });
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Image(
+                              height: 80,
+                              image: AssetImage('images/icons/gallery.png'),
+                            ),
+                            Text("Gallery")
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  child: Text('Close'),
+                  onPressed: () {
+                    navigator.pop();
+                  },
+                )
+              ],
+            ));
+      }
+    } catch (e) {}
+  }
   _selectStartDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       helpText: "start_date".tr,
@@ -128,6 +291,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
         flag = 1;
         selectedDate = picked;
         initialDate = picked;
+        widget.date = DateFormat.yMMMMd().format(picked);
       });
     }
   }
@@ -195,29 +359,66 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                       const SizedBox(
                         height: 30,
                       ),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: GestureDetector(
-                          onTap: () {
-                            getDialog();
-                          },
-                          child: Container(
-                            width: 180,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 3, vertical: 7),
-                              child: Row(
-                                children: [
-                                  Icon(Icons.calendar_today),
-                                  Text('${widget.date}' ),
-                                ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(left: 16, right: 16),
+                            child: GestureDetector(
+                                onTap: () {
+                                  _showPictureOptionDialogue();
+                                },
+                                child: (_expenseController.image.value == null)
+                                    ? Container(
+                                  height: 50,
+                                  width: 50,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: Colors.black)),
+                                  child: Icon(Icons.camera_alt),
+                                )
+                                    : Obx(()=>
+                                    Container(
+                                      height: 50,
+                                      width: 50,
+                                      child: Image.file(
+                                        _expenseController.image.value,
+                                        alignment: Alignment.topLeft,
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width,
+                                        height: 100,
+                                      ),
+                                    ),
+                                )
+
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: GestureDetector(
+                              onTap: () {
+                                getDialog();
+                              },
+                              child: Container(
+                                width: 180,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black),
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 3, vertical: 7),
+                                  child: Row(
+                                    children: [
+                                      Icon(Icons.calendar_today),
+                                      Text(widget.date),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
                       SizedBox(height: 20,),
                       Row(
@@ -232,7 +433,12 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                               padding: const EdgeInsets.all(4.0),
                               child: TextButton(
                                 onPressed: () async{
+                                  print(_textEditingControllerReason.text);
+                                  print(_textEditingControllerDescription.text);
+                                  print(_textEditingControllerAmount.text);
                                   await _expenseController.updateExpense(
+                                    imageChange: imageChanged,
+                                    imageUrl: _expenseController.image.value.path,
                                     shopId: widget.shopId,
                                     categoryid: widget.categoryId,
                                     type: widget.types,
@@ -296,6 +502,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                   //         'category: ${_expenseController.allExpenseCategory}');
                                   //   });
                                   // });
+                                  Get.back();
                                   Get.back();
                                   Get.back();
                                 },
