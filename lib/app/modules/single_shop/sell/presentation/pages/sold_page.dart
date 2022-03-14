@@ -14,6 +14,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_lis
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/widgets/sell_receipt.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_response.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
@@ -22,10 +23,22 @@ class SoldPage extends StatefulWidget {
   final Shop shop;
   final int route;
   final int totalPrice;
-  final List productlist;
+  final int discount;
+  final int vat;
+  final int totalAmount;
+  final transaction;
+  final RxList<Product> productList;
 
   const SoldPage(
-      {Key key, this.shop, this.route, this.totalPrice, this.productlist})
+      {Key key,
+      this.shop,
+      this.discount,
+      this.totalPrice,
+      this.vat,
+      this.route,
+      this.totalAmount,
+      this.productList,
+      this.transaction})
       : super(key: key);
 
   @override
@@ -38,6 +51,7 @@ class _SoldPageState extends State<SoldPage> {
   ConfettiController _controllerCenterLeft;
   ConfettiController _controllerTopCenter;
   ConfettiController _controllerBottomCenter;
+  final SellController sc = Get.find();
 
   bool hideDone = false;
 
@@ -55,6 +69,7 @@ class _SoldPageState extends State<SoldPage> {
         ConfettiController(duration: const Duration(seconds: 10));
     _controllerBottomCenter =
         ConfettiController(duration: const Duration(seconds: 10));
+
     super.initState();
     _controllerCenter.play();
     //to generatePdf
@@ -450,11 +465,10 @@ class _SoldPageState extends State<SoldPage> {
                                           physics:
                                               NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
-                                          itemCount: 2, // widget.shop.length,
+                                          itemCount: sc.cart.length,
                                           itemBuilder: (BuildContext context,
                                               int index) {
-                                            Product item =
-                                                widget.productlist[index];
+                                            Product item = sc.cart[index];
 
                                             return Container(
                                               width: size.width,
@@ -650,7 +664,7 @@ class _SoldPageState extends State<SoldPage> {
                                                     alignment:
                                                         Alignment.centerRight,
                                                     child: Text(
-                                                      "0 Tk",
+                                                      " ${widget.discount.toString()} Tk",
                                                       style: TextStyle(
                                                           color: DEFAULT_BLACK,
                                                           fontSize: 12,
@@ -688,7 +702,8 @@ class _SoldPageState extends State<SoldPage> {
                                                     alignment:
                                                         Alignment.centerRight,
                                                     child: Text(
-                                                      "0 Tk",
+                                                      " ${widget.vat.toString()}" +
+                                                          " tk",
                                                       style: TextStyle(
                                                           color: DEFAULT_BLACK,
                                                           fontSize: 12,
@@ -764,16 +779,15 @@ class _SoldPageState extends State<SoldPage> {
                                                     IconButton(
                                                         onPressed: () {
                                                           //
-                                                          // Get.to(() =>
-                                                          //     SellReceiptPage(
-                                                          //         widget
-                                                          //             .shop,
-                                                          //       widgtet.transaction
-                                                          //         ));
+                                                          Get.to(() =>
+                                                              SellReceiptPage(
+                                                                  widget.shop,
+                                                                  widget
+                                                                      .transaction));
                                                         },
                                                         icon: Icon(Icons
                                                             .arrow_circle_down)),
-                                                    Text("Recpit Print"),
+                                                    Text("Receipt Print"),
                                                   ],
                                                 ),
                                                 SizedBox(width: 20),
@@ -781,12 +795,12 @@ class _SoldPageState extends State<SoldPage> {
                                                   children: [
                                                     IconButton(
                                                         onPressed: () {
-                                                          // Get.to(() =>
-                                                          //     SellReceiptPage(
-                                                          //         widget
-                                                          //             .shop,
-                                                          //         widget
-                                                          //             .transaction));//*
+                                                          Get.to(() =>
+                                                              SellReceiptPage(
+                                                                  widget.shop,
+                                                                  widget
+                                                                      .transaction));
+                                                          //*
                                                         },
                                                         icon: Icon(Icons
                                                             .arrow_circle_down)),

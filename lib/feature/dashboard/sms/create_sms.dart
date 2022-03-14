@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:gson/gson.dart';
+
 import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
@@ -17,7 +17,7 @@ import 'customerDialog.dart';
 class SmsCreatePage extends GetResponsiveView {
   final TextEditingController messageController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
-  SmsController _smsController = SmsController();
+  SmsController _smsController = Get.find();
   Shop shop = Get.arguments['shop'];
   var storageSms = GetStorage('sms');
   var storageSmsCount = GetStorage('sms_count');
@@ -26,7 +26,7 @@ class SmsCreatePage extends GetResponsiveView {
   Widget build(BuildContext context) {
     _smsController.textInTheMessageField.value = '- ${shop.name}';
     // messageController.text = '- ${shop.name}';
-     var width = MediaQuery.of(context).size.width;
+    var width = MediaQuery.of(context).size.width;
     _smsController.totalSmsLeft.value =
         storageSmsCount.read('sms_count') == null
             ? shop.smsCount
@@ -81,85 +81,86 @@ class SmsCreatePage extends GetResponsiveView {
               padding: const EdgeInsets.only(top: 5.0),
               child: Column(
                 children: [
-                  Obx(() => SizedBox(
-                        width: _smsController.selectedMobileNumber.length <= 0
-                            ? 0
-                            : MediaQuery.of(context).size.width,
-                        height: _smsController.selectedMobileNumber.length <= 0
-                            ? 0
-                            : 40,
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              // gridDelegate:
-                              //      SliverGridDelegateWithMaxCrossAxisExtent(
-                              //         maxCrossAxisExtent: 185,
-                              //         childAspectRatio: 3 / 2,
-                              //         crossAxisSpacing: 4,
-                              //         mainAxisSpacing: 4
-                              //      ),
-                              itemCount:
-                                  _smsController.selectedMobileNumber.length,
-                              itemBuilder: (BuildContext ctx, index) {
-                                return Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 2, right: 2),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                              color: Colors.grey.shade300,
-                                              borderRadius:
-                                                  BorderRadius.circular(6)),
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 5.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                    _smsController.selectedMobileNumber[index]),
-                                                IconButton(
-                                                  onPressed: () {
-                                                    _smsController
-                                                        .selectedMobileNumber
-                                                        .removeWhere((item) =>
-                                                            item ==
-                                                            _smsController
-                                                                    .selectedMobileNumber[
-                                                                index]);
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.cancel,
-                                                    color: Colors.red,
-                                                  ),
-                                                  iconSize: 16,
-                                                  padding: EdgeInsets.all(0),
-                                                )
-                                              ],
-                                            ),
+                  Obx(() {
+                    return SizedBox(
+                      width: _smsController.selectedMobileNumber.length <= 0
+                          ? 0
+                          : 400,
+                      height: _smsController.selectedMobileNumber.length <= 0
+                          ? 0
+                          : 80,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: GridView.builder(
+                            gridDelegate:
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 185,
+                                    childAspectRatio: 3 / 2,
+                                    crossAxisSpacing: 4,
+                                    mainAxisSpacing: 4),
+                            itemCount:
+                                _smsController.selectedMobileNumber.length,
+                            itemBuilder: (BuildContext ctx, index) {
+                              print(
+                                  "my selected sms count is ${_smsController.selectedMobileNumber.length}");
+                              return Container(
+                                height: 30,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 2, right: 2),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            borderRadius:
+                                                BorderRadius.circular(30)),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(1),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Text(_smsController
+                                                  .selectedMobileNumber[index]),
+                                              IconButton(
+                                                onPressed: () {
+                                                  _smsController
+                                                      .selectedMobileNumber
+                                                      .removeWhere((item) =>
+                                                          item ==
+                                                          _smsController
+                                                                  .selectedMobileNumber[
+                                                              index]);
+                                                },
+                                                icon: Icon(
+                                                  Icons.cancel,
+                                                  color: Colors.red,
+                                                ),
+                                                iconSize: 16,
+                                                padding: EdgeInsets.all(0),
+                                              )
+                                            ],
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                );
-                              }),
-                          // ListView.builder(
-                          //     itemCount:
-                          //         _smsController.selectedMobileNumber.length,
-                          //     scrollDirection: Axis.vertical,
-                          //     itemBuilder: (context, index) {
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }),
+                        // ListView.builder(
+                        //     itemCount:
+                        //         _smsController.selectedMobileNumber.length,
+                        //     scrollDirection: Axis.vertical,
+                        //     itemBuilder: (context, index) {
 
-                          //     }),
-                        ),
-                      )),
+                        //     }),
+                      ),
+                    );
+                  }),
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Row(
@@ -215,11 +216,11 @@ class SmsCreatePage extends GetResponsiveView {
                                     onPressed: () {
                                       if (!numberController.text.isEmpty) {
                                         _smsController.selectedMobileNumber.add(
-                                            '${numberController.text}');
+                                            '\"${numberController.text}\"');
                                         numberController.clear();
                                         _smsController.visibility.value = false;
                                         print(_smsController
-                                            .selectedMobileNumber.length);
+                                            .selectedMobileNumber);
                                       }
                                     },
                                     child: Icon(
@@ -407,121 +408,72 @@ class SmsCreatePage extends GetResponsiveView {
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Obx(() {
-                      return Stack(
-                        children: [
-                          TextFormField(
-                            controller: messageController,
-                            onChanged: (text) {
+                      return TextField(
+                        controller: messageController,
+                        onChanged: (text) {
+                          // setState(() {
+                          _smsController.textInTheMessageField.value = text;
+                          // });
+                          RegExp exp = RegExp("[A-Za-z0-9]");
+                          if (exp.hasMatch(text.substring(0)) &&
+                              text.substring(0) != " ") {
+                            // setState(() {
+                            _smsController.maxLengthForText.value = 160;
+                            // });
+                            if ((text.length / 160) <= 1) {
                               // setState(() {
-                              _smsController.textInTheMessageField.value = text;
+                              _smsController.messageCount.value = 1;
                               // });
-                              RegExp exp = RegExp("[A-Za-z0-9]");
-                              RegExp expEnglishBangla = RegExp("[A-Za-z0-9ড়ঢ়ঁংঃঅআইঈউঊঋঌএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফববভমমযরলশষসহািীুূৃৄেৈোৌ্ৎড়ঢ়য়০১২৩৪৫৬৭৮৯]");
-                              RegExp expBangla = RegExp("[ড়ঢ়ঁংঃঅআইঈউঊঋঌএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফববভমমযরলশষসহািীুূৃৄেৈোৌ্ৎড়ঢ়য়০১২৩৪৫৬৭৮৯]");
-                              if (expBangla.hasMatch(text)) {
-                                // setState(() {
-                                _smsController.maxLengthForText.value = 70;
-                                // });
-                                if ((text.length / 70) <= 1) {
-                                  // setState(() {
-                                  _smsController.messageCount.value = 1;
-                                  // });
-                                } else if ((text.length / 70) > 1 &&
-                                    (text.length / 70) < 2) {
-                                  // setState(() {
-                                  _smsController.messageCount.value = 2;
-                                  // });
-                                } else if ((text.length / 70) > 2 &&
-                                    (text.length / 70) < 3) {
-                                  // setState(() {
-                                  _smsController.messageCount.value = 3;
-                                  // });
-                                }
-                              }else if(exp.hasMatch(text)){
-                                _smsController.maxLengthForText.value = 160;
-                                // });
-                                if ((text.length / 160) <= 1) {
-                                  // setState(() {
-                                  _smsController.messageCount.value = 1;
-                                  // });
-                                } else if ((text.length / 160) > 1 &&
-                                    (text.length / 160) < 2) {
-                                  // setState(() {
-                                  _smsController.messageCount.value = 2;
-                                  // });
-                                } else if ((text.length / 160) > 2 &&
-                                    (text.length / 160) < 3) {
-                                  // setState(() {
-                                  _smsController.messageCount.value = 3;
-                                  // });
-                                }
-                              }else if(expEnglishBangla.hasMatch(text)){
-                                _smsController.maxLengthForText.value = 70;
-                                // });
-                                if ((text.length / 70) <= 1) {
-                                  // setState(() {
-                                  _smsController.messageCount.value = 1;
-                                  // });
-                                } else if ((text.length / 70) > 1 &&
-                                    (text.length / 70) < 2) {
-                                  // setState(() {
-                                  _smsController.messageCount.value = 2;
-                                  // });
-                                } else if ((text.length / 70) > 2 &&
-                                    (text.length / 70) < 3) {
-                                  // setState(() {
-                                  _smsController.messageCount.value = 3;
-                                  // });
-                                }
-                              }
-                              // else {
-                              //   // setState(() {
-                              //   _smsController.maxLengthForText.value = 70;
-                              //   // });
-                              //   if ((text.length / 70) <= 1) {
-                              //     // setState(() {
-                              //     _smsController.messageCount.value = 1;
-                              //     // });
-                              //   } else if ((text.length / 70) > 1 &&
-                              //       (text.length / 70) < 2) {
-                              //     // setState(() {
-                              //     _smsController.messageCount.value = 2;
-                              //     // });
-                              //   } else if ((text.length / 70) > 2 &&
-                              //       (text.length / 70) < 3) {
-                              //     // setState(() {
-                              //     _smsController.messageCount.value = 3;
-                              //     // });
-                              //   }
-                              // }
-                            },
-                            // maxLength: maxLengthForText,
-                            maxLines: 5,
-                            keyboardType: TextInputType.multiline,
-                            decoration: InputDecoration(
-                              helperText:
-                                  '${_smsController.textInTheMessageField.value.length} Characters | ${_smsController.messageCount.value} Messages | (${_smsController.maxLengthForText.value}/1 messages)',
-                              labelText: 'Message',
-                              labelStyle: TextStyle(color: Colors.black),
-                              focusColor: Colors.black,
-                              border: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(width: 2, color: Colors.black),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 2.0),
-                              ),
-                            ),
+                            } else if ((text.length / 160) > 1 &&
+                                (text.length / 160) < 2) {
+                              // setState(() {
+                              _smsController.messageCount.value = 2;
+                              // });
+                            } else if ((text.length / 160) > 2 &&
+                                (text.length / 160) < 3) {
+                              // setState(() {
+                              _smsController.messageCount.value = 3;
+                              // });
+                            }
+                          } else {
+                            // setState(() {
+                            _smsController.maxLengthForText.value = 70;
+                            // });
+                            if ((text.length / 70) <= 1) {
+                              // setState(() {
+                              _smsController.messageCount.value = 1;
+                              // });
+                            } else if ((text.length / 70) > 1 &&
+                                (text.length / 70) < 2) {
+                              // setState(() {
+                              _smsController.messageCount.value = 2;
+                              // });
+                            } else if ((text.length / 70) > 2 &&
+                                (text.length / 70) < 3) {
+                              // setState(() {
+                              _smsController.messageCount.value = 3;
+                              // });
+                            }
+                          }
+                        },
+                        // maxLength: maxLengthForText,
+                        maxLines: 5,
+                        keyboardType: TextInputType.multiline,
+                        decoration: InputDecoration(
+                          helperText:
+                              '${_smsController.textInTheMessageField.value.length} Characters | ${_smsController.messageCount.value} Messages | (${_smsController.maxLengthForText.value}/1 messages)',
+                          labelText: 'Message',
+                          labelStyle: TextStyle(color: Colors.black),
+                          focusColor: Colors.black,
+                          border: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(width: 2, color: Colors.black),
                           ),
-                          Positioned(
-                            bottom: 30,
-                            right: 5,
-                            child: Container(
-                              child: Text('- ${shop.name}'),
-                            ),
-                          )
-                        ],
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.black, width: 2.0),
+                          ),
+                        ),
                       );
                     }),
                   ),
@@ -540,11 +492,11 @@ class SmsCreatePage extends GetResponsiveView {
                         } else {
                           _smsController.createSms(
                               shopId: '${storageSms.read("shop_id")}',
-                              number:
-                                  gson.encode(_smsController.selectedMobileNumber.value.toList()),
+                              number: "${_smsController.selectedMobileNumber}",
                               message:
                                   "${_smsController.textInTheMessageField.value}",
-                              smsCount: '${_smsController.messageCount.value}');
+                              smsCount:
+                                  '${_smsController.messageCount.value} ');
                           // numberController.clear();
                           await smsCount();
                           await smsCount();

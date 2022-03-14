@@ -40,6 +40,7 @@ class ConfirmPaymentController extends GetxController {
   final customerAddress = "".obs;
   final discountPercent = "".obs;
   final totalDiscount = 0.0.obs;
+
   final amountReceived = 0.0.obs;
   final dueAmount = 0.0.obs;
   final exchangeAmount = 0.0.obs;
@@ -47,6 +48,8 @@ class ConfirmPaymentController extends GetxController {
   final shop = Rxn<Shop>();
   final cart = <Product>[].obs;
   final totalPrice = 0.0.obs;
+  final discountPrice = 0.0.obs;
+  final vat = 0.0.obs;
 
   final employees = <Employee>[].obs;
   final selectedEmployee = Employee().obs;
@@ -346,6 +349,7 @@ class ConfirmPaymentController extends GetxController {
   }
 
   quickSell() async {
+    final SellController sc = Get.find();
     formKey.currentState.save();
     var uuid = Uuid();
     String tUniqueId = shop.value.id.toString() +
@@ -396,6 +400,7 @@ class ConfirmPaymentController extends GetxController {
     print("${response.code}");
     if (response.code == 200) {
       final response = await transactionRepository.addTransaction(transaction);
+      //final responseTrns = await transactionRepository.getAllTransaction();
       if (response.code == 200) {
         formKey.currentState.reset();
         Get.find<SellController>().clearCart();
@@ -404,6 +409,10 @@ class ConfirmPaymentController extends GetxController {
               shop: shop.value,
               route: 2,
               totalPrice: totalPrice.value.toInt(),
+              vat: vat.value.toInt(),
+              discount: totalDiscount.value.toInt(),
+              productList: sc.cart,
+              transaction: transaction,
             ));
       }
     }
