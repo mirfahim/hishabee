@@ -31,6 +31,9 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindi
 
 // import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_navigation/sell_page_routs.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/confirm_payment_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_digital_payment_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_digital_payment_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_digital_payment_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/sell_digital_payment_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/sell_due_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/sell_with_qr_code_page.dart';
@@ -42,11 +45,12 @@ import '../../_navigation/sell_page_route.dart';
 
 class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
   final bool paying = true;
-
+  // final SellDigitalPaymentController sellDigitalPaymentController = Get.find();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final shopFeatureController = Get.find<ShopFeaturesController>();
+
     TextEditingController CNController = TextEditingController(
         text: controller.selectedCustomer.value.name ?? "");
     TextEditingController CMController = TextEditingController(
@@ -542,7 +546,9 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                   'Opening Digital Payment');
                                           Future.delayed(Duration(seconds: 1),
                                               () {
-                                            Get.back();
+                                            // sellDigitalPaymentController
+                                            //     .generateLink();
+                                            //  Get.back();
                                           });
                                         },
                                         child: Container(
