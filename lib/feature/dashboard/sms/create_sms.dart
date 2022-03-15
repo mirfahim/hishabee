@@ -408,72 +408,121 @@ class SmsCreatePage extends GetResponsiveView {
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Obx(() {
-                      return TextField(
-                        controller: messageController,
-                        onChanged: (text) {
-                          // setState(() {
-                          _smsController.textInTheMessageField.value = text;
-                          // });
-                          RegExp exp = RegExp("[A-Za-z0-9]");
-                          if (exp.hasMatch(text.substring(0)) &&
-                              text.substring(0) != " ") {
-                            // setState(() {
-                            _smsController.maxLengthForText.value = 160;
-                            // });
-                            if ((text.length / 160) <= 1) {
+                      return Stack(
+                        children: [
+                          TextFormField(
+                            controller: messageController,
+                            onChanged: (text) {
                               // setState(() {
-                              _smsController.messageCount.value = 1;
+                              _smsController.textInTheMessageField.value = text;
                               // });
-                            } else if ((text.length / 160) > 1 &&
-                                (text.length / 160) < 2) {
-                              // setState(() {
-                              _smsController.messageCount.value = 2;
-                              // });
-                            } else if ((text.length / 160) > 2 &&
-                                (text.length / 160) < 3) {
-                              // setState(() {
-                              _smsController.messageCount.value = 3;
-                              // });
-                            }
-                          } else {
-                            // setState(() {
-                            _smsController.maxLengthForText.value = 70;
-                            // });
-                            if ((text.length / 70) <= 1) {
-                              // setState(() {
-                              _smsController.messageCount.value = 1;
-                              // });
-                            } else if ((text.length / 70) > 1 &&
-                                (text.length / 70) < 2) {
-                              // setState(() {
-                              _smsController.messageCount.value = 2;
-                              // });
-                            } else if ((text.length / 70) > 2 &&
-                                (text.length / 70) < 3) {
-                              // setState(() {
-                              _smsController.messageCount.value = 3;
-                              // });
-                            }
-                          }
-                        },
-                        // maxLength: maxLengthForText,
-                        maxLines: 5,
-                        keyboardType: TextInputType.multiline,
-                        decoration: InputDecoration(
-                          helperText:
+                              RegExp exp = RegExp("[A-Za-z0-9]");
+                              RegExp expEnglishBangla = RegExp("[A-Za-z0-9ড়ঢ়ঁংঃঅআইঈউঊঋঌএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফববভমমযরলশষসহািীুূৃৄেৈোৌ্ৎড়ঢ়য়০১২৩৪৫৬৭৮৯]");
+                              RegExp expBangla = RegExp("[ড়ঢ়ঁংঃঅআইঈউঊঋঌএঐওঔকখগঘঙচছজঝঞটঠডঢণতথদধনপফববভমমযরলশষসহািীুূৃৄেৈোৌ্ৎড়ঢ়য়০১২৩৪৫৬৭৮৯]");
+                              if (expBangla.hasMatch(text)) {
+                                // setState(() {
+                                _smsController.maxLengthForText.value = 70;
+                                // });
+                                if ((text.length / 70) <= 1) {
+                                  // setState(() {
+                                  _smsController.messageCount.value = 1;
+                                  // });
+                                } else if ((text.length / 70) > 1 &&
+                                    (text.length / 70) < 2) {
+                                  // setState(() {
+                                  _smsController.messageCount.value = 2;
+                                  // });
+                                } else if ((text.length / 70) > 2 &&
+                                    (text.length / 70) < 3) {
+                                  // setState(() {
+                                  _smsController.messageCount.value = 3;
+                                  // });
+                                }
+                              }else if(exp.hasMatch(text)){
+                                _smsController.maxLengthForText.value = 160;
+                                // });
+                                if ((text.length / 160) <= 1) {
+                                  // setState(() {
+                                  _smsController.messageCount.value = 1;
+                                  // });
+                                } else if ((text.length / 160) > 1 &&
+                                    (text.length / 160) < 2) {
+                                  // setState(() {
+                                  _smsController.messageCount.value = 2;
+                                  // });
+                                } else if ((text.length / 160) > 2 &&
+                                    (text.length / 160) < 3) {
+                                  // setState(() {
+                                  _smsController.messageCount.value = 3;
+                                  // });
+                                }
+                              }else if(expEnglishBangla.hasMatch(text)){
+                                _smsController.maxLengthForText.value = 70;
+                                // });
+                                if ((text.length / 70) <= 1) {
+                                  // setState(() {
+                                  _smsController.messageCount.value = 1;
+                                  // });
+                                } else if ((text.length / 70) > 1 &&
+                                    (text.length / 70) < 2) {
+                                  // setState(() {
+                                  _smsController.messageCount.value = 2;
+                                  // });
+                                } else if ((text.length / 70) > 2 &&
+                                    (text.length / 70) < 3) {
+                                  // setState(() {
+                                  _smsController.messageCount.value = 3;
+                                  // });
+                                }
+                              }
+                              // else {
+                              //   // setState(() {
+                              //   _smsController.maxLengthForText.value = 70;
+                              //   // });
+                              //   if ((text.length / 70) <= 1) {
+                              //     // setState(() {
+                              //     _smsController.messageCount.value = 1;
+                              //     // });
+                              //   } else if ((text.length / 70) > 1 &&
+                              //       (text.length / 70) < 2) {
+                              //     // setState(() {
+                              //     _smsController.messageCount.value = 2;
+                              //     // });
+                              //   } else if ((text.length / 70) > 2 &&
+                              //       (text.length / 70) < 3) {
+                              //     // setState(() {
+                              //     _smsController.messageCount.value = 3;
+                              //     // });
+                              //   }
+                              // }
+                            },
+                            // maxLength: maxLengthForText,
+                            maxLines: 5,
+                            keyboardType: TextInputType.multiline,
+                            decoration: InputDecoration(
+                              helperText:
                               '${_smsController.textInTheMessageField.value.length} Characters | ${_smsController.messageCount.value} Messages | (${_smsController.maxLengthForText.value}/1 messages)',
-                          labelText: 'Message',
-                          labelStyle: TextStyle(color: Colors.black),
-                          focusColor: Colors.black,
-                          border: OutlineInputBorder(
-                            borderSide:
+                              labelText: 'Message',
+                              labelStyle: TextStyle(color: Colors.black),
+                              focusColor: Colors.black,
+                              border: OutlineInputBorder(
+                                borderSide:
                                 BorderSide(width: 2, color: Colors.black),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide:
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide:
                                 BorderSide(color: Colors.black, width: 2.0),
+                              ),
+                            ),
                           ),
-                        ),
+                          Positioned(
+                            bottom: 30,
+                            right: 5,
+                            child: Container(
+                              child: Text('- ${shop.name}'),
+                            ),
+                          )
+                        ],
                       );
                     }),
                   ),

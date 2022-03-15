@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 import 'dart:io';
@@ -76,13 +77,11 @@ class CustomExpensePage extends StatefulWidget {
 }
 
 class _CustomExpensePageState extends State<CustomExpensePage> {
-  XFile imageFileFront;
+  File image;
   DateTime startDate = DateTime.now();
   DateTime endDate;
-  XFile imageFileBack;
   String imageSource;
   ExpenseController _expenseController = Get.find();
-  final imagePicker = ImagePicker();
   Shop shop = Get.arguments;
   bool _isLoading = false;
   TextEditingController _textEditingControllerAmount = TextEditingController();
@@ -105,7 +104,9 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                   GestureDetector(
                     onTap: () {
                       ImageHelper.getImageFromCamera().then((value) {
-                        _expenseController.image.value = value;
+                        setState(() {
+                          image = value;
+                        });
                         navigator.pop();
                       });
                     },
@@ -133,7 +134,9 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                     onTap: () {
                       //getImageFromGallery(option);
                       ImageHelper.getImageFromGallery().then((value) {
-                        _expenseController.image.value = value;
+                        setState(() {
+                          image = value;
+                        });
                         navigator.pop();
                       });
                     },
@@ -179,7 +182,9 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                   GestureDetector(
                     onTap: () {
                       ImageHelper.getImageFromCamera().then((value) {
-                        _expenseController.image.value = value;
+                        setState(() {
+                          image = value;
+                        });
                         navigator.pop();
                       });
                     },
@@ -207,7 +212,9 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                     onTap: () {
                       //getImageFromGallery(option);
                       ImageHelper.getImageFromGallery().then((value) {
-                        _expenseController.image.value = value;
+                        setState(() {
+                          image = value;
+                        });
                         navigator.pop();
                       });
                     },
@@ -392,7 +399,7 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                                   onTap: () {
                                     _showPictureOptionDialogue();
                                   },
-                                  child: (_expenseController.image.value == null)
+                                  child: (image == null)
                                       ? Container(
                                           height: 50,
                                           width: 50,
@@ -401,21 +408,18 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                                                   color: Colors.black)),
                                           child: Icon(Icons.camera_alt),
                                         )
-                                      : Obx(()=>
-                                      Container(
-                                        height: 50,
-                                        width: 50,
-                                        child: Image.file(
-                                          _expenseController.image.value,
-                                          alignment: Alignment.topLeft,
-                                          width: MediaQuery.of(context)
-                                              .size
-                                              .width,
-                                          height: 100,
-                                        ),
-                                      ),
-                                  )
-
+                                      : Container(
+                                    height: 50,
+                                    width: 50,
+                                    child: Image.file(
+                                      image,
+                                      alignment: Alignment.topLeft,
+                                      width: MediaQuery.of(context)
+                                          .size
+                                          .width,
+                                      height: 100,
+                                    ),
+                                  ),
                                 ),
                               ),
                               GestureDetector(
@@ -444,16 +448,9 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                           SizedBox(
                             height: 50,
                           ),
-                          ElevatedButton(
-                            onPressed: () async{
-                              imageSource = await _apiService.uploadFile(
-                                  file: File(_expenseController.image.value.path), type: '');
-                              String imageUrl = imageSource
-                                  .replaceAll("\\", "")
-                                  .replaceAll('"', "")
-                                  .replaceAll("{", "")
-                                  .replaceAll("}", "")
-                                  .replaceAllMapped('url:', (match) => "");
+                          GestureDetector(
+                            onTap: () async{
+                              // print('print from create expense ${image.path}');
                              await _expenseController.createNewExpense(
                                   shopId: widget.shopId,
                                   type: widget.type,
@@ -461,7 +458,7 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                                   details:
                                       _textEditingControllerDescription.text == '' ? '[Nothing Given]' : _textEditingControllerDescription.text,
                                   amount: _textEditingControllerAmount.text,
-                                  imageURL: imageUrl
+                                  imageURL: image
                              );
 
                              await _expenseController
@@ -539,21 +536,23 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                               Get.back();
                               Get.back();
                             },
-                            child: Center(
-                              child: Text(
-                                'Save',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 12),
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: DEFAULT_BLUE,
+                                borderRadius: BorderRadius.circular(6),
                               ),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              primary: DEFAULT_BLUE_DARK,
-                              fixedSize: Size(width, 40),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(2),
+                              child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: Center(
+                                  child: Text('save'.tr,textAlign: TextAlign.center, style: TextStyle(
+                                      color: Colors.white, fontSize: 18
+                                  ),),
+                                ),
                               ),
-                            ),
+                            )
+
                           )
                         ],
                       ),

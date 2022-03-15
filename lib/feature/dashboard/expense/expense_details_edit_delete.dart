@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import 'package:hishabee_business_manager_fl/controllers/expense/expense_control
 import 'package:hishabee_business_manager_fl/models/expense/expense_category.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
+import 'package:hishabee_business_manager_fl/service/api_service.dart';
 import 'package:intl/intl.dart';
 
 Widget textFormFeildForExpense(
@@ -54,6 +56,7 @@ Widget textFormFeildForExpense(
   );
 }
 int flag = 0;
+int flagDate = 0;
 var now = DateTime.now();
 var startOfMonth = DateTime(now.year, now.month, 1);
 var lastOfTheMonth = (now.month < 12)
@@ -69,7 +72,7 @@ class ExpenseEditDelete extends StatefulWidget {
   String shopId;
   String userId;
   String date;
-  String image;
+  File image;
 
   ExpenseEditDelete(
       {this.amount,
@@ -88,13 +91,15 @@ class ExpenseEditDelete extends StatefulWidget {
 }
 
 class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
+  ApiService _apiService = ApiService();
   Shop shop = Get.arguments;
+  String imageSource;
   TextEditingController _textEditingControllerAmount = TextEditingController();
   TextEditingController _textEditingControllerReason = TextEditingController();
   TextEditingController _textEditingControllerDescription =
       TextEditingController();
   ExpenseController _expenseController = Get.find();
-
+  int flag = 0;
   DateTime selectedDate;
   DateTime initialDate = DateTime.now();
   DateTime endDate;
@@ -118,8 +123,13 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                   GestureDetector(
                     onTap: () {
                       ImageHelper.getImageFromCamera().then((value) {
-                        _expenseController.image.value = value;
-                        imageChanged = true;
+                        setState(() {
+                          widget.image = value;
+                          flag = 1;
+                          imageChanged = true;
+                        });
+
+
                         navigator.pop();
                       });
                     },
@@ -147,8 +157,13 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                     onTap: () {
                       //getImageFromGallery(option);
                       ImageHelper.getImageFromGallery().then((value) {
-                        _expenseController.image.value = value;
-                        imageChanged = true;
+                        setState(() {
+                          widget.image = value;
+                          flag = 1;
+                          imageChanged = true;
+                        });
+
+
                         navigator.pop();
                       });
                     },
@@ -194,8 +209,12 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                   GestureDetector(
                     onTap: () {
                       ImageHelper.getImageFromCamera().then((value) {
-                        _expenseController.image.value = value;
-                        imageChanged = true;
+                        setState(() {
+                          widget.image = value;
+                          flag = 1;
+                          imageChanged = true;
+                        });
+
                         navigator.pop();
                       });
                     },
@@ -223,8 +242,13 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                     onTap: () {
                       //getImageFromGallery(option);
                       ImageHelper.getImageFromGallery().then((value) {
-                        _expenseController.image.value = value;
-                        imageChanged = true;
+                        setState(() {
+                          widget.image = value;
+                          flag = 1;
+                          imageChanged = true;
+                        });
+
+
                         navigator.pop();
                       });
                     },
@@ -288,7 +312,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
     if (picked != null) {
       setState(() {
         // widgets.controller.selectedStartDate.value = picked;
-        flag = 1;
+        flagDate = 1;
         selectedDate = picked;
         initialDate = picked;
         widget.date = DateFormat.yMMMMd().format(picked);
@@ -297,11 +321,114 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _textEditingControllerAmount.text = widget.amount;
+    _textEditingControllerDescription.text = widget.description;
+    _textEditingControllerReason.text = widget.reason;
+  }
+  @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: bgColor,
+      bottomSheet: GestureDetector(
+        onTap: () async{
+          print('date path from edit delete ${DateFormat("MMMM d, y").parse(widget.date)}');
+          print(flag);
+          if(!imageChanged){
+            await _expenseController.updateExpense(
+                imageChange: imageChanged,
+                imageUrl: widget.image,
+                shopId: widget.shopId,
+                categoryid: widget.categoryId,
+                type: widget.types,
+                purpose: _textEditingControllerReason.text == '' ? widget.reason : _textEditingControllerReason.text ,
+                description: _textEditingControllerDescription.text == '' ? widget.description : _textEditingControllerDescription.text,
+                amount: _textEditingControllerAmount.text == '' ? widget.amount : _textEditingControllerAmount.text,
+                date: flagDate == 0 ? '${DateFormat("MMMM d, y").parse(widget.date)}' : '$selectedDate'
+            );
+          }
+          else{
+            await _expenseController.updateExpenseWithoutImage(
+                shopId: widget.shopId,
+                categoryid: widget.categoryId,
+                type: widget.types,
+                purpose: _textEditingControllerReason.text == '' ? widget.reason : _textEditingControllerReason.text ,
+                description: _textEditingControllerDescription.text == '' ? widget.description : _textEditingControllerDescription.text,
+                amount: _textEditingControllerAmount.text == '' ? widget.amount : _textEditingControllerAmount.text,
+                date: flagDate == 0 ? '${DateFormat("MMMM d, y").parse(widget.date)}' : '$selectedDate'
+            );
+          }
+
+
+          await _expenseController
+              .getAllExpense(
+              shopId: '${widget.shopId}',
+              userId: '${widget.userId}',
+              startDate: '$startOfMonth',
+              endDate: '$lastOfTheMonth')
+              .then((value) {
+            setState(() {
+
+              _expenseController.allExpenseList.value =
+                  getExpenseFromModel(value);
+              _expenseController.totalExpense.value =
+                  _expenseController.allExpenseList
+                      .map((e) => e.amount)
+                      .fold(
+                      0,
+                          (previousValue, element) =>
+                      previousValue + element);
+              _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
+            });
+          });
+          await _expenseController
+              .getAllExpense(
+              shopId: '${widget.shopId}',
+              userId: '${widget.userId}',
+              startDate: '$startOfMonth',
+              endDate: '$lastOfTheMonth'
+          )
+              .then((value) {
+            setState(() {
+              // _expenseList = getExpenseFromModel(value);
+              _expenseController.allExpenseList.value =
+                  getExpenseFromModel(value);
+              _expenseController.totalExpense.value =
+                  _expenseController.allExpenseList
+                      .map((e) => e.amount)
+                      .fold(
+                      0,
+                          (previousValue, element) =>
+                      previousValue + element);
+              _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
+            });
+          });
+          Get.back();
+          Get.back();
+          Get.back();
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: 40,
+            decoration: BoxDecoration(
+                color: DEFAULT_BLUE,
+                borderRadius: BorderRadius.circular(6),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Center(
+                child: Text('save'.tr,textAlign: TextAlign.center, style: TextStyle(
+                  color: Colors.white, fontSize: 18
+                ),),
+              ),
+            ),
+          ),
+        ),
+      ),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
@@ -332,11 +459,35 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                         height: 10,
                       ),
                       Text('amount'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
-                      textFormFeildForExpense(
-                        // labelText: 'amount'.tr,
-                          hintText: '${widget.amount}',
-                          // mainText: '${widget.amount}',
-                          texteditingController: _textEditingControllerAmount),
+                      TextFormField(
+                        cursorColor: Colors.black,
+                        minLines: 1,
+                        controller: _textEditingControllerAmount,
+                        maxLines: 1,
+                        decoration: InputDecoration(
+                          // suffix: iconButton,
+                          filled: true,
+                          contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6.0),
+                            borderSide: BorderSide(
+                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                            ),
+                          ),
+                          counterText: "",
+                          // hintText: hintText,
+                          hintStyle: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black26,
+                          ),
+                        ),
+                      ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -364,11 +515,12 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                         children: [
                           Padding(
                             padding: EdgeInsets.only(left: 16, right: 16),
-                            child: GestureDetector(
+                            child: InkWell(
                                 onTap: () {
+                                  print('hello');
                                   _showPictureOptionDialogue();
                                 },
-                                child: (_expenseController.image.value == null)
+                                child: (widget.image == null)
                                     ? Container(
                                   height: 50,
                                   width: 50,
@@ -377,20 +529,25 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                                           color: Colors.black)),
                                   child: Icon(Icons.camera_alt),
                                 )
-                                    : Obx(()=>
-                                    Container(
-                                      height: 50,
-                                      width: 50,
-                                      child: Image.file(
-                                        _expenseController.image.value,
-                                        alignment: Alignment.topLeft,
-                                        width: MediaQuery.of(context)
-                                            .size
-                                            .width,
-                                        height: 100,
-                                      ),
-                                    ),
-                                )
+                                    : Container(
+                                  height: 50,
+                                  width: 50,
+                                  child: flag == 0 ? CachedNetworkImage(
+                                    imageUrl: '${widget.image.path}',
+                                    alignment: Alignment.topLeft,
+                                    width: MediaQuery.of(context)
+                                        .size
+                                        .width,
+                                    height: 100,
+                                  ) : Image.file(
+                                      File(widget.image.path),
+                                    alignment: Alignment.topLeft,
+                                    width: MediaQuery.of(context)
+                                        .size
+                                        .width,
+                                    height: 100,
+                                  ),
+                                ),
 
                             ),
                           ),
@@ -422,192 +579,6 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
                         ],
                       ),
                       SizedBox(height: 20,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFFF1F1F1),
-                              borderRadius: BorderRadius.circular(6)
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: TextButton(
-                                onPressed: () async{
-                                  print(_textEditingControllerReason.text);
-                                  print(_textEditingControllerDescription.text);
-                                  print(_textEditingControllerAmount.text);
-                                  await _expenseController.updateExpense(
-                                    imageChange: imageChanged,
-                                    imageUrl: _expenseController.image.value.path,
-                                    shopId: widget.shopId,
-                                    categoryid: widget.categoryId,
-                                    type: widget.types,
-                                    purpose: _textEditingControllerReason.text == '' ? widget.reason : _textEditingControllerReason.text ,
-                                    description: _textEditingControllerDescription.text == '' ? widget.description : _textEditingControllerDescription.text,
-                                    amount: _textEditingControllerAmount.text == '' ? widget.amount : _textEditingControllerAmount.text,
-                                    date: flag == 0 ? '${widget.date}' : '$selectedDate'
-                                  );
-
-                                  await _expenseController
-                                      .getAllExpense(
-                                      shopId: '${widget.shopId}',
-                                      userId: '${widget.userId}',
-                                      startDate: '$startOfMonth',
-                                      endDate: '$lastOfTheMonth')
-                                      .then((value) {
-                                    setState(() {
-
-                                      _expenseController.allExpenseList.value =
-                                          getExpenseFromModel(value);
-                                      _expenseController.totalExpense.value =
-                                          _expenseController.allExpenseList
-                                              .map((e) => e.amount)
-                                              .fold(
-                                              0,
-                                                  (previousValue, element) =>
-                                              previousValue + element);
-                                      _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
-                                    });
-                                  });
-                                  await _expenseController
-                                      .getAllExpense(
-                                      shopId: '${widget.shopId}',
-                                      userId: '${widget.userId}',
-                                      startDate: '$startOfMonth',
-                                      endDate: '$lastOfTheMonth'
-                                  )
-                                      .then((value) {
-                                    setState(() {
-                                      // _expenseList = getExpenseFromModel(value);
-                                      _expenseController.allExpenseList.value =
-                                          getExpenseFromModel(value);
-                                      _expenseController.totalExpense.value =
-                                          _expenseController.allExpenseList
-                                              .map((e) => e.amount)
-                                              .fold(
-                                              0,
-                                                  (previousValue, element) =>
-                                              previousValue + element);
-                                      _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
-                                    });
-                                  });
-
-                                  // _expenseController
-                                  //     .getAllExpenseCategory(shopId: '${widget.shopId}')
-                                  //     .then((value) {
-                                  //   setState(() {
-                                  //     _expenseController.allExpenseCategory.value =
-                                  //         expenseCategoryResponseModelFromModel(value);
-                                  //     print(
-                                  //         'category: ${_expenseController.allExpenseCategory}');
-                                  //   });
-                                  // });
-                                  Get.back();
-                                  Get.back();
-                                  Get.back();
-                                },
-                                style: TextButton.styleFrom(primary: Colors.blue),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children:  [
-                                    Icon(Icons.edit),
-                                    Text('edit'.tr)
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10,),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Color(0xFFF1F1F1),
-                                borderRadius: BorderRadius.circular(6)
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: TextButton(
-                                onPressed: () async {
-                                  _expenseController.deleteExpense(
-                                      categoryid: widget.categoryId);
-
-                                  for(int i = 0; i<_expenseController.allExpenseCategory.length;i++) {
-                                    _expenseController.allExpenseCategory
-                                        .removeWhere((element) =>
-                                    element.id ==
-                                        _expenseController
-                                            .allExpenseCategory[i]
-                                            .id);
-                                  }
-                                  await _expenseController
-                                      .getAllExpense(
-                                      shopId: '${widget.shopId}',
-                                      userId: '${widget.userId}',
-                                      startDate: '$startOfMonth',
-                                      endDate: '$lastOfTheMonth')
-                                      .then((value) {
-                                    setState(() {
-                                      _expenseController.allExpenseList.value =
-                                          getExpenseFromModel(value);
-                                      _expenseController.totalExpense.value =
-                                          _expenseController.allExpenseList
-                                              .map((e) => e.amount)
-                                              .fold(
-                                              0,
-                                                  (previousValue, element) =>
-                                              previousValue + element);
-                                      _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
-                                    });
-                                  });
-                                  await _expenseController
-                                      .getAllExpense(
-                                      shopId: '${widget.shopId}',
-                                      userId: '${widget.userId}',
-                                      startDate: '$startOfMonth',
-                                      endDate: '$lastOfTheMonth')
-                                      .then((value) {
-                                    setState(() {
-                                      // _expenseList = getExpenseFromModel(value);
-                                      _expenseController.allExpenseList.value =
-                                          getExpenseFromModel(value);
-                                      _expenseController.totalExpense.value =
-                                          _expenseController.allExpenseList
-                                              .map((e) => e.amount)
-                                              .fold(
-                                              0,
-                                                  (previousValue, element) =>
-                                              previousValue + element);
-                                      _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
-                                    });
-                                  });
-
-                                  await _expenseController
-                                      .getAllExpenseCategory(shopId: '${widget.shopId}')
-                                      .then((value) {
-                                    setState(() {
-                                      _expenseController.allExpenseCategory.value =
-                                          expenseCategoryResponseModelFromModel(value);
-                                      // print(
-                                      //     'category: ${_expenseController.allExpenseCategory}');
-                                    });
-                                  });
-                                  Get.back();
-                                  Get.back();
-                                  Get.back();
-                                },
-                                style: TextButton.styleFrom(primary: Colors.red),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children:  [
-                                    Icon(Icons.delete),
-                                    Text('delete'.tr)
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
 

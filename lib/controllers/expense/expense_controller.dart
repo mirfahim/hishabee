@@ -22,6 +22,7 @@ class ExpenseController extends GetxController {
   RxInt listCount = 6.obs;
   RxInt categoryWiseTotalAmount = 0.obs;
   RxList fixedCategory = [].obs;
+  final employeeNameController = TextEditingController();
   final image = Rxn<File>();
 
   Future<dynamic> getAllExpense({String shopId, String userId, String startDate, String endDate,}) async {
@@ -64,21 +65,83 @@ class ExpenseController extends GetxController {
         method: apiMethods.put, url: url, body: null, headers: null);
   }
 
+  Future<dynamic> createNewExpenseEmployee(
+      {String shopId,
+        String type,
+        String purpose,
+        String details,
+        String amount,
+        File imageURL, String contactName}
+      ) async{
+    CustomDialog.showLoadingDialog(message: 'Creating New Expense');
+    String imageUrl ='';
+
+    if(imageURL != null){
+      String imageSource = await _apiService.uploadFile(file: imageURL, type: '');
+      imageUrl = imageSource
+          .replaceAll("\\", "")
+          .replaceAll('"', "")
+          .replaceAll("{", "")
+          .replaceAll("}", "")
+          .replaceAllMapped('url:', (match) => "");
+    }else{
+      imageUrl = '';
+    }
+
+    print('image url from main function ${imageUrl}');
+    String url =
+        "/expense/add?shop_id=$shopId&type=$type&purpose=$purpose"
+        "&details=$details&amount=$amount&image=$imageUrl&contact_name=$contactName";
+    return _apiService.makeApiRequest(
+        method: apiMethods.post, url: url, body: null, headers: null);
+  }
   Future<dynamic> createNewExpense(
       {String shopId,
       String type,
       String purpose,
       String details,
       String amount,
-      String imageURL}) async {
+      File imageURL}) async {
+
     CustomDialog.showLoadingDialog(message: 'Creating New Expense');
-    String imageSource = await _apiService.uploadFile(file: image.value, type: '');
+    String imageUrl ='';
+
+    if(imageURL != null){
+      String imageSource = await _apiService.uploadFile(file: imageURL, type: '');
+       imageUrl = imageSource
+          .replaceAll("\\", "")
+          .replaceAll('"', "")
+          .replaceAll("{", "")
+          .replaceAll("}", "")
+          .replaceAllMapped('url:', (match) => "");
+    }else{
+      imageUrl = '';
+    }
+
+    print('image url from main function ${imageUrl}');
     String url =
-        "/expense/add?shop_id=$shopId&type=$type&purpose=$purpose&details=$details&amount=$amount&image_src=$imageSource";
+        "/expense/add?shop_id=$shopId&type=$type&purpose=$purpose&details=$details&amount=$amount&image=$imageUrl";
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
 
+  Future<dynamic> updateExpenseWithoutImage(
+    {String categoryid,
+    String type,
+    String shopId,
+    String purpose,
+    String description,
+    String amount,
+    String date}) async {
+    CustomDialog.showLoadingDialog(message: 'Updating...');
+    String url =
+        "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose${description != null ? '&details=$description' : ''}"
+        "&amount=$amount&id=$categoryid&created_at="
+        "$date";
+    print('date from update $date');
+    return _apiService.makeApiRequest(
+        method: apiMethods.put, url: url, body: null, headers: null);
+  }
   Future<dynamic> updateExpense(
       {String categoryid,
       String type,
@@ -86,14 +149,31 @@ class ExpenseController extends GetxController {
       String purpose,
       String description,
       String amount,
-      String date, String imageUrl, bool imageChange}) async {
+      String date, File imageUrl, bool imageChange}) async {
     CustomDialog.showLoadingDialog(message: 'Updating...');
-    // CustomDialog.showLoadingDialog(message: 'Creating New Expense');
-    String imageSource = await _apiService.uploadFile(file: image.value, type: '');
-    String url =
-        "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose&details=$description&amount=$amount&id=$categoryid&image=$imageSource&image_changed=$imageChange&created_at=$date";
-    return _apiService.makeApiRequest(
-        method: apiMethods.put, url: url, body: null, headers: null);
+
+    String imageURL ='';
+    if(imageUrl != null){
+      String imageSource = await _apiService.uploadFile(file: imageUrl, type: '');
+       imageURL = imageSource
+          .replaceAll("\\", "")
+          .replaceAll('"', "")
+          .replaceAll("{", "")
+          .replaceAll("}", "")
+          .replaceAllMapped('url:', (match) => "");
+    }else{
+      imageURL ='';
+    }
+      print('print from expense controller update $imageURL');
+      String url =
+          "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose${description != null ? '&details=$description' : ''}"
+          "&amount=$amount&id=$categoryid&image=$imageURL&created_at="
+          "$date&image_changed=$imageChange";
+      print('date from update $date');
+      return _apiService.makeApiRequest(
+          method: apiMethods.put, url: url, body: null, headers: null);
+    // }
+
   }
 
   Future<dynamic> deleteExpense({String categoryid}) async {
@@ -101,5 +181,10 @@ class ExpenseController extends GetxController {
     String url = "/expense/delete?id=$categoryid";
     return _apiService.makeApiRequest(
         method: apiMethods.delete, url: url, body: null, headers: null);
+  }
+  Future<dynamic> fetchEmployee({String shopId}){
+    String url = "/employee/all?shop_id=$shopId";
+    return _apiService.makeApiRequest(
+        method: apiMethods.get, url: url, body: null, headers: null);
   }
 }

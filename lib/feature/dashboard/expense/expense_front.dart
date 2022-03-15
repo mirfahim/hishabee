@@ -8,6 +8,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/expenses/pr
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/expense/expense_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/expense/custom_expense_page.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/expense/pay_salary_page.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_category.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
@@ -120,9 +121,8 @@ class _ExpenseListState extends State<ExpenseList> {
       GestureDetector(
         onTap: () {
           Get.to(
-              PaySalaryPage(),
-              arguments: {"shop": shop},
-              binding: ExpenseBinding()
+              PaySalaryPageExpense(),
+              arguments: shop,
           );
         },
         child: Container(

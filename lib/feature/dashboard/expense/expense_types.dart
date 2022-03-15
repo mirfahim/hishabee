@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -419,8 +421,10 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                     top: 5.0, bottom: 5),
                                 child: GestureDetector(
                                   onTap: () {
+                                    print('Image from details ${_expenseController.allExpenseList[index].image}');
                                     Get.to(ExpenseTotalDetails(
-                                      imageUrl: '${_expenseController.allExpenseList[index].image}',
+
+                                      imageUrl: _expenseController.allExpenseList[index].image,
                                             date: '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}',
                                             amount:
                                             '${_expenseController.allExpenseList[index].amount}',
