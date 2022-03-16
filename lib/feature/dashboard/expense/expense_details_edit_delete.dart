@@ -55,7 +55,7 @@ Widget textFormFeildForExpense(
     ),
   );
 }
-int flag = 0;
+// int flag = 0;
 int flagDate = 0;
 var now = DateTime.now();
 var startOfMonth = DateTime(now.year, now.month, 1);
@@ -334,9 +334,8 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
     return Scaffold(
       bottomSheet: GestureDetector(
         onTap: () async{
-          print('date path from edit delete ${DateFormat("MMMM d, y").parse(widget.date)}');
-          print(flag);
-          if(!imageChanged){
+          print('is image changed or not $imageChanged');
+          if(flag != 0){
             await _expenseController.updateExpense(
                 imageChange: imageChanged,
                 imageUrl: widget.image,

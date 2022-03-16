@@ -128,6 +128,7 @@ class ExpenseController extends GetxController {
 
   Future<dynamic> updateExpenseWithoutImage(
     {String categoryid,
+      String contactName,
     String type,
     String shopId,
     String purpose,
@@ -136,7 +137,7 @@ class ExpenseController extends GetxController {
     String date}) async {
     CustomDialog.showLoadingDialog(message: 'Updating...');
     String url =
-        "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose${description != null ? '&details=$description' : ''}"
+        "/expense/edit?shop_id=$shopId${contactName != null ? '&contact_name=$contactName':''}&type=$type&purpose=$purpose${description != null ? '&details=$description' : ''}"
         "&amount=$amount&id=$categoryid&created_at="
         "$date";
     print('date from update $date');
@@ -145,6 +146,7 @@ class ExpenseController extends GetxController {
   }
   Future<dynamic> updateExpense(
       {String categoryid,
+        String contactName,
       String type,
       String shopId,
       String purpose,
@@ -165,9 +167,9 @@ class ExpenseController extends GetxController {
     }else{
       imageURL ='';
     }
-      print('print from expense controller update $imageURL');
+      print('print from expense controller update $imageChange');
       String url =
-          "/expense/edit?shop_id=$shopId&type=$type&purpose=$purpose${description != null ? '&details=$description' : ''}"
+          "/expense/edit?shop_id=$shopId${contactName != null ? '&contact_name=$contactName':''}&type=$type&purpose=$purpose${description != null ? '&details=$description' : ''}"
           "&amount=$amount&id=$categoryid&image=$imageURL&created_at="
           "$date&image_changed=$imageChange";
       print('date from update $date');

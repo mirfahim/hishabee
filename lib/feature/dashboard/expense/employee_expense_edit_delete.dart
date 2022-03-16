@@ -57,7 +57,7 @@ Widget textFormFeildForExpense(
     ),
   );
 }
-int flag = 0;
+// int flag = 0;
 int flagDate = 0;
 var now = DateTime.now();
 var startOfMonth = DateTime(now.year, now.month, 1);
@@ -65,6 +65,7 @@ var lastOfTheMonth = (now.month < 12)
     ? new DateTime(now.year, now.month + 1, 0)
     : new DateTime(now.year + 1, 1, 0);
 bool imageChanged = false;
+
 class EmployeeExpenseEdit extends StatefulWidget {
   String contactName;
   String amount;
@@ -330,6 +331,7 @@ class _EmployeeExpenseEditState extends State<EmployeeExpenseEdit> {
     _textEditingControllerAmount.text = widget.amount;
     _textEditingControllerDescription.text = widget.description;
     _textEditingControllerReason.text = widget.reason;
+    _expenseController.employeeNameController.text = widget.contactName;
   }
   @override
   Widget build(BuildContext context) {
@@ -340,8 +342,9 @@ class _EmployeeExpenseEditState extends State<EmployeeExpenseEdit> {
         onTap: () async{
           print('date path from edit delete ${DateFormat("MMMM d, y").parse(widget.date)}');
           print(flag);
-          if(!imageChanged){
+          if(flag != 0){
             await _expenseController.updateExpense(
+              contactName: _expenseController.employeeNameController.text,
                 imageChange: imageChanged,
                 imageUrl: widget.image,
                 shopId: widget.shopId,
@@ -355,6 +358,7 @@ class _EmployeeExpenseEditState extends State<EmployeeExpenseEdit> {
           }
           else{
             await _expenseController.updateExpenseWithoutImage(
+              contactName: _expenseController.employeeNameController.text,
                 shopId: widget.shopId,
                 categoryid: widget.categoryId,
                 type: widget.types,
@@ -510,6 +514,7 @@ class _EmployeeExpenseEditState extends State<EmployeeExpenseEdit> {
                   ),
                   Text('amount'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
                   TextFormField(
+                    keyboardType: TextInputType.number,
                     cursorColor: Colors.black,
                     minLines: 1,
                     controller: _textEditingControllerAmount,

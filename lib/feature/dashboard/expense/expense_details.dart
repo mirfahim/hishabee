@@ -317,18 +317,45 @@ class _NewExpenseState extends State<NewExpense> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // const Text('Give your Mobile Number'),
-                    // SizedBox(
-                    //   height: 20,
-                    // ),
-                    // // const Text('Amount of expenses'),
-                    textFormFeildForExpense(
-                        labelText: 'amount'.tr,
-                        keyboardType: TextInputType.number,
+                    TextFormField(
+                      cursorColor: Colors.black,
+                      keyboardType: TextInputType.number,
+                      minLines: 1,
+                      controller: _textEditingControllerAmount,
+                      inputFormatters: [
 
-                        regEx: '[0-9]',
-                        textEditingController:
-                        _textEditingControllerAmount),
+                        FilteringTextInputFormatter.allow(
+                          RegExp('[0-9]'),
+                        ),
+                      ],
+                      // maxLength: maxLength,
+                      onChanged: (value) {
+                        // controller.mobileNumber.value = value;
+                      },
+                      maxLines: 1,
+                      decoration: InputDecoration(
+                        labelText: 'amount'.tr,
+                        filled: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                          ),
+                        ),
+                        counterText: "",
+                        hintStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black26,
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -346,7 +373,18 @@ class _NewExpenseState extends State<NewExpense> {
                         label: Text('expense_reason'.tr),
                         filled: true,
                         contentPadding: EdgeInsets.symmetric(horizontal: 8),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                          ),
+                        ),
                         counterText: "",
                         // hintText: hintText,
                         hintStyle: const TextStyle(
@@ -372,7 +410,18 @@ class _NewExpenseState extends State<NewExpense> {
                         label: Text('expense_description'.tr),
                         filled: true,
                         contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                          ),
+                        ),
                         counterText: "",
                         // hintText: hintText,
                         hintStyle: const TextStyle(

@@ -270,7 +270,7 @@ class _ExpenseDetailsEmployeeState extends State<ExpenseDetailsEmployee> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Text('amount'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
                       TextFormField(
@@ -286,16 +286,22 @@ class _ExpenseDetailsEmployeeState extends State<ExpenseDetailsEmployee> {
                         decoration: InputDecoration(
                           filled: true,
                           contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                          disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6.0),
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                            ),
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.0),
                             borderSide: BorderSide(
-                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              color: Colors.grey,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.0),
                             borderSide: BorderSide(
-                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              color: Colors.grey,
                             ),
                           ),
                           counterText: "",
@@ -303,7 +309,7 @@ class _ExpenseDetailsEmployeeState extends State<ExpenseDetailsEmployee> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Text('purpose'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
                       TextFormField(
@@ -319,16 +325,22 @@ class _ExpenseDetailsEmployeeState extends State<ExpenseDetailsEmployee> {
                         decoration: InputDecoration(
                           filled: true,
                           contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6.0),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
+                            ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.0),
                             borderSide: BorderSide(
-                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              color: Colors.grey,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.0),
                             borderSide: BorderSide(
-                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              color: Colors.grey,
                             ),
                           ),
                           counterText: "",
@@ -336,7 +348,7 @@ class _ExpenseDetailsEmployeeState extends State<ExpenseDetailsEmployee> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Text('description'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
                       TextFormField(
@@ -352,16 +364,22 @@ class _ExpenseDetailsEmployeeState extends State<ExpenseDetailsEmployee> {
                         decoration: InputDecoration(
                           filled: true,
                           contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6.0),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
+                            ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.0),
                             borderSide: BorderSide(
-                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              color: Colors.grey,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.0),
                             borderSide: BorderSide(
-                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              color: Colors.grey,
                             ),
                           ),
                           counterText: "",

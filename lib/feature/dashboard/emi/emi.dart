@@ -4,12 +4,15 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/emi/emi_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/new_emi.dart';
 import 'package:hishabee_business_manager_fl/models/emi/emi_model.dart';
 import 'package:intl/intl.dart';
-import 'package:jiffy/jiffy.dart'; // for date format
+import 'package:jiffy/jiffy.dart';
+
+import 'know_more.dart'; // for date format
 
 var now;
 var day;
@@ -45,7 +48,7 @@ class _EMIState extends State<EMI> {
   List<EmiModel> _foundData = <EmiModel>[];
   EmiController controller = EmiController();
   Shop shop = Get.arguments;
-  int flag = 1;
+  int flag = 3;
 
   @override
   void initState() {
@@ -63,7 +66,8 @@ class _EMIState extends State<EMI> {
     weekFirst = DateFormat.yMd().format(DateTime.utc(year, month, ((week-1)*7))) ;
     weekLast = DateFormat.yMd().format(DateTime.utc(year, month, ((week-1)*7) + 6));
     getData();
-
+    // controller.init();
+    // controller.getIsConnected();
     super.initState();
   }
 
@@ -276,18 +280,20 @@ class _EMIState extends State<EMI> {
                                         color: Colors.grey.withOpacity(.35),
                                         width: 1.0)))),
                         onPressed: () {
+                          firstDatePicked == null ?  CustomDialog.showStringDialog('Select start Date First') :
                           DatePicker.showDatePicker(context,
                               showTitleActions: true,
                               minTime: DateTime(2018, 3, 5),
                               maxTime: DateTime(2222, 6, 7),
                               onChanged: (endDateTime) {
-                            setState(() {
-                              endDatePicked = endDateTime;
-                              endDate =
-                                  DateFormat.MMMMd().format(endDatePicked);
-                              // getDataForDropDown(startDate, endDate);
-                            });
-                          });
+                                setState(() {
+                                  endDatePicked = endDateTime;
+                                  endDate =
+                                      DateFormat.MMMMd().format(endDatePicked);
+                                  getDataForDropDown(startDate, endDate);
+                                });
+                              });
+
                         },
                       ),
                     ),
@@ -311,6 +317,7 @@ class _EMIState extends State<EMI> {
                                   onPressed: () {
                                     setState(() {
                                       flag = 1;
+                                      getDataForDropDown(now, now);
                                     });
                                   },
                                   child: Text(
@@ -341,7 +348,7 @@ class _EMIState extends State<EMI> {
                                   onPressed: () {
                                     setState(() {
                                       flag = 2;
-                                      print('flag of week $flag');
+                                      getDataForDropDown(startOfTheWeek, now);
                                     });
                                   },
                                   child: Text(
@@ -373,6 +380,7 @@ class _EMIState extends State<EMI> {
                                   onPressed: () {
                                     setState(() {
                                       flag = 3;
+                                      getDataForDropDown(startOfMonth,lastOfTheMonth );
                                     });
                                   },
                                   child: Text(
@@ -404,6 +412,7 @@ class _EMIState extends State<EMI> {
                                   onPressed: () {
                                     setState(() {
                                       flag = 4;
+                                      getDataForDropDown(startOfTheYear, now);
                                     });
                                   },
                                   child: Text(
@@ -515,7 +524,11 @@ class _EMIState extends State<EMI> {
                               child: Text('Text Loading', style: TextStyle(fontSize: 16),),
                             )),
                         Center(
-                          child: TextButton(onPressed: (){}, child: Text('know_more_about_emi'.tr,style: TextStyle(
+                          child: TextButton(
+                              onPressed: (){
+                                Get.to(KnowMoreAboutEMI());
+                              },
+                              child: Text('know_more_about_emi'.tr,style: TextStyle(
                             fontSize: 14, color: DEFAULT_BLUE
                           ),)),
                         )
@@ -564,22 +577,22 @@ class _EMIState extends State<EMI> {
       //  isLoading = false;
     });
   }
-  // void getDataForDropDown(var startDate, var endDate) {
-  //   controller
-  //       .fetchAllEmi(
-  //       shopId: '${shop.id}', startDate: "$startDate", endDate: "$endDate")
-  //       .then((value) {
-  //     if (value != null) {
-  //       setState(() {
-  //         _list = emiModelFromJson(value);
-  //
-  //         print('EMI list: $_list');
-  //       });
-  //     }
-  //
-  //     //  isLoading = false;
-  //   });
-  // }
+  void getDataForDropDown(var startDate, var endDate) {
+    controller
+        .fetchAllEmi(
+        shopId: '${shop.id}', startDate: "$startDate", endDate: "$endDate")
+        .then((value) {
+      if (value != null) {
+        setState(() {
+          _list = emiModelFromJson(value);
+          _foundData = emiModelFromJson(value);
+          print('EMI list: $_list');
+        });
+      }
+
+      //  isLoading = false;
+    });
+  }
   List<String> months = [
     'January'.tr,
     'February'.tr,

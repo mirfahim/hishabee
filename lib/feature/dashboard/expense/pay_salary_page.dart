@@ -378,13 +378,44 @@ class _PaySalaryPageExpenseState extends State<PaySalaryPageExpense> {
                     SizedBox(
                       height: 20,
                     ),
-                    textFormFeildForExpense(
+                    TextFormField(
+                      cursorColor: Colors.black,
+                      keyboardType: TextInputType.number,
+                      minLines: 1,
+                      controller: _textEditingControllerAmount,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                          RegExp('[0-9]'),
+                        ),
+                      ],
+                      // maxLength: maxLength,
+                      onChanged: (value) {
+                        // controller.mobileNumber.value = value;
+                      },
+                      maxLines: 1,
+                      decoration: InputDecoration(
                         labelText: 'amount'.tr,
-                        keyboardType: TextInputType.number,
-
-                        regEx: '[0-9]',
-                        textEditingController:
-                        _textEditingControllerAmount),
+                        filled: true,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        counterText: "",
+                        hintStyle: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black26,
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       height: 20,
                     ),
@@ -403,7 +434,18 @@ class _PaySalaryPageExpenseState extends State<PaySalaryPageExpense> {
                         label: Text('expense_reason'.tr),
                         filled: true,
                         contentPadding: EdgeInsets.symmetric(horizontal: 8),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                          ),
+                        ),
                         counterText: "",
                         // hintText: hintText,
                         hintStyle: const TextStyle(
@@ -429,7 +471,18 @@ class _PaySalaryPageExpenseState extends State<PaySalaryPageExpense> {
                         label: Text('expense_description'.tr),
                         filled: true,
                         contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                          ),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                          borderSide: BorderSide(
+                            color: Colors.grey,
+                          ),
+                        ),
                         counterText: "",
                         // hintText: hintText,
                         hintStyle: const TextStyle(

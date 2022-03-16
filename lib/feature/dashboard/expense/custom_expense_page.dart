@@ -20,46 +20,6 @@ import 'package:loading_overlay/loading_overlay.dart';
 
 import 'expense_front.dart';
 
-Widget textFormFeildForExpense(
-    {int lengthInputFormater,
-    String regEx,
-    String hintText,
-    String labelText,
-    IconButton iconButton,
-    int maxLine,
-    TextInputType keyboardType,
-    TextEditingController textEditingController}) {
-  return TextFormField(
-    cursorColor: Colors.black,
-    keyboardType: keyboardType,
-    minLines: maxLine,
-    controller: textEditingController,
-    inputFormatters: [
-      LengthLimitingTextInputFormatter(lengthInputFormater),
-      FilteringTextInputFormatter.allow(
-        RegExp(regEx),
-      ),
-    ],
-    // maxLength: maxLength,
-    onChanged: (value) {
-      // controller.mobileNumber.value = value;
-    },
-    maxLines: maxLine,
-    decoration: InputDecoration(
-      label: Text(labelText),
-      suffix: iconButton,
-      filled: true,
-      contentPadding: EdgeInsets.symmetric(horizontal: 8),
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-      counterText: "",
-      hintText: hintText,
-      hintStyle: const TextStyle(
-        fontWeight: FontWeight.bold,
-        color: Colors.black26,
-      ),
-    ),
-  );
-}
 
 var now = DateTime.now();
 var startOfMonth = DateTime(now.year, now.month, 1);
@@ -328,13 +288,45 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                           //   height: 20,
                           // ),
                           // // const Text('Amount of expenses'),
-                          textFormFeildForExpense(
+                          TextFormField(
+                            cursorColor: Colors.black,
+                            keyboardType: TextInputType.number,
+                            minLines: 1,
+                            controller: _textEditingControllerAmount,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.allow(
+                                RegExp('[0-9]'),
+                              ),
+                            ],
+                            // maxLength: maxLength,
+                            onChanged: (value) {
+                              // controller.mobileNumber.value = value;
+                            },
+                            maxLines: 1,
+                            decoration: InputDecoration(
                               labelText: 'amount'.tr,
-                              keyboardType: TextInputType.number,
 
-                              regEx: '[0-9]',
-                              textEditingController:
-                                  _textEditingControllerAmount),
+                              filled: true,
+                              contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6.0),
+                                borderSide: BorderSide(
+                                  color: Color(0xFFC4C4C4).withOpacity(.35),
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6.0),
+                                borderSide: BorderSide(
+                                  color: Color(0xFFC4C4C4).withOpacity(.35),
+                                ),
+                              ),
+                              counterText: "",
+                              hintStyle: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black26,
+                              ),
+                            ),
+                          ),
                           SizedBox(
                             height: 20,
                           ),
@@ -352,7 +344,18 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                               label: Text('expense_reason'.tr),
                               filled: true,
                               contentPadding: EdgeInsets.symmetric(horizontal: 8),
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6.0),
+                                borderSide: BorderSide(
+                                  color: Color(0xFFC4C4C4).withOpacity(.35),
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6.0),
+                                borderSide: BorderSide(
+                                  color: Color(0xFFC4C4C4).withOpacity(.35),
+                                ),
+                              ),
                               counterText: "",
                               // hintText: hintText,
                               hintStyle: const TextStyle(
@@ -378,7 +381,18 @@ class _CustomExpensePageState extends State<CustomExpensePage> {
                               label: Text('expense_description'.tr),
                               filled: true,
                               contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6.0),
+                                borderSide: BorderSide(
+                                  color: Color(0xFFC4C4C4).withOpacity(.35),
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(6.0),
+                                borderSide: BorderSide(
+                                  color: Color(0xFFC4C4C4).withOpacity(.35),
+                                ),
+                              ),
                               counterText: "",
                               // hintText: hintText,
                               hintStyle: const TextStyle(

@@ -29,6 +29,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_featur
 // import 'package:hishabee_business_manager_fl/app/modules/single_shop/sms_service/presentation/pages/sms_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
+import 'package:hishabee_business_manager_fl/controllers/emi/emi_binding.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/emi/emi.dart';
 
 class AdvanceItemsList extends GetResponsiveView<ShopFeaturesController> {
@@ -634,7 +635,7 @@ class AdvanceItemsList extends GetResponsiveView<ShopFeaturesController> {
                 // ),
                 InkWell(
                   onTap: () {
-                    Get.to(EMI(), arguments: shop);
+                    Get.to(EMI(), arguments: shop, binding: EmiBinding());
                     // Get.to(
                     //   () => SmsPage(),
                     //   arguments: {
