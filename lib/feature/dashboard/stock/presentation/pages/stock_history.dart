@@ -314,107 +314,109 @@ class _StockHistoryState extends State<StockHistory> {
                         child: Text('Loading....'),
                       );
                     }else{
-                      return ListView.builder(
-                          itemCount: _stockController.stockHistory.value.data.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            // StockHistory stock = _stockController.allStockHistory['data'];
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: Color(0xFFF1F1F1),
-                                    borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: Column(
-                                    children: [
-                                      ListTile(
-                                        leading: SvgPicture.asset('images/svg_image/empty-image.svg'),
-                                        title: Text('', style: TextStyle(
-                                            fontSize: 14,fontFamily: 'Roboto'
-                                        ),),
-                                        subtitle: Text('${_stockController.stockHistory.value.data[index].createdAt}'),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                                        child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: [
-                                                Text('stock_price'.tr, style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontFamily: 'Roboto',
-                                                    color: Color(0xFF707070)
-                                                ),),
-                                                Text('৳ ${_stockController.stockHistory.value.data[index].stockValue}', style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontFamily: 'Roboto',
-                                                    color: Color(0xFF232323)
-                                                ),)
-                                              ],
-                                            ),
-                                            Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: [
-                                                Text('previous_stock'.tr, style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontFamily: 'Roboto',
-                                                    color: Color(0xFF707070)
-                                                ),),
-                                                Text('${_stockController.stockHistory.value.data[index].beforeStock}', style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontFamily: 'Roboto',
-                                                    color: Color(0xFF232323)
-                                                ),)
-                                              ],
-                                            ),
-                                            Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: [
-                                                Text('increase_stock'.tr, style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontFamily: 'Roboto',
-                                                    color: Color(0xFF707070)
-                                                ),),
-                                                Text('${_stockController.stockHistory.value.data[index].increase}', style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontFamily: 'Roboto',
-                                                    color: Color(0xFF669E4F)
-                                                ),)
-                                              ],
-                                            ),
-                                            Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              children: [
-                                                Text('present_stock'.tr, style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontFamily: 'Roboto',
-                                                    color: Color(0xFF707070)
-                                                ),),
-                                                Text('${_stockController.stockHistory.value.data[index].quantity}', style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontFamily: 'Roboto',
-                                                    color: Color(0xFF232323)
-                                                ),)
-                                              ],
-                                            )
-                                          ],
+                      return Expanded(
+                        child: ListView.builder(
+                            itemCount: _stockController.stockHistory.value.data.length,
+                            shrinkWrap: true,
+                            itemBuilder: (context, index) {
+                              // StockHistory stock = _stockController.allStockHistory['data'];
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Color(0xFFF1F1F1),
+                                      borderRadius: BorderRadius.circular(10)
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(bottom: 8.0),
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                          leading: SvgPicture.asset('images/svg_image/empty-image.svg'),
+                                          title: Text('', style: TextStyle(
+                                              fontSize: 14,fontFamily: 'Roboto'
+                                          ),),
+                                          subtitle: Text('${_stockController.stockHistory.value.data[index].createdAt}'),
                                         ),
-                                      )
-                                    ],
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  Text('stock_price'.tr, style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontFamily: 'Roboto',
+                                                      color: Color(0xFF707070)
+                                                  ),),
+                                                  Text('৳ ${_stockController.stockHistory.value.data[index].stockValue}', style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontFamily: 'Roboto',
+                                                      color: Color(0xFF232323)
+                                                  ),)
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  Text('previous_stock'.tr, style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontFamily: 'Roboto',
+                                                      color: Color(0xFF707070)
+                                                  ),),
+                                                  Text('${_stockController.stockHistory.value.data[index].beforeStock}', style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontFamily: 'Roboto',
+                                                      color: Color(0xFF232323)
+                                                  ),)
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  Text('increase_stock'.tr, style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontFamily: 'Roboto',
+                                                      color: Color(0xFF707070)
+                                                  ),),
+                                                  Text('${_stockController.stockHistory.value.data[index].increase}', style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontFamily: 'Roboto',
+                                                      color: Color(0xFF669E4F)
+                                                  ),)
+                                                ],
+                                              ),
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                children: [
+                                                  Text('present_stock'.tr, style: TextStyle(
+                                                      fontSize: 12,
+                                                      fontFamily: 'Roboto',
+                                                      color: Color(0xFF707070)
+                                                  ),),
+                                                  Text('${_stockController.stockHistory.value.data[index].quantity}', style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontFamily: 'Roboto',
+                                                      color: Color(0xFF232323)
+                                                  ),)
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            );
-                          }
+                              );
+                            }
+                        ),
                       );
                     }
 

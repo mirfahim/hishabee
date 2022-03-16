@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/expense/expense_controller.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/expense/expense_details_employee.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:intl/intl.dart';
@@ -421,7 +422,27 @@ class _ExpenseList2State extends State<ExpenseList2> {
                                     top: 5.0, bottom: 5),
                                 child: GestureDetector(
                                   onTap: () {
-                                    print('Image from details ${_expenseController.allExpenseList[index].image}');
+                                    print('Contact Type from details ${_expenseController.allExpenseList[index].contactType}');
+                                    '${_expenseController.allExpenseList[index].contactType}' == 'EMPLOYEE' ?
+                                    Get.to(ExpenseDetailsEmployee(
+                                      contactName: _expenseController.allExpenseList[index].contactName,
+                                      imageUrl: _expenseController.allExpenseList[index].image,
+                                      date: '${DateFormat.yMMMMd().format(_expenseController.allExpenseList[index].createdAt)}',
+                                      amount:
+                                      '${_expenseController.allExpenseList[index].amount}',
+                                      reason:
+                                      '${_expenseController.allExpenseList[index].purpose}',
+                                      description:
+                                      '${_expenseController.allExpenseList[index].details}' == 'null' ? '[Not Given]' : '${_expenseController.allExpenseList[index].details}',
+                                      types:
+                                      '${_expenseController.allExpenseList[index].type}',
+                                      shopId:
+                                      '${_expenseController.allExpenseList[index].shopId}',
+                                      categoryId:
+                                      '${_expenseController.allExpenseList[index].id}',
+                                      userId:
+                                      '${_expenseController.allExpenseList[index].userId}',
+                                    ), arguments: shop) :
                                     Get.to(ExpenseTotalDetails(
 
                                       imageUrl: _expenseController.allExpenseList[index].image,

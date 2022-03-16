@@ -71,7 +71,7 @@ class ExpenseController extends GetxController {
         String purpose,
         String details,
         String amount,
-        File imageURL, String contactName}
+        File imageURL, String contactName,String contactNumber}
       ) async{
     CustomDialog.showLoadingDialog(message: 'Creating New Expense');
     String imageUrl ='';
@@ -90,7 +90,8 @@ class ExpenseController extends GetxController {
 
     print('image url from main function ${imageUrl}');
     String url =
-        "/expense/add?shop_id=$shopId&type=$type&purpose=$purpose"
+        "/expense/add?shop_id=$shopId&type=$type&purpose=$purpose&"
+        "contact_name=$contactName&contact_type=EMPLOYEE"
         "&details=$details&amount=$amount&image=$imageUrl&contact_name=$contactName";
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);

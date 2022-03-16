@@ -121,8 +121,9 @@ class _ExpenseListState extends State<ExpenseList> {
       GestureDetector(
         onTap: () {
           Get.to(
-              PaySalaryPageExpense(),
+              PaySalaryPageExpense(type: 'Salary',shopId: '${getShopId.read('shop_id')}',),
               arguments: shop,
+
           );
         },
         child: Container(
