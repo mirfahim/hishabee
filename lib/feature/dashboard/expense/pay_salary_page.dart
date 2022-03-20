@@ -1,30 +1,29 @@
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
-import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/expense/expense_controller.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/expense/utils/employee_popup.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_category.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:hishabee_business_manager_fl/utility/utils.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 
-import 'expense_front.dart';
-
 Widget textFormFeildForExpense(
     {int lengthInputFormater,
-    String regEx,
-    String hintText,
-    String labelText,
-    IconButton iconButton,
-    int maxLine,
-    TextInputType keyboardType,
-    TextEditingController textEditingController}) {
+      String regEx,
+      String hintText,
+      String labelText,
+      IconButton iconButton,
+      int maxLine,
+      TextInputType keyboardType,
+      TextEditingController textEditingController}) {
   return TextFormField(
     cursorColor: Colors.black,
     keyboardType: keyboardType,
@@ -62,27 +61,29 @@ var startOfMonth = DateTime(now.year, now.month, 1);
 var lastOfTheMonth = (now.month < 12)
     ? new DateTime(now.year, now.month + 1, 0)
     : new DateTime(now.year + 1, 1, 0);
-
-class NewExpense extends StatefulWidget {
+class PaySalaryPageExpense extends StatefulWidget {
   String shopId;
   String type;
   String userId;
-  NewExpense({this.shopId, this.type, this.userId});
+  String contactName;
+  PaySalaryPageExpense({this.shopId, this.type, this.userId, this.contactName});
+
   @override
-  State<NewExpense> createState() => _NewExpenseState();
+  _PaySalaryPageExpenseState createState() => _PaySalaryPageExpenseState();
 }
 
-class _NewExpenseState extends State<NewExpense> {
+class _PaySalaryPageExpenseState extends State<PaySalaryPageExpense> {
   File image;
   DateTime startDate = DateTime.now();
   DateTime endDate;
+  String imageSource;
   ExpenseController _expenseController = Get.find();
   Shop shop = Get.arguments;
   bool _isLoading = false;
   TextEditingController _textEditingControllerAmount = TextEditingController();
   TextEditingController _textEditingControllerReason = TextEditingController();
   TextEditingController _textEditingControllerDescription =
-      TextEditingController();
+  TextEditingController();
 
   _showPictureOptionDialogue() {
 
@@ -283,6 +284,12 @@ class _NewExpenseState extends State<NewExpense> {
     }
   }
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //
+  // }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -317,13 +324,66 @@ class _NewExpenseState extends State<NewExpense> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // const Text('Give your Mobile Number'),
+                    // SizedBox(
+                    //   height: 20,
+                    // ),
+                    // // const Text('Amount of expenses'),
+                    Container(
+                      decoration: Utils.getBoxShape(),
+                      child: Row(
+                        mainAxisAlignment:
+                        MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Text(
+                            "name|".tr,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 8.0),
+                              child: TextFormField(
+                                controller: _expenseController.employeeNameController,
+                                keyboardType: TextInputType.text,
+                                decoration: InputDecoration(
+                                  hintText: "name".tr,
+                                  hintStyle:
+                                  TextStyle(fontSize: 14.0),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () => showDialog(
+                                context: context,
+                                builder: (_) {
+                                  return EmployeePopup(shop: shop);
+                                }),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.black,
+                              size: 35,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
                     TextFormField(
                       cursorColor: Colors.black,
                       keyboardType: TextInputType.number,
                       minLines: 1,
                       controller: _textEditingControllerAmount,
                       inputFormatters: [
-
                         FilteringTextInputFormatter.allow(
                           RegExp('[0-9]'),
                         ),
@@ -340,13 +400,13 @@ class _NewExpenseState extends State<NewExpense> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.0),
                           borderSide: BorderSide(
-                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                            color: Colors.grey,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.0),
                           borderSide: BorderSide(
-                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                            color: Colors.grey,
                           ),
                         ),
                         counterText: "",
@@ -359,6 +419,7 @@ class _NewExpenseState extends State<NewExpense> {
                     SizedBox(
                       height: 20,
                     ),
+
                     TextFormField(
                       cursorColor: Colors.black,
                       keyboardType: TextInputType.text,
@@ -376,13 +437,13 @@ class _NewExpenseState extends State<NewExpense> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.0),
                           borderSide: BorderSide(
-                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                            color: Colors.grey,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.0),
                           borderSide: BorderSide(
-                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                            color: Colors.grey,
                           ),
                         ),
                         counterText: "",
@@ -413,13 +474,13 @@ class _NewExpenseState extends State<NewExpense> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.0),
                           borderSide: BorderSide(
-                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                            color: Colors.grey,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(6.0),
                           borderSide: BorderSide(
-                            color: Color(0xFFC4C4C4).withOpacity(.35),
+                            color: Colors.grey,
                           ),
                         ),
                         counterText: "",
@@ -492,109 +553,111 @@ class _NewExpenseState extends State<NewExpense> {
                       height: 50,
                     ),
                     GestureDetector(
-                      onTap: () async{
-                        // print('print from create expense ${image.path}');
-                        await _expenseController.createNewExpense(
-                            shopId: widget.shopId,
-                            type: widget.type,
-                            purpose: _textEditingControllerReason.text,
-                            details:
-                            _textEditingControllerDescription.text == '' ? '[Nothing Given]' : _textEditingControllerDescription.text,
-                            amount: _textEditingControllerAmount.text,
-                            imageURL: image
-                        );
+                        onTap: () async{
+                          // print('print from create expense ${image.path}');
+                          await _expenseController.createNewExpenseEmployee(
+                            contactName: _expenseController.employeeNameController.text,
+                              shopId: widget.shopId,
+                              type: widget.type,
+                              purpose: _textEditingControllerReason.text,
+                              details:
+                              _textEditingControllerDescription.text == '' ? '[Nothing Given]' : _textEditingControllerDescription.text,
+                              amount: _textEditingControllerAmount.text,
+                              imageURL: image
+                          );
 
-                        await _expenseController
-                            .getAllExpense(
-                            shopId: '${widget.shopId}',
-                            userId: '${widget.userId}',
-                            startDate: '$startOfMonth',
-                            endDate: '$lastOfTheMonth')
-                            .then((value) {
-                          setState(() {
-                            _expenseController.allExpenseList.value =
-                                getExpenseFromModel(value);
-                            _expenseController.totalExpense.value =
-                                _expenseController.allExpenseList
-                                    .map((e) => e.amount)
-                                    .fold(
-                                    0,
-                                        (previousValue, element) =>
-                                    previousValue + element);
-                            _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
-                            // _isLoading = false;
-                            // print('expense list: ${_expenseController.allExpenseList.value}');
+                          await _expenseController
+                              .getAllExpense(
+                              shopId: '${widget.shopId}',
+                              userId: '${widget.userId}',
+                              startDate: '$startOfMonth',
+                              endDate: '$lastOfTheMonth')
+                              .then((value) {
+                            setState(() {
+                              _expenseController.allExpenseList.value =
+                                  getExpenseFromModel(value);
+                              _expenseController.totalExpense.value =
+                                  _expenseController.allExpenseList
+                                      .map((e) => e.amount)
+                                      .fold(
+                                      0,
+                                          (previousValue, element) =>
+                                      previousValue + element);
+                              _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
+                              // _isLoading = false;
+                              // print('expense list: ${_expenseController.allExpenseList.value}');
+                            });
                           });
-                        });
-                        await _expenseController
-                            .getAllExpense(
-                            shopId: '${widget.shopId}',
-                            userId: '${widget.userId}',
-                            startDate: '$startOfMonth',
-                            endDate: '$lastOfTheMonth')
-                            .then((value) {
-                          setState(() {
-                            // _expenseList = getExpenseFromModel(value);
-                            _expenseController.allExpenseList.value =
-                                getExpenseFromModel(value);
-                            _expenseController.totalExpense.value =
-                                _expenseController.allExpenseList
-                                    .map((e) => e.amount)
-                                    .fold(
-                                    0,
-                                        (previousValue, element) =>
-                                    previousValue + element);
-                            _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
-                            // _isLoading = false;
-                            // print(
-                            //     'expense list: ${_expenseController.allExpenseList.value}');
+                          await _expenseController
+                              .getAllExpense(
+                              shopId: '${widget.shopId}',
+                              userId: '${widget.userId}',
+                              startDate: '$startOfMonth',
+                              endDate: '$lastOfTheMonth')
+                              .then((value) {
+                            setState(() {
+                              // _expenseList = getExpenseFromModel(value);
+                              _expenseController.allExpenseList.value =
+                                  getExpenseFromModel(value);
+                              _expenseController.totalExpense.value =
+                                  _expenseController.allExpenseList
+                                      .map((e) => e.amount)
+                                      .fold(
+                                      0,
+                                          (previousValue, element) =>
+                                      previousValue + element);
+                              _expenseController.totalFixedExpense.value = _expenseController.totalExpense.value;
+                              // _isLoading = false;
+                              // print(
+                              //     'expense list: ${_expenseController.allExpenseList.value}');
+                            });
                           });
-                        });
 
-                        await _expenseController
-                            .getAllExpenseCategory(
-                            shopId: '${widget.shopId}')
-                            .then((value) {
-                          setState(() {
-                            _expenseController.allExpenseCategory.value =
-                                expenseCategoryResponseModelFromModel(
-                                    value);
-                            // print(
-                            //     'category: ${_expenseController.allExpenseCategory}');
+                          await _expenseController
+                              .getAllExpenseCategory(
+                              shopId: '${widget.shopId}')
+                              .then((value) {
+                            setState(() {
+                              _expenseController.allExpenseCategory.value =
+                                  expenseCategoryResponseModelFromModel(
+                                      value);
+                              // print(
+                              //     'category: ${_expenseController.allExpenseCategory}');
+                            });
                           });
-                        });
 
-                        await _expenseController
-                            .getAllExpenseCategory(
-                            shopId: '${widget.shopId}')
-                            .then((value) {
-                          setState(() {
-                            _expenseController.allExpenseCategory.value =
-                                expenseCategoryResponseModelFromModel(
-                                    value);
-                            print(
-                                'category: ${_expenseController.allExpenseCategory}');
+                          await _expenseController
+                              .getAllExpenseCategory(
+                              shopId: '${widget.shopId}')
+                              .then((value) {
+                            setState(() {
+                              _expenseController.allExpenseCategory.value =
+                                  expenseCategoryResponseModelFromModel(
+                                      value);
+                              print(
+                                  'category: ${_expenseController.allExpenseCategory}');
+                            });
                           });
-                        });
-                        Get.back();
-                        Get.back();
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: DEFAULT_BLUE,
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Center(
-                            child: Text('save'.tr,textAlign: TextAlign.center, style: TextStyle(
-                                color: Colors.white, fontSize: 18
-                            ),),
+                          Get.back();
+                          Get.back();
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            color: DEFAULT_BLUE,
+                            borderRadius: BorderRadius.circular(6),
                           ),
-                        ),
-                      )
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Center(
+                              child: Text('save'.tr,textAlign: TextAlign.center, style: TextStyle(
+                                  color: Colors.white, fontSize: 18
+                              ),),
+                            ),
+                          ),
+                        )
+
                     )
                   ],
                 ),

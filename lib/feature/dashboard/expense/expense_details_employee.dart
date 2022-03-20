@@ -8,11 +8,13 @@ import 'package:hishabee_business_manager_fl/models/expense/expense_category.dar
 import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/utility/utils.dart';
 import 'package:intl/intl.dart';
 
-import 'expense_details_edit_delete.dart';
+import 'employee_expense_edit_delete.dart';
 
-class ExpenseTotalDetails extends StatefulWidget {
+
+class ExpenseDetailsEmployee extends StatefulWidget {
   String amount;
   String reason;
   String description;
@@ -22,25 +24,31 @@ class ExpenseTotalDetails extends StatefulWidget {
   String userId;
   String date;
   String imageUrl;
+  String contactName;
 
-  ExpenseTotalDetails({this.amount,
+  ExpenseDetailsEmployee({this.amount,
     this.reason,
     this.description,
     this.types,
     this.shopId,
     this.categoryId,
     this.userId,
-    this.date, this.imageUrl});
+    this.date, this.imageUrl, this.contactName});
 
   @override
-  State<ExpenseTotalDetails> createState() => _ExpenseTotalDetailsState();
+  State<ExpenseDetailsEmployee> createState() => _ExpenseDetailsEmployeeState();
 }
 
-class _ExpenseTotalDetailsState extends State<ExpenseTotalDetails> {
+class _ExpenseDetailsEmployeeState extends State<ExpenseDetailsEmployee> {
   ExpenseController _expenseController = Get.find();
-
+  TextEditingController _contactName = TextEditingController();
   Shop shop = Get.arguments;
 
+  @override
+  void initState() {
+    super.initState();
+    _contactName.text = widget.contactName;
+  }
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -60,7 +68,8 @@ class _ExpenseTotalDetailsState extends State<ExpenseTotalDetails> {
                 child: TextButton(
                   onPressed: () async{
                     widget.imageUrl == null ? Get.to(
-                        ExpenseEditDelete(
+                        EmployeeExpenseEdit(
+                          contactName: widget.contactName,
                           date:
                           widget.date,
                           amount:
@@ -80,7 +89,8 @@ class _ExpenseTotalDetailsState extends State<ExpenseTotalDetails> {
                         ),
                         arguments: shop) :
                     Get.to(
-                        ExpenseEditDelete(
+                        EmployeeExpenseEdit(
+                            contactName: widget.contactName,
                           image: File(widget.imageUrl) ,
                           date:
                           widget.date,
@@ -230,8 +240,37 @@ class _ExpenseTotalDetailsState extends State<ExpenseTotalDetails> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // const Text('Name of type of the Expense'),
+                      Text('employee_name'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
+                      SizedBox(height: 5,),
+                      SizedBox(height: 5,),
+                      Container(
+                        decoration: Utils.getBoxShape(),
+                        child: Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceAround,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 8.0),
+                                child: TextFormField(
+                                  enabled: false,
+                                  controller: _contactName,
+                                  keyboardType: TextInputType.text,
+                                  decoration: InputDecoration(
+                                    hintText: "name".tr,
+                                    hintStyle:
+                                    TextStyle(fontSize: 14.0),
+                                    border: InputBorder.none,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Text('amount'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
                       TextFormField(
@@ -247,16 +286,22 @@ class _ExpenseTotalDetailsState extends State<ExpenseTotalDetails> {
                         decoration: InputDecoration(
                           filled: true,
                           contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                          disabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(6.0),
+                            borderSide: BorderSide(
+                              color: Colors.grey,
+                            ),
+                          ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.0),
                             borderSide: BorderSide(
-                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              color: Colors.grey,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.0),
                             borderSide: BorderSide(
-                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              color: Colors.grey,
                             ),
                           ),
                           counterText: "",
@@ -264,7 +309,7 @@ class _ExpenseTotalDetailsState extends State<ExpenseTotalDetails> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Text('purpose'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
                       TextFormField(
@@ -280,16 +325,22 @@ class _ExpenseTotalDetailsState extends State<ExpenseTotalDetails> {
                         decoration: InputDecoration(
                           filled: true,
                           contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6.0),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
+                            ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.0),
                             borderSide: BorderSide(
-                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              color: Colors.grey,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.0),
                             borderSide: BorderSide(
-                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              color: Colors.grey,
                             ),
                           ),
                           counterText: "",
@@ -297,7 +348,7 @@ class _ExpenseTotalDetailsState extends State<ExpenseTotalDetails> {
                         ),
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Text('description'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
                       TextFormField(
@@ -313,16 +364,22 @@ class _ExpenseTotalDetailsState extends State<ExpenseTotalDetails> {
                         decoration: InputDecoration(
                           filled: true,
                           contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6.0),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                              ),
+                            ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.0),
                             borderSide: BorderSide(
-                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              color: Colors.grey,
                             ),
                           ),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(6.0),
                             borderSide: BorderSide(
-                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              color: Colors.grey,
                             ),
                           ),
                           counterText: "",

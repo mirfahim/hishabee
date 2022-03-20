@@ -7,10 +7,12 @@ import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/expense/expense_controller.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/expense/utils/employee_popup.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_category.dart';
 import 'package:hishabee_business_manager_fl/models/expense/expense_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:hishabee_business_manager_fl/service/api_service.dart';
+import 'package:hishabee_business_manager_fl/utility/utils.dart';
 import 'package:intl/intl.dart';
 
 Widget textFormFeildForExpense(
@@ -63,7 +65,9 @@ var lastOfTheMonth = (now.month < 12)
     ? new DateTime(now.year, now.month + 1, 0)
     : new DateTime(now.year + 1, 1, 0);
 bool imageChanged = false;
-class ExpenseEditDelete extends StatefulWidget {
+
+class EmployeeExpenseEdit extends StatefulWidget {
+  String contactName;
   String amount;
   String reason;
   String description;
@@ -74,30 +78,31 @@ class ExpenseEditDelete extends StatefulWidget {
   String date;
   File image;
 
-  ExpenseEditDelete(
+  EmployeeExpenseEdit(
       {this.amount,
-      this.reason,
-      this.description,
-      this.types,
-      this.shopId,
-      this.categoryId,
-      this.userId,
-      this.date,
+        this.contactName,
+        this.reason,
+        this.description,
+        this.types,
+        this.shopId,
+        this.categoryId,
+        this.userId,
+        this.date,
         this.image
       });
 
   @override
-  State<ExpenseEditDelete> createState() => _ExpenseEditDeleteState();
+  State<EmployeeExpenseEdit> createState() => _EmployeeExpenseEditState();
 }
 
-class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
+class _EmployeeExpenseEditState extends State<EmployeeExpenseEdit> {
   ApiService _apiService = ApiService();
   Shop shop = Get.arguments;
   String imageSource;
   TextEditingController _textEditingControllerAmount = TextEditingController();
   TextEditingController _textEditingControllerReason = TextEditingController();
   TextEditingController _textEditingControllerDescription =
-      TextEditingController();
+  TextEditingController();
   ExpenseController _expenseController = Get.find();
   int flag = 0;
   DateTime selectedDate;
@@ -326,6 +331,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
     _textEditingControllerAmount.text = widget.amount;
     _textEditingControllerDescription.text = widget.description;
     _textEditingControllerReason.text = widget.reason;
+    _expenseController.employeeNameController.text = widget.contactName;
   }
   @override
   Widget build(BuildContext context) {
@@ -334,9 +340,11 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
     return Scaffold(
       bottomSheet: GestureDetector(
         onTap: () async{
-          print('is image changed or not $imageChanged');
+          print('date path from edit delete ${DateFormat("MMMM d, y").parse(widget.date)}');
+          print(flag);
           if(flag != 0){
             await _expenseController.updateExpense(
+              contactName: _expenseController.employeeNameController.text,
                 imageChange: imageChanged,
                 imageUrl: widget.image,
                 shopId: widget.shopId,
@@ -350,6 +358,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
           }
           else{
             await _expenseController.updateExpenseWithoutImage(
+              contactName: _expenseController.employeeNameController.text,
                 shopId: widget.shopId,
                 categoryid: widget.categoryId,
                 type: widget.types,
@@ -414,14 +423,14 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
             width: MediaQuery.of(context).size.width,
             height: 40,
             decoration: BoxDecoration(
-                color: DEFAULT_BLUE,
-                borderRadius: BorderRadius.circular(6),
+              color: DEFAULT_BLUE,
+              borderRadius: BorderRadius.circular(6),
             ),
             child: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Center(
                 child: Text('save'.tr,textAlign: TextAlign.center, style: TextStyle(
-                  color: Colors.white, fontSize: 18
+                    color: Colors.white, fontSize: 18
                 ),),
               ),
             ),
@@ -436,7 +445,7 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
           icon: Icon(Icons.arrow_back, color: Colors.black,),
         ),
         title: Text('edit_expense'.tr, style: TextStyle(
-          color: Colors.black
+            color: Colors.black
         ),),
         backgroundColor: bgColor,
       ),
@@ -448,139 +457,183 @@ class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
             child: Padding(
               padding: EdgeInsets.only(left: 10, right: 10, top: 15),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // const Text('Name of type of the Expense'),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('amount'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
-                      TextFormField(
-                        cursorColor: Colors.black,
-                        minLines: 1,
-                        controller: _textEditingControllerAmount,
-                        maxLines: 1,
-                        decoration: InputDecoration(
-                          // suffix: iconButton,
-                          filled: true,
-                          contentPadding: EdgeInsets.symmetric(horizontal: 8),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6.0),
-                            borderSide: BorderSide(
-                              color: Color(0xFFC4C4C4).withOpacity(.35),
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(6.0),
-                            borderSide: BorderSide(
-                              color: Color(0xFFC4C4C4).withOpacity(.35),
-                            ),
-                          ),
-                          counterText: "",
-                          // hintText: hintText,
-                          hintStyle: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black26,
-                          ),
+                  Text('employee_name'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    decoration: Utils.getBoxShape(),
+                    child: Row(
+                      mainAxisAlignment:
+                      MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          width: 15,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('purpose'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
-                      textFormFeildForExpense(
-                        // labelText: 'purpose'.tr,
-                          hintText: '${widget.reason}',
-                          // mainText: '${widget.reason}',
-                          texteditingController: _textEditingControllerReason),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Text('description'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
-                      textFormFeildForExpense(
-                        // labelText: 'description'.tr,
-                          hintText: '${widget.description}',
-                          // mainText: '${widget.description}',
-                          texteditingController:
-                          _textEditingControllerDescription),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 16, right: 16),
-                            child: InkWell(
-                                onTap: () {
-                                  print('hello');
-                                  _showPictureOptionDialogue();
-                                },
-                                child: (widget.image == null)
-                                    ? Container(
-                                  height: 50,
-                                  width: 50,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: Colors.black)),
-                                  child: Icon(Icons.camera_alt),
-                                )
-                                    : Container(
-                                  height: 50,
-                                  width: 50,
-                                  child: flag == 0 ? CachedNetworkImage(
-                                    imageUrl: '${widget.image.path}',
-                                    alignment: Alignment.topLeft,
-                                    width: MediaQuery.of(context)
-                                        .size
-                                        .width,
-                                    height: 100,
-                                  ) : Image.file(
-                                      File(widget.image.path),
-                                    alignment: Alignment.topLeft,
-                                    width: MediaQuery.of(context)
-                                        .size
-                                        .width,
-                                    height: 100,
-                                  ),
-                                ),
-
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: GestureDetector(
-                              onTap: () {
-                                getDialog();
-                              },
-                              child: Container(
-                                width: 180,
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black),
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 3, vertical: 7),
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.calendar_today),
-                                      Text(widget.date),
-                                    ],
-                                  ),
-                                  //asdasdasd
-                                ),
+                        Text(
+                          "name|".tr,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w600),
+                        ),
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 8.0),
+                            child: TextFormField(
+                              controller: _expenseController.employeeNameController,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                hintText: "name".tr,
+                                hintStyle:
+                                TextStyle(fontSize: 14.0),
+                                border: InputBorder.none,
                               ),
                             ),
                           ),
-                        ],
+                        ),
+                        InkWell(
+                          onTap: () => showDialog(
+                              context: context,
+                              builder: (_) {
+                                return EmployeePopup(shop: shop);
+                              }),
+                          child: Icon(
+                            Icons.arrow_drop_down,
+                            color: Colors.black,
+                            size: 35,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('amount'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    cursorColor: Colors.black,
+                    minLines: 1,
+                    controller: _textEditingControllerAmount,
+                    maxLines: 1,
+                    decoration: InputDecoration(
+                      // suffix: iconButton,
+                      filled: true,
+                      contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(6.0),
+                        borderSide: BorderSide(
+                          color: Color(0xFFC4C4C4).withOpacity(.35),
+                        ),
                       ),
-                      SizedBox(height: 20,),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(6.0),
+                        borderSide: BorderSide(
+                          color: Color(0xFFC4C4C4).withOpacity(.35),
+                        ),
+                      ),
+                      counterText: "",
+                      // hintText: hintText,
+                      hintStyle: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black26,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('purpose'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
+                  textFormFeildForExpense(
+                    // labelText: 'purpose'.tr,
+                      hintText: '${widget.reason}',
+                      // mainText: '${widget.reason}',
+                      texteditingController: _textEditingControllerReason),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('description'.tr, style: TextStyle(fontSize: 16,fontFamily: 'Roboto'),),
+                  textFormFeildForExpense(
+                    // labelText: 'description'.tr,
+                      hintText: '${widget.description}',
+                      // mainText: '${widget.description}',
+                      texteditingController:
+                      _textEditingControllerDescription),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: 16, right: 16),
+                        child: InkWell(
+                          onTap: () {
+                            print('hello');
+                            _showPictureOptionDialogue();
+                          },
+                          child: (widget.image == null)
+                              ? Container(
+                            height: 50,
+                            width: 50,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: Colors.black)),
+                            child: Icon(Icons.camera_alt),
+                          )
+                              : Container(
+                            height: 50,
+                            width: 50,
+                            child: flag == 0 ? CachedNetworkImage(
+                              imageUrl: '${widget.image.path}',
+                              alignment: Alignment.topLeft,
+                              width: MediaQuery.of(context)
+                                  .size
+                                  .width,
+                              height: 100,
+                            ) : Image.file(
+                              File(widget.image.path),
+                              alignment: Alignment.topLeft,
+                              width: MediaQuery.of(context)
+                                  .size
+                                  .width,
+                              height: 100,
+                            ),
+                          ),
+
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: GestureDetector(
+                          onTap: () {
+                            getDialog();
+                          },
+                          child: Container(
+                            width: 180,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black),
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 3, vertical: 7),
+                              child: Row(
+                                children: [
+                                  Icon(Icons.calendar_today),
+                                  Text(widget.date),
+                                ],
+                              ),
+                              //asdasdasd
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-
+                  SizedBox(height: 20,),
                 ],
               ),
             ),

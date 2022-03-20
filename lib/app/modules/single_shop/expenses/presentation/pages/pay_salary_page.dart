@@ -8,6 +8,7 @@ import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/expenses/presentation/manager/add_expense_controller.dart';
+import 'package:hishabee_business_manager_fl/controllers/expense/expense_controller.dart';
 import 'package:intl/intl.dart';
 // import 'package:month_picker_dialog/month_picker_dialog.dart';
 
@@ -22,6 +23,7 @@ class PaySalaryPage extends GetView<AddExpenseController> {
   });
 
   var startDate = DateTime.now().obs;
+  ExpenseController _expenseController = Get.put(ExpenseController());
 
   @override
   Widget build(BuildContext context) {
@@ -390,31 +392,48 @@ class PaySalaryPage extends GetView<AddExpenseController> {
                                                 ],
                                               ),
                                             ),
-                                            SizedBox(height: 10,),
+                                            SizedBox(
+                                              height: 10,
+                                            ),
                                             Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
-                                                GestureDetector(
-                                                  onTap: () {
-                                                    _showPictureOptionDialogue();
-                                                  },
-                                                  child: (controller.image.value == null)
-                                                      ? Container(
-                                                    height: 50,
-                                                    width: 50,
-                                                    decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                            color: Colors.black)),
-                                                    child: Icon(Icons.camera_alt),
-                                                  )
-                                                      : Image.file(
-                                                    controller.image.value,
-                                                    alignment: Alignment.topLeft,
-                                                    width: MediaQuery.of(context)
-                                                        .size
-                                                        .width,
-                                                    height: 50,
+                                                Container(
+                                                  height: 50,
+                                                  width: 50,
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      _showPictureOptionDialogue();
+                                                    },
+                                                    child: (controller
+                                                                .image.value ==
+                                                            null)
+                                                        ? Container(
+                                                            // height: 50,
+                                                            // width: 50,
+                                                            decoration: BoxDecoration(
+                                                                border: Border.all(
+                                                                    color: Colors
+                                                                        .black)),
+                                                            child: Icon(Icons
+                                                                .camera_alt),
+                                                          )
+                                                        : Image.file(
+                                                            controller
+                                                                .image.value,
+                                                            alignment: Alignment
+                                                                .topLeft,
+                                                            width:
+                                                                MediaQuery.of(
+                                                                        context)
+                                                                    .size
+                                                                    .width,
+                                                            height: 50,
+                                                          ),
                                                   ),
                                                 ),
                                                 GestureDetector(
@@ -423,19 +442,25 @@ class PaySalaryPage extends GetView<AddExpenseController> {
                                                   },
                                                   child: Container(
                                                     decoration: BoxDecoration(
-                                                        border: Border.all(color: Colors.black),
-                                                        borderRadius: BorderRadius.circular(5)),
+                                                        border: Border.all(
+                                                            color:
+                                                                Colors.black),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5)),
                                                     child: Padding(
-                                                      padding: const EdgeInsets.symmetric(
-                                                          horizontal: 3, vertical: 7),
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 3,
+                                                          vertical: 7),
                                                       child: Row(
                                                         children: [
-                                                          Icon(Icons.calendar_today),
-                                                          Obx(()=>
-                                                              Text(
-                                                                  '${DateFormat.yMMMMd().format(startDate.value)}'),
+                                                          Icon(Icons
+                                                              .calendar_today),
+                                                          Obx(
+                                                            () => Text(
+                                                                '${DateFormat.yMMMMd().format(startDate.value)}'),
                                                           )
-
                                                         ],
                                                       ),
                                                     ),
@@ -443,7 +468,6 @@ class PaySalaryPage extends GetView<AddExpenseController> {
                                                 )
                                               ],
                                             )
-
                                           ],
                                         ),
                                       ),
@@ -593,6 +617,7 @@ class PaySalaryPage extends GetView<AddExpenseController> {
       ),
     );
   }
+
   _showPictureOptionDialogue() {
     final AddExpenseController controller = Get.find();
 
@@ -601,153 +626,154 @@ class PaySalaryPage extends GetView<AddExpenseController> {
         showDialog(
             context: Get.context,
             builder: (_) => CupertinoAlertDialog(
-              title: Text("Picture option"),
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      ImageHelper.getImageFromCamera().then((value) {
-                        controller.image.value = value;
-                        navigator.pop();
-                      });
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Image(
-                              height: 80,
-                              image: AssetImage('images/icons/camera.png'),
+                  title: Text("Picture option"),
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          ImageHelper.getImageFromCamera().then((value) {
+                            controller.image.value = value;
+                            navigator.pop();
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image(
+                                  height: 80,
+                                  image: AssetImage('images/icons/camera.png'),
+                                ),
+                                Text("Camera")
+                              ],
                             ),
-                            Text("Camera")
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      //getImageFromGallery(option);
-                      ImageHelper.getImageFromGallery().then((value) {
-                        controller.image.value = value;
-                        navigator.pop();
-                      });
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Image(
-                              height: 80,
-                              image: AssetImage('images/icons/gallery.png'),
+                      GestureDetector(
+                        onTap: () {
+                          //getImageFromGallery(option);
+                          ImageHelper.getImageFromGallery().then((value) {
+                            controller.image.value = value;
+                            navigator.pop();
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image(
+                                  height: 80,
+                                  image: AssetImage('images/icons/gallery.png'),
+                                ),
+                                Text("Gallery")
+                              ],
                             ),
-                            Text("Gallery")
-                          ],
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-              actions: [
-                TextButton(
-                  child: Text('Close'),
-                  onPressed: () {
-                    navigator.pop();
-                  },
-                )
-              ],
-            ));
+                  actions: [
+                    TextButton(
+                      child: Text('Close'),
+                      onPressed: () {
+                        navigator.pop();
+                      },
+                    )
+                  ],
+                ));
       } else {
         showDialog(
             context: Get.context,
             builder: (_) => AlertDialog(
-              title: Text("Picture option"),
-              content: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      ImageHelper.getImageFromCamera().then((value) {
-                        controller.image.value = value;
-                        navigator.pop();
-                      });
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Image(
-                              height: 80,
-                              image: AssetImage('images/icons/camera.png'),
+                  title: Text("Picture option"),
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          ImageHelper.getImageFromCamera().then((value) {
+                            controller.image.value = value;
+                            navigator.pop();
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image(
+                                  height: 80,
+                                  image: AssetImage('images/icons/camera.png'),
+                                ),
+                                Text("Camera")
+                              ],
                             ),
-                            Text("Camera")
-                          ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      //getImageFromGallery(option);
-                      ImageHelper.getImageFromGallery().then((value) {
-                        controller.image.value = value;
-                        navigator.pop();
-                      });
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Image(
-                              height: 80,
-                              image: AssetImage('images/icons/gallery.png'),
+                      GestureDetector(
+                        onTap: () {
+                          //getImageFromGallery(option);
+                          ImageHelper.getImageFromGallery().then((value) {
+                            controller.image.value = value;
+                            navigator.pop();
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Image(
+                                  height: 80,
+                                  image: AssetImage('images/icons/gallery.png'),
+                                ),
+                                Text("Gallery")
+                              ],
                             ),
-                            Text("Gallery")
-                          ],
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-              actions: [
-                TextButton(
-                  child: Text('Close'),
-                  onPressed: () {
-                    navigator.pop();
-                  },
-                )
-              ],
-            ));
+                  actions: [
+                    TextButton(
+                      child: Text('Close'),
+                      onPressed: () {
+                        navigator.pop();
+                      },
+                    )
+                  ],
+                ));
       }
     } catch (e) {}
   }
+
   void getDialog() async {
     await _selectStartDate();
     // await _selectEndDate(context);
@@ -758,7 +784,8 @@ class PaySalaryPage extends GetView<AddExpenseController> {
     final DateTime picked = await showDatePicker(
       helpText: "start_date".tr,
       context: Get.context,
-      initialDate: startDate.value, // Refer step 1
+      initialDate: startDate.value,
+      // Refer step 1
       firstDate: DateTime(2000),
       lastDate: DateTime(2025),
       builder: (BuildContext context, Widget child) {

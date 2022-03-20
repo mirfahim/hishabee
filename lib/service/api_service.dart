@@ -74,6 +74,8 @@ class ApiService {
         response = await http.post(apiURL,
             body: convert.jsonEncode(body), headers: header);
         print("Response code: ${response.statusCode}");
+        // print('response code from function: ${response.statusCode}');
+        print('response code from function: ${response.body}');
         print(apiURL);
         // print(response.body);
       }
@@ -87,6 +89,7 @@ class ApiService {
       if (method == apiMethods.put) {
         response = await http.put(apiURL,
             body: convert.jsonEncode(body), headers: header);
+        print('response code from put: ${response.body}');
       }
 
       if (response != null &&
@@ -102,8 +105,10 @@ class ApiService {
       }
       else {
         var res = convert.jsonDecode(response.body);
+
         handleError(res);
       }
+
     } catch (e) {
 
       print(e.toString());
