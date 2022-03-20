@@ -19,7 +19,7 @@ class DueControllerNew extends GetxController {
   }
 
   Future<dynamic> getAllDue({String shopId}) {
-    String url = '/due/all?$shopId';
+    String url = '/due/all?shop_id=$shopId';
     return _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
   }

@@ -27,7 +27,7 @@ class _DueFrontState extends State<DueFront> {
 
   @override
   void initState() {
-    _dueControllerNew.getAllDue(shopId: '18').then((value) {
+    _dueControllerNew.getAllDue(shopId: '8').then((value) {
       _dueControllerNew.dueList.value = getAllDueResponseModelFromJson(value);
       print('length of due: ${_dueControllerNew.dueHistory.value.data.length}');
       setState(() {
@@ -207,7 +207,7 @@ class _DueFrontState extends State<DueFront> {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            '৳${_allDue.total ?? "0"}',
+                                            '৳${_allDue.total.toString()}',
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontFamily: 'Roboto',
