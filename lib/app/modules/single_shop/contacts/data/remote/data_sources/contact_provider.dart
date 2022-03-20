@@ -146,7 +146,7 @@ class ContactProvider extends GetConnect implements IContactProvider {
     String imageSource,
   }) async {
     String url =
-        "$BASE_URL/employee/add?name=$name&shop_id=$shopId&address=$address&position=$position&mobile=$mobile&monthly_salary=$monthlySalary&image=$imageSource";
+        "$BASE_URL/employee/add?name=$name&shop_id=$shopId&address=$address&position=$position&mobile=$mobile&monthly_salary=$monthlySalary&image_src=$imageSource";
 
     final creds = await authRepository.getCredentials();
 
@@ -215,6 +215,7 @@ class ContactProvider extends GetConnect implements IContactProvider {
     if (response.hasError) {
       return Future.error(response.statusText);
     }
+    print("my response is ${response.bodyString}");
     return getAllEmployeeResponseModelFromJson(response.bodyString);
   }
 

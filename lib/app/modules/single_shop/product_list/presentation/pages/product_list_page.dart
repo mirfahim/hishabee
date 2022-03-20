@@ -104,11 +104,14 @@ class ProductListPage extends GetView<ProductListController> {
                                                   left: 3.0),
                                               child: TextFormField(
                                                 onChanged: (value) {
-                                                  controller.searchProduct(value);
+                                                  controller
+                                                      .searchProduct(value);
                                                 },
-                                                keyboardType: TextInputType.text,
+                                                keyboardType:
+                                                    TextInputType.text,
                                                 decoration: InputDecoration(
-                                                  hintText: "Search For Product",
+                                                  hintText:
+                                                      "Search For Product",
                                                   icon: SvgPicture.asset(
                                                       'images/svg_image/search.svg'),
                                                   hintStyle: TextStyle(
@@ -132,8 +135,8 @@ class ProductListPage extends GetView<ProductListController> {
                                                         height: 30,
                                                         child: VerticalDivider(
                                                             thickness: 2,
-                                                            color:
-                                                                Color(0xFF185ADB),
+                                                            color: Color(
+                                                                0xFF185ADB),
                                                             indent: 0,
                                                             endIndent: 0)),
                                                     InkWell(
@@ -146,7 +149,8 @@ class ProductListPage extends GetView<ProductListController> {
                                                       },
                                                       child: Padding(
                                                         padding:
-                                                            const EdgeInsets.only(
+                                                            const EdgeInsets
+                                                                    .only(
                                                                 right: 5.0,
                                                                 left: 5),
                                                         child: SvgPicture.asset(
@@ -171,7 +175,7 @@ class ProductListPage extends GetView<ProductListController> {
                                     width: 10,
                                   ),
                                   Expanded(
-                                    flex: 1,
+                                      flex: 1,
                                       child: IconButton(
                                           icon: SvgPicture.asset(
                                               'images/svg_image/scanner.svg'),

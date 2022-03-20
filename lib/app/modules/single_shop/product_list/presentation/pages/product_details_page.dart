@@ -92,7 +92,7 @@ class ProductDetails extends GetView<ProductDetailsController> {
                     InkWell(
                       onTap: () {
                         print("working");
-                        sendProductInfo();
+                        sendProductInfo(-1);
                       },
                       child: SvgPicture.asset('images/svg_image/delete.svg'),
                     )
@@ -930,7 +930,7 @@ class ProductDetails extends GetView<ProductDetailsController> {
 
   final AddProductController _controller = Get.find();
   final EditProductController _productController = Get.find();
-  sendProductInfo() async {
+  sendProductInfo(int version) async {
     // if (selectedProductCategory == null || selectedSubCat == null) {
     //   _showMaterialDialog("Please Select Category and Sub Category");
     // }
@@ -941,7 +941,9 @@ class ProductDetails extends GetView<ProductDetailsController> {
       subcategoryId: null == null ? null : null,
       productName: controller.product.value.productName,
       price: controller.product.value.sellingPrice.toDouble(),
-      wholeSalePrice: controller.product.value.wholeSalePrice.toDouble(),
+      wholeSalePrice: controller.product.value.wholeSalePrice == null
+          ? 0.0
+          : controller.product.value.wholeSalePrice.toDouble(),
       desc: controller.product.value.description,
       imageUrl: controller.product.value.imageUrl,
       stockQuantity: controller.product.value.stock,
@@ -953,7 +955,7 @@ class ProductDetails extends GetView<ProductDetailsController> {
       uniqueID: controller.product.value.uniqueID,
       gallary: null,
       subUnit: controller.product.value.subUnit,
-      version: -1,
+      version: version,
     );
 
     CustomDialog.showDialogAddProductDialog(result.message);

@@ -99,7 +99,7 @@ class Product {
   int shopId;
   int shopProductVarianceId;
   int productId;
-  int subCategory;
+  dynamic subCategory;
   num basePrice;
   num baseCost;
   int totalStock;
@@ -163,7 +163,7 @@ class Product {
     int shopId,
     int shopProductVarianceId,
     int productId,
-    int subCategory,
+    dynamic subCategory,
     int basePrice,
     int baseCost,
     int totalStock,

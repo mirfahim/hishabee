@@ -55,6 +55,7 @@ class ProductRepository implements IProductRepository {
         barcode: barcode,
         attribute: attribute,
         vatAmount: vatAmount,
+        version: version,
         subUnit: subUnit);
 
     return ResponseDecoder.decode(response);

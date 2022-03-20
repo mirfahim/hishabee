@@ -96,6 +96,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
   bool isDiscount = false;
   double vatAmount;
   String unitPrice;
+  int addVersion = 0;
 
   // Map<String, String> attributes;
   List<Attribute> attributeList = [];
@@ -138,7 +139,9 @@ class _AddProductsPageState extends State<AddProductsPage> {
   @override
   void initState() {
     print("working 11111111");
-    _unitListController.fetchAllUnit(userID: '${widget.shop.userId}').then((value) {
+    _unitListController
+        .fetchAllUnit(userID: '${widget.shop.userId}')
+        .then((value) {
       _getAllUnit = getUnitFromModel(value);
       print(" my al unit length is ${_getAllUnit.length}");
     });
@@ -1020,10 +1023,8 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                             Padding(
                                                               padding:
                                                                   const EdgeInsets
-                                                                          .all(
-                                                                      8.0),
-                                                              child:
-                                                                  Container(
+                                                                      .all(8.0),
+                                                              child: Container(
                                                                 height: 48,
                                                                 child:
                                                                     TextFormField(
@@ -1052,13 +1053,15 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                                         borderSide:
                                                                             new BorderSide(color: Color(0xFFC4C4C4))),
                                                                     focusedBorder: new OutlineInputBorder(
-                                                                        borderRadius: BorderRadius.circular(
-                                                                            10),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                10),
                                                                         borderSide:
                                                                             new BorderSide(color: Color(0xFFC4C4C4))),
                                                                     enabledBorder: new OutlineInputBorder(
-                                                                        borderRadius: BorderRadius.circular(
-                                                                            10),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(
+                                                                                10),
                                                                         borderSide:
                                                                             new BorderSide(color: Color(0xFFC4C4C4))),
                                                                     hintText:
@@ -1415,12 +1418,10 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                         padding:
                                                             const EdgeInsets
                                                                     .symmetric(
-                                                                vertical:
-                                                                    8.0),
+                                                                vertical: 8.0),
                                                         child: Container(
                                                           height: 48,
-                                                          child:
-                                                              TextFormField(
+                                                          child: TextFormField(
                                                             inputFormatters: [
                                                               FilteringTextInputFormatter
                                                                   .digitsOnly
@@ -1432,11 +1433,15 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                                 InputDecoration(
                                                               suffixIcon:
                                                                   PopupMenuButton(
-                                                                icon: Icon(Icons.arrow_drop_down,
+                                                                icon: Icon(
+                                                                  Icons
+                                                                      .arrow_drop_down,
                                                                   color: Color(
                                                                       0xFF707070),
                                                                 ),
-                                                                itemBuilder: (context) =>_getAllUnit.map((e) =>
+                                                                itemBuilder: (context) =>
+                                                                    _getAllUnit
+                                                                        .map((e) =>
                                                                             PopupMenuItem(
                                                                               child: Text(e.name),
                                                                               value: e.name,
@@ -1454,8 +1459,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                               ),
                                                               filled: true,
                                                               fillColor:
-                                                                  Colors
-                                                                      .white,
+                                                                  Colors.white,
                                                               border: new OutlineInputBorder(
                                                                   borderSide:
                                                                       new BorderSide(
@@ -1463,16 +1467,18 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                                               Color(0xFFC4C4C4))),
                                                               focusedBorder: new OutlineInputBorder(
                                                                   borderRadius:
-                                                                      BorderRadius.circular(
-                                                                          10),
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
                                                                   borderSide:
                                                                       new BorderSide(
                                                                           color:
                                                                               Color(0xFFC4C4C4))),
                                                               enabledBorder: new OutlineInputBorder(
                                                                   borderRadius:
-                                                                      BorderRadius.circular(
-                                                                          10),
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
                                                                   borderSide:
                                                                       new BorderSide(
                                                                           color:
@@ -1487,8 +1493,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                                       'Roboto',
                                                                   color: Colors
                                                                       .blueGrey,
-                                                                  fontSize:
-                                                                      12),
+                                                                  fontSize: 12),
                                                             ),
                                                           ),
                                                         ),
@@ -1578,7 +1583,8 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                                       //     });
                                                                       showModalBottomSheet<
                                                                           void>(
-                                                                        isScrollControlled: true,
+                                                                        isScrollControlled:
+                                                                            true,
                                                                         context:
                                                                             context,
                                                                         builder:
@@ -1884,7 +1890,9 @@ class _AddProductsPageState extends State<AddProductsPage> {
                                                                                             width: 15,
                                                                                           ),
                                                                                           ElevatedButton(
-                                                                                            onPressed: () {},
+                                                                                            onPressed: () {
+                                                                                              Navigator.of(context).pop();
+                                                                                            },
                                                                                             child: Text(
                                                                                               'save'.tr,
                                                                                               style: TextStyle(fontSize: 14, fontFamily: 'Roboto', color: Colors.white, fontWeight: FontWeight.w500),
@@ -3391,7 +3399,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
                       ),
                       SizedBox(height: 10),
                       Container(
-                        height: size.height * 0.75,
+                        height: size.height * 0.85,
                         width: size.width / 1.5,
                         child: Obx(
                           () => ListView.builder(
@@ -4169,6 +4177,7 @@ class _AddProductsPageState extends State<AddProductsPage> {
           uniqueID: uniqueID,
           gallary: imageList,
           subUnit: unitList,
+          version: 0,
         );
         if (!isAdvanced) {
           setState(() {
