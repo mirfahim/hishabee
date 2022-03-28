@@ -17,7 +17,6 @@ class EditContactPage extends GetResponsiveView<EditContactsController> {
   @override
   Widget builder() {
     final contact = controller.contact.value;
-
     Size size = MediaQuery.of(screen.context).size;
     return Scaffold(
         backgroundColor: DEFAULT_BODY_BG_COLOR,
@@ -106,7 +105,7 @@ class EditContactPage extends GetResponsiveView<EditContactsController> {
                             () => Text(
                               controller.shop.value.name,
                               style: TextStyle(
-                                fontFamily: 'Rubik',
+                                fontFamily: 'Roboto',
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color: DEFAULT_BLACK,
@@ -131,7 +130,9 @@ class EditContactPage extends GetResponsiveView<EditContactsController> {
                                   color: Colors.white,
                                 ),
                                 child: Obx(
-                                  () => controller.image.value ==
+                                  () =>
+                                  controller.image.value == null ?
+                                  contact.imageSrc ==
                                           null
                                       ? Image.asset(
                                           'images/icons/profile_placeholder.png',
@@ -139,33 +140,58 @@ class EditContactPage extends GetResponsiveView<EditContactsController> {
                                           width: 60,
                                         )
                                       :
-                                  // controller.image.value != null
-                                  //         ?
                                   Container(
-                                              height: 60,
-                                              width: 60,
-                                              child: ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(40),
-                                                child: Image.file(
-                                                  controller.image.value,
-                                                  fit: BoxFit.fill,
+                                    height: 60,
+                                    width: 60,
+                                    child: ClipRRect(
+                                      borderRadius:
+                                      BorderRadius.circular(40),
+                                      child: CachedNetworkImage(
+                                        imageUrl: contact.imageSrc,
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  )
+                                      :
+                                    Container(
+                                                height: 60,
+                                                width: 60,
+                                                child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(40),
+                                                  child: Image.file(
+                                                    controller.image.value,
+                                                    fit: BoxFit.fill,
+                                                  ),
                                                 ),
-                                              ),
-                                            )
-                                          // : Container(
-                                          //     height: 60,
-                                          //     width: 60,
-                                          //     child: ClipRRect(
-                                          //       borderRadius:
-                                          //           BorderRadius.circular(40),
-                                          //       child: CachedNetworkImage(
-                                          //         imageUrl: controller
-                                          //             .contact.value.imageSrc,
-                                          //         fit: BoxFit.fill,
-                                          //       ),
-                                          //     ),
-                                          //   ),
+                                              )
+                                //   controller.image.value != null
+                                //           ?
+                                //   Container(
+                                //               height: 60,
+                                //               width: 60,
+                                //               child: ClipRRect(
+                                //                 borderRadius:
+                                //                     BorderRadius.circular(40),
+                                //                 child: Image.file(
+                                //                   controller.image.value,
+                                //                   fit: BoxFit.fill,
+                                //                 ),
+                                //               ),
+                                //             )
+                                //           : Container(
+                                //   height: 60,
+                                //   width: 60,
+                                //   child: ClipRRect(
+                                //     borderRadius:
+                                //     BorderRadius.circular(40),
+                                //     child: CachedNetworkImage(
+                                //       imageUrl: controller
+                                //           .contact.value.imageSrc,
+                                //       fit: BoxFit.fill,
+                                //     ),
+                                //   ),
+                                // ),
                                 ),
                               ),
                             ),
