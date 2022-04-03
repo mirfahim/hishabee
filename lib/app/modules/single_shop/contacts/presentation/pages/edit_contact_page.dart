@@ -6,14 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
 import 'package:hishabee_business_manager_fl/app/_widgets/page_background.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/contact_type_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/employee_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/supplier_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/presentation/manager/contact_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/presentation/manager/edit_contact_controller.dart';
 
 class EditContactPage extends GetResponsiveView<EditContactsController> {
+
+  ContactController _contactController = Get.find();
   @override
   Widget builder() {
     final contact = controller.contact.value;
@@ -73,7 +77,34 @@ class EditContactPage extends GetResponsiveView<EditContactsController> {
                               ),
                               Spacer(),
                               InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  if(controller.contactType.value ==
+                                      ContactType.EMPLOYEE){
+                                    CustomDialog.showLoadingDialog(message: 'Deleting Contact');
+                                    controller.deleteEmployee(id: contact.id);
+
+                                    Get.back();
+                                    Get.back();
+                                    Get.back();
+                                    _contactController.getAllEmployee();
+                                  }else if(controller.contactType.value ==
+                                      ContactType.CUSTOMER){
+                                    CustomDialog.showLoadingDialog(message: 'Deleting Contact');
+                                    controller.deleteCustomer(id: contact.id, shopId: controller.shop.value.id);
+                                    Get.back();
+                                    Get.back();
+                                    Get.back();
+                                    _contactController.getAllCustomer();
+                                  }else{
+                                    CustomDialog.showLoadingDialog(message: 'Deleting Contact');
+                                    controller.deleteSupplier(id: contact.id, shopId: controller.shop.value.id);
+                                    Get.back();
+                                    Get.back();
+                                    Get.back();
+                                    _contactController.getAllSupplier();
+
+                                  }
+                                },
                                 child: Padding(
                                   padding: const EdgeInsets.only(right: 20.0),
                                   child: Container(
@@ -726,17 +757,61 @@ class EditContactPage extends GetResponsiveView<EditContactsController> {
                       child: getDefaultBlueButton(
                         screen.context,
                         "SAVE",
-                        () {
+                        () async {
                           if (controller.formKey.currentState.validate()) {
                             controller.formKey.currentState.save();
                             if (controller.contactType.value ==
                                 ContactType.EMPLOYEE) {
-                              controller.editEmployee();
+                              CustomDialog.showLoadingDialog(message: 'Updating Contact');
+                              await controller.editEmployeeNew(
+                                shopId: controller.shop.value.id,
+                                id: contact.id,
+                                name: controller.name.value,
+                                address: controller.address.value,
+                                mobile: controller.mobile.value,
+                                emailId: controller.email.value,
+                                employeeId: controller.employeeId.value,
+                                position: controller.position.value,
+                                monthlySalary: controller.monthlySalary.value,
+                                imageUrl: controller.image.value.path
+                              );
+                              _contactController.getAllEmployee();
+                              Get.back();
+                              Get.back();
+                              Get.back();
                             } else if (controller.contactType.value ==
                                 ContactType.CUSTOMER) {
-                              controller.editCustomer();
+                              CustomDialog.showLoadingDialog(message: 'Updating Contact');
+                              await controller.editCustomerNew(
+                                shopId: controller.shop.value.id,
+                                id: contact.id,
+                                name: controller.name.value,
+                                address: controller.address.value,
+                                mobile: controller.mobile.value,
+                                emailId: controller.email.value,
+                                  imageUrl: controller.image.value.path
+                              );
+                              _contactController.getAllCustomer();
+                              Get.back();
+                              Get.back();
+                              Get.back();
+                              // controller.editCustomer();
                             } else {
-                              controller.editSupplier();
+                              CustomDialog.showLoadingDialog(message: 'Updating Contact');
+                              await controller.editSupplierNew(
+                                  shopId: controller.shop.value.id,
+                                  id: contact.id,
+                                  name: controller.name.value,
+                                  address: controller.address.value,
+                                  mobile: controller.mobile.value,
+                                  emailId: controller.email.value,
+                                  imageUrl: controller.image.value.path
+                              );
+                              _contactController.getAllSupplier();
+                              Get.back();
+                              Get.back();
+                              Get.back();
+                              // controller.editSupplier();
                             }
                           }
                         },

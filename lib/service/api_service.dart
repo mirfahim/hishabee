@@ -89,6 +89,7 @@ class ApiService {
       if (method == apiMethods.put) {
         response = await http.put(apiURL,
             body: convert.jsonEncode(body), headers: header);
+        print('response code from put: $apiURL');
         print('response code from put: ${response.body}');
       }
 

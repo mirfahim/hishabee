@@ -146,7 +146,9 @@ class ContactProvider extends GetConnect implements IContactProvider {
     String imageSource,
   }) async {
     String url =
-        "$BASE_URL/employee/add?name=$name&shop_id=$shopId&address=$address&position=$position&mobile=$mobile&monthly_salary=$monthlySalary&image_src=$imageSource";
+        "$BASE_URL/employee/add?name=$name&shop_id=$shopId&address="
+        "$address&position=$position&mobile="
+        "$mobile&monthly_salary=$monthlySalary&image_src=$imageSource";
 
     final creds = await authRepository.getCredentials();
 
@@ -326,7 +328,8 @@ class ContactProvider extends GetConnect implements IContactProvider {
     String imageSource,
   }) async {
     String url =
-        "$BASE_URL/customer/edit?name=$name&shop_id=$shopId&address=$address&mobile=$mobile&email=$email&image=$imageSource&id=$id";
+        "$BASE_URL/customer/edit?name=$name&shop_id=$shopId&address="
+        "$address&mobile=$mobile&email=$email&image=$imageSource&id=$id";
 
     final creds = await authRepository.getCredentials();
 
@@ -358,7 +361,10 @@ class ContactProvider extends GetConnect implements IContactProvider {
     String imageSource,
   }) async {
     String url =
-        "$BASE_URL/employee/edit?name=$name&shop_id=$shopId&address=$address&position=$position&mobile=$mobile&email=$email&monthly_salary=$monthlySalary&image=$imageSource&id=$id&employee_id=$employeeId";
+        "$BASE_URL/employee/edit?name=$name&shop_id="
+        "$shopId&address=$address&position=$position&mobile="
+        "$mobile&email=$email&monthly_salary=$monthlySalary&image="
+        "$imageSource&id=$id&employee_id=$employeeId";
 
     final creds = await authRepository.getCredentials();
 
@@ -389,7 +395,9 @@ class ContactProvider extends GetConnect implements IContactProvider {
     String imageSource,
   }) async {
     String url =
-        "$BASE_URL/supplier/edit?name=$name&shop_id=$shopId&address=$address&supplied_items=$suppliedItems&mobile=$mobile&email=$email&image_src=$imageSource&id=$id";
+        "$BASE_URL/supplier/edit?name=$name&shop_id=$shopId&address="
+        "$address&supplied_items=$suppliedItems&mobile=$mobile&email="
+        "$email&image_src=$imageSource&id=$id";
 
     final response = await put(
       url,
