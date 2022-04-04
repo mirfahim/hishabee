@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-GetAllDueResponseModel getAllDueResponseModelFromJson(dynamic str) =>
+GetAllDueResponseModel getAllDueResponseModelFromJson(String str) =>
     GetAllDueResponseModel.fromJson(json.decode(str));
 GetAllDueResponseModel getAllDueResponseModelFromRawJson(dynamic json) =>
     GetAllDueResponseModel.fromJson(json);

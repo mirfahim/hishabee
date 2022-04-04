@@ -86,7 +86,7 @@ class AddDueController extends GetxController {
       customerId: selectedCustomer.value.id,
       image: imageUrl,
       customerMobile: due.value == null
-          ? due.value.contactMobile //selectedCustomer.value.mobile
+          ? selectedCustomer.value.mobile
           : due.value.contactMobile,
       customerName: name.value,
       customerAddress: address.value,

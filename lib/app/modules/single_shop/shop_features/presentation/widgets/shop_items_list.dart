@@ -6,6 +6,7 @@ import 'package:hishabee_business_manager_fl/app/_utils/shop_item_card.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/_navigation/contact_routes.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/_bindings/due_list_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/pages/add_due_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/pages/due_details_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/pages/due_list_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/expenses/_bindings/expense_binding.dart';
@@ -176,11 +177,11 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      Get.to(() => DueFront(), binding: DueListBinding());
-                      // );
-                      // arguments: {
-                      //   "shop": shop,
-                      // },
+                      Get.to(() => DueListPage(),
+                          binding: DueListBinding(),
+                          arguments: {
+                            "shop": shop,
+                          });
                       //
                     },
                     child: Container(

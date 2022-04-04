@@ -99,9 +99,9 @@ class ProductListController extends GetxController {
             .toLowerCase()
             .contains(searchProductName.toLowerCase()))
         .toList();
-    final totalResult =
-        result.where((Product product) => product.version > 0).toList();
-    searchList.assignAll(totalResult);
+    // final totalResult =
+    //     result.where((Product product) => product.version > 0).toList();
+    searchList.assignAll(result);
   }
 
   Future<void> scanProduct() async {

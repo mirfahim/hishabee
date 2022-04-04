@@ -202,6 +202,7 @@ class ProductProvider extends GetConnect implements IProductProvider {
     final creds = await _authRepository.getCredentials();
     var subUnitResponse = json.encode(subUnit);
     final headers = {'Authorization': 'Bearer ${creds.accessToken}'};
+    print("my add product response is $subUnitResponse");
 
     final body = {
       "shop_id": shopId,
