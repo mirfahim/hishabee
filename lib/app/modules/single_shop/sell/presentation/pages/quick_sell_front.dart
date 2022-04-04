@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/calculator/new_calculator/calculator_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/calculator/views/pages/calculator_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/category_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
@@ -489,12 +490,15 @@ class QuickSell extends GetView<SellController> {
                               // controller: controller.amount.value,
                               onTap: () {
                                 // CalcButton();
+                                // Get.to(
+                                //   MyCalculatorApp(),
+                                // );
                                 print("working 123");
-                                //   showCalculatorOptionDialogue(context);
+                                showCalculatorOptionDialogue(context);
                               },
 
                               showCursor: true,
-                              readOnly: false,
+                              readOnly: true,
                               onSaved: (value) {
                                 controller.amount.value = double.parse(value);
                               },
@@ -1202,7 +1206,7 @@ class QuickSell extends GetView<SellController> {
           child: Container(
             height: 200,
             width: 400,
-            child: CalcButton(),
+            child: MyCalculatorApp(),
           ));
     });
   }
