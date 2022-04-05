@@ -207,7 +207,11 @@ class DueListPage extends GetView<DueFrontController> {
                             Due due = controller.searchList[index];
                             return InkWell(
                               onTap: () {
-                                Get.to(() => DueDetailsPage(),
+                                Get.to(
+                                    () => DueDetailsPage(
+                                        // shop: controller.shop.value,
+                                        // due: due,
+                                        ),
                                     binding: DueListBinding(),
                                     arguments: {
                                       "shop": shop,
