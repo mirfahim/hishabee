@@ -777,7 +777,7 @@ class QuickSell extends GetView<SellController> {
                             ],
                           ),
                           Container(
-                            height: MediaQuery.of(context).size.height / 1.75,
+                            height: MediaQuery.of(context).size.height / 2,
                             child: ListView.builder(
                                 shrinkWrap: true,
                                 scrollDirection: Axis.vertical,
