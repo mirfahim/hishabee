@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
@@ -65,53 +66,45 @@ Column buildContactDetailsPageHeader(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0),
-            child: IconButton(
-              icon: Icon(
-                Icons.arrow_back,
-                size: 25,
-              ),
-              onPressed: () {
-                navigator.pop();
-              },
+          IconButton(
+            padding: EdgeInsets.all(0),
+            icon: Icon(
+              Icons.arrow_back,
+              size: 25,
             ),
+            onPressed: () {
+              navigator.pop();
+            },
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 30.0),
-            child: Text(
-              title,
-              style: TextStyle(
-                fontFamily: 'Rubik',
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-              ),
+          Text(
+            title,
+            style: TextStyle(
+              fontFamily: 'Rubik',
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.black,
             ),
           ),
           Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(top: 20.0, right: 20),
-            child: button,
-          ),
+          button,
         ],
       ),
-      Padding(
-        padding: const EdgeInsets.only(
-          top: 10.0,
-          left: 10.0,
-          bottom: 10,
-        ),
-        child: Text(
-          subtitle,
-          style: TextStyle(
-            fontFamily: 'Rubik',
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
-        ),
-      ),
+      // Padding(
+      //   padding: const EdgeInsets.only(
+      //     top: 10.0,
+      //     left: 10.0,
+      //     bottom: 10,
+      //   ),
+      //   child: Text(
+      //     subtitle,
+      //     style: TextStyle(
+      //       fontFamily: 'Rubik',
+      //       fontSize: 18,
+      //       fontWeight: FontWeight.w600,
+      //       color: Colors.black,
+      //     ),
+      //   ),
+      // ),
     ],
   );
 }

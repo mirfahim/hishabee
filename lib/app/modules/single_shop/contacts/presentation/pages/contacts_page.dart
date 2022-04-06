@@ -21,6 +21,7 @@ class ContactsPage extends GetResponsiveView<ContactController> {
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
       appBar: AppBar(
+        titleSpacing: 0,
         backgroundColor: Colors.amber,
         leading: IconButton(
           icon: Icon(
@@ -80,13 +81,16 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                           ),
                           child: TabBar(
                             indicatorColor: DEFAULT_BLACK,
+                            unselectedLabelStyle: TextStyle(
+                              color: Colors.grey.withOpacity(.3)
+                            ),
                             tabs: [
                               Tab(
                                 icon: Text(
                                   "employee".tr,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.black
+                                    // color: Colors.black
                                   ),
                                 ),
                               ),
@@ -95,7 +99,7 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                   "customer".tr,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                      color: Colors.black
+                                      // color: Colors.black
                                   ),
                                 ),
                               ),
@@ -104,7 +108,7 @@ class ContactsPage extends GetResponsiveView<ContactController> {
                                   "supplier".tr,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                      color: Colors.black
+                                      // color: Colors.black
                                   ),
                                 ),
                               ),

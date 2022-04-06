@@ -35,8 +35,11 @@ class CalcButton extends GetView<SellController> {
           numColor: Colors.grey,
           numStyle: const TextStyle(fontSize: 25, color: Colors.white),
         ),
+
       ),
+
     );
+
   }
 }
 

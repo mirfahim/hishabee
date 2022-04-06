@@ -27,312 +27,240 @@ class EmployeeDetailsPage extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     print("empl: ${employee.monthlySalary}");
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Container(
-                height: size.height * 0.2,
-                width: size.width,
-                child: Image.asset(
-                  "images/topBg.png",
-                  fit: BoxFit.fill,
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        title: buildContactDetailsPageHeader(
+            'employee_details'.tr,
+            shop.name,
+            InkWell(
+              onTap: () {
+                Get.toNamed(ContactRoutes.EDIT_CONTACT, arguments: {
+                  'shop': shop,
+                  "type": ContactType.EMPLOYEE,
+                  "contact": employee,
+                });
+              },
+              child: Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                  color: DEFAULT_BLUE,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.edit,
+                    size: 20,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            )),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 20,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 0, right: 0),
-                    child: buildContactDetailsPageHeader(
-                        'employee_details'.tr,
-                        shop.name,
-                        InkWell(
-                          onTap: () {
-                            Get.toNamed(ContactRoutes.EDIT_CONTACT, arguments: {
-                              'shop': shop,
-                              "type": ContactType.EMPLOYEE,
-                              "contact": employee,
-                            });
-                          },
-                          child: Container(
-                            height: 30,
-                            width: 30,
+                  Container(
+                      height: 80,
+                      width: 80,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: Colors.amber, width: 3),
+                      ),
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(50),
+                          child: employee.imageSrc != null
+                              ? Image.network(
+                            employee.imageSrc,
+                            fit: BoxFit.fill,
+                          )
+                              : Image.asset(
+                            "images/icons/profile_placeholder.png",
+                            fit: BoxFit.fill,
+                          ))),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0, top: 8),
+                child: Text(
+                  "employee_name".tr,
+                  style: TextStyle(
+                    fontFamily: 'Rubik',
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                    color: DEFAULT_BLACK,
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                const EdgeInsets.only(left: 15.0, top: 5, right: 15),
+                child: Container(
+                  width: size.width,
+                  child: Text(
+                    employee.name,
+                    style: TextStyle(
+                      fontFamily: 'Rubik',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0, top: 15),
+                child: Text(
+                  "address".tr,
+                  style: TextStyle(
+                    fontFamily: 'Rubik',
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                    color: DEFAULT_BLACK,
+                  ),
+                ),
+              ),
+              Padding(
+                padding:
+                const EdgeInsets.only(left: 15.0, top: 5, right: 15),
+                child: Container(
+                  width: size.width,
+                  child: Text(
+                    "${employee.address ?? ""}",
+                    style: TextStyle(
+                      fontFamily: 'Rubik',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0, left: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "position".tr,
+                          style: TextStyle(
+                            fontFamily: 'Rubik',
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            color: DEFAULT_BLACK,
+                          ),
+                        ),
+                        Container(
+                          width: size.width * 0.3,
+                          child: Text(
+                            employee.position ?? "No data",
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "employee_id".tr,
+                          style: TextStyle(
+                            fontFamily: 'Rubik',
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            color: DEFAULT_BLACK,
+                          ),
+                        ),
+                        Container(
+                          width: size.width * 0.3,
+                          child: Text(
+                            employee.employeeId ?? '',
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding:
+                const EdgeInsets.only(top: 15.0, left: 15, right: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "mobile".tr,
+                          style: TextStyle(
+                            fontFamily: 'Rubik',
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            color: DEFAULT_BLACK,
+                          ),
+                        ),
+                        Container(
+                          width: size.width * 0.5,
+                          child: Text(
+                            employee.mobile,
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                            height: 50,
+                            width: 50,
                             decoration: BoxDecoration(
-                              color: DEFAULT_BLUE,
-                              borderRadius: BorderRadius.circular(4),
+                              borderRadius: BorderRadius.circular(30),
                             ),
-                            child: Center(
-                              child: Icon(
-                                Icons.edit,
-                                size: 20,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
-                        )),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                          height: 80,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(50),
-                            border: Border.all(color: Colors.amber, width: 3),
-                          ),
-                          child: ClipRRect(
-                              borderRadius: BorderRadius.circular(50),
-                              child: employee.imageSrc != null
-                                  ? Image.network(
-                                      employee.imageSrc,
-                                      fit: BoxFit.fill,
-                                    )
-                                  : Image.asset(
-                                      "images/icons/profile_placeholder.png",
-                                      fit: BoxFit.fill,
-                                    ))),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, top: 8),
-                    child: Text(
-                      "employee_name".tr,
-                      style: TextStyle(
-                        fontFamily: 'Rubik',
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal,
-                        color: DEFAULT_BLACK,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 15.0, top: 5, right: 15),
-                    child: Container(
-                      width: size.width,
-                      child: Text(
-                        employee.name,
-                        style: TextStyle(
-                          fontFamily: 'Rubik',
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, top: 15),
-                    child: Text(
-                      "address".tr,
-                      style: TextStyle(
-                        fontFamily: 'Rubik',
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal,
-                        color: DEFAULT_BLACK,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 15.0, top: 5, right: 15),
-                    child: Container(
-                      width: size.width,
-                      child: Text(
-                        "${employee.address ?? ""}",
-                        style: TextStyle(
-                          fontFamily: 'Rubik',
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15.0, left: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "position".tr,
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: DEFAULT_BLACK,
-                              ),
-                            ),
-                            Container(
-                              width: size.width * 0.3,
-                              child: Text(
-                                employee.position ?? "No data",
-                                style: TextStyle(
-                                  fontFamily: 'Rubik',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "employee_id".tr,
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: DEFAULT_BLACK,
-                              ),
-                            ),
-                            Container(
-                              width: size.width * 0.3,
-                              child: Text(
-                                employee.employeeId ?? '',
-                                style: TextStyle(
-                                  fontFamily: 'Rubik',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 15.0, left: 15, right: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "mobile".tr,
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: DEFAULT_BLACK,
-                              ),
-                            ),
-                            Container(
-                              width: size.width * 0.5,
-                              child: Text(
-                                employee.mobile,
-                                style: TextStyle(
-                                  fontFamily: 'Rubik',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: IconButton(
-                                    icon: AvdPicture.asset(
-                                        'images/xml_icon/ic_phones.xml'),
-                                    onPressed: () {
-                                      if (employee.mobile != null) {
-                                        String number =
-                                            "sms:${employee.mobile}";
-                                        Utility.launchURL(number);
-                                      } else {
-                                        CustomDialog.showStringDialog(
-                                            "Number not found");
-                                      }
-                                    })),
-                            SizedBox(
-                              width: 20,
-                            ),
-                            Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: IconButton(
-                                    icon: Icon(Icons.message),
-                                    onPressed: () {
-                                      if (employee.mobile != null) {
-                                        // String number =
-                                        //     "sms:${employee.mobile}";
-                                        // Utility.launchURL(number);
-                                        _smsController.mobileNumbers.value = employee.mobile;
-                                        Get.to(
-                                              () => SmsCreatePage(),
-                                          arguments: {
-                                            "shop": shop,
-                                          },
-                                          // binding: SMSBindings(),
-                                        );
-                                      } else {
-                                        CustomDialog.showStringDialog(
-                                            "Number not found");
-                                      }
-                                    })),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15.0, left: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "email".tr,
-                              style: TextStyle(
-                                fontFamily: 'Rubik',
-                                fontSize: 16,
-                                fontWeight: FontWeight.normal,
-                                color: DEFAULT_BLACK,
-                              ),
-                            ),
-                            Container(
-                              width: size.width * 0.5,
-                              child: Text(
-                                employee.email ?? '',
-                                style: TextStyle(
-                                  fontFamily: 'Rubik',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
-                          ],
+                            child: IconButton(
+                                icon: AvdPicture.asset(
+                                    'images/xml_icon/ic_phones.xml'),
+                                onPressed: () {
+                                  if (employee.mobile != null) {
+                                    String number =
+                                        "sms:${employee.mobile}";
+                                    Utility.launchURL(number);
+                                  } else {
+                                    CustomDialog.showStringDialog(
+                                        "Number not found");
+                                  }
+                                })),
+                        SizedBox(
+                          width: 20,
                         ),
                         Container(
                             height: 50,
@@ -341,63 +269,124 @@ class EmployeeDetailsPage extends StatelessWidget {
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: IconButton(
+                                icon: Icon(Icons.message),
                                 onPressed: () {
-                                  if (employee.email != null) {
-                                    String number = "mailto:${employee.email}";
-                                    Utility.launchURL(number);
+                                  if (employee.mobile != null) {
+                                    // String number =
+                                    //     "sms:${employee.mobile}";
+                                    // Utility.launchURL(number);
+                                    _smsController.mobileNumbers.value = employee.mobile;
+                                    Get.to(
+                                          () => SmsCreatePage(),
+                                      arguments: {
+                                        "shop": shop,
+                                      },
+                                      // binding: SMSBindings(),
+                                    );
                                   } else {
                                     CustomDialog.showStringDialog(
-                                        "Email ID not found");
+                                        "Number not found");
                                   }
-                                },
-                                icon: AvdPicture.asset(
-                                    'images/xml_icon/ic_gmail.xml'))),
+                                })),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0, left: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "email".tr,
+                          style: TextStyle(
+                            fontFamily: 'Rubik',
+                            fontSize: 16,
+                            fontWeight: FontWeight.normal,
+                            color: DEFAULT_BLACK,
+                          ),
+                        ),
+                        Container(
+                          width: size.width * 0.5,
+                          child: Text(
+                            employee.email ?? '',
+                            style: TextStyle(
+                              fontFamily: 'Rubik',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, top: 15),
-                    child: Text(
-                      "salary".tr,
-                      style: TextStyle(
-                        fontFamily: 'Rubik',
-                        fontSize: 16,
-                        fontWeight: FontWeight.normal,
-                        color: DEFAULT_BLACK,
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, top: 5),
-                    child: Container(
-                      width: size.width * 0.5,
-                      child: Text(
-                        "${employee.monthlySalary}",
-                        style: TextStyle(
-                          fontFamily: 'Rubik',
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
+                    Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
                         ),
-                      ),
+                        child: IconButton(
+                            onPressed: () {
+                              if (employee.email != null) {
+                                String number = "mailto:${employee.email}";
+                                Utility.launchURL(number);
+                              } else {
+                                CustomDialog.showStringDialog(
+                                    "Email ID not found");
+                              }
+                            },
+                            icon: AvdPicture.asset(
+                                'images/xml_icon/ic_gmail.xml'))),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0, top: 15),
+                child: Text(
+                  "salary".tr,
+                  style: TextStyle(
+                    fontFamily: 'Rubik',
+                    fontSize: 16,
+                    fontWeight: FontWeight.normal,
+                    color: DEFAULT_BLACK,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0, top: 5),
+                child: Container(
+                  width: size.width * 0.5,
+                  child: Text(
+                    "${employee.monthlySalary}",
+                    style: TextStyle(
+                      fontFamily: 'Rubik',
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 15.0, top: 8),
-                    child: Text(
-                      "Sale History",
-                      style: TextStyle(
-                        fontFamily: 'Rubik',
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                        color: DEFAULT_BLACK,
-                      ),
-                    ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0, top: 8),
+                child: Text(
+                  "Sale History",
+                  style: TextStyle(
+                    fontFamily: 'Rubik',
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                    color: DEFAULT_BLACK,
                   ),
-                ],
-              )
+                ),
+              ),
             ],
-          ),
+          )
         ),
       ),
     );
