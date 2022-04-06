@@ -939,11 +939,11 @@ class ProductDetails extends GetView<ProductDetailsController> {
     final result = await _controller.addProduct(
       shopId: controller.product.value.shopId,
       subcategoryId: null == null ? null : null,
-      productName: controller.product.value.productName,
+      productName: controller.product.value.name,
       price: controller.product.value.sellingPrice.toDouble(),
-      wholeSalePrice: controller.product.value.wholeSalePrice == null
+      wholeSalePrice: controller.product.value.wholesalePrice == null
           ? 0.0
-          : controller.product.value.wholeSalePrice.toDouble(),
+          : controller.product.value.wholesalePrice.toDouble(),
       desc: controller.product.value.description,
       imageUrl: controller.product.value.imageUrl,
       stockQuantity: controller.product.value.stock,
@@ -952,7 +952,7 @@ class ProductDetails extends GetView<ProductDetailsController> {
       barcode: controller.product.value.barcode,
       attribute: null,
       vatAmount: null,
-      uniqueID: controller.product.value.uniqueID,
+      uniqueID: controller.product.value.uniqueId,
       gallary: null,
       subUnit: controller.product.value.subUnit,
       version: version,

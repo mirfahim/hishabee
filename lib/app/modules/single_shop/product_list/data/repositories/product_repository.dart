@@ -118,11 +118,13 @@ class ProductRepository implements IProductRepository {
 
   @override
   Future<GenericResponseModel> deleteProduct(
-      int shopId, int productId, int varianceId) async {
+      int shopId, int productId,
+      // int varianceId
+      ) async {
     final response = await productProvider.deleteProduct(
       shopId,
       productId,
-      varianceId,
+      // varianceId,
     );
 
     return ResponseDecoder.decode(response);

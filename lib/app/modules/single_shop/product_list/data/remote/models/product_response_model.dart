@@ -16,101 +16,93 @@ String productResponseModelToJson(List<Product> data) =>
 
 class Product {
   Product(
-      {this.id,
-      this.shopProductId,
-      this.productVarianceId,
-      this.name,
-      this.sellingPrice,
-      this.costPrice,
-      this.stock,
-      this.version,
-      this.wholeSalePrice,
-      this.barcode,
-      this.imageUrl,
-      this.approved,
-      this.createdAt,
-      this.updatedAt,
-      this.variationCriteria,
-      this.userId,
-      this.shopId,
-      this.shopProductVarianceId,
-      this.productId,
-      this.subCategory,
-      this.basePrice,
-      this.baseCost,
-      this.totalStock,
-      this.varianceName,
-      this.productName,
-      this.description,
-      this.vatApplicable,
-      this.vatPercent,
-      this.attribute,
-      this.productType,
-      this.addedBy,
-      this.brandId,
-      this.thumbnailImg,
-      this.featuredImg,
-      this.flashDealImg,
-      this.videoProvider,
-      this.videoLink,
-      this.tags,
-      this.choiceOptions,
-      this.colors,
-      this.todaysDeal,
-      this.published,
-      this.featured,
-      this.unit,
-      this.discount,
-      this.discountType,
-      this.shippingType,
-      this.shippingCost,
-      this.numOfSale,
-      this.metaTitle,
-      this.metaDescription,
-      this.metaImg,
-      this.pdf,
-      this.slug,
-      this.rating,
-      this.digital,
-      this.fileName,
-      this.filePath,
-      this.locationId,
-      this.pickupInstruction,
-      this.uniqueID,
-      this.subUnit});
+      { this.id,
+        this.userId,
+        this.subUnit,
+        this.unit,
+        this.shopId,
+        this.productId,
+        this.name,
+        this.subCategory,
+        this.sellingPrice,
+        this.costPrice,
+        this.wholesalePrice,
+        this.wholesaleAmount,
+        this.gallery,
+        this.warrantyType,
+        this.warranty,
+        this.stock,
+        this.description,
+        this.vatApplicable,
+        this.barcode,
+        this.imageUrl,
+        this.productType,
+        this.approved,
+        this.stockAlert,
+        this.createdAt,
+        this.updatedAt,
+        this.vatPercent,
+        this.addedBy,
+        this.brandId,
+        this.thumbnailImg,
+        this.featuredImg,
+        this.flashDealImg,
+        this.videoProvider,
+        this.videoLink,
+        this.tags,
+        this.choiceOptions,
+        this.colors,
+        this.todaysDeal,
+        this.published,
+        this.featured,
+        this.discount,
+        this.discountType,
+        this.shippingType,
+        this.shippingCost,
+        this.numOfSale,
+        this.metaTitle,
+        this.metaDescription,
+        this.metaImg,
+        this.pdf,
+        this.slug,
+        this.rating,
+        this.digital,
+        this.fileName,
+        this.filePath,
+        this.locationId,
+        this.pickupInstruction,
+        this.version,
+        this.uniqueId,
+        this.attribute,
+      });
 
   int id;
-  int shopProductId;
-  dynamic productVarianceId;
-  String name;
-  num sellingPrice;
-  num costPrice;
-  int stock;
-  int version;
-  var wholeSalePrice;
-  String barcode;
-  String uniqueID;
-  String imageUrl;
-  DateTime approved;
-  DateTime createdAt;
-  DateTime updatedAt;
-  String variationCriteria;
   int userId;
+  SubUnit subUnit;
+  int unit;
   int shopId;
-  int shopProductVarianceId;
   int productId;
-  dynamic subCategory;
-  num basePrice;
-  num baseCost;
-  int totalStock;
-  String varianceName;
-  String productName;
+  String name;
+  int subCategory;
+  int sellingPrice;
+  int costPrice;
+  int wholesalePrice;
+  int wholesaleAmount;
+  String gallery;
+  WarrantyType warrantyType;
+  int warranty;
+  int stock;
   String description;
   bool vatApplicable;
-  int vatPercent;
-  List<Attribute> attribute;
-  String productType;
-  String addedBy;
+  String barcode;
+  String imageUrl;
+  ProductType productType;
+  DateTime approved;
+  int stockAlert;
+  DateTime createdAt;
+  DateTime updatedAt;
+  double vatPercent;
+  AddedBy addedBy;
   dynamic brandId;
   dynamic thumbnailImg;
   dynamic featuredImg;
@@ -123,11 +115,10 @@ class Product {
   int todaysDeal;
   bool published;
   int featured;
-  dynamic unit;
-  dynamic discount;
-  dynamic discountType;
-  String shippingType;
-  var shippingCost;
+  int discount;
+  DiscountType discountType;
+  ShippingType shippingType;
+  int shippingCost;
   int numOfSale;
   dynamic metaTitle;
   dynamic metaDescription;
@@ -138,44 +129,40 @@ class Product {
   int digital;
   dynamic fileName;
   dynamic filePath;
-  String subUnit;
-  String locationId;
+  LocationId locationId;
   dynamic pickupInstruction;
+  int version;
+  String uniqueId;
+  List<Attribute> attribute;
 
   Product copyWith({
     int id,
-    int version,
-    int shopProductId,
-    dynamic productVarianceId,
-    String name,
-    String subUnit,
-    num sellingPrice,
-    int costPrice,
-    int stock,
-    String barcode,
-    String imageUrl,
-    String uniqueID,
-    DateTime approved,
-    DateTime createdAt,
-    DateTime updatedAt,
-    String variationCriteria,
     int userId,
+    SubUnit subUnit,
+    int unit,
     int shopId,
-    int shopProductVarianceId,
     int productId,
-    dynamic subCategory,
-    int basePrice,
-    int baseCost,
-    int totalStock,
-    String varianceName,
-    String productName,
+    String name,
+    int subCategory,
+    int sellingPrice,
+    int costPrice,
+    int wholesalePrice,
+    int wholesaleAmount,
+    String gallery,
+    WarrantyType warrantyType,
+    int warranty,
+    int stock,
     String description,
     bool vatApplicable,
-    var wholeSalePrice,
-    int vatPercent,
-    List<Attribute> attribute,
-    String productType,
-    String addedBy,
+    String barcode,
+    String imageUrl,
+    ProductType productType,
+    DateTime approved,
+    int stockAlert,
+    DateTime createdAt,
+    DateTime updatedAt,
+    double vatPercent,
+    AddedBy addedBy,
     dynamic brandId,
     dynamic thumbnailImg,
     dynamic featuredImg,
@@ -188,11 +175,10 @@ class Product {
     int todaysDeal,
     bool published,
     int featured,
-    dynamic unit,
-    dynamic discount,
-    dynamic discountType,
-    String shippingType,
-    var shippingCost,
+    int discount,
+    DiscountType discountType,
+    ShippingType shippingType,
+    int shippingCost,
     int numOfSale,
     dynamic metaTitle,
     dynamic metaDescription,
@@ -203,42 +189,39 @@ class Product {
     int digital,
     dynamic fileName,
     dynamic filePath,
-    String locationId,
+    LocationId locationId,
     dynamic pickupInstruction,
+    int version,
+    String uniqueId,
+    List<Attribute> attribute,
   }) =>
       Product(
         id: id ?? this.id,
-        shopProductId: shopProductId ?? this.shopProductId,
-        productVarianceId: productVarianceId ?? this.productVarianceId,
+        userId: userId ?? this.userId,
+        subUnit: subUnit ?? this.subUnit,
+        unit: unit ?? this.unit,
+        shopId: shopId ?? this.shopId,
+        productId: productId ?? this.productId,
         name: name ?? this.name,
+        subCategory: subCategory ?? this.subCategory,
         sellingPrice: sellingPrice ?? this.sellingPrice,
         costPrice: costPrice ?? this.costPrice,
-        wholeSalePrice: wholeSalePrice ?? this.wholeSalePrice,
+        wholesalePrice: wholesalePrice ?? this.wholesalePrice,
+        wholesaleAmount: wholesaleAmount ?? this.wholesaleAmount,
+        gallery: gallery ?? this.gallery,
+        warrantyType: warrantyType ?? this.warrantyType,
+        warranty: warranty ?? this.warranty,
         stock: stock ?? this.stock,
-        barcode: barcode ?? this.barcode,
-        uniqueID: uniqueID ?? this.uniqueID,
-        imageUrl: imageUrl ?? this.imageUrl,
-        approved: approved ?? this.approved,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-        version: version ?? this.version,
-        variationCriteria: variationCriteria ?? this.variationCriteria,
-        userId: userId ?? this.userId,
-        shopId: shopId ?? this.shopId,
-        shopProductVarianceId:
-            shopProductVarianceId ?? this.shopProductVarianceId,
-        productId: productId ?? this.productId,
-        subCategory: subCategory ?? this.subCategory,
-        basePrice: basePrice ?? this.basePrice,
-        baseCost: baseCost ?? this.baseCost,
-        totalStock: totalStock ?? this.totalStock,
-        varianceName: varianceName ?? this.varianceName,
-        productName: productName ?? this.productName,
         description: description ?? this.description,
         vatApplicable: vatApplicable ?? this.vatApplicable,
-        vatPercent: vatPercent ?? this.vatPercent,
-        attribute: attribute ?? this.attribute,
+        barcode: barcode ?? this.barcode,
+        imageUrl: imageUrl ?? this.imageUrl,
         productType: productType ?? this.productType,
+        approved: approved ?? this.approved,
+        stockAlert: stockAlert ?? this.stockAlert,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+        vatPercent: vatPercent ?? this.vatPercent,
         addedBy: addedBy ?? this.addedBy,
         brandId: brandId ?? this.brandId,
         thumbnailImg: thumbnailImg ?? this.thumbnailImg,
@@ -252,7 +235,6 @@ class Product {
         todaysDeal: todaysDeal ?? this.todaysDeal,
         published: published ?? this.published,
         featured: featured ?? this.featured,
-        unit: unit ?? this.unit,
         discount: discount ?? this.discount,
         discountType: discountType ?? this.discountType,
         shippingType: shippingType ?? this.shippingType,
@@ -269,159 +251,208 @@ class Product {
         filePath: filePath ?? this.filePath,
         locationId: locationId ?? this.locationId,
         pickupInstruction: pickupInstruction ?? this.pickupInstruction,
-        subUnit: subUnit ?? this.subUnit,
+        version: version ?? this.version,
+        uniqueId: uniqueId ?? this.uniqueId,
+        attribute: attribute ?? this.attribute,
       );
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
-        id: json["id"] == null ? null : json["id"],
-        version: json["version"] == null ? null : json["version"],
-        shopProductId:
-            json["shop_product_id"] == null ? null : json["shop_product_id"],
-        productVarianceId: json["product_variance_id"],
-        name: json["name"] == null ? null : json["name"],
-        sellingPrice:
-            json["selling_price"] == null ? null : json["selling_price"],
-        costPrice: json["cost_price"] == null ? null : json["cost_price"],
-        wholeSalePrice:
-            json["wholesale_price"] == null ? null : json["wholesale_price"],
-        stock: json["stock"] == null ? null : json["stock"],
-        barcode: json["barcode"] == null ? null : json["barcode"],
-        // uniqueID: json["unique_id"] == null ? null : json["unique_id"],
-        imageUrl: json["image_url"] == null ? null : json["image_url"],
-        approved:
-            json["approved"] == null ? null : DateTime.parse(json["approved"]),
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-        variationCriteria: json["variation_criteria"] == null
-            ? null
-            : json["variation_criteria"],
-        userId: json["user_id"] == null ? null : json["user_id"],
-        shopId: json["shop_id"] == null ? null : json["shop_id"],
-        shopProductVarianceId: json["shop_product_variance_id"] == null
-            ? null
-            : json["shop_product_variance_id"],
-        productId: json["product_id"] == null ? null : json["product_id"],
-        subCategory: json["sub_category"] == null ? null : json["sub_category"],
-        basePrice: json["base_price"] == null ? null : json["base_price"],
-        baseCost: json["base_cost"] == null ? null : json["base_cost"],
-        totalStock: json["total_stock"] == null ? null : json["total_stock"],
-        varianceName:
-            json["variance_name"] == null ? null : json["variance_name"],
-        productName: json["product_name"] == null ? null : json["product_name"],
-        description: json["description"] == null ? null : json["description"],
-        vatApplicable:
-            json["vat_applicable"] == null ? null : json["vat_applicable"],
-        vatPercent: json["vat_percent"] == null ? null : json["vat_percent"],
-        attribute: json["attribute"] == null
-            ? null
-            : List<Attribute>.from(
-                json["attribute"].map((x) => Attribute.fromJson(x))),
-        productType: json["product_type"] == null ? null : json["product_type"],
-        addedBy: json["added_by"] == null ? null : json["added_by"],
-        brandId: json["brand_id"],
-        thumbnailImg: json["thumbnail_img"],
-        featuredImg: json["featured_img"],
-        flashDealImg: json["flash_deal_img"],
-        videoProvider: json["video_provider"],
-        videoLink: json["video_link"],
-        tags: json["tags"],
-        choiceOptions: json["choice_options"],
-        colors: json["colors"],
-        todaysDeal: json["todays_deal"] == null ? null : json["todays_deal"],
-        published: json["published"] == null ? null : json["published"],
-        featured: json["featured"] == null ? null : json["featured"],
-        unit: json["unit"],
-        discount: json["discount"],
-        discountType: json["discount_type"],
-        shippingType:
-            json["shipping_type"] == null ? null : json["shipping_type"],
-        shippingCost:
-            json["shipping_cost"] == null ? null : json["shipping_cost"],
-        numOfSale: json["num_of_sale"] == null ? null : json["num_of_sale"],
-        metaTitle: json["meta_title"],
-        metaDescription: json["meta_description"],
-        metaImg: json["meta_img"],
-        pdf: json["pdf"],
-        slug: json["slug"] == null ? null : json["slug"],
-        rating: json["rating"] == null ? null : json["rating"],
-        digital: json["digital"] == null ? null : json["digital"],
-        fileName: json["file_name"],
-        filePath: json["file_path"],
-        locationId: json["location_id"] == null ? null : json["location_id"],
-        pickupInstruction: json["pickup_instruction"],
-        subUnit: json["sub_unit"],
+    id: json["id"],
+    userId: json["user_id"],
+    subUnit: json["sub_unit"] == null ? null : subUnitValues.map[json["sub_unit"]],
+    unit: json["unit"] == null ? null : json["unit"],
+    shopId: json["shop_id"],
+    productId: json["product_id"] == null ? null : json["product_id"],
+    name: json["name"],
+    subCategory: json["sub_category"] == null ? null : json["sub_category"],
+    sellingPrice: json["selling_price"],
+    costPrice: json["cost_price"],
+    wholesalePrice: json["wholesale_price"] == null ? null : json["wholesale_price"],
+    wholesaleAmount: json["wholesale_amount"] == null ? null : json["wholesale_amount"],
+    gallery: json["gallery"] == null ? null : json["gallery"],
+    warrantyType: json["warranty_type"] == null ? null : warrantyTypeValues.map[json["warranty_type"]],
+    warranty: json["warranty"] == null ? null : json["warranty"],
+    stock: json["stock"],
+    description: json["description"] == null ? null : json["description"],
+    vatApplicable: json["vat_applicable"],
+    barcode: json["barcode"] == null ? null : json["barcode"],
+    imageUrl: json["image_url"] == null ? null : json["image_url"],
+    productType: productTypeValues.map[json["product_type"]],
+    approved: json["approved"] == null ? null : DateTime.parse(json["approved"]),
+    stockAlert: json["stock_alert"] == null ? null : json["stock_alert"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+    vatPercent: json["vat_percent"].toDouble(),
+    addedBy: addedByValues.map[json["added_by"]],
+    brandId: json["brand_id"],
+    thumbnailImg: json["thumbnail_img"],
+    featuredImg: json["featured_img"],
+    flashDealImg: json["flash_deal_img"],
+    videoProvider: json["video_provider"],
+    videoLink: json["video_link"],
+    tags: json["tags"],
+    choiceOptions: json["choice_options"],
+    colors: json["colors"],
+    todaysDeal: json["todays_deal"],
+    published: json["published"],
+    featured: json["featured"],
+    discount: json["discount"] == null ? null : json["discount"],
+    discountType: json["discount_type"] == null ? null : discountTypeValues.map[json["discount_type"]],
+    shippingType: shippingTypeValues.map[json["shipping_type"]],
+    shippingCost: json["shipping_cost"] == null ? null : json["shipping_cost"],
+    numOfSale: json["num_of_sale"],
+    metaTitle: json["meta_title"],
+    metaDescription: json["meta_description"],
+    metaImg: json["meta_img"],
+    pdf: json["pdf"],
+    slug: json["slug"] == null ? null : json["slug"],
+    rating: json["rating"],
+    digital: json["digital"],
+    fileName: json["file_name"],
+    filePath: json["file_path"],
+    locationId: locationIdValues.map[json["location_id"]],
+    pickupInstruction: json["pickup_instruction"],
+    version: json["version"],
+    uniqueId: json["unique_id"],
+    attribute: List<Attribute>.from(json["attribute"].map((x) => Attribute.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id == null ? null : id,
-        "version": version == null ? null : version,
-        "shop_product_id": shopProductId == null ? null : shopProductId,
-        "product_variance_id": productVarianceId,
-        "name": name == null ? null : name,
-        "selling_price": sellingPrice == null ? null : sellingPrice,
-        "cost_price": costPrice == null ? null : costPrice,
-        "wholesale_price": wholeSalePrice == null ? null : wholeSalePrice,
-        "stock": stock == null ? null : stock,
-        "barcode": barcode == null ? null : barcode,
-        // "unique_id": uniqueID == null ? null : uniqueID,
-        "image_url": imageUrl == null ? null : imageUrl,
-        "approved": approved == null ? null : approved.toIso8601String(),
-        "created_at": createdAt == null ? null : createdAt.toIso8601String(),
-        "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
-        "variation_criteria":
-            variationCriteria == null ? null : variationCriteria,
-        "user_id": userId == null ? null : userId,
-        "shop_id": shopId == null ? null : shopId,
-        "shop_product_variance_id":
-            shopProductVarianceId == null ? null : shopProductVarianceId,
-        "product_id": productId == null ? null : productId,
-        "sub_category": subCategory == null ? null : subCategory,
-        "base_price": basePrice == null ? null : basePrice,
-        "base_cost": baseCost == null ? null : baseCost,
-        "total_stock": totalStock == null ? null : totalStock,
-        "variance_name": varianceName == null ? null : varianceName,
-        "product_name": productName == null ? null : productName,
-        "description": description == null ? null : description,
-        "vat_applicable": vatApplicable == null ? null : vatApplicable,
-        "vat_percent": vatPercent == null ? null : vatPercent,
-        "attribute": attribute == null
-            ? null
-            : List<dynamic>.from(attribute.map((x) => x.toJson())),
-        "product_type": productType == null ? null : productType,
-        "added_by": addedBy == null ? null : addedBy,
-        "brand_id": brandId,
-        "thumbnail_img": thumbnailImg,
-        "featured_img": featuredImg,
-        "flash_deal_img": flashDealImg,
-        "video_provider": videoProvider,
-        "video_link": videoLink,
-        "tags": tags,
-        "choice_options": choiceOptions,
-        "colors": colors,
-        "todays_deal": todaysDeal == null ? null : todaysDeal,
-        "published": published == null ? null : published,
-        "featured": featured == null ? null : featured,
-        "unit": unit,
-        "discount": discount,
-        "discount_type": discountType,
-        "shipping_type": shippingType == null ? null : shippingType,
-        "shipping_cost": shippingCost == null ? null : shippingCost,
-        "num_of_sale": numOfSale == null ? null : numOfSale,
-        "meta_title": metaTitle,
-        "meta_description": metaDescription,
-        "meta_img": metaImg,
-        "pdf": pdf,
-        "slug": slug == null ? null : slug,
-        "rating": rating == null ? null : rating,
-        "digital": digital == null ? null : digital,
-        "file_name": fileName,
-        "file_path": filePath,
-        "location_id": locationId == null ? null : locationId,
-        "pickup_instruction": pickupInstruction,
-        "sub_unit": subUnit,
-      };
+    "id": id,
+    "user_id": userId,
+    "sub_unit": subUnit == null ? null : subUnitValues.reverse[subUnit],
+    "unit": unit == null ? null : unit,
+    "shop_id": shopId,
+    "product_id": productId == null ? null : productId,
+    "name": name,
+    "sub_category": subCategory == null ? null : subCategory,
+    "selling_price": sellingPrice,
+    "cost_price": costPrice,
+    "wholesale_price": wholesalePrice == null ? null : wholesalePrice,
+    "wholesale_amount": wholesaleAmount == null ? null : wholesaleAmount,
+    "gallery": gallery == null ? null : gallery,
+    "warranty_type": warrantyType == null ? null : warrantyTypeValues.reverse[warrantyType],
+    "warranty": warranty == null ? null : warranty,
+    "stock": stock,
+    "description": description == null ? null : description,
+    "vat_applicable": vatApplicable,
+    "barcode": barcode == null ? null : barcode,
+    "image_url": imageUrl == null ? null : imageUrl,
+    "product_type": productTypeValues.reverse[productType],
+    "approved": approved == null ? null : approved.toIso8601String(),
+    "stock_alert": stockAlert == null ? null : stockAlert,
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
+    "vat_percent": vatPercent,
+    "added_by": addedByValues.reverse[addedBy],
+    "brand_id": brandId,
+    "thumbnail_img": thumbnailImg,
+    "featured_img": featuredImg,
+    "flash_deal_img": flashDealImg,
+    "video_provider": videoProvider,
+    "video_link": videoLink,
+    "tags": tags,
+    "choice_options": choiceOptions,
+    "colors": colors,
+    "todays_deal": todaysDeal,
+    "published": published,
+    "featured": featured,
+    "discount": discount == null ? null : discount,
+    "discount_type": discountType == null ? null : discountTypeValues.reverse[discountType],
+    "shipping_type": shippingTypeValues.reverse[shippingType],
+    "shipping_cost": shippingCost == null ? null : shippingCost,
+    "num_of_sale": numOfSale,
+    "meta_title": metaTitle,
+    "meta_description": metaDescription,
+    "meta_img": metaImg,
+    "pdf": pdf,
+    "slug": slug == null ? null : slug,
+    "rating": rating,
+    "digital": digital,
+    "file_name": fileName,
+    "file_path": filePath,
+    "location_id": locationIdValues.reverse[locationId],
+    "pickup_instruction": pickupInstruction,
+    "version": version,
+    "unique_id": uniqueId,
+    "attribute": List<dynamic>.from(attribute.map((x) => x.toJson())),
+  };
+
+}
+enum AddedBy { ADMIN }
+
+final addedByValues = EnumValues({
+  "admin": AddedBy.ADMIN
+});
+enum DiscountType { PERCENT, AMOUNT, EMPTY, DISCOUNT_TYPE_PERCENT }
+
+final discountTypeValues = EnumValues({
+  "AMOUNT": DiscountType.AMOUNT,
+  "percent": DiscountType.DISCOUNT_TYPE_PERCENT,
+  "%": DiscountType.EMPTY,
+  "PERCENT": DiscountType.PERCENT
+});
+
+enum LocationId { EMPTY }
+
+final locationIdValues = EnumValues({
+  "[]": LocationId.EMPTY
+});
+
+enum ProductType { SIMPLE, VARIABLE, PRODUCT_TYPE_SIMPLE }
+
+final productTypeValues = EnumValues({
+  "'Simple'": ProductType.PRODUCT_TYPE_SIMPLE,
+  "SIMPLE": ProductType.SIMPLE,
+  "VARIABLE": ProductType.VARIABLE
+});
+
+enum ShippingType { FLAT_RATE }
+
+final shippingTypeValues = EnumValues({
+  "flat_rate": ShippingType.FLAT_RATE
+});
+
+enum SubUnit { SUB_UNIT_PRICE, SUB_UNIT_2_PRICE_20, SUB_UNIT_PRICE_NULL, SUB_UNIT_10_PRICE_1000, SUB_UNIT_29_PRICE_67, SUB_UNIT_PRICE_50, SUB_UNIT_NULL_PRICE_NULL, EMPTY }
+
+final subUnitValues = EnumValues({
+  "": SubUnit.EMPTY,
+  "{\"sub_unit\":\"10\",\"price\":\"1000\"}": SubUnit.SUB_UNIT_10_PRICE_1000,
+  "{\"sub_unit\":\"29\",\"price\":\"67\"}": SubUnit.SUB_UNIT_29_PRICE_67,
+  "[ {\"sub_unit\": 2,\"price\":  20} ]": SubUnit.SUB_UNIT_2_PRICE_20,
+  "[{\"sub_unit\":null,\"price\":null}]": SubUnit.SUB_UNIT_NULL_PRICE_NULL,
+  "{\"sub_unit\":\"\",\"price\":\"\"}": SubUnit.SUB_UNIT_PRICE,
+  "[{\"sub_unit\":\"\",\"price\":\"50\"}]": SubUnit.SUB_UNIT_PRICE_50,
+  "[{\"sub_unit\":\"\",\"price\":null}]": SubUnit.SUB_UNIT_PRICE_NULL
+});
+
+enum WarrantyType { MONTH, DAY, WARRANTY_TYPE_MONTH, WEEK, YEAR, WARRANTY_TYPE_YEAR, WARRANTY_TYPE_WEEK, EMPTY, WARRANTY_TYPE, PURPLE_YEAR, WARRANTY_TYPE_DAY, PURPLE }
+
+final warrantyTypeValues = EnumValues({
+  "DAY": WarrantyType.DAY,
+  "বছর": WarrantyType.EMPTY,
+  "month": WarrantyType.MONTH,
+  "": WarrantyType.PURPLE,
+  "Year": WarrantyType.PURPLE_YEAR,
+  "সপ্তাহ": WarrantyType.WARRANTY_TYPE,
+  "Day": WarrantyType.WARRANTY_TYPE_DAY,
+  "MONTH": WarrantyType.WARRANTY_TYPE_MONTH,
+  "week": WarrantyType.WARRANTY_TYPE_WEEK,
+  "year": WarrantyType.WARRANTY_TYPE_YEAR,
+  "WEEK": WarrantyType.WEEK,
+  "YEAR": WarrantyType.YEAR
+});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    if (reverseMap == null) {
+      reverseMap = map.map((k, v) => new MapEntry(v, k));
+    }
+    return reverseMap;
+  }
 }

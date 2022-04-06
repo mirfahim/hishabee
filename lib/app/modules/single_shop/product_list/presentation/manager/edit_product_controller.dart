@@ -91,10 +91,10 @@ class EditProductController extends GetxController {
     final result = await productRepository.editProduct(
       id: product.value.id,
       barcode: barcode.value,
-      variationId: product.value.productVarianceId,
+      // variationId: product.value.productVarianceId,
       category: selectedSubCat.value.id,
       name: productName.value,
-      varianceName: product.value.varianceName,
+      // varianceName: product.value.varianceName,
       sellingPrice: price.value,
       stock: stockQuantity.value,
       cost: cost.value,
@@ -123,7 +123,9 @@ class EditProductController extends GetxController {
   Future<void> deleteProducts(int productId) async {
     CustomDialog.showLoadingDialog(message: "Deleting Product");
     final result = await productRepository.deleteProduct(
-        shop.value.id, productId, product.value.shopProductVarianceId);
+        shop.value.id, productId,
+        // product.value.shopProductVarianceId
+    );
     if (Get.isDialogOpen) {
       Get.back();
     }

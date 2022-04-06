@@ -76,3 +76,75 @@ class Attribute {
         "updated_at": updatedAt == null ? null : updatedAt.toIso8601String(),
       };
 }
+enum DiscountType { PERCENT, AMOUNT, EMPTY, DISCOUNT_TYPE_PERCENT }
+
+final discountTypeValues = EnumValues({
+  "AMOUNT": DiscountType.AMOUNT,
+  "percent": DiscountType.DISCOUNT_TYPE_PERCENT,
+  "%": DiscountType.EMPTY,
+  "PERCENT": DiscountType.PERCENT
+});
+
+enum LocationId { EMPTY }
+
+final locationIdValues = EnumValues({
+  "[]": LocationId.EMPTY
+});
+
+enum ProductType { SIMPLE, VARIABLE, PRODUCT_TYPE_SIMPLE }
+
+final productTypeValues = EnumValues({
+  "'Simple'": ProductType.PRODUCT_TYPE_SIMPLE,
+  "SIMPLE": ProductType.SIMPLE,
+  "VARIABLE": ProductType.VARIABLE
+});
+
+enum ShippingType { FLAT_RATE }
+
+final shippingTypeValues = EnumValues({
+  "flat_rate": ShippingType.FLAT_RATE
+});
+
+enum SubUnit { SUB_UNIT_PRICE, SUB_UNIT_2_PRICE_20, SUB_UNIT_PRICE_NULL, SUB_UNIT_10_PRICE_1000, SUB_UNIT_29_PRICE_67, SUB_UNIT_PRICE_50, SUB_UNIT_NULL_PRICE_NULL, EMPTY }
+
+final subUnitValues = EnumValues({
+  "": SubUnit.EMPTY,
+  "{\"sub_unit\":\"10\",\"price\":\"1000\"}": SubUnit.SUB_UNIT_10_PRICE_1000,
+  "{\"sub_unit\":\"29\",\"price\":\"67\"}": SubUnit.SUB_UNIT_29_PRICE_67,
+  "[ {\"sub_unit\": 2,\"price\":  20} ]": SubUnit.SUB_UNIT_2_PRICE_20,
+  "[{\"sub_unit\":null,\"price\":null}]": SubUnit.SUB_UNIT_NULL_PRICE_NULL,
+  "{\"sub_unit\":\"\",\"price\":\"\"}": SubUnit.SUB_UNIT_PRICE,
+  "[{\"sub_unit\":\"\",\"price\":\"50\"}]": SubUnit.SUB_UNIT_PRICE_50,
+  "[{\"sub_unit\":\"\",\"price\":null}]": SubUnit.SUB_UNIT_PRICE_NULL
+});
+
+enum WarrantyType { MONTH, DAY, WARRANTY_TYPE_MONTH, WEEK, YEAR, WARRANTY_TYPE_YEAR, WARRANTY_TYPE_WEEK, EMPTY, WARRANTY_TYPE, PURPLE_YEAR, WARRANTY_TYPE_DAY, PURPLE }
+
+final warrantyTypeValues = EnumValues({
+  "DAY": WarrantyType.DAY,
+  "বছর": WarrantyType.EMPTY,
+  "month": WarrantyType.MONTH,
+  "": WarrantyType.PURPLE,
+  "Year": WarrantyType.PURPLE_YEAR,
+  "সপ্তাহ": WarrantyType.WARRANTY_TYPE,
+  "Day": WarrantyType.WARRANTY_TYPE_DAY,
+  "MONTH": WarrantyType.WARRANTY_TYPE_MONTH,
+  "week": WarrantyType.WARRANTY_TYPE_WEEK,
+  "year": WarrantyType.WARRANTY_TYPE_YEAR,
+  "WEEK": WarrantyType.WEEK,
+  "YEAR": WarrantyType.YEAR
+});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    if (reverseMap == null) {
+      reverseMap = map.map((k, v) => new MapEntry(v, k));
+    }
+    return reverseMap;
+  }
+}
