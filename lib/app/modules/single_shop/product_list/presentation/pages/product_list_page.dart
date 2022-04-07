@@ -455,196 +455,210 @@ class ProductListPage extends GetView<ProductListController> {
                             Padding(
                               padding: const EdgeInsets.only(
                                   top: 10.0, right: 15, left: 15, bottom: 5),
-                              child: Obx(
-                                () => controller.flag.value == 0
+                              child: Obx(()=>AnimatedSwitcher(
+                                duration: Duration(seconds: 1),
+                                // transitionBuilder: (child, animation){
+                                //   return SlideTransition(
+                                //     position: animation.drive(
+                                //       Tween(begin: Offset(1.0,0.0), end: Offset(0.0,0.0)),
+                                //     ),
+                                //     child: child,);
+                                // },
+                                child:
+                                // Obx(
+                                //   () =>
+                                controller.flag.value == 0
                                     ? Container(
-                                        // height: size.height - 200,
-                                        child: ListView.builder(
-                                            shrinkWrap: true,
-                                            physics:
-                                                NeverScrollableScrollPhysics(),
-                                            itemCount:
-                                                controller.searchList.length,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              Product product = controller
-                                                      .searchList[
-                                                  controller.searchList.length -
-                                                      1 -
-                                                      index];
-                                              return InkWell(
-                                                  onTap: () {
-                                                    Get.to(
-                                                      () => ProductDetails(),
-                                                      arguments: {
-                                                        'product': product,
-                                                        'shop': controller
-                                                            .shop.value,
-                                                        'catList': controller
-                                                            .productCategoryList
-                                                      },
-                                                      binding:
-                                                          ProductListBinding(),
-                                                    );
-                                                  },
-                                                  child:
-                                                      //
-                                                      Column(
-                                                    children: [
-                                                      SizedBox(
-                                                        height: 10,
-                                                      ),
-                                                      ListTile(
-                                                        leading: product
-                                                                    .imageUrl !=
-                                                                null
-                                                            ? CachedNetworkImage(
-                                                                imageUrl: product
-                                                                    .imageUrl,
-                                                                placeholder: (context,
-                                                                        url) =>
-                                                                    new CircularProgressIndicator(),
-                                                                errorWidget: (context,
-                                                                        url,
-                                                                        error) =>
-                                                                    new Icon(Icons
-                                                                        .error),
-                                                              )
-                                                            : Container(
-                                                                height: 50,
-                                                                width: 50,
-                                                                child: Center(
-                                                                  child: Image.asset(
-                                                                      'images/hishabeeLogo.png',
-                                                                      height:
-                                                                          35,
-                                                                      width:
-                                                                          35),
-                                                                ),
-                                                              ),
-                                                        title: Text(
-                                                          product.name,
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'Roboto'),
-                                                          maxLines: 3,
-                                                        ),
-                                                        trailing: Text(
-                                                          '৳ ${product.sellingPrice}',
-                                                          style: TextStyle(
-                                                              fontFamily:
-                                                                  'Roboto'),
-                                                        ),
-                                                      ),
-                                                      Divider(
-                                                        thickness: 2,
-                                                        color: Color(0xFFC4C4C4)
-                                                            .withOpacity(.35),
-                                                      ),
-                                                    ],
-                                                  ));
-                                            }),
-                                      )
-                                    : Container(
-                                        height: size.height - 300,
-                                        child: GridView.count(
-                                            crossAxisCount: 2,
-                                            crossAxisSpacing: 20,
-                                            mainAxisSpacing: 20,
-                                            children: List.generate(
-                                              controller.searchList.length,
-                                              (index) {
-                                                Product product = controller
-                                                    .searchList[controller
-                                                        .searchList.length -
-                                                    1 -
-                                                    index];
-                                                return InkWell(
-                                                  onTap: () {
-                                                    Get.to(
-                                                      () => ProductDetails(),
-                                                      arguments: {
-                                                        'product': product,
-                                                        'shop': controller
-                                                            .shop.value,
-                                                        'catList': controller
-                                                            .productCategoryList
-                                                      },
-                                                      binding:
-                                                          ProductListBinding(),
-                                                    );
-                                                  },
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xFFF1F1F1),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10)),
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        product.imageUrl != null
-                                                            ? Container(
-                                                                height: 50,
-                                                                width: 50,
-                                                                child:
-                                                                    CachedNetworkImage(
-                                                                  imageUrl: product
-                                                                      .imageUrl,
-                                                                  placeholder: (context,
-                                                                          url) =>
-                                                                      new CircularProgressIndicator(),
-                                                                  errorWidget: (context,
-                                                                          url,
-                                                                          error) =>
-                                                                      new Icon(Icons
-                                                                          .error),
-                                                                ),
-                                                              )
-                                                            : Container(
-                                                                height: 50,
-                                                                width: 50,
-                                                                child: Center(
-                                                                  child: Image.asset(
-                                                                      'images/hishabeeLogo.png',
-                                                                      height:
-                                                                          35,
-                                                                      width:
-                                                                          35),
-                                                                ),
-                                                              ),
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Text(
-                                                          product.name,
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              fontFamily:
-                                                                  'Roboto'),
-                                                          maxLines: 3,
-                                                        ),
-                                                        SizedBox(
-                                                          height: 10,
-                                                        ),
-                                                        Text(
-                                                          '৳ ${product.sellingPrice}',
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              fontFamily:
-                                                                  'Roboto'),
-                                                        ),
-                                                      ],
+                                  key: ValueKey<int>(0),
+                                  height: size.height - 200,
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      // physics:
+                                      // NeverScrollableScrollPhysics(),
+                                      itemCount:
+                                      controller.searchList.length,
+                                      itemBuilder: (BuildContext context,
+                                          int index) {
+                                        Product product = controller
+                                            .searchList[
+                                        controller.searchList.length -
+                                            1 -
+                                            index];
+                                        return InkWell(
+                                            onTap: () {
+                                              Get.to(
+                                                    () => ProductDetails(),
+                                                arguments: {
+                                                  'product': product,
+                                                  'shop': controller
+                                                      .shop.value,
+                                                  'catList': controller
+                                                      .productCategoryList
+                                                },
+                                                binding:
+                                                ProductListBinding(),
+                                              );
+                                            },
+                                            child:
+                                            //
+                                            Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                ListTile(
+                                                  leading: product
+                                                      .imageUrl !=
+                                                      null
+                                                      ? CachedNetworkImage(
+                                                    imageUrl: product
+                                                        .imageUrl,
+                                                    placeholder: (context,
+                                                        url) =>
+                                                    new CircularProgressIndicator(),
+                                                    errorWidget: (context,
+                                                        url,
+                                                        error) =>
+                                                    new Icon(Icons
+                                                        .error),
+                                                  )
+                                                      : Container(
+                                                    height: 50,
+                                                    width: 50,
+                                                    child: Center(
+                                                      child: Image.asset(
+                                                          'images/hishabeeLogo.png',
+                                                          height:
+                                                          35,
+                                                          width:
+                                                          35),
                                                     ),
                                                   ),
-                                                );
-                                              },
-                                            )),
-                                      ),
-                              ),
+                                                  title: Text(
+                                                    product.name,
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                        'Roboto'),
+                                                    maxLines: 3,
+                                                  ),
+                                                  trailing: Text(
+                                                    '৳ ${product.sellingPrice}',
+                                                    style: TextStyle(
+                                                        fontFamily:
+                                                        'Roboto'),
+                                                  ),
+                                                ),
+                                                Divider(
+                                                  thickness: 2,
+                                                  color: Color(0xFFC4C4C4)
+                                                      .withOpacity(.35),
+                                                ),
+                                              ],
+                                            ));
+                                      }),
+                                )
+                                    : Container(
+                                  key: ValueKey<int>(1),
+                                  height: size.height - 200,
+                                  child: GridView.count(
+                                      crossAxisCount: 2,
+                                      crossAxisSpacing: 20,
+                                      mainAxisSpacing: 20,
+                                      children: List.generate(
+                                        controller.searchList.length,
+                                            (index) {
+                                          Product product = controller
+                                              .searchList[controller
+                                              .searchList.length -
+                                              1 -
+                                              index];
+                                          return InkWell(
+                                            onTap: () {
+                                              Get.to(
+                                                    () => ProductDetails(),
+                                                arguments: {
+                                                  'product': product,
+                                                  'shop': controller
+                                                      .shop.value,
+                                                  'catList': controller
+                                                      .productCategoryList
+                                                },
+                                                binding:
+                                                ProductListBinding(),
+                                              );
+                                            },
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                  color:
+                                                  Color(0xFFF1F1F1),
+                                                  borderRadius:
+                                                  BorderRadius
+                                                      .circular(10)),
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .center,
+                                                children: [
+                                                  product.imageUrl != null
+                                                      ? Container(
+                                                    height: 50,
+                                                    width: 50,
+                                                    child:
+                                                    CachedNetworkImage(
+                                                      imageUrl: product
+                                                          .imageUrl,
+                                                      placeholder: (context,
+                                                          url) =>
+                                                      new CircularProgressIndicator(),
+                                                      errorWidget: (context,
+                                                          url,
+                                                          error) =>
+                                                      new Icon(Icons
+                                                          .error),
+                                                    ),
+                                                  )
+                                                      : Container(
+                                                    height: 50,
+                                                    width: 50,
+                                                    child: Center(
+                                                      child: Image.asset(
+                                                          'images/hishabeeLogo.png',
+                                                          height:
+                                                          35,
+                                                          width:
+                                                          35),
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Text(
+                                                    product.name,
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontFamily:
+                                                        'Roboto'),
+                                                    maxLines: 3,
+                                                  ),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Text(
+                                                    '৳ ${product.sellingPrice}',
+                                                    style: TextStyle(
+                                                        fontSize: 16,
+                                                        fontFamily:
+                                                        'Roboto'),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      )),
+                                ),
+                                // ),
+                              )),
                             ),
                           ],
                         ),
