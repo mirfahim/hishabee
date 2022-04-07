@@ -72,6 +72,7 @@ class SellController extends GetxController {
 
   final dis1EditingController = TextEditingController().obs;
   final dis2EditingController = TextEditingController().obs;
+  final cashTextEditingController = TextEditingController().obs;
 
   TextEditingController searchTextEditingController;
 

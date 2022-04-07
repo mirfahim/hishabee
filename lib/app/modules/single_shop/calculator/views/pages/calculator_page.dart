@@ -19,6 +19,7 @@ class CalcButton extends GetView<SellController> {
         hideSurroundingBorder: true,
         onChanged: (key, value, expression) {
           controller.amountCal.value = value;
+          controller.cashTextEditingController.value.text = value.toString();
         },
         onTappedDisplay: (value, details) {},
         theme: const CalculatorThemeData(

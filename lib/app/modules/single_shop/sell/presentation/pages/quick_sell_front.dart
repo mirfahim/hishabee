@@ -486,12 +486,12 @@ class QuickSell extends GetView<SellController> {
                             //     print('value: $_value');
                             //   },
                             // )
-                            child: TextFormField(
-                              // controller: controller.amount.value,
+                            child: Obx(()=>TextFormField(
+                              controller: controller.cashTextEditingController.value,
                               onTap: () {
                                 // CalcButton();
                                 print("working 123");
-                                  showCalculatorOptionDialogue(context);
+                                showCalculatorOptionDialogue(context);
                               },
 
                               showCursor: false,
@@ -511,7 +511,8 @@ class QuickSell extends GetView<SellController> {
                                         color: DEFAULT_BLACK, width: 1),
                                     borderRadius: BorderRadius.circular(4)),
                               ),
-                            ),
+                            ),)
+
                           ),
                           mobileNumberCheckbox.value == true
                               ? Obx(
