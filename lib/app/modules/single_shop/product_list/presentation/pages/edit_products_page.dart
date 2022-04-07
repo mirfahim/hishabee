@@ -4108,11 +4108,12 @@ class _AddProductsPageState extends State<EditProductsPage> {
   }
 
   int versionIncrement = 1;
-  int version = 1;
+  // int version = 1;
   final ProductDetailsController _productController = Get.find();
   increment() {
     setState(() {
-      _productController.product.value.version = versionIncrement++;
+      versionIncrement = _productController.product.value.version++;
+      //_productController.product.value.version = versionIncrement++;
       print(
           "my updated product increment is ${_productController.product.value.version}");
     });
@@ -4122,7 +4123,7 @@ class _AddProductsPageState extends State<EditProductsPage> {
     // if (selectedProductCategory == null || selectedSubCat == null) {
     //   _showMaterialDialog("Please Select Category and Sub Category");
     // } else {
-    createUniqueID();
+    // createUniqueID();
     increment();
     String atData = "{";
     for (Attribute a in attributeList) {

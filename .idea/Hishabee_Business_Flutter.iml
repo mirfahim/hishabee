@@ -225,6 +225,12 @@
       <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/hishabee_business_manager_fl/.dart_tool" />
       <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/hishabee_business_manager_fl/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/hishabee_business_manager_fl/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/bluetooth_print/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/bluetooth_print/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/bluetooth_print/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/bluetooth_print/example/build" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/bluetooth_print/example/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/ios/.symlinks/plugins/bluetooth_print/example/.pub" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

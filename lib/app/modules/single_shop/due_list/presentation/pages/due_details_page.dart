@@ -35,7 +35,7 @@ class DueDetailsPage extends GetView<DueDetailsController> {
           children: [
             Container(
               height: size.height - 62,
-              width: size.width - 250,
+              width: size.width,
               child: Stack(
                 children: [
                   MediaQuery.removePadding(
@@ -49,7 +49,8 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                               left: 0,
                               top: 0,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8.0),
                                 child: Row(
                                   children: [
                                     IconButton(
@@ -62,7 +63,11 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                                         Get.back();
                                       },
                                     ),
-                                    Text('due_details'.tr,style: TextStyle(fontSize: 16,color: DEFAULT_BLUE),),
+                                    Text(
+                                      'due_details'.tr,
+                                      style: TextStyle(
+                                          fontSize: 16, color: DEFAULT_BLUE),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -74,7 +79,7 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                                 right: 10,
                               ),
                               child: Container(
-                                width: size.width - 250,
+                                width: size.width,
                                 decoration: BoxDecoration(
                                     color: DEFAULT_BLUE,
                                     borderRadius: BorderRadius.circular(8)),
@@ -82,26 +87,41 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 10.0,
-                                                right: 10,top: 5),
+                                                left: 10.0, right: 10, top: 5),
                                             child: Container(
                                               width: 150,
                                               child: Obx(
-                                                    ()=> Text(
-                                                  "${controller.due.value.contactName}",
-                                                  style: TextStyle(
-                                                    fontFamily: 'Rubik',
-                                                    fontSize: 18,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
+                                                () => controller.due.value ==
+                                                        null
+                                                    ? Text(
+                                                        // "Contact name",
+                                                        "No Data",
+                                                        style: TextStyle(
+                                                          fontFamily: 'Rubik',
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white,
+                                                        ),
+                                                      )
+                                                    : Text(
+                                                        // "Contact name",
+                                                        "${controller.due.value.contactName}",
+                                                        style: TextStyle(
+                                                          fontFamily: 'Rubik',
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
                                               ),
                                             ),
                                           ),
@@ -112,26 +132,40 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                                                   case 0:
                                                     Get.defaultDialog(
                                                       title: "Are you sure?",
-                                                      content: Text('You want to delete this due record'),
+                                                      content: Text(
+                                                          'You want to delete this due record'),
                                                       actions: [
-                                                        TextButton(onPressed: (){
-                                                          Get.back();
-                                                        }, child: Text('Cancel',style: TextStyle(color: DEFAULT_BLUE),)),
-                                                        TextButton(onPressed: (){
-                                                          Get.back();
-                                                          controller.deleteDue();
-                                                        }, child: Text('Delete',style: TextStyle(color: DEFAULT_BLUE))),
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              Get.back();
+                                                            },
+                                                            child: Text(
+                                                              'Cancel',
+                                                              style: TextStyle(
+                                                                  color:
+                                                                      DEFAULT_BLUE),
+                                                            )),
+                                                        TextButton(
+                                                            onPressed: () {
+                                                              Get.back();
+                                                              controller
+                                                                  .deleteDue();
+                                                            },
+                                                            child: Text(
+                                                                'Delete',
+                                                                style: TextStyle(
+                                                                    color:
+                                                                        DEFAULT_BLUE))),
                                                       ],
                                                     );
                                                     break;
                                                 }
                                               },
-                                              itemBuilder:
-                                                  (context) => [
-                                                PopupMenuItem(
-                                                    value: 0,
-                                                    child: Text('Delete')),
-                                              ],
+                                              itemBuilder: (context) => [
+                                                    PopupMenuItem(
+                                                        value: 0,
+                                                        child: Text('Delete')),
+                                                  ],
                                               child: Icon(
                                                 Icons.more_vert,
                                                 size: 30,
@@ -143,38 +177,61 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                                         children: [
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                left: 10.0,
-                                                right: 10,
-                                                top: 5),
-                                            child: Text(
-                                              "${controller.due.value.contactMobile}",
-                                              style: TextStyle(
-                                                fontFamily: 'Rubik',
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                              ),
-                                            ),
+                                                left: 10.0, right: 10, top: 5),
+                                            child: controller.due.value == null
+                                                ? Text(
+                                                    // "Contact number",
+                                                    "No Data",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Rubik',
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white,
+                                                    ),
+                                                  )
+                                                : Text(
+                                                    // "Contact number",
+                                                    "${controller.due.value.contactMobile}",
+                                                    style: TextStyle(
+                                                      fontFamily: 'Rubik',
+                                                      fontSize: 18,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Colors.white,
+                                                    ),
+                                                  ),
                                           ),
                                           Spacer(),
-                                          IconButton(onPressed: (){
-                                            String number =
-                                                "tel: ${controller.due.value.contactMobile}";
-                                            Utility.launchURL(number);
-                                          }, icon: Icon(Icons.call,color: Colors.white,)),
-                                          IconButton(onPressed: (){
-                                            String number =
-                                                "sms: ${controller.due.value.contactMobile}";
-                                            Utility.launchURL(number);
-                                          }, icon: Icon(Icons.sms,color: Colors.white,)),
+                                          IconButton(
+                                              onPressed: () {
+                                                String number =
+                                                    "tel: ${controller.due.value.contactMobile}";
+                                                Utility.launchURL(number);
+                                              },
+                                              icon: Icon(
+                                                Icons.call,
+                                                color: Colors.white,
+                                              )),
+                                          IconButton(
+                                              onPressed: () {
+                                                String number =
+                                                    "sms: ${controller.due.value.contactMobile}";
+                                                Utility.launchURL(number);
+                                              },
+                                              icon: Icon(
+                                                Icons.sms,
+                                                color: Colors.white,
+                                              )),
                                         ],
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.only(
                                             left: 10.0, right: 10),
                                         child: Obx(
-                                              ()=> Text(
-                                            "${controller.dueLeft.value} " + "tk".tr,
+                                          () => Text(
+                                            "${controller.dueLeft.value} " +
+                                                "tk".tr,
                                             style: TextStyle(
                                               fontFamily: 'Rubik',
                                               fontSize: 18,
@@ -194,7 +251,8 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                         Row(
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 15.0,left: 10,right: 10),
+                              padding: const EdgeInsets.only(
+                                  top: 15.0, left: 10, right: 10),
                               child: Text(
                                 'due_history'.tr,
                                 style: TextStyle(
@@ -214,7 +272,8 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(top: 15.0,right: 20),
+                              padding:
+                                  const EdgeInsets.only(top: 15.0, right: 20),
                               child: Text(
                                 '/Borrow',
                                 style: TextStyle(
@@ -222,23 +281,25 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                                 ),
                               ),
                             ),
-
                           ],
                         ),
                         Padding(
                           padding: const EdgeInsets.only(
                               top: 10.0, left: 10, right: 10, bottom: 100),
                           child: Obx(
-                                ()=> ListView.builder(
+                            () => ListView.builder(
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
                               itemCount: controller.dueItem.length,
                               itemBuilder: (BuildContext context, int index) {
-                                GetAllDueItemByUid dueItem = controller.dueItem[index];
+                                GetAllDueItemByUid dueItem =
+                                    controller.dueItem[index];
                                 return InkWell(
-                                  onTap: (){
+                                  onTap: () {
                                     controller.selectedDueItem.value = dueItem;
-                                    Get.toNamed(DuePageRoutes.DUE_ITEM_DETAILS_PAGE,);
+                                    Get.toNamed(
+                                      DuePageRoutes.DUE_ITEM_DETAILS_PAGE,
+                                    );
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
@@ -247,15 +308,14 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                                       width: size.width,
                                       decoration: BoxDecoration(
                                         color: Colors.grey.shade50,
-                                        borderRadius:
-                                        BorderRadius.circular(
-                                            4),
+                                        borderRadius: BorderRadius.circular(4),
                                         boxShadow: [
                                           BoxShadow(
                                             color: Colors.grey.withOpacity(0.5),
                                             spreadRadius: 3,
                                             blurRadius: 5,
-                                            offset: Offset(0, 3), // changes position of shadow
+                                            offset: Offset(0,
+                                                3), // changes position of shadow
                                           ),
                                         ],
                                       ),
@@ -264,12 +324,13 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                                             right: 8, left: 8),
                                         child: Row(
                                           mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                              MainAxisAlignment.start,
                                           children: [
                                             Container(
                                               width: size.width * 0.3,
                                               child: Text(
-                                                DateFormat("dd MMM yyyy \nhh:mm")
+                                                DateFormat(
+                                                        "dd MMM yyyy \nhh:mm")
                                                     .format(dueItem.createdAt),
                                                 style: TextStyle(
                                                     fontSize: 16,
@@ -285,8 +346,7 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                                                   color: dueItem.amount > 0
                                                       ? Colors.red
                                                       : Colors.green,
-                                                  fontWeight:
-                                                  FontWeight.bold),
+                                                  fontWeight: FontWeight.bold),
                                             )
                                           ],
                                         ),
@@ -313,8 +373,7 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 3,
                             blurRadius: 7,
-                            offset:
-                            Offset(0, 3), // changes position of shadow
+                            offset: Offset(0, 3), // changes position of shadow
                           ),
                         ],
                       ),
@@ -324,19 +383,22 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 10.0, bottom: 8),
+                              padding:
+                                  const EdgeInsets.only(left: 10.0, bottom: 8),
                               child: InkWell(
                                 onTap: () {
-                                  GetAllDueItemByUid dueItem = GetAllDueItemByUid();
-                                  Get.toNamed(DuePageRoutes.ADD_DUE_PAGE
-                                    ,arguments: {
+                                  GetAllDueItemByUid dueItem =
+                                      GetAllDueItemByUid();
+                                  Get.toNamed(
+                                    DuePageRoutes.ADD_DUE_PAGE,
+                                    arguments: {
                                       'shop': controller.shop.value,
                                       "due": controller.due.value,
-                                      'dueType' : 0,
+                                      'dueType': 0,
                                       'route': 1,
-                                      'dueItem':dueItem,
-                                    },);
+                                      'dueItem': dueItem,
+                                    },
+                                  );
                                 },
                                 child: Container(
                                   height: 50,
@@ -360,16 +422,18 @@ class DueDetailsPage extends GetView<DueDetailsController> {
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 10.0, bottom: 8),
+                              padding:
+                                  const EdgeInsets.only(right: 10.0, bottom: 8),
                               child: InkWell(
                                 onTap: () {
-                                  GetAllDueItemByUid dueItem = GetAllDueItemByUid();
-                                  Get.toNamed(DuePageRoutes.ADD_DUE_PAGE
-                                    ,arguments: {
+                                  GetAllDueItemByUid dueItem =
+                                      GetAllDueItemByUid();
+                                  Get.toNamed(
+                                    DuePageRoutes.ADD_DUE_PAGE,
+                                    arguments: {
                                       'shop': controller.shop.value,
                                       "due": controller.due.value,
-                                      'dueType' : 1,
+                                      'dueType': 1,
                                       'route': 1,
                                       'dueItem': dueItem,
                                     },

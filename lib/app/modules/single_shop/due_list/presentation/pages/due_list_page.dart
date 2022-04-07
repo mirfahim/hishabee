@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/_bindings/due_list_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/data/remote/models/get_all_due_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/manager/due_list_controller.dart';
@@ -14,6 +15,10 @@ import 'due_details_page.dart';
 
 class DueListPage extends GetView<DueFrontController> {
   final display = createDisplay();
+  final Shop shop;
+  DueListPage({
+    this.shop,
+  });
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -202,9 +207,11 @@ class DueListPage extends GetView<DueFrontController> {
                             Due due = controller.searchList[index];
                             return InkWell(
                               onTap: () {
-                                Get.to(
-                                  () => DueDetailsPage(),
-                                );
+                                Get.to(() => DueDetailsPage(),
+                                    binding: DueListBinding(),
+                                    arguments: {
+                                      "shop": shop,
+                                    });
                               },
                               child: Container(
                                 width: size.width,

@@ -27,11 +27,11 @@ class _DueFrontState extends State<DueFront> {
 
   @override
   void initState() {
-    _dueControllerNew.getAllDue(shopId: '8').then((value) {
-      _dueControllerNew.dueList.value = getAllDueResponseModelFromJson(value);
+    _dueControllerNew.getAllDue(shopId: '8').then((c) {
+      _dueControllerNew.dueList.value = getAllDueResponseModelFromJson(c);
       print('length of due: ${_dueControllerNew.dueHistory.value.data.length}');
       setState(() {
-        _allDue = getAllDueResponseModelFromJson(value);
+        _allDue = getAllDueResponseModelFromJson(c);
         _isLoading = false;
         print('length of due: ${_allDue.data.length}');
       });
