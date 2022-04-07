@@ -1198,16 +1198,14 @@ class QuickSell extends GetView<SellController> {
 
   showCalculatorOptionDialogue(BuildContext context) {
     print("working 11");
-    return StatefulBuilder(builder: (context, snapshot) {
-      return Dialog(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          elevation: 0,
-          child: Container(
-            height: 200,
-            width: 400,
-            child: MyCalculatorApp(),
-          ));
-    });
+    // return StatefulBuilder(builder: (context, snapshot) {
+    return showModalBottomSheet(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        context: context,
+        builder: (context) => Container(
+              height: 300,
+              width: 400,
+              child: CalcButton(),
+            ));
   }
 }
