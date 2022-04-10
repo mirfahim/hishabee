@@ -117,35 +117,38 @@ class _TransactionsPageState extends State<TransactionsPage> {
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  width: size.width,
-                  decoration: BoxDecoration(
-                      color: DEFAULT_BLUE,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'total_sell'.tr,
-                          style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 16,
-                              color: Colors.white),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Obx(() => Text(
-                              '৳${widget.controller.totalAmount.value.toStringAsFixed(2)}',
-                              style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 24,
-                                  color: Colors.white),
-                            ))
-                      ],
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    width: size.width,
+                    decoration: BoxDecoration(
+                        color: DEFAULT_BLUE,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'total_sell'.tr,
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                color: Colors.white),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Obx(() => Text(
+                                '৳${widget.controller.totalAmount.value.toStringAsFixed(2)}',
+                                style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 24,
+                                    color: Colors.white),
+                              ))
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -737,10 +740,12 @@ class _TransactionsPageState extends State<TransactionsPage> {
                   height: 10,
                 ),
 
-                Expanded(
-                  child: Obx(
-                    () => ListView.builder(
-                      // scrollDirection: Axis.vertical,
+                Obx(
+                  () => Container(
+                    height: 350,
+                    child: ListView.builder(
+                      controller: ScrollController(),
+                      scrollDirection: Axis.vertical,
                       // physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: widget.controller.filterTransactionList.length,
