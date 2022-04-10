@@ -81,7 +81,7 @@ class WalkThroughProductListController extends GetxController {
 
   Future<void> searchProduct(String searchProductName) async {
     final result = productList
-        .where((Product product) => product.productName
+        .where((Product product) => product.name
             .toLowerCase()
             .contains(searchProductName.toLowerCase()))
         .toList();

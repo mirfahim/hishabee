@@ -82,7 +82,7 @@ abstract class IProductRepository {
   Future<GenericResponseModel> deleteProduct(
     int shopId,
     int productId,
-    int varianceId,
+    // int varianceId,
   );
 
   Future<GenericResponseModel> updateStock(

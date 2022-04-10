@@ -72,6 +72,7 @@ class SellController extends GetxController {
 
   final dis1EditingController = TextEditingController().obs;
   final dis2EditingController = TextEditingController().obs;
+  final cashTextEditingController = TextEditingController().obs;
 
   TextEditingController searchTextEditingController;
 
@@ -161,7 +162,7 @@ class SellController extends GetxController {
 
   Future<void> searchProduct(String searchProductName) async {
     final result = productList
-        .where((Product product) => product.productName
+        .where((Product product) => product.name
             .toLowerCase()
             .contains(searchProductName.toLowerCase()))
         .toList();
@@ -264,7 +265,7 @@ class SellController extends GetxController {
   increaseCartItem(int index, Product product) {
     cart.removeAt(index);
     product.unit = product.unit + 1;
-    product.sellingPrice = product.basePrice * product.unit;
+    product.sellingPrice = product.sellingPrice * product.unit;
     cart.insert(index, product);
     calculateTotalCartPrice();
   }
@@ -273,7 +274,7 @@ class SellController extends GetxController {
     if (product.unit > 1) {
       cart.removeAt(index);
       product.unit = product.unit - 1;
-      product.sellingPrice = product.basePrice * product.unit;
+      product.sellingPrice = product.sellingPrice * product.unit;
       cart.insert(index, product);
       calculateTotalCartPrice();
     }

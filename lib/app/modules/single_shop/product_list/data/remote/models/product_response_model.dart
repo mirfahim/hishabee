@@ -107,7 +107,7 @@ class Product {
   String productName;
   String description;
   bool vatApplicable;
-  var vatPercent;
+  int vatPercent;
   List<Attribute> attribute;
   String productType;
   String addedBy;
@@ -172,7 +172,7 @@ class Product {
     String description,
     bool vatApplicable,
     var wholeSalePrice,
-    var vatPercent,
+    int vatPercent,
     List<Attribute> attribute,
     String productType,
     String addedBy,

@@ -1648,7 +1648,7 @@ List<Widget> getTabBarViews(
                                       Product product = Product(
                                           name: controller
                                               .customProductName.value,
-                                          sellingPrice: double.parse(controller
+                                          sellingPrice: int.parse(controller
                                               .customProductPrice.value),
                                           stock: 1);
 

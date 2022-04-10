@@ -91,7 +91,7 @@ abstract class IProductProvider {
   Future<Response<GenericResponseModel>> deleteProduct(
     int shopId,
     int productId,
-    int varianceId,
+    // int varianceId,
   );
 
   Future<Response<GenericResponseModel>> updateStock(
@@ -371,7 +371,7 @@ class ProductProvider extends GetConnect implements IProductProvider {
   Future<Response<GenericResponseModel>> deleteProduct(
     int shopId,
     int productId,
-    int varianceId,
+    // int varianceId,
   ) async {
     String url = '$BASE_URL/product/delete?id=$productId';
 

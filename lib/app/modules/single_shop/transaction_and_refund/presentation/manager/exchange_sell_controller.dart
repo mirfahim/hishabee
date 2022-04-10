@@ -113,7 +113,7 @@ class ExchangeSellController extends GetxController {
 
   Future<void> searchProduct(String searchProductName) async {
     final result = productList
-        .where((Product product) => product.productName
+        .where((Product product) => product.name
             .toLowerCase()
             .contains(searchProductName.toLowerCase()))
         .toList();
@@ -175,11 +175,11 @@ class ExchangeSellController extends GetxController {
             discount: element.discount,
             imageSrc: element.imageUrl,
             name: element.name,
-            price: element.basePrice,
+            price: element.costPrice,
             quantity: 1,
             sellingPrice: element.sellingPrice,
-            shopProductId: element.shopProductId,
-            shopProductVarianceId: element.shopProductVarianceId,
+            shopProductId: element.productId,
+            // shopProductVarianceId: element.shopProductVarianceId,
             subCategory: element.subCategory,
             transactionId: transaction.value.id,
             vat: element.vatPercent);
