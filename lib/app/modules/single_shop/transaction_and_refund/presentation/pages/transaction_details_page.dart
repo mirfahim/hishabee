@@ -20,7 +20,7 @@ class TransactionDetailsPage extends StatelessWidget {
       : super(key: key);
 
   List<TransactionItem> getUniqueItems() {
-    var res = transaction.transactionItems.distinct((el) => el.id).toList();
+    List res = transaction.transactionItems.distinct((el) => el.id).toList();
     return res;
   }
 
@@ -31,49 +31,32 @@ class TransactionDetailsPage extends StatelessWidget {
     final display = createDisplay();
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
+      appBar: AppBar(
+        title: Text(
+          'transaction_details'.tr,
+          style: TextStyle(
+            fontFamily: 'Rubik',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: DEFAULT_BLACK,
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+      ),
       body: SafeArea(
         child: Stack(
           children: [
-            Container(
-              height: size.height * 0.2,
-              width: size.width,
-              child: Image.asset(
-                "images/topBg.png",
-                fit: BoxFit.fill,
-              ),
-            ),
             Padding(
               padding: const EdgeInsets.only(
-                top: 20.0,
-              ),
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      size: 25,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                  Expanded(
-                    child: Text(
-                      'transaction_details'.tr,
-                      style: TextStyle(
-                        fontFamily: 'Rubik',
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: DEFAULT_BLACK,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 60.0,
+                top: 10.0,
                 left: 15,
                 right: 15,
               ),

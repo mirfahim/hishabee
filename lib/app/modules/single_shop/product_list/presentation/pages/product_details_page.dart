@@ -941,9 +941,9 @@ class ProductDetails extends GetView<ProductDetailsController> {
       subcategoryId: null == null ? null : null,
       productName: controller.product.value.name,
       price: controller.product.value.sellingPrice.toDouble(),
-      wholeSalePrice: controller.product.value.wholesalePrice == null
+      wholeSalePrice: controller.product.value.wholeSalePrice == null
           ? 0.0
-          : controller.product.value.wholesalePrice.toDouble(),
+          : controller.product.value.wholeSalePrice.toDouble(),
       desc: controller.product.value.description,
       imageUrl: controller.product.value.imageUrl,
       stockQuantity: controller.product.value.stock,
@@ -952,7 +952,7 @@ class ProductDetails extends GetView<ProductDetailsController> {
       barcode: controller.product.value.barcode,
       attribute: null,
       vatAmount: null,
-      uniqueID: controller.product.value.uniqueId,
+      uniqueID: controller.product.value.uniqueID,
       gallary: null,
       subUnit: controller.product.value.subUnit,
       version: version,

@@ -4191,7 +4191,7 @@ class _AddProductsPageState extends State<EditProductsPage> {
           barcode: mainProductBarCode,
           attribute: attributeMap,
           vatAmount: vatAmount,
-          uniqueID: _productController.product.value.uniqueId,
+          uniqueID: _productController.product.value.uniqueID,
           gallary: imageList,
           subUnit: unitList,
           version: _productController.product.value.version,
