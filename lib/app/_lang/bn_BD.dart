@@ -6,6 +6,10 @@ const bn_BD = {
   'add_input': 'ইনপুট যুক্ত করুন',
   'add_receipt': 'রিসিপ্ট যুক্ত করুন',
   'vat': 'ভ্যাট',
+  'lend':'বাকি দিবো',
+  'borrowed':'বাকি নিবো',
+  'total_due':'মোট বাকি',
+  'due_history':'বাকির ইতিহাস',
   'expense_reason':'খরচের কারণ',
   'expense_description':'খরচের বর্ণনা',
   'marketing_shop':'মার্কেটিং শপ',
@@ -165,7 +169,7 @@ const bn_BD = {
   'current_stock': 'স্টক সংখ্যা',
   'done': 'সম্পন্ন করুন',
   'current_stock_colon': 'মজুদ: ',
-  'total_due': 'মোট বাকি',
+
   'received': 'মূল্য পেয়েছেন',
   'change_amount': 'ফেরত দিবেন: ',
   'due_left': 'বাকি আছে:',
@@ -622,7 +626,7 @@ const bn_BD = {
   'duplicate': 'ডুপ্লিকেট করুন',
   'duplicate_product': 'প্রোডাক্ট ডুপ্লিকেট',
   'due_details': 'বাকির বিবরণ',
-  'due_history': 'বাকির ইতিহাস',
+
   'give/due':'দিলাম/বাকি',
   'receive/taken':'পেলাম/জমা',
   '৳receive/taken':'৳ পেলাম/জমা',

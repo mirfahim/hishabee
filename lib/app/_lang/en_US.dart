@@ -3,7 +3,10 @@ const en_US = {
   'or_add_as_usual_product':'or add as usual product',
   'add_quick_product':'Add Quick Product',
   'picture':'picture',
-
+  'lend':'Lend',
+  'borrowed':'Borrowed',
+  'total_due':'Total Due',
+  'due_history':'Due History',
   'delivery_charge':'Delivery Charge',
   'product_unit':'Product Unit',
   'todays_expense':'Today\'s Expense',
@@ -175,7 +178,7 @@ const en_US = {
   'current_stock': 'Current Stock',
   'done': 'Done',
   'current_stock_colon': 'Stock:',
-  'total_due': 'Total Due',
+
   'received': 'Amount Received',
   'change_amount': 'Change Amount:',
   'due_left': 'Due Left:',
@@ -633,7 +636,7 @@ const en_US = {
   'select_sell_type':'Select Sell Type',
   'duplicate_product': 'Duplicate Product',
   'due_details': 'Due Details',
-  'due_history': 'Due History',
+
   'bkash_transaction_fee_will_be_deducted':
       '[BKASH transaction fee will be deducted]',
   'digital_balance_is_paid_to_your_account_at_the_end_of_every_month_please_update_your_account_information_to_receive_payment_correctly':
