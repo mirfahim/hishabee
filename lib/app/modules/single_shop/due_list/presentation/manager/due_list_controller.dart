@@ -89,9 +89,11 @@ class DueFrontController extends GetxController {
     if (due.isEmpty) {
       dueToCollect.value = 0;
       dueToPay.value = 0;
+      print("my due to pay is 1$dueToPay");
     } else {
       dueToCollect.value = tpDue;
-      dueToPay.value = -tdDue;
+      dueToPay.value = -tdDue.toDouble();
+      print("my due to pay is $dueToPay");
     }
   }
 

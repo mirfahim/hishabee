@@ -24,7 +24,9 @@ import 'due_item_details.dart';
 import 'due_payment_page.dart';
 
 class DueDetailsPage extends GetView<DueDetailsController> {
-  DueDetailsPage();
+  var shop;
+  var due;
+  DueDetailsPage({this.shop, this.due});
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

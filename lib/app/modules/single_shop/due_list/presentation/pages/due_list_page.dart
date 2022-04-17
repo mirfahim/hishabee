@@ -24,17 +24,66 @@ class DueListPage extends GetView<DueFrontController> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        titleSpacing: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: 100,
+              height: 30,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                color: Colors.black,
+              ),
+              child: TextButton(
+                onPressed: () {
+                  Get.to(() => AddDuePage(),
+                      arguments: {
+                        "shop": controller.shop.value,
+                        "due": null,
+                      },
+                      binding: DueListBinding());
+                },
+                child: Text(
+                  'add_due'.tr,
+                  style: TextStyle(
+                    fontFamily: 'Rubik',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
+        title: Column(
+          children: [
+            Text(
+              'dueList'.tr,
+              style: TextStyle(color: Colors.black, fontFamily: 'Roboto'),
+            ),
+            // Text(
+            //   'তুসার টেলিকম',
+            //   style: TextStyle(color: Colors.black, fontSize: 12),
+            // ),
+          ],
+        ),
+        backgroundColor: Colors.amber,
+      ),
       body: SafeArea(
         child: Stack(
           children: [
-            Container(
-              height: size.height * 0.2,
-              width: size.width,
-              child: Image.asset(
-                "images/topBg.png",
-                fit: BoxFit.fill,
-              ),
-            ),
             MediaQuery.removePadding(
               context: context,
               removeTop: true,
@@ -45,68 +94,7 @@ class DueListPage extends GetView<DueFrontController> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(
-                          top: 20,
-                          right: 15,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                IconButton(
-                                  icon: Icon(
-                                    Icons.arrow_back,
-                                    size: 25,
-                                    color: DEFAULT_BLACK,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                                Text(
-                                  'dueList'.tr,
-                                  style: TextStyle(
-                                    fontFamily: 'Rubik',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: DEFAULT_BLACK,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              width: 100,
-                              height: 35,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: Colors.black,
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  Get.to(() => AddDuePage(),
-                                      arguments: {
-                                        "shop": controller.shop.value,
-                                        "due": null,
-                                      },
-                                      binding: DueListBinding());
-                                },
-                                child: Text(
-                                  'add_due'.tr,
-                                  style: TextStyle(
-                                    fontFamily: 'Rubik',
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 70.0, left: 10, right: 10),
+                            top: 10.0, left: 10, right: 10),
                         child: Container(
                           height: 50,
                           width: size.width,
@@ -207,11 +195,13 @@ class DueListPage extends GetView<DueFrontController> {
                             Due due = controller.searchList[index];
                             return InkWell(
                               onTap: () {
-                                Get.to(() => DueDetailsPage(),
-                                    binding: DueListBinding(),
-                                    arguments: {
-                                      "shop": shop,
-                                    });
+                                Get.to(
+                                  () => DueDetailsPage(
+                                      // shop: controller.shop.value,
+                                      // due: due,
+                                      ),
+                                  binding: DueListBinding(),
+                                );
                               },
                               child: Container(
                                 width: size.width,
