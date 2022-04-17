@@ -586,7 +586,7 @@ class EmployeeAdd extends StatelessWidget {
                           address: controller.address.value,
                           mobile: controller.contactMobileNumber.value,
                           emailId: controller.email.value,
-                          imageUrl: controller.image.value.path,
+                          imageUrl: controller.image.value.path == null ? null :controller.image.value.path,
                           // id: contact.id
                         );
                         controller.nameForContact.value = null;

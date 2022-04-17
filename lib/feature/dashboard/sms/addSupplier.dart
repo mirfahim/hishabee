@@ -451,7 +451,7 @@ class SupplierAdd extends StatelessWidget {
                                 address: controller.address.value,
                                 mobile: controller.contactMobileNumber.value,
                                 emailId: controller.email.value,
-                                imageUrl: controller.image.value.path,
+                                imageUrl: controller.image.value.path == null ?null :controller.image.value.path ,
                                 suppliedItems: controller.suppliedItems.value
                                 // id: contact.id
                               );
