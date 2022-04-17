@@ -752,7 +752,8 @@ class _TransactionsPageState extends State<TransactionsPage> {
                             Get.to(
                                 () => TransactionDetailsPage(
                                       shop: widget.controller.shop.value,
-                                      transaction: transaction,
+                                      transaction: widget.controller
+                                          .filterTransactionList[index],
                                     ),
                                 binding: TransactionsBinding());
                           },

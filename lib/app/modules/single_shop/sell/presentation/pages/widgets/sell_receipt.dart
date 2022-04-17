@@ -1,8 +1,10 @@
 import 'dart:typed_data';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_response.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_response.dart';
+//import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_response.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 import 'package:pdf/pdf.dart';
@@ -12,7 +14,7 @@ import 'package:printing/printing.dart';
 class SellReceiptPage extends StatelessWidget {
   const SellReceiptPage(this.shop, this.transaction);
   final Shop shop;
-  final transaction;
+  final Transactions transaction;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,7 @@ class SellReceiptPage extends StatelessWidget {
                 children: [
                   pw.Container(
                     height: 60,
-                    width: 600,
+                    width: 300,
                     //color: DEFAULT_YELLOW_BG,
                     child: pw.Row(
                       children: [
@@ -492,7 +494,6 @@ class SellReceiptPage extends StatelessWidget {
         },
       ),
     );
-
     return pdf.save();
   }
 }

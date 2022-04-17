@@ -160,7 +160,7 @@ class TransactionSellController extends GetxController {
   }
 
   onConfirm() {
-    print("TTP: ${transaction.value.totalPrice}");
+    // print("TTP: ${transaction.value.totalPrice}");
     double totalPrice = 0.0;
     if (cart.isNotEmpty) {
       cart.forEach((element) {

@@ -26,7 +26,7 @@ class SoldPage extends StatefulWidget {
   final int discount;
   final int vat;
   final int totalAmount;
-  final transaction;
+  final Transactions transaction;
   final RxList<Product> productList;
 
   const SoldPage(
