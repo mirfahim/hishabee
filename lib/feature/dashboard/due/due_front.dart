@@ -8,6 +8,7 @@ import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.da
 import 'package:intl/intl.dart';
 
 import 'due_history.dart';
+import 'due_item_details.dart';
 // import 'package:pinverification/constants/constants.dart';
 // import 'package:pinverification/due/due_details_customer.dart';
 // import 'package:pinverification/due/due_new.dart';
@@ -188,7 +189,7 @@ class _DueFrontState extends State<DueFront> {
                         SizedBox(height: 10,),
                         GestureDetector(
                           onTap: (){
-                            Get.to(DueHistory());
+                            Get.to(DueHistory(), arguments: shop);
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -274,55 +275,66 @@ class _DueFrontState extends State<DueFront> {
                   SizedBox(
                     height: 10,
                   ),
-                  GestureDetector(
-                    // onTap: (){
-                      // Get.to(DueDetailsCustomer());
-                    // },
-                    child: Container(
-                      // width: width,
-                      height: 400,
-                      decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(.35),
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Obx(()=> ListView.builder(
-                        itemCount: _dueController.filterList.length,
-                          itemBuilder: (context, index){
-                          // if('${_dueController.filterList[index].contactType}' == 'ContactType.CUSTOMER'){
-                          //   _dueController.customerCount.value++;
-                          // }else if(_dueController.filterList[index].contactType == 'ContactType.SELLER'){
-                          //   _dueController.supplierCount.value++;
-                          // }else if(_dueController.filterList[index].contactType == 'ContactType.EMPLOYEE'){
-                          //   _dueController.employeeCount.value++;
-                          // }
-                          return ListTile(
-                            leading: Image.asset('images/assets/emptyImage.png'),
-                            title: Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Text('${_dueController.filterList[index].contactName}'),
-                            ),
-                            subtitle: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('${_dueController.filterList[index].contactMobile}'),
-                                Text('${DateFormat.yMMMd().format(_dueController.filterList[index].createdAt)}')
-                              ],
-                            ),
-                            trailing: Column(
-                              children: [
-                                Text(
-                                  '${_dueController.filterList[index].dueAmount}',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(color: Colors.red),
+                  Obx(()=> Expanded(
+                    child: ListView.builder(
+                      itemCount: _dueController.filterList.length,
+                        itemBuilder: (context, index){
+                        // if('${_dueController.filterList[index].contactType}' == 'ContactType.CUSTOMER'){
+                        //   _dueController.customerCount.value++;
+                        // }else if(_dueController.filterList[index].contactType == 'ContactType.SELLER'){
+                        //   _dueController.supplierCount.value++;
+                        // }else if(_dueController.filterList[index].contactType == 'ContactType.EMPLOYEE'){
+                        //   _dueController.employeeCount.value++;
+                        // }
+                        return GestureDetector(
+                          onTap: (){
+                            Get.to(
+                                DueDetailsCustomer(
+                                  name: _dueController.filterList[index].contactName,
+                                  mobileNumber: _dueController.filterList[index].contactMobile,
+                                  dueAmount: _dueController.filterList[index].dueAmount,
+                                  uniqueId: _dueController.filterList[index].uniqueId,
                                 ),
-                                Text('${_dueController.filterList[index].contactType}'),
-                              ],
+                                arguments: shop);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Container(
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFF1F1F1),
+                                    borderRadius: BorderRadius.circular(6)
+                                ),
+                              child: ListTile(
+                                leading: Image.asset('images/assets/emptyImage.png'),
+                                title: Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Text('${_dueController.filterList[index].contactName}'),
+                                ),
+                                subtitle: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('${_dueController.filterList[index].contactMobile}'),
+                                    Text('${DateFormat.yMMMd().format(_dueController.filterList[index].createdAt)}')
+                                  ],
+                                ),
+                                trailing: Column(
+                                  children: [
+                                    Text(
+                                      '${_dueController.filterList[index].dueAmount}',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.red),
+                                    ),
+                                    Text('${_dueController.filterList[index].contactType}'),
+                                  ],
+                                ),
+                              ),
                             ),
-                          );
-                          }
-                      )),
+                          ),
+                        );
+                        }
                     ),
-                  ),
+                  )),
                   // SizedBox(
                   //   height: 10,
                   // ),

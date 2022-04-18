@@ -632,11 +632,16 @@ const en_US = {
   'online':'Online',
   'cash_sell':'Sell on cash',
   'all_sell':'All Sell',
-
+  'total_due:':'Total Due:',
+  'due /':'Due /',
+  'saving':'save',
+  'due_left:':'Due Left',
   'select_sell_type':'Select Sell Type',
   'duplicate_product': 'Duplicate Product',
   'due_details': 'Due Details',
-
+  'due_reminder:' :'Due Reminder',
+  'given/due':'Given/Due',
+  'get/profit':'Get/Profit',
   'bkash_transaction_fee_will_be_deducted':
       '[BKASH transaction fee will be deducted]',
   'digital_balance_is_paid_to_your_account_at_the_end_of_every_month_please_update_your_account_information_to_receive_payment_correctly':
