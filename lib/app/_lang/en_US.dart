@@ -624,6 +624,8 @@ const en_US = {
   'bank_routing_number': 'Bank Routing Number',
   'product_details': 'Product Details',
   'cost': 'Cost',
+  'amount_of_money':'Amount of Money',
+  'due_description':'Due Description',
   'profit': 'Profit',
   'transaction':'Transaction',
   'duplicate': 'Duplicate',

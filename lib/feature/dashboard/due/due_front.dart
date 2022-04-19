@@ -35,11 +35,11 @@ class _DueFrontState extends State<DueFront> {
         // _dueController.dueList.value = getAllDueResponseModelFromJson(value);
         _dueController.filterList.value = getAllDueResponseModelFromJson(value['data']);
         for(int i = 0; i<_dueController.filterList.length; i++){
-          if('${_dueController.filterList[i].contactType}' == 'ContactType.CUSTOMER'){
+          if('${_dueController.filterList[i].contactType}' == 'ContactType.CUSTOMER' && _dueController.filterList[i].version > 0){
             _dueController.customerCount.value++;
-          }else if('${_dueController.filterList[i].contactType}' == 'ContactType.SELLER'){
+          }else if('${_dueController.filterList[i].contactType}' == 'ContactType.SELLER' && _dueController.filterList[i].version > 0){
             _dueController.supplierCount.value++;
-          }else if('${_dueController.filterList[i].contactType}' == 'ContactType.EMPLOYEE'){
+          }else if('${_dueController.filterList[i].contactType}' == 'ContactType.EMPLOYEE' && _dueController.filterList[i].version > 0){
             _dueController.employeeCount.value++;
           }
         }
@@ -286,7 +286,8 @@ class _DueFrontState extends State<DueFront> {
                         // }else if(_dueController.filterList[index].contactType == 'ContactType.EMPLOYEE'){
                         //   _dueController.employeeCount.value++;
                         // }
-                        return GestureDetector(
+                        return _dueController.filterList[index].version < 0 ? Container():
+                        GestureDetector(
                           onTap: (){
                             Get.to(
                                 DueDetailsCustomer(

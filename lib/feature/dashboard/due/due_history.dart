@@ -6,6 +6,7 @@ import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/m
 
 // import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/data/remote/models/get_all_due_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
+import 'package:hishabee_business_manager_fl/models/due/due_item_model.dart';
 import 'package:hishabee_business_manager_fl/models/due/due_model.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
@@ -68,8 +69,8 @@ class _DueHistoryState extends State<DueHistory> {
         endDate:lastOfTheMonth ).then((value) {
       if (value != null) {
         // _dueController.dueList.value = getAllDueResponseModelFromJson(value);
-        _dueController.filterList.value =
-            getAllDueResponseModelFromJson(value['data']);
+        _dueController.dueHistoryList.value =
+            getDueItemResponseModelFromJson(value['data']);
       }
     });
     super.initState();
@@ -252,9 +253,10 @@ class _DueHistoryState extends State<DueHistory> {
                               startDate: "$now",
                               endDate: "$now")
                               .then((value) {
-                            setState(() {
-                              _dueController.filterList.value =
-                                  getAllDueResponseModelFromJson(value['data']);
+                            _dueController.dueHistoryList.value =
+                                getDueItemResponseModelFromJson(value['data']);
+                            // setState(() {
+
                               // _expenseController.totalExpense.value =
                               //     _expenseController.allExpenseList
                               //         .map((e) => e.amount)
@@ -262,7 +264,7 @@ class _DueHistoryState extends State<DueHistory> {
                               //         0,
                               //             (previousValue, element) =>
                               //         previousValue + element);
-                            });
+                            // });
                           });
                           // _expenseController.totalExpense.value = _expenseController
                           //     .allExpenseList
@@ -302,9 +304,10 @@ class _DueHistoryState extends State<DueHistory> {
                               startDate: "$startOfTheWeek",
                               endDate: "$now")
                               .then((value) {
-                            setState(() {
-                              _dueController.filterList.value =
-                                  getAllDueResponseModelFromJson(value['data']);
+                            _dueController.dueHistoryList.value =
+                                getDueItemResponseModelFromJson(value['data']);
+                            // setState(() {
+
                               // _expenseController.totalExpense.value =
                               //     _expenseController.allExpenseList
                               //         .map((e) => e.amount)
@@ -312,7 +315,7 @@ class _DueHistoryState extends State<DueHistory> {
                               //         0,
                               //             (previousValue, element) =>
                               //         previousValue + element);
-                            });
+                            // });
                           });
                           // _expenseController.totalExpense.value = _expenseController
                           //     .allExpenseList
@@ -354,8 +357,8 @@ class _DueHistoryState extends State<DueHistory> {
                               endDate: "$lastOfTheMonth")
                               .then((value) {
                             setState(() {
-                              _dueController.filterList.value =
-                                  getAllDueResponseModelFromJson(value);
+                              _dueController.dueHistoryList.value =
+                                  getDueItemResponseModelFromJson(value['data']);
                               // _dueController.totalExpense.value =
                               //     _expenseController.allExpenseList
                               //         .map((e) => e.amount)
@@ -404,17 +407,8 @@ class _DueHistoryState extends State<DueHistory> {
                               startDate: "$startOfTheYear",
                               endDate: "$now")
                               .then((value) {
-                            setState(() {
-                              _dueController.filterList.value =
-                                  getAllDueResponseModelFromJson(value);
-                              // _expenseController.totalExpense.value =
-                              //     _expenseController.allExpenseList
-                              //         .map((e) => e.amount)
-                              //         .fold(
-                              //         0,
-                              //             (previousValue, element) =>
-                              //         previousValue + element);
-                            });
+                            _dueController.dueHistoryList.value =
+                                getDueItemResponseModelFromJson(value['data']);
                           });
                           // _expenseController.totalExpense.value = _expenseController
                           //     .allExpenseList
@@ -444,30 +438,30 @@ class _DueHistoryState extends State<DueHistory> {
               ),
             ),
             Obx(()=>Expanded(child: ListView.builder(
-                itemCount: _dueController.filterList.length,
+                itemCount: _dueController.dueHistoryList.length,
                 itemBuilder: (context, index){
-                  return ListTile(
+                  return _dueController.dueHistoryList[index].version <0 ? Container(): ListTile(
                     leading: Image.asset('images/assets/emptyImage.png'),
                     title: Padding(
                       padding: const EdgeInsets.only(top: 8.0),
-                      child: Text('${_dueController.filterList[index].contactName}'),
+                      child: Text('${_dueController.dueHistoryList[index].contactName}'),
                     ),
                     subtitle: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('${_dueController.filterList[index].contactMobile}'),
-                        Text('${DateFormat.yMMMd().format(_dueController.filterList[index].createdAt)}')
+                        Text('${_dueController.dueHistoryList[index].contactMobile}'),
+                        Text('${DateFormat.yMMMd().format(_dueController.dueHistoryList[index].createdAt)}')
                       ],
                     ),
                     trailing: Column(
                       children: [
                         Text(
-                          '${_dueController.filterList[index].dueAmount}',
+                          '${_dueController.dueHistoryList[index].amount}',
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.red),
                         ),
-                        Text('${_dueController.filterList[index].contactType}'),
+                        Text('${_dueController.dueHistoryList[index].contactType}'),
                       ],
                     ),
                   );
@@ -481,19 +475,12 @@ class _DueHistoryState extends State<DueHistory> {
 
   void getDataForDropDown(var startDate, var endDate) {
     _dueController
-        .getAllDue(
+        .getAllDueHistory(
             shopId: '${shop.id}', startDate: "$startDate", endDate: "$endDate")
         .then((value) {
       if (value != null) {
-        setState(() {
-          _dueController.filterList.value =
-              getAllDueResponseModelFromJson(value['data']);
-          // _dueController.totalExpense.value = _expenseController
-          //     .allExpenseList
-          //     .map((e) => e.amount)
-          //     .fold(0, (previousValue, element) => previousValue + element);
-          // print('expense list: ${_expenseController.allExpenseList.value}');
-        });
+        _dueController.dueHistoryList.value =
+            getDueItemResponseModelFromJson(value['data']);
       }
 
       //  isLoading = false;

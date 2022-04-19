@@ -8,6 +8,8 @@ import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.da
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'single_due_details.dart';
+
 class DueDetailsCustomer extends StatefulWidget {
   String name;
   String mobileNumber;
@@ -259,44 +261,59 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                       child: ListView.builder(
                           itemCount: _dueController.dueItemList.length,
                           itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFF1F1F1),
-                                  borderRadius: BorderRadius.circular(6)
-                                ),
-                                child: ListTile(
-                                  title: Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: Text(
-                                        '${DateFormat.yMMMd().format(_dueController.dueItemList[index].createdAt)}'),
+                            return _dueController.dueItemList[index].version <0 ? Container(): InkWell(
+                              onTap: (){
+                                Get.to(SingleDueDetails(
+                                  dueLeft: '${_dueController.dueItemList[index].dueLeft}',
+                                  dueUniqueId: widget.uniqueId,
+                                  amount: '${_dueController.dueItemList[index].amount}',
+                                  description:_dueController.dueItemList[index].note == null ? 'not_given'.tr : _dueController.dueItemList[index].note,
+                                  date: DateFormat.yMMMMd().format(_dueController.dueItemList[index].createdAt),
+                                  image: _dueController.dueItemList[index].image,
+                                  createdAt: DateFormat.yMMMMd().format(_dueController.dueItemList[index].createdAt),
+                                  updatedAt: DateFormat.yMMMMd().format(_dueController.dueItemList[index].updatedAt),
+                                  uniqueId: _dueController.dueItemList[index].uniqueId,
+                                ), arguments: shop);
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFFF1F1F1),
+                                    borderRadius: BorderRadius.circular(6)
                                   ),
-                                  subtitle: Padding(
-                                    padding: const EdgeInsets.only(bottom: 5.0, top: 5),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                            '${DateFormat.Hm().format(_dueController.dueItemList[index].createdAt)}'),
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 5),
-                                          child: Text('due_left:'.tr +
-                                              '${_dueController.dueItemList[index].amount}৳', style: TextStyle(
-                                            color: Colors.red,
-                                            fontWeight: FontWeight.bold
-                                          ),),
-                                        )
-                                      ],
+                                  child: ListTile(
+                                    title: Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Text(
+                                          '${DateFormat.yMMMd().format(_dueController.dueItemList[index].createdAt)}'),
                                     ),
-                                  ),
-                                  trailing: Padding(
-                                    padding: const EdgeInsets.only(top: 15.0),
-                                    child: Text(
-                                      '${_dueController.dueItemList[index].amount}৳',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.red, fontSize: 18),
+                                    subtitle: Padding(
+                                      padding: const EdgeInsets.only(bottom: 5.0, top: 5),
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              '${DateFormat.Hm().format(_dueController.dueItemList[index].createdAt)}'),
+                                          Padding(
+                                            padding: const EdgeInsets.only(top: 5),
+                                            child: Text('due_left:'.tr +
+                                                '৳${_dueController.dueItemList[index].amount}', style: TextStyle(
+                                              color: Colors.red,
+                                              fontWeight: FontWeight.w500
+                                            ),),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    trailing: Padding(
+                                      padding: const EdgeInsets.only(top: 15.0),
+                                      child: Text(
+                                        '৳${_dueController.dueItemList[index].amount}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.red, fontSize: 18),
+                                      ),
                                     ),
                                   ),
                                 ),

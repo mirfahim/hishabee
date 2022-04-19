@@ -93,7 +93,7 @@ class ExpenseEditDelete extends StatefulWidget {
 class _ExpenseEditDeleteState extends State<ExpenseEditDelete> {
   ApiService _apiService = ApiService();
   Shop shop = Get.arguments;
-  String imageSource;
+  // String imageSource;
   TextEditingController _textEditingControllerAmount = TextEditingController();
   TextEditingController _textEditingControllerReason = TextEditingController();
   TextEditingController _textEditingControllerDescription =
