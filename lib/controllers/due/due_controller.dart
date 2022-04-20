@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/service/api_service.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
+import 'package:uuid/uuid.dart';
 
 class DueController extends GetxController {
   final dueList = [].obs;
@@ -38,10 +39,10 @@ class DueController extends GetxController {
 
   Future<dynamic> deleteDue(
       {shopId,
-        amount,
+      amount,
       uniqueId,
-        dueUniqueId,
-        dueLeft,
+      dueUniqueId,
+      dueLeft,
       updatedAt,
       createdAt}) async {
     String url = '/due_item/add?amount=$amount&shop_id=$shopId'
@@ -50,7 +51,14 @@ class DueController extends GetxController {
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
-  buyerContact(){
 
+  Future<dynamic> addNewDue({amount,shopId, contactType,mobile,name,updatedDate,createdDate}) {
+    const uniqueId = Uuid();
+    var id = uniqueId.v4();
+    String url = '/due/add?amount=$amount&shop_id=$shopId&unique_id=$id'
+        '&contact_type=$contactType&contact_mobile=$mobile&contact_name=$name'
+        '&version=1&updated_at=$updatedDate&created_at=$createdDate';
+    return _apiService.makeApiRequest(
+        method: apiMethods.post, url: url, body: null, headers: null);
   }
 }
