@@ -197,9 +197,9 @@ class DueListPage extends GetView<DueFrontController> {
                               onTap: () {
                                 Get.to(
                                   () => DueDetailsPage(
-                                      // shop: controller.shop.value,
-                                      // due: due,
-                                      ),
+                                    shop: controller.shop.value,
+                                    due: due,
+                                  ),
                                   binding: DueListBinding(),
                                 );
                               },

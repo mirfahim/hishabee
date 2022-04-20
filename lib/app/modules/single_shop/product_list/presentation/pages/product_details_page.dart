@@ -287,7 +287,7 @@ class ProductDetails extends GetView<ProductDetailsController> {
                               children: [
                                 Obx(
                                   () => Text(
-                                    '৳ ${controller.product.value.costPrice}',
+                                    '৳ ${controller.product.value.version}',
                                     style: TextStyle(
                                       fontFamily: 'Rubik-VariableFont_wght',
                                       fontSize: 18,
@@ -931,6 +931,7 @@ class ProductDetails extends GetView<ProductDetailsController> {
   final AddProductController _controller = Get.find();
   final EditProductController _productController = Get.find();
   sendProductInfo(int version) async {
+    print("my unique id is ${controller.product.value.uniqueID} ");
     // if (selectedProductCategory == null || selectedSubCat == null) {
     //   _showMaterialDialog("Please Select Category and Sub Category");
     // }

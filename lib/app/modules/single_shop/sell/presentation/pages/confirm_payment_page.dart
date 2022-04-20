@@ -43,7 +43,7 @@ import '../../_navigation/sell_page_route.dart';
 
 class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
   final bool paying = true;
-  // final SellDigitalPaymentController sellDigitalPaymentController = Get.find();
+  //final SellDigitalPaymentController sellDigitalPaymentController = Get.find();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -342,6 +342,8 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                       child: InkWell(
                                         onTap: () async {
                                           await controller.quickSell();
+                                          // await controller
+                                          //     .addTransactionItems();
                                         },
                                         child: Container(
                                           height: 50,
@@ -481,13 +483,12 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                           Transactions transaction =
                                               new Transactions();
                                           controller.payWithQr.value = true;
-                                          Get.toNamed(
-                                            SellPageRoutes.SELL_QR_PAGE,
-                                            arguments: {
-                                              "shop": controller.shop.value,
-                                              "transaction": transaction,
-                                            },
-                                          );
+                                          Get.to(SellDue(),
+                                              arguments: {
+                                                "shop": controller.shop.value,
+                                                // "transaction": transaction,
+                                              },
+                                              binding: SellBinding());
                                         },
                                         child: Container(
                                           height: 50,
@@ -544,9 +545,8 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                   'Opening Digital Payment');
                                           Future.delayed(Duration(seconds: 1),
                                               () {
-                                            // sellDigitalPaymentController
-                                            //     .generateLink();
-                                            //  Get.back();
+                                            controller.generateLink();
+                                            Get.back();
                                           });
                                         },
                                         child: Container(

@@ -48,6 +48,7 @@ class SellCartPage extends GetView<SellController> {
 
   @override
   Widget build(BuildContext context) {
+    print("my cart length in  sell cart page ${controller.cart.length}");
     var size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,

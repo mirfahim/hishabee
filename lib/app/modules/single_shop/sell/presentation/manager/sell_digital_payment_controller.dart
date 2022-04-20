@@ -35,14 +35,19 @@ class SellDigitalPaymentController extends GetConnect {
   }
 
   void generateLink() async {
+    print("generate link is not working");
     var result = await digitalPaymentRepository.updateDueDigitalPayment(
-      shopId: shop.value.id,
-      amount: givenAmount.value,
-      // address: due.value.customer.address,
-      // customerId: due.value.customer.id,
-      // customerName: due.value.customer.name,
-      // mobileNumber: due.value.customer.mobile
-    );
+        shopId: shop.value.id,
+        amount: givenAmount.value,
+        address: "ojdso",
+        customerId: 1,
+        customerName: "mie",
+        mobileNumber: "124345"
+        // address: due.value.customer.address,
+        // customerId: due.value.customer.id,
+        // customerName: due.value.customer.name,
+        // mobileNumber: due.value.customer.mobile
+        );
     if (result.code == 200) {
       url.value = result.url;
       Get.to(

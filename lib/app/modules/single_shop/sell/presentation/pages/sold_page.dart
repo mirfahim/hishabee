@@ -26,7 +26,7 @@ class SoldPage extends StatefulWidget {
   final int discount;
   final int vat;
   final int totalAmount;
-  final Transactions transaction;
+  final transaction;
   final RxList<Product> productList;
 
   const SoldPage(
@@ -120,6 +120,7 @@ class _SoldPageState extends State<SoldPage> {
 
   @override
   Widget build(BuildContext context) {
+    print("my cart is +++++ ${sc.cart.length}");
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: SafeArea(
@@ -782,8 +783,13 @@ class _SoldPageState extends State<SoldPage> {
                                                           Get.to(() =>
                                                               SellReceiptPage(
                                                                   widget.shop,
+                                                                  widget.shop
+                                                                      .name,
                                                                   widget
-                                                                      .transaction));
+                                                                      .totalPrice,
+                                                                  widget
+                                                                      .discount,
+                                                                  widget.vat));
                                                         },
                                                         icon: Icon(Icons
                                                             .arrow_circle_down)),
@@ -798,8 +804,13 @@ class _SoldPageState extends State<SoldPage> {
                                                           Get.to(() =>
                                                               SellReceiptPage(
                                                                   widget.shop,
+                                                                  widget.shop
+                                                                      .name,
                                                                   widget
-                                                                      .transaction));
+                                                                      .totalPrice,
+                                                                  widget
+                                                                      .discount,
+                                                                  widget.vat));
                                                           //*
                                                         },
                                                         icon: Icon(Icons

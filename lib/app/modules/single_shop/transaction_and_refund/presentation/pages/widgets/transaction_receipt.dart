@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/utility.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/new_transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 import 'package:pdf/pdf.dart';
@@ -10,9 +11,12 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
 class TransactionReceiptPage extends StatelessWidget {
-  const TransactionReceiptPage({this.shop, this.transaction});
+  const TransactionReceiptPage(
+      {this.shop, this.transaction, this.uniqueID, this.allProduct});
   final Shop shop;
   final Transactions transaction;
+  final uniqueID;
+  final allProduct;
 
   @override
   Widget build(BuildContext context) {
@@ -248,10 +252,9 @@ class TransactionReceiptPage extends StatelessWidget {
                     thickness: 2,
                   ),
                   pw.ListView.builder(
-                    itemCount: transaction.transactionItems.length,
+                    itemCount: allProduct.length,
                     itemBuilder: (pw.Context context, int index) {
-                      TransactionItem item =
-                          transaction.transactionItems[index];
+                      TransactionItem item = allProduct[index];
                       print("pdf item list: ${item.name}");
                       var totalPrice = item.price * item.quantity;
                       return pw.Container(

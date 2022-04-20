@@ -1,8 +1,11 @@
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/new_transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/domain/repositories/i_transaction_repository.dart';
+import 'package:hishabee_business_manager_fl/service/api_service.dart';
+import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class ExchangeController extends GetxController {
   final transactionItemList = <TransactionItem>[].obs;
@@ -20,7 +23,7 @@ class ExchangeController extends GetxController {
   @override
   void onInit() {
     getArguments();
-    initData();
+    //initData();
     super.onInit();
   }
 
@@ -46,6 +49,18 @@ class ExchangeController extends GetxController {
       print("Equal Called");
       totalPrice.value = 0.0;
     }
+  }
+
+  Future<dynamic> getALlTransactionItemByUniqueID({
+    String uniqueID,
+  }) async {
+    String url = "/transaction/items?unique_id=$uniqueID";
+    ApiService _apiService = ApiService();
+    return _apiService.makeApiRequest(
+        method: apiMethods.get,
+        url: url,
+        body: null,
+        headers: null); //we will fetch the overview from this request
   }
 
   removeItem(TransactionItem item) {

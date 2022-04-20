@@ -6,53 +6,52 @@ import 'dart:convert';
 
 import 'transaction_item_response_model.dart';
 
-List<Transactions> transactionResponseModelFromJson(String str) =>
-    List<Transactions>.from(
-        json.decode(str).map((x) => Transactions.fromJson(x)));
-List<Transactions> transactionResponseModelFromRawJson(dynamic json) =>
-    List<Transactions>.from(
-        (json as List<dynamic>).map((x) => Transactions.fromJson(x)));
+List<Transactionsss> transactionResponseModelFromJson(String str) =>
+    List<Transactionsss>.from(
+        json.decode(str).map((x) => Transactionsss.fromJson(x)));
+List<Transactionsss> transactionResponseModelFromRawJson(dynamic json) =>
+    List<Transactionsss>.from(
+        (json as List<dynamic>).map((x) => Transactionsss.fromJson(x)));
 
-String transactionResponseModelToJson(List<Transactions> data) =>
+String transactionResponseModelToJson(List<Transactionsss> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Transactions {
-  Transactions(
-      {this.id,
-      this.userId,
-      this.shopId,
-      this.totalPrice,
-      this.totalDiscount,
-      this.totalItem,
-      this.paymentMethod,
-      this.receivedAmount,
-      this.changeAmount,
-      this.employeeName,
-      this.customerName,
-      this.customerAddress,
-      this.customerMobile,
-      this.transactionBarcode,
-      this.createdAt,
-      this.updatedAt,
-      this.totalVat,
-      this.note,
-      this.paymentStatus,
-      this.localId,
-      this.employeeMobile,
-      this.time,
-      this.transactionItems,
-      this.uniqueID});
+class Transactionsss {
+  Transactionsss({
+    this.id,
+    this.userId,
+    this.shopId,
+    this.totalPrice,
+    this.totalDiscount,
+    this.totalItem,
+    this.paymentMethod,
+    this.receivedAmount,
+    this.changeAmount,
+    this.employeeName,
+    this.customerName,
+    this.customerAddress,
+    this.customerMobile,
+    this.transactionBarcode,
+    this.createdAt,
+    this.updatedAt,
+    this.totalVat,
+    this.note,
+    this.paymentStatus,
+    this.localId,
+    this.employeeMobile,
+    this.time,
+    this.transactionItems,
+  });
 
   int id;
   int userId;
   int shopId;
-  String uniqueID;
   double totalPrice;
   num totalDiscount;
   int totalItem;
   int paymentMethod;
   double receivedAmount;
-  var changeAmount;
+  int changeAmount;
   String employeeName;
   String customerName;
   String customerAddress;
@@ -68,17 +67,16 @@ class Transactions {
   DateTime time;
   List<TransactionItem> transactionItems;
 
-  Transactions copyWith({
+  Transactionsss copyWith({
     int id,
     int userId,
     int shopId,
     double totalPrice,
     int totalDiscount,
     int totalItem,
-    String uniqueID,
     int paymentMethod,
     double receivedAmount,
-    var changeAmount,
+    int changeAmount,
     String employeeName,
     String customerName,
     String customerAddress,
@@ -94,13 +92,12 @@ class Transactions {
     DateTime time,
     List<TransactionItem> transactionItems,
   }) =>
-      Transactions(
+      Transactionsss(
         id: id ?? this.id,
         userId: userId ?? this.userId,
         shopId: shopId ?? this.shopId,
         totalPrice: totalPrice ?? this.totalPrice,
         totalDiscount: totalDiscount ?? this.totalDiscount,
-        uniqueID: uniqueID ?? this.uniqueID,
         totalItem: totalItem ?? this.totalItem,
         paymentMethod: paymentMethod ?? this.paymentMethod,
         receivedAmount: receivedAmount ?? this.receivedAmount,
@@ -121,7 +118,7 @@ class Transactions {
         transactionItems: transactionItems ?? this.transactionItems,
       );
 
-  factory Transactions.fromJson(Map<String, dynamic> json) => Transactions(
+  factory Transactionsss.fromJson(Map<String, dynamic> json) => Transactionsss(
         id: json["id"] == null ? null : json["id"],
         userId: json["user_id"] == null ? null : json["user_id"],
         shopId: json["shop_id"] == null ? null : json["shop_id"],
@@ -138,11 +135,11 @@ class Transactions {
         changeAmount:
             json["change_amount"] == null ? null : json["change_amount"],
         employeeName:
-            json["employee_name"] == null ? '' : json["employee_name"],
+            json["employee_name"] == null ? null : json["employee_name"],
         customerName:
-            json["customer_name"] == null ? '' : json["customer_name"],
+            json["customer_name"] == null ? null : json["customer_name"],
         customerAddress:
-            json["customer_address"] == null ? '' : json["customer_address"],
+            json["customer_address"] == null ? null : json["customer_address"],
         customerMobile:
             json["customer_mobile"] == null ? null : json["customer_mobile"],
         transactionBarcode: json["transaction_barcode"] == null
@@ -160,7 +157,6 @@ class Transactions {
         paymentStatus:
             json["payment_status"] == null ? null : json["payment_status"],
         localId: json["local_id"] == null ? null : json["local_id"],
-        uniqueID: json["unique_id"] == null ? null : json["unique_id"],
         employeeMobile:
             json["employee_mobile"] == null ? null : json["employee_mobile"],
         time: json["time"] == null ? null : DateTime.parse(json["time"]),
@@ -172,7 +168,6 @@ class Transactions {
 
   Map<String, dynamic> toJson() => {
         "id": id == null ? null : id,
-        "unique_id": uniqueID == null ? null : uniqueID,
         "user_id": userId == null ? null : userId,
         "shop_id": shopId == null ? null : shopId,
         "total_price": totalPrice == null ? null : totalPrice,

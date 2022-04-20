@@ -9,10 +9,12 @@ import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/data/remote/models/login_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/domain/repositories/i_auth_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/data/remote/data_sources/digital_payment_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/app_settings/domain/repositories/i_digital_payment_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/customer_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/employee_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/domain/repositories/i_contact_repository.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/data/remote/models/get_all_due_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/domain/repositories/i_due_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
@@ -25,6 +27,8 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/domain/repositories/i_transaction_repository.dart';
 import 'package:uuid/uuid.dart';
+import 'package:hishabee_business_manager_fl/service/api_service.dart';
+import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class ConfirmPaymentController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -69,13 +73,24 @@ class ConfirmPaymentController extends GetxController {
   final IDueRepository dueRepository;
   final IDigitalPaymentRepository digitalPaymentRepository;
   final IAuthRepository authRepository;
-
-  ConfirmPaymentController(this.contactRepository, this.transactionRepository,
-      this.dueRepository, this.digitalPaymentRepository, this.authRepository);
+  final IDigitalPaymentProvider iDigitalPaymentProvider;
+  final due = Due().obs;
+  final shops = Shop().obs;
+  final givenAmount = 0.obs;
+  final url = ''.obs;
+  ConfirmPaymentController(
+      this.contactRepository,
+      this.transactionRepository,
+      this.dueRepository,
+      this.iDigitalPaymentProvider,
+      this.authRepository,
+      this.digitalPaymentRepository);
 
   @override
   void onInit() async {
     getArguments();
+    getInitialValue();
+    generateLink();
     super.onInit();
   }
 
@@ -90,6 +105,41 @@ class ConfirmPaymentController extends GetxController {
     await getAllEmployee();
     await getAllCustomer();
     await getCred();
+  }
+
+  getInitialValue() {
+    shop.value = Get.arguments["shop"];
+    due.value = Get.arguments["due"];
+    givenAmount.value = Get.arguments["amount"];
+  }
+
+  void generateLink() async {
+    print("generate link is started $givenAmount");
+    var result = await iDigitalPaymentProvider.updateDueDigitalPayment(
+        shopId: shop.value.id,
+        amount: totalPrice.value,
+        address: "ojdso",
+        customerId: 1,
+        customerName: "mie",
+        mobileNumber: "124345"
+        //address: due.value.customer.address,
+        // customerId: due.value.customer.id,
+        // customerName: due.value.customer.name,
+        // mobileNumber: due.value.customer.mobile
+        );
+    if (result.statusCode == 200) {
+      print(result.statusCode.toString());
+      url.value = result.body.url;
+      print(result.body.url);
+      Get.to(
+        SellDigitalPaymentPage(
+          amount: totalPrice,
+          url: result.body.url,
+        ),
+      );
+    } else {
+      print(result.statusCode.toString());
+    }
   }
 
   getArguments() {
@@ -148,7 +198,7 @@ class ConfirmPaymentController extends GetxController {
       var txnItem = TransactionItem(
         id: element.id,
         name: element.name,
-        sellingPrice: sellingPrice,
+        // sellingPrice: sellingPrice,
         price: element.sellingPrice,
         imageSrc: element.imageUrl,
         quantity: quantity,
@@ -181,7 +231,7 @@ class ConfirmPaymentController extends GetxController {
       var txnItem = TransactionItem(
         id: element.id,
         name: element.name,
-        sellingPrice: sellingPrice,
+        // sellingPrice: sellingPrice,
         price: element.sellingPrice,
         imageSrc: element.imageUrl,
         quantity: quantity,
@@ -235,6 +285,7 @@ class ConfirmPaymentController extends GetxController {
   }
 
   addDigitalTransaction() async {
+    //quickSell();
     if (selectedCustomer.value.name == null) {
       CustomDialog.showStringDialog("Please select a customer");
       return;
@@ -254,7 +305,7 @@ class ConfirmPaymentController extends GetxController {
       var txnItem = TransactionItem(
         id: element.id,
         name: element.name,
-        sellingPrice: sellingPrice,
+        //sellingPrice: sellingPrice,
         price: element.sellingPrice,
         imageSrc: element.imageUrl,
         quantity: quantity,
@@ -348,6 +399,21 @@ class ConfirmPaymentController extends GetxController {
     cred.value = result;
   }
 
+  Future<dynamic> addTransactionItems({
+    id,
+
+    //sellingPrice: sellingPrice,
+
+    String uniqueID,
+  }) async {
+    print("my unqID is ++ $uniqueID");
+    ApiService _apiService = ApiService();
+    String url =
+        "/transaction_item/?shop_id=18&created_at=2021-12-12 12:12:12&updated_at=2021-12-12 12:12:12&price=999&discount=000&shop_product_id=20&quantity=6&status=PAID&name=abc&vat=0&unit_vat=0&unit_price=10&profit=100&unit_cost=0&unique_id=abcewer&version=0&transaction_unique_id=$uniqueID";
+    return _apiService.makeApiRequest(
+        method: apiMethods.post, url: url, body: null, headers: null);
+  }
+
   quickSell() async {
     final SellController sc = Get.find();
     formKey.currentState.save();
@@ -374,7 +440,7 @@ class ConfirmPaymentController extends GetxController {
       updatedAt: DateTime.now().toString(),
       profit: 0,
     );
-    AddTransactionRequest transaction = AddTransactionRequest(
+    AddTransactionRequest transactionss = AddTransactionRequest(
       shopId: shop.value.id,
       createdAt: DateTime.now().toString(),
       updatedAt: DateTime.now().toString(),
@@ -399,11 +465,15 @@ class ConfirmPaymentController extends GetxController {
     final response = await transactionRepository.quickSell(quickSellRequest);
     print("${response.code}");
     if (response.code == 200) {
-      final response = await transactionRepository.addTransaction(transaction);
+      print("yo bro unqID is ++++++++++ $tUniqueId");
+      addTransactionItems(id: shop.value.id, uniqueID: tUniqueId);
+      final response =
+          await transactionRepository.addTransaction(transactionss);
       //final responseTrns = await transactionRepository.getAllTransaction();
       if (response.code == 200) {
         formKey.currentState.reset();
-        Get.find<SellController>().clearCart();
+        //  Get.find<SellController>().clearCart();
+
         Get.find<ShopFeaturesController>().initData();
         Get.to(() => SoldPage(
               shop: shop.value,
@@ -412,7 +482,7 @@ class ConfirmPaymentController extends GetxController {
               vat: vat.value.toInt(),
               discount: totalDiscount.value.toInt(),
               productList: sc.cart,
-              transaction: transaction,
+              transaction: transactionss,
             ));
       }
     }

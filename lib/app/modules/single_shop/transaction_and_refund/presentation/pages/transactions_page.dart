@@ -7,6 +7,7 @@ import 'package:group_button/group_button.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/new_transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/manager/transaction_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transaction_details_screen.dart';
@@ -95,6 +96,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
         enablePullUp: true,
         onRefresh: () async {
           final result = await widget.controller.getAllTransaction();
+          //print("my result is ${result.}");
           if (result) {
             refreshController.refreshCompleted();
           } else {
@@ -117,35 +119,40 @@ class _TransactionsPageState extends State<TransactionsPage> {
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  width: size.width,
-                  decoration: BoxDecoration(
-                      color: DEFAULT_BLUE,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0, vertical: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'total_sell'.tr,
-                          style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontSize: 16,
-                              color: Colors.white),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Obx(() => Text(
-                              '৳${widget.controller.totalAmount.value.toStringAsFixed(2)}',
-                              style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 24,
-                                  color: Colors.white),
-                            ))
-                      ],
+                GestureDetector(
+                  onTap: () {
+                    widget.controller.getAllTransactionItem();
+                  },
+                  child: Container(
+                    width: size.width,
+                    decoration: BoxDecoration(
+                        color: DEFAULT_BLUE,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10.0, vertical: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'total_sell'.tr,
+                            style: TextStyle(
+                                fontFamily: 'Roboto',
+                                fontSize: 16,
+                                color: Colors.white),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Obx(() => Text(
+                                '৳${widget.controller.totalAmount.value.toStringAsFixed(2)}',
+                                style: TextStyle(
+                                    fontFamily: 'Roboto',
+                                    fontSize: 24,
+                                    color: Colors.white),
+                              ))
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -301,7 +308,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                           //       ),
                                           //     ),
                                           //     SizedBox(
-                                          //       width: 10,
+                                          //       width: 10,List
                                           //     ),
                                           //     Container(
                                           //       height: 40,
@@ -745,16 +752,21 @@ class _TransactionsPageState extends State<TransactionsPage> {
                       shrinkWrap: true,
                       itemCount: widget.controller.filterTransactionList.length,
                       itemBuilder: (BuildContext context, int index) {
+                        print(
+                            "my transaction details is ${widget.controller.filterTransactionList[index].createdAt}");
                         Transactions transaction =
                             widget.controller.filterTransactionList[index];
+                        // print(
+                        //     "my transaction items is ${transaction.transactionItems.length}");
                         return InkWell(
                           onTap: () {
                             Get.to(
                                 () => TransactionDetailsPage(
                                       shop: widget.controller.shop.value,
-                                      transaction: widget.controller
-                                          .filterTransactionList[index],
+                                      transaction: transaction,
+                                      uniqueID: transaction.uniqueID,
                                     ),
+                                // );
                                 binding: TransactionsBinding());
                           },
                           child: Container(

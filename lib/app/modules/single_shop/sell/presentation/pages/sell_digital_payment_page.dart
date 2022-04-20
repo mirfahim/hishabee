@@ -16,7 +16,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 class SellDigitalPaymentPage extends GetView {
   final String url;
-  final double amount;
+  var amount;
   final String customerMobile;
   final String customerEmail;
   final Shop shop;

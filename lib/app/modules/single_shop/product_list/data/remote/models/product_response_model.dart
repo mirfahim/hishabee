@@ -80,6 +80,7 @@ class Product {
       this.subUnit});
 
   int id;
+
   int shopProductId;
   dynamic productVarianceId;
   String name;
@@ -107,7 +108,7 @@ class Product {
   String productName;
   String description;
   bool vatApplicable;
-  int vatPercent;
+  var vatPercent;
   List<Attribute> attribute;
   String productType;
   String addedBy;
@@ -172,7 +173,7 @@ class Product {
     String description,
     bool vatApplicable,
     var wholeSalePrice,
-    int vatPercent,
+    var vatPercent,
     List<Attribute> attribute,
     String productType,
     String addedBy,
@@ -286,7 +287,7 @@ class Product {
             json["wholesale_price"] == null ? null : json["wholesale_price"],
         stock: json["stock"] == null ? null : json["stock"],
         barcode: json["barcode"] == null ? null : json["barcode"],
-        // uniqueID: json["unique_id"] == null ? null : json["unique_id"],
+        uniqueID: json["unique_id"] == null ? null : json["unique_id"],
         imageUrl: json["image_url"] == null ? null : json["image_url"],
         approved:
             json["approved"] == null ? null : DateTime.parse(json["approved"]),
@@ -367,7 +368,7 @@ class Product {
         "wholesale_price": wholeSalePrice == null ? null : wholeSalePrice,
         "stock": stock == null ? null : stock,
         "barcode": barcode == null ? null : barcode,
-        // "unique_id": uniqueID == null ? null : uniqueID,
+        "unique_id": uniqueID == null ? null : uniqueID,
         "image_url": imageUrl == null ? null : imageUrl,
         "approved": approved == null ? null : approved.toIso8601String(),
         "created_at": createdAt == null ? null : createdAt.toIso8601String(),

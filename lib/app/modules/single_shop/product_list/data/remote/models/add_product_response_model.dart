@@ -10,7 +10,7 @@ import 'product_response_model.dart';
 AddProductResponseModel addProductResponseModelFromJson(String str) =>
     AddProductResponseModel.fromJson(json.decode(str));
 AddProductResponseModel addProductResponseModelFromRawJson(dynamic json) {
-  print("my add product response is : $json");
+  print("my add product response is ++++: $json");
   return AddProductResponseModel.fromJson(json);
 }
 

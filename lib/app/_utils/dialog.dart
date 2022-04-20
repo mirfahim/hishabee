@@ -45,6 +45,7 @@ class CustomDialog {
             onPressed: () {
               Get.back();
               Get.back();
+              Get.back();
             },
           ),
         ],

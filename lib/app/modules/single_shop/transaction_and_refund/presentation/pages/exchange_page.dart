@@ -3,15 +3,49 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/new_transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/manager/exchange_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/manager/transaction_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/exchange_payment_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/exchange_sell_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transaction_sell_page.dart';
 
-class ExchangePage extends GetView<ExchangeController> {
+class ExchangePage extends StatefulWidget {
+  String uniqueID;
+  List itemList;
+  ExchangePage({this.uniqueID, this.itemList});
+//  final SellController sc = Get.find();
+  @override
+  State<ExchangePage> createState() => _ExchangePageState();
+}
+
+class _ExchangePageState extends State<ExchangePage> {
+  List<TransactionItem> _list = <TransactionItem>[];
+  List<TransactionItem> _foundData = <TransactionItem>[];
+  ExchangeController controller = Get.find();
+  getData() {
+    print("my unique id is ${widget.uniqueID}");
+    controller
+        .getALlTransactionItemByUniqueID(uniqueID: widget.uniqueID)
+        .then((value) {
+      if (value != null) {
+        _list = transactionModelFromJson(value);
+        _foundData = _list;
+        print("my list is +++++++++$_foundData");
+        print(_foundData.length);
+        // checkingDone = true;
+
+      }
+
+      //  isLoading = false;
+    });
+    return _foundData;
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -181,11 +215,12 @@ class ExchangePage extends GetView<ExchangeController> {
                                     removeTop: true,
                                     child: ListView.builder(
                                       itemCount:
-                                          controller.transactionItemList.length,
+                                          //   sc.cart.l
+                                          widget.itemList.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
-                                        TransactionItem item = controller
-                                            .transactionItemList[index];
+                                        TransactionItem item =
+                                            widget.itemList[index];
                                         return Container(
                                           height: 80,
                                           decoration: BoxDecoration(
@@ -489,7 +524,7 @@ class ExchangePage extends GetView<ExchangeController> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topRight: Radius.circular(10),
-                    topLeft: Radius.circular(10),
+                    //topLeft: Radius.circular(10),
                   ),
                 ),
                 child: Column(
