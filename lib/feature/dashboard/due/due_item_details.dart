@@ -300,7 +300,7 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                                             padding: const EdgeInsets.only(top: 5),
                                             child: Text('due_left:'.tr +
                                                 '৳${_dueController.dueItemList[index].amount}', style: TextStyle(
-                                              color: Colors.red,
+                                              color: _dueController.dueItemList[index].amount< 0 ? Colors.green : Colors.red,
                                               fontWeight: FontWeight.w500
                                             ),),
                                           )

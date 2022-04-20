@@ -20,6 +20,7 @@ const bn_BD = {
   'keep track of your business digitally':
       'ব্যবসার সস্পুর্ন হিসাব রাখুন ডিজিটালই',
   'total_cost': 'মোট খরচ',
+  'due_new':'নতুন বাকি',
   'new_expense': 'খরচের খাত',
   'buy': 'কেনা',
   'bill': 'বিল',

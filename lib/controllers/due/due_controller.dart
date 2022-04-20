@@ -50,4 +50,7 @@ class DueController extends GetxController {
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
+  buyerContact(){
+
+  }
 }

@@ -9,6 +9,7 @@ import 'package:intl/intl.dart';
 
 import 'due_history.dart';
 import 'due_item_details.dart';
+import 'due_new_add.dart';
 // import 'package:pinverification/constants/constants.dart';
 // import 'package:pinverification/due/due_details_customer.dart';
 // import 'package:pinverification/due/due_new.dart';
@@ -57,7 +58,9 @@ class _DueFrontState extends State<DueFront> {
       bottomSheet: Padding(
         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
         child: GestureDetector(
-          onTap: (){},
+          onTap: (){
+            Get.to(DueNew(), arguments: shop);
+          },
           child: Container(
             width: width,
             height: 40,
@@ -324,7 +327,7 @@ class _DueFrontState extends State<DueFront> {
                                     Text(
                                       '${_dueController.filterList[index].dueAmount}',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.red),
+                                      style: TextStyle(color: _dueController.filterList[index].dueAmount< 0 ? Colors.green : Colors.red),
                                     ),
                                     Text('${_dueController.filterList[index].contactType}'),
                                   ],

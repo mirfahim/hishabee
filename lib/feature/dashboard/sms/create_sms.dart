@@ -58,7 +58,7 @@ class SmsCreatePage extends GetResponsiveView {
                     Get.to(SmsHistory(), arguments: {'shop': shop});
                   },
                   child: Row(
-                    children: const [
+                    children: [
                       Icon(
                         Icons.history,
                         color: Colors.black,
@@ -67,7 +67,7 @@ class SmsCreatePage extends GetResponsiveView {
                         width: 5,
                       ),
                       Text(
-                        'Message History',
+                        'message_history'.tr,
                         style: TextStyle(color: Colors.black),
                       )
                     ],

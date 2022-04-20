@@ -159,6 +159,7 @@ const en_US = {
   'today_s_net_profit': 'Today\'s Net Profit:',
   'expense_report': 'Expense Report',
   'sale': 'Sale',
+  'due_new':'New Due',
   'sale_vs_expense': 'Sale Vs Expense',
   'scan': 'Scan',
   'visit_link':'Visit Link',
@@ -643,7 +644,7 @@ const en_US = {
   'due_details': 'Due Details',
   'due_reminder:' :'Due Reminder',
   'given/due':'Given/Due',
-  'get/profit':'Get/Profit',
+  'get/save':'Get/Save',
   'bkash_transaction_fee_will_be_deducted':
       '[BKASH transaction fee will be deducted]',
   'digital_balance_is_paid_to_your_account_at_the_end_of_every_month_please_update_your_account_information_to_receive_payment_correctly':
