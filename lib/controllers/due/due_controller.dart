@@ -12,6 +12,8 @@ class DueController extends GetxController {
   final customerCount = 0.obs;
   final employeeCount = 0.obs;
   final supplierCount = 0.obs;
+  final payDue = 0.0.obs;
+  final takeDue = 0.0.obs;
 
   ApiService _apiService = ApiService();
 
@@ -52,12 +54,51 @@ class DueController extends GetxController {
         method: apiMethods.post, url: url, body: null, headers: null);
   }
 
-  Future<dynamic> addNewDue({amount,shopId, contactType,mobile,name,updatedDate,createdDate}) {
+  Future<dynamic> addNewDue(
+      {amount, shopId, contactType, mobile, name, updatedDate, createdDate}) {
     const uniqueId = Uuid();
     var id = uniqueId.v4();
     String url = '/due/add?amount=$amount&shop_id=$shopId&unique_id=$id'
         '&contact_type=$contactType&contact_mobile=$mobile&contact_name=$name'
         '&version=1&updated_at=$updatedDate&created_at=$createdDate';
+    return _apiService.makeApiRequest(
+        method: apiMethods.post, url: url, body: null, headers: null);
+  }
+
+  Future<dynamic> editDue(
+      {amount,
+      shopId,
+      contactType,
+      mobile,
+      name,
+      updatedDate,
+      createdDate,
+      version}) {
+    const uniqueId = Uuid();
+    var id = uniqueId.v4();
+    String url = '/due/add?amount=$amount&shop_id=$shopId&unique_id=$id'
+        '&contact_type=$contactType&contact_mobile=$mobile&contact_name=$name'
+        '&version=$version&updated_at=$updatedDate&created_at=$createdDate';
+    return _apiService.makeApiRequest(
+        method: apiMethods.post, url: url, body: null, headers: null);
+  }
+
+  Future<dynamic> editDueItem(
+      {amount,
+      shopId,
+      contactType,
+      mobile,
+      name,
+      updatedDate,
+      createdDate,
+      version,
+      dueUniqueId,
+      dueLeft}) {
+    const uniqueId = Uuid();
+    var id = uniqueId.v4();
+    String url = '/due_item/add?amount=$amount&shop_id=$shopId&unique_id=$id'
+        '&due_unique_id=$dueUniqueId&due_left=$dueLeft'
+        '&version=$version&updated_at=$updatedDate&created_at=$createdDate';
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }

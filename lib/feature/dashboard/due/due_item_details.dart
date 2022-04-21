@@ -268,11 +268,15 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                                   dueUniqueId: widget.uniqueId,
                                   amount: '${_dueController.dueItemList[index].amount}',
                                   description:_dueController.dueItemList[index].note == null ? 'not_given'.tr : _dueController.dueItemList[index].note,
-                                  date: DateFormat.yMMMMd().format(_dueController.dueItemList[index].createdAt),
+                                  // date: DateFormat.yMMMMd().format(_dueController.dueItemList[index].createdAt),
                                   image: _dueController.dueItemList[index].image,
                                   createdAt: DateFormat.yMMMMd().format(_dueController.dueItemList[index].createdAt),
                                   updatedAt: DateFormat.yMMMMd().format(_dueController.dueItemList[index].updatedAt),
                                   uniqueId: _dueController.dueItemList[index].uniqueId,
+                                  dueTakerType: _dueController.dueItemList[index].contactType,
+                                  name: _dueController.dueItemList[index].contactName,
+                                  mobile: _dueController.dueItemList[index].contactMobile,
+                                  version: _dueController.dueItemList[index].version,
                                 ), arguments: shop);
                               },
                               child: Padding(

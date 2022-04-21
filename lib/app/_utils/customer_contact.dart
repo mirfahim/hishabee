@@ -27,9 +27,10 @@ class _CustomerContactState
   List<Customer> _foundData = [];
   var storageSms = GetStorage('sms');
   ApiService _apiService = ApiService();
+  Shop shop = Get.arguments;
   @override
   void initState() {
-    String url = '/customer/all?shop_id=${storageSms.read("shop_id")}';
+    String url = '/customer/all?shop_id=${shop.id}';
     var list = _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
     list.then((value) {

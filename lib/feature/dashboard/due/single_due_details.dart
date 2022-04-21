@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/due/due_edit.dart';
 import 'package:hishabee_business_manager_fl/models/due/due_item_model.dart';
 import 'package:hishabee_business_manager_fl/models/due/due_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
@@ -65,25 +66,35 @@ Widget textFormFeildForExpense(
 class SingleDueDetails extends StatefulWidget {
   String amount;
   String description;
-  String date;
   String image;
   String updatedAt;
   String createdAt;
   String uniqueId;
   String dueUniqueId;
   String dueLeft;
+  String dueTakerType;
+  String dueType;
+  String name;
+  String mobile;
+  int version;
+
 
   SingleDueDetails(
       {
       this.amount,
       this.description,
-      this.date,
       this.image,
       this.createdAt,
       this.updatedAt,
       this.uniqueId,
       this.dueLeft,
-      this.dueUniqueId});
+      this.dueUniqueId,
+        this.name,
+        this.dueType,
+        this.dueTakerType,
+        this.mobile,
+        this.version
+      });
 
   @override
   State<SingleDueDetails> createState() => _SingleDueDetailsState();
@@ -203,7 +214,7 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
                             child: Row(
                               children: [
                                 Icon(Icons.calendar_today),
-                                Text(widget.date),
+                                Text(widget.createdAt),
                               ],
                             ),
                           ),
@@ -259,6 +270,7 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
                                   child: Text('delete'.tr,
                                       style: TextStyle(color: Colors.red, fontSize: 14)),
                                   onPressed: () {
+
                                     _dueController.deleteDue(
                                         amount: widget.amount,
                                         shopId: shop.id,
@@ -326,25 +338,43 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
                           ),
                         ),
                       ),
-                      Container(
-                        height: 50,
-                        width: 120,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(.35),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.edit,
-                              color: Colors.blue,
-                            ),
-                            Text(
-                              'edit'.tr,
-                              style: TextStyle(),
-                            ),
-                          ],
+                      InkWell(
+                        onTap: (){
+
+                          Get.to(DueEdit(
+                            dueUniqId: widget.dueUniqueId,
+                            dueTakerType: widget.dueTakerType,
+                            image: widget.image,
+                            name: widget.name,
+                            mobile: widget.mobile,
+                            amount: widget.amount,
+                            details: widget.description,
+                            createdAt: widget.createdAt,
+                            updatedAt: widget.updatedAt,
+                            version: widget.version,
+                            dueLeft: widget.dueLeft,
+                          ), arguments: shop);
+                        },
+                        child: Container(
+                          height: 50,
+                          width: 120,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(.35),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.edit,
+                                color: Colors.blue,
+                              ),
+                              Text(
+                                'edit'.tr,
+                                style: TextStyle(),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/customer_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/supplier_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
@@ -24,9 +25,10 @@ class _SupplierContactState
   List<Supplier> _foundData = [];
   var storageSms = GetStorage('sms');
   ApiService _apiService = ApiService();
+  Shop shop = Get.arguments;
   @override
   void initState() {
-    String url = '/customer/all?shop_id=${storageSms.read("shop_id")}';
+    String url = '/supplier/all?shop_id=${shop.id}';
     var list = _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
     list.then((value) {
@@ -38,7 +40,7 @@ class _SupplierContactState
     super.initState();
   }
 
-  SmsController _smsController = Get.find();
+  // SmsController _smsController = Get.find();
 
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
@@ -88,10 +90,10 @@ class _SupplierContactState
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: GestureDetector(
                     onTap: () {
-                      _smsController.selectedMobileNumber
-                          .add(_foundData[index].mobile);
-                      print(
-                          "my selected number is ${_smsController.selectedMobileNumber}");
+                      // _smsController.selectedMobileNumber
+                      //     .add(_foundData[index].mobile);
+                      // print(
+                      //     "my selected number is ${_smsController.selectedMobileNumber}");
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/customer_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/employee_model.dart';
+import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/addEmployee.dart';
 import 'package:hishabee_business_manager_fl/models/sms/sms_package_model.dart';
@@ -22,15 +24,17 @@ class _EmployeeContactState
   List<Employee> _foundData = [];
   var storageSms = GetStorage('sms');
   ApiService _apiService = ApiService();
+  Shop shop = Get.arguments;
   @override
   void initState() {
-    String url = '/customer/all?shop_id=${storageSms.read("shop_id")}';
+    String url = '/employee/all?shop_id=${shop.id}';
     var list = _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
     list.then((value) {
       setState(() {
         employeeContact = getEmployeContactFromModel(value);
         _foundData = getEmployeContactFromModel(value);
+
       });
     });
     super.initState();
@@ -86,6 +90,7 @@ class _EmployeeContactState
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: GestureDetector(
                     onTap: () {
+
                       // _smsController.selectedMobileNumber
                       //     .add(_foundData[index].mobile);
                       // print(_smsController.selectedMobileNumber);

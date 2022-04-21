@@ -36,6 +36,16 @@ class _DueFrontState extends State<DueFront> {
         // _dueController.dueList.value = getAllDueResponseModelFromJson(value);
         _dueController.filterList.value = getAllDueResponseModelFromJson(value['data']);
         for(int i = 0; i<_dueController.filterList.length; i++){
+          if(_dueController.filterList[i].dueAmount < 0){
+            _dueController.payDue.value = _dueController.filterList
+                .map((e) => e.dueAmount)
+                .fold(0, (previousValue, element) => previousValue + element);
+          }else if(_dueController.filterList[i].dueAmount > 0){
+            _dueController.takeDue.value = _dueController.filterList
+                .map((e) => e.dueAmount)
+                .fold(0, (previousValue, element) => previousValue + element);
+          }
+
           if('${_dueController.filterList[i].contactType}' == 'ContactType.CUSTOMER' && _dueController.filterList[i].version > 0){
             _dueController.customerCount.value++;
           }else if('${_dueController.filterList[i].contactType}' == 'ContactType.SELLER' && _dueController.filterList[i].version > 0){
@@ -48,6 +58,14 @@ class _DueFrontState extends State<DueFront> {
     });
     print('due filterList ${_dueController.filterList}');
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _dueController.customerCount.value = 0;
+    _dueController.supplierCount.value = 0;
+    _dueController.employeeCount.value = 0;
+    super.dispose();
   }
 
   @override
@@ -164,7 +182,7 @@ class _DueFrontState extends State<DueFront> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
                                   children: [
-                                    Text('৭০০০ টাকা', style: TextStyle(color: Colors.white),),
+                                    Obx(()=>Text('${_dueController.payDue.value}', style: TextStyle(color: Colors.white),),),
                                     Text('lend'.tr, style: TextStyle(color: Colors.white),)
                                   ],
                                 ),
@@ -181,7 +199,8 @@ class _DueFrontState extends State<DueFront> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: Column(
                                   children: [
-                                    Text('১০০০ টাকা', style: TextStyle(color: Colors.white),),
+                                    Obx(()=>Text('${_dueController.takeDue.value}', style: TextStyle(color: Colors.white),),),
+
                                     Text('borrowed'.tr, style: TextStyle(color: Colors.white),)
                                   ],
                                 ),
