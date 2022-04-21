@@ -395,7 +395,7 @@ class SellDue extends GetView<SellDueEditAddController> {
   }
 
   contactDialog(BuildContext context) {
-    final dueEditAddController = Get.find<DueEditAddController>();
+    // final dueEditAddController = Get.find<DueEditAddController>();
     showDialog(
       context: context,
       builder: (_) => Padding(

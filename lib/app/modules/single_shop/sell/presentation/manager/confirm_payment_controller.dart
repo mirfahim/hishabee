@@ -54,8 +54,9 @@ class ConfirmPaymentController extends GetxController {
   final totalPrice = 0.0.obs;
   final discountPrice = 0.0.obs;
   final vat = 0.0.obs;
-
+  final customerList = <Customer>[].obs;
   final employees = <Employee>[].obs;
+  final searchEmployeeList = <Employee>[].obs;
   final selectedEmployee = Employee().obs;
   final customers = <Customer>[].obs;
   final searchCustomerList = <Customer>[].obs;
@@ -90,7 +91,7 @@ class ConfirmPaymentController extends GetxController {
   void onInit() async {
     getArguments();
     getInitialValue();
-    generateLink();
+    //generateLink();
     super.onInit();
   }
 
@@ -139,6 +140,30 @@ class ConfirmPaymentController extends GetxController {
       );
     } else {
       print(result.statusCode.toString());
+    }
+  }
+
+  Future<void> searchCustomer(String searchCustomerName) async {
+    if (searchCustomerName.isNotEmpty) {
+      final result = customerList
+          .where((Customer cu) =>
+              cu.name.toLowerCase().contains(searchCustomerName.toLowerCase()))
+          .toList();
+      searchCustomerList.assignAll(result);
+    } else {
+      searchCustomerList.assignAll(customerList);
+    }
+  }
+
+  Future<void> searchEmployee(String searchCustomerName) async {
+    if (searchCustomerName.isNotEmpty) {
+      final result = employees
+          .where((Employee cu) =>
+              cu.name.toLowerCase().contains(searchCustomerName.toLowerCase()))
+          .toList();
+      searchEmployeeList.assignAll(result);
+    } else {
+      searchEmployeeList.assignAll(employees);
     }
   }
 
@@ -406,10 +431,14 @@ class ConfirmPaymentController extends GetxController {
 
     String uniqueID,
   }) async {
+    var uuid = Uuid();
+    String uniqueId = shop.value.id.toString() +
+        uuid.v1().toString() +
+        DateTime.now().microsecondsSinceEpoch.toString();
     print("my unqID is ++ $uniqueID");
     ApiService _apiService = ApiService();
     String url =
-        "/transaction_item/?shop_id=18&created_at=2021-12-12 12:12:12&updated_at=2021-12-12 12:12:12&price=999&discount=000&shop_product_id=20&quantity=6&status=PAID&name=abc&vat=0&unit_vat=0&unit_price=10&profit=100&unit_cost=0&unique_id=abcewer&version=0&transaction_unique_id=$uniqueID";
+        "/transaction_item/?shop_id=18&created_at=2021-12-12 12:12:12&updated_at=2021-12-12 12:12:12&price=999&discount=000&shop_product_id=20&quantity=6&status=PAID&name=abc&vat=0&unit_vat=0&unit_price=10&profit=100&unit_cost=0&unique_id=$uniqueId&version=0&transaction_unique_id=$uniqueID";
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
@@ -453,10 +482,11 @@ class ConfirmPaymentController extends GetxController {
       totalItem: cart.length,
       totalProfit: 0.toString(),
       totalPrice: totalPrice.value.toString(),
-      totalVat: 0,
+      totalVat: vat,
       transactionBarcode: '',
       receivedAmount: totalPrice.value.toString(),
-      totalDiscount: 0,
+      totalDiscount: totalDiscount,
+      customerName: selectedCustomer.value.name,
       customerMobile: selectedCustomer.value.mobile,
       customerAddress: selectedCustomer.value.address,
       uniqueId: tUniqueId,
@@ -473,14 +503,14 @@ class ConfirmPaymentController extends GetxController {
       if (response.code == 200) {
         formKey.currentState.reset();
         //  Get.find<SellController>().clearCart();
-
+        final SellController sc = Get.find();
         Get.find<ShopFeaturesController>().initData();
         Get.to(() => SoldPage(
               shop: shop.value,
               route: 2,
               totalPrice: totalPrice.value.toInt(),
-              vat: vat.value.toInt(),
-              discount: totalDiscount.value.toInt(),
+              vat: sc.discount2.value.toInt(),
+              discount: sc.discount1.value.toInt(),
               productList: sc.cart,
               transaction: transactionss,
             ));

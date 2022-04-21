@@ -1,4 +1,3 @@
-
 import 'dart:io';
 
 import 'package:fluttertoast/fluttertoast.dart';
@@ -63,14 +62,12 @@ class ApiService {
       var header = headers;
       // use storage // getx storage
       if (headers == null) {
-
         header = {
           "Content-Type": "application/json",
           "Authorization": 'Bearer ' + storage.read("token")
         };
       }
       if (method == apiMethods.post) {
-
         response = await http.post(apiURL,
             body: convert.jsonEncode(body), headers: header);
         print("Response code: ${response.statusCode}");
@@ -98,20 +95,16 @@ class ApiService {
         var res = convert.jsonDecode(response.body);
         print("my response is $res");
         return res;
-      } else if(response != null &&
-          (response.statusCode == 403)){
+      } else if (response != null && (response.statusCode == 403)) {
         var res = convert.jsonDecode(response.body);
         print("my response is $res");
         return res;
-      }
-      else {
+      } else {
         var res = convert.jsonDecode(response.body);
 
         handleError(res);
       }
-
     } catch (e) {
-
       print(e.toString());
       handleError(e);
     }

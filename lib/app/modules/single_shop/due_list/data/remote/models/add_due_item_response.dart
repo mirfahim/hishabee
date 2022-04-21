@@ -1,17 +1,18 @@
-
 // To parse this JSON data, do
 //
 //     final addDueItemResponse = addDueItemResponseFromJson(jsonString);
 
 import 'dart:convert';
 
-AddDueItemResponse addDueItemResponseFromJson(String str) => AddDueItemResponse.fromJson(json.decode(str));
+AddDueItemResponse addDueItemResponseFromJson(String str) =>
+    AddDueItemResponse.fromJson(json.decode(str));
 AddDueItemResponse addDueItemResponseFromRawJson(dynamic json) {
   print('$json');
   return AddDueItemResponse.fromJson(json);
 }
 
-String addDueItemResponseToJson(AddDueItemResponse data) => json.encode(data.toJson());
+String addDueItemResponseToJson(AddDueItemResponse data) =>
+    json.encode(data.toJson());
 
 class AddDueItemResponse {
   AddDueItemResponse({
@@ -35,17 +36,18 @@ class AddDueItemResponse {
         dueItem: dueItem ?? this.dueItem,
       );
 
-  factory AddDueItemResponse.fromJson(Map<String, dynamic> json) => AddDueItemResponse(
-    code: json["code"],
-    message: json["message"],
-    dueItem: DueItem.fromJson(json["due_item"]),
-  );
+  factory AddDueItemResponse.fromJson(Map<String, dynamic> json) =>
+      AddDueItemResponse(
+        code: json["code"],
+        message: json["message"],
+        dueItem: DueItem.fromJson(json["due_item"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "code": code,
-    "message": message,
-    "due_item": dueItem.toJson(),
-  };
+        "code": code,
+        "message": message,
+        "due_item": dueItem.toJson(),
+      };
 }
 
 class DueItem {
@@ -71,7 +73,7 @@ class DueItem {
   dynamic transactionType;
   dynamic note;
   int dueLeft;
-  int amount;
+  var amount;
   DateTime createdAt;
   DateTime updatedAt;
   int shopId;
@@ -115,36 +117,36 @@ class DueItem {
       );
 
   factory DueItem.fromJson(Map<String, dynamic> json) => DueItem(
-    id: json["id"],
-    image: json["image"],
-    transactionType: json["transaction_type"],
-    note: json["note"],
-    dueLeft: json["due_left"],
-    amount: json["amount"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-    shopId: json["shop_id"],
-    version: json["version"],
-    transactionUniqueId: json["transaction_unique_id"],
-    dueUniqueId: json["due_unique_id"],
-    type: json["type"],
-    uniqueId: json["unique_id"],
-  );
+        id: json["id"],
+        image: json["image"],
+        transactionType: json["transaction_type"],
+        note: json["note"],
+        dueLeft: json["due_left"],
+        amount: json["amount"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        shopId: json["shop_id"],
+        version: json["version"],
+        transactionUniqueId: json["transaction_unique_id"],
+        dueUniqueId: json["due_unique_id"],
+        type: json["type"],
+        uniqueId: json["unique_id"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "image": image,
-    "transaction_type": transactionType,
-    "note": note,
-    "due_left": dueLeft,
-    "amount": amount,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
-    "shop_id": shopId,
-    "version": version,
-    "transaction_unique_id": transactionUniqueId,
-    "due_unique_id": dueUniqueId,
-    "type": type,
-    "unique_id": uniqueId,
-  };
+        "id": id,
+        "image": image,
+        "transaction_type": transactionType,
+        "note": note,
+        "due_left": dueLeft,
+        "amount": amount,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "shop_id": shopId,
+        "version": version,
+        "transaction_unique_id": transactionUniqueId,
+        "due_unique_id": dueUniqueId,
+        "type": type,
+        "unique_id": uniqueId,
+      };
 }

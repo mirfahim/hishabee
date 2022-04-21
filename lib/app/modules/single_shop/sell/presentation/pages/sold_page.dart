@@ -75,7 +75,7 @@ class _SoldPageState extends State<SoldPage> {
     //to generatePdf
     //generatePdf(widget.shop, widget.transaction);
 
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 1), () {
       _controllerCenter.stop();
       setState(() {
         hideDone = true;
@@ -649,7 +649,7 @@ class _SoldPageState extends State<SoldPage> {
                                             children: [
                                               Spacer(),
                                               Text(
-                                                "(-) Discount :",
+                                                "(-) Discount : ",
                                                 style: TextStyle(
                                                     color: DEFAULT_BLACK,
                                                     fontSize: 12,

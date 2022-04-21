@@ -475,65 +475,65 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                         ),
                                       ),
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 10.0, vertical: 10),
-                                      child: InkWell(
-                                        onTap: () async {
-                                          Transactions transaction =
-                                              new Transactions();
-                                          controller.payWithQr.value = true;
-                                          Get.to(SellDue(),
-                                              arguments: {
-                                                "shop": controller.shop.value,
-                                                // "transaction": transaction,
-                                              },
-                                              binding: SellBinding());
-                                        },
-                                        child: Container(
-                                          height: 50,
-                                          width: size.width,
-                                          decoration: BoxDecoration(
-                                              color:
-                                                  Colors.grey.withOpacity(.35),
-                                              borderRadius:
-                                                  BorderRadius.circular(6)),
-                                          child: Row(
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Container(
-                                                    height: 80,
-                                                    width: 80,
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              5.0),
-                                                      child: SvgPicture.asset(
-                                                        'images/svg_image/nkash_qr.svg',
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Text(
-                                                    "personal_qr_code".tr,
-                                                    style: TextStyle(
-                                                      color: DEFAULT_BLACK,
-                                                      fontFamily: 'Roboto',
-                                                      fontWeight:
-                                                          FontWeight.w500,
-                                                      fontSize: 16,
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                    // Padding(
+                                    //   padding: const EdgeInsets.symmetric(
+                                    //       horizontal: 10.0, vertical: 10),
+                                    //   child: InkWell(
+                                    //     onTap: () async {
+                                    //       Transactions transaction =
+                                    //           new Transactions();
+                                    //       controller.payWithQr.value = true;
+                                    //       Get.to(SellDue(),
+                                    //           arguments: {
+                                    //             "shop": controller.shop.value,
+                                    //             // "transaction": transaction,
+                                    //           },
+                                    //           binding: SellBinding());
+                                    //     },
+                                    //     child: Container(
+                                    //       height: 50,
+                                    //       width: size.width,
+                                    //       decoration: BoxDecoration(
+                                    //           color:
+                                    //               Colors.grey.withOpacity(.35),
+                                    //           borderRadius:
+                                    //               BorderRadius.circular(6)),
+                                    //       child: Row(
+                                    //         children: [
+                                    //           Row(
+                                    //             children: [
+                                    //               Container(
+                                    //                 height: 80,
+                                    //                 width: 80,
+                                    //                 child: Padding(
+                                    //                   padding:
+                                    //                       const EdgeInsets.all(
+                                    //                           5.0),
+                                    //                   child: SvgPicture.asset(
+                                    //                     'images/svg_image/nkash_qr.svg',
+                                    //                   ),
+                                    //                 ),
+                                    //               ),
+                                    //               SizedBox(
+                                    //                 width: 10,
+                                    //               ),
+                                    //               Text(
+                                    //                 "personal_qr_code".tr,
+                                    //                 style: TextStyle(
+                                    //                   color: DEFAULT_BLACK,
+                                    //                   fontFamily: 'Roboto',
+                                    //                   fontWeight:
+                                    //                       FontWeight.w500,
+                                    //                   fontSize: 16,
+                                    //                 ),
+                                    //               ),
+                                    //             ],
+                                    //           )
+                                    //         ],
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 10.0, vertical: 10),
@@ -1002,7 +1002,9 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                                   left: 3.0),
                                                           child: TextFormField(
                                                             onChanged: (value) {
-                                                              // controller.searchProduct(value);
+                                                              controller
+                                                                  .searchEmployee(
+                                                                      value);
                                                             },
                                                             keyboardType:
                                                                 TextInputType
@@ -1024,9 +1026,16 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                               disabledBorder:
                                                                   InputBorder
                                                                       .none,
-                                                              hintText:
-                                                                  "search_for_employee"
-                                                                      .tr,
+                                                              hintText: controller
+                                                                          .selectedEmployee
+                                                                          .value ==
+                                                                      null
+                                                                  ? "search_for_employee"
+                                                                      .tr
+                                                                  : controller
+                                                                      .selectedEmployee
+                                                                      .value
+                                                                      .name,
                                                               hintStyle: TextStyle(
                                                                   fontSize:
                                                                       14.0,
@@ -1077,7 +1086,7 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                                                   width: MediaQuery.of(context).size.width * 0.7,
                                                                                   child: TextFormField(
                                                                                     onChanged: (value) {
-                                                                                      //controller.searchCustomer(value);
+                                                                                      controller.employeeName.value = value;
                                                                                     },
                                                                                     decoration: InputDecoration(
                                                                                       prefixIcon: Icon(
@@ -1101,6 +1110,7 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                                                   itemCount: controller.employees.length,
                                                                                   itemBuilder: (BuildContext context, int index) {
                                                                                     var employee = controller.employees[index];
+                                                                                    print("employee name is ${controller.employees[0].name}");
                                                                                     return ElevatedButton(
                                                                                       style: ElevatedButton.styleFrom(primary: Colors.white, onPrimary: Colors.grey, elevation: 0.0),
                                                                                       onPressed: () {
@@ -1260,7 +1270,7 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                             },
                                                             keyboardType:
                                                                 TextInputType
-                                                                    .text,
+                                                                    .number,
                                                             decoration:
                                                                 InputDecoration(
                                                               border:
@@ -1278,9 +1288,16 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                               disabledBorder:
                                                                   InputBorder
                                                                       .none,
-                                                              hintText:
-                                                                  "employee_number"
-                                                                      .tr,
+                                                              hintText: controller
+                                                                          .selectedEmployee
+                                                                          .value ==
+                                                                      null
+                                                                  ? "employee_number"
+                                                                      .tr
+                                                                  : controller
+                                                                      .selectedEmployee
+                                                                      .value
+                                                                      .mobile,
                                                               hintStyle: TextStyle(
                                                                   fontSize:
                                                                       14.0,
@@ -1755,7 +1772,9 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                                   left: 3.0),
                                                           child: TextFormField(
                                                             onChanged: (value) {
-                                                              // controller.searchProduct(value);
+                                                              controller
+                                                                  .searchCustomer(
+                                                                      value);
                                                             },
                                                             keyboardType:
                                                                 TextInputType
@@ -1777,9 +1796,16 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                               disabledBorder:
                                                                   InputBorder
                                                                       .none,
-                                                              hintText:
-                                                                  "search_for_customer"
-                                                                      .tr,
+                                                              hintText: controller
+                                                                          .selectedCustomer
+                                                                          .value ==
+                                                                      null
+                                                                  ? "search_for_customer"
+                                                                      .tr
+                                                                  : controller
+                                                                      .selectedCustomer
+                                                                      .value
+                                                                      .name,
                                                               hintStyle: TextStyle(
                                                                   fontSize:
                                                                       14.0,
@@ -1840,7 +1866,7 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                                             child:
                                                                                 TextFormField(
                                                                               onChanged: (value) {
-                                                                                //controller.searchCustomer(value);
+                                                                                controller.searchCustomer(value);
                                                                               },
                                                                               decoration: InputDecoration(
                                                                                 prefixIcon: Icon(
@@ -2062,9 +2088,16 @@ class ConfirmPaymentPage extends GetView<ConfirmPaymentController> {
                                                               disabledBorder:
                                                                   InputBorder
                                                                       .none,
-                                                              hintText:
-                                                                  "customer_number"
-                                                                      .tr,
+                                                              hintText: controller
+                                                                          .selectedCustomer
+                                                                          .value ==
+                                                                      null
+                                                                  ? "customer_number"
+                                                                      .tr
+                                                                  : controller
+                                                                      .selectedCustomer
+                                                                      .value
+                                                                      .mobile,
                                                               hintStyle: TextStyle(
                                                                   fontSize:
                                                                       14.0,

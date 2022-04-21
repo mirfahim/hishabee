@@ -257,6 +257,19 @@ class SellCartPage extends GetView<SellController> {
                                                 width: 60,
                                                 child: Column(
                                                   children: [
+                                                    // TextFormField(
+                                                    //   onChanged: (value) {
+                                                    //     value = item
+                                                    //         .sellingPrice
+                                                    //         .toString();
+                                                    //   },
+                                                    //   decoration:
+                                                    //       InputDecoration(
+                                                    //     hintText: item
+                                                    //         .sellingPrice
+                                                    //         .toString(),
+                                                    //   ),
+                                                    // ),
                                                     Text(
                                                       '৳ ${item.sellingPrice}',
                                                       style: TextStyle(
@@ -423,7 +436,7 @@ class SellCartPage extends GetView<SellController> {
                                       value.isEmpty ? "0.0" : value);
                                   controller.calculateTotalCartPrice();
                                 },
-                                keyboardType: TextInputType.text,
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   // hintText: " discount",
                                   hintStyle: TextStyle(fontSize: 14.0),
