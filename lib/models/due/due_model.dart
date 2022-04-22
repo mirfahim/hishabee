@@ -90,7 +90,7 @@ class Due {
   int id;
   int userId;
   int shopId;
-  int dueAmount;
+  var dueAmount;
   DateTime createdAt;
   DateTime updatedAt;
   dynamic dueAlert;

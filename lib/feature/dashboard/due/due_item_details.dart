@@ -8,16 +8,16 @@ import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.da
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'single_due_details.dart';
+import 'single_due_item_details.dart';
 
 class DueDetailsCustomer extends StatefulWidget {
   String name;
   String mobileNumber;
-  int dueAmount;
+  var dueTotalAmount;
   String uniqueId;
 
   DueDetailsCustomer(
-      {this.name, this.mobileNumber, this.dueAmount, this.uniqueId});
+      {this.name, this.mobileNumber, this.dueTotalAmount, this.uniqueId});
 
   @override
   State<DueDetailsCustomer> createState() => _DueDetailsCustomerState();
@@ -186,7 +186,7 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                                         color: Colors.amber, fontSize: 14),
                                   ),
                                   Text(
-                                    ' ${widget.dueAmount}৳',
+                                    ' ${widget.dueTotalAmount}৳',
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 14),
                                   ),
@@ -264,9 +264,10 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                             return _dueController.dueItemList[index].version <0 ? Container(): InkWell(
                               onTap: (){
                                 Get.to(SingleDueDetails(
+                                  dueTotalAmount: widget.dueTotalAmount,
                                   dueLeft: '${_dueController.dueItemList[index].dueLeft}',
                                   dueUniqueId: widget.uniqueId,
-                                  amount: '${_dueController.dueItemList[index].amount}',
+                                  amount: _dueController.dueItemList[index].amount,
                                   description:_dueController.dueItemList[index].note == null ? 'not_given'.tr : _dueController.dueItemList[index].note,
                                   // date: DateFormat.yMMMMd().format(_dueController.dueItemList[index].createdAt),
                                   image: _dueController.dueItemList[index].image,
@@ -290,7 +291,7 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                                     title: Padding(
                                       padding: const EdgeInsets.only(top: 8.0),
                                       child: Text(
-                                          '${DateFormat.yMMMd().format(_dueController.dueItemList[index].createdAt)}'),
+                                          '${DateFormat.yMMMd().format(_dueController.dueItemList[index].updatedAt)}'),
                                     ),
                                     subtitle: Padding(
                                       padding: const EdgeInsets.only(bottom: 5.0, top: 5),

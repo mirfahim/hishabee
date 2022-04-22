@@ -49,7 +49,7 @@ class DueController extends GetxController {
       createdAt}) async {
     String url = '/due_item/add?amount=$amount&shop_id=$shopId'
         '&unique_id=$uniqueId&due_unique_id=$dueUniqueId&due_left=$dueLeft&'
-        'version=-1&updated_at=$updatedAt&created_at=$createdAt';
+        'version=${-1}&updated_at=$updatedAt&created_at=$createdAt';
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }

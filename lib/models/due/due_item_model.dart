@@ -42,7 +42,7 @@ class GetDueItem {
   String transactionType;
   dynamic note;
   int dueLeft;
-  int amount;
+  var amount;
   DateTime createdAt;
   DateTime updatedAt;
   int shopId;

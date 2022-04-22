@@ -12,6 +12,7 @@ import 'package:hishabee_business_manager_fl/app/_utils/supplier_contact.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/customerDialog.dart';
+import 'package:hishabee_business_manager_fl/models/due/due_item_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:intl/intl.dart';
 
@@ -23,7 +24,7 @@ var lastOfTheMonth = (now.month < 12)
     : new DateTime(now.year + 1, 1, 0);
 bool imageChanged = false;
 
-class DueEdit extends StatefulWidget {
+class DueItemEdit extends StatefulWidget {
   String dueTakerType;
   String image;
   String dueUniqId;
@@ -36,11 +37,14 @@ class DueEdit extends StatefulWidget {
   String createdAt;
   String updatedAt;
   String dueLeft;
+  String uniqueId;
+  var dueTotalAmount;
 
-  DueEdit(
+  DueItemEdit(
       {this.dueUniqId,
         this.dueTakerType,
       this.image,
+        this.uniqueId,
       this.createdAt,
         this.updatedAt,
       this.name,
@@ -48,13 +52,13 @@ class DueEdit extends StatefulWidget {
       this.amount,
       this.details,
       this.version,
-      this.dueLeft});
+      this.dueLeft,this.dueTotalAmount});
 
   @override
-  State<DueEdit> createState() => _DueEditState();
+  State<DueItemEdit> createState() => _DueItemEditState();
 }
 
-class _DueEditState extends State<DueEdit> {
+class _DueItemEditState extends State<DueItemEdit> {
   // File image;
   Shop shop = Get.arguments;
   DueController _dueController = Get.find();
@@ -66,6 +70,11 @@ class _DueEditState extends State<DueEdit> {
   DateTime selectedDate;
   DateTime initialDate = DateTime.now();
   DateTime endDate;
+  bool changedName = false;
+  bool changedMobile = false;
+  bool changedDueAmount = false;
+  bool changedDescription = false;
+  var changedTotalDue;
   TextEditingController nameTextEditingController = TextEditingController();
   TextEditingController mobileTextEditingController = TextEditingController();
   TextEditingController dueAmountEditingController = TextEditingController();
@@ -78,6 +87,12 @@ class _DueEditState extends State<DueEdit> {
     dueAmountEditingController.text = widget.amount;
     // descriptionEditingController.text = widget.details;
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   void getDialog() async {
@@ -332,6 +347,9 @@ class _DueEditState extends State<DueEdit> {
                   style: TextStyle(fontSize: 16),
                 ),
                 TextFormField(
+                  onChanged: (changedValue){
+                    changedName = true;
+                  },
                   controller: nameTextEditingController,
                   cursorColor: Colors.black,
                   keyboardType: TextInputType.number,
@@ -390,6 +408,9 @@ class _DueEditState extends State<DueEdit> {
                   style: TextStyle(fontSize: 16),
                 ),
                 TextFormField(
+                  onChanged: (changedValue){
+                    changedMobile = true;
+                  },
                   controller: mobileTextEditingController,
                   cursorColor: Colors.black,
                   keyboardType: TextInputType.number,
@@ -418,6 +439,11 @@ class _DueEditState extends State<DueEdit> {
                   style: TextStyle(fontSize: 16),
                 ),
                 TextFormField(
+                  onChanged: (changedValue){
+                    setState(() {
+                      changedDueAmount = true;
+                    });
+                  },
                   controller: dueAmountEditingController,
                   cursorColor: Colors.black,
                   keyboardType: TextInputType.number,
@@ -446,6 +472,9 @@ class _DueEditState extends State<DueEdit> {
                   style: TextStyle(fontSize: 16),
                 ),
                 TextFormField(
+                  onChanged: (changedValue){
+                    changedDescription = true;
+                  },
                   controller: descriptionEditingController,
                   maxLines: 5,
                   cursorColor: Colors.black,
@@ -582,13 +611,16 @@ class _DueEditState extends State<DueEdit> {
                       const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                   child: ElevatedButton(
                     onPressed: () {
+                      if(changedDueAmount){
+                        changedTotalDue = widget.dueTotalAmount - ((int.parse(widget.amount) - int.parse(dueAmountEditingController.text)));
+                      }
                         _dueController.editDue(
-                          amount: dueAmountEditingController.text,
+                          amount: changedTotalDue,
                           shopId: shop.id,
                           contactType: widget.dueTakerType,
-                          mobile: mobileTextEditingController.text,
-                          name: nameTextEditingController.text,
-                          updatedDate: widget.updatedAt,
+                          mobile: widget.mobile,
+                          name: widget.name,
+                          updatedDate: '${DateFormat.yMMMd().format(DateTime.now())}',
                           createdDate: widget.createdAt,
                           version: widget.version++
                         );
@@ -598,11 +630,18 @@ class _DueEditState extends State<DueEdit> {
                           amount: dueAmountEditingController.text,
                           contactType: widget.dueTakerType,
                           mobile: mobileTextEditingController.text,
-                          updatedDate: widget.updatedAt,
+                          updatedDate: '${DateFormat.yMMMd().format(DateTime.now())}',
                           createdDate: widget.createdAt,
                           version: widget.version++,
                           dueLeft: widget.dueLeft,
                         );
+                      _dueController
+                          .getAllItemWithUniqueID(uniqueId: widget.uniqueId)
+                          .then((value) {
+                        _dueController.dueItemList.value = getDueItemResponseModelFromJson(value);
+                      });
+                      Get.back();
+                      Get.back();
 
                     },
                     child: Center(

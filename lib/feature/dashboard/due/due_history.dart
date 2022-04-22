@@ -6,6 +6,7 @@ import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/m
 
 // import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/data/remote/models/get_all_due_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/due/due_history_details.dart';
 import 'package:hishabee_business_manager_fl/models/due/due_item_model.dart';
 import 'package:hishabee_business_manager_fl/models/due/due_model.dart';
 import 'package:intl/intl.dart';
@@ -81,8 +82,15 @@ class _DueHistoryState extends State<DueHistory> {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: (){
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back, color: Colors.black,),
+        ),
+        backgroundColor: Colors.amber,
         titleSpacing: 0,
-        title: Text('due_history'.tr),
+        title: Text('due_history'.tr,style: TextStyle(color: Colors.black),),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
@@ -101,9 +109,6 @@ class _DueHistoryState extends State<DueHistory> {
                   Text(
                     'total_due'.tr,
                     style: TextStyle(color: Color(0xFFFECD1A)),
-                  ),
-                  SizedBox(
-                    height: 10,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -437,32 +442,53 @@ class _DueHistoryState extends State<DueHistory> {
                 ],
               ),
             ),
-            Obx(()=>Expanded(child: ListView.builder(
+            Obx(()=>Expanded(
+                child: ListView.builder(
                 itemCount: _dueController.dueHistoryList.length,
                 itemBuilder: (context, index){
-                  return _dueController.dueHistoryList[index].version <0 ? Container(): ListTile(
-                    leading: Image.asset('images/assets/emptyImage.png'),
-                    title: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Text('${_dueController.dueHistoryList[index].contactName}'),
-                    ),
-                    subtitle: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('${_dueController.dueHistoryList[index].contactMobile}'),
-                        Text('${DateFormat.yMMMd().format(_dueController.dueHistoryList[index].createdAt)}')
-                      ],
-                    ),
-                    trailing: Column(
-                      children: [
-                        Text(
-                          '${_dueController.dueHistoryList[index].amount}',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.red),
-                        ),
-                        Text('${_dueController.dueHistoryList[index].contactType}'),
-                      ],
+                  return _dueController.dueHistoryList[index].version <0 ? Container():
+                  InkWell(
+                      onTap: (){
+                        Get.to(DueHistoryDetails(
+                          amount: _dueController.dueHistoryList[index].amount,
+                          description: _dueController.dueHistoryList[index].note,
+                          image: _dueController.dueHistoryList[index].image,
+                          createdAt: _dueController.dueHistoryList[index].createdAt,
+                          updatedAt: _dueController.dueHistoryList[index].updatedAt,
+                          uniqueId: _dueController.dueHistoryList[index].uniqueId,
+                          dueLeft: _dueController.dueHistoryList[index].uniqueId,
+                          dueUniqueId: _dueController.dueHistoryList[index].dueLeft,
+                          name: _dueController.dueHistoryList[index].contactName,
+                          dueType: _dueController.dueHistoryList[index].type,
+                          // dueTotalAmount: ,
+                          // dueTakerType: _dueController.dueHistoryList[index].type,
+                          version: _dueController.dueHistoryList[index].version,
+                        ), arguments: shop);
+                      },
+                    child: ListTile(
+                      leading: Image.asset('images/assets/emptyImage.png'),
+                      title: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text('${_dueController.dueHistoryList[index].contactName}'),
+                      ),
+                      subtitle: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('${_dueController.dueHistoryList[index].contactMobile}'),
+                          Text('${DateFormat.yMMMd().format(_dueController.dueHistoryList[index].createdAt)}')
+                        ],
+                      ),
+                      trailing: Column(
+                        children: [
+                          Text(
+                            '৳${_dueController.dueHistoryList[index].amount}',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.red),
+                          ),
+                          Text('${_dueController.dueHistoryList[index].contactType}'),
+                        ],
+                      ),
                     ),
                   );
                 })))

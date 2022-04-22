@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
-import 'package:hishabee_business_manager_fl/feature/dashboard/due/due_edit.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/due/due_Item_edit.dart';
 import 'package:hishabee_business_manager_fl/models/due/due_item_model.dart';
 import 'package:hishabee_business_manager_fl/models/due/due_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
@@ -25,12 +25,12 @@ import 'package:intl/intl.dart';
 
 Widget textFormFeildForExpense(
     {int lengthInputFormater,
-    String regEx,
-    String hintText,
-    String labelText,
-    IconButton iconButton,
-    int maxLine,
-    TextEditingController textEditingController}) {
+      String regEx,
+      String hintText,
+      String labelText,
+      IconButton iconButton,
+      int maxLine,
+      TextEditingController textEditingController}) {
   return TextFormField(
     readOnly: true,
     controller: textEditingController,
@@ -63,8 +63,8 @@ Widget textFormFeildForExpense(
   );
 }
 
-class SingleDueDetails extends StatefulWidget {
-  String amount;
+class DueHistoryDetails extends StatefulWidget {
+  var amount;
   String description;
   String image;
   String updatedAt;
@@ -72,45 +72,46 @@ class SingleDueDetails extends StatefulWidget {
   String uniqueId;
   String dueUniqueId;
   String dueLeft;
-  String dueTakerType;
+  // String dueTakerType;
   String dueType;
   String name;
   String mobile;
   int version;
+  // var dueTotalAmount;
 
-
-  SingleDueDetails(
+  DueHistoryDetails(
       {
-      this.amount,
-      this.description,
-      this.image,
-      this.createdAt,
-      this.updatedAt,
-      this.uniqueId,
-      this.dueLeft,
-      this.dueUniqueId,
+        this.amount,
+        this.description,
+        this.image,
+        this.createdAt,
+        this.updatedAt,
+        this.uniqueId,
+        this.dueLeft,
+        this.dueUniqueId,
         this.name,
         this.dueType,
-        this.dueTakerType,
+        // this.dueTakerType,
         this.mobile,
-        this.version
+        this.version,
+        // this.dueTotalAmount
       });
 
   @override
-  State<SingleDueDetails> createState() => _SingleDueDetailsState();
+  State<DueHistoryDetails> createState() => _DueHistoryDetailsState();
 }
 
-class _SingleDueDetailsState extends State<SingleDueDetails> {
+class _DueHistoryDetailsState extends State<DueHistoryDetails> {
   TextEditingController _textEditingControllerAmount = TextEditingController();
   TextEditingController _textEditingControllerDescription =
-      TextEditingController();
+  TextEditingController();
   Shop shop = Get.arguments;
 
   DueController _dueController = Get.find();
 
   @override
   void initState() {
-    _textEditingControllerAmount.text = widget.amount;
+    _textEditingControllerAmount.text = widget.amount.toString();
     _textEditingControllerDescription.text = widget.description;
     super.initState();
   }
@@ -184,22 +185,22 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
                         padding: EdgeInsets.only(left: 16, right: 16),
                         child: (widget.image == null)
                             ? Container(
-                                height: 50,
-                                width: 50,
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black)),
-                                child: Icon(Icons.camera_alt),
-                              )
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black)),
+                          child: Icon(Icons.camera_alt),
+                        )
                             : Container(
-                                height: 50,
-                                width: 50,
-                                child: CachedNetworkImage(
-                                  imageUrl: widget.image,
-                                  alignment: Alignment.topLeft,
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 100,
-                                ),
-                              ),
+                          height: 50,
+                          width: 50,
+                          child: CachedNetworkImage(
+                            imageUrl: widget.image,
+                            alignment: Alignment.topLeft,
+                            width: MediaQuery.of(context).size.width,
+                            height: 100,
+                          ),
+                        ),
                       ),
                       Align(
                         alignment: Alignment.topLeft,
@@ -270,7 +271,7 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
                                   child: Text('delete'.tr,
                                       style: TextStyle(color: Colors.red, fontSize: 14)),
                                   onPressed: () {
-
+                                    // var amountDelete = widget.dueTotalAmount - widget.amount;
                                     _dueController.deleteDue(
                                         amount: widget.amount,
                                         shopId: shop.id,
@@ -341,13 +342,15 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
                       InkWell(
                         onTap: (){
 
-                          Get.to(DueEdit(
+                          Get.to(DueItemEdit(
+                            uniqueId : widget.uniqueId,
+                            // dueTotalAmount: widget.dueTotalAmount,
                             dueUniqId: widget.dueUniqueId,
-                            dueTakerType: widget.dueTakerType,
+                            // dueTakerType: widget.dueTakerType,
                             image: widget.image,
                             name: widget.name,
                             mobile: widget.mobile,
-                            amount: widget.amount,
+                            amount: widget.amount.toString(),
                             details: widget.description,
                             createdAt: widget.createdAt,
                             updatedAt: widget.updatedAt,

@@ -133,7 +133,7 @@ class _DueFrontState extends State<DueFront> {
               child: Column(
                 children: [
                   Container(
-                    height: height - 500,
+                    // height: height - 500,
                     width: width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(6),
@@ -213,14 +213,17 @@ class _DueFrontState extends State<DueFront> {
                           onTap: (){
                             Get.to(DueHistory(), arguments: shop);
                           },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.history, color: Colors.white,),
-                              Text('due_history'.tr, style: TextStyle(
-                                  color: Colors.white
-                              ),)
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 10.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(Icons.history, color: Colors.white,),
+                                Text('due_history'.tr, style: TextStyle(
+                                    color: Colors.white
+                                ),)
+                              ],
+                            ),
                           ),
                         )
                       ],
@@ -315,7 +318,7 @@ class _DueFrontState extends State<DueFront> {
                                 DueDetailsCustomer(
                                   name: _dueController.filterList[index].contactName,
                                   mobileNumber: _dueController.filterList[index].contactMobile,
-                                  dueAmount: _dueController.filterList[index].dueAmount,
+                                  dueTotalAmount: _dueController.filterList[index].dueAmount,
                                   uniqueId: _dueController.filterList[index].uniqueId,
                                 ),
                                 arguments: shop);
