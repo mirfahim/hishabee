@@ -97,7 +97,7 @@ class DueController extends GetxController {
       {amount, shopId, contactType, mobile, name, updatedDate, createdDate, dueAlert, dueItemUniqueId}) async {
     // const dueItemUniqueId = Uuid();
     // var id = dueItemUniqueId.v4();
-    //asdasdasdasdasdasdasd
+    //asdasdasdasdasdasdasdewqrewrwe
     CustomDialog.showLoadingDialog(message: 'Creating Due...');
     // if(image != null){
     //   String imageSource = await _apiService.uploadFile(file: image, type: '');
