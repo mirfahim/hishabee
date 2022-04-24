@@ -191,16 +191,23 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
                                     border: Border.all(color: Colors.black)),
                                 child: Icon(Icons.camera_alt),
                               )
-                            : Container(
-                                height: 50,
-                                width: 50,
-                                child: CachedNetworkImage(
-                                  imageUrl: widget.image,
-                                  alignment: Alignment.topLeft,
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 100,
+                            : InkWell(
+                          onTap: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (_) {
+                              return DetailScreen(widget.image);
+                            }));
+                          },
+                              child: Container(
+                                  height: 50,
+                                  width: 50,
+                                  child: CachedNetworkImage(
+                                    imageUrl: widget.image,
+                                    alignment: Alignment.topLeft,
+                                    width: MediaQuery.of(context).size.width,
+                                    height: 100,
+                                  ),
                                 ),
-                              ),
+                            ),
                       ),
                       Align(
                         alignment: Alignment.topLeft,
@@ -387,6 +394,29 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+class DetailScreen extends StatelessWidget {
+  String image;
+  DetailScreen(this.image);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        child: Center(
+          child: Hero(
+            tag: 'imageHero',
+            child: Image.network(
+              '$image',
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.pop(context);
+        },
       ),
     );
   }

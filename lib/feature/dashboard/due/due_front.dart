@@ -46,11 +46,11 @@ class _DueFrontState extends State<DueFront> {
                 .fold(0, (previousValue, element) => previousValue + element);
           }
 
-          if('${_dueController.filterList[i].contactType}' == 'ContactType.CUSTOMER' && _dueController.filterList[i].version > 0){
+          if('${_dueController.filterList[i].contactType}' == 'ContactType.CUSTOMER' || '${_dueController.filterList[i].contactType}' == 'CUSTOMER' && _dueController.filterList[i].version >= 0){
             _dueController.customerCount.value++;
-          }else if('${_dueController.filterList[i].contactType}' == 'ContactType.SELLER' && _dueController.filterList[i].version > 0){
+          }else if('${_dueController.filterList[i].contactType}' == 'ContactType.SUPPLIER' || '${_dueController.filterList[i].contactType}' == 'SUPPLIER' && _dueController.filterList[i].version >= 0){
             _dueController.supplierCount.value++;
-          }else if('${_dueController.filterList[i].contactType}' == 'ContactType.EMPLOYEE' && _dueController.filterList[i].version > 0){
+          }else if('${_dueController.filterList[i].contactType}' == 'ContactType.EMPLOYEE' || '${_dueController.filterList[i].contactType}' == 'EMPLOYEE' && _dueController.filterList[i].version >= 0){
             _dueController.employeeCount.value++;
           }
         }
@@ -144,7 +144,7 @@ class _DueFrontState extends State<DueFront> {
                       children: [
                         SizedBox(height: 10,),
                         Text(
-                          'total_due',
+                          'total_due'.tr,
                           style: TextStyle(color: Colors.amber, fontSize: 14),
                         ),
                         // Row(
@@ -345,6 +345,7 @@ class _DueFrontState extends State<DueFront> {
                                   ],
                                 ),
                                 trailing: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
                                       '${_dueController.filterList[index].dueAmount}',

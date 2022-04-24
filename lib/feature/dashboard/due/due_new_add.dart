@@ -5,15 +5,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:hishabee_business_manager_fl/app/_utils/customer_contact.dart';
-import 'package:hishabee_business_manager_fl/app/_utils/employee_contact.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/due/customer_contact.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/due/employee_contact.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
-import 'package:hishabee_business_manager_fl/app/_utils/supplier_contact.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/due/supplier_contact.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/customerDialog.dart';
+import 'package:hishabee_business_manager_fl/models/due/due_item_model.dart';
+import 'package:hishabee_business_manager_fl/models/due/due_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 int flagDate = 0;
 var now = DateTime.now();
@@ -41,6 +45,16 @@ class _DueNewState extends State<DueNew> {
   DateTime selectedDate;
   DateTime initialDate = DateTime.now();
   DateTime endDate;
+
+
+  @override
+  void dispose() {
+    _dueController.addNewDueName.value.text = '';
+    _dueController.addNewDueMobile.value.text = '';
+    _dueController.addNewDueAmount.value.text = '';
+    _dueController.addNewDueDescription.value.text = '';
+    super.dispose();
+  }
 
   void getDialog() async {
     await _selectStartDate(context);
@@ -304,7 +318,7 @@ class _DueNewState extends State<DueNew> {
                         setState(() {
 
                           _value = value;
-                          dueType = _value;
+                          dueType = 'CUSTOMER';
                           print('dueType: $dueType');
                         });
                       },
@@ -317,7 +331,8 @@ class _DueNewState extends State<DueNew> {
                       onChanged: (value) {
                         setState(() {
                           _value = value;
-                          dueType = _value;
+                          dueType = "SUPPLIER";
+                          print(dueType);
                         });
                       },
                       activeColor: Colors.blue,
@@ -329,7 +344,8 @@ class _DueNewState extends State<DueNew> {
                       onChanged: (value) {
                         setState(() {
                           _value = value;
-                          dueType = _value;
+                          dueType = "EMPLOYEE";
+                          print(dueType);
                         });
                       },
                       activeColor: Colors.blue,
@@ -414,37 +430,35 @@ class _DueNewState extends State<DueNew> {
                 ),
                 Text('name'.tr,style: TextStyle(fontSize: 16),),
                 TextFormField(
+                  controller: _dueController.addNewDueName.value,
                   cursorColor: Colors.black,
-                  keyboardType: TextInputType.number,
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(
-                      RegExp('[a-zA-Z0-9]'),
-                    ),
-                  ],
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       onPressed: (){
                         if(dueType == 'customer'.tr){
-                          Future.delayed(Duration.zero, () async {
-                            Navigator.of(context).push(PageRouteBuilder(
-                                pageBuilder: (context, _, __) =>
-                                    CustomerContact(),
-                                opaque: false));
-                          });
+                          // Future.delayed(Duration.zero, () async {
+                          //   Navigator.of(context).push(PageRouteBuilder(
+                          //       pageBuilder: (context, _, __) =>
+                          //           CustomerContact(),
+                          //       opaque: false));
+                          // });
+                          Get.to(CustomerContact(), arguments: shop);
                         }else if(dueType == 'supplier'.tr){
-                          Future.delayed(Duration.zero, () async {
-                            Navigator.of(context).push(PageRouteBuilder(
-                                pageBuilder: (context, _, __) =>
-                                    SupplierContact(),
-                                opaque: false));
-                          });
+                          // Future.delayed(Duration.zero, () async {
+                          //   Navigator.of(context).push(PageRouteBuilder(
+                          //       pageBuilder: (context, _, __) =>
+                          //           SupplierContact(),
+                          //       opaque: false));
+                          // });
+                          Get.to(SupplierContact(), arguments: shop);
                         }else{
-                          Future.delayed(Duration.zero, () async {
-                            Navigator.of(context).push(PageRouteBuilder(
-                                pageBuilder: (context, _, __) =>
-                                    EmployeeContact(),
-                                opaque: false));
-                          });
+                          // Future.delayed(Duration.zero, () async {
+                          //   Navigator.of(context).push(PageRouteBuilder(
+                          //       pageBuilder: (context, _, __) =>
+                          //           EmployeeContact(),
+                          //       opaque: false));
+                          // });
+                          Get.to(EmployeeContact(), arguments: shop);
                         }
 
                       },
@@ -466,6 +480,7 @@ class _DueNewState extends State<DueNew> {
                 ),
                 Text('mobile'.tr,style: TextStyle(fontSize: 16),),
                 TextFormField(
+                  controller: _dueController.addNewDueMobile.value,
                   cursorColor: Colors.black,
                   keyboardType: TextInputType.number,
                   inputFormatters: [
@@ -490,6 +505,7 @@ class _DueNewState extends State<DueNew> {
                 ),
                 Text('due_amount'.tr,style: TextStyle(fontSize: 16),),
                 TextFormField(
+                  controller: _dueController.addNewDueAmount.value,
                   cursorColor: Colors.black,
                   keyboardType: TextInputType.number,
                   inputFormatters: [
@@ -514,6 +530,7 @@ class _DueNewState extends State<DueNew> {
                 ),
                 Text('description'.tr,style: TextStyle(fontSize: 16),),
                 TextFormField(
+                  controller: _dueController.addNewDueDescription.value,
                   maxLines: 5,
                   cursorColor: Colors.black,
                   keyboardType: TextInputType.number,
@@ -646,7 +663,73 @@ class _DueNewState extends State<DueNew> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      if(_dueController.addNewDueAmount.value.text == ''
+                          || _dueController.addNewDueMobile.value.text == '' ||
+                          _dueController.addNewDueName.value.text == '' ||
+                          initialDate == null || image == null || dueType == null
+                      ){
+                        CustomDialog.showStringDialog('Some important Field Are Missing');
+                      }else{
+                        const uniqueId = Uuid();
+                        const dueItemUniqueId = Uuid();
+                        var id = uniqueId.v4();
+                        var itemId = dueItemUniqueId.v4();
+                        print(dueType);
+                        _dueController.addNewDue(
+                            uniqueId: id,
+                            amount: _dueController.addNewDueAmount.value.text,
+                            shopId: shop.id,
+                            contactType: dueType,
+                            mobile: _dueController.addNewDueMobile.value.text,
+                            name: _dueController.addNewDueName.value.text,
+                            updatedDate: '$initialDate',
+                            createdDate: '$initialDate',
+                            image: image,
+                            dueAlert: '$initialDate'
+                        );
+                        _dueController.addNewDueItem(
+                          dueItemUniqueId: itemId,
+                          amount: _dueController.addNewDueAmount.value.text,
+                          shopId: shop.id,
+                          contactType: dueType,
+                          mobile: _dueController.addNewDueMobile.value.text,
+                          name: _dueController.addNewDueName.value.text,
+                          updatedDate: '$initialDate',
+                          createdDate: '$initialDate',
+                        );
+
+                        Future.delayed(const Duration(seconds: 2), () {
+
+                          _dueController.getAllDue(shopId: shop.id).then((value){
+                            _dueController.filterList.value = getAllDueResponseModelFromJson(value['data']);
+                            // _dueController
+                            //     .getAllItemWithUniqueID(uniqueId: id)
+                            //     .then((value) {
+                            //   _dueController.dueItemList.value = getDueItemResponseModelFromJson(value);
+                            // });
+                            // for(int i = 0; i<_dueController.filterList.length; i++){
+                            //   if('${_dueController.filterList[i].contactType}' == 'ContactType.CUSTOMER' && _dueController.filterList[i].version > 0){
+                            //     _dueController.customerCount.value++;
+                            //   }else if('${_dueController.filterList[i].contactType}' == 'ContactType.SELLER' && _dueController.filterList[i].version > 0){
+                            //     _dueController.supplierCount.value++;
+                            //   }else if('${_dueController.filterList[i].contactType}' == 'ContactType.EMPLOYEE' && _dueController.filterList[i].version > 0){
+                            //     _dueController.employeeCount.value++;
+                            //   }
+                            // }
+                          });
+                          Get.back();
+                          Get.back();
+                          Get.back();
+                          Get.back();
+                          // setState(() {
+                          //   // Here you can write your code for open new view
+                          // });
+
+                        });
+                      }
+
+                    },
                     child: Center(
                       child: Text(
                         'save'.tr,
