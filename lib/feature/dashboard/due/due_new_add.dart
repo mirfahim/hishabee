@@ -435,7 +435,7 @@ class _DueNewState extends State<DueNew> {
                   decoration: InputDecoration(
                     suffixIcon: IconButton(
                       onPressed: (){
-                        if(dueType == 'customer'.tr){
+                        if(dueType == 'CUSTOMER'.tr){
                           // Future.delayed(Duration.zero, () async {
                           //   Navigator.of(context).push(PageRouteBuilder(
                           //       pageBuilder: (context, _, __) =>
@@ -443,7 +443,7 @@ class _DueNewState extends State<DueNew> {
                           //       opaque: false));
                           // });
                           Get.to(CustomerContact(), arguments: shop);
-                        }else if(dueType == 'supplier'.tr){
+                        }else if(dueType == 'SUPPLIER'.tr){
                           // Future.delayed(Duration.zero, () async {
                           //   Navigator.of(context).push(PageRouteBuilder(
                           //       pageBuilder: (context, _, __) =>

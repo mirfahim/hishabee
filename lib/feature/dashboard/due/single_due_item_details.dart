@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
@@ -65,13 +66,14 @@ Widget textFormFeildForExpense(
 
 class SingleDueDetails extends StatefulWidget {
   var amount;
+  var transactionUniqueId;
   String description;
   String image;
   String updatedAt;
   String createdAt;
   String uniqueId;
   String dueUniqueId;
-  String dueLeft;
+  var dueLeft;
   String dueTakerType;
   String dueType;
   String name;
@@ -80,7 +82,7 @@ class SingleDueDetails extends StatefulWidget {
   var dueTotalAmount;
 
   SingleDueDetails(
-      {
+      {this.transactionUniqueId,
       this.amount,
       this.description,
       this.image,
@@ -89,13 +91,12 @@ class SingleDueDetails extends StatefulWidget {
       this.uniqueId,
       this.dueLeft,
       this.dueUniqueId,
-        this.name,
-        this.dueType,
-        this.dueTakerType,
-        this.mobile,
-        this.version,
-        this.dueTotalAmount
-      });
+      this.name,
+      this.dueType,
+      this.dueTakerType,
+      this.mobile,
+      this.version,
+      this.dueTotalAmount});
 
   @override
   State<SingleDueDetails> createState() => _SingleDueDetailsState();
@@ -121,6 +122,7 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
+
       backgroundColor: bgColor,
       appBar: AppBar(
         titleSpacing: 0,
@@ -139,197 +141,254 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
         ),
         backgroundColor: Colors.amber,
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Container(
-            height: height,
-            color: DEFAULT_BODY_BG_COLOR,
-            child: Padding(
-              padding: EdgeInsets.only(left: 10, right: 10, top: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // const Text('Give your Mobile Number'),
-                  Text(
-                    'amount_of_money'.tr,
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  textFormFeildForExpense(
-                      textEditingController: _textEditingControllerAmount,
-                      hintText: 'amount_of_money'.tr,
-                      regEx: '[0-9]'),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'due_description'.tr,
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  textFormFeildForExpense(
-                      textEditingController: _textEditingControllerDescription,
-                      maxLine: 1,
-                      regEx: '[a-zA-z]'),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 16, right: 16),
-                        child: (widget.image == null)
-                            ? Container(
+      body: SafeArea(
+        child: Container(
+          height: height,
+          color: DEFAULT_BODY_BG_COLOR,
+          child: Padding(
+            padding: EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // const Text('Give your Mobile Number'),
+                Text(
+                  'amount_of_money'.tr,
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                textFormFeildForExpense(
+                    textEditingController: _textEditingControllerAmount,
+                    hintText: 'amount_of_money'.tr,
+                    regEx: '[0-9]'),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'due_description'.tr,
+                  style: TextStyle(fontSize: 16),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                textFormFeildForExpense(
+                    textEditingController: _textEditingControllerDescription,
+                    maxLine: 1,
+                    regEx: '[a-zA-z]'),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 16, right: 16),
+                      child: (widget.image == null)
+                          ? Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.black)),
+                              child: Icon(Icons.camera_alt),
+                            )
+                          : InkWell(
+                              onTap: () {
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (_) {
+                                  return DetailScreen(widget.image);
+                                }));
+                              },
+                              child: Container(
                                 height: 50,
                                 width: 50,
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black)),
-                                child: Icon(Icons.camera_alt),
-                              )
-                            : InkWell(
-                          onTap: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (_) {
-                              return DetailScreen(widget.image);
-                            }));
-                          },
-                              child: Container(
-                                  height: 50,
-                                  width: 50,
-                                  child: CachedNetworkImage(
-                                    imageUrl: widget.image,
-                                    alignment: Alignment.topLeft,
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 100,
-                                  ),
+                                child: CachedNetworkImage(
+                                  imageUrl: widget.image,
+                                  alignment: Alignment.topLeft,
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 100,
                                 ),
+                              ),
                             ),
-                      ),
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Container(
-                          width: 150,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 3, vertical: 7),
-                            child: Row(
-                              children: [
-                                Icon(Icons.calendar_today),
-                                Text(widget.createdAt),
-                              ],
-                            ),
+                    ),
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                        width: 150,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 3, vertical: 7),
+                          child: Row(
+                            children: [
+                              Icon(Icons.calendar_today),
+                              Text(widget.createdAt),
+                            ],
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  // Container(
-                  //   height: 50,
-                  //   decoration: BoxDecoration(
-                  //     color: Colors.grey.withOpacity(.35),
-                  //     borderRadius: BorderRadius.circular(10),
-                  //   ),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //     children: [
-                  //       Padding(
-                  //         padding: const EdgeInsets.all(8.0),
-                  //         child: Text('পণ্যের তালিকাসমূহ'),
-                  //       ),
-                  //       Padding(
-                  //         padding: const EdgeInsets.all(8.0),
-                  //         child: Icon(Icons.arrow_drop_down),
-                  //       )
-                  //     ],
-                  //   ),
-                  // ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          Get.dialog(
-                            AlertDialog(
-                              // title: Text(message),
-                              content: Text('Do you want to Delete the due?'),
-                              contentTextStyle: TextStyle(fontSize: 16, color: DEFAULT_BLACK),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text('cancel'.tr,
-                                      style: TextStyle(color: Colors.red, fontSize: 14)),
-                                  onPressed: () {
-                                    navigator.pop();
-                                  },
-                                ),
-                                TextButton(
-                                  child: Text('delete'.tr,
-                                      style: TextStyle(color: Colors.red, fontSize: 14)),
-                                  onPressed: () {
-                                      var amountDelete = widget.dueTotalAmount - widget.amount;
-                                    _dueController.deleteDue(
-                                        amount: amountDelete,
-                                        shopId: shop.id,
-                                        uniqueId: widget.uniqueId,
-                                        dueUniqueId: widget.dueUniqueId,
-                                        dueLeft: widget.dueLeft,
-
-                                        updatedAt: widget.updatedAt,
-                                        createdAt: widget.createdAt);
-                                    Future.delayed(const Duration(seconds: 2), () {
-
-                                      _dueController.getAllDue(shopId: shop.id).then((value){
-                                        _dueController.filterList.value = getAllDueResponseModelFromJson(value['data']);
-                                        _dueController
-                                            .getAllItemWithUniqueID(uniqueId: widget.dueUniqueId)
-                                            .then((value) {
-                                          _dueController.dueItemList.value = getDueItemResponseModelFromJson(value);
-                                        });
-                                        // for(int i = 0; i<_dueController.filterList.length; i++){
-                                        //   if('${_dueController.filterList[i].contactType}' == 'ContactType.CUSTOMER' && _dueController.filterList[i].version > 0){
-                                        //     _dueController.customerCount.value++;
-                                        //   }else if('${_dueController.filterList[i].contactType}' == 'ContactType.SELLER' && _dueController.filterList[i].version > 0){
-                                        //     _dueController.supplierCount.value++;
-                                        //   }else if('${_dueController.filterList[i].contactType}' == 'ContactType.EMPLOYEE' && _dueController.filterList[i].version > 0){
-                                        //     _dueController.employeeCount.value++;
-                                        //   }
-                                        // }
-                                      });
-                                      Get.back();
-                                      Get.back();
-
-                                      // setState(() {
-                                      //   // Here you can write your code for open new view
-                                      // });
-
-                                    });
-
-
-                                  },
-                                ),
-                              ],
-                            ),
-                          );
-
-                        },
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                // Container(
+                //   height: 50,
+                //   decoration: BoxDecoration(
+                //     color: Colors.grey.withOpacity(.35),
+                //     borderRadius: BorderRadius.circular(10),
+                //   ),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Padding(
+                //         padding: const EdgeInsets.all(8.0),
+                //         child: Text('পণ্যের তালিকাসমূহ'),
+                //       ),
+                //       Padding(
+                //         padding: const EdgeInsets.all(8.0),
+                //         child: Icon(Icons.arrow_drop_down),
+                //       )
+                //     ],
+                //   ),
+                // ),
+                SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    widget.transactionUniqueId != null
+                        ? InkWell(
+                      onTap: () {
+                        Fluttertoast.showToast(
+                            msg: 'please_delete_from_sell'.tr,
+                            backgroundColor: Colors.black,
+                            textColor: Colors.white,
+                            gravity: ToastGravity.BOTTOM
+                        );
+                      },
+                      child: Card(
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
                         child: Container(
                           height: 50,
                           width: 120,
                           decoration: BoxDecoration(
                             color: Colors.grey.withOpacity(.35),
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.delete,
+                                color: Colors.red.withOpacity(.35),
+                              ),
+                              Text(
+                                'delete'.tr,
+                                style: TextStyle(
+                                    color:
+                                    Colors.black.withOpacity(.35)),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                        : InkWell(
+                      onTap: () {
+                        Get.dialog(
+                          AlertDialog(
+                            // title: Text(message),
+                            content:
+                            Text('Do you want to Delete the due?'),
+                            contentTextStyle: TextStyle(
+                                fontSize: 16, color: DEFAULT_BLACK),
+                            actions: <Widget>[
+                              TextButton(
+                                child: Text('cancel'.tr,
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 14)),
+                                onPressed: () {
+                                  navigator.pop();
+                                },
+                              ),
+                              TextButton(
+                                child: Text('delete'.tr,
+                                    style: TextStyle(
+                                        color: Colors.red,
+                                        fontSize: 14)),
+                                onPressed: () {
+                                  var amountDelete =
+                                      widget.dueTotalAmount -
+                                          widget.amount;
+                                  _dueController.deleteDue(
+                                      amount: amountDelete,
+                                      shopId: shop.id,
+                                      uniqueId: widget.uniqueId,
+                                      dueUniqueId: widget.dueUniqueId,
+                                      dueLeft: widget.dueLeft,
+                                      updatedAt: widget.updatedAt,
+                                      createdAt: widget.createdAt);
+                                  Future.delayed(
+                                      const Duration(seconds: 2), () {
+                                    _dueController
+                                        .getAllDue(shopId: shop.id)
+                                        .then((value) {
+                                      _dueController.filterList.value =
+                                          getAllDueResponseModelFromJson(
+                                              value['data']);
+                                      _dueController
+                                          .getAllItemWithUniqueID(
+                                          uniqueId:
+                                          widget.dueUniqueId)
+                                          .then((value) {
+                                        _dueController
+                                            .dueItemList.value =
+                                            getDueItemResponseModelFromJson(
+                                                value);
+                                      });
+                                      // for(int i = 0; i<_dueController.filterList.length; i++){
+                                      //   if('${_dueController.filterList[i].contactType}' == 'ContactType.CUSTOMER' && _dueController.filterList[i].version > 0){
+                                      //     _dueController.customerCount.value++;
+                                      //   }else if('${_dueController.filterList[i].contactType}' == 'ContactType.SELLER' && _dueController.filterList[i].version > 0){
+                                      //     _dueController.supplierCount.value++;
+                                      //   }else if('${_dueController.filterList[i].contactType}' == 'ContactType.EMPLOYEE' && _dueController.filterList[i].version > 0){
+                                      //     _dueController.employeeCount.value++;
+                                      //   }
+                                      // }
+                                    });
+                                    Get.back();
+                                    Get.back();
+
+                                    // setState(() {
+                                    //   // Here you can write your code for open new view
+                                    // });
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      child: Card(
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        child: Container(
+                          height: 50,
+                          width: 120,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(.35),
+                            borderRadius: BorderRadius.circular(6),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -346,31 +405,76 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
                           ),
                         ),
                       ),
-                      InkWell(
-                        onTap: (){
-
-                          Get.to(DueItemEdit(
-                            uniqueId : widget.uniqueId,
-                            dueTotalAmount: widget.dueTotalAmount,
-                            dueUniqId: widget.dueUniqueId,
-                            dueTakerType: widget.dueTakerType,
-                            image: widget.image,
-                            name: widget.name,
-                            mobile: widget.mobile,
-                            amount: widget.amount.toString(),
-                            details: widget.description,
-                            createdAt: widget.createdAt,
-                            updatedAt: widget.updatedAt,
-                            version: widget.version,
-                            dueLeft: widget.dueLeft,
-                          ), arguments: shop);
-                        },
+                    ) ,
+                    widget.transactionUniqueId != null ? InkWell(
+                      onTap: () {
+                        Fluttertoast.showToast(
+                            msg: 'please_edit_from_sell'.tr,
+                            backgroundColor: Colors.black.withOpacity(.1),
+                            textColor: Colors.black,
+                            gravity: ToastGravity.BOTTOM
+                        );
+                      },
+                      child: Card(
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
                         child: Container(
                           height: 50,
                           width: 120,
                           decoration: BoxDecoration(
                             color: Colors.grey.withOpacity(.35),
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(6),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.edit,
+                                color: Colors.blue.withOpacity(.35),
+                              ),
+                              Text(
+                                'edit'.tr,
+                                style: TextStyle(
+                                    color:
+                                    Colors.black.withOpacity(.35)),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ) : InkWell(
+                      onTap: () {
+                        Get.to(
+                            DueItemEdit(
+                              uniqueId: widget.uniqueId,
+                              dueTotalAmount: widget.dueTotalAmount,
+                              dueUniqId: widget.dueUniqueId,
+                              dueTakerType: widget.dueTakerType,
+                              image: widget.image,
+                              name: widget.name,
+                              mobile: widget.mobile,
+                              amount: widget.amount.toString(),
+                              details: widget.description,
+                              createdAt: widget.createdAt,
+                              updatedAt: widget.updatedAt,
+                              version: widget.version,
+                              dueLeft: widget.dueLeft,
+                            ),
+                            arguments: shop);
+                      },
+                      child: Card(
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.0),
+                        ),
+                        child: Container(
+                          height: 50,
+                          width: 120,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(.35),
+                            borderRadius: BorderRadius.circular(6),
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -387,10 +491,41 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
                           ),
                         ),
                       ),
-                    ],
-                  )
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                Spacer(),
+                widget.dueLeft != 0 ? Column(
+                  children: [
+                    Text('due_left:'.tr + '৳${widget.dueLeft}'),
+                    InkWell(
+                      onTap: (){
+
+                      },
+                      child: Container(
+                        width: width,
+                        decoration: BoxDecoration(
+                            color: DEFAULT_BLUE,
+                            borderRadius: BorderRadius.circular(6)
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Center(
+                            child: Text('got_due'.tr, style: TextStyle(
+                                color: Colors.white,
+                              fontSize: 16
+                            ),),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 10,),
+                    Text('if_you_got_due_amount_then_press_this_button'.tr,textAlign: TextAlign.center, style: TextStyle(
+
+                    ),)
+                  ],
+                ) : Container()
+              ],
             ),
           ),
         ),
@@ -398,19 +533,25 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
     );
   }
 }
+
 class DetailScreen extends StatelessWidget {
   String image;
+
   DetailScreen(this.image);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: GestureDetector(
         child: Center(
           child: Hero(
             tag: 'imageHero',
-            child: Image.network(
-              '$image',
+            child: CachedNetworkImage(
+              imageUrl: '$image',
               fit: BoxFit.cover,
+              placeholder: (context, url) => new CircularProgressIndicator(),
+              errorWidget: (context, url, error) => new Icon(Icons.error),
             ),
           ),
         ),

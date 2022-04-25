@@ -96,7 +96,7 @@ class Due {
   dynamic dueAlert;
   String contactMobile;
   String contactName;
-  ContactType contactType;
+  String contactType;
   int version;
   String uniqueId;
 
@@ -110,7 +110,7 @@ class Due {
     dueAlert: json["due_alert"],
     contactMobile: json["contact_mobile"],
     contactName: json["contact_name"],
-    contactType: contactTypeValues.map[json["contact_type"]],
+    contactType: json["contact_type"],
     version: json["version"],
     uniqueId: json["unique_id"],
   );
@@ -125,16 +125,18 @@ class Due {
     "due_alert": dueAlert,
     "contact_mobile": contactMobile,
     "contact_name": contactName,
-    "contact_type": contactTypeValues.reverse[contactType],
+    "contact_type": contactType,
     "version": version,
     "unique_id": uniqueId,
   };
 }
 
-enum ContactType { CUSTOMER }
+enum ContactType { CUSTOMER, EMPLOYEE, SUPPLIER }
 
 final contactTypeValues = EnumValues({
-  "CUSTOMER": ContactType.CUSTOMER
+  "CUSTOMER": ContactType.CUSTOMER,
+  "EMPLOYEE": ContactType.EMPLOYEE,
+  "SUPPLIER": ContactType.SUPPLIER
 });
 
 class EnumValues<T> {
