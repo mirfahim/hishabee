@@ -637,6 +637,7 @@ const bn_BD = {
   'total_due:':'মোট বাকি:',
   'due /':'বাকি /',
   'got_due':'বাকির টাকা পেয়েছি',
+  'transaction_type':'লেনদেনের ধরণ',
   'if_you_got_due_amount_then_press_this_button':'আপনি যদি বাকির টাকা পেয়ে থাকেন তাহলে এই বাটনটি চাপুন',
   'saving':'জমা',
   'due_left:':'বাকি আছে: ',

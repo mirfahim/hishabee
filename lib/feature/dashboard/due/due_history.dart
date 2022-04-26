@@ -45,6 +45,8 @@ class _DueHistoryState extends State<DueHistory> {
   DueController _dueController = Get.find();
   Shop shop = Get.arguments;
   int flag = 3;
+  var giveDue;
+  var takeDue;
 
   @override
   void initState() {
@@ -72,6 +74,27 @@ class _DueHistoryState extends State<DueHistory> {
         // _dueController.dueList.value = getAllDueResponseModelFromJson(value);
         _dueController.dueHistoryList.value =
             getDueItemResponseModelFromJson(value['data']);
+      }
+      for(int j = 0; j<_dueController.dueHistoryList.length; j++){
+        for(int i = 0; i<_dueController.dueHistoryList.length; i++) {
+          if(_dueController.dueHistoryList[j].version >= 0){
+            if (_dueController.dueHistoryList[i].amount < 0) {
+              setState(() {
+                giveDue = _dueController.dueHistoryList
+                    .map((e) => e.amount)
+                    .fold(0, (previousValue, element) => previousValue + element);
+              });
+
+            } else{
+              setState(() {
+                takeDue = _dueController.dueHistoryList
+                    .map((e) => e.amount)
+                    .fold(0, (previousValue, element) => previousValue + element);
+              });
+
+            }
+          }
+        }
       }
     });
     super.initState();
@@ -198,7 +221,7 @@ class _DueHistoryState extends State<DueHistory> {
                           child: Column(
                             children: [
                               Text(
-                                '700',
+                                '৳$giveDue',
                                 style: TextStyle(color: Colors.white),
                               ),
                               Text(
@@ -221,7 +244,7 @@ class _DueHistoryState extends State<DueHistory> {
                           child: Column(
                             children: [
                               Text(
-                                '১০০০ টাকা',
+                                '৳$takeDue',
                                 style: TextStyle(color: Colors.white),
                               ),
                               Text(
@@ -507,6 +530,27 @@ class _DueHistoryState extends State<DueHistory> {
       if (value != null) {
         _dueController.dueHistoryList.value =
             getDueItemResponseModelFromJson(value['data']);
+        for(int j = 0; j<_dueController.dueHistoryList.length; j++){
+          for(int i = 0; i<_dueController.dueHistoryList.length; i++) {
+            if(_dueController.dueHistoryList[j].version >= 0){
+              if (_dueController.dueHistoryList[i].amount < 0) {
+                setState(() {
+                  giveDue = _dueController.dueHistoryList
+                      .map((e) => e.amount)
+                      .fold(0, (previousValue, element) => previousValue + element);
+                });
+
+              } else{
+                setState(() {
+                  takeDue = _dueController.dueHistoryList
+                      .map((e) => e.amount)
+                      .fold(0, (previousValue, element) => previousValue + element);
+                });
+
+              }
+            }
+          }
+        }
       }
 
       //  isLoading = false;

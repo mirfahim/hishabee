@@ -629,6 +629,7 @@ const en_US = {
   'please_delete_from_sell':'Please delete from Sell',
   'please_edit_from_sell':'Please edit from Sell',
   'got_due':'Got Due',
+  'transaction_type':'Transaction Type',
   'if_you_got_due_amount_then_press_this_button':'If you got Due Amount then press this button',
   'due_description':'Due Description',
   'profit': 'Profit',

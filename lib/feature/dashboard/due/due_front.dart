@@ -35,6 +35,9 @@ class _DueFrontState extends State<DueFront> {
       if(value != null){
         _dueController.dueList.value = getAllDueResponseModelFromJson(value['data']);
         _dueController.filterList.value = getAllDueResponseModelFromJson(value['data']);
+        // for(int j = 0;j<_dueController.filterList.length; j++){
+        //
+        // }
         for(int i = 0; i<_dueController.filterList.length; i++){
           if(_dueController.filterList[i].dueAmount < 0){
             _dueController.payDue.value = _dueController.filterList
@@ -297,6 +300,11 @@ class _DueFrontState extends State<DueFront> {
                                   mobileNumber: _dueController.filterList[index].contactMobile,
                                   dueTotalAmount: _dueController.filterList[index].dueAmount,
                                   uniqueId: _dueController.filterList[index].uniqueId,
+                                  dueUniqueId: _dueController.filterList[index].uniqueId,
+                                  contactType: _dueController.filterList[index].contactType,
+                                  createdAt: _dueController.filterList[index].createdAt,
+                                  updatedAt: _dueController.filterList[index].updatedAt,
+                                  version: _dueController.filterList[index].version,
                                 ),
                                 arguments: shop);
                           },

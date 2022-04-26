@@ -153,4 +153,22 @@ class DueController extends GetxController {
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
+  Future<dynamic> dueGiven({
+    amount,
+    shopId,
+    uniqueId,
+    contactType,
+    mobile,
+    name,
+    updatedDate,
+    createdDate,
+    version,
+    dueUniqueId,
+    dueLeft}) async{
+    String url = '/due_item/add?amount=$amount&shop_id=$shopId&unique_id=$uniqueId'
+        '&due_unique_id=$dueUniqueId&due_left=$dueLeft'
+        '&version=$version&updated_at=$updatedDate&created_at=$createdDate';
+    return _apiService.makeApiRequest(
+        method: apiMethods.post, url: url, body: null, headers: null);
+}
 }
