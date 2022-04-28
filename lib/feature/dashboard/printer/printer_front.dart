@@ -8,8 +8,8 @@ import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/m
 import 'package:hishabee_business_manager_fl/feature/dashboard/printer/add_printer.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/printer/print_page.dart';
 import 'package:intl/intl.dart';
-class PrinterFront extends StatefulWidget {
 
+class PrinterFront extends StatefulWidget {
   @override
   State<PrinterFront> createState() => _PrinterFrontState();
 }
@@ -19,18 +19,23 @@ class _PrinterFrontState extends State<PrinterFront> {
 
   Shop shop = Get.arguments;
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.amber,
-        title: Text('printer'.tr,style: TextStyle(color: Colors.black),),
+        title: Text(
+          'printer'.tr,
+          style: TextStyle(color: Colors.black),
+        ),
         leading: IconButton(
           onPressed: () {
             Get.back();
           },
-          icon: Icon(Icons.arrow_back, color: Colors.black,),
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
         ),
         titleSpacing: 0,
       ),
@@ -40,48 +45,64 @@ class _PrinterFrontState extends State<PrinterFront> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SvgPicture.asset('images/svg_image/printer_front.svg'),
-            SizedBox(height: 20,),
-            Text('there_is_no_printer'.tr, style: TextStyle(
-              fontSize: 18, fontFamily: 'Roboto'
-            ),),
-            SizedBox(height: 10,),
-            Text('to_add_printer_click_buy_button'.tr,textAlign: TextAlign.center, style: TextStyle(
-              fontSize: 18, fontFamily: 'Roboto'
-            ),),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'there_is_no_printer'.tr,
+              style: TextStyle(fontSize: 18, fontFamily: 'Roboto'),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              'to_add_printer_click_buy_button'.tr,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18, fontFamily: 'Roboto'),
+            ),
+            SizedBox(
+              height: 20,
+            ),
             InkWell(
-              onTap: (){},
+              onTap: () {},
               child: Container(
                 decoration: BoxDecoration(
                     color: DEFAULT_BLUE,
-                    borderRadius: BorderRadius.circular(10)
-                ),
+                    borderRadius: BorderRadius.circular(10)),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 60.0,vertical: 8),
-                  child: Text('buy_it'.tr,style: TextStyle(
-                      fontSize: 18, fontFamily: 'Roboto',color: Colors.white
-                  ),),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 60.0, vertical: 8),
+                  child: Text(
+                    'buy_it'.tr,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Roboto',
+                        color: Colors.white),
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 10,),
+            SizedBox(
+              height: 10,
+            ),
             InkWell(
-              onTap: (){
-                Get.to(
-                    AddPrinter(),
-                  arguments: shop
-                );
+              onTap: () {
+                Get.to(AddPrinter(), arguments: shop);
               },
               child: Container(
                 decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(.3),
-                  borderRadius: BorderRadius.circular(10)
-                ),
+                    color: Colors.grey.withOpacity(.3),
+                    borderRadius: BorderRadius.circular(10)),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 8),
-                  child: Text('add'.tr,style: TextStyle(
-                      fontSize: 18, fontFamily: 'Roboto',color: DEFAULT_BLUE
-                  ),),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40.0, vertical: 8),
+                  child: Text(
+                    'add'.tr,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Roboto',
+                        color: DEFAULT_BLUE),
+                  ),
                 ),
               ),
             ),
@@ -101,5 +122,4 @@ class _PrinterFrontState extends State<PrinterFront> {
       ),
     );
   }
-
 }

@@ -424,21 +424,43 @@ class ConfirmPaymentController extends GetxController {
     cred.value = result;
   }
 
-  Future<dynamic> addTransactionItems({
+  Future<dynamic> addTransactionItemsRequest({
     id,
-
-    //sellingPrice: sellingPrice,
-
     String uniqueID,
+    discount,
   }) async {
+    final SellController sc = Get.find();
+    sc.cart.forEach((ele) {
+      print("my addTransactionItemsRequest are ${ele.name}");
+      //  print("my add transaction ****** ${ele.")
+      addTransactionItems(
+          uniqueID: uniqueID,
+          productID: ele.id,
+          discount: discount,
+          productPrice: ele.sellingPrice,
+          quantity: ele.unit);
+    });
+  }
+
+  Future<dynamic> addTransactionItems(
+      {String uniqueID,
+      int productID,
+      discount,
+      productPrice,
+      quantity}) async {
     var uuid = Uuid();
+
+    String tUniqueId = shop.value.id.toString() +
+        uuid.v1().toString() +
+        DateTime.now().microsecondsSinceEpoch.toString();
+
     String uniqueId = shop.value.id.toString() +
         uuid.v1().toString() +
         DateTime.now().microsecondsSinceEpoch.toString();
-    print("my unqID is ++ $uniqueID");
+
     ApiService _apiService = ApiService();
     String url =
-        "/transaction_item/?shop_id=18&created_at=2021-12-12 12:12:12&updated_at=2021-12-12 12:12:12&price=999&discount=000&shop_product_id=20&quantity=6&status=PAID&name=abc&vat=0&unit_vat=0&unit_price=10&profit=100&unit_cost=0&unique_id=$uniqueId&version=0&transaction_unique_id=$uniqueID";
+        "/transaction_item/?shop_id=${shop.value.id}&created_at=${DateTime.now()}&updated_at=${DateTime.now()}&price=$productPrice&discount=$discount&shop_product_id=$productID&quantity=$quantity&status=PAID&name=abc&vat=0&unit_vat=0&unit_price=10&profit=100&unit_cost=0&unique_id=$uniqueId&version=0&transaction_unique_id=$uniqueID";
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
@@ -496,7 +518,9 @@ class ConfirmPaymentController extends GetxController {
     print("${response.code}");
     if (response.code == 200) {
       print("yo bro unqID is ++++++++++ $tUniqueId");
-      addTransactionItems(id: shop.value.id, uniqueID: tUniqueId);
+      addTransactionItemsRequest(
+          id: shop.value.id, uniqueID: tUniqueId, discount: totalDiscount);
+      // addTransactionItems(id: shop.value.id, uniqueID: tUniqueId);
       final response =
           await transactionRepository.addTransaction(transactionss);
       //final responseTrns = await transactionRepository.getAllTransaction();

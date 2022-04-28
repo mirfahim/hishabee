@@ -46,6 +46,6 @@ class SellBinding extends Bindings {
     Get.lazyPut<ILocalProductProvider>(() => LocalProductProvider());
     Get.lazyPut<IProductRepository>(
         () => ProductRepository(find(), find(), find()));
-    Get.lazyPut(() => SellController(find(), find(), find()));
+    Get.lazyPut(() => SellController(find(), find(), find(), find()));
   }
 }

@@ -1,0 +1,592 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindings/confirm_payment_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindings/sell_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/quick_sell_front.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/add_product_page.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/exchange_sell_page.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transaction_sell_page.dart';
+
+import '../../../../../../new_UI/constants.dart';
+
+class SellEditCartPage extends GetView<SellController> {
+  DateTime startDate = DateTime.now();
+  List cartList;
+
+  final Shop shop;
+  DateTime endDate;
+  int items = 0;
+  SellEditCartPage({this.cartList, this.shop});
+  _selectStartDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      helpText: "start_date".tr,
+      context: context,
+      initialDate: startDate,
+      // Refer step 1
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData.dark().copyWith(
+            colorScheme: ColorScheme.dark(
+              primary: DEFAULT_BLACK,
+              onPrimary: DEFAULT_BODY_BG_COLOR,
+              surface: Colors.green,
+              onSurface: DEFAULT_BLACK,
+            ),
+            dialogBackgroundColor: DEFAULT_BODY_BG_COLOR,
+          ),
+          child: child,
+        );
+      },
+    );
+    if (picked != null) {
+      // widgets.controller.selectedStartDate.value = picked;
+      startDate = picked;
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print("my cart length in  sell cart page ${controller.cart.length}");
+    var size = MediaQuery.of(context).size;
+    return Scaffold(
+      backgroundColor: DEFAULT_BODY_BG_COLOR,
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Get.back();
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
+        title: Text(
+          'cart'.tr,
+          style: TextStyle(
+            fontFamily: 'Roboto',
+          ),
+        ),
+        titleSpacing: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: InkWell(
+                onTap: () {},
+                child: SvgPicture.asset(
+                  'images/svg_image/help.svg',
+                  height: 32,
+                )),
+          )
+        ],
+        backgroundColor: DEFAULT_YELLOW_BG,
+      ),
+      body: SafeArea(
+        child: Container(
+            height: size.height - 62,
+            width: size.width,
+            child: Column(children: [
+              SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: Container(
+                    // height: size.height,
+                    child: Obx(() => ListView.builder(
+                        itemCount: controller.searchList.length,
+                        itemBuilder: (context, index) {
+                          print(
+                              "cart lenght are ++++++++++++++++++++++++ ${controller.searchList.length}");
+                          Product item = controller.searchList[index];
+                          return Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 0.0),
+                              child: Column(
+                                children: [
+                                  Container(
+                                      child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 10.0),
+                                          child: Container(
+                                            child: item.imageUrl != null
+                                                ? ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            40),
+                                                    child: CachedNetworkImage(
+                                                      height: 50,
+                                                      width: 50,
+                                                      imageUrl: item.imageUrl,
+                                                      placeholder: (context,
+                                                              url) =>
+                                                          CircularProgressIndicator(),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Icon(
+                                                        Icons.error,
+                                                        color: Colors.red,
+                                                      ),
+                                                      fit: BoxFit.fill,
+                                                    ),
+                                                  )
+                                                : Center(
+                                                    child: Image.asset(
+                                                        'images/hishabeeLogo.png',
+                                                        height: 50,
+                                                        width: 50),
+                                                  ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 0.0),
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 20.0),
+                                                child: Text(
+                                                  '${item.name}',
+                                                  textAlign: TextAlign.left,
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      fontFamily: 'Roboto',
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      controller
+                                                          .decreaseCartItem(
+                                                              index, item);
+                                                    },
+                                                    child: Icon(
+                                                      Icons.remove,
+                                                      color: Colors.black,
+                                                    ),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      side: BorderSide(
+                                                          width: 1.5,
+                                                          color: Color(
+                                                              0xFF707070)),
+                                                      shape: CircleBorder(),
+                                                      padding:
+                                                          EdgeInsets.all(3),
+                                                      primary: Colors.white,
+                                                      // <-- Button color
+                                                      onPrimary: Colors
+                                                          .red, // <-- Splash color
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    '${item.unit}',
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        fontFamily: 'Roboto'),
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: () {
+                                                      controller
+                                                          .increaseCartItem(
+                                                              index, item);
+                                                    },
+                                                    child: Icon(Icons.add,
+                                                        color: Colors.black),
+                                                    style: ElevatedButton
+                                                        .styleFrom(
+                                                      side: BorderSide(
+                                                          width: 1.5,
+                                                          color: Color(
+                                                              0xFF707070)),
+                                                      shape: CircleBorder(),
+                                                      padding:
+                                                          EdgeInsets.all(3),
+                                                      primary: Colors.white,
+                                                      // <-- Button color
+                                                      onPrimary: Colors
+                                                          .red, // <-- Splash color
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Spacer(),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20.0),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                width: 60,
+                                                child: Column(
+                                                  children: [
+                                                    // TextFormField(
+                                                    //   onChanged: (value) {
+                                                    //     value = item
+                                                    //         .sellingPrice
+                                                    //         .toString();
+                                                    //   },
+                                                    //   decoration:
+                                                    //       InputDecoration(
+                                                    //     hintText: item
+                                                    //         .sellingPrice
+                                                    //         .toString(),
+                                                    //   ),
+                                                    // ),
+                                                    Text(
+                                                      '৳ ${item.sellingPrice}',
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          fontFamily: 'Roboto'),
+                                                    ),
+                                                    Divider(
+                                                      thickness: 1.5,
+                                                      color: Color(0xFFC4C4C4),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+
+                                              InkWell(
+                                                onTap: () {
+                                                  controller
+                                                      .removeFromCart(item);
+                                                },
+                                                child: SvgPicture.asset(
+                                                  'images/svg_image/delete.svg',
+                                                  color: Color(0xFF707070),
+                                                ),
+                                              ),
+                                              // IconButton(
+                                              //   icon: Icon(Icons.delete,color: Colors.red,),
+                                              //   onPressed: () {
+                                              //     controller.removeFromCart(item);
+                                              //   },
+                                              // )
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  )),
+                                  Divider(
+                                    thickness: 1,
+                                    color: Color(0xFFC4C4C4).withOpacity(.35),
+                                    indent: 10,
+                                    endIndent: 10,
+                                  )
+                                ],
+                              ));
+                        }))),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 5),
+                child: Divider(
+                  thickness: 2,
+                  color: Colors.grey.withOpacity(.35),
+                  indent: 5,
+                  endIndent: 5,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'total'.tr,
+                      style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 18,
+                          // fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                    Obx(() => Text(
+                          '৳ ${controller.totalCartProductPrice.value.abs()}',
+                          style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ))
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              width: 1),
+                          borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Text(
+                            "discount(%)".tr,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Roboto',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: TextFormField(
+                                onChanged: (value) {
+                                  controller.discount1.value = double.parse(
+                                      value.isEmpty ? '0.0' : value);
+                                  controller.calculateTotalCartPrice();
+                                },
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  //labelText: " discount",
+                                  // hintText: " discount",
+                                  hintStyle: TextStyle(fontSize: 14.0),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              width: 1.5),
+                          borderRadius: BorderRadius.all(Radius.circular(6.0))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Text(
+                            "discount(৳)".tr,
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Roboto',
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: TextFormField(
+                                onChanged: (value) {
+                                  controller.discount2.value = double.parse(
+                                      value.isEmpty ? "0.0" : value);
+                                  controller.calculateTotalCartPrice();
+                                },
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                  // hintText: " discount",
+                                  hintStyle: TextStyle(fontSize: 14.0),
+                                  border: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(
+                thickness: 2,
+                color: Colors.grey.withOpacity(.35),
+                indent: 5,
+                endIndent: 5,
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'grand_total'.tr,
+                      style: TextStyle(
+                          fontFamily: 'Roboto',
+                          fontSize: 18,
+                          // fontWeight: FontWeight.bold,
+                          color: Colors.black),
+                    ),
+                    Obx(() => Text(
+                          '৳ ${controller.totalCartPrice.value.abs()}',
+                          style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
+                        ))
+                  ],
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: Container(
+                  height: 50,
+                  width: size.width,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Get.to(
+                        () => AddProductToCart(),
+                        arguments: {
+                          "shop": shop,
+                        },
+                        binding: SellBinding(),
+                      );
+                    },
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 65.0),
+                                child: Text(
+                                  'ADD PRODUCT',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black,
+                                      fontSize: 16),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 16,
+                          )
+                        ],
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: DEFAULT_YELLOW_BG,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: Container(
+                  height: 50,
+                  width: size.width,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Get.toNamed(SellPageRoutes.CONFIRM_PAYMENT_PAGE,
+                      //     arguments: {
+                      //       'shop':
+                      //       controller
+                      //           .shop
+                      //           .value,
+                      //       'cart':
+                      //       controller
+                      //           .cart,
+                      //       'totalPrice':
+                      //       controller
+                      //           .totalCartPrice
+                      //           .value,
+                      //     });
+                    },
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 65.0),
+                                child: Text(
+                                  'DONE',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.white,
+                                      fontSize: 16),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.white,
+                            size: 16,
+                          )
+                        ],
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: DEFAULT_BLUE,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ])),
+      ),
+    );
+  }
+}

@@ -18,7 +18,7 @@ class ExchangePage extends StatefulWidget {
   String uniqueID;
   List itemList;
   ExchangePage({this.uniqueID, this.itemList});
-//  final SellController sc = Get.find();
+
   @override
   State<ExchangePage> createState() => _ExchangePageState();
 }
@@ -27,6 +27,7 @@ class _ExchangePageState extends State<ExchangePage> {
   List<TransactionItem> _list = <TransactionItem>[];
   List<TransactionItem> _foundData = <TransactionItem>[];
   ExchangeController controller = Get.find();
+  SellController sellController;
   getData() {
     print("my unique id is ${widget.uniqueID}");
     controller
@@ -46,8 +47,15 @@ class _ExchangePageState extends State<ExchangePage> {
     return _foundData;
   }
 
+  void initState() {
+    super.initState();
+
+    sellController = Get.find();
+  }
+
   @override
   Widget build(BuildContext context) {
+    List list = getData();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
@@ -215,8 +223,8 @@ class _ExchangePageState extends State<ExchangePage> {
                                     removeTop: true,
                                     child: ListView.builder(
                                       itemCount:
-                                          //   sc.cart.l
-                                          widget.itemList.length,
+                                          2, //sellController.cart.length,
+                                      // widget.itemList.length,
                                       itemBuilder:
                                           (BuildContext context, int index) {
                                         TransactionItem item =

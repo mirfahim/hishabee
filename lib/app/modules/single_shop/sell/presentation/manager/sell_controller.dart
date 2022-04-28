@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/domain/repositories/i_file_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_request.dart';
 import 'package:uuid/uuid.dart';
@@ -59,6 +60,8 @@ class SellController extends GetxController {
   final amount = 0.0.obs;
   final profit = 0.obs;
   final sellType = 0.obs;
+  final image = Rxn<File>();
+  String imageString;
 
   ///
 
@@ -75,12 +78,12 @@ class SellController extends GetxController {
   final cashTextEditingController = TextEditingController().obs;
 
   TextEditingController searchTextEditingController;
-
+  final IFileRepository fileRepository;
   final IProductRepository _productRepository;
   final ITransactionRepository transactionRepository;
   final IShopRepository _shopRepository;
   SellController(this._productRepository, this.transactionRepository,
-      this._shopRepository);
+      this._shopRepository, this.fileRepository);
 
   final animationX = 0.0.obs;
   final animationY = 0.0.obs;
@@ -297,6 +300,18 @@ class SellController extends GetxController {
   }
 
   quickSell() async {
+    String imageSource;
+    if (image.value != null) {
+      imageSource = await fileRepository.uploadFile(
+          file: image.value, type: "QUICK_SELL");
+      String imageUrl = imageSource
+          .replaceAll("\\", "")
+          .replaceAll('"', "")
+          .replaceAll("{", "")
+          .replaceAll("}", "")
+          .replaceAllMapped('url:', (match) => "");
+      imageString = imageUrl;
+    }
     formKey.currentState.save();
     var uuid = Uuid();
     String tUniqueId = shop.value.id.toString() +
@@ -320,6 +335,7 @@ class SellController extends GetxController {
       transactionUniqueId: fSellUniqueId,
       updatedAt: DateTime.now().toString(),
       profit: profit.value,
+      image: imageString,
     );
     AddTransactionRequest transaction = AddTransactionRequest(
       shopId: shop.value.id,
@@ -347,7 +363,9 @@ class SellController extends GetxController {
     print("${response.code}");
     if (response.code == 200) {
       final response = await transactionRepository.addTransaction(transaction);
+      print("my transaction response is +++++++ ${response.message}");
       if (response.code == 200) {
+        print("my transaction response is +++++++ ${response.transaction}");
         formKey.currentState.reset();
         clearCart();
         Get.find<ShopFeaturesController>().initData();

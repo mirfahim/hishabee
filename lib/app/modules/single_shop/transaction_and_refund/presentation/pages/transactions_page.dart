@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:group_button/group_button.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/new_transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
@@ -17,6 +18,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class TransactionPage extends GetView<TransactionController> {
+  final Shop shop;
+  TransactionPage({this.shop});
   @override
   Widget build(BuildContext context) {
     return ShowCaseWidget(
@@ -766,6 +769,9 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                       transaction: transaction,
                                       uniqueID: transaction.uniqueID,
                                     ),
+                                arguments: {
+                                  "shop": widget.controller.shop.value,
+                                },
                                 // );
                                 binding: TransactionsBinding());
                           },
@@ -811,7 +817,18 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                                 color: Color(0xFF707070)),
                                           ),
                                           transaction.customerName == null
-                                              ? ''
+                                              ? Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(3.0),
+                                                  child: Text(
+                                                    'No data',
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontFamily: 'Roboto',
+                                                        color:
+                                                            Color(0xFF232323)),
+                                                  ),
+                                                )
                                               : Padding(
                                                   padding:
                                                       const EdgeInsets.all(3.0),

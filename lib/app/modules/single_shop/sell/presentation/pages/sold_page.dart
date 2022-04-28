@@ -12,6 +12,7 @@ import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/m
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/customer_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/widgets/printer_screen.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/widgets/sell_receipt.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_response.dart';
@@ -779,17 +780,18 @@ class _SoldPageState extends State<SoldPage> {
                                                   children: [
                                                     IconButton(
                                                         onPressed: () {
-                                                          //
                                                           Get.to(() =>
-                                                              SellReceiptPage(
-                                                                  widget.shop,
-                                                                  widget.shop
-                                                                      .name,
-                                                                  widget
-                                                                      .totalPrice,
-                                                                  widget
-                                                                      .discount,
-                                                                  widget.vat));
+                                                              MyPrinterApp());
+                                                          // Get.to(() =>
+                                                          //     SellReceiptPage(
+                                                          //         widget.shop,
+                                                          //         widget.shop
+                                                          //             .name,
+                                                          //         widget
+                                                          //             .totalPrice,
+                                                          //         widget
+                                                          //             .discount,
+                                                          //         widget.vat));
                                                         },
                                                         icon: Icon(Icons
                                                             .arrow_circle_down)),

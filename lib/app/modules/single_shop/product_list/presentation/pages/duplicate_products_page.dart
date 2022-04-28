@@ -18,6 +18,28 @@ class DuplicateProductPage extends GetView<DuplicateProductController> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        titleSpacing: 0,
+        title: Text(
+          'duplicate_product'.tr,
+          style: TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: DEFAULT_BLUE_DARK,
+          ),
+        ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            size: 25,
+            color: DEFAULT_BLUE_DARK,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       backgroundColor: DEFAULT_BODY_BG_COLOR,
       body: SafeArea(
         child: Obx(
@@ -29,69 +51,11 @@ class DuplicateProductPage extends GetView<DuplicateProductController> {
               child: SingleChildScrollView(
                 child: Stack(
                   children: [
-                    Container(
-                      height: size.height * 0.2,
-                      width: size.width,
-                      child: Image.asset(
-                        "images/topBg.png",
-                        fit: BoxFit.fill,
-                      ),
-                    ),
                     Column(
                       children: [
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                top: 20,
-                                right: 15,
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  IconButton(
-                                    icon: Icon(
-                                      Icons.arrow_back,
-                                      size: 25,
-                                    ),
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                  Text(
-                                    'duplicate_product'.tr,
-                                    style: TextStyle(
-                                      fontFamily: 'Rubik',
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: DEFAULT_BLACK,
-                                    ),
-                                  ),
-                                  // Spacer(),
-                                  // Container(
-                                  //   height: 35,
-                                  //   width: 35,
-                                  //   decoration: BoxDecoration(
-                                  //       borderRadius: BorderRadius.circular(4),
-                                  //       color: Colors.red),
-                                  //   child: IconButton(
-                                  //     onPressed: () async {
-                                  //       //need implement
-                                  //       await controller.deleteProducts(
-                                  //           controller.product.value.id);
-                                  //     },
-                                  //     icon: Center(
-                                  //         child: Icon(
-                                  //       Icons.delete_forever,
-                                  //       color: Colors.white,
-                                  //       size: 15,
-                                  //     )),
-                                  //   ),
-                                  // )
-                                ],
-                              ),
-                            ),
                             Padding(
                               padding:
                                   const EdgeInsets.only(left: 15.0, top: 10),

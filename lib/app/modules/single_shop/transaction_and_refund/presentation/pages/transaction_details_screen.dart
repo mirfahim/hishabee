@@ -4,13 +4,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindings/sell_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/sell_cart_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_response.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/new_transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/manager/transaction_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/cart_edit_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/exchange_page.dart';
+//import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentavar ages/exchange_sell_page.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transaction_sell_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/widgets/transaction_receipt.dart';
 import 'package:intl/intl.dart';
 import 'package:number_display/number_display.dart';
@@ -36,9 +43,11 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
   //   return res;
   // }
   TransactionController controller = Get.find();
+  SellController sc = Get.find();
   List<TransactionItem> _list = <TransactionItem>[];
   List<TransactionItem> _foundData = <TransactionItem>[];
   List itemList;
+  var data;
   // List<TransactionItem> getUniqueItems() {
   getData() {
     print("my unique id is ${widget.uniqueID}");
@@ -51,6 +60,7 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
           _foundData = _list;
           print("my list is +++++++++$_foundData");
           print(_foundData.length);
+
           // checkingDone = true;
         });
       }
@@ -60,6 +70,16 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
     return _foundData;
   }
 
+// Future<dynamic>getItems() async {
+//    Product allProducts = sc.getAllProducts();
+//    allProducts.forEach((element) {
+//      element.
+//    });
+//    _foundData.forEach((element) {
+//      data = element;
+//
+//    });
+//  }
   @override
   void initState() {
     // TODO: implement initState
@@ -70,6 +90,7 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     itemList = getData();
+
     final display = createDisplay();
     return Scaffold(
       backgroundColor: DEFAULT_BODY_BG_COLOR,
@@ -97,29 +118,13 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
         child: Stack(
           children: [
             Padding(
-              padding: const EdgeInsets.only(
-                top: 10.0,
-                left: 15,
-                right: 15,
-              ),
-              child: Text(
-                "${widget.shop.name}",
-                style: TextStyle(
-                  fontFamily: 'Rubik',
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: DEFAULT_BLACK,
-                ),
-              ),
-            ),
-            Padding(
               padding: const EdgeInsets.only(top: 100.0, left: 10, right: 10),
               child: Column(
                 children: [
                   Container(
                     height: size.height < 570
                         ? size.height * 0.5
-                        : size.height * 0.62,
+                        : size.height * 0.4,
                     child: MediaQuery.removePadding(
                       context: context,
                       removeTop: true,
@@ -127,6 +132,9 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
                         itemCount: itemList.length,
                         itemBuilder: (BuildContext context, int index) {
                           TransactionItem item = itemList[index];
+                          // Product itemProduct = itemList[index];
+                          //   data = itemProduct;
+
                           final display = createDisplay();
                           return Container(
                             width: size.width,
@@ -281,7 +289,7 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
                                         ),
                                       ),
                                     ),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
@@ -526,6 +534,7 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
                               padding: const EdgeInsets.only(right: 10.0),
                               child: InkWell(
                                 onTap: () {
+                                  sc.addToCart(data);
                                   Get.to(() => TransactionReceiptPage(
                                         shop: widget.shop,
                                         transaction: widget.transaction,
@@ -562,9 +571,16 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
                       ),
                       InkWell(
                         onTap: () {
+                          print("all cart ${data}");
+                          //   sc.addToCart(data);
+                          // Get.to(
+                          //   () => SellEditCartPage(),
+                          // );
+                          // sc.searchList = itemList;
                           Get.to(
-                              () => ExchangePage(
-                                    itemList: itemList,
+                              () => SellEditCartPage(
+                                    shop: widget.shop,
+                                    cartList: itemList,
                                   ),
                               arguments: {
                                 "transaction": widget.transaction,
@@ -591,7 +607,7 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
                             ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

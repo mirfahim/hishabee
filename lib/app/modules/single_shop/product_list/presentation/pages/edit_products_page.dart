@@ -76,6 +76,7 @@ class _AddProductsPageState extends State<EditProductsPage> {
 
   final AddProductController controller = Get.find();
   final ProductListController _productListController = Get.find();
+  final ProductDetailsController _productController = Get.find();
   Category selectedProductCategory;
   SubCategory selectedSubCat;
   String _selectedUnit;
@@ -405,6 +406,9 @@ class _AddProductsPageState extends State<EditProductsPage> {
                                                 padding: const EdgeInsets.only(
                                                     left: 15.0),
                                                 child: TextFormField(
+                                                  initialValue:
+                                                      _productController
+                                                          .product.value.name,
                                                   validator: (value) {
                                                     if (value.isEmpty) {
                                                       return 'Please enter product name';
@@ -472,6 +476,7 @@ class _AddProductsPageState extends State<EditProductsPage> {
                                                                     .only(
                                                                 left: 15.0),
                                                         child: TextFormField(
+                                                          initialValue: _productController.product.value.sellingPrice.toString(),
                                                           cursorColor:
                                                               DEFAULT_BLACK,
                                                           validator: (value) {
@@ -570,6 +575,7 @@ class _AddProductsPageState extends State<EditProductsPage> {
                                                           //   }
                                                           //   return null;
                                                           // },
+                                                            initialValue: _productController.product.value.stock.toString(),
                                                           onChanged: (val) {
                                                             if (val != "") {
                                                               stockQuantity =
@@ -751,8 +757,10 @@ class _AddProductsPageState extends State<EditProductsPage> {
                                                 padding: const EdgeInsets.only(
                                                     left: 15.0),
                                                 child: TextFormField(
+                                                  initialValue: _productController.product.value.costPrice.toString(),
                                                   cursorColor: DEFAULT_BLACK,
                                                   validator: (value) {
+
                                                     if (value.isEmpty) {
                                                       return 'Please enter product price';
                                                     }
@@ -4109,7 +4117,7 @@ class _AddProductsPageState extends State<EditProductsPage> {
 
   int versionIncrement = 1;
   // int version = 1;
-  final ProductDetailsController _productController = Get.find();
+  // final ProductDetailsController _productController = Get.find();
   increment() {
     setState(() {
       versionIncrement = _productController.product.value.version++;
@@ -4124,12 +4132,12 @@ class _AddProductsPageState extends State<EditProductsPage> {
     //   _showMaterialDialog("Please Select Category and Sub Category");
     // } else {
     // createUniqueID();
-    increment();
+    //  increment();
     String atData = "{";
     for (Attribute a in attributeList) {
       atData = atData + " \"${a.name} \": \"${a.value}\", ";
     }
-    _productListController.getAllProduct();
+    // _productListController.getAllProduct();
     atData = atData + "}";
     attributeMap = atData;
     sendProductInfo();
@@ -4151,7 +4159,7 @@ class _AddProductsPageState extends State<EditProductsPage> {
     //   _showMaterialDialog("Please Select Category and Sub Category");
     // }
     // else {
-
+    print(" my product version is ${_productController.product.value.version}");
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       setState(() {
@@ -4194,7 +4202,7 @@ class _AddProductsPageState extends State<EditProductsPage> {
           uniqueID: _productController.product.value.uniqueID,
           gallary: imageList,
           subUnit: unitList,
-          version: _productController.product.value.version,
+          version: _productController.product.value.version + 1,
         );
         if (!isAdvanced) {
           setState(() {
