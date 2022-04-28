@@ -33,8 +33,11 @@ class _DueFrontState extends State<DueFront> {
   void initState() {
     _dueController.getAllDue(shopId: shop.id).then((value){
       if(value != null){
-        // _dueController.dueList.value = getAllDueResponseModelFromJson(value);
+        _dueController.dueList.value = getAllDueResponseModelFromJson(value['data']);
         _dueController.filterList.value = getAllDueResponseModelFromJson(value['data']);
+        // for(int j = 0;j<_dueController.filterList.length; j++){
+        //
+        // }
         for(int i = 0; i<_dueController.filterList.length; i++){
           if(_dueController.filterList[i].dueAmount < 0){
             _dueController.payDue.value = _dueController.filterList
@@ -46,17 +49,16 @@ class _DueFrontState extends State<DueFront> {
                 .fold(0, (previousValue, element) => previousValue + element);
           }
 
-          if('${_dueController.filterList[i].contactType}' == 'ContactType.CUSTOMER' && _dueController.filterList[i].version > 0){
+          if('${_dueController.filterList[i].contactType}' == 'ContactType.CUSTOMER' || '${_dueController.filterList[i].contactType}' == 'CUSTOMER' && _dueController.filterList[i].version >= 0){
             _dueController.customerCount.value++;
-          }else if('${_dueController.filterList[i].contactType}' == 'ContactType.SELLER' && _dueController.filterList[i].version > 0){
+          }else if('${_dueController.filterList[i].contactType}' == 'ContactType.SUPPLIER' || '${_dueController.filterList[i].contactType}' == 'SUPPLIER' && _dueController.filterList[i].version >= 0){
             _dueController.supplierCount.value++;
-          }else if('${_dueController.filterList[i].contactType}' == 'ContactType.EMPLOYEE' && _dueController.filterList[i].version > 0){
+          }else if('${_dueController.filterList[i].contactType}' == 'ContactType.EMPLOYEE' || '${_dueController.filterList[i].contactType}' == 'EMPLOYEE' && _dueController.filterList[i].version >= 0){
             _dueController.employeeCount.value++;
           }
         }
       }
     });
-    print('due filterList ${_dueController.filterList}');
     super.initState();
   }
 
@@ -123,185 +125,163 @@ class _DueFrontState extends State<DueFront> {
         ),
         backgroundColor: Colors.amber,
       ),
-      body: SingleChildScrollView(
-        child: SafeArea(
-          child: Container(
-            height: height,
-            color: DEFAULT_BODY_BG_COLOR,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 10, top: 5),
-              child: Column(
-                children: [
-                  Container(
-                    // height: height - 500,
-                    width: width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: DEFAULT_BLUE,
-                    ),
-                    child: Column(
-                      // mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(height: 10,),
-                        Text(
-                          'total_due',
-                          style: TextStyle(color: Colors.amber, fontSize: 14),
-                        ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     IconButton(
-                        //       icon: Icon(
-                        //         Icons.arrow_back_ios,
-                        //         color: Colors.white,
-                        //       ),
-                        //       onPressed: () {},
-                        //     ),
-                        //     Text('১৯ অক্টবার, ২০২১'),
-                        //     IconButton(
-                        //       icon: Icon(
-                        //         Icons.arrow_forward_ios,
-                        //         color: Colors.white,
-                        //       ),
-                        //       onPressed: () {},
-                        //     ),
-                        //   ],
-                        // ),
-                        SizedBox(height: 10,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Container(
-                              height: 60,
-                              width: width / 2.5,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFC4C4C4).withOpacity(.35),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
-                                  children: [
-                                    Obx(()=>Text('${_dueController.payDue.value}', style: TextStyle(color: Colors.white),),),
-                                    Text('lend'.tr, style: TextStyle(color: Colors.white),)
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              height: 60,
-                              width: width / 2.5,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFC4C4C4).withOpacity(.35),
-                                borderRadius: BorderRadius.circular(6),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
-                                  children: [
-                                    Obx(()=>Text('${_dueController.takeDue.value}', style: TextStyle(color: Colors.white),),),
-
-                                    Text('borrowed'.tr, style: TextStyle(color: Colors.white),)
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 10,),
-                        GestureDetector(
-                          onTap: (){
-                            Get.to(DueHistory(), arguments: shop);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.history, color: Colors.white,),
-                                Text('due_history'.tr, style: TextStyle(
-                                    color: Colors.white
-                                ),)
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+      body: SafeArea(
+        child: Container(
+          height: height,
+          color: DEFAULT_BODY_BG_COLOR,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0, right: 10, top: 5),
+            child: Column(
+              children: [
+                Container(
+                  // height: height - 500,
+                  width: width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: DEFAULT_BLUE,
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
+                  child: Column(
+                    // mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        // flex: 9,
-                        child: TextFormField(
-                          cursorColor: Colors.black,
-                          keyboardType: TextInputType.number,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                              RegExp('[a-zA-Z0-9]'),
-                            ),
-                          ],
-                          decoration: InputDecoration(
-                            suffixIcon: Icon(Icons.search),
-                            contentPadding: EdgeInsets.symmetric(horizontal: 8),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(6)),
-                            counterText: "",
-                            hintText: 'নাম বা মোবাইল নম্বর দিয়ে অনুসন্ধান করুন',
-                            hintStyle: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black26,
-                            ),
-                          ),
-                        ),
+                      SizedBox(height: 10,),
+                      Text(
+                        'total_due'.tr,
+                        style: TextStyle(color: Colors.amber, fontSize: 14),
                       ),
-                      // Expanded(
-                      //   child: IconButton(
-                      //     onPressed: () {},
-                      //     icon: Icon(Icons.menu),
-                      //   ),
-                      // )
-                    ],
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Obx(()=>
-                          Text(
-                            'কাস্টমার(${_dueController.customerCount.value})'
-                                '/সাপ্লাইয়ার(${_dueController.supplierCount})/'
-                                ' কর্মচারী(${_dueController.employeeCount})',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                      ),
-
+                      SizedBox(height: 10,),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text(
-                            'পাবো',
-                            style: TextStyle(color: Colors.red),
+                          Container(
+                            height: 60,
+                            width: width / 2.5,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                children: [
+                                  Obx(()=>Text('${_dueController.payDue.value}', style: TextStyle(color: Colors.white),),),
+                                  Text('lend'.tr, style: TextStyle(color: Colors.white),)
+                                ],
+                              ),
+                            ),
                           ),
-                          Text(
-                            '/দিবো',
-                            style: TextStyle(
-                              color: Colors.green,
+                          Container(
+                            height: 60,
+                            width: width / 2.5,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFC4C4C4).withOpacity(.35),
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                children: [
+                                  Obx(()=>Text('${_dueController.takeDue.value}', style: TextStyle(color: Colors.white),),),
+
+                                  Text('borrowed'.tr, style: TextStyle(color: Colors.white),)
+                                ],
+                              ),
                             ),
                           ),
                         ],
+                      ),
+                      SizedBox(height: 10,),
+                      GestureDetector(
+                        onTap: (){
+                          Get.to(DueHistory(), arguments: shop);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 10.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.history, color: Colors.white,),
+                              Text('due_history'.tr, style: TextStyle(
+                                  color: Colors.white
+                              ),)
+                            ],
+                          ),
+                        ),
                       )
                     ],
                   ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Obx(()=> Expanded(
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      // flex: 9,
+                      child: TextFormField(
+                        onChanged: (value) => _runFilterName(value),
+                        cursorColor: Colors.black,
+                        decoration: InputDecoration(
+                          suffixIcon: Icon(Icons.search),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(6)),
+                          counterText: "",
+                          hintText: 'নাম বা মোবাইল নম্বর দিয়ে অনুসন্ধান করুন',
+                          hintStyle: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black26,
+                          ),
+                        ),
+                      ),
+                    ),
+                    // Expanded(
+                    //   child: IconButton(
+                    //     onPressed: () {},
+                    //     icon: Icon(Icons.menu),
+                    //   ),
+                    // )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Obx(()=>
+                        Text(
+                          'কাস্টমার(${_dueController.customerCount.value})'
+                              '/সাপ্লাইয়ার(${_dueController.supplierCount})/'
+                              ' কর্মচারী(${_dueController.employeeCount})',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                    ),
+
+                    Row(
+                      children: [
+                        Text(
+                          'পাবো',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        Text(
+                          '/দিবো',
+                          style: TextStyle(
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Obx(()=> Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 60.0),
                     child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      physics: AlwaysScrollableScrollPhysics(),
                       itemCount: _dueController.filterList.length,
                         itemBuilder: (context, index){
                         // if('${_dueController.filterList[index].contactType}' == 'ContactType.CUSTOMER'){
@@ -320,6 +300,11 @@ class _DueFrontState extends State<DueFront> {
                                   mobileNumber: _dueController.filterList[index].contactMobile,
                                   dueTotalAmount: _dueController.filterList[index].dueAmount,
                                   uniqueId: _dueController.filterList[index].uniqueId,
+                                  dueUniqueId: _dueController.filterList[index].uniqueId,
+                                  contactType: _dueController.filterList[index].contactType,
+                                  createdAt: _dueController.filterList[index].createdAt,
+                                  updatedAt: _dueController.filterList[index].updatedAt,
+                                  version: _dueController.filterList[index].version,
                                 ),
                                 arguments: shop);
                           },
@@ -345,6 +330,7 @@ class _DueFrontState extends State<DueFront> {
                                   ],
                                 ),
                                 trailing: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
                                       '${_dueController.filterList[index].dueAmount}',
@@ -360,66 +346,85 @@ class _DueFrontState extends State<DueFront> {
                         );
                         }
                     ),
-                  )),
-                  // SizedBox(
-                  //   height: 10,
-                  // ),
-                  // Container(
-                  //   width: width,
-                  //   height: height / 7,
-                  //   decoration: BoxDecoration(
-                  //       color: Colors.grey.withOpacity(.35),
-                  //       borderRadius: BorderRadius.circular(10)),
-                  //   child: ListTile(
-                  //     leading: Image.asset('images/sharukh2.jpeg'),
-                  //     title: Padding(
-                  //       padding: const EdgeInsets.only(top: 8.0),
-                  //       child: Text('এস এম আলিউজ্জামান'),
-                  //     ),
-                  //     subtitle: Column(
-                  //       mainAxisAlignment: MainAxisAlignment.start,
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         Text('০১৭৮৮৬৫১৭৭৮'),
-                  //         Text('২৭ নভেম্বর, ২০২১ পর্যন্ত')
-                  //       ],
-                  //     ),
-                  //     trailing: Column(
-                  //       children: [
-                  //         Text(
-                  //           '১০৯৯টাকা',
-                  //           style: TextStyle(color: Colors.green),
-                  //         ),
-                  //         Text('কাস্টমার'),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                  // ElevatedButton(
-                  //   onPressed: () {
-                  //     // Get.to(DueNewTextField());
-                  //   },
-                  //   child: Center(
-                  //     child: Text(
-                  //       'Enter',
-                  //       textAlign: TextAlign.center,
-                  //       style: TextStyle(color: Colors.white, fontSize: 12),
-                  //     ),
-                  //   ),
-                  //   style: ElevatedButton.styleFrom(
-                  //     primary: DEFAULT_BLUE,
-                  //     fixedSize: Size(width, 50),
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(10),
-                  //     ),
-                  //   ),
-                  // )
-                ],
-              ),
+                  ),
+                )),
+                // SizedBox(
+                //   height: 10,
+                // ),
+                // Container(
+                //   width: width,
+                //   height: height / 7,
+                //   decoration: BoxDecoration(
+                //       color: Colors.grey.withOpacity(.35),
+                //       borderRadius: BorderRadius.circular(10)),
+                //   child: ListTile(
+                //     leading: Image.asset('images/sharukh2.jpeg'),
+                //     title: Padding(
+                //       padding: const EdgeInsets.only(top: 8.0),
+                //       child: Text('এস এম আলিউজ্জামান'),
+                //     ),
+                //     subtitle: Column(
+                //       mainAxisAlignment: MainAxisAlignment.start,
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       children: [
+                //         Text('০১৭৮৮৬৫১৭৭৮'),
+                //         Text('২৭ নভেম্বর, ২০২১ পর্যন্ত')
+                //       ],
+                //     ),
+                //     trailing: Column(
+                //       children: [
+                //         Text(
+                //           '১০৯৯টাকা',
+                //           style: TextStyle(color: Colors.green),
+                //         ),
+                //         Text('কাস্টমার'),
+                //       ],
+                //     ),
+                //   ),
+                // ),
+                // ElevatedButton(
+                //   onPressed: () {
+                //     // Get.to(DueNewTextField());
+                //   },
+                //   child: Center(
+                //     child: Text(
+                //       'Enter',
+                //       textAlign: TextAlign.center,
+                //       style: TextStyle(color: Colors.white, fontSize: 12),
+                //     ),
+                //   ),
+                //   style: ElevatedButton.styleFrom(
+                //     primary: DEFAULT_BLUE,
+                //     fixedSize: Size(width, 50),
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(10),
+                //     ),
+                //   ),
+                // )
+              ],
             ),
           ),
         ),
       ),
     );
+  }
+  void _runFilterName(String enteredKeyword) {
+    List<Due> results = [];
+    if (enteredKeyword.isEmpty) {
+      results = _dueController.dueList.value;
+    } else {
+      results = RegExp('[a-zA-Z]').allMatches(enteredKeyword) != null? _dueController.dueList.value
+          .where((item) =>
+          item.contactName.toLowerCase().contains(enteredKeyword.toLowerCase()))
+          .toList() : _dueController.dueList.value
+          .where((item) =>
+          item.contactMobile.contains(enteredKeyword.toLowerCase()))
+          .toList();
+    }
+
+    // Refresh the UI
+    setState(() {
+      _dueController.filterList.value = results;
+    });
   }
 }

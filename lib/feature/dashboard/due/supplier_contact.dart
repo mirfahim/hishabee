@@ -3,40 +3,40 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/_binding/contact_binding.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/_navigation/contact_pages.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/_navigation/contact_routes.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/contact_type_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/customer_model.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/presentation/pages/add_contact_page.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/supplier_model.dart';
+import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
-import 'package:hishabee_business_manager_fl/feature/dashboard/sms/addCustomer.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/sms/addSupplier.dart';
 import 'package:hishabee_business_manager_fl/models/sms/sms_package_model.dart';
 import 'package:hishabee_business_manager_fl/service/api_service.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
-class CustomerContact extends StatefulWidget {
+
+
+class SupplierContact extends StatefulWidget {
   @override
-  State<CustomerContact> createState() =>
-      _CustomerContactState();
+  State<SupplierContact> createState() =>
+      _SupplierContactState();
 }
 
-class _CustomerContactState
-    extends State<CustomerContact> {
-  List<Customer> customerContact = [];
-  List<Customer> _foundData = [];
+class _SupplierContactState
+    extends State<SupplierContact> {
+  List<Supplier> supplyerContact = [];
+  List<Supplier> _foundData = [];
   var storageSms = GetStorage('sms');
   ApiService _apiService = ApiService();
   Shop shop = Get.arguments;
+  DueController _dueController = Get.put(DueController());
   @override
   void initState() {
-    String url = '/customer/all?shop_id=${shop.id}';
+    String url = '/supplier/all?shop_id=${shop.id}';
     var list = _apiService.makeApiRequest(
         method: apiMethods.get, url: url, body: null, headers: null);
     list.then((value) {
       setState(() {
-        customerContact = getCustomerContactFromModel(value);
-        _foundData = getCustomerContactFromModel(value);
+        supplyerContact = getSuplierContactFromModel(value);
+        _foundData = getSuplierContactFromModel(value);
       });
     });
     super.initState();
@@ -59,11 +59,12 @@ class _CustomerContactState
     padding: EdgeInsets.all(10),
     child: Container(
       height: 500,
+      width: width,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            child: Text('Customer Contact List'),
+            child: Text('Supplier Contact List'),
           ),
           SizedBox(
             height: 10,
@@ -91,10 +92,14 @@ class _CustomerContactState
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: GestureDetector(
                     onTap: () {
+
+                      _dueController.addNewDueName.value.text = _foundData[index].name;
+                      _dueController.addNewDueMobile.value.text = _foundData[index].mobile;
+                      Get.back();
                       // _smsController.selectedMobileNumber
-                      //     .add('\"${_foundData[index].mobile}\"');
-                      // print(_smsController.selectedMobileNumber.length);
-                      // print(_smsController.selectedMobileNumber);
+                      //     .add(_foundData[index].mobile);
+                      // print(
+                      //     "my selected number is ${_smsController.selectedMobileNumber}");
                     },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -121,11 +126,9 @@ class _CustomerContactState
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      // Get.back();
-                      Navigator.pop(context);
-                      // Future.delayed(Duration.zero, () async {
-                      //   Navigator.pop(context);
-                      // });
+                      Future.delayed(Duration.zero, () async {
+                        Navigator.pop(context);
+                      });
                     },
                     style: ElevatedButton.styleFrom(primary: Colors.red),
                     child: Text(
@@ -134,17 +137,9 @@ class _CustomerContactState
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Get.to(CustomerAdd(shopId: '${storageSms.read("shop_id")}',));
-                      // Customer customer = new Customer();
-                      // Get.toNamed(ContactRoutes.ADD_CONTACT,
-                      //     arguments: {
-                      //       'shop': Shop,
-                      //       "type": ContactType.CUSTOMER,
-                      //       "contact": customer,
-                      //     }
-                      // );
+                      Get.to(SupplierAdd(shopId: '${storageSms.read("shop_id")}',));
                     },
-                    child: Text('Add Customer'),
+                    child: Text('Add Supplier'),
                   ),
                 ],
               ),
@@ -154,13 +149,12 @@ class _CustomerContactState
       ),
     ),
   );
-
   void _runFilter(String enteredKeyword) {
-    List<Customer> results = [];
+    List<Supplier> results = [];
     if (enteredKeyword.isEmpty) {
-      results = customerContact;
+      results = supplyerContact;
     } else {
-      results = customerContact
+      results = supplyerContact
           .where((item) =>
           item.name.toLowerCase().contains(enteredKeyword.toLowerCase()))
           .toList();

@@ -25,6 +25,7 @@ class _EmployeeContactState
   var storageSms = GetStorage('sms');
   ApiService _apiService = ApiService();
   Shop shop = Get.arguments;
+  DueController _dueController = Get.put(DueController());
   @override
   void initState() {
     String url = '/employee/all?shop_id=${shop.id}';
@@ -90,7 +91,9 @@ class _EmployeeContactState
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: GestureDetector(
                     onTap: () {
-
+                      _dueController.addNewDueName.value.text = _foundData[index].name;
+                      _dueController.addNewDueMobile.value.text = _foundData[index].mobile;
+                      Get.back();
                       // _smsController.selectedMobileNumber
                       //     .add(_foundData[index].mobile);
                       // print(_smsController.selectedMobileNumber);
