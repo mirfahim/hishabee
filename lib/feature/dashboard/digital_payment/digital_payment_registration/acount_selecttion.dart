@@ -51,15 +51,16 @@ class _AccountSelectionState extends State<AccountSelection> {
           icon: Icon(Icons.arrow_back),
         ),
         title: Text('select_account'.tr,),
+        titleSpacing: 0,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 10),
+            padding: const EdgeInsets.only(left: 20.0, right: 20, top: 10, bottom: 80),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('personal_asset'.tr, style: TextStyle(
+                Text('type_of_business'.tr, style: TextStyle(
                   fontSize: 16, fontWeight: FontWeight.w600,
                   color: Color(0xFF232323)
                 ),),
@@ -75,7 +76,7 @@ class _AccountSelectionState extends State<AccountSelection> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text('more_information_regarding_digital_payment'.tr, style: TextStyle(
-                            fontSize: 14, color: Color(0xFF141414)
+                            fontSize: 14, color: Colors.white
                         ),),
                         Radio(
                           activeColor: Colors.white,
@@ -267,107 +268,107 @@ class _AccountSelectionState extends State<AccountSelection> {
                 ),
 
                 SizedBox(height: 20,),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xFFC4C4C4).withOpacity(.35),
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('how_many_educated_person_you_have'.tr, style: TextStyle(
-                          fontSize: 14, color: Color(0xFF232323), fontWeight: FontWeight.w600
-                        ),),
-                        SizedBox(height: 10,),
-                        Text('combined_literate_number'.tr, style: TextStyle(
-                            fontSize: 14, color: Color(0xFF232323)
-                        ),),
-                        Padding(
-                          padding:
-                          const EdgeInsets
-                              .symmetric(
-                              vertical: 8.0),
-                          child: Container(
-                            height: 48,
-                            child: TextFormField(
-                              inputFormatters: [
-                                FilteringTextInputFormatter
-                                    .digitsOnly
-                              ],
-                              keyboardType:
-                              TextInputType
-                                  .number,
-                              decoration:
-                              InputDecoration(
-                                suffixIcon:
-                                PopupMenuButton(
-                                  icon: Icon(
-                                    Icons
-                                        .arrow_drop_down,
-                                    color: Color(
-                                        0xFF707070),
-                                  ),
-                                  itemBuilder: (context) =>
-                                      _getAllUnit
-                                          .map((e) =>
-                                          PopupMenuItem(
-                                            child: Text(e.name),
-                                            value: e.name,
-                                          ))
-                                          .toList(),
-                                  onSelected:
-                                      (value) {
-                                    setState(() {
-                                      _selectedUnit =
-                                          value;
-                                      print(
-                                          "my selected unit is $value");
-                                    });
-                                  },
-                                ),
-                                filled: true,
-                                fillColor:
-                                Colors.white,
-                                border: new OutlineInputBorder(
-                                    borderSide:
-                                    new BorderSide(
-                                        color:
-                                        Color(0xFFC4C4C4))),
-                                focusedBorder: new OutlineInputBorder(
-                                    borderRadius:
-                                    BorderRadius
-                                        .circular(
-                                        10),
-                                    borderSide:
-                                    new BorderSide(
-                                        color:
-                                        Color(0xFFC4C4C4))),
-                                enabledBorder: new OutlineInputBorder(
-                                    borderRadius:
-                                    BorderRadius
-                                        .circular(
-                                        10),
-                                    borderSide:
-                                    new BorderSide(
-                                        color:
-                                        Color(0xFFC4C4C4))),
-                                hintText: 'number'.tr,
-                                hintStyle: TextStyle(
-                                    fontFamily:
-                                    'Roboto',
-                                    color: Colors
-                                        .blueGrey,
-                                    fontSize: 12),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
+                // Container(
+                //   decoration: BoxDecoration(
+                //     color: Color(0xFFC4C4C4).withOpacity(.35),
+                //     borderRadius: BorderRadius.circular(10)
+                //   ),
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: Column(
+                //       crossAxisAlignment: CrossAxisAlignment.start,
+                //       children: [
+                //         Text('how_many_educated_person_you_have'.tr, style: TextStyle(
+                //           fontSize: 14, color: Color(0xFF232323), fontWeight: FontWeight.w600
+                //         ),),
+                //         SizedBox(height: 10,),
+                //         Text('combined_literate_number'.tr, style: TextStyle(
+                //             fontSize: 14, color: Color(0xFF232323)
+                //         ),),
+                //         // Padding(
+                //         //   padding:
+                //         //   const EdgeInsets
+                //         //       .symmetric(
+                //         //       vertical: 8.0),
+                //         //   child: Container(
+                //         //     height: 48,
+                //         //     child: TextFormField(
+                //         //       inputFormatters: [
+                //         //         FilteringTextInputFormatter
+                //         //             .digitsOnly
+                //         //       ],
+                //         //       keyboardType:
+                //         //       TextInputType
+                //         //           .number,
+                //         //       decoration:
+                //         //       InputDecoration(
+                //         //         suffixIcon:
+                //         //         PopupMenuButton(
+                //         //           icon: Icon(
+                //         //             Icons
+                //         //                 .arrow_drop_down,
+                //         //             color: Color(
+                //         //                 0xFF707070),
+                //         //           ),
+                //         //           itemBuilder: (context) =>
+                //         //               _getAllUnit
+                //         //                   .map((e) =>
+                //         //                   PopupMenuItem(
+                //         //                     child: Text(e.name),
+                //         //                     value: e.name,
+                //         //                   ))
+                //         //                   .toList(),
+                //         //           onSelected:
+                //         //               (value) {
+                //         //             setState(() {
+                //         //               _selectedUnit =
+                //         //                   value;
+                //         //               print(
+                //         //                   "my selected unit is $value");
+                //         //             });
+                //         //           },
+                //         //         ),
+                //         //         filled: true,
+                //         //         fillColor:
+                //         //         Colors.white,
+                //         //         border: new OutlineInputBorder(
+                //         //             borderSide:
+                //         //             new BorderSide(
+                //         //                 color:
+                //         //                 Color(0xFFC4C4C4))),
+                //         //         focusedBorder: new OutlineInputBorder(
+                //         //             borderRadius:
+                //         //             BorderRadius
+                //         //                 .circular(
+                //         //                 10),
+                //         //             borderSide:
+                //         //             new BorderSide(
+                //         //                 color:
+                //         //                 Color(0xFFC4C4C4))),
+                //         //         enabledBorder: new OutlineInputBorder(
+                //         //             borderRadius:
+                //         //             BorderRadius
+                //         //                 .circular(
+                //         //                 10),
+                //         //             borderSide:
+                //         //             new BorderSide(
+                //         //                 color:
+                //         //                 Color(0xFFC4C4C4))),
+                //         //         hintText: 'number'.tr,
+                //         //         hintStyle: TextStyle(
+                //         //             fontFamily:
+                //         //             'Roboto',
+                //         //             color: Colors
+                //         //                 .blueGrey,
+                //         //             fontSize: 12),
+                //         //       ),
+                //         //     ),
+                //         //   ),
+                //         // ),
+                //       ],
+                //     ),
+                //   ),
+                // )
 
               ],
             ),

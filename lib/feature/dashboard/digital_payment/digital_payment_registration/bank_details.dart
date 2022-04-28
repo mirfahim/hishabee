@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 
-class PersonalInformation extends StatelessWidget {
+class BankDetails extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -41,7 +42,7 @@ class PersonalInformation extends StatelessWidget {
           icon: Icon(Icons.arrow_back),
         ),
         title: Text(
-          'personal_information'.tr,
+          'bank_details'.tr,
         ),
         titleSpacing: 0,
       ),
@@ -53,7 +54,7 @@ class PersonalInformation extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'person_name'.tr,
+                  'bank_name'.tr,
                   style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
@@ -61,7 +62,7 @@ class PersonalInformation extends StatelessWidget {
                 ),
                 TextFormField(
                     decoration: InputDecoration(
-                        hintText: 'person_name'.tr,
+                        hintText: 'bank_name'.tr,
                         contentPadding: const EdgeInsets.all(15),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)))),
@@ -69,19 +70,16 @@ class PersonalInformation extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  'mobile_number'.tr,
+                  'bank_account_name'.tr,
                   style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
                   height: 5,
                 ),
                 TextFormField(
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
-                    ],
-                    keyboardType: TextInputType.number,
+
                     decoration: InputDecoration(
-                        hintText: 'mobile_number'.tr,
+                        hintText: 'bank_account_name'.tr,
                         contentPadding: const EdgeInsets.all(15),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)))),
@@ -89,48 +87,7 @@ class PersonalInformation extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  'email'.tr,
-                  style: TextStyle(fontSize: 14),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'email'.tr,
-                    contentPadding: const EdgeInsets.all(15),
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'birth_date'.tr,
-                  style: TextStyle(fontSize: 14),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    suffixIcon: Icon(Icons.calendar_today),
-                    hintText: 'birth_date'.tr,
-                    contentPadding: const EdgeInsets.all(15),
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'voter_id'.tr,
+                  'bank_account_number'.tr,
                   style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
@@ -142,7 +99,51 @@ class PersonalInformation extends StatelessWidget {
                   ],
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    hintText: 'voter_id'.tr,
+                    hintText: 'bank_account_number'.tr,
+                    contentPadding: const EdgeInsets.all(15),
+
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'bank_address'.tr,
+                  style: TextStyle(fontSize: 14),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    hintText: 'bank_address'.tr,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 15),
+
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'bank_routing'.tr,
+                  style: TextStyle(fontSize: 14),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]')),
+                  ],
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'bank_routing'.tr,
                     contentPadding: const EdgeInsets.all(15),
 
                     border: OutlineInputBorder(

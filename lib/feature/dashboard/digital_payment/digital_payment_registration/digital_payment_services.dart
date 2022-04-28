@@ -13,6 +13,30 @@ class DigitalPaymentService extends StatelessWidget {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
+      bottomSheet: InkWell(
+        onTap: (){
+          Get.to(AccountSelection());
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
+          child: Container(
+            height: 50,
+            width: width,
+            decoration: BoxDecoration(
+                color: DEFAULT_BLUE,
+                borderRadius: BorderRadius.circular(10)
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Center(
+                child: Text('registration_for_payment_service'.tr, style: TextStyle(
+                    fontSize: 16, color: Colors.white
+                ),),
+              ),
+            ),
+          ),
+        ),
+      ),
       appBar: AppBar(
         leading: IconButton(
           onPressed: (){
@@ -26,78 +50,80 @@ class DigitalPaymentService extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.only(left: 10.0, right: 10, top: 10, bottom: 60),
             child: Column(
               children: [
-                SizedBox(height: 10,),
                 Center(child: SvgPicture.asset('images/svg_image/digital_payment/DP_phone.svg')),
                 SizedBox(height: 10,),
-                DottedBorder(
-                  radius: Radius.circular(6),
-                  borderType: BorderType.RRect,
-                  dashPattern: [8, 4],
-                  strokeWidth: 2,
-                  color: Color(0xFF185ADB),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                            'how_to_use_digital_payment'.tr,
-                            textAlign:
-                            TextAlign.center,
-                            style: TextStyle(
-                                color:
-                                Colors.black,
-                                fontFamily: 'Roboto',
-                                fontSize: 12
-                            )),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  SvgPicture.asset('images/svg_image/digital_payment/bank_card.svg'),
-                                  SizedBox(height: 5,),
-                                  Text('sell_bank_card'.tr, textAlign: TextAlign.center, style: TextStyle(
-                                      fontFamily: 'Roboto',fontSize: 12,color: Color(0xFF232323)
-                                  ),)
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 10.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                  child: DottedBorder(
+                    radius: Radius.circular(6),
+                    borderType: BorderType.RRect,
+                    dashPattern: [8, 4],
+                    strokeWidth: 2,
+                    color: Color(0xFF185ADB),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                              'how_to_use_digital_payment'.tr,
+                              textAlign:
+                              TextAlign.center,
+                              style: TextStyle(
+                                  color:
+                                  Colors.black,
+                                  fontFamily: 'Roboto',
+                                  fontSize: 12
+                              )),
+                          Row(
+                            children: [
+                              Expanded(
                                 child: Column(
                                   children: [
-                                    SvgPicture.asset('images/svg_image/digital_payment/mobile_banking.svg'),
+                                    SvgPicture.asset('images/svg_image/digital_payment/bank_card.svg'),
                                     SizedBox(height: 5,),
-                                    Text('sell_in_mobile_banking'.tr, textAlign: TextAlign.center, style: TextStyle(
+                                    Text('sell_bank_card'.tr, textAlign: TextAlign.center, style: TextStyle(
                                         fontFamily: 'Roboto',fontSize: 12,color: Color(0xFF232323)
                                     ),)
                                   ],
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Column(
-                                  children: [
-                                    SvgPicture.asset('images/svg_image/digital_payment/emi_services.svg'),
-                                    SizedBox(height: 5,),
-                                    Text('sell_in_emi'.tr, textAlign: TextAlign.center, style: TextStyle(
-                                        fontFamily: 'Roboto',fontSize: 12,color: Color(0xFF232323)
-                                    ),)
-                                  ],
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: Column(
+                                    children: [
+                                      SvgPicture.asset('images/svg_image/digital_payment/mobile_banking.svg'),
+                                      SizedBox(height: 5,),
+                                      Text('sell_in_mobile_banking'.tr, textAlign: TextAlign.center, style: TextStyle(
+                                          fontFamily: 'Roboto',fontSize: 12,color: Color(0xFF232323)
+                                      ),)
+                                    ],
+                                  ),
                                 ),
                               ),
-                            )
-                          ],
-                        ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Column(
+                                    children: [
+                                      SvgPicture.asset('images/svg_image/digital_payment/emi_services.svg'),
+                                      SizedBox(height: 5,),
+                                      Text('sell_in_emi'.tr, textAlign: TextAlign.center, style: TextStyle(
+                                          fontFamily: 'Roboto',fontSize: 12,color: Color(0xFF232323)
+                                      ),)
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -193,26 +219,7 @@ class DigitalPaymentService extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 20,),
-                InkWell(
-                  onTap: (){
-                    Get.to(AccountSelection());
-                  },
-                  child: Container(
-                    width: width,
-                    decoration: BoxDecoration(
-                      color: DEFAULT_BLUE,
-                      borderRadius: BorderRadius.circular(10)
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Center(
-                        child: Text('registration_for_payment_service'.tr, style: TextStyle(
-                          fontSize: 16, color: Colors.white
-                        ),),
-                      ),
-                    ),
-                  ),
-                )
+
               ],
             ),
           ),

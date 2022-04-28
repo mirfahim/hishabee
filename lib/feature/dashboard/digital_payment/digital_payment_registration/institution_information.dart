@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 
-class PersonalInformation extends StatelessWidget {
+class InstitutionInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -13,7 +13,7 @@ class PersonalInformation extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: InkWell(
           onTap: (){
-            // Get.back();
+
           },
           child: Container(
             height: 40,
@@ -41,7 +41,7 @@ class PersonalInformation extends StatelessWidget {
           icon: Icon(Icons.arrow_back),
         ),
         title: Text(
-          'personal_information'.tr,
+          'organization_information'.tr,
         ),
         titleSpacing: 0,
       ),
@@ -53,7 +53,7 @@ class PersonalInformation extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'person_name'.tr,
+                  'organization_name'.tr,
                   style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
@@ -61,7 +61,21 @@ class PersonalInformation extends StatelessWidget {
                 ),
                 TextFormField(
                     decoration: InputDecoration(
-                        hintText: 'person_name'.tr,
+                        hintText: 'organization_name'.tr,
+                        contentPadding: const EdgeInsets.all(15),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)))),
+                SizedBox(height: 10,),
+                Text(
+                  'organization_address'.tr,
+                  style: TextStyle(fontSize: 14),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                TextFormField(
+                    decoration: InputDecoration(
+                        hintText: 'organization_address'.tr,
                         contentPadding: const EdgeInsets.all(15),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)))),
@@ -69,7 +83,7 @@ class PersonalInformation extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  'mobile_number'.tr,
+                  'organization_mobile_number'.tr,
                   style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
@@ -81,7 +95,7 @@ class PersonalInformation extends StatelessWidget {
                     ],
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
-                        hintText: 'mobile_number'.tr,
+                        hintText: 'organization_mobile_number'.tr,
                         contentPadding: const EdgeInsets.all(15),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10)))),
@@ -89,27 +103,7 @@ class PersonalInformation extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  'email'.tr,
-                  style: TextStyle(fontSize: 14),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    hintText: 'email'.tr,
-                    contentPadding: const EdgeInsets.all(15),
-
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'birth_date'.tr,
+                  'organization_start_date'.tr,
                   style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
@@ -118,7 +112,7 @@ class PersonalInformation extends StatelessWidget {
                 TextFormField(
                   decoration: InputDecoration(
                     suffixIcon: Icon(Icons.calendar_today),
-                    hintText: 'birth_date'.tr,
+                    hintText: 'organization_start_date'.tr,
                     contentPadding: const EdgeInsets.all(15),
 
                     border: OutlineInputBorder(
@@ -130,7 +124,7 @@ class PersonalInformation extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  'voter_id'.tr,
+                  'trade_license'.tr,
                   style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(
@@ -142,7 +136,7 @@ class PersonalInformation extends StatelessWidget {
                   ],
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    hintText: 'voter_id'.tr,
+                    hintText: 'trade_license'.tr,
                     contentPadding: const EdgeInsets.all(15),
 
                     border: OutlineInputBorder(
