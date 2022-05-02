@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
+import 'package:hishabee_business_manager_fl/models/due/due_item_model.dart';
 import 'package:hishabee_business_manager_fl/models/due/due_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:intl/intl.dart';
@@ -31,6 +32,12 @@ class _DueFrontState extends State<DueFront> {
 
   @override
   void initState() {
+    _dueController
+        .getAllDueItem(shopId: shop.id)
+        .then((value) {
+      _dueController.dueItemList.value = getDueItemResponseModelFromJson(value['data']);
+    });
+    print('due item list: ${_dueController.dueItemList}');
     _dueController.getAllDue(shopId: shop.id).then((value){
       if(value != null){
         _dueController.dueList.value = getAllDueResponseModelFromJson(value['data']);
@@ -59,6 +66,7 @@ class _DueFrontState extends State<DueFront> {
         }
       }
     });
+
     super.initState();
   }
 
@@ -302,9 +310,10 @@ class _DueFrontState extends State<DueFront> {
                                   uniqueId: _dueController.filterList[index].uniqueId,
                                   dueUniqueId: _dueController.filterList[index].uniqueId,
                                   contactType: _dueController.filterList[index].contactType,
-                                  createdAt: _dueController.filterList[index].createdAt,
-                                  updatedAt: _dueController.filterList[index].updatedAt,
+                                  createdAt: '${_dueController.filterList[index].createdAt}',
+                                  updatedAt: '${_dueController.filterList[index].updatedAt}',
                                   version: _dueController.filterList[index].version,
+                                  // dueLeft: _dueController.filterList[index].dueLeft,
                                 ),
                                 arguments: shop);
                           },
@@ -319,7 +328,7 @@ class _DueFrontState extends State<DueFront> {
                                 leading: Image.asset('images/assets/emptyImage.png'),
                                 title: Padding(
                                   padding: const EdgeInsets.only(top: 8.0),
-                                  child: Text('${_dueController.filterList[index].contactName}'),
+                                  child: Text('${_dueController.dueItemList[index].due[index].contactName}'),
                                 ),
                                 subtitle: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,

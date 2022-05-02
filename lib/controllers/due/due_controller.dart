@@ -124,10 +124,12 @@ class DueController extends GetxController {
       name,
       updatedDate,
       createdDate,
-      version}) {
-    const uniqueId = Uuid();
-    var id = uniqueId.v4();
-    String url = '/due/add?amount=$amount&shop_id=$shopId&unique_id=$id'
+      version,
+        uniqueId
+      }) {
+    // const uniqueId = Uuid();
+    // var id = uniqueId.v4();
+    String url = '/due/add?amount=$amount&shop_id=$shopId&unique_id=$uniqueId'
         '&contact_type=$contactType&contact_mobile=$mobile&contact_name=$name'
         '&version=$version&updated_at=$updatedDate&created_at=$createdDate';
     return _apiService.makeApiRequest(
@@ -146,9 +148,9 @@ class DueController extends GetxController {
       dueUniqueId,
       dueLeft}) {
     const uniqueId = Uuid();
-    var id = uniqueId.v4();
-    String url = '/due_item/add?amount=$amount&shop_id=$shopId&unique_id=$id'
-        '&due_unique_id=$dueUniqueId&due_left=$dueLeft'
+    var id = uniqueId.v4() +'${DateTime.now().millisecondsSinceEpoch}';
+    String url = '/due_item/add?amount=$amount&shop_id=$shopId&unique_id=$dueUniqueId'
+        '&due_unique_id=$id&due_left=$dueLeft'
         '&version=$version&updated_at=$updatedDate&created_at=$createdDate';
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);

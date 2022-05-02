@@ -8,6 +8,7 @@ import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
+import 'package:hishabee_business_manager_fl/models/due/due_item_model.dart';
 import 'package:intl/intl.dart';
 
 int flagDate = 0;
@@ -19,6 +20,7 @@ var lastOfTheMonth = (now.month < 12)
 bool imageChanged = false;
 
 class GivenDue extends StatefulWidget {
+  int totalDue;
   String uniqueId;
   String dueUniqueId;
   String createdAt;
@@ -31,6 +33,7 @@ class GivenDue extends StatefulWidget {
 
   GivenDue(
       {this.uniqueId,
+        this.totalDue,
       this.dueUniqueId,
       this.createdAt,
       this.updatedAt,
@@ -270,6 +273,7 @@ class _GivenDueState extends State<GivenDue> {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         titleSpacing: 0,
         leading: IconButton(
@@ -489,6 +493,10 @@ class _GivenDueState extends State<GivenDue> {
             ),
             InkWell(
               onTap: () {
+
+                var changedDue = widget.totalDue + int.parse(_amount.text);
+                print(changedDue);
+
                 _dueController.dueGiven(
                     amount: int.parse(_amount.text),
                     shopId: shop.id,
@@ -498,9 +506,27 @@ class _GivenDueState extends State<GivenDue> {
                     contactType: widget.contactType,
                     updatedDate: widget.updatedAt,
                     dueLeft: widget.dueLeft,
-                    version: widget.version,
+                    version: 0,
                     mobile: widget.mobile,
                     name: widget.name);
+
+                _dueController.editDue(
+                    uniqueId: widget.uniqueId,
+                  amount: changedDue,
+                  shopId: shop.id,
+                  contactType: widget.contactType,
+                  mobile: widget.mobile,
+                  name: widget.name,
+                  updatedDate: widget.updatedAt,
+                  createdDate: widget.createdAt,
+                  version: ++widget.version
+                );
+                _dueController
+                    .getAllItemWithUniqueID(uniqueId: widget.uniqueId)
+                    .then((value) {
+                  _dueController.dueItemList.value = getDueItemResponseModelFromJson(value);
+                  Get.back();
+                });
               },
               child: Container(
                 width: width,

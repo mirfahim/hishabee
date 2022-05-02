@@ -67,6 +67,7 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                 onTap: () {
                   Get.to(
                       GivenDue(
+                        totalDue: widget.dueTotalAmount,
                         mobile: widget.mobileNumber,
                         name: widget.name,
                         uniqueId: widget.uniqueId,
@@ -74,7 +75,7 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                         createdAt: widget.createdAt,
                         updatedAt: widget.updatedAt,
                         contactType: widget.contactType,
-                        dueLeft: widget.dueLeft,
+                        dueLeft: widget.dueTotalAmount,
                         version: widget.version,
                       ),
                       arguments: shop);
@@ -395,7 +396,11 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                                               '৳${_dueController.dueItemList[index].amount}',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                  color: Colors.red,
+                                                  color: _dueController.dueItemList[index].dueLeft < 0
+                                                      ? Colors.green
+                                                      : Colors.red,
+                                                  fontWeight:
+                                                  FontWeight.w500,
                                                   fontSize: 18),
                                             ),
                                           ),
