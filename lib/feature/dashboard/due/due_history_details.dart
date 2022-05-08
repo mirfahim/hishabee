@@ -272,7 +272,7 @@ class _DueHistoryDetailsState extends State<DueHistoryDetails> {
                                       style: TextStyle(color: Colors.red, fontSize: 14)),
                                   onPressed: () {
                                     // var amountDelete = widget.dueTotalAmount - widget.amount;
-                                    _dueController.deleteDue(
+                                    _dueController.deleteDueItem(
                                         amount: widget.amount,
                                         shopId: shop.id,
                                         uniqueId: widget.uniqueId,

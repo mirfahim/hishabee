@@ -54,26 +54,19 @@ class DueController extends GetxController {
   }
 
   Future<dynamic> deleteDue(
-      {shopId,
-      amount,
-      uniqueId,
-      dueUniqueId,
-      dueLeft,
-      updatedAt,
-      createdAt}) async {
-    String url = '/due_item/add?amount=$amount&shop_id=$shopId'
-        '&unique_id=$uniqueId&due_unique_id=$dueUniqueId&due_left=$dueLeft&'
-        'version=${-1}&updated_at=$updatedAt&created_at=$createdAt';
-    return _apiService.makeApiRequest(
-        method: apiMethods.post, url: url, body: null, headers: null);
-  }
-
-  Future<dynamic> addNewDue(
-      {amount, shopId, contactType, mobile, name, updatedDate, createdDate, image, dueAlert, uniqueId}) async {
-
+      {amount,
+      shopId,
+      contactType,
+      mobile,
+      name,
+      updatedDate,
+      createdDate,
+      image,
+      dueAlert,
+      uniqueId}) async {
     dueUniqueId = uniqueId;
     CustomDialog.showLoadingDialog(message: 'Creating Due...');
-    if(image != null){
+    if (image != null) {
       String imageSource = await _apiService.uploadFile(file: image, type: '');
       image = imageSource
           .replaceAll("\\", "")
@@ -82,11 +75,61 @@ class DueController extends GetxController {
           .replaceAll("}", "")
           .replaceAllMapped('url:', (match) => "");
       imageForAddDue = image;
-    }else{
+    } else {
       image = '';
       imageForAddDue = '';
     }
-    String url = '/due/add?amount=$amount&shop_id=$shopId&unique_id=$dueUniqueId'
+    String url = '/due/add?amount=$amount&shop_id=$shopId&unique_id=$uniqueId'
+        '&contact_type=$contactType&contact_mobile=$mobile&contact_name=$name'
+        '&version=-1&updated_at=$updatedDate&created_at=$createdDate&due_alert=$dueAlert&image=$imageForAddDue';
+    return _apiService.makeApiRequest(
+        method: apiMethods.post, url: url, body: null, headers: null);
+  }
+
+  Future<dynamic> deleteDueItem(
+      {shopId,
+      amount,
+      uniqueId,
+      dueUniqueId,
+      dueLeft,
+      updatedAt,
+      createdAt}) async {
+    CustomDialog.showLoadingDialog(message: 'Deleting Due Item...');
+    String url = '/due_item/add?amount=$amount&shop_id=$shopId'
+        '&unique_id=$uniqueId&due_unique_id=$dueUniqueId&due_left=$dueLeft&'
+        'version=-1&updated_at=$updatedAt&created_at=$createdAt';
+    return _apiService.makeApiRequest(
+        method: apiMethods.post, url: url, body: null, headers: null);
+  }
+
+  Future<dynamic> addNewDue(
+      {amount,
+      shopId,
+      contactType,
+      mobile,
+      name,
+      updatedDate,
+      createdDate,
+      image,
+      dueAlert,
+      uniqueId}) async {
+    dueUniqueId = uniqueId;
+    CustomDialog.showLoadingDialog(message: 'Creating Due...');
+    if (image != null) {
+      String imageSource = await _apiService.uploadFile(file: image, type: '');
+      image = imageSource
+          .replaceAll("\\", "")
+          .replaceAll('"', "")
+          .replaceAll("{", "")
+          .replaceAll("}", "")
+          .replaceAllMapped('url:', (match) => "");
+      imageForAddDue = image;
+    } else {
+      image = '';
+      imageForAddDue = '';
+    }
+    String url =
+        '/due/add?amount=$amount&shop_id=$shopId&unique_id=$dueUniqueId'
         '&contact_type=$contactType&contact_mobile=$mobile&contact_name=$name'
         '&version=0&updated_at=$updatedDate&created_at=$createdDate&due_alert=$dueAlert&image=$imageForAddDue';
     return _apiService.makeApiRequest(
@@ -94,7 +137,15 @@ class DueController extends GetxController {
   }
 
   Future<dynamic> addNewDueItem(
-      {amount, shopId, contactType, mobile, name, updatedDate, createdDate, dueAlert, dueItemUniqueId}) async {
+      {amount,
+      shopId,
+      contactType,
+      mobile,
+      name,
+      updatedDate,
+      createdDate,
+      dueAlert,
+      dueItemUniqueId}) async {
     // const dueItemUniqueId = Uuid();
     // var id = dueItemUniqueId.v4();
 
@@ -110,7 +161,8 @@ class DueController extends GetxController {
     // }else{
     //   image = '';
     // }
-    String url = '/due_item/add?amount=$amount&shop_id=$shopId&unique_id=$dueItemUniqueId&due_unique_id=$dueUniqueId&due_left=$amount'
+    String url =
+        '/due_item/add?amount=$amount&shop_id=$shopId&unique_id=$dueItemUniqueId&due_unique_id=$dueUniqueId&due_left=$amount'
         '&version=0&updated_at=$updatedDate&created_at=$createdDate&due_alert=$dueAlert&image=$imageForAddDue';
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
@@ -125,8 +177,7 @@ class DueController extends GetxController {
       updatedDate,
       createdDate,
       version,
-        uniqueId
-      }) {
+      uniqueId}) {
     // const uniqueId = Uuid();
     // var id = uniqueId.v4();
     String url = '/due/add?amount=$amount&shop_id=$shopId&unique_id=$uniqueId'
@@ -148,29 +199,58 @@ class DueController extends GetxController {
       dueUniqueId,
       dueLeft}) {
     const uniqueId = Uuid();
-    var id = uniqueId.v4() +'${DateTime.now().millisecondsSinceEpoch}';
-    String url = '/due_item/add?amount=$amount&shop_id=$shopId&unique_id=$dueUniqueId'
+    var id = uniqueId.v4() + '${DateTime.now().millisecondsSinceEpoch}';
+    String url =
+        '/due_item/add?amount=$amount&shop_id=$shopId&unique_id=$dueUniqueId'
         '&due_unique_id=$id&due_left=$dueLeft'
         '&version=$version&updated_at=$updatedDate&created_at=$createdDate';
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
-  Future<dynamic> dueGiven({
-    amount,
-    shopId,
-    uniqueId,
-    contactType,
-    mobile,
-    name,
-    updatedDate,
-    createdDate,
-    version,
-    dueUniqueId,
-    dueLeft}) async{
-    String url = '/due_item/add?amount=$amount&shop_id=$shopId&unique_id=$uniqueId'
+
+  Future<dynamic> dueGiven(
+      {amount,
+      shopId,
+      uniqueId,
+      contactType,
+      mobile,
+      name,
+      updatedDate,
+      createdDate,
+      version,
+      dueUniqueId,
+      dueLeft}) async {
+    CustomDialog.showLoadingDialog(message: 'Adding Due Item');
+    var uniqueIdCreated =
+        Uuid().v4() + '${DateTime.now().millisecondsSinceEpoch}';
+    String url =
+        '/due_item/add?amount=$amount&shop_id=$shopId&unique_id=$uniqueIdCreated'
         '&due_unique_id=$dueUniqueId&due_left=$dueLeft'
         '&version=$version&updated_at=$updatedDate&created_at=$createdDate';
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
-}
+  }
+
+  Future<dynamic> dueTaken(
+      {amount,
+      shopId,
+      uniqueId,
+      contactType,
+      mobile,
+      name,
+      updatedDate,
+      createdDate,
+      version,
+      dueUniqueId,
+      dueLeft}) async {
+    CustomDialog.showLoadingDialog(message: 'Adding Due Item');
+    var uniqueIdCreated =
+        Uuid().v4() + '${DateTime.now().millisecondsSinceEpoch}';
+    String url =
+        '/due_item/add?amount=$amount&shop_id=$shopId&unique_id=$uniqueIdCreated'
+        '&due_unique_id=$dueUniqueId&due_left=$dueLeft'
+        '&version=$version&updated_at=$updatedDate&created_at=$createdDate';
+    return _apiService.makeApiRequest(
+        method: apiMethods.post, url: url, body: null, headers: null);
+  }
 }

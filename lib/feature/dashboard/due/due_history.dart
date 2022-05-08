@@ -45,8 +45,15 @@ class _DueHistoryState extends State<DueHistory> {
   DueController _dueController = Get.find();
   Shop shop = Get.arguments;
   int flag = 3;
-  var giveDue;
-  var takeDue;
+  var giveDue = 0.0;
+  var takeDue = 0.0;
+
+  @override
+  void dispose() {
+     giveDue = 0.0;
+     takeDue = 0.0;
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -75,24 +82,18 @@ class _DueHistoryState extends State<DueHistory> {
         _dueController.dueHistoryList.value =
             getDueItemResponseModelFromJson(value['data']);
       }
-      for(int j = 0; j<_dueController.dueHistoryList.length; j++){
-        for(int i = 0; i<_dueController.dueHistoryList.length; i++) {
-          if(_dueController.dueHistoryList[j].version >= 0){
-            if (_dueController.dueHistoryList[i].amount < 0) {
-              setState(() {
-                giveDue = _dueController.dueHistoryList
-                    .map((e) => e.amount)
-                    .fold(0, (previousValue, element) => previousValue + element);
-              });
+      for(int i = 0; i<_dueController.dueHistoryList.length; i++) {
+        if(_dueController.dueHistoryList[i].version >= 0){
+          if (_dueController.dueHistoryList[i].amount < 0) {
+            setState(() {
+              giveDue = giveDue + _dueController.dueHistoryList[i].amount;
+            });
 
-            } else{
-              setState(() {
-                takeDue = _dueController.dueHistoryList
-                    .map((e) => e.amount)
-                    .fold(0, (previousValue, element) => previousValue + element);
-              });
+          } else{
+            setState(() {
+              takeDue = takeDue + _dueController.dueHistoryList[i].amount;
+            });
 
-            }
           }
         }
       }
@@ -275,31 +276,17 @@ class _DueHistoryState extends State<DueHistory> {
                       onPressed: () {
                         setState(() {
                           flag = 1;
-                          _dueController
-                              .getAllDueHistory(
-                              shopId: '${shop.id}',
-                              startDate: "$now",
-                              endDate: "$now")
-                              .then((value) {
-                            _dueController.dueHistoryList.value =
-                                getDueItemResponseModelFromJson(value['data']);
-                            // setState(() {
-
-                              // _expenseController.totalExpense.value =
-                              //     _expenseController.allExpenseList
-                              //         .map((e) => e.amount)
-                              //         .fold(
-                              //         0,
-                              //             (previousValue, element) =>
-                              //         previousValue + element);
-                            // });
-                          });
-                          // _expenseController.totalExpense.value = _expenseController
-                          //     .allExpenseList
-                          //     .map((e) => e.amount)
-                          //     .fold(0, (previousValue, element) => previousValue + element);
-                          // print(
-                          //     'expense list: ${_expenseController.allExpenseList.value}');
+                          getDataForDropDown(now, now);
+                          // _dueController
+                          //     .getAllDueHistory(
+                          //     shopId: '${shop.id}',
+                          //     startDate: "$now",
+                          //     endDate: "$now")
+                          //     .then((value) {
+                          //   _dueController.dueHistoryList.value =
+                          //       getDueItemResponseModelFromJson(value['data']);
+                          //
+                          // });
                         });
                       },
                       child: Text(
@@ -503,11 +490,14 @@ class _DueHistoryState extends State<DueHistory> {
                         ],
                       ),
                       trailing: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            '৳${_dueController.dueHistoryList[index].amount}',
+                            '৳${_dueController.dueHistoryList[index].amount.abs()}',
                             textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.red),
+                            style: TextStyle(
+                              fontSize: 18,
+                                color: _dueController.dueHistoryList[index].amount < 0 ? Colors.green : Colors.red),
                           ),
                           Text('${_dueController.dueHistoryList[index].contactType}'),
                         ],
@@ -530,24 +520,21 @@ class _DueHistoryState extends State<DueHistory> {
       if (value != null) {
         _dueController.dueHistoryList.value =
             getDueItemResponseModelFromJson(value['data']);
-        for(int j = 0; j<_dueController.dueHistoryList.length; j++){
-          for(int i = 0; i<_dueController.dueHistoryList.length; i++) {
-            if(_dueController.dueHistoryList[j].version >= 0){
-              if (_dueController.dueHistoryList[i].amount < 0) {
-                setState(() {
-                  giveDue = _dueController.dueHistoryList
-                      .map((e) => e.amount)
-                      .fold(0, (previousValue, element) => previousValue + element);
-                });
+        for(int i = 0; i<_dueController.dueHistoryList.length; i++) {
+          if(_dueController.dueHistoryList[i].version >= 0){
+            if (_dueController.dueHistoryList[i].amount > 0) {
+              print(_dueController.dueHistoryList[i].amount);
+              setState(() {
+                giveDue = giveDue + _dueController.dueHistoryList[i].amount;
+                // print(_dueController.dueHistoryList[i].amount);
+              });
 
-              } else{
-                setState(() {
-                  takeDue = _dueController.dueHistoryList
-                      .map((e) => e.amount)
-                      .fold(0, (previousValue, element) => previousValue + element);
-                });
+            } else{
+              print(_dueController.dueHistoryList[i].amount);
+              setState(() {
+                takeDue = takeDue + _dueController.dueHistoryList[i].amount;
+              });
 
-              }
             }
           }
         }

@@ -5,6 +5,7 @@ import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/m
 import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/due/taken_due.dart';
 import 'package:hishabee_business_manager_fl/models/due/due_item_model.dart';
+import 'package:hishabee_business_manager_fl/models/due/due_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -104,7 +105,18 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
                 onTap: () {
-                  Get.to(TakenDue(), arguments: shop);
+                  Get.to(TakenDue(
+                    totalDue: widget.dueTotalAmount,
+                    mobile: widget.mobileNumber,
+                    name: widget.name,
+                    uniqueId: widget.uniqueId,
+                    dueUniqueId: widget.dueUniqueId,
+                    createdAt: widget.createdAt,
+                    updatedAt: widget.updatedAt,
+                    contactType: widget.contactType,
+                    dueLeft: widget.dueTotalAmount,
+                    version: widget.version,
+                  ), arguments: shop);
                 },
                 child: Container(
                   height: 40,
@@ -147,6 +159,86 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
             ),
           ],
         ),
+        actions: [
+          IconButton(onPressed: (){
+            Get.dialog(
+              AlertDialog(
+                // title: Text(message),
+                content:
+                Text('Do you want to Delete the due?'),
+                contentTextStyle: TextStyle(
+                    fontSize: 16, color: DEFAULT_BLACK),
+                actions: <Widget>[
+                  TextButton(
+                    child: Text('cancel'.tr,
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 14)),
+                    onPressed: () {
+                      navigator.pop();
+                    },
+                  ),
+                  TextButton(
+                    child: Text('delete'.tr,
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 14)),
+                    onPressed: () {
+                      var amountDelete =
+                          widget.dueTotalAmount -
+                              widget.dueTotalAmount;
+                      _dueController.deleteDue(
+                          amount: amountDelete,
+                          shopId: shop.id,
+                          uniqueId: widget.uniqueId,
+                        contactType: widget.contactType,
+                        mobile: widget.mobileNumber,
+                        name: widget.name,
+                        updatedDate: widget.updatedAt,
+                        createdDate: widget.createdAt,
+                          );
+                      Future.delayed(
+                          const Duration(seconds: 2), () {
+                        _dueController
+                            .getAllDue(shopId: shop.id)
+                            .then((value) {
+                          _dueController.filterList.value =
+                              getAllDueResponseModelFromJson(
+                                  value['data']);
+                          _dueController
+                              .getAllItemWithUniqueID(
+                              uniqueId:
+                              widget.dueUniqueId)
+                              .then((value) {
+                            _dueController
+                                .dueItemList.value =
+                                getDueItemResponseModelFromJson(
+                                    value);
+                          });
+                          // for(int i = 0; i<_dueController.filterList.length; i++){
+                          //   if('${_dueController.filterList[i].contactType}' == 'ContactType.CUSTOMER' && _dueController.filterList[i].version > 0){
+                          //     _dueController.customerCount.value++;
+                          //   }else if('${_dueController.filterList[i].contactType}' == 'ContactType.SELLER' && _dueController.filterList[i].version > 0){
+                          //     _dueController.supplierCount.value++;
+                          //   }else if('${_dueController.filterList[i].contactType}' == 'ContactType.EMPLOYEE' && _dueController.filterList[i].version > 0){
+                          //     _dueController.employeeCount.value++;
+                          //   }
+                          // }
+                        });
+                        Get.back();
+                        Get.back();
+                        Get.back();
+                        // setState(() {
+                        //   // Here you can write your code for open new view
+                        // });
+                      });
+                    },
+                  ),
+                ],
+              ),
+            );
+          }, icon: Icon(Icons.more_vert))
+        ],
         backgroundColor: Colors.amber,
       ),
       body: SafeArea(
@@ -218,7 +310,7 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                                       color: Colors.amber, fontSize: 14),
                                 ),
                                 Text(
-                                  ' ${widget.dueTotalAmount}৳',
+                                  ' ${widget.dueTotalAmount.abs()}৳',
                                   style: TextStyle(
                                       color: Colors.white, fontSize: 14),
                                 ),
@@ -373,15 +465,11 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                                                           top: 5),
                                                   child: Text(
                                                     'due_left:'.tr +
-                                                        '৳${_dueController.dueItemList[index].dueLeft}',
+                                                        '৳${_dueController.dueItemList[index].dueLeft.abs()}',
                                                     style: TextStyle(
-                                                        color: _dueController
-                                                                    .dueItemList[
-                                                                        index]
-                                                                    .dueLeft <
-                                                                0
-                                                            ? Colors.green
-                                                            : Colors.red,
+                                                        color: _dueController.dueItemList[index].dueLeft < 0
+                                                            ? Colors.red
+                                                            : Colors.green,
                                                         fontWeight:
                                                             FontWeight.w500),
                                                   ),
@@ -393,12 +481,12 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                                             padding: const EdgeInsets.only(
                                                 top: 15.0),
                                             child: Text(
-                                              '৳${_dueController.dueItemList[index].amount}',
+                                              '৳${_dueController.dueItemList[index].amount.abs()}',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
                                                   color: _dueController.dueItemList[index].dueLeft < 0
-                                                      ? Colors.green
-                                                      : Colors.red,
+                                                      ? Colors.red
+                                                      : Colors.green,
                                                   fontWeight:
                                                   FontWeight.w500,
                                                   fontSize: 18),

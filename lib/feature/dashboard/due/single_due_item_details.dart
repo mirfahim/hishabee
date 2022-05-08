@@ -329,7 +329,7 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
                                   var amountDelete =
                                       widget.dueTotalAmount -
                                           widget.amount;
-                                  _dueController.deleteDue(
+                                  _dueController.deleteDueItem(
                                       amount: amountDelete,
                                       shopId: shop.id,
                                       uniqueId: widget.uniqueId,
@@ -355,19 +355,10 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
                                             getDueItemResponseModelFromJson(
                                                 value);
                                       });
-                                      // for(int i = 0; i<_dueController.filterList.length; i++){
-                                      //   if('${_dueController.filterList[i].contactType}' == 'ContactType.CUSTOMER' && _dueController.filterList[i].version > 0){
-                                      //     _dueController.customerCount.value++;
-                                      //   }else if('${_dueController.filterList[i].contactType}' == 'ContactType.SELLER' && _dueController.filterList[i].version > 0){
-                                      //     _dueController.supplierCount.value++;
-                                      //   }else if('${_dueController.filterList[i].contactType}' == 'ContactType.EMPLOYEE' && _dueController.filterList[i].version > 0){
-                                      //     _dueController.employeeCount.value++;
-                                      //   }
-                                      // }
                                     });
                                     Get.back();
                                     Get.back();
-
+                                    Get.back();
                                     // setState(() {
                                     //   // Here you can write your code for open new view
                                     // });

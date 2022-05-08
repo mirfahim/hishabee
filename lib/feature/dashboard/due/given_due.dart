@@ -9,6 +9,7 @@ import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
 import 'package:hishabee_business_manager_fl/models/due/due_item_model.dart';
+import 'package:hishabee_business_manager_fl/models/due/due_model.dart';
 import 'package:intl/intl.dart';
 
 int flagDate = 0;
@@ -525,8 +526,26 @@ class _GivenDueState extends State<GivenDue> {
                     .getAllItemWithUniqueID(uniqueId: widget.uniqueId)
                     .then((value) {
                   _dueController.dueItemList.value = getDueItemResponseModelFromJson(value);
-                  Get.back();
+
                 });
+                _dueController.getAllDue(shopId: shop.id).then((value){
+                  if(value != null){
+                    _dueController.dueList.value = getAllDueResponseModelFromJson(value['data']);
+                    _dueController.filterList.value = getAllDueResponseModelFromJson(value['data']);
+                    for(int i = 0; i<_dueController.filterList.length; i++){
+                      if(_dueController.filterList[i].dueAmount < 0){
+                        _dueController.payDue.value = _dueController.filterList
+                            .map((e) => e.dueAmount)
+                            .fold(0, (previousValue, element) => previousValue + element);
+                      }else if(_dueController.filterList[i].dueAmount > 0){
+                        _dueController.takeDue.value = _dueController.filterList
+                            .map((e) => e.dueAmount)
+                            .fold(0, (previousValue, element) => previousValue + element);
+                      }
+                    }
+                  }
+                });
+                Get.back();
               },
               child: Container(
                 width: width,

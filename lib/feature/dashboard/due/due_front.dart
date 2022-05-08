@@ -328,7 +328,7 @@ class _DueFrontState extends State<DueFront> {
                                 leading: Image.asset('images/assets/emptyImage.png'),
                                 title: Padding(
                                   padding: const EdgeInsets.only(top: 8.0),
-                                  child: Text('${_dueController.dueItemList[index].due[index].contactName}'),
+                                  child: Text('${_dueController.filterList[index].contactName}'),
                                 ),
                                 subtitle: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -342,9 +342,9 @@ class _DueFrontState extends State<DueFront> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
-                                      '${_dueController.filterList[index].dueAmount}',
+                                      '৳${_dueController.filterList[index].dueAmount.abs()}',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: _dueController.filterList[index].dueAmount< 0 ? Colors.green : Colors.red),
+                                      style: TextStyle(color: _dueController.filterList[index].dueAmount < 0 ? Colors.green : Colors.red),
                                     ),
                                     Text('${_dueController.filterList[index].contactType}'),
                                   ],

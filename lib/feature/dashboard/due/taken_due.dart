@@ -8,6 +8,8 @@ import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/image_helper.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
+import 'package:hishabee_business_manager_fl/models/due/due_item_model.dart';
+import 'package:hishabee_business_manager_fl/models/due/due_model.dart';
 import 'package:intl/intl.dart';
 
 int flagDate = 0;
@@ -19,6 +21,7 @@ var lastOfTheMonth = (now.month < 12)
 bool imageChanged = false;
 
 class TakenDue extends StatefulWidget {
+  int totalDue;
   String uniqueId;
   String dueUniqueId;
   String createdAt;
@@ -30,6 +33,7 @@ class TakenDue extends StatefulWidget {
   String mobile;
   TakenDue(
       {this.uniqueId,
+        this.totalDue,
         this.dueUniqueId,
         this.createdAt,
         this.updatedAt,
@@ -51,6 +55,8 @@ class _TakenDueState extends State<TakenDue> {
   DateTime selectedDate;
   DateTime initialDate = DateTime.now();
   DateTime endDate;
+  TextEditingController _amount = TextEditingController();
+  TextEditingController _description = TextEditingController();
   _showPictureOptionDialogue() {
 
     try {
@@ -352,6 +358,7 @@ class _TakenDueState extends State<TakenDue> {
             ),),
             SizedBox(height: 10,),
             TextFormField(
+              controller: _amount,
               decoration: InputDecoration(
                 hintText: 'amount'.tr,
                 border: OutlineInputBorder(
@@ -366,6 +373,7 @@ class _TakenDueState extends State<TakenDue> {
             ),),
             SizedBox(height: 10,),
             TextFormField(
+              controller: _description,
               decoration: InputDecoration(
                 hintText: 'description'.tr,
                 border: OutlineInputBorder(
@@ -458,18 +466,75 @@ class _TakenDueState extends State<TakenDue> {
               ],
             ),
             SizedBox(height: 20,),
-            Container(
-              width: width,
-              decoration: BoxDecoration(
-                  color: DEFAULT_BLUE,
-                  borderRadius: BorderRadius.circular(6)
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Center(
-                  child: Text('save'.tr, style: TextStyle(
-                      color: Colors.white
-                  ),),
+            InkWell(
+              onTap: (){
+                var changedDue = widget.totalDue - int.parse(_amount.text);
+                print(changedDue);
+
+                _dueController.dueTaken(
+                    amount: -(int.parse(_amount.text)),
+                    shopId: shop.id,
+                    uniqueId: widget.uniqueId,
+                    dueUniqueId: widget.dueUniqueId,
+                    createdDate: widget.createdAt,
+                    contactType: widget.contactType,
+                    updatedDate: widget.updatedAt,
+                    dueLeft: widget.dueLeft,
+                    version: 0,
+                    mobile: widget.mobile,
+                    name: widget.name);
+
+                _dueController.editDue(
+                    uniqueId: widget.uniqueId,
+                    amount: changedDue,
+                    shopId: shop.id,
+                    contactType: widget.contactType,
+                    mobile: widget.mobile,
+                    name: widget.name,
+                    updatedDate: widget.updatedAt,
+                    createdDate: widget.createdAt,
+                    version: ++widget.version
+                );
+                _dueController
+                    .getAllItemWithUniqueID(uniqueId: widget.uniqueId)
+                    .then((value) {
+                  _dueController.dueItemList.value = getDueItemResponseModelFromJson(value);
+
+                });
+                _dueController.getAllDue(shopId: shop.id).then((value){
+                  if(value != null){
+                    _dueController.dueList.value = getAllDueResponseModelFromJson(value['data']);
+                    _dueController.filterList.value = getAllDueResponseModelFromJson(value['data']);
+                    for(int i = 0; i<_dueController.filterList.length; i++){
+                      if(_dueController.filterList[i].dueAmount < 0){
+                        _dueController.payDue.value = _dueController.filterList
+                            .map((e) => e.dueAmount)
+                            .fold(0, (previousValue, element) => previousValue + element);
+                      }else if(_dueController.filterList[i].dueAmount > 0){
+                        _dueController.takeDue.value = _dueController.filterList
+                            .map((e) => e.dueAmount)
+                            .fold(0, (previousValue, element) => previousValue + element);
+                      }
+                    }
+                  }
+                  Get.back();
+                  Get.back();
+                });
+
+              },
+              child: Container(
+                width: width,
+                decoration: BoxDecoration(
+                    color: DEFAULT_BLUE,
+                    borderRadius: BorderRadius.circular(6)
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Center(
+                    child: Text('save'.tr, style: TextStyle(
+                        color: Colors.white
+                    ),),
+                  ),
                 ),
               ),
             )
