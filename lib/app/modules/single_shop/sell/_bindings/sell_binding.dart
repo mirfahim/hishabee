@@ -16,6 +16,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_lis
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/domain/repositories/i_product_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/confirm_payment_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_due_edit_add_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_with_qr_code_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/local/data_sources/local_transaction_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/data_sources/transaction_provider.dart';
@@ -39,11 +40,12 @@ class SellBinding extends Bindings {
     Get.lazyPut<ITransactionRepository>(
         () => TransactionRepository(find(), find(), find()));
     Get.lazyPut(() => SellWithQrCodeController(find(), find(), find()));
+    Get.lazyPut(() => SellDueEditAddController(find(), find(), find()));
 
     Get.lazyPut<IProductProvider>(() => ProductProvider(find()));
     Get.lazyPut<ILocalProductProvider>(() => LocalProductProvider());
     Get.lazyPut<IProductRepository>(
         () => ProductRepository(find(), find(), find()));
-    Get.lazyPut(() => SellController(find(), find(), find()));
+    Get.lazyPut(() => SellController(find(), find(), find(), find()));
   }
 }

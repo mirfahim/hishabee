@@ -8,10 +8,14 @@ import 'package:hishabee_business_manager_fl/app/_utils/utility.dart';
 import 'package:hishabee_business_manager_fl/app/_widgets/overlay_youtube_video.dart';
 import 'package:hishabee_business_manager_fl/app/_workmanager/analytics_service.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_response.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/new_transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/domain/repositories/i_transaction_repository.dart';
+import 'package:hishabee_business_manager_fl/service/api_service.dart';
+import 'package:hishabee_business_manager_fl/utility/utils.dart';
 
 class TransactionController extends GetxController {
   final ITransactionRepository transactionRepository;
@@ -69,25 +73,42 @@ class TransactionController extends GetxController {
     shop.value = Get.arguments["shop"];
   }
 
+  Future<dynamic> getALlTransactionItemByUniqueID({
+    String uniqueID,
+  }) async {
+    String url = "/transaction/items?unique_id=$uniqueID";
+    ApiService _apiService = ApiService();
+    return _apiService.makeApiRequest(
+        method: apiMethods.get,
+        url: url,
+        body: null,
+        headers: null); //we will fetch the overview from this request
+  }
+
   getAllTransaction() async {
     try {
       final result =
           await transactionRepository.getAllTransaction(shopId: shop.value.id);
       transactionList.value = result;
       totalPage.value = result.lastPage;
+      print("my all transaction are ${result.total}");
+      print("my shop id is ${shop.value.id}");
     } catch (e) {
       CustomDialog.showStringDialog(e.toString());
     }
   }
 
   getAllTransactionItem() async {
+    print("step 111");
     try {
       final result = await transactionRepository.getAllTransactionItem(
           shopId: shop.value.id);
-
+      print("my all transactions items are $result");
       final res = result.orderByDescending((element) => element.createdAt);
       transactionItemList.assignAll(res);
+      print("my all transaction items are $res");
     } catch (e) {
+      print("not working");
       // CustomDialog.showStringDialog("No Data Found");
     }
   }

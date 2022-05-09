@@ -4,19 +4,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindings/confirm_payment_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindings/sell_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/quick_sell_front.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/add_product_page.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/exchange_sell_page.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transaction_sell_page.dart';
 
 import '../../../../../../new_UI/constants.dart';
-import '../../_navigation/sell_page_route.dart';
-import 'confirm_payment_page.dart';
 
-class SellCartPage extends GetView<SellController> {
+class SellEditCartPage extends GetView<SellController> {
   DateTime startDate = DateTime.now();
+  List cartList;
 
+  final Shop shop;
   DateTime endDate;
   int items = 0;
-
+  SellEditCartPage({this.cartList, this.shop});
   _selectStartDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       helpText: "start_date".tr,
@@ -84,24 +92,6 @@ class SellCartPage extends GetView<SellController> {
             height: size.height - 62,
             width: size.width,
             child: Column(children: [
-              // Padding(
-              //   padding: const EdgeInsets.symmetric(vertical: 8.0),
-              //   child: Row(
-              //     children: [
-              //       IconButton(
-              //         icon: Icon(
-              //           Icons.arrow_back,
-              //           size: 25,
-              //           color: DEFAULT_BLUE,
-              //         ),
-              //         onPressed: () {
-              //           Get.back();
-              //         },
-              //       ),
-              //       Text('cart'.tr,style: TextStyle(fontSize: 16,color: DEFAULT_BLUE),),
-              //     ],
-              //   ),
-              // ),
               SizedBox(
                 height: 10,
               ),
@@ -109,9 +99,11 @@ class SellCartPage extends GetView<SellController> {
                 child: Container(
                     // height: size.height,
                     child: Obx(() => ListView.builder(
-                        itemCount: controller.cart.length,
+                        itemCount: controller.searchList.length,
                         itemBuilder: (context, index) {
-                          var item = controller.cart[index];
+                          print(
+                              "cart lenght are ++++++++++++++++++++++++ ${controller.searchList.length}");
+                          Product item = controller.searchList[index];
                           return Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 0.0),
@@ -491,13 +483,57 @@ class SellCartPage extends GetView<SellController> {
                   width: size.width,
                   child: ElevatedButton(
                     onPressed: () {
-                      Get.to(ConfirmPaymentPage(),
-                          binding: ConfirmPaymentBinding(),
-                          arguments: {
-                            'shop': controller.shop.value,
-                            'cart': controller.cart,
-                            'totalPrice': controller.totalCartPrice.value,
-                          });
+                      Get.to(
+                        () => AddProductToCart(),
+                        arguments: {
+                          "shop": shop,
+                        },
+                        binding: SellBinding(),
+                      );
+                    },
+                    child: Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(left: 65.0),
+                                child: Text(
+                                  'ADD PRODUCT',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      color: Colors.black,
+                                      fontSize: 16),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 16,
+                          )
+                        ],
+                      ),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      primary: DEFAULT_YELLOW_BG,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: Container(
+                  height: 50,
+                  width: size.width,
+                  child: ElevatedButton(
+                    onPressed: () {
                       // Get.toNamed(SellPageRoutes.CONFIRM_PAYMENT_PAGE,
                       //     arguments: {
                       //       'shop':
@@ -522,7 +558,7 @@ class SellCartPage extends GetView<SellController> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 65.0),
                                 child: Text(
-                                  'payment_method'.tr,
+                                  'DONE',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontFamily: 'Roboto',
@@ -530,15 +566,6 @@ class SellCartPage extends GetView<SellController> {
                                       fontSize: 16),
                                 ),
                               ),
-                              SizedBox(width: 10),
-                              Obx(() => Text(
-                                    '৳ ${controller.totalCartPrice.value.abs()}',
-                                    style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  )),
                             ],
                           ),
                           Icon(

@@ -1,19 +1,38 @@
 import 'dart:typed_data';
+import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_response.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 
 import 'package:flutter/material.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_response.dart';
+//import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_response.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 
-class SellReceiptPage extends StatelessWidget {
-  const SellReceiptPage(this.shop, this.transaction);
+class SellReceiptPage extends StatefulWidget {
+  const SellReceiptPage(this.shop, this.customerName, this.totalPrice,
+      this.totalDiscount, this.totalVat
+      // this.transaction,
+      );
   final Shop shop;
-  final transaction;
+  final String customerName;
+  final int totalPrice;
+  final int totalDiscount;
+  final int totalVat;
 
+  //final Transactions transaction;
+
+  @override
+  State<SellReceiptPage> createState() => _SellReceiptPageState();
+}
+
+class _SellReceiptPageState extends State<SellReceiptPage> {
+  final SellController sc = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +59,7 @@ class SellReceiptPage extends StatelessWidget {
                 children: [
                   pw.Container(
                     height: 60,
-                    width: 600,
+                    width: 300,
                     //color: DEFAULT_YELLOW_BG,
                     child: pw.Row(
                       children: [
@@ -62,14 +81,14 @@ class SellReceiptPage extends StatelessWidget {
                               mainAxisAlignment: pw.MainAxisAlignment.center,
                               children: [
                                 pw.Text(
-                                  "${shop.name}",
+                                  "${widget.shop.name}",
                                   style: pw.TextStyle(
                                       //color: DEFAULT_BLACK,
                                       fontSize: 16,
                                       fontWeight: pw.FontWeight.bold),
                                 ),
                                 pw.Text(
-                                  "${shop.publicNumber}",
+                                  "${widget.shop.publicNumber}",
                                   style: pw.TextStyle(
                                       //color: DEFAULT_BLACK,
                                       fontSize: 16,
@@ -82,7 +101,7 @@ class SellReceiptPage extends StatelessWidget {
                         pw.Padding(
                           padding: const pw.EdgeInsets.all(8.0),
                           child: pw.Text(
-                            "${shop.address}",
+                            "${widget.shop.address}",
                             style: pw.TextStyle(
                                 //color: DEFAULT_BLACK,
                                 fontSize: 16,
@@ -110,9 +129,9 @@ class SellReceiptPage extends StatelessWidget {
                               ),
                               pw.SizedBox(height: 5),
                               pw.Text(
-                                transaction.customerName.isEmpty
+                                widget.customerName.isEmpty
                                     ? "Not Given"
-                                    : "${transaction.customerName}",
+                                    : "${widget.customerName}",
                                 style: pw.TextStyle(
                                     //color: DEFAULT_BLACK,
                                     fontSize: 16,
@@ -166,7 +185,7 @@ class SellReceiptPage extends StatelessWidget {
                               ),
                               pw.SizedBox(height: 5),
                               pw.Text(
-                                "${transaction.totalPrice}",
+                                "${widget.totalPrice}",
                                 style: pw.TextStyle(
                                     //color: DEFAULT_BLACK,
                                     fontSize: 16,
@@ -251,12 +270,11 @@ class SellReceiptPage extends StatelessWidget {
                     thickness: 2,
                   ),
                   pw.ListView.builder(
-                    itemCount: transaction.transactionItems.length,
+                    itemCount: sc.cart.length,
                     itemBuilder: (pw.Context context, int index) {
-                      TransactionItem item =
-                          transaction.transactionItems[index];
+                      Product item = sc.cart[index];
                       print("pdf item list: ${item.name}");
-                      var totalPrice = item.price * item.quantity;
+                      var totalPrice = item.sellingPrice;
                       return pw.Container(
                         child: pw.Column(
                           children: [
@@ -286,7 +304,7 @@ class SellReceiptPage extends StatelessWidget {
                                       child: pw.Align(
                                         alignment: pw.Alignment.center,
                                         child: pw.Text(
-                                          "${item.price}",
+                                          "${item.sellingPrice}",
                                           style: pw.TextStyle(
                                               //color: DEFAULT_BLACK,
                                               fontSize: 16,
@@ -304,7 +322,8 @@ class SellReceiptPage extends StatelessWidget {
                                     child: pw.Align(
                                       alignment: pw.Alignment.center,
                                       child: pw.Text(
-                                        "${item.quantity.toString()}",
+                                        "1",
+                                        //  "${item..toString()}",
                                         style: pw.TextStyle(
                                             //color: DEFAULT_BLACK,
                                             fontSize: 16,
@@ -362,7 +381,7 @@ class SellReceiptPage extends StatelessWidget {
                               child: pw.Align(
                                 alignment: pw.Alignment.centerRight,
                                 child: pw.Text(
-                                  "${transaction.totalPrice} Tk",
+                                  "${widget.totalPrice} Tk",
                                   style: pw.TextStyle(
                                       //color: DEFAULT_BLACK,
                                       fontSize: 16,
@@ -396,7 +415,7 @@ class SellReceiptPage extends StatelessWidget {
                               child: pw.Align(
                                 alignment: pw.Alignment.centerRight,
                                 child: pw.Text(
-                                  "${transaction.totalDiscount} Tk",
+                                  "${widget.totalDiscount} Tk",
                                   style: pw.TextStyle(
                                       //color: DEFAULT_BLACK,
                                       fontSize: 16,
@@ -430,7 +449,8 @@ class SellReceiptPage extends StatelessWidget {
                               child: pw.Align(
                                 alignment: pw.Alignment.centerRight,
                                 child: pw.Text(
-                                  "${transaction.totalVat} Tk",
+                                  // "${widget.transaction.totalVat} Tk",
+                                  "${widget.totalVat} Tk",
                                   style: pw.TextStyle(
                                       //color: DEFAULT_BLACK,
                                       fontSize: 16,
@@ -472,7 +492,7 @@ class SellReceiptPage extends StatelessWidget {
                               child: pw.Align(
                                 alignment: pw.Alignment.centerRight,
                                 child: pw.Text(
-                                  "${transaction.totalPrice} Tk",
+                                  "${widget.totalPrice} Tk",
                                   style: pw.TextStyle(
                                       //color: DEFAULT_BLACK,
                                       fontSize: 16,
@@ -492,7 +512,6 @@ class SellReceiptPage extends StatelessWidget {
         },
       ),
     );
-
     return pdf.save();
   }
 }

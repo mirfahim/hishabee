@@ -160,20 +160,20 @@ class TransactionSellController extends GetxController {
   }
 
   onConfirm() {
-    print("TTP: ${transaction.value.totalPrice}");
+    // print("TTP: ${transaction.value.totalPrice}");
     double totalPrice = 0.0;
     if (cart.isNotEmpty) {
       cart.forEach((element) {
         print("SP : ${element.sellingPrice}");
         var item = TransactionItem(
             id: element.id,
-            createdAt: element.createdAt,
+            createdAt: element.createdAt.toString(),
             discount: element.discount,
             imageSrc: element.imageUrl,
             name: element.name,
             price: element.costPrice,
             quantity: 1,
-            sellingPrice: element.sellingPrice,
+            //sellingPrice: element.sellingPrice,
             shopProductId: element.productId,
             // shopProductVarianceId: element.shopProductVarianceId,
             subCategory: element.subCategory,

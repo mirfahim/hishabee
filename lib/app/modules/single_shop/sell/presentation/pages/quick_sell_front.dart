@@ -1,5 +1,9 @@
+import 'dart:io';
+
+import 'package:animated_widgets/widgets/opacity_animated.dart';
 import 'package:animated_widgets/widgets/rotation_animated.dart';
 import 'package:animated_widgets/widgets/shake_animated_widget.dart';
+import 'package:animated_widgets/widgets/translation_animated.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:contextmenu/contextmenu.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,6 +34,7 @@ import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
+import 'package:rect_getter/rect_getter.dart';
 
 import 'confirm_payment_page.dart';
 
@@ -45,106 +50,6 @@ class QuickSell extends GetView<SellController> {
     final shopFeatureController = Get.find<ShopFeaturesController>();
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      // bottomSheet: controller.sellType.value != 0 ? InkWell(
-      //   onTap: () {
-      //     Get.to(SellCartPage(),
-      //         binding: SellBinding());
-      //   },
-      //   child: Container(
-      //     width: size.width,
-      //     decoration: BoxDecoration(
-      //         color: DEFAULT_YELLOW_BG,
-      //         borderRadius: BorderRadius.only(
-      //           topLeft: Radius.circular(15),
-      //           topRight: Radius.circular(15),
-      //         )),
-      //     child: Container(
-      //       width: size.width,
-      //       child: Padding(
-      //         padding: const EdgeInsets.symmetric(
-      //             horizontal: 15.0),
-      //         child: Row(
-      //           children: [
-      //             Text(
-      //               "tk".tr,
-      //               style: TextStyle(
-      //                 fontFamily: 'Rubik',
-      //                 fontSize: 18,
-      //                 fontWeight: FontWeight.bold,
-      //                 color: DEFAULT_BLUE,
-      //               ),
-      //             ),
-      //             SizedBox(
-      //               width: 15,
-      //             ),
-      //             Obx(
-      //                   () => Text(
-      //                 "${controller.totalCartProductPrice.value}",
-      //                 style: TextStyle(
-      //                   fontFamily: 'Rubik',
-      //                   fontSize: 18,
-      //                   fontWeight: FontWeight.bold,
-      //                   color: DEFAULT_BLUE,
-      //                 ),
-      //               ),
-      //             ),
-      //             Spacer(),
-      //             Obx(
-      //                   () => ShakeAnimatedWidget(
-      //                 enabled: controller.animate.value,
-      //                 duration:
-      //                 Duration(milliseconds: 100),
-      //                 shakeAngle: Rotation.deg(z: 15),
-      //                 curve: Curves.linear,
-      //                 child: Container(
-      //                   height: 40,
-      //                   width: 70,
-      //                   decoration: BoxDecoration(
-      //                       borderRadius:
-      //                       BorderRadius.circular(
-      //                           8),
-      //                       color: Colors.white),
-      //                   child: InkWell(
-      //                     onTap: () {
-      //                       // Get.toNamed(SellPageRoutes.SELL_CART_PAGE);
-      //                       Get.to(SellCartPage(),
-      //                           binding: SellBinding());
-      //                     },
-      //                     child: Row(
-      //                       mainAxisAlignment:
-      //                       MainAxisAlignment
-      //                           .spaceAround,
-      //                       children: [
-      //                         Obx(
-      //                               () => Text(
-      //                             "${controller.cart.length}",
-      //                             style: TextStyle(
-      //                               fontFamily: 'Rubik',
-      //                               fontSize: 18,
-      //                               fontWeight:
-      //                               FontWeight.bold,
-      //                               color: DEFAULT_BLUE,
-      //                             ),
-      //                           ),
-      //                         ),
-      //                         Icon(
-      //                           Icons
-      //                               .arrow_forward_ios_sharp,
-      //                           color: DEFAULT_BLUE,
-      //                           size: 20,
-      //                         ),
-      //                       ],
-      //                     ),
-      //                   ),
-      //                 ),
-      //               ),
-      //             ),
-      //           ],
-      //         ),
-      //       ),
-      //     ),
-      //   ),
-      // ): Container() ,
       backgroundColor: DEFAULT_BODY_BG_COLOR,
       appBar: AppBar(
         leading: IconButton(
@@ -354,24 +259,34 @@ class QuickSell extends GetView<SellController> {
                                                   BorderRadius.circular(6)),
                                           child: Padding(
                                             padding: const EdgeInsets.all(9.0),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceAround,
-                                              children: [
-                                                SvgPicture.asset(
-                                                    'images/svg_image/receipt.svg'),
-                                                SizedBox(
-                                                  width: 5,
-                                                ),
-                                                Text(
-                                                  'picture'.tr,
-                                                  style: TextStyle(
-                                                    color: DEFAULT_BLACK,
-                                                    fontFamily: 'Roboto',
+                                            child: controller.image.value ==
+                                                    null
+                                                ? Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                      SvgPicture.asset(
+                                                          'images/svg_image/receipt.svg'),
+                                                      SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      Text(
+                                                        'picture'.tr,
+                                                        style: TextStyle(
+                                                          color: DEFAULT_BLACK,
+                                                          fontFamily: 'Roboto',
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  )
+                                                : Text(
+                                                    "Image Added",
+                                                    style: TextStyle(
+                                                      color: DEFAULT_BLACK,
+                                                      fontFamily: 'Roboto',
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
                                           ),
                                         ),
                                       ),
@@ -478,42 +393,44 @@ class QuickSell extends GetView<SellController> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            // CalculatorTextField(
-                            //   initialValue: _value,
-                            //   onSubmitted: (value) {
-                            //     _value = value;
-                            //     print('value: $_value');
-                            //   },
-                            // )
-                            child: Obx(()=>TextFormField(
-                              controller: controller.cashTextEditingController.value,
-                              onTap: () {
-                                // CalcButton();
-                                print("working 123");
-                                showCalculatorOptionDialogue(context);
-                              },
-
-                              showCursor: false,
-                              readOnly: true,
-                              onSaved: (value) {
-                                controller.amount.value = double.parse(value);
-                              },
-                              keyboardType: TextInputType.number,
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp('[0-9]')),
-                              ],
-                              decoration: InputDecoration(
-                                labelText: 'Cash',
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: DEFAULT_BLACK, width: 1),
-                                    borderRadius: BorderRadius.circular(4)),
-                              ),
-                            ),)
-
-                          ),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 10.0),
+                              // CalculatorTextField(
+                              //   initialValue: _value,
+                              //   onSubmitted: (value) {
+                              //     _value = value;
+                              //     print('value: $_value');
+                              //   },
+                              // )
+                              child: Obx(
+                                () => TextFormField(
+                                  controller: controller
+                                      .cashTextEditingController.value,
+                                  onTap: () {
+                                    // CalcButton();
+                                    print("working 123");
+                                    showCalculatorOptionDialogue(context);
+                                  },
+                                  showCursor: false,
+                                  readOnly: true,
+                                  onSaved: (value) {
+                                    controller.amount.value =
+                                        double.parse(value);
+                                  },
+                                  keyboardType: TextInputType.number,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp('[0-9]')),
+                                  ],
+                                  decoration: InputDecoration(
+                                    labelText: 'Cash',
+                                    border: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            color: DEFAULT_BLACK, width: 1),
+                                        borderRadius: BorderRadius.circular(4)),
+                                  ),
+                                ),
+                              )),
                           mobileNumberCheckbox.value == true
                               ? Obx(
                                   () => controller.customerField.value
@@ -665,227 +582,228 @@ class QuickSell extends GetView<SellController> {
                           ),
                         ],
                       )
-                    : Column(
-                        children: [
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            children: [
-                              Expanded(
-                                flex: 9,
-                                child: Container(
-                                  // width: MediaQuery.of(context).size.width /
-                                  //     1.25,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(
-                                          color: Color(0xFF185ADB),
-                                          width: 1.5),
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(6.0))),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                    children: [
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Expanded(
-                                        flex: 3,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 3.0),
-                                          child: TextFormField(
-                                            onChanged: (value) {
-                                              controller
-                                                  .searchProduct(value);
-                                            },
-                                            keyboardType:
-                                            TextInputType.text,
-                                            decoration: InputDecoration(
-                                              hintText:
-                                              "Search For Product",
-                                              icon: SvgPicture.asset(
-                                                  'images/svg_image/search.svg'),
-                                              hintStyle: TextStyle(
-                                                  fontSize: 14.0,
-                                                  fontFamily: 'Roboto'),
-                                              border: InputBorder.none,
+                    : Stack(children: [
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  flex: 9,
+                                  child: Container(
+                                    // width: MediaQuery.of(context).size.width /
+                                    //     1.25,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        border: Border.all(
+                                            color: Color(0xFF185ADB),
+                                            width: 1.5),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(6.0))),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(
+                                          flex: 3,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 3.0),
+                                            child: TextFormField(
+                                              onChanged: (value) {
+                                                controller.searchProduct(value);
+                                              },
+                                              keyboardType: TextInputType.text,
+                                              decoration: InputDecoration(
+                                                hintText: "Search For Product",
+                                                icon: SvgPicture.asset(
+                                                    'images/svg_image/search.svg'),
+                                                hintStyle: TextStyle(
+                                                    fontSize: 14.0,
+                                                    fontFamily: 'Roboto'),
+                                                border: InputBorder.none,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      Expanded(
-                                        flex: 2,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 10.0),
-                                          child: Container(
-                                              child: IntrinsicHeight(
-                                                child: Row(
-                                                  children: [
-                                                    Container(
-                                                        height: 30,
-                                                        child: VerticalDivider(
-                                                            thickness: 2,
-                                                            color: Color(
-                                                                0xFF185ADB),
-                                                            indent: 0,
-                                                            endIndent: 0)),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        _showCategoryDialog(
-                                                            controller
-                                                                .categoryList,
-                                                            size,
-                                                            context);
-                                                      },
-                                                      child: Padding(
-                                                        padding:
-                                                        const EdgeInsets
-                                                            .only(
-                                                            right: 5.0,
-                                                            left: 5),
-                                                        child: SvgPicture.asset(
-                                                            'images/svg_image/filter.svg'),
-                                                      ),
+                                        Expanded(
+                                          flex: 2,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 10.0),
+                                            child: Container(
+                                                child: IntrinsicHeight(
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                      height: 30,
+                                                      child: VerticalDivider(
+                                                          thickness: 2,
+                                                          color:
+                                                              Color(0xFF185ADB),
+                                                          indent: 0,
+                                                          endIndent: 0)),
+                                                  InkWell(
+                                                    onTap: () {
+                                                      _showCategoryDialog(
+                                                          controller
+                                                              .categoryList,
+                                                          size,
+                                                          context);
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 5.0,
+                                                              left: 5),
+                                                      child: SvgPicture.asset(
+                                                          'images/svg_image/filter.svg'),
                                                     ),
-                                                    Text(
-                                                      'filter'.tr,
-                                                      style: TextStyle(
-                                                          fontFamily: 'Roboto'),
-                                                    )
-                                                  ],
-                                                ),
-                                              )),
-                                        ),
-                                      )
-                                    ],
+                                                  ),
+                                                  Text(
+                                                    'filter'.tr,
+                                                    style: TextStyle(
+                                                        fontFamily: 'Roboto'),
+                                                  )
+                                                ],
+                                              ),
+                                            )),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(
-                                width: 10,
-                              ),
-                              Expanded(
-                                  flex: 1,
-                                  child: IconButton(
-                                      icon: SvgPicture.asset(
-                                          'images/svg_image/scanner.svg'),
-                                      onPressed: () async {
-                                        await controller.scanProduct();
-                                      },
-                                      color: Color(0xFF185ADB)))
-                            ],
-                          ),
-                          Container(
-                            height: MediaQuery.of(context).size.height / 2,
-                            child: ListView.builder(
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                physics: AlwaysScrollableScrollPhysics(),
-                                itemCount: controller.searchList.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  Product product = controller.searchList[
-                                      controller.searchList.length - 1 - index];
-                                  return InkWell(
-                                      onTap: () {
-                                        controller.animateButton();
-                                        controller.addToCart(product);
-                                      },
-                                      child:
-                                          // Obx(()=>
-                                          Column(
-                                        children: [
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          ListTile(
-                                            leading: product.imageUrl != null
-                                                ? CachedNetworkImage(
-                                                    imageUrl: product.imageUrl,
-                                                    placeholder: (context,
-                                                            url) =>
-                                                        new CircularProgressIndicator(),
-                                                    errorWidget: (context, url,
-                                                            error) =>
-                                                        new Icon(Icons.error),
-                                                  )
-                                                : Container(
-                                                    height: 50,
-                                                    width: 50,
-                                                    child: Center(
-                                                      child: Image.asset(
-                                                          'images/hishabeeLogo.png',
-                                                          height: 35,
-                                                          width: 35),
-                                                    ),
-                                                  ),
-                                            title: Text(
-                                              product.name,
-                                              style: TextStyle(
-                                                  fontFamily: 'Roboto'),
-                                              maxLines: 3,
-                                            ),
-                                            trailing: Text(
-                                              '৳ ${product.sellingPrice}',
-                                              style: TextStyle(
-                                                  fontFamily: 'Roboto'),
-                                            ),
-                                          ),
-                                          Divider(
-                                            thickness: 2,
-                                            color: Color(0xFFC4C4C4)
-                                                .withOpacity(.35),
-                                          ),
-                                        ],
-                                      ));
-                                }),
-                          ),
-                          controller.cart.length > 0
-                              ? InkWell(
-                                  onTap: () {
-                                    Get.to(SellCartPage(),
-                                        binding: SellBinding());
-                                  },
-                                  child: Container(
-                                    width: size.width,
-                                    decoration: BoxDecoration(
-                                        color: Color(0xFF185ADB),
-                                        borderRadius:
-                                            BorderRadius.circular(10)),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                    flex: 1,
+                                    child: IconButton(
+                                        icon: SvgPicture.asset(
+                                            'images/svg_image/scanner.svg'),
+                                        onPressed: () async {
+                                          await controller.scanProduct();
+                                        },
+                                        color: Color(0xFF185ADB)))
+                              ],
+                            ),
+                            Container(
+                              height: MediaQuery.of(context).size.height / 2,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  physics: AlwaysScrollableScrollPhysics(),
+                                  itemCount: controller.searchList.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    Product product = controller.searchList[
+                                        controller.searchList.length -
+                                            1 -
+                                            index];
+                                    var key = RectGetter.createGlobalKey();
+                                    return RectGetter(
+                                      key: key,
+                                      child: InkWell(
+                                          onTap: () {
+                                            var rect =
+                                                RectGetter.getRectFromKey(key);
+                                            controller.animationX.value =
+                                                rect.left;
+                                            controller.animationY.value =
+                                                rect.top;
+
+                                            controller.animateButton();
+                                            controller.addToCart(product);
+                                          },
+                                          child:
+                                              // Obx(()=>
+                                              Column(
+                                            children: [
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              ListTile(
+                                                leading: product.imageUrl !=
+                                                        null
+                                                    ? CachedNetworkImage(
+                                                        imageUrl:
+                                                            product.imageUrl,
+                                                        placeholder: (context,
+                                                                url) =>
+                                                            new CircularProgressIndicator(),
+                                                        errorWidget: (context,
+                                                                url, error) =>
+                                                            new Icon(
+                                                                Icons.error),
+                                                      )
+                                                    : Container(
+                                                        height: 50,
+                                                        width: 50,
+                                                        child: Center(
+                                                          child: Image.asset(
+                                                              'images/hishabeeLogo.png',
+                                                              height: 35,
+                                                              width: 35),
+                                                        ),
+                                                      ),
+                                                title: Text(
+                                                  product.name,
+                                                  style: TextStyle(
+                                                      fontFamily: 'Roboto'),
+                                                  maxLines: 3,
+                                                ),
+                                                trailing: Text(
+                                                  '৳ ${product.sellingPrice}',
+                                                  style: TextStyle(
+                                                      fontFamily: 'Roboto'),
+                                                ),
+                                              ),
+                                              Divider(
+                                                thickness: 2,
+                                                color: Color(0xFFC4C4C4)
+                                                    .withOpacity(.35),
+                                              ),
+                                            ],
+                                          )),
+                                    );
+                                  }),
+                            ),
+                            controller.cart.length > 0
+                                ? InkWell(
+                                    onTap: () {
+                                      Get.to(SellCartPage(),
+                                          binding: SellBinding());
+                                    },
                                     child: Container(
                                       width: size.width,
-                                      height: 48,
-                                      child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 25.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Padding(
-                                                  padding:
-                                                      EdgeInsets.only(left: 40),
-                                                ),
-                                                Text(
-                                                  "grand_total".tr,
-                                                  style: TextStyle(
-                                                    fontFamily: 'Roboto',
-                                                    fontSize: 18,
-                                                    // fontWeight: FontWeight.bold,
-                                                    color: Colors.white,
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFF185ADB),
+                                          borderRadius:
+                                              BorderRadius.circular(10)),
+                                      child: Container(
+                                        width: size.width,
+                                        height: 48,
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 25.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Padding(
+                                                    padding: EdgeInsets.only(
+                                                        left: 40),
                                                   ),
-                                                ),
-                                                SizedBox(
-                                                  width: 15,
-                                                ),
-                                                Obx(
-                                                  () => Text(
-                                                    "${controller.totalCartProductPrice.value}",
+                                                  Text(
+                                                    "grand_total".tr,
                                                     style: TextStyle(
                                                       fontFamily: 'Roboto',
                                                       fontSize: 18,
@@ -893,86 +811,135 @@ class QuickSell extends GetView<SellController> {
                                                       color: Colors.white,
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            // Spacer(),
+                                                  SizedBox(
+                                                    width: 15,
+                                                  ),
+                                                  Obx(
+                                                    () => Text(
+                                                      "${controller.totalCartProductPrice.value}",
+                                                      style: TextStyle(
+                                                        fontFamily: 'Roboto',
+                                                        fontSize: 18,
+                                                        // fontWeight: FontWeight.bold,
+                                                        color: Colors.white,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              // Spacer(),
 
-                                            Obx(
-                                              () => ShakeAnimatedWidget(
-                                                enabled:
-                                                    controller.animate.value,
-                                                duration:
-                                                    Duration(milliseconds: 100),
-                                                shakeAngle: Rotation.deg(z: 07),
-                                                curve: Curves.linear,
-                                                child: Container(
-                                                  height: 30,
-                                                  width: 60,
-                                                  decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8),
-                                                      color: Colors.white),
-                                                  child: InkWell(
-                                                    onTap: () {
-                                                      // Get.toNamed(SellPageRoutes.SELL_CART_PAGE);
-                                                      Get.to(SellCartPage(),
-                                                          binding:
-                                                              SellBinding());
-                                                    },
-                                                    child: Padding(
-                                                      padding: const EdgeInsets
-                                                              .symmetric(
-                                                          horizontal: 8.0),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceAround,
-                                                        children: [
-                                                          Obx(
-                                                            () => Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .all(3.0),
-                                                              child: Text(
-                                                                "${controller.cart.length}",
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontFamily:
-                                                                      'Roboto',
-                                                                  fontSize: 18,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                  color: Colors
-                                                                      .black,
+                                              Obx(
+                                                () => ShakeAnimatedWidget(
+                                                  enabled:
+                                                      controller.animate.value,
+                                                  duration: Duration(
+                                                      milliseconds: 100),
+                                                  shakeAngle:
+                                                      Rotation.deg(z: 07),
+                                                  curve: Curves.linear,
+                                                  child: Container(
+                                                    height: 30,
+                                                    width: 60,
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                        color: Colors.white),
+                                                    child: InkWell(
+                                                      onTap: () {
+                                                        // Get.toNamed(SellPageRoutes.SELL_CART_PAGE);
+                                                        Get.to(SellCartPage(),
+                                                            binding:
+                                                                SellBinding());
+                                                      },
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal:
+                                                                    8.0),
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceAround,
+                                                          children: [
+                                                            Obx(
+                                                              () => Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .all(
+                                                                        3.0),
+                                                                child: Text(
+                                                                  "${controller.cart.length}",
+                                                                  style:
+                                                                      TextStyle(
+                                                                    fontFamily:
+                                                                        'Roboto',
+                                                                    fontSize:
+                                                                        18,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                    color: Colors
+                                                                        .black,
+                                                                  ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                          Icon(
-                                                            Icons
-                                                                .arrow_forward_ios_sharp,
-                                                            color: Colors.black,
-                                                            size: 20,
-                                                          ),
-                                                        ],
+                                                            Icon(
+                                                              Icons
+                                                                  .arrow_forward_ios_sharp,
+                                                              color:
+                                                                  Colors.black,
+                                                              size: 20,
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                )
-                              : Container()
-                        ],
-                      ))
+                                  )
+                                : Container()
+                          ],
+                        ),
+                        Positioned(
+                            right: 60,
+                            bottom: 5,
+                            child: Obx(
+                              () => Container(
+                                child: controller.animate.value
+                                    ? TranslationAnimatedWidget.tween(
+                                        duration: Duration(milliseconds: 700),
+                                        enabled: true,
+                                        translationDisabled: Offset(
+                                            -size.width +
+                                                controller.animationX.round() +
+                                                50,
+                                            -size.height +
+                                                controller.animationY.round()),
+                                        translationEnabled: Offset(0, 0),
+                                        child: OpacityAnimatedWidget.tween(
+                                          enabled: true,
+                                          opacityDisabled: 0,
+                                          opacityEnabled: 1,
+                                          child: Image.asset(
+                                              'images/hishabeeLogo.png',
+                                              height: 35,
+                                              width: 35),
+                                        ),
+                                      )
+                                    : Container(),
+                              ),
+                            )),
+                      ]))
               ],
             ),
           ),
@@ -1114,7 +1081,7 @@ class QuickSell extends GetView<SellController> {
 
   showPictureOptionDialogue(BuildContext context) {
     //final AddProductController controller = Get.find();
-    var file;
+    File file;
     Get.dialog(
       Material(
         color: Colors.transparent,
@@ -1127,6 +1094,7 @@ class QuickSell extends GetView<SellController> {
                 onTap: () {
                   ImageHelper.getImageFromCamera().then((value) {
                     file = value;
+                    controller.image.value = value;
                     print("image path is +++++++++++++ $file");
 
                     navigator.pop();
@@ -1168,7 +1136,7 @@ class QuickSell extends GetView<SellController> {
                   //getImageFromGallery(option);
                   ImageHelper.getImageFromGallery().then((value) {
                     file = value;
-
+                    controller.image.value = value;
                     navigator.pop();
                   });
                 },
@@ -1213,15 +1181,14 @@ class QuickSell extends GetView<SellController> {
   showCalculatorOptionDialogue(BuildContext context) {
     print("working 11");
     // return StatefulBuilder(builder: (context, snapshot) {
-      return showModalBottomSheet(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          context: context,
-          builder: (context) => Container(
-            height: 300,
-            width: 400,
-            child: CalcButton(),
-          ));
+    return showModalBottomSheet(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        context: context,
+        builder: (context) => Container(
+              height: 300,
+              width: 400,
+              child: CalcButton(),
+            ));
     // }
     // );
   }

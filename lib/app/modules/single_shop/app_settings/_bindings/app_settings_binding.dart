@@ -70,8 +70,8 @@ class AppSettingsBinding extends Bindings {
     Get.lazyPut<IDigitalPaymentRepository>(
         () => DigitalPaymentRepository(find()));
 
-    Get.lazyPut(
-        () => ConfirmPaymentController(find(), find(), find(), find(), find()));
+    Get.lazyPut(() => ConfirmPaymentController(
+        find(), find(), find(), find(), find(), find()));
 
     Get.lazyPut<IDueProvider>(() => DueProvider(find()));
     Get.lazyPut<IDueRepository>(() => DueRepository(find()));

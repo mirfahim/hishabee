@@ -87,7 +87,7 @@ class ExchangeSellController extends GetxController {
     shop.value = Get.arguments['shop'];
     transaction.value = Get.arguments['transaction'];
     transactionItem.value = Get.arguments['item'];
-    print("called ${transactionItem.value.sellingPrice}");
+    // print("called ${transactionItem.value.sellingPrice}");
   }
 
   getAllProducts() async {
@@ -171,13 +171,13 @@ class ExchangeSellController extends GetxController {
       cart.forEach((element) {
         var item = TransactionItem(
             id: element.id,
-            createdAt: element.createdAt,
+            createdAt: element.createdAt.toString(),
             discount: element.discount,
             imageSrc: element.imageUrl,
             name: element.name,
             price: element.costPrice,
             quantity: 1,
-            sellingPrice: element.sellingPrice,
+            //sellingPrice: element.sellingPrice,
             shopProductId: element.productId,
             // shopProductVarianceId: element.shopProductVarianceId,
             subCategory: element.subCategory,

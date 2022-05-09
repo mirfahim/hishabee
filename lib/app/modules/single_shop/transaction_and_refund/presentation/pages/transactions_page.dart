@@ -6,7 +6,9 @@ import 'package:get/get.dart';
 import 'package:group_button/group_button.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
+import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/new_transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/manager/transaction_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transaction_details_screen.dart';
@@ -16,6 +18,8 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:showcaseview/showcaseview.dart';
 
 class TransactionPage extends GetView<TransactionController> {
+  final Shop shop;
+  TransactionPage({this.shop});
   @override
   Widget build(BuildContext context) {
     return ShowCaseWidget(
@@ -95,6 +99,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
         enablePullUp: true,
         onRefresh: () async {
           final result = await widget.controller.getAllTransaction();
+          //print("my result is ${result.}");
           if (result) {
             refreshController.refreshCompleted();
           } else {
@@ -117,8 +122,10 @@ class _TransactionsPageState extends State<TransactionsPage> {
                 SizedBox(
                   height: 10,
                 ),
-                Expanded(
-                  flex: 1,
+                GestureDetector(
+                  onTap: () {
+                    widget.controller.getAllTransactionItem();
+                  },
                   child: Container(
                     width: size.width,
                     decoration: BoxDecoration(
@@ -304,7 +311,7 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                           //       ),
                                           //     ),
                                           //     SizedBox(
-                                          //       width: 10,
+                                          //       width: 10,List
                                           //     ),
                                           //     Container(
                                           //       height: 40,
@@ -740,25 +747,32 @@ class _TransactionsPageState extends State<TransactionsPage> {
                   height: 10,
                 ),
 
-                Obx(
-                  () => Container(
-                    height: 350,
-                    child: ListView.builder(
-                      controller: ScrollController(),
-                      scrollDirection: Axis.vertical,
+                Expanded(
+                  child: Obx(
+                    () => ListView.builder(
+                      // scrollDirection: Axis.vertical,
                       // physics: NeverScrollableScrollPhysics(),
                       shrinkWrap: true,
                       itemCount: widget.controller.filterTransactionList.length,
                       itemBuilder: (BuildContext context, int index) {
+                        print(
+                            "my transaction details is ${widget.controller.filterTransactionList[index].createdAt}");
                         Transactions transaction =
                             widget.controller.filterTransactionList[index];
+                        // print(
+                        //     "my transaction items is ${transaction.transactionItems.length}");
                         return InkWell(
                           onTap: () {
                             Get.to(
                                 () => TransactionDetailsPage(
                                       shop: widget.controller.shop.value,
                                       transaction: transaction,
+                                      uniqueID: transaction.uniqueID,
                                     ),
+                                arguments: {
+                                  "shop": widget.controller.shop.value,
+                                },
+                                // );
                                 binding: TransactionsBinding());
                           },
                           child: Container(
@@ -803,7 +817,18 @@ class _TransactionsPageState extends State<TransactionsPage> {
                                                 color: Color(0xFF707070)),
                                           ),
                                           transaction.customerName == null
-                                              ? ''
+                                              ? Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(3.0),
+                                                  child: Text(
+                                                    'No data',
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontFamily: 'Roboto',
+                                                        color:
+                                                            Color(0xFF232323)),
+                                                  ),
+                                                )
                                               : Padding(
                                                   padding:
                                                       const EdgeInsets.all(3.0),

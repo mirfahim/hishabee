@@ -145,7 +145,7 @@ class DigitalPaymentProvider extends GetConnect
     num amount,
   }) async {
     String url =
-        '$BASE_URL/digital_payment/due?shop_id=$shopId&customer_id=$customerId&customer_name=$customerName&customer_mobile=$mobileNumber&customer_address=$address&amount=$amount';
+        '$BASE_URL/digital_payment/custom?shop_id=15&name=test&mobile=012&amount=50';
 
     final creds = await authRepository.getCredentials();
 

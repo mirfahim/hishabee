@@ -18,7 +18,6 @@ import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.da
 class SellDue extends GetView<SellDueEditAddController> {
   const SellDue({Key key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -31,7 +30,7 @@ class SellDue extends GetView<SellDueEditAddController> {
             Expanded(
               child: Container(
                 height: size.height,
-                width: size.width - 250,
+                width: size.width,
                 child: SingleChildScrollView(
                   child: Container(
                     color: DEFAULT_BODY_BG_COLOR,
@@ -55,7 +54,11 @@ class SellDue extends GetView<SellDueEditAddController> {
                                     Get.back();
                                   },
                                 ),
-                                Text('add_due'.tr,style: TextStyle(fontSize: 16,color: DEFAULT_BLUE),),
+                                Text(
+                                  'add_due'.tr,
+                                  style: TextStyle(
+                                      fontSize: 16, color: DEFAULT_BLUE),
+                                ),
                               ],
                             ),
                           ),
@@ -67,7 +70,7 @@ class SellDue extends GetView<SellDueEditAddController> {
                             height: 10,
                           ),
                           Obx(
-                                ()=> RadioGroup.builder(
+                            () => RadioGroup.builder(
                               horizontalAlignment: MainAxisAlignment.start,
                               activeColor: DEFAULT_BLACK,
                               groupValue: controller.selectedClassStatus.value,
@@ -77,8 +80,10 @@ class SellDue extends GetView<SellDueEditAddController> {
                                 controller.selectedEmployee.value = null;
                                 controller.selectedCustomer.value = null;
                                 controller.selectedSupplier.value = null;
-                                controller.nameTextEditingController.value.text = '';
-                                controller.numberTextEditingController.value.text = '';
+                                controller
+                                    .nameTextEditingController.value.text = '';
+                                controller.numberTextEditingController.value
+                                    .text = '';
                                 controller.selectedClassStatus.value = value;
                               },
                               items: controller.classStatus,
@@ -93,7 +98,9 @@ class SellDue extends GetView<SellDueEditAddController> {
                           Text(
                             'বাকির ধরণ নির্বাচন করুন',
                             style: TextStyle(
-                                color: Colors.black, fontSize: 14, fontFamily: 'Rubik'),
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontFamily: 'Rubik'),
                           ),
                           SizedBox(
                             height: 15,
@@ -101,12 +108,12 @@ class SellDue extends GetView<SellDueEditAddController> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Obx(
-                                  ()=> GroupButton(
+                              () => GroupButton(
                                 spacing: size.width * 0.05,
                                 isRadio: true,
                                 borderRadius: BorderRadius.circular(8),
-                                textPadding:
-                                EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
+                                textPadding: EdgeInsets.only(
+                                    left: 20, right: 20, top: 20, bottom: 20),
                                 unselectedBorderColor: DEFAULT_BLACK,
                                 selectedColor: Colors.black,
                                 unselectedColor: Colors.white,
@@ -130,7 +137,8 @@ class SellDue extends GetView<SellDueEditAddController> {
                                   'Dilam/Baki',
                                   'Nilam/joma',
                                 ],
-                                selectedButton: controller.dueType.value.toInt(),
+                                selectedButton:
+                                    controller.dueType.value.toInt(),
                               ),
                             ),
                           ),
@@ -139,7 +147,7 @@ class SellDue extends GetView<SellDueEditAddController> {
                           ),
                           Text('নাম'),
                           Obx(
-                                ()=> Container(
+                            () => Container(
                               height: 50,
                               decoration: BoxDecoration(
                                 border: Border.all(color: Colors.black),
@@ -150,11 +158,13 @@ class SellDue extends GetView<SellDueEditAddController> {
                                   Container(
                                     width: size.width * 0.75,
                                     child: TextFormField(
-                                      controller: controller.nameTextEditingController.value,
+                                      controller: controller
+                                          .nameTextEditingController.value,
                                       cursorColor: Colors.black,
                                       keyboardType: TextInputType.text,
                                       decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                                        contentPadding:
+                                            EdgeInsets.symmetric(horizontal: 8),
                                         hintText: 'নাম',
                                         hintStyle: const TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -164,10 +174,14 @@ class SellDue extends GetView<SellDueEditAddController> {
                                     ),
                                   ),
                                   IconButton(
-                                    onPressed: (){
+                                    onPressed: () {
                                       contactDialog(context);
                                     },
-                                    icon: Icon(Icons.arrow_drop_down,size: 30,color: DEFAULT_BLACK,),
+                                    icon: Icon(
+                                      Icons.arrow_drop_down,
+                                      size: 30,
+                                      color: DEFAULT_BLACK,
+                                    ),
                                   ),
                                 ],
                               ),
@@ -178,8 +192,9 @@ class SellDue extends GetView<SellDueEditAddController> {
                           ),
                           Text('মোবাইল নাম্বার'),
                           Obx(
-                                ()=> TextFormField(
-                              controller:controller.numberTextEditingController.value,
+                            () => TextFormField(
+                              controller:
+                                  controller.numberTextEditingController.value,
                               cursorColor: Colors.black,
                               keyboardType: TextInputType.number,
                               inputFormatters: [
@@ -188,7 +203,8 @@ class SellDue extends GetView<SellDueEditAddController> {
                                 ),
                               ],
                               decoration: InputDecoration(
-                                contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                                contentPadding:
+                                    EdgeInsets.symmetric(horizontal: 8),
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(4)),
                                 counterText: "",
@@ -206,17 +222,21 @@ class SellDue extends GetView<SellDueEditAddController> {
                           Text('বাকির পরিমাণ'),
                           Form(
                             key: controller.formKey,
-                            child:Obx(
-                                  ()=> TextFormField(
-                                initialValue: controller.selectedDueItem.value.amount.toString() ?? '',
-                                validator: (value){
-                                  if(value.isEmpty){
+                            child: Obx(
+                              () => TextFormField(
+                                initialValue: controller
+                                        .selectedDueItem.value.amount
+                                        .toString() ??
+                                    '',
+                                validator: (value) {
+                                  if (value.isEmpty) {
                                     return 'Due Amount Should not be empty';
                                   }
                                   return null;
                                 },
-                                onSaved: (value){
-                                  controller.dueAmount.value = double.parse(value);
+                                onSaved: (value) {
+                                  controller.dueAmount.value =
+                                      double.parse(value);
                                 },
                                 cursorColor: Colors.black,
                                 keyboardType: TextInputType.number,
@@ -226,7 +246,8 @@ class SellDue extends GetView<SellDueEditAddController> {
                                   ),
                                 ],
                                 decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(horizontal: 8),
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(4)),
                                   hintText: 'বাকির পরিমাণ',
@@ -243,7 +264,7 @@ class SellDue extends GetView<SellDueEditAddController> {
                           ),
                           Text('বিবরণ ( না দিলেও হবে)'),
                           TextFormField(
-                            onChanged: (value){
+                            onChanged: (value) {
                               controller.dueDetails.value = value;
                             },
                             maxLines: 5,
@@ -255,7 +276,8 @@ class SellDue extends GetView<SellDueEditAddController> {
                               ),
                             ],
                             decoration: InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(horizontal: 8,vertical: 8),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 8),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4)),
                               hintText: 'বিবরণ',
@@ -283,17 +305,16 @@ class SellDue extends GetView<SellDueEditAddController> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
                                   mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     Icon(Icons.calendar_today_rounded),
                                     SizedBox(
                                       width: 5,
                                     ),
                                     Obx(
-                                          () => Text(
-                                        DateFormat('dd MMMM yyyy').format(
-                                            controller
-                                                .dueDate.value),
+                                      () => Text(
+                                        DateFormat('dd MMMM yyyy')
+                                            .format(controller.dueDate.value),
                                         style: TextStyle(
                                             color: DEFAULT_BLACK,
                                             fontWeight: FontWeight.bold),
@@ -322,12 +343,12 @@ class SellDue extends GetView<SellDueEditAddController> {
                                       style: TextStyle(color: Colors.blue),
                                     ),
                                     Obx(
-                                          ()=> FlutterSwitch(
+                                      () => FlutterSwitch(
                                           value: controller.sms.value,
-                                          onToggle: (value){
-                                            if(controller.sms.value){
+                                          onToggle: (value) {
+                                            if (controller.sms.value) {
                                               controller.sms.value = false;
-                                            }else{
+                                            } else {
                                               controller.sms.value = true;
                                             }
                                           }),
@@ -348,7 +369,8 @@ class SellDue extends GetView<SellDueEditAddController> {
                               child: Text(
                                 'সেভ করুন',
                                 textAlign: TextAlign.center,
-                                style: TextStyle(color: Colors.white, fontSize: 12),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 12),
                               ),
                             ),
                             style: ElevatedButton.styleFrom(
@@ -371,8 +393,9 @@ class SellDue extends GetView<SellDueEditAddController> {
       ),
     );
   }
+
   contactDialog(BuildContext context) {
-    final dueEditAddController = Get.find<DueEditAddController>();
+    // final dueEditAddController = Get.find<DueEditAddController>();
     showDialog(
       context: context,
       builder: (_) => Padding(
@@ -427,27 +450,41 @@ class SellDue extends GetView<SellDueEditAddController> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Obx(
-                        () => ListView.builder(
+                    () => ListView.builder(
                       shrinkWrap: true,
                       physics: ScrollPhysics(),
-                      itemCount: controller.selectedClassStatus.value == "কাস্টমার" ? controller.customerList.length : controller.selectedClassStatus.value == "সাপ্লায়ার" ? controller.supplierList.length : controller.employeeList.length,
+                      itemCount: controller.selectedClassStatus.value ==
+                              "কাস্টমার"
+                          ? controller.customerList.length
+                          : controller.selectedClassStatus.value == "সাপ্লায়ার"
+                              ? controller.supplierList.length
+                              : controller.employeeList.length,
                       itemBuilder: (BuildContext context, int index) {
                         Contact item;
-                        controller.selectedClassStatus.value == "কাস্টমার" ?
-                        item = controller.customerList[index] :
-                        controller.selectedClassStatus.value == "সাপ্লায়ার" ?
-                        item = controller.supplierList[index] : item = controller.employeeList[index];
+                        controller.selectedClassStatus.value == "কাস্টমার"
+                            ? item = controller.customerList[index]
+                            : controller.selectedClassStatus.value ==
+                                    "সাপ্লায়ার"
+                                ? item = controller.supplierList[index]
+                                : item = controller.employeeList[index];
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             InkWell(
                               onTap: () {
-                                controller.selectedClassStatus.value == "কাস্টমার" ?
-                                controller.selectedCustomer.value = item :
-                                controller.selectedClassStatus.value == "সাপ্লায়ার" ?
-                                controller.selectedSupplier.value = item : controller.selectedEmployee.value = item;
-                                controller.nameTextEditingController.value.text = item.name;
-                                controller.numberTextEditingController.value.text = item.mobile;
+                                controller.selectedClassStatus.value ==
+                                        "কাস্টমার"
+                                    ? controller.selectedCustomer.value = item
+                                    : controller.selectedClassStatus.value ==
+                                            "সাপ্লায়ার"
+                                        ? controller.selectedSupplier.value =
+                                            item
+                                        : controller.selectedEmployee.value =
+                                            item;
+                                controller.nameTextEditingController.value
+                                    .text = item.name;
+                                controller.numberTextEditingController.value
+                                    .text = item.mobile;
                                 Navigator.pop(context);
                               },
                               child: Container(
@@ -498,6 +535,7 @@ class SellDue extends GetView<SellDueEditAddController> {
       ),
     );
   }
+
   _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       helpText: "select date",

@@ -4,6 +4,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_lis
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/data_sources/products_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/repositories/product_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/domain/repositories/i_product_repository.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/local/data_sources/local_transaction_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/data_sources/transaction_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/repositories/transaction_repository.dart';
@@ -28,6 +29,7 @@ class TransactionsBinding extends Bindings {
     Get.lazyPut(() => ExchangePaymentController(find()));
     Get.lazyPut(() => ExchangeController(find()));
     Get.lazyPut(() => TransactionController(find()));
+    Get.lazyPut(() => SellController(find(), find(), find(), find()));
 
     Get.lazyPut<ILocalProductProvider>(() => LocalProductProvider());
     Get.lazyPut<IProductProvider>(() => ProductProvider(find()));
