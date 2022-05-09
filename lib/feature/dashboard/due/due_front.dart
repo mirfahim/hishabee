@@ -7,7 +7,7 @@ import 'package:hishabee_business_manager_fl/models/due/due_item_model.dart';
 import 'package:hishabee_business_manager_fl/models/due/due_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
 import 'package:intl/intl.dart';
-
+import 'package:intl/intl.dart' as intl;
 import 'due_history.dart';
 import 'due_item_details.dart';
 import 'due_new_add.dart';
@@ -47,13 +47,9 @@ class _DueFrontState extends State<DueFront> {
         // }
         for(int i = 0; i<_dueController.filterList.length; i++){
           if(_dueController.filterList[i].dueAmount < 0){
-            _dueController.payDue.value = _dueController.filterList
-                .map((e) => e.dueAmount)
-                .fold(0, (previousValue, element) => previousValue + element);
+            _dueController.payDue.value = _dueController.payDue.value + _dueController.filterList[i].dueAmount;
           }else if(_dueController.filterList[i].dueAmount > 0){
-            _dueController.takeDue.value = _dueController.filterList
-                .map((e) => e.dueAmount)
-                .fold(0, (previousValue, element) => previousValue + element);
+            _dueController.takeDue.value = _dueController.takeDue.value + _dueController.filterList[i].dueAmount;
           }
 
           if('${_dueController.filterList[i].contactType}' == 'ContactType.CUSTOMER' || '${_dueController.filterList[i].contactType}' == 'CUSTOMER' && _dueController.filterList[i].version >= 0){
@@ -75,6 +71,8 @@ class _DueFrontState extends State<DueFront> {
     _dueController.customerCount.value = 0;
     _dueController.supplierCount.value = 0;
     _dueController.employeeCount.value = 0;
+    _dueController.takeDue.value = 0;
+    _dueController.payDue.value = 0;
     super.dispose();
   }
 
@@ -171,7 +169,7 @@ class _DueFrontState extends State<DueFront> {
                               padding: const EdgeInsets.all(10.0),
                               child: Column(
                                 children: [
-                                  Obx(()=>Text('${_dueController.payDue.value}', style: TextStyle(color: Colors.white),),),
+                                  Obx(()=>Text('${intl.NumberFormat.decimalPattern().format(_dueController.takeDue.value.abs())}', style: TextStyle(color: Colors.white),),),
                                   Text('lend'.tr, style: TextStyle(color: Colors.white),)
                                 ],
                               ),
@@ -188,7 +186,8 @@ class _DueFrontState extends State<DueFront> {
                               padding: const EdgeInsets.all(10.0),
                               child: Column(
                                 children: [
-                                  Obx(()=>Text('${_dueController.takeDue.value}', style: TextStyle(color: Colors.white),),),
+                                  Obx(()=>Text('${intl.NumberFormat.decimalPattern().format(_dueController.payDue.value.abs())}'
+                                    , style: TextStyle(color: Colors.white),),),
 
                                   Text('borrowed'.tr, style: TextStyle(color: Colors.white),)
                                 ],
@@ -234,7 +233,7 @@ class _DueFrontState extends State<DueFront> {
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(6)),
                           counterText: "",
-                          hintText: 'নাম বা মোবাইল নম্বর দিয়ে অনুসন্ধান করুন',
+                          hintText: 'search_by_name_or_mobile_number'.tr,
                           hintStyle: const TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black26,
@@ -288,71 +287,71 @@ class _DueFrontState extends State<DueFront> {
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 60.0),
                     child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      physics: AlwaysScrollableScrollPhysics(),
-                      itemCount: _dueController.filterList.length,
+                        scrollDirection: Axis.vertical,
+                        physics: AlwaysScrollableScrollPhysics(),
+                        itemCount: _dueController.filterList.length,
                         itemBuilder: (context, index){
-                        // if('${_dueController.filterList[index].contactType}' == 'ContactType.CUSTOMER'){
-                        //   _dueController.customerCount.value++;
-                        // }else if(_dueController.filterList[index].contactType == 'ContactType.SELLER'){
-                        //   _dueController.supplierCount.value++;
-                        // }else if(_dueController.filterList[index].contactType == 'ContactType.EMPLOYEE'){
-                        //   _dueController.employeeCount.value++;
-                        // }
-                        return _dueController.filterList[index].version < 0 ? Container():
-                        GestureDetector(
-                          onTap: (){
-                            Get.to(
-                                DueDetailsCustomer(
-                                  name: _dueController.filterList[index].contactName,
-                                  mobileNumber: _dueController.filterList[index].contactMobile,
-                                  dueTotalAmount: _dueController.filterList[index].dueAmount,
-                                  uniqueId: _dueController.filterList[index].uniqueId,
-                                  dueUniqueId: _dueController.filterList[index].uniqueId,
-                                  contactType: _dueController.filterList[index].contactType,
-                                  createdAt: '${_dueController.filterList[index].createdAt}',
-                                  updatedAt: '${_dueController.filterList[index].updatedAt}',
-                                  version: _dueController.filterList[index].version,
-                                  // dueLeft: _dueController.filterList[index].dueLeft,
-                                ),
-                                arguments: shop);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            child: Container(
+                          // if('${_dueController.filterList[index].contactType}' == 'ContactType.CUSTOMER'){
+                          //   _dueController.customerCount.value++;
+                          // }else if(_dueController.filterList[index].contactType == 'ContactType.SELLER'){
+                          //   _dueController.supplierCount.value++;
+                          // }else if(_dueController.filterList[index].contactType == 'ContactType.EMPLOYEE'){
+                          //   _dueController.employeeCount.value++;
+                          // }
+                          return _dueController.filterList[index].version < 0 ? Container():
+                          GestureDetector(
+                            onTap: (){
+                              Get.to(
+                                  DueDetailsCustomer(
+                                    name: _dueController.filterList[index].contactName,
+                                    mobileNumber: _dueController.filterList[index].contactMobile,
+                                    dueTotalAmount: _dueController.filterList[index].dueAmount,
+                                    uniqueId: _dueController.filterList[index].uniqueId,
+                                    dueUniqueId: _dueController.filterList[index].uniqueId,
+                                    contactType: _dueController.filterList[index].contactType,
+                                    createdAt: '${_dueController.filterList[index].createdAt}',
+                                    updatedAt: '${_dueController.filterList[index].updatedAt}',
+                                    version: _dueController.filterList[index].version,
+                                    // dueLeft: _dueController.filterList[index].dueLeft,
+                                  ),
+                                  arguments: shop);
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Container(
                                 decoration: BoxDecoration(
                                     color: Color(0xFFF1F1F1),
                                     borderRadius: BorderRadius.circular(6)
                                 ),
-                              child: ListTile(
-                                leading: Image.asset('images/assets/emptyImage.png'),
-                                title: Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Text('${_dueController.filterList[index].contactName}'),
-                                ),
-                                subtitle: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text('${_dueController.filterList[index].contactMobile}'),
-                                    Text('${DateFormat.yMMMd().format(_dueController.filterList[index].createdAt)}')
-                                  ],
-                                ),
-                                trailing: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      '৳${_dueController.filterList[index].dueAmount.abs()}',
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(color: _dueController.filterList[index].dueAmount < 0 ? Colors.green : Colors.red),
-                                    ),
-                                    Text('${_dueController.filterList[index].contactType}'),
-                                  ],
+                                child: ListTile(
+                                  leading: Image.asset('images/assets/emptyImage.png'),
+                                  title: Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Text('${_dueController.filterList[index].contactName}'),
+                                  ),
+                                  subtitle: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text('${_dueController.filterList[index].contactMobile}'),
+                                      Text('${DateFormat.yMMMd().format(_dueController.filterList[index].createdAt)}')
+                                    ],
+                                  ),
+                                  trailing: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        '৳${_dueController.filterList[index].dueAmount.abs()}',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: _dueController.filterList[index].dueAmount < 0 ? Colors.green : Colors.red),
+                                      ),
+                                      Text('${_dueController.filterList[index].contactType}'),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
+                          );
                         }
                     ),
                   ),

@@ -49,10 +49,15 @@ Widget textFormFeildForExpense(
     },
     maxLines: maxLine,
     decoration: InputDecoration(
+      focusedBorder:OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.black, width: 1.0),
+        borderRadius: BorderRadius.circular(6.0)
+      ),
+
       suffix: iconButton,
       filled: true,
       contentPadding: EdgeInsets.symmetric(horizontal: 8),
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
       counterText: "",
       hintText: hintText,
       hintStyle: const TextStyle(
@@ -71,7 +76,7 @@ class DueHistoryDetails extends StatefulWidget {
   String createdAt;
   String uniqueId;
   String dueUniqueId;
-  String dueLeft;
+  int dueLeft;
   // String dueTakerType;
   String dueType;
   String name;
@@ -112,7 +117,7 @@ class _DueHistoryDetailsState extends State<DueHistoryDetails> {
   @override
   void initState() {
     _textEditingControllerAmount.text = widget.amount.toString();
-    _textEditingControllerDescription.text = widget.description;
+    _textEditingControllerDescription.text = widget.description == null ? '[Not Given]' :widget.description ;
     super.initState();
   }
 
@@ -271,9 +276,10 @@ class _DueHistoryDetailsState extends State<DueHistoryDetails> {
                                   child: Text('delete'.tr,
                                       style: TextStyle(color: Colors.red, fontSize: 14)),
                                   onPressed: () {
-                                    // var amountDelete = widget.dueTotalAmount - widget.amount;
+                                    var amountDelete = _dueController.takeDue.value - widget.amount;
+
                                     _dueController.deleteDueItem(
-                                        amount: widget.amount,
+                                        amount: amountDelete,
                                         shopId: shop.id,
                                         uniqueId: widget.uniqueId,
                                         dueUniqueId: widget.dueUniqueId,
@@ -302,7 +308,7 @@ class _DueHistoryDetailsState extends State<DueHistoryDetails> {
                                       });
                                       Get.back();
                                       Get.back();
-
+                                      Get.back();
                                       // setState(() {
                                       //   // Here you can write your code for open new view
                                       // });

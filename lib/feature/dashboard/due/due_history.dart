@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
-
+import 'package:intl/intl.dart' as intl;
 // import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/data/remote/models/get_all_due_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/due/due_history_details.dart';
@@ -222,7 +222,7 @@ class _DueHistoryState extends State<DueHistory> {
                           child: Column(
                             children: [
                               Text(
-                                '৳$giveDue',
+                                '৳${intl.NumberFormat.decimalPattern().format(giveDue.abs())}',
                                 style: TextStyle(color: Colors.white),
                               ),
                               Text(
@@ -245,7 +245,7 @@ class _DueHistoryState extends State<DueHistory> {
                           child: Column(
                             children: [
                               Text(
-                                '৳$takeDue',
+                                '৳${intl.NumberFormat.decimalPattern().format(takeDue.abs())}',
                                 style: TextStyle(color: Colors.white),
                               ),
                               Text(
@@ -274,6 +274,8 @@ class _DueHistoryState extends State<DueHistory> {
                     height: 27,
                     child: ElevatedButton(
                       onPressed: () {
+                        giveDue = 0.0;
+                        takeDue = 0.0;
                         setState(() {
                           flag = 1;
                           getDataForDropDown(now, now);
@@ -311,27 +313,30 @@ class _DueHistoryState extends State<DueHistory> {
                     height: 27,
                     child: ElevatedButton(
                       onPressed: () {
+                        giveDue = 0.0;
+                        takeDue = 0.0;
                         setState(() {
                           flag = 2;
-                          _dueController
-                              .getAllDueHistory(
-                              shopId: '${shop.id}',
-                              startDate: "$startOfTheWeek",
-                              endDate: "$now")
-                              .then((value) {
-                            _dueController.dueHistoryList.value =
-                                getDueItemResponseModelFromJson(value['data']);
-                            // setState(() {
-
-                              // _expenseController.totalExpense.value =
-                              //     _expenseController.allExpenseList
-                              //         .map((e) => e.amount)
-                              //         .fold(
-                              //         0,
-                              //             (previousValue, element) =>
-                              //         previousValue + element);
-                            // });
-                          });
+                          getDataForDropDown(startOfTheWeek, now);
+                          // _dueController
+                          //     .getAllDueHistory(
+                          //     shopId: '${shop.id}',
+                          //     startDate: "$startOfTheWeek",
+                          //     endDate: "$now")
+                          //     .then((value) {
+                          //   _dueController.dueHistoryList.value =
+                          //       getDueItemResponseModelFromJson(value['data']);
+                          //   // setState(() {
+                          //
+                          //     // _expenseController.totalExpense.value =
+                          //     //     _expenseController.allExpenseList
+                          //     //         .map((e) => e.amount)
+                          //     //         .fold(
+                          //     //         0,
+                          //     //             (previousValue, element) =>
+                          //     //         previousValue + element);
+                          //   // });
+                          // });
                           // _expenseController.totalExpense.value = _expenseController
                           //     .allExpenseList
                           //     .map((e) => e.amount)
@@ -363,26 +368,29 @@ class _DueHistoryState extends State<DueHistory> {
                     height: 27,
                     child: ElevatedButton(
                       onPressed: () {
+                        giveDue = 0.0;
+                        takeDue = 0.0;
                         setState(() {
                           flag = 3;
-                          _dueController
-                              .getAllDueHistory(
-                              shopId: '${shop.id}',
-                              startDate: "$startOfMonth",
-                              endDate: "$lastOfTheMonth")
-                              .then((value) {
-                            setState(() {
-                              _dueController.dueHistoryList.value =
-                                  getDueItemResponseModelFromJson(value['data']);
-                              // _dueController.totalExpense.value =
-                              //     _expenseController.allExpenseList
-                              //         .map((e) => e.amount)
-                              //         .fold(
-                              //         0,
-                              //             (previousValue, element) =>
-                              //         previousValue + element);
-                            });
-                          });
+                          getDataForDropDown(startOfMonth, lastOfTheMonth);
+                          // _dueController
+                          //     .getAllDueHistory(
+                          //     shopId: '${shop.id}',
+                          //     startDate: "$startOfMonth",
+                          //     endDate: "$lastOfTheMonth")
+                          //     .then((value) {
+                          //   setState(() {
+                          //     _dueController.dueHistoryList.value =
+                          //         getDueItemResponseModelFromJson(value['data']);
+                          //     // _dueController.totalExpense.value =
+                          //     //     _expenseController.allExpenseList
+                          //     //         .map((e) => e.amount)
+                          //     //         .fold(
+                          //     //         0,
+                          //     //             (previousValue, element) =>
+                          //     //         previousValue + element);
+                          //   });
+                          // });
                           // _expenseController.totalExpense.value = _expenseController
                           //     .allExpenseList
                           //     .map((e) => e.amount)
@@ -414,17 +422,20 @@ class _DueHistoryState extends State<DueHistory> {
                     height: 27,
                     child: ElevatedButton(
                       onPressed: () {
+                        giveDue = 0.0;
+                        takeDue = 0.0;
                         setState(() {
                           flag = 4;
-                          _dueController
-                              .getAllDueHistory(
-                              shopId: '${shop.id}',
-                              startDate: "$startOfTheYear",
-                              endDate: "$now")
-                              .then((value) {
-                            _dueController.dueHistoryList.value =
-                                getDueItemResponseModelFromJson(value['data']);
-                          });
+                          getDataForDropDown(startOfTheYear,now);
+                          // _dueController
+                          //     .getAllDueHistory(
+                          //     shopId: '${shop.id}',
+                          //     startDate: "$startOfTheYear",
+                          //     endDate: "$now")
+                          //     .then((value) {
+                          //   _dueController.dueHistoryList.value =
+                          //       getDueItemResponseModelFromJson(value['data']);
+                          // });
                           // _expenseController.totalExpense.value = _expenseController
                           //     .allExpenseList
                           //     .map((e) => e.amount)
@@ -463,11 +474,11 @@ class _DueHistoryState extends State<DueHistory> {
                           amount: _dueController.dueHistoryList[index].amount,
                           description: _dueController.dueHistoryList[index].note,
                           image: _dueController.dueHistoryList[index].image,
-                          createdAt: _dueController.dueHistoryList[index].createdAt,
-                          updatedAt: _dueController.dueHistoryList[index].updatedAt,
+                          createdAt: DateFormat.yMMMd().format(_dueController.dueHistoryList[index].createdAt),
+                          updatedAt: DateFormat.yMMMd().format(_dueController.dueHistoryList[index].updatedAt),
                           uniqueId: _dueController.dueHistoryList[index].uniqueId,
-                          dueLeft: _dueController.dueHistoryList[index].uniqueId,
-                          dueUniqueId: _dueController.dueHistoryList[index].dueLeft,
+                          dueLeft: _dueController.dueHistoryList[index].dueLeft,
+                          dueUniqueId: _dueController.dueHistoryList[index].dueUniqueId,
                           name: _dueController.dueHistoryList[index].contactName,
                           dueType: _dueController.dueHistoryList[index].type,
                           // dueTotalAmount: ,
@@ -475,32 +486,35 @@ class _DueHistoryState extends State<DueHistory> {
                           version: _dueController.dueHistoryList[index].version,
                         ), arguments: shop);
                       },
-                    child: ListTile(
-                      leading: Image.asset('images/assets/emptyImage.png'),
-                      title: Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Text('${_dueController.dueHistoryList[index].contactName}'),
-                      ),
-                      subtitle: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('${_dueController.dueHistoryList[index].contactMobile}'),
-                          Text('${DateFormat.yMMMd().format(_dueController.dueHistoryList[index].createdAt)}')
-                        ],
-                      ),
-                      trailing: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            '৳${_dueController.dueHistoryList[index].amount.abs()}',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 18,
-                                color: _dueController.dueHistoryList[index].amount < 0 ? Colors.green : Colors.red),
-                          ),
-                          Text('${_dueController.dueHistoryList[index].contactType}'),
-                        ],
+                    child: Card(
+                      elevation: 5,
+                      child: ListTile(
+                        leading: Image.asset('images/assets/emptyImage.png'),
+                        title: Padding(
+                          padding: const EdgeInsets.only(top: 8.0),
+                          child: Text('${_dueController.dueHistoryList[index].contactName}'),
+                        ),
+                        subtitle: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('${_dueController.dueHistoryList[index].contactMobile}'),
+                            Text('${DateFormat.yMMMd().format(_dueController.dueHistoryList[index].createdAt)}')
+                          ],
+                        ),
+                        trailing: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              '৳${_dueController.dueHistoryList[index].amount.abs()}',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 18,
+                                  color: _dueController.dueHistoryList[index].amount < 0 ? Colors.green : Colors.red),
+                            ),
+                            Text('${_dueController.dueHistoryList[index].contactType}'),
+                          ],
+                        ),
                       ),
                     ),
                   );

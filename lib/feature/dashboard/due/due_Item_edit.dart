@@ -36,7 +36,7 @@ class DueItemEdit extends StatefulWidget {
   String details;
   String createdAt;
   String updatedAt;
-  String dueLeft;
+  int dueLeft;
   String uniqueId;
   var dueTotalAmount;
 

@@ -370,22 +370,22 @@ class _DueNewState extends State<DueNew> {
                       child: ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            dueTypeFlagGet = 0;
                             dueTypeFlagGiven = 0;
+                            dueTypeFlagGet = 0;
                           });
                         },
                         child: Center(
                           child: Text(
-                            'get/profit'.tr,
+                            'given/due'.tr,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color:dueTypeFlagGet == 0 ? Colors.white : Colors.black,
+                                color: dueTypeFlagGiven == 0 ? Colors.white : Colors.black,
                                 fontSize: 12,
                                 fontFamily: 'Roboto'),
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: dueTypeFlagGet == 0 ? DEFAULT_BLUE : Colors.white,
+                          primary: dueTypeFlagGiven == 0 ? DEFAULT_BLUE : Colors.white,
                           fixedSize: Size(width, 50),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -400,22 +400,22 @@ class _DueNewState extends State<DueNew> {
                       child: ElevatedButton(
                         onPressed: () {
                           setState(() {
-                            dueTypeFlagGiven = 1;
                             dueTypeFlagGet = 1;
+                            dueTypeFlagGiven = 1;
                           });
                         },
                         child: Center(
                           child: Text(
-                            'given/due'.tr,
+                            'get/profit'.tr,
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                                color: dueTypeFlagGiven == 1 ? Colors.white : Colors.black,
+                                color:dueTypeFlagGet == 1 ? Colors.white : Colors.black,
                                 fontSize: 12,
                                 fontFamily: 'Roboto'),
                           ),
                         ),
                         style: ElevatedButton.styleFrom(
-                          primary: dueTypeFlagGiven == 1 ? DEFAULT_BLUE : Colors.white,
+                          primary: dueTypeFlagGet == 1 ? DEFAULT_BLUE : Colors.white,
                           fixedSize: Size(width, 50),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -423,6 +423,8 @@ class _DueNewState extends State<DueNew> {
                         ),
                       ),
                     ),
+
+
                   ],
                 ),
                 SizedBox(
@@ -667,18 +669,20 @@ class _DueNewState extends State<DueNew> {
                       if(_dueController.addNewDueAmount.value.text == ''
                           || _dueController.addNewDueMobile.value.text == '' ||
                           _dueController.addNewDueName.value.text == '' ||
-                          initialDate == null || image == null || dueType == null
+                          initialDate == null ||
+                          // image == null ||
+                          dueType == null
                       ){
                         CustomDialog.showStringDialog('Some important Field Are Missing');
                       }else{
                         const uniqueId = Uuid();
                         const dueItemUniqueId = Uuid();
-                        var id = uniqueId.v4();
-                        var itemId = dueItemUniqueId.v4();
+                        var id = uniqueId.v4() + '${DateTime.now().microsecondsSinceEpoch}';
+                        var itemId = dueItemUniqueId.v4() + '${DateTime.now().microsecondsSinceEpoch}';
                         print(dueType);
                         _dueController.addNewDue(
                             uniqueId: id,
-                            amount: _dueController.addNewDueAmount.value.text,
+                            amount: dueTypeFlagGet == 1 ?  -int.parse(_dueController.addNewDueAmount.value.text) : int.parse(_dueController.addNewDueAmount.value.text),
                             shopId: shop.id,
                             contactType: dueType,
                             mobile: _dueController.addNewDueMobile.value.text,
@@ -718,7 +722,6 @@ class _DueNewState extends State<DueNew> {
                             //   }
                             // }
                           });
-                          Get.back();
                           Get.back();
                           Get.back();
                           Get.back();

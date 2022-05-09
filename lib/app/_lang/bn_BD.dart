@@ -40,6 +40,7 @@ const bn_BD = {
   'personal_asset':'ব্যক্তি মালিকানা / প্রোপাইটরশীপ',
   '100%_secured':'১০০% সুরক্ষিত ও নিরাপদ',
   'person_name':'ব্যক্তির নাম',
+  'search_by_name_or_mobile_number':'নাম বা মোবাইল নম্বর দিয়ে খুজুন',
   'birth_date':'জন্ম তারিখ',
   'voter_id':'ভোটার আইডি নাম্বার',
   'partnership':'অংশীদারিত্ব / পার্টনারশীপ',

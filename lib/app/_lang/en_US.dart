@@ -679,6 +679,7 @@ const en_US = {
   'person_name':'Person\'s Name',
   'birth_date':'Birth Date',
   'voter_id':'Voter ID Number',
+  'search_by_name_or_mobile_number':'Search By Name or Mobile Number',
   'voter_id_card_owner':'Owner\'s voter ID card and Picture',
   'more_information_regarding_digital_payment':'More Information Regarding Digital Payment',
   'registration_for_payment_service':'Registration for Payment Service',

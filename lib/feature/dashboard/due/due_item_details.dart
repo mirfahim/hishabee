@@ -468,8 +468,7 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                                                         '৳${_dueController.dueItemList[index].dueLeft.abs()}',
                                                     style: TextStyle(
                                                         color: _dueController.dueItemList[index].dueLeft < 0
-                                                            ? Colors.red
-                                                            : Colors.green,
+                                                            ? Colors.green : Colors.red,
                                                         fontWeight:
                                                             FontWeight.w500),
                                                   ),
@@ -484,9 +483,8 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                                               '৳${_dueController.dueItemList[index].amount.abs()}',
                                               textAlign: TextAlign.center,
                                               style: TextStyle(
-                                                  color: _dueController.dueItemList[index].dueLeft < 0
-                                                      ? Colors.red
-                                                      : Colors.green,
+                                                  color: _dueController.dueItemList[index].amount < 0
+                                                      ? Colors.green : Colors.red,
                                                   fontWeight:
                                                   FontWeight.w500,
                                                   fontSize: 18),
