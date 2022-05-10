@@ -101,7 +101,7 @@ class GetDueItem {
     "contact_type": contactType,
     "contact_name": contactName,
     "contact_mobile": contactMobile,
-    "due": due.toJson(),
+    "due": due.toJson() == null ? '':due.toJson(),
   };
 }
 

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
@@ -22,7 +24,7 @@ class DueController extends GetxController {
   var dueUniqueId;
   final dueItemUniqueId = '';
   var imageForAddDue;
-
+  final contactImage = Rxn<File>();
   ApiService _apiService = ApiService();
 
   Future<dynamic> getAllDue({shopId, startDate, endDate}) {
@@ -177,9 +179,23 @@ class DueController extends GetxController {
       updatedDate,
       createdDate,
       version,
-      uniqueId}) {
+      uniqueId}) async {
     // const uniqueId = Uuid();
     // var id = uniqueId.v4();
+    // if (image != null) {
+    //   String imageSource = await _apiService.uploadFile(file: image, type: '');
+    //   image = imageSource
+    //       .replaceAll("\\", "")
+    //       .replaceAll('"', "")
+    //       .replaceAll("{", "")
+    //       .replaceAll("}", "")
+    //       .replaceAllMapped('url:', (match) => "");
+    //   // imageForAddDue = image;
+    // } else {
+    //   image = '';
+    //   // imageForAddDue = '';
+    // }
+    CustomDialog.showLoadingDialog(message: 'Updating Due...');
     String url = '/due/add?amount=$amount&shop_id=$shopId&unique_id=$uniqueId'
         '&contact_type=$contactType&contact_mobile=$mobile&contact_name=$name'
         '&version=$version&updated_at=$updatedDate&created_at=$createdDate';

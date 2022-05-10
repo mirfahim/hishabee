@@ -622,7 +622,7 @@ class _DueItemEditState extends State<DueItemEdit> {
                           name: widget.name,
                           updatedDate: '${DateFormat.yMMMd().format(DateTime.now())}',
                           createdDate: widget.createdAt,
-                          version: widget.version++
+                          version: widget.version++,
                         );
                         _dueController.editDueItem(
                             dueUniqueId: widget.dueUniqId,

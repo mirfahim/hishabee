@@ -303,6 +303,7 @@ class _DueFrontState extends State<DueFront> {
                             onTap: (){
                               Get.to(
                                   DueDetailsCustomer(
+                                    // image: _dueController.filterList[index].contactName,
                                     name: _dueController.filterList[index].contactName,
                                     mobileNumber: _dueController.filterList[index].contactMobile,
                                     dueTotalAmount: _dueController.filterList[index].dueAmount,
