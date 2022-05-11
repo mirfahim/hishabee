@@ -81,8 +81,10 @@ class _DueHistoryState extends State<DueHistory> {
         // _dueController.dueList.value = getAllDueResponseModelFromJson(value);
         _dueController.dueHistoryList.value =
             getDueItemResponseModelFromJson(value['data']);
+        print('due amount ${_dueController.dueHistoryList}');
       }
       for(int i = 0; i<_dueController.dueHistoryList.length; i++) {
+        print('due amount ${_dueController.dueHistoryList[i].amount}');
         if(_dueController.dueHistoryList[i].version >= 0){
           if (_dueController.dueHistoryList[i].amount < 0) {
             setState(() {
@@ -470,6 +472,7 @@ class _DueHistoryState extends State<DueHistory> {
                   return _dueController.dueHistoryList[index].version <0 ? Container():
                   InkWell(
                       onTap: (){
+
                         Get.to(DueHistoryDetails(
                           amount: _dueController.dueHistoryList[index].amount,
                           description: _dueController.dueHistoryList[index].note,
