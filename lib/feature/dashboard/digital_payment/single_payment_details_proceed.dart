@@ -333,9 +333,7 @@ class _DigitalPaymentState extends State<SinglePaymentDetailsAndProceed> {
                         shop.slug.toString();
                     Get.to(
                           () => SmsCreatePage(),
-                      arguments: {
-                        "shop": shop,
-                      },
+                      arguments: shop
                     );
                     print(_smsController.selectedMobileNumber.value);
                     print(_smsController.textInTheMessageField.value);

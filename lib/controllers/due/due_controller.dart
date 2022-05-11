@@ -12,6 +12,7 @@ class DueController extends GetxController {
   final filterList = [].obs;
   final dueHistoryList = [].obs;
   final dueItemList = [].obs;
+  final dueItemListParent = [].obs;
   final customerCount = 0.obs;
   final employeeCount = 0.obs;
   final supplierCount = 0.obs;

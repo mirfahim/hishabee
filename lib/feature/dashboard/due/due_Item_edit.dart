@@ -37,11 +37,13 @@ class DueItemEdit extends StatefulWidget {
   String createdAt;
   String updatedAt;
   int dueLeft;
+  int dueItemVersion;
   String uniqueId;
   var dueTotalAmount;
 
   DueItemEdit(
       {this.dueUniqId,
+        this.dueItemVersion,
         this.dueTakerType,
       this.image,
         this.uniqueId,
@@ -85,13 +87,16 @@ class _DueItemEditState extends State<DueItemEdit> {
     nameTextEditingController.text = widget.name;
     mobileTextEditingController.text = widget.mobile;
     dueAmountEditingController.text = widget.amount;
+    print('version ${widget.version}');
+    print('due item version ${widget.dueItemVersion}');
     // descriptionEditingController.text = widget.details;
     super.initState();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
+    changedDueAmount = false;
+    changedDescription = false;
     super.dispose();
   }
 
@@ -622,7 +627,8 @@ class _DueItemEditState extends State<DueItemEdit> {
                           name: widget.name,
                           updatedDate: '${DateFormat.yMMMd().format(DateTime.now())}',
                           createdDate: widget.createdAt,
-                          version: widget.version++,
+                          version: ++widget.dueItemVersion ,
+                          uniqueId: widget.uniqueId
                         );
                         _dueController.editDueItem(
                             dueUniqueId: widget.dueUniqId,
@@ -632,16 +638,22 @@ class _DueItemEditState extends State<DueItemEdit> {
                           mobile: mobileTextEditingController.text,
                           updatedDate: '${DateFormat.yMMMd().format(DateTime.now())}',
                           createdDate: widget.createdAt,
-                          version: widget.version++,
-                          dueLeft: widget.dueLeft,
+                          version: ++widget.version,
+                          dueLeft: dueAmountEditingController.text,
+                          name: widget.name
                         );
+                      print('amount ${widget.amount}');
+                        print('version function${widget.version}');
+                      print('due item version function${widget.dueItemVersion}');
                       _dueController
-                          .getAllItemWithUniqueID(uniqueId: widget.uniqueId)
+                          .getAllItemWithUniqueID(uniqueId: widget.dueUniqId)
                           .then((value) {
                         _dueController.dueItemList.value = getDueItemResponseModelFromJson(value);
+                        Get.back();
+                        Get.back();
+                        Get.back();
                       });
-                      Get.back();
-                      Get.back();
+
 
                     },
                     child: Center(

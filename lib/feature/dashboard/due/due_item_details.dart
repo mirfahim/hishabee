@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/due/taken_due.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/sms/create_sms.dart';
 import 'package:hishabee_business_manager_fl/models/due/due_item_model.dart';
 import 'package:hishabee_business_manager_fl/models/due/due_model.dart';
 import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.dart';
@@ -55,6 +56,11 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
         .then((value) {
       _dueController.dueItemList.value = getDueItemResponseModelFromJson(value);
     });
+    // _dueController
+    //     .getAllItemWithUniqueID(uniqueId: widget.uniqueId)
+    //     .then((value) {
+    //   _dueController.dueItemListParent.value = getDueItemResponseModelFromJson(value['due']);
+    // });
     super.initState();
   }
 
@@ -329,7 +335,9 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                                   ),
                                 ),
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Get.to(SmsCreatePage(number: widget.mobileNumber,),arguments: shop);
+                                  },
                                   padding: EdgeInsets.all(0),
                                   icon: Icon(
                                     Icons.message,
@@ -470,6 +478,8 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                                               .dueItemList[index].contactMobile,
                                           version: _dueController
                                               .dueItemList[index].version,
+                                          dueItemVersion :_dueController
+                                              .dueItemList[index].due.version,
                                         ),
                                         arguments: shop);
                                   },
@@ -500,25 +510,25 @@ class _DueDetailsCustomerState extends State<DueDetailsCustomer> {
                                               children: [
                                                 Text(
                                                     '${DateFormat.Hm().format(_dueController.dueItemList[index].createdAt)}'),
-                                                Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 5),
-                                                  child: Text(
-                                                    'due_left:'.tr +
-                                                        '৳${_dueController.dueItemList[index].dueLeft.abs()}',
-                                                    style: TextStyle(
-                                                        color: _dueController
-                                                                    .dueItemList[
-                                                                        index]
-                                                                    .dueLeft <
-                                                                0
-                                                            ? Colors.green
-                                                            : Colors.red,
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                                  ),
-                                                )
+                                                // Padding(
+                                                //   padding:
+                                                //       const EdgeInsets.only(
+                                                //           top: 5),
+                                                //   child: Text(
+                                                //     'due_left:'.tr +
+                                                //         '৳${_dueController.dueItemList[index].dueLeft.abs()}',
+                                                //     style: TextStyle(
+                                                //         color: _dueController
+                                                //                     .dueItemList[
+                                                //                         index]
+                                                //                     .dueLeft <
+                                                //                 0
+                                                //             ? Colors.green
+                                                //             : Colors.red,
+                                                //         fontWeight:
+                                                //             FontWeight.w500),
+                                                //   ),
+                                                // )
                                               ],
                                             ),
                                           ),

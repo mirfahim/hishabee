@@ -51,6 +51,7 @@ class SmsController extends GetxController {
   RxList<Contact> contacts = <Contact>[].obs;
 
   ///CONTACTS
+
   Future<dynamic> addNewCustomer(
       {String shopId,
       int id,
