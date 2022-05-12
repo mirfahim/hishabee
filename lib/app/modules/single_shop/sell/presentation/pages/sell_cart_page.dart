@@ -6,6 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindings/confirm_payment_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
 
 import '../../../../../../new_UI/constants.dart';
 import '../../_navigation/sell_page_route.dart';
@@ -484,80 +486,136 @@ class SellCartPage extends GetView<SellController> {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: Container(
-                  height: 50,
-                  width: size.width,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.to(ConfirmPaymentPage(),
-                          binding: ConfirmPaymentBinding(),
-                          arguments: {
-                            'shop': controller.shop.value,
-                            'cart': controller.cart,
-                            'totalPrice': controller.totalCartPrice.value,
-                          });
-                      // Get.toNamed(SellPageRoutes.CONFIRM_PAYMENT_PAGE,
-                      //     arguments: {
-                      //       'shop':
-                      //       controller
-                      //           .shop
-                      //           .value,
-                      //       'cart':
-                      //       controller
-                      //           .cart,
-                      //       'totalPrice':
-                      //       controller
-                      //           .totalCartPrice
-                      //           .value,
-                      //     });
-                    },
-                    child: Center(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 65.0),
-                                child: Text(
-                                  'payment_method'.tr,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontFamily: 'Roboto',
-                                      color: Colors.white,
-                                      fontSize: 16),
+              controller.cartBool.value == false
+                  ? Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      child: Container(
+                        height: 50,
+                        width: size.width,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Get.to(TransactionPage(),
+                                binding: TransactionsBinding(),
+                                arguments: {
+                                  'shop': controller.shop.value,
+                                  'cart': controller.cart,
+                                  'totalPrice': controller.totalCartPrice.value,
+                                });
+                          },
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 65.0),
+                                      child: Text(
+                                        "Done",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontFamily: 'Roboto',
+                                            color: Colors.white,
+                                            fontSize: 16),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              SizedBox(width: 10),
-                              Obx(() => Text(
-                                    '৳ ${controller.totalCartPrice.value.abs()}',
-                                    style: TextStyle(
-                                        fontFamily: 'Roboto',
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  )),
-                            ],
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.white,
+                                  size: 16,
+                                )
+                              ],
+                            ),
                           ),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: Colors.white,
-                            size: 16,
-                          )
-                        ],
+                          style: ElevatedButton.styleFrom(
+                            primary: DEFAULT_BLUE,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: DEFAULT_BLUE,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(4),
+                    )
+                  : Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                      child: Container(
+                        height: 50,
+                        width: size.width,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Get.to(ConfirmPaymentPage(),
+                                binding: ConfirmPaymentBinding(),
+                                arguments: {
+                                  'shop': controller.shop.value,
+                                  'cart': controller.cart,
+                                  'totalPrice': controller.totalCartPrice.value,
+                                });
+                            // Get.toNamed(SellPageRoutes.CONFIRM_PAYMENT_PAGE,
+                            //     arguments: {
+                            //       'shop':
+                            //       controller
+                            //           .shop
+                            //           .value,
+                            //       'cart':
+                            //       controller
+                            //           .cart,
+                            //       'totalPrice':
+                            //       controller
+                            //           .totalCartPrice
+                            //           .value,
+                            //     });
+                          },
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding:
+                                          const EdgeInsets.only(left: 65.0),
+                                      child: Text(
+                                        'payment_method'.tr,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontFamily: 'Roboto',
+                                            color: Colors.white,
+                                            fontSize: 16),
+                                      ),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Obx(() => Text(
+                                          '৳ ${controller.totalCartPrice.value.abs()}',
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        )),
+                                  ],
+                                ),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: Colors.white,
+                                  size: 16,
+                                )
+                              ],
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: DEFAULT_BLUE,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-              )
+                    )
             ])),
       ),
     );

@@ -35,7 +35,9 @@ import 'package:hishabee_business_manager_fl/new_UI/constants/constant_values.da
 import 'package:rect_getter/rect_getter.dart';
 
 class AddProductToCart extends GetView<SellController> {
-  AddProductToCart({Key key}) : super(key: key);
+  AddProductToCart({
+    Key key,
+  }) : super(key: key);
   RxBool smsCheckBox = false.obs;
   RxBool mobileNumberCheckbox = false.obs;
   RxBool profitCheckBox = false.obs;

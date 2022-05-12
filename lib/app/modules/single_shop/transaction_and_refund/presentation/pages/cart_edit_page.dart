@@ -483,6 +483,7 @@ class SellEditCartPage extends GetView<SellController> {
                   width: size.width,
                   child: ElevatedButton(
                     onPressed: () {
+                      controller.cartBool.value = false;
                       Get.to(
                         () => AddProductToCart(),
                         arguments: {
