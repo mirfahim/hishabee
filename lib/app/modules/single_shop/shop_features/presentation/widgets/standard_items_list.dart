@@ -11,6 +11,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_lis
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/presentation/pages/product_list_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/business_overview/business_overview.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/digital_payment/digital_payment_registration/digital_payment_services.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/printer/printer_front.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/printer/printer_setting.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/sms/create_sms.dart';
@@ -215,7 +216,8 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
                   child: InkWell(
                     onTap: () {
                         Get.to(
-                            DigitalPaymentDashboard(),
+                            DigitalPaymentService(),
+                            // DigitalPaymentDashboard(),
                             arguments: shop);
                         print('standard: ${shop.id}');
   },

@@ -23,9 +23,10 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transaction_sell_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/updated_Ui/transaction_list.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/due/due_front.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/expense/expense_front.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/new_pages/updated_UI/due_details_customer.dart';
-import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/new_pages/updated_UI/due_front.dart';
+// import 'package:hishabee_business_manager_fl/app/modules/single_shop/due_list/presentation/new_pages/updated_UI/due_front.dart';
 
 class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
   final Shop shop;
@@ -180,11 +181,12 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
                 Expanded(
                   child: InkWell(
                     onTap: () {
-                      Get.to(() => DueListPage(),
-                          binding: DueListBinding(),
-                          arguments: {
-                            "shop": shop,
-                          });
+                      // Get.to(() => DueListPage(),
+                      //     binding: DueListBinding(),
+                      //     arguments: {
+                      //       "shop": shop,
+                      //     });
+                      Get.to(DueFront(), arguments: shop);
                       //
                     },
                     child: Container(

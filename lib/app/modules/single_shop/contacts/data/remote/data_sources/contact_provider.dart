@@ -115,7 +115,8 @@ class ContactProvider extends GetConnect implements IContactProvider {
     String imageSource,
   }) async {
     String url =
-        "$BASE_URL/customer/add?name=$name&shop_id=$shopId&address=$address&email=$email&mobile=$mobile&image_src=$imageSource";
+        "$BASE_URL/customer/add?name=$name&shop_id=$shopId&address=$address&email="
+        "$email&mobile=$mobile&image_src=$imageSource";
 
     final creds = await authRepository.getCredentials();
 
@@ -183,7 +184,8 @@ class ContactProvider extends GetConnect implements IContactProvider {
     String imageSource,
   }) async {
     String url =
-        "$BASE_URL/supplier/add?name=$name&shop_id=$shopId&address=$address&email=$email&mobile=$mobile&supplied_items=$suppliedItems&image_src=$imageSource";
+        "$BASE_URL/supplier/add?name=$name&shop_id=$shopId&address=$address&email="
+        "$email&mobile=$mobile&supplied_items=$suppliedItems&image_src=$imageSource";
 
     final creds = await authRepository.getCredentials();
 

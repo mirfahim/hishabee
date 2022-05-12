@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/dialog.dart';
+import 'package:hishabee_business_manager_fl/app/_utils/strings.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/auth/data/repositories/auth_repository.dart';
@@ -15,6 +19,18 @@ import 'package:hishabee_business_manager_fl/utility/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SmsController extends GetxController {
+  ///contacts
+  final image = Rxn<File>();
+  final nameForContact = ''.obs;
+  final address = ''.obs;
+  final contactMobileNumber = ''.obs;
+  final email = ''.obs;
+  final position = ''.obs;
+  final employeeId = ''.obs;
+  final salary = 0.obs;
+  final suppliedItems = ''.obs;
+  // final contact = Rxn<Contact>();
+
   final name = ''.obs;
   final mobile = ''.obs;
   final maxLengthForText = 160.obs;
@@ -33,6 +49,84 @@ class SmsController extends GetxController {
   ApiService _apiService = ApiService();
   var storageSmsCount = GetStorage('sms_count');
   RxList<Contact> contacts = <Contact>[].obs;
+
+  ///CONTACTS
+  Future<dynamic> addNewCustomer(
+      {String shopId,
+      int id,
+      String name,
+      String address,
+      String mobile,
+      String emailId,
+      String imageUrl}) async{
+    CustomDialog.showLoadingDialog(message: "Adding customer");
+    if(imageUrl != null){
+      String imageSource = await _apiService.uploadFile(file: File(imageUrl), type: '');
+      imageUrl = imageSource
+          .replaceAll("\\", "")
+          .replaceAll('"', "")
+          .replaceAll("{", "")
+          .replaceAll("}", "")
+          .replaceAllMapped('url:', (match) => "");
+    }
+    String url = "/customer/add?name=$name&shop_id=$shopId&address=$address&email="
+        "$email&mobile=$mobile&image_src=${imageUrl == null ? '' : imageUrl}";
+    return _apiService.makeApiRequest(
+        method: apiMethods.post, url: url, body: null, headers: null);
+  }
+
+  Future<dynamic> addNewEmploye({
+    String shopId,
+    int salary,
+    int id,
+    String name,
+    String address,
+    String mobile,
+    String emailId,
+    String position,
+    String imageUrl}) async{
+    CustomDialog.showLoadingDialog(message: "Adding customer");
+    if(imageUrl != null){
+      String imageSource = await _apiService.uploadFile(file: File(imageUrl), type: '');
+      imageUrl = imageSource
+          .replaceAll("\\", "")
+          .replaceAll('"', "")
+          .replaceAll("{", "")
+          .replaceAll("}", "")
+          .replaceAllMapped('url:', (match) => "");
+    }
+    String url = "/employee/add?name=$name&shop_id=$shopId&address="
+        "$address&position=$position&mobile="
+        "$mobile&monthly_salary=$salary&image_src=${imageUrl == null ? '' : imageUrl}";
+    return _apiService.makeApiRequest(
+        method: apiMethods.post, url: url, body: null, headers: null);
+  }
+
+  Future<dynamic> addNewSupplier({
+    String shopId,
+    int id,
+    String name,
+    String address,
+    String mobile,
+    String emailId,
+    String imageUrl,
+    String suppliedItems}) async{
+    CustomDialog.showLoadingDialog(message: "Adding customer");
+    if(imageUrl != null){
+      String imageSource = await _apiService.uploadFile(file: File(imageUrl), type: '');
+      imageUrl = imageSource
+          .replaceAll("\\", "")
+          .replaceAll('"', "")
+          .replaceAll("{", "")
+          .replaceAll("}", "")
+          .replaceAllMapped('url:', (match) => "");
+    }
+    String url = "/supplier/add?name=$name&shop_id=$shopId&address=$address&email="
+        "$emailId&mobile=$mobile&supplied_items=$suppliedItems&"
+        "image_src=${imageUrl == null ? '' : imageUrl}";
+    return _apiService.makeApiRequest(
+        method: apiMethods.post, url: url, body: null, headers: null);
+  }
 
   Future<dynamic> fetchAllSms(
       {String shopId, String statDate, String endDate}) async {

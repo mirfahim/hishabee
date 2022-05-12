@@ -560,6 +560,8 @@ class QuickSell extends GetView<SellController> {
                           ElevatedButton(
                             onPressed: () {
                               controller.quickSell();
+                              controller.cashTextEditingController.value.clear();
+                              controller.amountCal.value = 0;
                             },
                             child: Center(
                               child: Text(

@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/customer_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/contacts/data/remote/models/employee_model.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
+import 'package:hishabee_business_manager_fl/feature/dashboard/sms/addEmployee.dart';
 import 'package:hishabee_business_manager_fl/models/sms/sms_package_model.dart';
 
 class SmsCustomEmployeDialogContacts extends StatefulWidget {
@@ -69,31 +70,34 @@ class _SmsCustomEmployeDialogContactsState
                       borderRadius: BorderRadius.circular(10)),
                 ),
               ),
-              Container(
-                height: 300,
-                child: ListView.builder(
-                  itemCount: _foundData.length,
-                  shrinkWrap: true,
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, index) => Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: GestureDetector(
-                      onTap: () {
-                        _smsController.selectedMobileNumber
-                            .add(_foundData[index].mobile);
-                        print(_smsController.selectedMobileNumber);
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                              '${_foundData[index].name}(${_foundData[index].mobile})'),
-                          Divider(
-                            thickness: 2,
-                            color: Colors.grey.withOpacity(.35),
-                          )
-                        ],
+              Expanded(
+                flex: 2,
+                child: Container(
+                  // height: 300,
+                  child: ListView.builder(
+                    itemCount: _foundData.length,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (BuildContext context, index) => Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          _smsController.selectedMobileNumber
+                              .add(_foundData[index].mobile);
+                          print(_smsController.selectedMobileNumber);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                                '${_foundData[index].name}(${_foundData[index].mobile})'),
+                            Divider(
+                              thickness: 2,
+                              color: Colors.grey.withOpacity(.35),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -117,8 +121,10 @@ class _SmsCustomEmployeDialogContactsState
                         ),
                       ),
                       ElevatedButton(
-                        onPressed: () {},
-                        child: Text('Add Customer'),
+                        onPressed: () {
+                          Get.to(EmployeeAdd(shopId: '${storageSms.read("shop_id")}',));
+                        },
+                        child: Text('Add Employee'),
                       ),
                     ],
                   ),

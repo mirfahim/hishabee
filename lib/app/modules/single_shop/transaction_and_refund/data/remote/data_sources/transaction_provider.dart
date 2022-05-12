@@ -36,7 +36,20 @@ class TransactionProvider extends GetConnect implements ITransactionProvider {
 
   @override
   Future<Response<AddTransactionResponse>> addTransaction(AddTransactionRequest transaction) async {
-    String url = '$BASE_URL/transaction/?shop_id=${transaction.shopId}&created_at=${DateTime.now().toString()}&updated_at=${DateTime.now().toString()}&total_price=${transaction.totalPrice}&total_discount=${transaction.totalDiscount}&total_item=${transaction.totalItem}&payment_method=${transaction.paymentMethod}&received_amount=${transaction.totalPrice}&change_amount=${transaction.changeAmount}&customer_name=${transaction.customerName}&customer_address=${transaction.customerAddress}&customer_mobile=${transaction.customerMobile}&employee_name=${transaction.employeeName}&employee_mobile=${transaction.employeeMobile}&transaction_barcode=${transaction.transactionBarcode}&total_vat=${transaction.totalVat}&note=${transaction.note}&total_profit=${transaction.totalProfit}&unique_id=${transaction.uniqueId}&message=${transaction.message}&sms_count=${transaction.smsCount}&version=${transaction.version}&transaction_type=${transaction.transaction_type}';
+    String url = '$BASE_URL/transaction/?shop_id=${transaction.shopId}&created_at='
+        '${DateTime.now().toString()}&updated_at=${DateTime.now().toString()}&total_price='
+        '${transaction.totalPrice}&total_discount=${transaction.totalDiscount}&total_item='
+        '${transaction.totalItem}&payment_method=${transaction.paymentMethod}'
+        '&received_amount=${transaction.totalPrice}&change_amount='
+        '${transaction.changeAmount}&customer_name=${transaction.customerName}'
+        '&customer_address=${transaction.customerAddress}&customer_mobile='
+        '${transaction.customerMobile}&employee_name=${transaction.employeeName}'
+        '&employee_mobile=${transaction.employeeMobile}&'
+        'transaction_barcode=${transaction.transactionBarcode}&total_vat='
+        '${transaction.totalVat}&note=${transaction.note}&total_profit='
+        '${transaction.totalProfit}&unique_id=${transaction.uniqueId}&message='
+        '${transaction.message}&sms_count=${transaction.smsCount}&version='
+        '${transaction.version}&transaction_type=${transaction.transaction_type}';
     final creds = await authRepository.getCredentials();
     return post(
       url,

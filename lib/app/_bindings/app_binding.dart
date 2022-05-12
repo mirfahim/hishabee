@@ -11,6 +11,7 @@ import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/reposito
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/domain/repositories/i_file_repository.dart';
 import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/digital_payment/dp_controller.dart';
+import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/emi/emi_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/expense/expense_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/sms/sms_controller.dart';
@@ -38,6 +39,6 @@ class AppBinding extends Bindings {
     Get.put(DpController());
     Get.put(ExpenseController());
     Get.put(StockController());
-    Get.put(DpController());
+    Get.put(DueController());
   }
 }

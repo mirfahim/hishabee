@@ -55,8 +55,8 @@ class _ShopFeatureShowCaseState extends State<ShopFeatureShowCase> {
       },
     );
     getBox();
-    WidgetsBinding.instance.addPostFrameCallback(
-        (_) => ShowCaseWidget.of(context).startShowCase([one, two, three]));
+    // WidgetsBinding.instance.addPostFrameCallback(
+    //     (_) async => ShowCaseWidget.of(context).startShowCase([one, two, three]));
     Future.delayed(const Duration(seconds: 5), () {
       showCase = false;
     });
@@ -433,8 +433,7 @@ class _ShopFeatureShowCaseState extends State<ShopFeatureShowCase> {
                   ],
                 ),
               ),
-              Container(
-                height: MediaQuery.of(context).size.height - 320,
+              Expanded(
                 child: ShowCaseWidget(
                   builder: Builder(
                       builder: (context) => PageView(
@@ -552,101 +551,6 @@ class _ShopFeaturesPageState extends State<ShopFeaturesPage> {
     );
   }
 
-  _showHeader() => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Row(
-          //   children: [
-          //     Padding(
-          //       padding:
-          //           const EdgeInsets.only(top: 5.0, left: 20, right: 20),
-          //       child: Text(
-          //         widget.shop.name,
-          //         style: TextStyle(
-          //           fontSize: 24,
-          //           fontWeight: FontWeight.bold,
-          //           fontFamily: 'Roboto',
-          //           color: DEFAULT_BLUE_DARK,
-          //         ),
-          //       ),
-          //     ),
-          //     Spacer(),
-          //     Padding(
-          //       padding: const EdgeInsets.only(top: 14, right: 15.0),
-          //       child: IconButton(
-          //           icon: Icon(
-          //             Icons.contact_support,
-          //             size: 35,
-          //             color: DEFAULT_BLUE,
-          //           ),
-          //           onPressed: () {
-          //             final String url = "https://youtu.be/Wbk83HfsJ4w";
-          //             final String title = "use_showcase".tr;
-          //             HelpButton.setBox(ButtonKey.dashKey);
-          //             Navigator.of(context)
-          //                 .push(TutorialOverlay(url, title));
-          //           }),
-          //     )
-          //   ],
-          // ),
-          // Padding(
-          //   padding: const EdgeInsets.only(top: 0.0, left: 20, right: 20),
-          //   child: Text(
-          //     _timeString,
-          //     style: TextStyle(
-          //       fontFamily: 'Roboto',
-          //       fontSize: 13,
-          //       fontWeight: FontWeight.normal,
-          //       color: DEFAULT_BLUE,
-          //     ),
-          //   ),
-          // ),
-          // showCaseTap == true
-          //     ? OpacityAnimatedWidget.tween(
-          //       opacityEnabled: 1, //define start value
-          //       opacityDisabled: 0, //and end value
-          //       enabled: showCase,
-          //       child: Row(
-          //         mainAxisAlignment: MainAxisAlignment.start,
-          //         children: [
-          //           Container(
-          //             decoration: BoxDecoration(
-          //               color: DEFAULT_BLACK,
-          //               borderRadius: BorderRadius.circular(4),
-          //             ),
-          //             child: Row(
-          //               children: [
-          //                 Container(
-          //                   height: 40,
-          //                 ),
-          //                 Padding(
-          //                   padding: const EdgeInsets.all(8.0),
-          //                   child: Text(
-          //                     "use_showcase".tr,
-          //                     style: TextStyle(
-          //                         color: Colors.white, fontSize: 16),
-          //                   ),
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //           Container(
-          //             child: Icon(
-          //               Icons.play_arrow_sharp,
-          //               size: 30,
-          //               color: DEFAULT_BLACK,
-          //             ),
-          //           ),
-          //         ],
-          //       ),
-          //     )
-          //     : Container(),
-
-          SizedBox(
-            height: 12,
-          ),
-        ],
-      );
 
   void _getTime() {
     final DateTime now = DateTime.now();
