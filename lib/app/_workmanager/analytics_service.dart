@@ -11,6 +11,7 @@ import 'package:hishabee_business_manager_fl/app/modules/home/data/repositories/
 import 'package:hishabee_business_manager_fl/app/modules/home/domain/repositories/i_analytics_repository.dart';
 
 class AnalyticsService {
+
   // static sync() async {
   //   Fluttertoast.showToast(msg: "Syncing analytics");
   //   print("Workman sync analytics");
