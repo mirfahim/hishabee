@@ -343,7 +343,8 @@ class AddProductToCart extends GetView<SellController> {
                                                       color: Colors.white),
                                                   child: InkWell(
                                                     onTap: () {
-                                                      // Get.toNamed(SellPageRoutes.SELL_CART_PAGE);
+
+                                                     controller.cartBool.value = false;
                                                       Get.to(SellCartPage(),
                                                           binding:
                                                               SellBinding());

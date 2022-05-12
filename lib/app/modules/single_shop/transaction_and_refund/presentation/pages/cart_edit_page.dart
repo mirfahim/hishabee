@@ -14,6 +14,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/add_product_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/exchange_sell_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transaction_sell_page.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
 
 import '../../../../../../new_UI/constants.dart';
 
@@ -535,20 +536,14 @@ class SellEditCartPage extends GetView<SellController> {
                   width: size.width,
                   child: ElevatedButton(
                     onPressed: () {
-                      // Get.toNamed(SellPageRoutes.CONFIRM_PAYMENT_PAGE,
-                      //     arguments: {
-                      //       'shop':
-                      //       controller
-                      //           .shop
-                      //           .value,
-                      //       'cart':
-                      //       controller
-                      //           .cart,
-                      //       'totalPrice':
-                      //       controller
-                      //           .totalCartPrice
-                      //           .value,
-                      //     });
+
+                      Get.to(TransactionPage(),
+                          binding: TransactionsBinding(),
+                          arguments: {
+                            'shop': controller.shop.value,
+                            'cart': controller.cart,
+                            'totalPrice': controller.totalCartPrice.value,
+                          });
                     },
                     child: Center(
                       child: Row(

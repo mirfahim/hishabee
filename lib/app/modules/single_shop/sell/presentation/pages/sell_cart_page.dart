@@ -5,8 +5,10 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/_bindings/confirm_payment_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/confirm_payment_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/manager/sell_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/manager/transaction_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
 
 import '../../../../../../new_UI/constants.dart';
@@ -50,6 +52,7 @@ class SellCartPage extends GetView<SellController> {
 
   @override
   Widget build(BuildContext context) {
+    ConfirmPaymentController confirmPaymentController;
     print("my cart length in  sell cart page ${controller.cart.length}");
     var size = MediaQuery.of(context).size;
     return Scaffold(
@@ -494,14 +497,13 @@ class SellCartPage extends GetView<SellController> {
                         height: 50,
                         width: size.width,
                         child: ElevatedButton(
-                          onPressed: () {
-                            Get.to(TransactionPage(),
-                                binding: TransactionsBinding(),
-                                arguments: {
-                                  'shop': controller.shop.value,
-                                  'cart': controller.cart,
-                                  'totalPrice': controller.totalCartPrice.value,
-                                });
+                          onPressed: () async {
+                              print("working 102");
+                             // await confirmPaymentController.testWork(
+                             //
+                             //  );
+
+
                           },
                           child: Center(
                             child: Row(

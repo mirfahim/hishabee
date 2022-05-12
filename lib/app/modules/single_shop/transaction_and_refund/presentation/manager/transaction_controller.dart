@@ -41,6 +41,7 @@ class TransactionController extends GetxController {
   final showCaseTap = Rxn<bool>();
 
   @override
+
   void onInit() async {
     getArguments();
     getBox();

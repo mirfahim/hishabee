@@ -21,11 +21,13 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presen
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/sell_digital_payment_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/sell/presentation/pages/sold_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/shop_features/presentation/manager/shop_features_controller.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/_bindings/transactions_binding.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/add_transaction_request.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/quick_sell_request.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/domain/repositories/i_transaction_repository.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/transactions_page.dart';
 import 'package:uuid/uuid.dart';
 import 'package:hishabee_business_manager_fl/service/api_service.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
@@ -441,15 +443,36 @@ class ConfirmPaymentController extends GetxController {
           quantity: ele.unit);
     });
   }
+  Future<dynamic> editTransactionItemsRequest({
+
+
+   quantity,
+
+  }) async {
+    final SellController sc = Get.find();
+    sc.cart.forEach((ele) {
+      print("my addTransactionItemsRequest are ${ele.name}");
+      //  print("my add transaction ****** ${ele.")
+      addTransactionItems(
+          version: ele.version + 1,
+          uniqueID: ele.uniqueID,
+          productID: ele.id,
+          discount: ele.discount,
+          productPrice: ele.sellingPrice,
+          quantity: ele.unit);
+    });
+  }
 
   Future<dynamic> addTransactionItems(
+
       {String uniqueID,
+        int version,
       int productID,
       discount,
       productPrice,
       quantity}) async {
     var uuid = Uuid();
-
+    print("working 101");
     String tUniqueId = shop.value.id.toString() +
         uuid.v1().toString() +
         DateTime.now().microsecondsSinceEpoch.toString();
@@ -460,7 +483,7 @@ class ConfirmPaymentController extends GetxController {
 
     ApiService _apiService = ApiService();
     String url =
-        "/transaction_item/?shop_id=${shop.value.id}&created_at=${DateTime.now()}&updated_at=${DateTime.now()}&price=$productPrice&discount=$discount&shop_product_id=$productID&quantity=$quantity&status=PAID&name=abc&vat=0&unit_vat=0&unit_price=10&profit=100&unit_cost=0&unique_id=$uniqueId&version=0&transaction_unique_id=$uniqueID";
+        "/transaction_item/?shop_id=${shop.value.id}&created_at=${DateTime.now()}&updated_at=${DateTime.now()}&price=$productPrice&discount=$discount&shop_product_id=$productID&quantity=$quantity&status=PAID&name=abc&vat=0&unit_vat=0&unit_price=10&profit=100&unit_cost=0&unique_id=$uniqueId&version=$version&transaction_unique_id=$uniqueID";
     return _apiService.makeApiRequest(
         method: apiMethods.post, url: url, body: null, headers: null);
   }
@@ -538,6 +561,80 @@ class ConfirmPaymentController extends GetxController {
               productList: sc.cart,
               transaction: transactionss,
             ));
+      }
+    }
+  }
+  testWork(){
+    print("hlw hishabee");
+  }
+  ediQuickSell() async {
+    print("why man");
+    final SellController sc = Get.find();
+    formKey.currentState.save();
+    var uuid = Uuid();
+    String tUniqueId = shop.value.id.toString() +
+        uuid.v1().toString() +
+        DateTime.now().microsecondsSinceEpoch.toString();
+    String uniqueId = shop.value.id.toString() +
+        uuid.v1().toString() +
+        DateTime.now().microsecondsSinceEpoch.toString();
+    String funiqueId = uniqueId.replaceAll("'", "");
+    String sellUniqueId = uuid.v1().toString() +
+        DateTime.now().microsecondsSinceEpoch.toString() +
+        shop.value.id.toString();
+    String fSellUniqueId = sellUniqueId.replaceAll("'", "");
+    QuickSellRequest quickSellRequest = QuickSellRequest(
+      createdAt: DateTime.now().toString(),
+      shopId: shop.value.id,
+      details: '',
+      price: totalPrice.value,
+      version: 0,
+      uniqueId: funiqueId,
+      transactionUniqueId: fSellUniqueId,
+      updatedAt: DateTime.now().toString(),
+      profit: 0,
+    );
+    AddTransactionRequest transactionss = AddTransactionRequest(
+      shopId: shop.value.id,
+      createdAt: DateTime.now().toString(),
+      updatedAt: DateTime.now().toString(),
+      version: 0,
+      changeAmount: 0.toString(),
+      message: '',
+      paymentMethod: 1,
+      note: note.value,
+      smsCount: 0,
+      totalItem: cart.length,
+      totalProfit: 0.toString(),
+      totalPrice: totalPrice.value.toString(),
+      totalVat: vat,
+      transactionBarcode: '',
+      receivedAmount: totalPrice.value.toString(),
+      totalDiscount: totalDiscount,
+      customerName: selectedCustomer.value.name,
+      customerMobile: selectedCustomer.value.mobile,
+      customerAddress: selectedCustomer.value.address,
+      uniqueId: tUniqueId,
+      transaction_type: "PRODUCT_SELL",
+    );
+    final response = await transactionRepository.quickSell(quickSellRequest);
+    print("${response.code}");
+    if (response.code == 200) {
+      print("yo bro unqID is ++++++++++ $tUniqueId");
+      addTransactionItemsRequest(
+          id: shop.value.id, uniqueID: tUniqueId, discount: totalDiscount);
+      // addTransactionItems(id: shop.value.id, uniqueID: tUniqueId);
+      final response =
+      await transactionRepository.addTransaction(transactionss);
+      //final responseTrns = await transactionRepository.getAllTransaction();
+      if (response.code == 200) {
+        formKey.currentState.reset();
+        //  Get.find<SellController>().clearCart();
+        final SellController sc = Get.find();
+        Get.find<ShopFeaturesController>().initData();
+        Get.to(() =>  Get.to(TransactionPage(),
+            binding: TransactionsBinding()));
+
       }
     }
   }
