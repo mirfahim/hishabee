@@ -100,11 +100,11 @@ class SellEditCartPage extends GetView<SellController> {
                 child: Container(
                     // height: size.height,
                     child: Obx(() => ListView.builder(
-                        itemCount: controller.searchList.length,
+                        itemCount: controller.cart.length,
                         itemBuilder: (context, index) {
                           print(
                               "cart lenght are ++++++++++++++++++++++++ ${controller.searchList.length}");
-                          Product item = controller.searchList[index];
+                          Product item = controller.cart[index];
                           return Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 0.0),

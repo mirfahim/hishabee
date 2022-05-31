@@ -119,7 +119,7 @@ class SellController extends GetxController {
       getSubcategoryName(element.subCategory);
     });
     searchList.assignAll(productList);
-    cart.assignAll(productList);
+    //cart.assignAll(productList);
 
     var scs = subCategoryList.toSet().toList();
     subCategoryList.assignAll(scs);

@@ -13,6 +13,7 @@ import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/new_transaction_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_item_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/data/remote/models/transaction_model.dart';
+import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/manager/exchange_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/manager/transaction_controller.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/cart_edit_page.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/transaction_and_refund/presentation/pages/exchange_page.dart';
@@ -42,6 +43,7 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
   //
   //   return res;
   // }
+  ExchangeController ec = Get.find();
   TransactionController controller = Get.find();
   SellController sc = Get.find();
   List<TransactionItem> _list = <TransactionItem>[];
@@ -572,7 +574,7 @@ class _TransactionDetailsPageState extends State<TransactionDetailsPage> {
                       InkWell(
                         onTap: () {
                           print("all cart ${data}");
-                          //   sc.addToCart(data);
+                           // ec.addItemToCartAgain();
                           // Get.to(
                           //   () => SellEditCartPage(),
                           // );

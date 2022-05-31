@@ -17,7 +17,7 @@ import 'confirm_payment_page.dart';
 
 class SellCartPage extends GetView<SellController> {
   DateTime startDate = DateTime.now();
-
+  ConfirmPaymentController confirmPaymentController;
   DateTime endDate;
   int items = 0;
 
@@ -52,7 +52,7 @@ class SellCartPage extends GetView<SellController> {
 
   @override
   Widget build(BuildContext context) {
-    ConfirmPaymentController confirmPaymentController;
+
     print("my cart length in  sell cart page ${controller.cart.length}");
     var size = MediaQuery.of(context).size;
     return Scaffold(
@@ -499,9 +499,9 @@ class SellCartPage extends GetView<SellController> {
                         child: ElevatedButton(
                           onPressed: () async {
                               print("working 102");
-                             // await confirmPaymentController.testWork(
-                             //
-                             //  );
+                              await confirmPaymentController.ediQuickSell(
+
+                              );
 
 
                           },
