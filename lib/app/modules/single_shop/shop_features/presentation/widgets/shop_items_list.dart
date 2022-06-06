@@ -234,7 +234,7 @@ class ShopItemsList extends GetResponsiveView<ShopFeaturesController> {
                             //   "shop":
                             shop,
                         // },
-                        // binding: ExpenseBinding()
+                         binding: ExpenseBinding()
                       );
                     },
                     child: Container(

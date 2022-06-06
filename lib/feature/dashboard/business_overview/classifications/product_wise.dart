@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
+import 'package:hishabee_business_manager_fl/controllers/business_overview/business_overview_controller.dart';
+//import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
 import 'package:hishabee_business_manager_fl/models/business_overview/product_report.dart';
 import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart'; // for date format
@@ -35,7 +36,7 @@ class ProductWise extends StatefulWidget {
 class _ProductWiseState extends State<ProductWise> {
   List<ProductReportModel> _list = <ProductReportModel>[];
   List<ProductReportModel> _foundData = <ProductReportModel>[];
-  BoController _boController = BoController();
+  BusinessOverViewController _boController = BusinessOverViewController();
   int flag = 1;
   var getStorageId = GetStorage('shop_id');
   @override

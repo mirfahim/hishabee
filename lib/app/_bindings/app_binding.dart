@@ -9,7 +9,8 @@ import 'package:hishabee_business_manager_fl/app/modules/auth/domain/repositorie
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/data_sources/file_provider.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/repositories/file_repository.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/domain/repositories/i_file_repository.dart';
-import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
+import 'package:hishabee_business_manager_fl/controllers/business_overview/business_overview_controller.dart';
+//import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/digital_payment/dp_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/due/due_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/emi/emi_controller.dart';
@@ -33,7 +34,7 @@ class AppBinding extends Bindings {
 
     Get.lazyPut<IFileProvider>(() => FileProvider(find()), fenix: true);
     Get.lazyPut<IFileRepository>(() => FileRepository(find()), fenix: true);
-    Get.put(BoController());
+    Get.put(BusinessOverViewController());
     Get.put(EmiController());
     Get.put(SmsController());
     Get.put(DpController());

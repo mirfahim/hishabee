@@ -2,15 +2,15 @@ import 'package:get/get.dart';
 import 'package:hishabee_business_manager_fl/utility/utils.dart';
 import 'package:hishabee_business_manager_fl/service/api_service.dart';
 
-class BoController extends GetxController {
+class BusinessOverViewController extends GetxController {
   ApiService _apiService = ApiService();
   RxInt count = 0.obs;
   RxInt countAdd = 0.obs;
   Future<dynamic> fetchOverview(
       //dynamic is nullable so if we didnt get any response we can handle it
-      {String shopId,
-      String startDate,
-      String endDate}) async {
+          {String shopId,
+        String startDate,
+        String endDate}) async {
     String url = "/overview?shop_id=$shopId&start_date=$startDate&end_date=$endDate";
     return _apiService.makeApiRequest(
         method: apiMethods.get,

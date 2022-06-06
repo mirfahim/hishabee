@@ -87,8 +87,8 @@ class StandardItemList extends GetResponsiveView<ShopFeaturesController> {
                     onTap: () {
                       Get.to(
                         () => SmsCreatePage(),
-                        arguments: shop
-                        // binding: SMSBindings(),
+                        arguments: shop,
+
                       );
                     },
                     child: Container(

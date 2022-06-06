@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/_utils/default_values.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
-import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
+import 'package:hishabee_business_manager_fl/controllers/business_overview/business_overview_controller.dart';
+//import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
 import 'package:hishabee_business_manager_fl/controllers/digital_payment/dp_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/digital_payment/single_payment_details_proceed.dart';
 import 'package:hishabee_business_manager_fl/models/business_overview/customer_report.dart';
@@ -46,7 +47,7 @@ class _CustomerWiseReportState extends State<DigitalPaymentDetails> {
   Shop shop = Get.arguments;
   List<DigitalPaymentModel> _list = [];
   List<DigitalPaymentModel> _foundData = [];
-  BoController _boController = BoController();
+  BusinessOverViewController _boController = BusinessOverViewController();
   int flag = 1;
   double totalComplete = 0.0;
   double totalCompletePercentage = 0.0;

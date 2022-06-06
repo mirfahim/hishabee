@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:hishabee_business_manager_fl/app/modules/shop_main/data/remote/models/get_all_shop_response_model.dart';
 import 'package:hishabee_business_manager_fl/app/modules/single_shop/product_list/data/remote/models/product_response_model.dart';
-import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
+import 'package:hishabee_business_manager_fl/controllers/business_overview/business_overview_controller.dart';
+//import 'package:hishabee_business_manager_fl/controllers/business_overview/bo_controller.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/business_overview/classifications/customer_wise_report.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/business_overview/classifications/employe_wise_report.dart';
 import 'package:hishabee_business_manager_fl/feature/dashboard/business_overview/classifications/product_wise.dart';
@@ -74,7 +75,7 @@ class _BusinessOverViewState extends State<BusinessOverView> {
   Shop shop = Get.arguments;
   var getStorageId = GetStorage('shop_id');
   int flag = 1;
-  BoController _controller = Get.find();
+  BusinessOverViewController _controller = Get.find();
   // var now = DateTime.now();
   // var month = DateFormat.yMMMMd().format(now);
   bool _isLoading = true;
