@@ -3,7 +3,7 @@
 //     final getDueItem = getDueItemFromJson(jsonString);
 
 import 'dart:convert';
-
+import 'package:json_annotation/json_annotation.dart';
 import 'due_model.dart';
 
 List<GetDueItem> getDueItemFromJson(String str) => List<GetDueItem>.from(json.decode(str).map((x) => GetDueItem.fromJson(x)));
@@ -12,7 +12,7 @@ List<GetDueItem> getDueItemResponseModelFromJson(dynamic json) =>
     List<GetDueItem>.from(json.map((x) => GetDueItem.fromJson(x)));
 
 String getDueItemToJson(List<GetDueItem> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
+@JsonSerializable()
 class GetDueItem {
   GetDueItem({
     this.id,
@@ -78,7 +78,7 @@ class GetDueItem {
     contactType: json["contact_type"],
     contactName: json["contact_name"],
     contactMobile: json["contact_mobile"],
-    due: Due.fromJson(json["due"]),
+    due: Due.fromJson(json["due"] == null ? {} :json["due"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -101,7 +101,7 @@ class GetDueItem {
     "contact_type": contactType,
     "contact_name": contactName,
     "contact_mobile": contactMobile,
-    "due": due.toJson() == null ? '':due.toJson(),
+    "due": due.toJson() == null ? {} :due,
   };
 }
 

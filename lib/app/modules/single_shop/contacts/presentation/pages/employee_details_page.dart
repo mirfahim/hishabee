@@ -278,9 +278,7 @@ class EmployeeDetailsPage extends StatelessWidget {
                                     _smsController.mobileNumbers.value = employee.mobile;
                                     Get.to(
                                           () => SmsCreatePage(),
-                                      arguments: {
-                                        "shop": shop,
-                                      },
+                                      arguments: shop,
                                       // binding: SMSBindings(),
                                     );
                                   } else {

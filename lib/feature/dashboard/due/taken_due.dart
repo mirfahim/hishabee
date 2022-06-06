@@ -284,261 +284,263 @@ class _TakenDueState extends State<TakenDue> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('transaction_type'.tr, style: TextStyle(
-                fontSize: 18
-            ),),
-            SizedBox(height: 10,),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        dueTypeFlagGet = 0;
-                        dueTypeFlagGiven = 0;
-                      });
-                    },
-                    child: Center(
-                      child: Text(
-                        'get/profit'.tr,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color:dueTypeFlagGet == 0 ? Colors.white : Colors.black,
-                            fontSize: 12,
-                            fontFamily: 'Roboto'),
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: dueTypeFlagGet == 0 ? DEFAULT_BLUE : Colors.white,
-                      fixedSize: Size(width, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        dueTypeFlagGiven = 1;
-                        dueTypeFlagGet = 1;
-                      });
-                    },
-                    child: Center(
-                      child: Text(
-                        'given/due'.tr,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: dueTypeFlagGiven == 1 ? Colors.white : Colors.black,
-                            fontSize: 12,
-                            fontFamily: 'Roboto'),
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      primary: dueTypeFlagGiven == 1 ? DEFAULT_BLUE : Colors.white,
-                      fixedSize: Size(width, 50),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 10,),
-            Text('amount'.tr, style: TextStyle(
-                fontSize: 18
-            ),),
-            SizedBox(height: 10,),
-            TextFormField(
-              controller: _amount,
-              decoration: InputDecoration(
-                hintText: 'amount'.tr,
-                border: OutlineInputBorder(
-                    borderSide: new BorderSide(color: Colors.grey.withOpacity(.35)),
-                    borderRadius: BorderRadius.circular(6)
-                ),
-              ),
-            ),
-            SizedBox(height: 10,),
-            Text('description'.tr, style: TextStyle(
-                fontSize: 18
-            ),),
-            SizedBox(height: 10,),
-            TextFormField(
-              controller: _description,
-              decoration: InputDecoration(
-                hintText: 'description'.tr,
-                border: OutlineInputBorder(
-                    borderSide: new BorderSide(color: Colors.grey.withOpacity(.35)),
-                    borderRadius: BorderRadius.circular(6)
-                ),
-              ),
-            ),
-            SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('date'.tr, style: TextStyle(
-                    fontSize: 18
-                ),),
-                Text('picture'.tr, style: TextStyle(
-                    fontSize: 18
-                ),)
-              ],
-            ),
-            SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: GestureDetector(
-                    onTap: () async{
-                      await _selectStartDate(context);
-                    },
-                    child: Container(
-                      // width: 150,
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black),
-                          borderRadius: BorderRadius.circular(5)),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 3, vertical: 7),
-                        child: Row(
-                          children: [
-                            Icon(Icons.calendar_today),
-                            Text('${DateFormat.yMMMMd().format(now)}'),
-                          ],
-                        ),
-                        //asdasdasd
-                      ),
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        print('hello');
-                        _showPictureOptionDialogue();
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('transaction_type'.tr, style: TextStyle(
+                  fontSize: 18
+              ),),
+              SizedBox(height: 10,),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          dueTypeFlagGet = 0;
+                          dueTypeFlagGiven = 0;
+                        });
                       },
-                      child: (image == null)
-                          ? Container(
-                        height: 50,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.black)),
-                        child: Icon(Icons.camera_alt),
-                      )
-                          : Container(
-                        height: 50,
-                        width: 50,
-                        child: flag == 0 ? CachedNetworkImage(
-                          imageUrl: '${image.path}',
-                          alignment: Alignment.topLeft,
-                          width: MediaQuery.of(context)
-                              .size
-                              .width,
-                          height: 100,
-                        ) : Image.file(
-                          image,
-                          alignment: Alignment.topLeft,
-                          width: MediaQuery.of(context)
-                              .size
-                              .width,
-                          height: 100,
+                      child: Center(
+                        child: Text(
+                          'get/profit'.tr,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color:dueTypeFlagGet == 0 ? Colors.white : Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Roboto'),
                         ),
                       ),
-
+                      style: ElevatedButton.styleFrom(
+                        primary: dueTypeFlagGet == 0 ? DEFAULT_BLUE : Colors.white,
+                        fixedSize: Size(width, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
                     ),
-                  ],
-                )
-              ],
-            ),
-            SizedBox(height: 20,),
-            InkWell(
-              onTap: (){
-                var changedDue = widget.totalDue - int.parse(_amount.text);
-                print(changedDue);
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        setState(() {
+                          dueTypeFlagGiven = 1;
+                          dueTypeFlagGet = 1;
+                        });
+                      },
+                      child: Center(
+                        child: Text(
+                          'given/due'.tr,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: dueTypeFlagGiven == 1 ? Colors.white : Colors.black,
+                              fontSize: 12,
+                              fontFamily: 'Roboto'),
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        primary: dueTypeFlagGiven == 1 ? DEFAULT_BLUE : Colors.white,
+                        fixedSize: Size(width, 50),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 10,),
+              Text('amount'.tr, style: TextStyle(
+                  fontSize: 18
+              ),),
+              SizedBox(height: 10,),
+              TextFormField(
+                controller: _amount,
+                decoration: InputDecoration(
+                  hintText: 'amount'.tr,
+                  border: OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.grey.withOpacity(.35)),
+                      borderRadius: BorderRadius.circular(6)
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
+              Text('description'.tr, style: TextStyle(
+                  fontSize: 18
+              ),),
+              SizedBox(height: 10,),
+              TextFormField(
+                controller: _description,
+                decoration: InputDecoration(
+                  hintText: 'description'.tr,
+                  border: OutlineInputBorder(
+                      borderSide: new BorderSide(color: Colors.grey.withOpacity(.35)),
+                      borderRadius: BorderRadius.circular(6)
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('date'.tr, style: TextStyle(
+                      fontSize: 18
+                  ),),
+                  Text('picture'.tr, style: TextStyle(
+                      fontSize: 18
+                  ),)
+                ],
+              ),
+              SizedBox(height: 10,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () async{
+                        await _selectStartDate(context);
+                      },
+                      child: Container(
+                        // width: 150,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 3, vertical: 7),
+                          child: Row(
+                            children: [
+                              Icon(Icons.calendar_today),
+                              Text('${DateFormat.yMMMMd().format(now)}'),
+                            ],
+                          ),
+                          //asdasdasd
+                        ),
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          print('hello');
+                          _showPictureOptionDialogue();
+                        },
+                        child: (image == null)
+                            ? Container(
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Colors.black)),
+                          child: Icon(Icons.camera_alt),
+                        )
+                            : Container(
+                          height: 50,
+                          width: 50,
+                          child: flag == 0 ? CachedNetworkImage(
+                            imageUrl: '${image.path}',
+                            alignment: Alignment.topLeft,
+                            width: MediaQuery.of(context)
+                                .size
+                                .width,
+                            height: 100,
+                          ) : Image.file(
+                            image,
+                            alignment: Alignment.topLeft,
+                            width: MediaQuery.of(context)
+                                .size
+                                .width,
+                            height: 100,
+                          ),
+                        ),
 
-                _dueController.dueTaken(
-                    amount: -(int.parse(_amount.text)),
-                    shopId: shop.id,
-                    uniqueId: widget.uniqueId,
-                    dueUniqueId: widget.dueUniqueId,
-                    createdDate: widget.createdAt,
-                    contactType: widget.contactType,
-                    updatedDate: widget.updatedAt,
-                    dueLeft: widget.dueLeft,
-                    version: 0,
-                    mobile: widget.mobile,
-                    name: widget.name);
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              SizedBox(height: 20,),
+              InkWell(
+                onTap: (){
+                  var changedDue = widget.totalDue - int.parse(_amount.text);
+                  print(changedDue);
 
-                _dueController.editDue(
-                    uniqueId: widget.uniqueId,
-                    amount: changedDue,
-                    shopId: shop.id,
-                    contactType: widget.contactType,
-                    mobile: widget.mobile,
-                    name: widget.name,
-                    updatedDate: widget.updatedAt,
-                    createdDate: widget.createdAt,
-                    version: ++widget.version
-                );
-                _dueController
-                    .getAllItemWithUniqueID(uniqueId: widget.uniqueId)
-                    .then((value) {
-                  _dueController.dueItemList.value = getDueItemResponseModelFromJson(value);
+                  _dueController.dueTaken(
+                      amount: -(int.parse(_amount.text)),
+                      shopId: shop.id,
+                      uniqueId: widget.uniqueId,
+                      dueUniqueId: widget.dueUniqueId,
+                      createdDate: widget.createdAt,
+                      contactType: widget.contactType,
+                      updatedDate: widget.updatedAt,
+                      dueLeft: widget.dueLeft,
+                      version: 0,
+                      mobile: widget.mobile,
+                      name: widget.name);
 
-                });
-                _dueController.getAllDue(shopId: shop.id).then((value){
-                  if(value != null){
-                    _dueController.dueList.value = getAllDueResponseModelFromJson(value['data']);
-                    _dueController.filterList.value = getAllDueResponseModelFromJson(value['data']);
-                    for(int i = 0; i<_dueController.filterList.length; i++){
-                      if(_dueController.filterList[i].dueAmount < 0){
-                        _dueController.payDue.value = _dueController.filterList
-                            .map((e) => e.dueAmount)
-                            .fold(0, (previousValue, element) => previousValue + element);
-                      }else if(_dueController.filterList[i].dueAmount > 0){
-                        _dueController.takeDue.value = _dueController.filterList
-                            .map((e) => e.dueAmount)
-                            .fold(0, (previousValue, element) => previousValue + element);
+                  _dueController.editDue(
+                      uniqueId: widget.uniqueId,
+                      amount: changedDue,
+                      shopId: shop.id,
+                      contactType: widget.contactType,
+                      mobile: widget.mobile,
+                      name: widget.name,
+                      updatedDate: widget.updatedAt,
+                      createdDate: widget.createdAt,
+                      version: ++widget.version
+                  );
+                  _dueController
+                      .getAllItemWithUniqueID(uniqueId: widget.uniqueId)
+                      .then((value) {
+                    _dueController.dueItemList.value = getDueItemResponseModelFromJson(value);
+
+                  });
+                  _dueController.getAllDue(shopId: shop.id).then((value){
+                    if(value != null){
+                      _dueController.dueList.value = getAllDueResponseModelFromJson(value['data']);
+                      _dueController.filterList.value = getAllDueResponseModelFromJson(value['data']);
+                      for(int i = 0; i<_dueController.filterList.length; i++){
+                        if(_dueController.filterList[i].dueAmount < 0){
+                          _dueController.payDue.value = _dueController.filterList
+                              .map((e) => e.dueAmount)
+                              .fold(0, (previousValue, element) => previousValue + element);
+                        }else if(_dueController.filterList[i].dueAmount > 0){
+                          _dueController.takeDue.value = _dueController.filterList
+                              .map((e) => e.dueAmount)
+                              .fold(0, (previousValue, element) => previousValue + element);
+                        }
                       }
                     }
-                  }
-                  Get.back();
-                  Get.back();
-                });
+                    Get.back();
+                    Get.back();
+                  });
 
-              },
-              child: Container(
-                width: width,
-                decoration: BoxDecoration(
-                    color: DEFAULT_BLUE,
-                    borderRadius: BorderRadius.circular(6)
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Center(
-                    child: Text('save'.tr, style: TextStyle(
-                        color: Colors.white
-                    ),),
+                },
+                child: Container(
+                  width: width,
+                  decoration: BoxDecoration(
+                      color: DEFAULT_BLUE,
+                      borderRadius: BorderRadius.circular(6)
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Center(
+                      child: Text('save'.tr, style: TextStyle(
+                          color: Colors.white
+                      ),),
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -15,15 +15,22 @@ import 'contacts.dart';
 import 'customerDialog.dart';
 
 class SmsCreatePage extends GetResponsiveView {
+  String number;
+  SmsCreatePage({this.number});
+
   final TextEditingController messageController = TextEditingController();
   final TextEditingController numberController = TextEditingController();
   SmsController _smsController = Get.find();
-  Shop shop = Get.arguments['shop'];
+  Shop shop = Get.arguments;
   var storageSms = GetStorage('sms');
   var storageSmsCount = GetStorage('sms_count');
 
   @override
   Widget build(BuildContext context) {
+    if(number != null){
+      numberController.text = number;
+      _smsController.visibility.value = true;
+    }
     _smsController.textInTheMessageField.value = '- ${shop.name}';
     // messageController.text = '- ${shop.name}';
     var width = MediaQuery.of(context).size.width;

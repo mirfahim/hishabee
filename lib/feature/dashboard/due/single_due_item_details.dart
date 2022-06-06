@@ -79,11 +79,13 @@ class SingleDueDetails extends StatefulWidget {
   String name;
   String mobile;
   int version;
+  int dueItemVersion;
   var dueTotalAmount;
 
   SingleDueDetails(
       {this.transactionUniqueId,
       this.amount,
+        this.dueItemVersion,
       this.description,
       this.image,
       this.createdAt,
@@ -112,7 +114,7 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
 
   @override
   void initState() {
-    _textEditingControllerAmount.text = widget.amount.toString();
+    _textEditingControllerAmount.text = widget.amount.abs().toString();
     _textEditingControllerDescription.text = widget.description;
     super.initState();
   }
@@ -439,6 +441,7 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
                       onTap: () {
                         Get.to(
                             DueItemEdit(
+                              dueItemVersion : widget.dueItemVersion,
                               uniqueId: widget.uniqueId,
                               dueTotalAmount: widget.dueTotalAmount,
                               dueUniqId: widget.dueUniqueId,
@@ -446,7 +449,7 @@ class _SingleDueDetailsState extends State<SingleDueDetails> {
                               image: widget.image,
                               name: widget.name,
                               mobile: widget.mobile,
-                              amount: widget.amount.toString(),
+                              amount: widget.amount.abs().toString(),
                               details: widget.description,
                               createdAt: widget.createdAt,
                               updatedAt: widget.updatedAt,
