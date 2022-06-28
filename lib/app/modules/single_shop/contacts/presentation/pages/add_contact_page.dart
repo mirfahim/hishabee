@@ -677,7 +677,7 @@ class AddContactPage extends GetResponsiveView<AddContactsController> {
   }
 
   _showPictureOptionDialogue() {
-    final AddContactsController controller = Get.find();
+  //  final AddContactsController controller = Get.find();
 
     try {
       if (Platform.isIOS) {
